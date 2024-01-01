@@ -97,6 +97,10 @@ extern void SendMessage(char* id, unsigned char* JIDByte, int JIDSize, unsigned 
 extern void Neonize(char* db, char* id, ptr_to_python_function_string qrCb, ptr_to_python_function_string logStatus, ptr_to_python_function_bytes messageCb);
 extern struct BytesReturn Download(char* id, unsigned char* messageProto, int size);
 
+// /GROUP
+//
+extern void SetGroupName(char* id, unsigned char* JIDByte, int JIDSize, char* name);
+
 #ifdef __cplusplus
 }
 #endif

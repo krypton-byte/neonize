@@ -223,6 +223,24 @@ func Download(id *C.char, messageProto *C.uchar, size C.int) C.struct_BytesRetur
 	return ReturnBytes(data_buff)
 
 }
+
+// /GROUP
+//
+//export SetGroupName
+func SetGroupName(id *C.char, JIDByte *C.uchar, JIDSize C.int, name *C.char) {
+	jidbyte := getByteByAddr(JIDByte, JIDSize)
+	var neoJIDProto neonize.JID
+	fmt.Println(jidbyte, "waduuuuuu", JIDSize)
+	err := proto.Unmarshal(jidbyte, &neoJIDProto)
+	if err != nil {
+		fmt.Println("Paniccc")
+		panic(err)
+	}
+	clients[C.GoString(id)].SetGroupName(utils.DecodeJidProto(&neoJIDProto), C.GoString(name))
+}
+
+///
+
 func main() {
 
 }

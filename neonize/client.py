@@ -7,8 +7,8 @@ import ctypes
 from PIL import Image
 from io import BytesIO
 from .proto.Neonize_pb2 import MessageInfo, MessageSource, JID, UploadResponse
-from .proto.def_pb2 import Message, StickerMessage
-from .utils import MediaType
+from .proto.def_pb2 import Message, StickerMessage, ExtendedTextMessage, ContextInfo
+from .utils import MediaType, Jid2String
 
 
 class NewClient:
@@ -62,6 +62,7 @@ class NewClient:
         to: JID,
         file_or_bytes: typing.Union[str | bytes],
         quoted: Optional[Message] = None,
+        from_: Optional[MessageSource] = None
     ):
         if isinstance(file_or_bytes, str):
             with open(file_or_bytes, "rb") as file:
@@ -75,9 +76,7 @@ class NewClient:
         io_save.seek(0)
         save = io_save.read()
         upload = self.upload(save)
-        self.send_message(
-            to,
-            Message(
+        message = Message(
                 stickerMessage=StickerMessage(
                     url=upload.url,
                     directPath=upload.DirectPath,
@@ -85,9 +84,19 @@ class NewClient:
                     fileLength=upload.FileLength,
                     fileSha256=upload.FileSHA256,
                     mediaKey=upload.MediaKey,
-                    mimetype=magic.from_buffer(save, mime=True),
+                    mimetype=magic.from_buffer(save, mime=True)
                 )
-            ),
+            )
+        if quoted and from_:
+            message.stickerMessage.contextInfo.MergeFrom(ContextInfo(
+                    stanzaId=from_.ID,
+                    participant=Jid2String(from_.Sender),
+                    quotedMessage=message
+
+                ))
+        self.send_message(
+            to,
+            message,
         )
 
     def upload(
@@ -110,7 +119,15 @@ class NewClient:
         if path:
             with open(path, "wb") as file:
                 file.write(media_buff)
-
+    def set_group_name(self, jid: JID, name: str):
+        print('proto', jid)
+        jidbuf = jid.SerializeToString()
+        self.__client.SetGroupName(
+            self.uuid,
+            jidbuf,
+            len(jidbuf),
+            ctypes.create_string_buffer(name.encode())
+        )
     def connect(self):
         self.__client.Neonize(
             ctypes.create_string_buffer(self.name.encode()),

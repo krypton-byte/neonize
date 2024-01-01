@@ -11,7 +11,8 @@ from neonize.proto.def_pb2 import (
     ContextInfo,
     ExtendedTextMessage,
     StickerMessage,
-    Chat
+    Chat,
+    VideoMessage,
 )
 from neonize.proto.Neonize_pb2 import MessageSource
 from neonize.utils import Jid2String, MediaType
@@ -25,7 +26,12 @@ def onQr(client: NewClient, data_qr: bytes):
 def onMessage(client: NewClient, from_: MessageSource, message: Message):
     text = message.extendedTextMessage and message.extendedTextMessage.text
     if text == "sticker":
-        client.send_sticker(from_.Chat, 'stickx.webp')
+        client.send_sticker(
+            from_.Chat,
+            "/home/krypton-byte/Downloads/WhatsApp Image 2023-12-30 at 6.54.03 AM.jpeg",
+            quoted=message,
+            from_=from_
+        )
         # gg = open("stickx.webp","rb").read()
         # resp = client.upload(gg, media_type=MediaType.MediaImage)
         # client.send_message(
@@ -68,7 +74,10 @@ def onMessage(client: NewClient, from_: MessageSource, message: Message):
             ),
         )
     elif text == "image":
-        img = open("/home/krypton-byte/Pictures/Screenshots/Screenshot_2023-12-26-00-31-03_1920x1080.png", "rb").read()
+        img = open(
+            "/home/krypton-byte/Pictures/Screenshots/Screenshot_2023-12-26-00-31-03_1920x1080.png",
+            "rb",
+        ).read()
         resp = client.upload(img, media_type=MediaType.MediaImage)
         # pil: Image.Image = Image.open(BytesIO(img))
         # thumbnail = client.upload(img, media_type=MediaType.MediaLinkThumbnail)
@@ -97,7 +106,31 @@ def onMessage(client: NewClient, from_: MessageSource, message: Message):
                 ),
             ),
         )
-    print(from_, message)
+    elif text == "video":
+        video = open(
+            "/home/krypton-byte/Downloads/WhatsApp Video 2024-01-01 at 5.48.49 PM.mp4",
+            "rb",
+        ).read()
+        up = client.upload(video)
+        client.send_message(
+            from_.Chat,
+            Message(
+                videoMessage=VideoMessage(
+                    url=up.url,
+                    caption="this is caption",
+                    directPath=up.DirectPath,
+                    fileEncSha256=up.FileEncSHA256,
+                    fileLength=up.FileLength,
+                    fileSha256=up.FileSHA256,
+                    mediaKey=up.MediaKey,
+                    mimetype=magic.from_buffer(video, mime=True),
+                    viewOnce=True,
+                )
+            ),
+        )
+    elif text == "setgrupname":
+        print("changggggeee")
+        client.set_group_name(from_.Chat, "Hehe")
 
 
 client = NewClient("krypton.so", messageCallback=onMessage, qrCallback=onQr)

@@ -42,3 +42,78 @@ message MessageInfo{
     required string EditAttribute = 10;
 
 }
+
+
+
+
+// GROUP
+message GroupName {
+    required string Name = 1;
+    required float NameSetAt=2;
+    required JID NameSetBy=3;
+}
+message GroupTopic{
+    required string Topic = 1;
+    required string TopicID = 2;
+    required float TopicSetAt = 3;
+    required JID TopicSetBy = 4;
+    required bool TopicDeleted = 5;
+}
+message GroupLocked {
+    required bool isLocked = 1;
+}
+message GroupAnnounce {
+    required bool IsAnnounce = 1;
+    required string AnnounceVersionID = 2;
+}
+message GroupEphemeral{
+    required bool IsEphemeral = 1;
+    required uint32 DisappearingTimer = 2;
+}
+message GroupIncognito{
+    required bool IsIncognito = 1;
+}
+message GroupParent {
+    required bool IsParent = 1;
+    required string DefaultMembershipApprovalMode = 2;
+}
+message GroupLinkedParent {
+    required JID LinkedParentJID = 1;
+}
+message GroupIsDefaultSub {
+    required bool IsDefaultSubGroup = 1;
+}
+message GroupParticipantAddRequest {
+    required string Code = 1;
+    required float Expiration = 2;
+}
+message GroupParticipant {
+    required JID JID = 1;
+    required JID LID = 2;
+    required bool IsAdmin = 3;
+    required bool IsSuperAdmin = 4;
+    required string DisplayName = 5;
+    required int32 Error = 6;
+    required GroupParticipantAddRequest AddRequest = 7;
+}
+message GroupInfo{
+    required JID JID=1;
+    required JID OwnerJID=2;
+    required GroupName GroupName = 3;
+    required GroupTopic GroupTopic = 4;
+    required GroupLocked GroupLocked = 5;
+    required GroupAnnounce GroupAnnounce = 6;
+    required GroupEphemeral GroupEphemeral = 7;
+    required GroupIncognito GroupIncognito = 8;
+    required GroupParent GroupParent = 9;
+    required GroupLinkedParent GroupLinkedParent = 10;
+    required GroupIsDefaultSub GroupIsDefaultSub = 11;
+    required float GroupCreated = 12;
+    required string ParticipantVersionID = 13;
+    repeated GroupParticipant Participants = 14;
+    enum MemberAddMode {
+        GroupMemberAddModeAdmin = 1;
+    }
+
+
+}
