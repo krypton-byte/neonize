@@ -1,0 +1,44 @@
+syntax = "proto2";
+option go_package = "./neonize";
+package proto;
+message JID {
+    required string User = 1;
+    required uint32 RawAgent  = 2;
+    required uint32 Device = 3;
+    required uint32 Integrator= 4;
+    required string Server=5;
+}
+message UploadResponse {
+    required string url = 1;
+    required string DirectPath = 2;
+    required string Handle = 3;
+    required bytes MediaKey = 4;
+    required bytes FileEncSHA256 = 5;
+    required bytes FileSHA256 = 6;
+    required uint32 FileLength = 7;
+}
+message MessageSource {
+    required JID Chat = 1;
+    required JID Sender = 2;
+    required bool IsFromMe = 3;
+    required bool IsGroup = 4;
+    required JID BroadcastListOwner = 5;
+    required string ID = 6;
+}
+message DeviceSentMeta {
+    required string DestinationJID = 1;
+    required string Phash = 2;
+}
+message MessageInfo{
+    required MessageSource MessageSource = 1;
+    required string ID = 2;
+    required string ServerID=3;
+    required string Type = 4;
+    required string PushName = 5;
+    required uint64 Timestamp = 6;
+    required string Category = 7;
+    required bool Multicast = 8;
+    required string MediaType = 9;
+    required string EditAttribute = 10;
+
+}

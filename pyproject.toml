@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "neonize"
+version = "0.1.0"
+description = ""
+authors = ["HujanKode <hujankodeid@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+protobuf = "^4.25.1"
+python-magic = "^0.4.27"
+pillow = "^10.1.0"
+
+
+[tool.poetry.group.dev.dependencies]
+segno = "^1.6.0"
+mypy-protobuf = "^3.5.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
