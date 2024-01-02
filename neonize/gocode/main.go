@@ -45,7 +45,6 @@ func getByteByAddr(addr *C.uchar, size C.int) []byte {
 		value := *(*C.uchar)(unsafe.Pointer(uintptr(unsafe.Pointer(addr)) + uintptr(i)))
 		// 	fmt.Println(value)
 		result = append(result, byte(value))
-		// C.free(unsafe.Pointer(&value))
 	}
 	return result
 }
@@ -226,17 +225,27 @@ func Download(id *C.char, messageProto *C.uchar, size C.int) C.struct_BytesRetur
 
 // /GROUP
 //
+//export GetGroupInfo
+func GetGroupInfo(id *C.char, JIDByte *C.uchar, JIDSize C.int) {
+	var neoJIDProto neonize.JID
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &neoJIDProto)
+	if err != nil {
+
+	}
+	x, err := clients[C.GoString(id)].GetGroupInfo(utils.DecodeJidProto(&neoJIDProto))
+	fmt.Println(x)
+}
+
 //export SetGroupName
 func SetGroupName(id *C.char, JIDByte *C.uchar, JIDSize C.int, name *C.char) {
 	jidbyte := getByteByAddr(JIDByte, JIDSize)
 	var neoJIDProto neonize.JID
-	fmt.Println(jidbyte, "waduuuuuu", JIDSize)
 	err := proto.Unmarshal(jidbyte, &neoJIDProto)
 	if err != nil {
-		fmt.Println("Paniccc")
 		panic(err)
 	}
 	clients[C.GoString(id)].SetGroupName(utils.DecodeJidProto(&neoJIDProto), C.GoString(name))
+
 }
 
 ///

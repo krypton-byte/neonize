@@ -99,6 +99,7 @@ extern struct BytesReturn Download(char* id, unsigned char* messageProto, int si
 
 // /GROUP
 //
+extern void GetGroupInfo(char* id, unsigned char* JIDByte, int JIDSize);
 extern void SetGroupName(char* id, unsigned char* JIDByte, int JIDSize, char* name);
 
 #ifdef __cplusplus

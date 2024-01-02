@@ -377,7 +377,7 @@ class GroupParticipant(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     JID_FIELD_NUMBER: builtins.int
-    LID_FIELD_NUMBER: builtins.int
+    ID_FIELD_NUMBER: builtins.int
     ISADMIN_FIELD_NUMBER: builtins.int
     ISSUPERADMIN_FIELD_NUMBER: builtins.int
     DISPLAYNAME_FIELD_NUMBER: builtins.int
@@ -386,7 +386,7 @@ class GroupParticipant(google.protobuf.message.Message):
     @property
     def JID(self) -> global___JID: ...
     @property
-    def LID(self) -> global___JID: ...
+    def ID(self) -> global___JID: ...
     IsAdmin: builtins.bool
     IsSuperAdmin: builtins.bool
     DisplayName: builtins.str
@@ -397,15 +397,15 @@ class GroupParticipant(google.protobuf.message.Message):
         self,
         *,
         JID: global___JID | None = ...,
-        LID: global___JID | None = ...,
+        ID: global___JID | None = ...,
         IsAdmin: builtins.bool | None = ...,
         IsSuperAdmin: builtins.bool | None = ...,
         DisplayName: builtins.str | None = ...,
         Error: builtins.int | None = ...,
         AddRequest: global___GroupParticipantAddRequest | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID", "LID", b"LID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID", "LID", b"LID"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "ID", b"ID", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "ID", b"ID", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID"]) -> None: ...
 
 global___GroupParticipant = GroupParticipant
 

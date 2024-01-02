@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rNeonize.proto\x12\x05proto\"Y\n\x03JID\x12\x0c\n\x04User\x18\x01 \x02(\t\x12\x10\n\x08RawAgent\x18\x02 \x02(\r\x12\x0e\n\x06\x44\x65vice\x18\x03 \x02(\r\x12\x12\n\nIntegrator\x18\x04 \x02(\r\x12\x0e\n\x06Server\x18\x05 \x02(\t\"\x92\x01\n\x0eUploadResponse\x12\x0b\n\x03url\x18\x01 \x02(\t\x12\x12\n\nDirectPath\x18\x02 \x02(\t\x12\x0e\n\x06Handle\x18\x03 \x02(\t\x12\x10\n\x08MediaKey\x18\x04 \x02(\x0c\x12\x15\n\rFileEncSHA256\x18\x05 \x02(\x0c\x12\x12\n\nFileSHA256\x18\x06 \x02(\x0c\x12\x12\n\nFileLength\x18\x07 \x02(\r\"\x9c\x01\n\rMessageSource\x12\x18\n\x04\x43hat\x18\x01 \x02(\x0b\x32\n.proto.JID\x12\x1a\n\x06Sender\x18\x02 \x02(\x0b\x32\n.proto.JID\x12\x10\n\x08IsFromMe\x18\x03 \x02(\x08\x12\x0f\n\x07IsGroup\x18\x04 \x02(\x08\x12&\n\x12\x42roadcastListOwner\x18\x05 \x02(\x0b\x32\n.proto.JID\x12\n\n\x02ID\x18\x06 \x02(\t\"7\n\x0e\x44\x65viceSentMeta\x12\x16\n\x0e\x44\x65stinationJID\x18\x01 \x02(\t\x12\r\n\x05Phash\x18\x02 \x02(\t\"\xda\x01\n\x0bMessageInfo\x12+\n\rMessageSource\x18\x01 \x02(\x0b\x32\x14.proto.MessageSource\x12\n\n\x02ID\x18\x02 \x02(\t\x12\x10\n\x08ServerID\x18\x03 \x02(\t\x12\x0c\n\x04Type\x18\x04 \x02(\t\x12\x10\n\x08PushName\x18\x05 \x02(\t\x12\x11\n\tTimestamp\x18\x06 \x02(\x04\x12\x10\n\x08\x43\x61tegory\x18\x07 \x02(\t\x12\x11\n\tMulticast\x18\x08 \x02(\x08\x12\x11\n\tMediaType\x18\t \x02(\t\x12\x15\n\rEditAttribute\x18\n \x02(\t\"K\n\tGroupName\x12\x0c\n\x04Name\x18\x01 \x02(\t\x12\x11\n\tNameSetAt\x18\x02 \x02(\x02\x12\x1d\n\tNameSetBy\x18\x03 \x02(\x0b\x32\n.proto.JID\"v\n\nGroupTopic\x12\r\n\x05Topic\x18\x01 \x02(\t\x12\x0f\n\x07TopicID\x18\x02 \x02(\t\x12\x12\n\nTopicSetAt\x18\x03 \x02(\x02\x12\x1e\n\nTopicSetBy\x18\x04 \x02(\x0b\x32\n.proto.JID\x12\x14\n\x0cTopicDeleted\x18\x05 \x02(\x08\"\x1f\n\x0bGroupLocked\x12\x10\n\x08isLocked\x18\x01 \x02(\x08\">\n\rGroupAnnounce\x12\x12\n\nIsAnnounce\x18\x01 \x02(\x08\x12\x19\n\x11\x41nnounceVersionID\x18\x02 \x02(\t\"@\n\x0eGroupEphemeral\x12\x13\n\x0bIsEphemeral\x18\x01 \x02(\x08\x12\x19\n\x11\x44isappearingTimer\x18\x02 \x02(\r\"%\n\x0eGroupIncognito\x12\x13\n\x0bIsIncognito\x18\x01 \x02(\x08\"F\n\x0bGroupParent\x12\x10\n\x08IsParent\x18\x01 \x02(\x08\x12%\n\x1d\x44\x65\x66\x61ultMembershipApprovalMode\x18\x02 \x02(\t\"8\n\x11GroupLinkedParent\x12#\n\x0fLinkedParentJID\x18\x01 \x02(\x0b\x32\n.proto.JID\".\n\x11GroupIsDefaultSub\x12\x19\n\x11IsDefaultSubGroup\x18\x01 \x02(\x08\">\n\x1aGroupParticipantAddRequest\x12\x0c\n\x04\x43ode\x18\x01 \x02(\t\x12\x12\n\nExpiration\x18\x02 \x02(\x02\"\xc6\x01\n\x10GroupParticipant\x12\x17\n\x03JID\x18\x01 \x02(\x0b\x32\n.proto.JID\x12\x17\n\x03LID\x18\x02 \x02(\x0b\x32\n.proto.JID\x12\x0f\n\x07IsAdmin\x18\x03 \x02(\x08\x12\x14\n\x0cIsSuperAdmin\x18\x04 \x02(\x08\x12\x13\n\x0b\x44isplayName\x18\x05 \x02(\t\x12\r\n\x05\x45rror\x18\x06 \x02(\x05\x12\x35\n\nAddRequest\x18\x07 \x02(\x0b\x32!.proto.GroupParticipantAddRequest\"\xe6\x04\n\tGroupInfo\x12\x17\n\x03JID\x18\x01 \x02(\x0b\x32\n.proto.JID\x12\x1c\n\x08OwnerJID\x18\x02 \x02(\x0b\x32\n.proto.JID\x12#\n\tGroupName\x18\x03 \x02(\x0b\x32\x10.proto.GroupName\x12%\n\nGroupTopic\x18\x04 \x02(\x0b\x32\x11.proto.GroupTopic\x12\'\n\x0bGroupLocked\x18\x05 \x02(\x0b\x32\x12.proto.GroupLocked\x12+\n\rGroupAnnounce\x18\x06 \x02(\x0b\x32\x14.proto.GroupAnnounce\x12-\n\x0eGroupEphemeral\x18\x07 \x02(\x0b\x32\x15.proto.GroupEphemeral\x12-\n\x0eGroupIncognito\x18\x08 \x02(\x0b\x32\x15.proto.GroupIncognito\x12\'\n\x0bGroupParent\x18\t \x02(\x0b\x32\x12.proto.GroupParent\x12\x33\n\x11GroupLinkedParent\x18\n \x02(\x0b\x32\x18.proto.GroupLinkedParent\x12\x33\n\x11GroupIsDefaultSub\x18\x0b \x02(\x0b\x32\x18.proto.GroupIsDefaultSub\x12\x14\n\x0cGroupCreated\x18\x0c \x02(\x02\x12\x1c\n\x14ParticipantVersionID\x18\r \x02(\t\x12-\n\x0cParticipants\x18\x0e \x03(\x0b\x32\x17.proto.GroupParticipant\",\n\rMemberAddMode\x12\x1b\n\x17GroupMemberAddModeAdmin\x10\x01\x42\x0bZ\t./neonize')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rNeonize.proto\x12\x07neonize\"Y\n\x03JID\x12\x0c\n\x04User\x18\x01 \x02(\t\x12\x10\n\x08RawAgent\x18\x02 \x02(\r\x12\x0e\n\x06\x44\x65vice\x18\x03 \x02(\r\x12\x12\n\nIntegrator\x18\x04 \x02(\r\x12\x0e\n\x06Server\x18\x05 \x02(\t\"\x92\x01\n\x0eUploadResponse\x12\x0b\n\x03url\x18\x01 \x02(\t\x12\x12\n\nDirectPath\x18\x02 \x02(\t\x12\x0e\n\x06Handle\x18\x03 \x02(\t\x12\x10\n\x08MediaKey\x18\x04 \x02(\x0c\x12\x15\n\rFileEncSHA256\x18\x05 \x02(\x0c\x12\x12\n\nFileSHA256\x18\x06 \x02(\x0c\x12\x12\n\nFileLength\x18\x07 \x02(\r\"\xa2\x01\n\rMessageSource\x12\x1a\n\x04\x43hat\x18\x01 \x02(\x0b\x32\x0c.neonize.JID\x12\x1c\n\x06Sender\x18\x02 \x02(\x0b\x32\x0c.neonize.JID\x12\x10\n\x08IsFromMe\x18\x03 \x02(\x08\x12\x0f\n\x07IsGroup\x18\x04 \x02(\x08\x12(\n\x12\x42roadcastListOwner\x18\x05 \x02(\x0b\x32\x0c.neonize.JID\x12\n\n\x02ID\x18\x06 \x02(\t\"7\n\x0e\x44\x65viceSentMeta\x12\x16\n\x0e\x44\x65stinationJID\x18\x01 \x02(\t\x12\r\n\x05Phash\x18\x02 \x02(\t\"\xdc\x01\n\x0bMessageInfo\x12-\n\rMessageSource\x18\x01 \x02(\x0b\x32\x16.neonize.MessageSource\x12\n\n\x02ID\x18\x02 \x02(\t\x12\x10\n\x08ServerID\x18\x03 \x02(\t\x12\x0c\n\x04Type\x18\x04 \x02(\t\x12\x10\n\x08PushName\x18\x05 \x02(\t\x12\x11\n\tTimestamp\x18\x06 \x02(\x04\x12\x10\n\x08\x43\x61tegory\x18\x07 \x02(\t\x12\x11\n\tMulticast\x18\x08 \x02(\x08\x12\x11\n\tMediaType\x18\t \x02(\t\x12\x15\n\rEditAttribute\x18\n \x02(\t\"M\n\tGroupName\x12\x0c\n\x04Name\x18\x01 \x02(\t\x12\x11\n\tNameSetAt\x18\x02 \x02(\x02\x12\x1f\n\tNameSetBy\x18\x03 \x02(\x0b\x32\x0c.neonize.JID\"x\n\nGroupTopic\x12\r\n\x05Topic\x18\x01 \x02(\t\x12\x0f\n\x07TopicID\x18\x02 \x02(\t\x12\x12\n\nTopicSetAt\x18\x03 \x02(\x02\x12 \n\nTopicSetBy\x18\x04 \x02(\x0b\x32\x0c.neonize.JID\x12\x14\n\x0cTopicDeleted\x18\x05 \x02(\x08\"\x1f\n\x0bGroupLocked\x12\x10\n\x08isLocked\x18\x01 \x02(\x08\">\n\rGroupAnnounce\x12\x12\n\nIsAnnounce\x18\x01 \x02(\x08\x12\x19\n\x11\x41nnounceVersionID\x18\x02 \x02(\t\"@\n\x0eGroupEphemeral\x12\x13\n\x0bIsEphemeral\x18\x01 \x02(\x08\x12\x19\n\x11\x44isappearingTimer\x18\x02 \x02(\r\"%\n\x0eGroupIncognito\x12\x13\n\x0bIsIncognito\x18\x01 \x02(\x08\"F\n\x0bGroupParent\x12\x10\n\x08IsParent\x18\x01 \x02(\x08\x12%\n\x1d\x44\x65\x66\x61ultMembershipApprovalMode\x18\x02 \x02(\t\":\n\x11GroupLinkedParent\x12%\n\x0fLinkedParentJID\x18\x01 \x02(\x0b\x32\x0c.neonize.JID\".\n\x11GroupIsDefaultSub\x12\x19\n\x11IsDefaultSubGroup\x18\x01 \x02(\x08\">\n\x1aGroupParticipantAddRequest\x12\x0c\n\x04\x43ode\x18\x01 \x02(\t\x12\x12\n\nExpiration\x18\x02 \x02(\x02\"\xcb\x01\n\x10GroupParticipant\x12\x19\n\x03JID\x18\x01 \x02(\x0b\x32\x0c.neonize.JID\x12\x18\n\x02ID\x18\x02 \x02(\x0b\x32\x0c.neonize.JID\x12\x0f\n\x07IsAdmin\x18\x03 \x02(\x08\x12\x14\n\x0cIsSuperAdmin\x18\x04 \x02(\x08\x12\x13\n\x0b\x44isplayName\x18\x05 \x02(\t\x12\r\n\x05\x45rror\x18\x06 \x02(\x05\x12\x37\n\nAddRequest\x18\x07 \x02(\x0b\x32#.neonize.GroupParticipantAddRequest\"\xfe\x04\n\tGroupInfo\x12\x19\n\x03JID\x18\x01 \x02(\x0b\x32\x0c.neonize.JID\x12\x1e\n\x08OwnerJID\x18\x02 \x02(\x0b\x32\x0c.neonize.JID\x12%\n\tGroupName\x18\x03 \x02(\x0b\x32\x12.neonize.GroupName\x12\'\n\nGroupTopic\x18\x04 \x02(\x0b\x32\x13.neonize.GroupTopic\x12)\n\x0bGroupLocked\x18\x05 \x02(\x0b\x32\x14.neonize.GroupLocked\x12-\n\rGroupAnnounce\x18\x06 \x02(\x0b\x32\x16.neonize.GroupAnnounce\x12/\n\x0eGroupEphemeral\x18\x07 \x02(\x0b\x32\x17.neonize.GroupEphemeral\x12/\n\x0eGroupIncognito\x18\x08 \x02(\x0b\x32\x17.neonize.GroupIncognito\x12)\n\x0bGroupParent\x18\t \x02(\x0b\x32\x14.neonize.GroupParent\x12\x35\n\x11GroupLinkedParent\x18\n \x02(\x0b\x32\x1a.neonize.GroupLinkedParent\x12\x35\n\x11GroupIsDefaultSub\x18\x0b \x02(\x0b\x32\x1a.neonize.GroupIsDefaultSub\x12\x14\n\x0cGroupCreated\x18\x0c \x02(\x02\x12\x1c\n\x14ParticipantVersionID\x18\r \x02(\t\x12/\n\x0cParticipants\x18\x0e \x03(\x0b\x32\x19.neonize.GroupParticipant\",\n\rMemberAddMode\x12\x1b\n\x17GroupMemberAddModeAdmin\x10\x01\x42\x0bZ\t./neonize')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -22,40 +22,40 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'Neonize_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['DESCRIPTOR']._options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z\t./neonize'
-  _globals['_JID']._serialized_start=24
-  _globals['_JID']._serialized_end=113
-  _globals['_UPLOADRESPONSE']._serialized_start=116
-  _globals['_UPLOADRESPONSE']._serialized_end=262
-  _globals['_MESSAGESOURCE']._serialized_start=265
-  _globals['_MESSAGESOURCE']._serialized_end=421
-  _globals['_DEVICESENTMETA']._serialized_start=423
-  _globals['_DEVICESENTMETA']._serialized_end=478
-  _globals['_MESSAGEINFO']._serialized_start=481
-  _globals['_MESSAGEINFO']._serialized_end=699
-  _globals['_GROUPNAME']._serialized_start=701
-  _globals['_GROUPNAME']._serialized_end=776
-  _globals['_GROUPTOPIC']._serialized_start=778
-  _globals['_GROUPTOPIC']._serialized_end=896
-  _globals['_GROUPLOCKED']._serialized_start=898
-  _globals['_GROUPLOCKED']._serialized_end=929
-  _globals['_GROUPANNOUNCE']._serialized_start=931
-  _globals['_GROUPANNOUNCE']._serialized_end=993
-  _globals['_GROUPEPHEMERAL']._serialized_start=995
-  _globals['_GROUPEPHEMERAL']._serialized_end=1059
-  _globals['_GROUPINCOGNITO']._serialized_start=1061
-  _globals['_GROUPINCOGNITO']._serialized_end=1098
-  _globals['_GROUPPARENT']._serialized_start=1100
-  _globals['_GROUPPARENT']._serialized_end=1170
-  _globals['_GROUPLINKEDPARENT']._serialized_start=1172
-  _globals['_GROUPLINKEDPARENT']._serialized_end=1228
-  _globals['_GROUPISDEFAULTSUB']._serialized_start=1230
-  _globals['_GROUPISDEFAULTSUB']._serialized_end=1276
-  _globals['_GROUPPARTICIPANTADDREQUEST']._serialized_start=1278
-  _globals['_GROUPPARTICIPANTADDREQUEST']._serialized_end=1340
-  _globals['_GROUPPARTICIPANT']._serialized_start=1343
-  _globals['_GROUPPARTICIPANT']._serialized_end=1541
-  _globals['_GROUPINFO']._serialized_start=1544
-  _globals['_GROUPINFO']._serialized_end=2158
-  _globals['_GROUPINFO_MEMBERADDMODE']._serialized_start=2114
-  _globals['_GROUPINFO_MEMBERADDMODE']._serialized_end=2158
+  _globals['_JID']._serialized_start=26
+  _globals['_JID']._serialized_end=115
+  _globals['_UPLOADRESPONSE']._serialized_start=118
+  _globals['_UPLOADRESPONSE']._serialized_end=264
+  _globals['_MESSAGESOURCE']._serialized_start=267
+  _globals['_MESSAGESOURCE']._serialized_end=429
+  _globals['_DEVICESENTMETA']._serialized_start=431
+  _globals['_DEVICESENTMETA']._serialized_end=486
+  _globals['_MESSAGEINFO']._serialized_start=489
+  _globals['_MESSAGEINFO']._serialized_end=709
+  _globals['_GROUPNAME']._serialized_start=711
+  _globals['_GROUPNAME']._serialized_end=788
+  _globals['_GROUPTOPIC']._serialized_start=790
+  _globals['_GROUPTOPIC']._serialized_end=910
+  _globals['_GROUPLOCKED']._serialized_start=912
+  _globals['_GROUPLOCKED']._serialized_end=943
+  _globals['_GROUPANNOUNCE']._serialized_start=945
+  _globals['_GROUPANNOUNCE']._serialized_end=1007
+  _globals['_GROUPEPHEMERAL']._serialized_start=1009
+  _globals['_GROUPEPHEMERAL']._serialized_end=1073
+  _globals['_GROUPINCOGNITO']._serialized_start=1075
+  _globals['_GROUPINCOGNITO']._serialized_end=1112
+  _globals['_GROUPPARENT']._serialized_start=1114
+  _globals['_GROUPPARENT']._serialized_end=1184
+  _globals['_GROUPLINKEDPARENT']._serialized_start=1186
+  _globals['_GROUPLINKEDPARENT']._serialized_end=1244
+  _globals['_GROUPISDEFAULTSUB']._serialized_start=1246
+  _globals['_GROUPISDEFAULTSUB']._serialized_end=1292
+  _globals['_GROUPPARTICIPANTADDREQUEST']._serialized_start=1294
+  _globals['_GROUPPARTICIPANTADDREQUEST']._serialized_end=1356
+  _globals['_GROUPPARTICIPANT']._serialized_start=1359
+  _globals['_GROUPPARTICIPANT']._serialized_end=1562
+  _globals['_GROUPINFO']._serialized_start=1565
+  _globals['_GROUPINFO']._serialized_end=2203
+  _globals['_GROUPINFO_MEMBERADDMODE']._serialized_start=2159
+  _globals['_GROUPINFO_MEMBERADDMODE']._serialized_end=2203
 # @@protoc_insertion_point(module_scope)

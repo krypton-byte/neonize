@@ -1,6 +1,6 @@
 syntax = "proto2";
 option go_package = "./neonize";
-package proto;
+package neonize;
 message JID {
     required string User = 1;
     required uint32 RawAgent  = 2;
@@ -89,7 +89,7 @@ message GroupParticipantAddRequest {
 }
 message GroupParticipant {
     required JID JID = 1;
-    required JID LID = 2;
+    required JID ID = 2;
     required bool IsAdmin = 3;
     required bool IsSuperAdmin = 4;
     required string DisplayName = 5;
