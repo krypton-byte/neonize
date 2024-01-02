@@ -49,13 +49,13 @@ message MessageInfo{
 // GROUP
 message GroupName {
     required string Name = 1;
-    required float NameSetAt=2;
+    required int64 NameSetAt=2;
     required JID NameSetBy=3;
 }
 message GroupTopic{
     required string Topic = 1;
     required string TopicID = 2;
-    required float TopicSetAt = 3;
+    required int64 TopicSetAt = 3;
     required JID TopicSetBy = 4;
     required bool TopicDeleted = 5;
 }
@@ -88,17 +88,17 @@ message GroupParticipantAddRequest {
     required float Expiration = 2;
 }
 message GroupParticipant {
-    required JID JID = 1;
-    required JID ID = 2;
+    optional JID JID = 1;
+    required JID LID = 2;
     required bool IsAdmin = 3;
     required bool IsSuperAdmin = 4;
     required string DisplayName = 5;
     required int32 Error = 6;
-    required GroupParticipantAddRequest AddRequest = 7;
+    optional GroupParticipantAddRequest AddRequest = 7;
 }
 message GroupInfo{
-    required JID JID=1;
     required JID OwnerJID=2;
+    required JID JID=1;
     required GroupName GroupName = 3;
     required GroupTopic GroupTopic = 4;
     required GroupLocked GroupLocked = 5;

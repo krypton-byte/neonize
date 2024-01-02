@@ -226,14 +226,24 @@ func Download(id *C.char, messageProto *C.uchar, size C.int) C.struct_BytesRetur
 // /GROUP
 //
 //export GetGroupInfo
-func GetGroupInfo(id *C.char, JIDByte *C.uchar, JIDSize C.int) {
+func GetGroupInfo(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.struct_BytesReturn {
 	var neoJIDProto neonize.JID
-	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &neoJIDProto)
+	jidbyte := getByteByAddr(JIDByte, JIDSize)
+	err := proto.Unmarshal(jidbyte, &neoJIDProto)
 	if err != nil {
-
+		panic(err)
 	}
-	x, err := clients[C.GoString(id)].GetGroupInfo(utils.DecodeJidProto(&neoJIDProto))
-	fmt.Println(x)
+	decodeJid := utils.DecodeJidProto(&neoJIDProto)
+	info, err_info := clients[C.GoString(id)].GetGroupInfo(decodeJid)
+	if err_info != nil {
+		panic(err_info)
+	}
+	grupinfo := utils.EncodeGroupInfo(info)
+	databuf, err_ := proto.Marshal(&grupinfo)
+	if err_ != nil {
+		panic(err_)
+	}
+	return ReturnBytes(databuf)
 }
 
 //export SetGroupName
@@ -246,6 +256,19 @@ func SetGroupName(id *C.char, JIDByte *C.uchar, JIDSize C.int, name *C.char) {
 	}
 	clients[C.GoString(id)].SetGroupName(utils.DecodeJidProto(&neoJIDProto), C.GoString(name))
 
+}
+
+//export SetGroupPhoto
+func SetGroupPhoto(id *C.char, JIDByte *C.uchar, JIDSize C.int, Photo *C.uchar, PhotoSize C.int) C.struct_BytesReturn {
+	var neoJIDProto neonize.JID
+	JIDbyte := getByteByAddr(JIDByte, JIDSize)
+	err := proto.Unmarshal(JIDbyte, &neoJIDProto)
+	if err != nil {
+		panic(err)
+	}
+	photo_buf := getByteByAddr(Photo, PhotoSize)
+	response, err := clients[C.GoString(id)].SetGroupPhoto(utils.DecodeJidProto(&neoJIDProto), photo_buf)
+	return ReturnBytes([]byte(response))
 }
 
 ///

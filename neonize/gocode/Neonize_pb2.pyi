@@ -187,14 +187,14 @@ class GroupName(google.protobuf.message.Message):
     NAMESETAT_FIELD_NUMBER: builtins.int
     NAMESETBY_FIELD_NUMBER: builtins.int
     Name: builtins.str
-    NameSetAt: builtins.float
+    NameSetAt: builtins.int
     @property
     def NameSetBy(self) -> global___JID: ...
     def __init__(
         self,
         *,
         Name: builtins.str | None = ...,
-        NameSetAt: builtins.float | None = ...,
+        NameSetAt: builtins.int | None = ...,
         NameSetBy: global___JID | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["Name", b"Name", "NameSetAt", b"NameSetAt", "NameSetBy", b"NameSetBy"]) -> builtins.bool: ...
@@ -213,7 +213,7 @@ class GroupTopic(google.protobuf.message.Message):
     TOPICDELETED_FIELD_NUMBER: builtins.int
     Topic: builtins.str
     TopicID: builtins.str
-    TopicSetAt: builtins.float
+    TopicSetAt: builtins.int
     @property
     def TopicSetBy(self) -> global___JID: ...
     TopicDeleted: builtins.bool
@@ -222,7 +222,7 @@ class GroupTopic(google.protobuf.message.Message):
         *,
         Topic: builtins.str | None = ...,
         TopicID: builtins.str | None = ...,
-        TopicSetAt: builtins.float | None = ...,
+        TopicSetAt: builtins.int | None = ...,
         TopicSetBy: global___JID | None = ...,
         TopicDeleted: builtins.bool | None = ...,
     ) -> None: ...
@@ -377,7 +377,7 @@ class GroupParticipant(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     JID_FIELD_NUMBER: builtins.int
-    ID_FIELD_NUMBER: builtins.int
+    LID_FIELD_NUMBER: builtins.int
     ISADMIN_FIELD_NUMBER: builtins.int
     ISSUPERADMIN_FIELD_NUMBER: builtins.int
     DISPLAYNAME_FIELD_NUMBER: builtins.int
@@ -386,7 +386,7 @@ class GroupParticipant(google.protobuf.message.Message):
     @property
     def JID(self) -> global___JID: ...
     @property
-    def ID(self) -> global___JID: ...
+    def LID(self) -> global___JID: ...
     IsAdmin: builtins.bool
     IsSuperAdmin: builtins.bool
     DisplayName: builtins.str
@@ -397,15 +397,15 @@ class GroupParticipant(google.protobuf.message.Message):
         self,
         *,
         JID: global___JID | None = ...,
-        ID: global___JID | None = ...,
+        LID: global___JID | None = ...,
         IsAdmin: builtins.bool | None = ...,
         IsSuperAdmin: builtins.bool | None = ...,
         DisplayName: builtins.str | None = ...,
         Error: builtins.int | None = ...,
         AddRequest: global___GroupParticipantAddRequest | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "ID", b"ID", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "ID", b"ID", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID", "LID", b"LID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID", "LID", b"LID"]) -> None: ...
 
 global___GroupParticipant = GroupParticipant
 
@@ -424,8 +424,8 @@ class GroupInfo(google.protobuf.message.Message):
     class MemberAddMode(_MemberAddMode, metaclass=_MemberAddModeEnumTypeWrapper): ...
     GroupMemberAddModeAdmin: GroupInfo.MemberAddMode.ValueType  # 1
 
-    JID_FIELD_NUMBER: builtins.int
     OWNERJID_FIELD_NUMBER: builtins.int
+    JID_FIELD_NUMBER: builtins.int
     GROUPNAME_FIELD_NUMBER: builtins.int
     GROUPTOPIC_FIELD_NUMBER: builtins.int
     GROUPLOCKED_FIELD_NUMBER: builtins.int
@@ -439,9 +439,9 @@ class GroupInfo(google.protobuf.message.Message):
     PARTICIPANTVERSIONID_FIELD_NUMBER: builtins.int
     PARTICIPANTS_FIELD_NUMBER: builtins.int
     @property
-    def JID(self) -> global___JID: ...
-    @property
     def OwnerJID(self) -> global___JID: ...
+    @property
+    def JID(self) -> global___JID: ...
     @property
     def GroupName(self) -> global___GroupName: ...
     @property
@@ -467,8 +467,8 @@ class GroupInfo(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        JID: global___JID | None = ...,
         OwnerJID: global___JID | None = ...,
+        JID: global___JID | None = ...,
         GroupName: global___GroupName | None = ...,
         GroupTopic: global___GroupTopic | None = ...,
         GroupLocked: global___GroupLocked | None = ...,
