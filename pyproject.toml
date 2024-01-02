@@ -11,6 +11,7 @@ python = "^3.11"
 protobuf = "^4.25.1"
 python-magic = "^0.4.27"
 pillow = "^10.1.0"
+requests = "^2.31.0"
 
 
 [tool.poetry.group.dev.dependencies]

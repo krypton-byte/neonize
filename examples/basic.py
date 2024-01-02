@@ -2,6 +2,7 @@ import sys, os
 
 sys.path.insert(0, os.getcwd())
 from PIL import Image
+import time
 import base64
 from io import BytesIO
 from neonize.client import NewClient
@@ -16,6 +17,7 @@ from neonize.proto.def_pb2 import (
 )
 from neonize.proto.Neonize_pb2 import MessageSource
 from neonize.utils import Jid2String, MediaType
+from neonize.utils import ChatPresence, ChatPresenceMedia
 import magic
 
 
@@ -60,7 +62,7 @@ def onMessage(client: NewClient, from_: MessageSource, message: Message):
         #         )
         #     ))
     if text == "ping":
-        client.send_message(
+        response=client.send_message(
             from_.Chat,
             Message(
                 extendedTextMessage=ExtendedTextMessage(
@@ -73,6 +75,7 @@ def onMessage(client: NewClient, from_: MessageSource, message: Message):
                 )
             ),
         )
+        print("response", response)
     elif text == "image":
         img = open(
             "/home/krypton-byte/Pictures/Screenshots/Screenshot_2023-12-26-00-31-03_1920x1080.png",
@@ -129,9 +132,31 @@ def onMessage(client: NewClient, from_: MessageSource, message: Message):
             ),
         )
     elif text == "setgrupname":
-        print("changggggeee")
         client.set_group_name(from_.Chat, "Hehe")
-
-
+    elif text == "info":
+        client.send_message(from_.Chat, Message(
+            conversation=client.get_group_info(from_.Chat).__str__()
+        ))
+    elif text == "setgrupp":
+        client.set_group_photo(
+            from_.Chat, "/home/krypton-byte/Pictures/wallpapers/wallpaper_4.jpg"
+        )
+    elif text == "keluar":
+        print('data',client.leave_group(
+            from_.Chat
+        ))
+    elif text == "getinvite":
+        client.send_message(
+            from_.Chat,
+            Message(conversation=client.get_group_invite_link(from_.Chat).__str__())
+        )
+    elif text == "join":
+        return_ = client.join_group_with_link(".......")
+        if not return_.Error:
+            jid=client.send_message(return_.Jid, "text message")
+    elif text == "presence":
+        return_ = client.send_chat_presence(from_.Chat, ChatPresence.CHAT_PRESENCE_COMPOSING, ChatPresenceMedia.CHAT_PRESENCE_MEDIA_TEXT)
+        time.sleep(2)
+        client.send_chat_presence(from_.Chat, ChatPresence.CHAT_PRESENCE_PAUSED, ChatPresenceMedia.CHAT_PRESENCE_MEDIA_TEXT)
 client = NewClient("krypton.so", messageCallback=onMessage, qrCallback=onQr)
 client.connect()

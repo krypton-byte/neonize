@@ -20,6 +20,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing_extensions.final
 class JID(google.protobuf.message.Message):
+    """types"""
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     USER_FIELD_NUMBER: builtins.int
@@ -486,3 +488,189 @@ class GroupInfo(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["GroupAnnounce", b"GroupAnnounce", "GroupCreated", b"GroupCreated", "GroupEphemeral", b"GroupEphemeral", "GroupIncognito", b"GroupIncognito", "GroupIsDefaultSub", b"GroupIsDefaultSub", "GroupLinkedParent", b"GroupLinkedParent", "GroupLocked", b"GroupLocked", "GroupName", b"GroupName", "GroupParent", b"GroupParent", "GroupTopic", b"GroupTopic", "JID", b"JID", "OwnerJID", b"OwnerJID", "ParticipantVersionID", b"ParticipantVersionID", "Participants", b"Participants"]) -> None: ...
 
 global___GroupInfo = GroupInfo
+
+@typing_extensions.final
+class MessageDebugTimings(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    QUEUE_FIELD_NUMBER: builtins.int
+    MARSHAL_FIELD_NUMBER: builtins.int
+    GETPARTICIPANTS_FIELD_NUMBER: builtins.int
+    GETDEVICES_FIELD_NUMBER: builtins.int
+    GROUPENCRYPT_FIELD_NUMBER: builtins.int
+    PEERENCRYPT_FIELD_NUMBER: builtins.int
+    SEND_FIELD_NUMBER: builtins.int
+    RESP_FIELD_NUMBER: builtins.int
+    RETRY_FIELD_NUMBER: builtins.int
+    Queue: builtins.int
+    Marshal: builtins.int
+    GetParticipants: builtins.int
+    GetDevices: builtins.int
+    GroupEncrypt: builtins.int
+    PeerEncrypt: builtins.int
+    Send: builtins.int
+    Resp: builtins.int
+    Retry: builtins.int
+    def __init__(
+        self,
+        *,
+        Queue: builtins.int | None = ...,
+        Marshal: builtins.int | None = ...,
+        GetParticipants: builtins.int | None = ...,
+        GetDevices: builtins.int | None = ...,
+        GroupEncrypt: builtins.int | None = ...,
+        PeerEncrypt: builtins.int | None = ...,
+        Send: builtins.int | None = ...,
+        Resp: builtins.int | None = ...,
+        Retry: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["GetDevices", b"GetDevices", "GetParticipants", b"GetParticipants", "GroupEncrypt", b"GroupEncrypt", "Marshal", b"Marshal", "PeerEncrypt", b"PeerEncrypt", "Queue", b"Queue", "Resp", b"Resp", "Retry", b"Retry", "Send", b"Send"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["GetDevices", b"GetDevices", "GetParticipants", b"GetParticipants", "GroupEncrypt", b"GroupEncrypt", "Marshal", b"Marshal", "PeerEncrypt", b"PeerEncrypt", "Queue", b"Queue", "Resp", b"Resp", "Retry", b"Retry", "Send", b"Send"]) -> None: ...
+
+global___MessageDebugTimings = MessageDebugTimings
+
+@typing_extensions.final
+class SendResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TIMESTAMP_FIELD_NUMBER: builtins.int
+    ID_FIELD_NUMBER: builtins.int
+    SERVERID_FIELD_NUMBER: builtins.int
+    DEBUGTIMINGS_FIELD_NUMBER: builtins.int
+    Timestamp: builtins.int
+    ID: builtins.str
+    ServerID: builtins.int
+    @property
+    def DebugTimings(self) -> global___MessageDebugTimings: ...
+    def __init__(
+        self,
+        *,
+        Timestamp: builtins.int | None = ...,
+        ID: builtins.str | None = ...,
+        ServerID: builtins.int | None = ...,
+        DebugTimings: global___MessageDebugTimings | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["DebugTimings", b"DebugTimings", "ID", b"ID", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["DebugTimings", b"DebugTimings", "ID", b"ID", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]) -> None: ...
+
+global___SendResponse = SendResponse
+
+@typing_extensions.final
+class SendMessageReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ERROR_FIELD_NUMBER: builtins.int
+    SENDRESPONSE_FIELD_NUMBER: builtins.int
+    Error: builtins.str
+    @property
+    def SendResponse(self) -> global___SendResponse: ...
+    def __init__(
+        self,
+        *,
+        Error: builtins.str | None = ...,
+        SendResponse: global___SendResponse | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "SendResponse", b"SendResponse"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "SendResponse", b"SendResponse"]) -> None: ...
+
+global___SendMessageReturnFunction = SendMessageReturnFunction
+
+@typing_extensions.final
+class GetGroupInfoReturnFunction(google.protobuf.message.Message):
+    """Function"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    GROUPINFO_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def GroupInfo(self) -> global___GroupInfo: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        GroupInfo: global___GroupInfo | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "GroupInfo", b"GroupInfo"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "GroupInfo", b"GroupInfo"]) -> None: ...
+
+global___GetGroupInfoReturnFunction = GetGroupInfoReturnFunction
+
+@typing_extensions.final
+class JoinGroupWithLinkReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ERROR_FIELD_NUMBER: builtins.int
+    JID_FIELD_NUMBER: builtins.int
+    Error: builtins.str
+    @property
+    def Jid(self) -> global___JID: ...
+    def __init__(
+        self,
+        *,
+        Error: builtins.str | None = ...,
+        Jid: global___JID | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "Jid", b"Jid"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "Jid", b"Jid"]) -> None: ...
+
+global___JoinGroupWithLinkReturnFunction = JoinGroupWithLinkReturnFunction
+
+@typing_extensions.final
+class GetGroupInviteLinkReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    INVITELINK_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    InviteLink: builtins.str
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        InviteLink: builtins.str | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "InviteLink", b"InviteLink"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "InviteLink", b"InviteLink"]) -> None: ...
+
+global___GetGroupInviteLinkReturnFunction = GetGroupInviteLinkReturnFunction
+
+@typing_extensions.final
+class DownloadReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    BINARY_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    Binary: builtins.bytes
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        Binary: builtins.bytes | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Binary", b"Binary", "Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Binary", b"Binary", "Error", b"Error"]) -> None: ...
+
+global___DownloadReturnFunction = DownloadReturnFunction
+
+@typing_extensions.final
+class UploadReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    UPLOADRESPONSE_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def UploadResponse(self) -> global___UploadResponse: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        UploadResponse: global___UploadResponse | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "UploadResponse", b"UploadResponse"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "UploadResponse", b"UploadResponse"]) -> None: ...
+
+global___UploadReturnFunction = UploadReturnFunction

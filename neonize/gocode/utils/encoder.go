@@ -8,10 +8,10 @@ import (
 	"go.mau.fi/whatsmeow/types"
 	"google.golang.org/protobuf/proto"
 )
-import "fmt"
 
-func EncodeUploadResponse(response whatsmeow.UploadResponse) neonize.UploadResponse {
-	return neonize.UploadResponse{
+// Function
+func EncodeUploadResponse(response whatsmeow.UploadResponse) *neonize.UploadResponse {
+	return &neonize.UploadResponse{
 		Url:           &response.URL,
 		DirectPath:    &response.DirectPath,
 		Handle:        &response.Handle,
@@ -21,6 +21,8 @@ func EncodeUploadResponse(response whatsmeow.UploadResponse) neonize.UploadRespo
 		FileLength:    proto.Uint32(uint32(response.FileLength)),
 	}
 }
+
+// types.go
 func EncodeJidProto(data types.JID) *neonize.JID {
 	return &neonize.JID{
 		User:       &data.User,
@@ -91,7 +93,6 @@ func EncodeGroupParticipantAddRequest(addRequest types.GroupParticipantAddReques
 	}
 }
 func EncodeGroupParticipant(participant types.GroupParticipant) *neonize.GroupParticipant {
-	fmt.Println("encodeparti", participant.JID)
 	participant_group := neonize.GroupParticipant{
 		LID:          EncodeJidProto(participant.LID),
 		JID:          EncodeJidProto(participant.JID),
@@ -100,26 +101,19 @@ func EncodeGroupParticipant(participant types.GroupParticipant) *neonize.GroupPa
 		DisplayName:  &participant.DisplayName,
 		Error:        proto.Int32(int32(participant.Error)),
 	}
-	fmt.Println("JIDSET ? ", participant_group.JID)
 	if participant.AddRequest != nil {
-		fmt.Println("NILLED")
 		participant_group.AddRequest = EncodeGroupParticipantAddRequest(*participant.AddRequest)
 	}
-	fmt.Println("SETTED")
-	// fmt.Println("encoded", participant_group)
 	return &participant_group
 }
 
-func EncodeGroupInfo(info *types.GroupInfo) neonize.GroupInfo {
-	fmt.Println("create list")
+// send.go
+func EncodeGroupInfo(info *types.GroupInfo) *neonize.GroupInfo {
 	participants := []*neonize.GroupParticipant{}
-	fmt.Println("liast created")
 	for _, participant := range info.Participants {
-		fmt.Println(participant)
 		participants = append(participants, EncodeGroupParticipant(participant))
 	}
-	fmt.Println("listedddd", info.JID)
-	return neonize.GroupInfo{
+	return &neonize.GroupInfo{
 		JID:                  EncodeJidProto(info.JID),
 		OwnerJID:             EncodeJidProto(info.OwnerJID),
 		GroupName:            EncodeGroupName(info.GroupName),
@@ -134,5 +128,27 @@ func EncodeGroupInfo(info *types.GroupInfo) neonize.GroupInfo {
 		GroupCreated:         proto.Float32(float32(info.GroupCreated.Unix())),
 		ParticipantVersionID: &info.ParticipantVersionID,
 		Participants:         participants,
+	}
+}
+
+func EncodeMessageDebugTimings(debugTimings whatsmeow.MessageDebugTimings) *neonize.MessageDebugTimings {
+	return &neonize.MessageDebugTimings{
+		Queue:           proto.Int64(debugTimings.Queue.Nanoseconds()),
+		Marshal_:        proto.Int64(debugTimings.Marshal.Nanoseconds()),
+		GetParticipants: proto.Int64(debugTimings.GetParticipants.Nanoseconds()),
+		GetDevices:      proto.Int64(debugTimings.GetParticipants.Nanoseconds()),
+		GroupEncrypt:    proto.Int64(debugTimings.Queue.Nanoseconds()),
+		PeerEncrypt:     proto.Int64(debugTimings.PeerEncrypt.Nanoseconds()),
+		Send:            proto.Int64(debugTimings.Send.Nanoseconds()),
+		Resp:            proto.Int64(debugTimings.Queue.Nanoseconds()),
+		Retry:           proto.Int64(debugTimings.Retry.Nanoseconds()),
+	}
+}
+func EncodeSendResponse(sendResponse whatsmeow.SendResponse) *neonize.SendResponse {
+	return &neonize.SendResponse{
+		Timestamp:    proto.Int64(sendResponse.Timestamp.Unix()),
+		ID:           proto.String(sendResponse.ID),
+		ServerID:     proto.Int64(int64(sendResponse.ServerID)),
+		DebugTimings: EncodeMessageDebugTimings(sendResponse.DebugTimings),
 	}
 }

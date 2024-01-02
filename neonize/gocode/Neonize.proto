@@ -1,6 +1,7 @@
 syntax = "proto2";
 option go_package = "./neonize";
 package neonize;
+//types
 message JID {
     required string User = 1;
     required uint32 RawAgent  = 2;
@@ -114,6 +115,55 @@ message GroupInfo{
     enum MemberAddMode {
         GroupMemberAddModeAdmin = 1;
     }
+}
+message MessageDebugTimings{
+    required int64 Queue = 1;
+    required int64 Marshal = 2;
+    required int64 GetParticipants = 3;
+    required int64 GetDevices = 4;
+    required int64 GroupEncrypt = 5;
+    required int64 PeerEncrypt = 6;
+    required int64 Send = 7;
+    required int64 Resp = 8;
+    required int64 Retry = 9;
+}
+message SendResponse {
+    required int64 Timestamp = 1;
+    required string ID = 2;
+    required int64 ServerID = 3;
+    required MessageDebugTimings DebugTimings = 4;
+}
+
+message SendMessageReturnFunction {
+    optional string Error = 1;
+    optional SendResponse SendResponse = 2;
+}
 
 
+
+
+
+
+
+
+//Function
+message GetGroupInfoReturnFunction{
+    optional GroupInfo GroupInfo = 1;
+    optional string Error = 2;
+}
+message JoinGroupWithLinkReturnFunction{
+    optional string Error = 1;
+    optional JID Jid = 2;
+}
+message GetGroupInviteLinkReturnFunction{
+    optional string InviteLink = 1;
+    optional string Error = 2;
+}
+message DownloadReturnFunction {
+    optional bytes Binary = 1;
+    optional string Error = 2;
+}
+message UploadReturnFunction {
+    optional UploadResponse UploadResponse = 1;
+    optional string Error = 2;
 }

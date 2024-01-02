@@ -23,6 +23,7 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
 
 
    #include <stdlib.h>
+   #include <stdbool.h>
    #include "header/cstruct.h"
 
    typedef void (*ptr_to_python_function_string) (char*);
@@ -93,15 +94,19 @@ extern "C" {
 #endif
 
 extern struct BytesReturn Upload(char* id, unsigned char* mediabuff, int mediaSize, int mediatype);
-extern void SendMessage(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* messageByte, int messageSize);
+extern struct BytesReturn SendMessage(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* messageByte, int messageSize);
 extern void Neonize(char* db, char* id, ptr_to_python_function_string qrCb, ptr_to_python_function_string logStatus, ptr_to_python_function_bytes messageCb);
 extern struct BytesReturn Download(char* id, unsigned char* messageProto, int size);
 
 // /GROUP
 //
 extern struct BytesReturn GetGroupInfo(char* id, unsigned char* JIDByte, int JIDSize);
-extern void SetGroupName(char* id, unsigned char* JIDByte, int JIDSize, char* name);
-extern struct BytesReturn SetGroupPhoto(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* Photo, int PhotoSize);
+extern char* SetGroupName(char* id, unsigned char* JIDByte, int JIDSize, char* name);
+extern char* SetGroupPhoto(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* Photo, int PhotoSize);
+extern char* LeaveGroup(char* id, unsigned char* JIDByte, int JIDSize);
+extern struct BytesReturn GetGroupInviteLink(char* id, unsigned char* JIDByte, int JIDSize, _Bool revoke);
+extern struct BytesReturn JoinGroupWithLink(char* id, char* code);
+extern char* SendChatPresence(char* id, unsigned char* JIDByte, int JIDSize, int state, int media);
 
 #ifdef __cplusplus
 }

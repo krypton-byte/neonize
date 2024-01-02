@@ -73,6 +73,7 @@ func (GroupInfo_MemberAddMode) EnumDescriptor() ([]byte, []int) {
 	return file_Neonize_proto_rawDescGZIP(), []int{16, 0}
 }
 
+// types
 type JID struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1305,6 +1306,519 @@ func (x *GroupInfo) GetParticipants() []*GroupParticipant {
 	return nil
 }
 
+type MessageDebugTimings struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Queue           *int64 `protobuf:"varint,1,req,name=Queue" json:"Queue,omitempty"`
+	Marshal_        *int64 `protobuf:"varint,2,req,name=Marshal" json:"Marshal,omitempty"`
+	GetParticipants *int64 `protobuf:"varint,3,req,name=GetParticipants" json:"GetParticipants,omitempty"`
+	GetDevices      *int64 `protobuf:"varint,4,req,name=GetDevices" json:"GetDevices,omitempty"`
+	GroupEncrypt    *int64 `protobuf:"varint,5,req,name=GroupEncrypt" json:"GroupEncrypt,omitempty"`
+	PeerEncrypt     *int64 `protobuf:"varint,6,req,name=PeerEncrypt" json:"PeerEncrypt,omitempty"`
+	Send            *int64 `protobuf:"varint,7,req,name=Send" json:"Send,omitempty"`
+	Resp            *int64 `protobuf:"varint,8,req,name=Resp" json:"Resp,omitempty"`
+	Retry           *int64 `protobuf:"varint,9,req,name=Retry" json:"Retry,omitempty"`
+}
+
+func (x *MessageDebugTimings) Reset() {
+	*x = MessageDebugTimings{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MessageDebugTimings) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MessageDebugTimings) ProtoMessage() {}
+
+func (x *MessageDebugTimings) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MessageDebugTimings.ProtoReflect.Descriptor instead.
+func (*MessageDebugTimings) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *MessageDebugTimings) GetQueue() int64 {
+	if x != nil && x.Queue != nil {
+		return *x.Queue
+	}
+	return 0
+}
+
+func (x *MessageDebugTimings) GetMarshal_() int64 {
+	if x != nil && x.Marshal_ != nil {
+		return *x.Marshal_
+	}
+	return 0
+}
+
+func (x *MessageDebugTimings) GetGetParticipants() int64 {
+	if x != nil && x.GetParticipants != nil {
+		return *x.GetParticipants
+	}
+	return 0
+}
+
+func (x *MessageDebugTimings) GetGetDevices() int64 {
+	if x != nil && x.GetDevices != nil {
+		return *x.GetDevices
+	}
+	return 0
+}
+
+func (x *MessageDebugTimings) GetGroupEncrypt() int64 {
+	if x != nil && x.GroupEncrypt != nil {
+		return *x.GroupEncrypt
+	}
+	return 0
+}
+
+func (x *MessageDebugTimings) GetPeerEncrypt() int64 {
+	if x != nil && x.PeerEncrypt != nil {
+		return *x.PeerEncrypt
+	}
+	return 0
+}
+
+func (x *MessageDebugTimings) GetSend() int64 {
+	if x != nil && x.Send != nil {
+		return *x.Send
+	}
+	return 0
+}
+
+func (x *MessageDebugTimings) GetResp() int64 {
+	if x != nil && x.Resp != nil {
+		return *x.Resp
+	}
+	return 0
+}
+
+func (x *MessageDebugTimings) GetRetry() int64 {
+	if x != nil && x.Retry != nil {
+		return *x.Retry
+	}
+	return 0
+}
+
+type SendResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Timestamp    *int64               `protobuf:"varint,1,req,name=Timestamp" json:"Timestamp,omitempty"`
+	ID           *string              `protobuf:"bytes,2,req,name=ID" json:"ID,omitempty"`
+	ServerID     *int64               `protobuf:"varint,3,req,name=ServerID" json:"ServerID,omitempty"`
+	DebugTimings *MessageDebugTimings `protobuf:"bytes,4,req,name=DebugTimings" json:"DebugTimings,omitempty"`
+}
+
+func (x *SendResponse) Reset() {
+	*x = SendResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SendResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendResponse) ProtoMessage() {}
+
+func (x *SendResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendResponse.ProtoReflect.Descriptor instead.
+func (*SendResponse) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *SendResponse) GetTimestamp() int64 {
+	if x != nil && x.Timestamp != nil {
+		return *x.Timestamp
+	}
+	return 0
+}
+
+func (x *SendResponse) GetID() string {
+	if x != nil && x.ID != nil {
+		return *x.ID
+	}
+	return ""
+}
+
+func (x *SendResponse) GetServerID() int64 {
+	if x != nil && x.ServerID != nil {
+		return *x.ServerID
+	}
+	return 0
+}
+
+func (x *SendResponse) GetDebugTimings() *MessageDebugTimings {
+	if x != nil {
+		return x.DebugTimings
+	}
+	return nil
+}
+
+type SendMessageReturnFunction struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Error        *string       `protobuf:"bytes,1,opt,name=Error" json:"Error,omitempty"`
+	SendResponse *SendResponse `protobuf:"bytes,2,opt,name=SendResponse" json:"SendResponse,omitempty"`
+}
+
+func (x *SendMessageReturnFunction) Reset() {
+	*x = SendMessageReturnFunction{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SendMessageReturnFunction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendMessageReturnFunction) ProtoMessage() {}
+
+func (x *SendMessageReturnFunction) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendMessageReturnFunction.ProtoReflect.Descriptor instead.
+func (*SendMessageReturnFunction) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *SendMessageReturnFunction) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
+func (x *SendMessageReturnFunction) GetSendResponse() *SendResponse {
+	if x != nil {
+		return x.SendResponse
+	}
+	return nil
+}
+
+// Function
+type GetGroupInfoReturnFunction struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	GroupInfo *GroupInfo `protobuf:"bytes,1,opt,name=GroupInfo" json:"GroupInfo,omitempty"`
+	Error     *string    `protobuf:"bytes,2,opt,name=Error" json:"Error,omitempty"`
+}
+
+func (x *GetGroupInfoReturnFunction) Reset() {
+	*x = GetGroupInfoReturnFunction{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetGroupInfoReturnFunction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGroupInfoReturnFunction) ProtoMessage() {}
+
+func (x *GetGroupInfoReturnFunction) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGroupInfoReturnFunction.ProtoReflect.Descriptor instead.
+func (*GetGroupInfoReturnFunction) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *GetGroupInfoReturnFunction) GetGroupInfo() *GroupInfo {
+	if x != nil {
+		return x.GroupInfo
+	}
+	return nil
+}
+
+func (x *GetGroupInfoReturnFunction) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
+type JoinGroupWithLinkReturnFunction struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Error *string `protobuf:"bytes,1,opt,name=Error" json:"Error,omitempty"`
+	Jid   *JID    `protobuf:"bytes,2,opt,name=Jid" json:"Jid,omitempty"`
+}
+
+func (x *JoinGroupWithLinkReturnFunction) Reset() {
+	*x = JoinGroupWithLinkReturnFunction{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[21]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *JoinGroupWithLinkReturnFunction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*JoinGroupWithLinkReturnFunction) ProtoMessage() {}
+
+func (x *JoinGroupWithLinkReturnFunction) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[21]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use JoinGroupWithLinkReturnFunction.ProtoReflect.Descriptor instead.
+func (*JoinGroupWithLinkReturnFunction) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *JoinGroupWithLinkReturnFunction) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
+func (x *JoinGroupWithLinkReturnFunction) GetJid() *JID {
+	if x != nil {
+		return x.Jid
+	}
+	return nil
+}
+
+type GetGroupInviteLinkReturnFunction struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	InviteLink *string `protobuf:"bytes,1,opt,name=InviteLink" json:"InviteLink,omitempty"`
+	Error      *string `protobuf:"bytes,2,opt,name=Error" json:"Error,omitempty"`
+}
+
+func (x *GetGroupInviteLinkReturnFunction) Reset() {
+	*x = GetGroupInviteLinkReturnFunction{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[22]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetGroupInviteLinkReturnFunction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGroupInviteLinkReturnFunction) ProtoMessage() {}
+
+func (x *GetGroupInviteLinkReturnFunction) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[22]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGroupInviteLinkReturnFunction.ProtoReflect.Descriptor instead.
+func (*GetGroupInviteLinkReturnFunction) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *GetGroupInviteLinkReturnFunction) GetInviteLink() string {
+	if x != nil && x.InviteLink != nil {
+		return *x.InviteLink
+	}
+	return ""
+}
+
+func (x *GetGroupInviteLinkReturnFunction) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
+type DownloadReturnFunction struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Binary []byte  `protobuf:"bytes,1,opt,name=Binary" json:"Binary,omitempty"`
+	Error  *string `protobuf:"bytes,2,opt,name=Error" json:"Error,omitempty"`
+}
+
+func (x *DownloadReturnFunction) Reset() {
+	*x = DownloadReturnFunction{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[23]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DownloadReturnFunction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DownloadReturnFunction) ProtoMessage() {}
+
+func (x *DownloadReturnFunction) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[23]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DownloadReturnFunction.ProtoReflect.Descriptor instead.
+func (*DownloadReturnFunction) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *DownloadReturnFunction) GetBinary() []byte {
+	if x != nil {
+		return x.Binary
+	}
+	return nil
+}
+
+func (x *DownloadReturnFunction) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
+type UploadReturnFunction struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UploadResponse *UploadResponse `protobuf:"bytes,1,opt,name=UploadResponse" json:"UploadResponse,omitempty"`
+	Error          *string         `protobuf:"bytes,2,opt,name=Error" json:"Error,omitempty"`
+}
+
+func (x *UploadReturnFunction) Reset() {
+	*x = UploadReturnFunction{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[24]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UploadReturnFunction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadReturnFunction) ProtoMessage() {}
+
+func (x *UploadReturnFunction) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[24]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadReturnFunction.ProtoReflect.Descriptor instead.
+func (*UploadReturnFunction) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *UploadReturnFunction) GetUploadResponse() *UploadResponse {
+	if x != nil {
+		return x.UploadResponse
+	}
+	return nil
+}
+
+func (x *UploadReturnFunction) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
 var File_Neonize_proto protoreflect.FileDescriptor
 
 var file_Neonize_proto_rawDesc = []byte{
@@ -1497,8 +2011,71 @@ var file_Neonize_proto_rawDesc = []byte{
 	0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x6e, 0x74, 0x73, 0x22, 0x2c, 0x0a, 0x0d,
 	0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x41, 0x64, 0x64, 0x4d, 0x6f, 0x64, 0x65, 0x12, 0x1b, 0x0a,
 	0x17, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x41, 0x64, 0x64, 0x4d,
-	0x6f, 0x64, 0x65, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x10, 0x01, 0x42, 0x0b, 0x5a, 0x09, 0x2e, 0x2f,
-	0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65,
+	0x6f, 0x64, 0x65, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x10, 0x01, 0x22, 0x93, 0x02, 0x0a, 0x13, 0x4d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x44, 0x65, 0x62, 0x75, 0x67, 0x54, 0x69, 0x6d, 0x69, 0x6e,
+	0x67, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x51, 0x75, 0x65, 0x75, 0x65, 0x18, 0x01, 0x20, 0x02, 0x28,
+	0x03, 0x52, 0x05, 0x51, 0x75, 0x65, 0x75, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x4d, 0x61, 0x72, 0x73,
+	0x68, 0x61, 0x6c, 0x18, 0x02, 0x20, 0x02, 0x28, 0x03, 0x52, 0x07, 0x4d, 0x61, 0x72, 0x73, 0x68,
+	0x61, 0x6c, 0x12, 0x28, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69,
+	0x70, 0x61, 0x6e, 0x74, 0x73, 0x18, 0x03, 0x20, 0x02, 0x28, 0x03, 0x52, 0x0f, 0x47, 0x65, 0x74,
+	0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x6e, 0x74, 0x73, 0x12, 0x1e, 0x0a, 0x0a,
+	0x47, 0x65, 0x74, 0x44, 0x65, 0x76, 0x69, 0x63, 0x65, 0x73, 0x18, 0x04, 0x20, 0x02, 0x28, 0x03,
+	0x52, 0x0a, 0x47, 0x65, 0x74, 0x44, 0x65, 0x76, 0x69, 0x63, 0x65, 0x73, 0x12, 0x22, 0x0a, 0x0c,
+	0x47, 0x72, 0x6f, 0x75, 0x70, 0x45, 0x6e, 0x63, 0x72, 0x79, 0x70, 0x74, 0x18, 0x05, 0x20, 0x02,
+	0x28, 0x03, 0x52, 0x0c, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x45, 0x6e, 0x63, 0x72, 0x79, 0x70, 0x74,
+	0x12, 0x20, 0x0a, 0x0b, 0x50, 0x65, 0x65, 0x72, 0x45, 0x6e, 0x63, 0x72, 0x79, 0x70, 0x74, 0x18,
+	0x06, 0x20, 0x02, 0x28, 0x03, 0x52, 0x0b, 0x50, 0x65, 0x65, 0x72, 0x45, 0x6e, 0x63, 0x72, 0x79,
+	0x70, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x53, 0x65, 0x6e, 0x64, 0x18, 0x07, 0x20, 0x02, 0x28, 0x03,
+	0x52, 0x04, 0x53, 0x65, 0x6e, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x52, 0x65, 0x73, 0x70, 0x18, 0x08,
+	0x20, 0x02, 0x28, 0x03, 0x52, 0x04, 0x52, 0x65, 0x73, 0x70, 0x12, 0x14, 0x0a, 0x05, 0x52, 0x65,
+	0x74, 0x72, 0x79, 0x18, 0x09, 0x20, 0x02, 0x28, 0x03, 0x52, 0x05, 0x52, 0x65, 0x74, 0x72, 0x79,
+	0x22, 0x9a, 0x01, 0x0a, 0x0c, 0x53, 0x65, 0x6e, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x1c, 0x0a, 0x09, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x01,
+	0x20, 0x02, 0x28, 0x03, 0x52, 0x09, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x12,
+	0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x02, 0x20, 0x02, 0x28, 0x09, 0x52, 0x02, 0x49, 0x44, 0x12,
+	0x1a, 0x0a, 0x08, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x49, 0x44, 0x18, 0x03, 0x20, 0x02, 0x28,
+	0x03, 0x52, 0x08, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x49, 0x44, 0x12, 0x40, 0x0a, 0x0c, 0x44,
+	0x65, 0x62, 0x75, 0x67, 0x54, 0x69, 0x6d, 0x69, 0x6e, 0x67, 0x73, 0x18, 0x04, 0x20, 0x02, 0x28,
+	0x0b, 0x32, 0x1c, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x44, 0x65, 0x62, 0x75, 0x67, 0x54, 0x69, 0x6d, 0x69, 0x6e, 0x67, 0x73, 0x52,
+	0x0c, 0x44, 0x65, 0x62, 0x75, 0x67, 0x54, 0x69, 0x6d, 0x69, 0x6e, 0x67, 0x73, 0x22, 0x6c, 0x0a,
+	0x19, 0x53, 0x65, 0x6e, 0x64, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x65, 0x74, 0x75,
+	0x72, 0x6e, 0x46, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x72,
+	0x72, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72,
+	0x12, 0x39, 0x0a, 0x0c, 0x53, 0x65, 0x6e, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65,
+	0x2e, 0x53, 0x65, 0x6e, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x0c, 0x53,
+	0x65, 0x6e, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x64, 0x0a, 0x1a, 0x47,
+	0x65, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x74, 0x75, 0x72,
+	0x6e, 0x46, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x30, 0x0a, 0x09, 0x47, 0x72, 0x6f,
+	0x75, 0x70, 0x49, 0x6e, 0x66, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x6e,
+	0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x6e, 0x66, 0x6f,
+	0x52, 0x09, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x14, 0x0a, 0x05, 0x45,
+	0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x72, 0x72, 0x6f,
+	0x72, 0x22, 0x57, 0x0a, 0x1f, 0x4a, 0x6f, 0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x57, 0x69,
+	0x74, 0x68, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x74, 0x75, 0x72, 0x6e, 0x46, 0x75, 0x6e, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x1e, 0x0a, 0x03, 0x4a, 0x69,
+	0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a,
+	0x65, 0x2e, 0x4a, 0x49, 0x44, 0x52, 0x03, 0x4a, 0x69, 0x64, 0x22, 0x58, 0x0a, 0x20, 0x47, 0x65,
+	0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x4c, 0x69, 0x6e, 0x6b,
+	0x52, 0x65, 0x74, 0x75, 0x72, 0x6e, 0x46, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1e,
+	0x0a, 0x0a, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x4c, 0x69, 0x6e, 0x6b, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0a, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x4c, 0x69, 0x6e, 0x6b, 0x12, 0x14,
+	0x0a, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45,
+	0x72, 0x72, 0x6f, 0x72, 0x22, 0x46, 0x0a, 0x16, 0x44, 0x6f, 0x77, 0x6e, 0x6c, 0x6f, 0x61, 0x64,
+	0x52, 0x65, 0x74, 0x75, 0x72, 0x6e, 0x46, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x16,
+	0x0a, 0x06, 0x42, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x06,
+	0x42, 0x69, 0x6e, 0x61, 0x72, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x6d, 0x0a, 0x14,
+	0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x74, 0x75, 0x72, 0x6e, 0x46, 0x75, 0x6e, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x3f, 0x0a, 0x0e, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x6e,
+	0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x0e, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x42, 0x0b, 0x5a, 0x09, 0x2e,
+	0x2f, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65,
 }
 
 var (
@@ -1514,26 +2091,34 @@ func file_Neonize_proto_rawDescGZIP() []byte {
 }
 
 var file_Neonize_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_Neonize_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_Neonize_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
 var file_Neonize_proto_goTypes = []interface{}{
-	(GroupInfo_MemberAddMode)(0),       // 0: neonize.GroupInfo.MemberAddMode
-	(*JID)(nil),                        // 1: neonize.JID
-	(*UploadResponse)(nil),             // 2: neonize.UploadResponse
-	(*MessageSource)(nil),              // 3: neonize.MessageSource
-	(*DeviceSentMeta)(nil),             // 4: neonize.DeviceSentMeta
-	(*MessageInfo)(nil),                // 5: neonize.MessageInfo
-	(*GroupName)(nil),                  // 6: neonize.GroupName
-	(*GroupTopic)(nil),                 // 7: neonize.GroupTopic
-	(*GroupLocked)(nil),                // 8: neonize.GroupLocked
-	(*GroupAnnounce)(nil),              // 9: neonize.GroupAnnounce
-	(*GroupEphemeral)(nil),             // 10: neonize.GroupEphemeral
-	(*GroupIncognito)(nil),             // 11: neonize.GroupIncognito
-	(*GroupParent)(nil),                // 12: neonize.GroupParent
-	(*GroupLinkedParent)(nil),          // 13: neonize.GroupLinkedParent
-	(*GroupIsDefaultSub)(nil),          // 14: neonize.GroupIsDefaultSub
-	(*GroupParticipantAddRequest)(nil), // 15: neonize.GroupParticipantAddRequest
-	(*GroupParticipant)(nil),           // 16: neonize.GroupParticipant
-	(*GroupInfo)(nil),                  // 17: neonize.GroupInfo
+	(GroupInfo_MemberAddMode)(0),             // 0: neonize.GroupInfo.MemberAddMode
+	(*JID)(nil),                              // 1: neonize.JID
+	(*UploadResponse)(nil),                   // 2: neonize.UploadResponse
+	(*MessageSource)(nil),                    // 3: neonize.MessageSource
+	(*DeviceSentMeta)(nil),                   // 4: neonize.DeviceSentMeta
+	(*MessageInfo)(nil),                      // 5: neonize.MessageInfo
+	(*GroupName)(nil),                        // 6: neonize.GroupName
+	(*GroupTopic)(nil),                       // 7: neonize.GroupTopic
+	(*GroupLocked)(nil),                      // 8: neonize.GroupLocked
+	(*GroupAnnounce)(nil),                    // 9: neonize.GroupAnnounce
+	(*GroupEphemeral)(nil),                   // 10: neonize.GroupEphemeral
+	(*GroupIncognito)(nil),                   // 11: neonize.GroupIncognito
+	(*GroupParent)(nil),                      // 12: neonize.GroupParent
+	(*GroupLinkedParent)(nil),                // 13: neonize.GroupLinkedParent
+	(*GroupIsDefaultSub)(nil),                // 14: neonize.GroupIsDefaultSub
+	(*GroupParticipantAddRequest)(nil),       // 15: neonize.GroupParticipantAddRequest
+	(*GroupParticipant)(nil),                 // 16: neonize.GroupParticipant
+	(*GroupInfo)(nil),                        // 17: neonize.GroupInfo
+	(*MessageDebugTimings)(nil),              // 18: neonize.MessageDebugTimings
+	(*SendResponse)(nil),                     // 19: neonize.SendResponse
+	(*SendMessageReturnFunction)(nil),        // 20: neonize.SendMessageReturnFunction
+	(*GetGroupInfoReturnFunction)(nil),       // 21: neonize.GetGroupInfoReturnFunction
+	(*JoinGroupWithLinkReturnFunction)(nil),  // 22: neonize.JoinGroupWithLinkReturnFunction
+	(*GetGroupInviteLinkReturnFunction)(nil), // 23: neonize.GetGroupInviteLinkReturnFunction
+	(*DownloadReturnFunction)(nil),           // 24: neonize.DownloadReturnFunction
+	(*UploadReturnFunction)(nil),             // 25: neonize.UploadReturnFunction
 }
 var file_Neonize_proto_depIdxs = []int32{
 	1,  // 0: neonize.MessageSource.Chat:type_name -> neonize.JID
@@ -1558,11 +2143,16 @@ var file_Neonize_proto_depIdxs = []int32{
 	13, // 19: neonize.GroupInfo.GroupLinkedParent:type_name -> neonize.GroupLinkedParent
 	14, // 20: neonize.GroupInfo.GroupIsDefaultSub:type_name -> neonize.GroupIsDefaultSub
 	16, // 21: neonize.GroupInfo.Participants:type_name -> neonize.GroupParticipant
-	22, // [22:22] is the sub-list for method output_type
-	22, // [22:22] is the sub-list for method input_type
-	22, // [22:22] is the sub-list for extension type_name
-	22, // [22:22] is the sub-list for extension extendee
-	0,  // [0:22] is the sub-list for field type_name
+	18, // 22: neonize.SendResponse.DebugTimings:type_name -> neonize.MessageDebugTimings
+	19, // 23: neonize.SendMessageReturnFunction.SendResponse:type_name -> neonize.SendResponse
+	17, // 24: neonize.GetGroupInfoReturnFunction.GroupInfo:type_name -> neonize.GroupInfo
+	1,  // 25: neonize.JoinGroupWithLinkReturnFunction.Jid:type_name -> neonize.JID
+	2,  // 26: neonize.UploadReturnFunction.UploadResponse:type_name -> neonize.UploadResponse
+	27, // [27:27] is the sub-list for method output_type
+	27, // [27:27] is the sub-list for method input_type
+	27, // [27:27] is the sub-list for extension type_name
+	27, // [27:27] is the sub-list for extension extendee
+	0,  // [0:27] is the sub-list for field type_name
 }
 
 func init() { file_Neonize_proto_init() }
@@ -1775,6 +2365,102 @@ func file_Neonize_proto_init() {
 				return nil
 			}
 		}
+		file_Neonize_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MessageDebugTimings); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SendResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SendMessageReturnFunction); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetGroupInfoReturnFunction); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*JoinGroupWithLinkReturnFunction); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetGroupInviteLinkReturnFunction); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DownloadReturnFunction); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UploadReturnFunction); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1782,7 +2468,7 @@ func file_Neonize_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_Neonize_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   17,
+			NumMessages:   25,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
