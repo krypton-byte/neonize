@@ -32,6 +32,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/store/sqlstore"
+	"go.mau.fi/whatsmeow/types"
 	"go.mau.fi/whatsmeow/types/events"
 
 	waProto "go.mau.fi/whatsmeow/binary/proto"
@@ -253,6 +254,52 @@ func IsOnWhatsApp(id *C.char, numbers *C.char) C.struct_BytesReturn {
 	return_buf, err := proto.Marshal(&return_)
 	if err != nil {
 		panic(err)
+	}
+	return ReturnBytes(return_buf)
+}
+
+//export IsConnected
+func IsConnected(id *C.char) C.bool {
+	check := clients[C.GoString(id)].IsConnected()
+	return C.bool(check)
+}
+
+//export IsLoggedIn
+func IsLoggedIn(id *C.char) C.bool {
+	check := clients[C.GoString(id)].IsConnected()
+	return C.bool(check)
+}
+
+//export GetUserInfo
+func GetUserInfo(id *C.char, JIDSByte *C.uchar, JIDSSize C.int) C.struct_BytesReturn {
+	var NeoJIDS neonize.JIDArray
+	JIDSBuf := getByteByAddr(JIDSByte, JIDSSize)
+	err := proto.Unmarshal(JIDSBuf, &NeoJIDS)
+	if err != nil {
+		panic(err)
+	}
+	JIDS := []types.JID{}
+	for _, jid := range NeoJIDS.JIDS {
+		JIDS = append(JIDS, utils.DecodeJidProto(jid))
+	}
+	user_info, err := clients[C.GoString(id)].GetUserInfo(JIDS)
+	return_ := neonize.GetUserInfoReturnFunction{}
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+	}
+	usersinfo := []*neonize.GetUserInfoSingleReturnFunction{}
+	for jid, info := range user_info {
+		singlereturn := &neonize.GetUserInfoSingleReturnFunction{
+			JID:      utils.EncodeJidProto(jid),
+			UserInfo: utils.EncodeUserInfo(info),
+		}
+
+		usersinfo = append(usersinfo, singlereturn)
+	}
+	return_.UsersInfo = usersinfo
+	return_buf, marshal_err := proto.Marshal(&return_)
+	if marshal_err != nil {
+		panic(marshal_err)
 	}
 	return ReturnBytes(return_buf)
 }

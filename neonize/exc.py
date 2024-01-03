@@ -29,3 +29,6 @@ class CreateGroupError(Exception):
 
 class IsOnWhatsAppError(Exception):
     pass
+
+class GetUserInfoError(Exception):
+    pass

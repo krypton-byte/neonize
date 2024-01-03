@@ -229,6 +229,33 @@ class IsOnWhatsAppResponse(google.protobuf.message.Message):
 global___IsOnWhatsAppResponse = IsOnWhatsAppResponse
 
 @typing_extensions.final
+class UserInfo(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VERIFIEDNAME_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    PICTUREID_FIELD_NUMBER: builtins.int
+    DEVICES_FIELD_NUMBER: builtins.int
+    @property
+    def VerifiedName(self) -> global___VerifiedName: ...
+    status: builtins.str
+    PictureID: builtins.str
+    @property
+    def Devices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def __init__(
+        self,
+        *,
+        VerifiedName: global___VerifiedName | None = ...,
+        status: builtins.str | None = ...,
+        PictureID: builtins.str | None = ...,
+        Devices: collections.abc.Iterable[global___JID] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["PictureID", b"PictureID", "VerifiedName", b"VerifiedName", "status", b"status"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Devices", b"Devices", "PictureID", b"PictureID", "VerifiedName", b"VerifiedName", "status", b"status"]) -> None: ...
+
+global___UserInfo = UserInfo
+
+@typing_extensions.final
 class GroupName(google.protobuf.message.Message):
     """GROUP"""
 
@@ -764,6 +791,47 @@ class IsOnWhatsAppReturnFunction(google.protobuf.message.Message):
 global___IsOnWhatsAppReturnFunction = IsOnWhatsAppReturnFunction
 
 @typing_extensions.final
+class GetUserInfoSingleReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    JID_FIELD_NUMBER: builtins.int
+    USERINFO_FIELD_NUMBER: builtins.int
+    @property
+    def JID(self) -> global___JID: ...
+    @property
+    def UserInfo(self) -> global___UserInfo: ...
+    def __init__(
+        self,
+        *,
+        JID: global___JID | None = ...,
+        UserInfo: global___UserInfo | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["JID", b"JID", "UserInfo", b"UserInfo"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["JID", b"JID", "UserInfo", b"UserInfo"]) -> None: ...
+
+global___GetUserInfoSingleReturnFunction = GetUserInfoSingleReturnFunction
+
+@typing_extensions.final
+class GetUserInfoReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    USERSINFO_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def UsersInfo(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GetUserInfoSingleReturnFunction]: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        UsersInfo: collections.abc.Iterable[global___GetUserInfoSingleReturnFunction] | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "UsersInfo", b"UsersInfo"]) -> None: ...
+
+global___GetUserInfoReturnFunction = GetUserInfoReturnFunction
+
+@typing_extensions.final
 class ReqCreateGroup(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -793,3 +861,19 @@ class ReqCreateGroup(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["CreateKey", b"CreateKey", "GroupLinkedParent", b"GroupLinkedParent", "GroupParent", b"GroupParent", "Participants", b"Participants", "name", b"name"]) -> None: ...
 
 global___ReqCreateGroup = ReqCreateGroup
+
+@typing_extensions.final
+class JIDArray(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    JIDS_FIELD_NUMBER: builtins.int
+    @property
+    def JIDS(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def __init__(
+        self,
+        *,
+        JIDS: collections.abc.Iterable[global___JID] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["JIDS", b"JIDS"]) -> None: ...
+
+global___JIDArray = JIDArray

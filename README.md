@@ -23,7 +23,14 @@
 - [x] **Task 11:** Join Group With Link
 - [x] **Task 12:** Get Group Invite Link
 - [x] **Task 13:** Revoke Group Invite Link
-- [ ] **Task 14:** Revoke Message
+- [x] **Task 14:** Revoke Message
+- [x] **Task 15:** Create Group
+- [x] **Task 16:** Check Phone Number
+- [x] **Task 17:** Get Info User
+- [x] **Task 14:** Send Presence
+- [x] **Task 15:** IsConnected/IsLoggedIn
+
+
 
 
 ## Contribution Guidelines

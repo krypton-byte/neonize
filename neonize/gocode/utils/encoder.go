@@ -3,7 +3,7 @@ package utils
 import (
 	"C"
 
-	WAProto "github.com/krypton-byte/neonize/defproto"
+	defproto "github.com/krypton-byte/neonize/defproto"
 	"github.com/krypton-byte/neonize/neonize"
 	"go.mau.fi/whatsmeow"
 	waProto "go.mau.fi/whatsmeow/binary/proto"
@@ -154,26 +154,26 @@ func EncodeSendResponse(sendResponse whatsmeow.SendResponse) *neonize.SendRespon
 		DebugTimings: EncodeMessageDebugTimings(sendResponse.DebugTimings),
 	}
 }
-func EncodeVerifiedNameCertificate(verifiedNameCertificate *waProto.VerifiedNameCertificate) *WAProto.VerifiedNameCertificate {
-	return &WAProto.VerifiedNameCertificate{
+func EncodeVerifiedNameCertificate(verifiedNameCertificate *waProto.VerifiedNameCertificate) *defproto.VerifiedNameCertificate {
+	return &defproto.VerifiedNameCertificate{
 		Details:         verifiedNameCertificate.Details,
 		Signature:       verifiedNameCertificate.Signature,
 		ServerSignature: verifiedNameCertificate.ServerSignature,
 	}
 }
-func EncodeLocalizedName(localizedname *waProto.LocalizedName) *WAProto.LocalizedName {
-	return &WAProto.LocalizedName{
+func EncodeLocalizedName(localizedname *waProto.LocalizedName) *defproto.LocalizedName {
+	return &defproto.LocalizedName{
 		Lg:           localizedname.Lg,
 		Lc:           localizedname.Lc,
 		VerifiedName: localizedname.VerifiedName,
 	}
 }
-func EncodeVerifiedNameCertificate_Details(details *waProto.VerifiedNameCertificate_Details) *WAProto.VerifiedNameCertificate_Details {
-	localizedName := []*WAProto.LocalizedName{}
+func EncodeVerifiedNameCertificate_Details(details *waProto.VerifiedNameCertificate_Details) *defproto.VerifiedNameCertificate_Details {
+	localizedName := []*defproto.LocalizedName{}
 	for _, localized := range details.LocalizedNames {
 		localizedName = append(localizedName, EncodeLocalizedName(localized))
 	}
-	return &WAProto.VerifiedNameCertificate_Details{
+	return &defproto.VerifiedNameCertificate_Details{
 		Serial:         details.Serial,
 		Issuer:         details.Issuer,
 		VerifiedName:   details.VerifiedName,
@@ -182,10 +182,14 @@ func EncodeVerifiedNameCertificate_Details(details *waProto.VerifiedNameCertific
 	}
 }
 func EncodeVerifiedName(verifiedName *types.VerifiedName) *neonize.VerifiedName {
-	return &neonize.VerifiedName{
-		Certificate: EncodeVerifiedNameCertificate(verifiedName.Certificate),
-		Details:     EncodeVerifiedNameCertificate_Details(verifiedName.Details),
+	models := &neonize.VerifiedName{}
+	if verifiedName.Details != nil {
+		models.Details = EncodeVerifiedNameCertificate_Details(verifiedName.Details)
 	}
+	if verifiedName.Certificate != nil {
+		models.Certificate = EncodeVerifiedNameCertificate(verifiedName.Certificate)
+	}
+	return models
 }
 func EncodeIsOnWhatsApp(isOnWhatsApp types.IsOnWhatsAppResponse) *neonize.IsOnWhatsAppResponse {
 	model := &neonize.IsOnWhatsAppResponse{
@@ -197,4 +201,20 @@ func EncodeIsOnWhatsApp(isOnWhatsApp types.IsOnWhatsAppResponse) *neonize.IsOnWh
 		model.VerifiedName = EncodeVerifiedName(isOnWhatsApp.VerifiedName)
 	}
 	return model
+}
+
+func EncodeUserInfo(userInfo types.UserInfo) *neonize.UserInfo {
+	devices := []*neonize.JID{}
+	for _, jid := range userInfo.Devices {
+		devices = append(devices, EncodeJidProto(jid))
+	}
+	models := &neonize.UserInfo{
+		Status:    &userInfo.Status,
+		PictureID: &userInfo.PictureID,
+		Devices:   devices,
+	}
+	if userInfo.VerifiedName != nil {
+		models.VerifiedName = EncodeVerifiedName(userInfo.VerifiedName)
+	}
+	return models
 }

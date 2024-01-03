@@ -23,7 +23,10 @@ from .proto.Neonize_pb2 import (
     GroupLinkedParent,
     GroupParent,
     IsOnWhatsAppReturnFunction,
-    IsOnWhatsAppResponse
+    IsOnWhatsAppResponse,
+    JIDArray,
+    GetUserInfoReturnFunction,
+    GetUserInfoSingleReturnFunction,
 )
 from .proto import Neonize_pb2 as neonize_proto
 from .proto.def_pb2 import Message, StickerMessage, ExtendedTextMessage, ContextInfo
@@ -42,7 +45,8 @@ from .exc import (
     SetGroupPhotoError,
     GetGroupInviteLinkError,
     CreateGroupError,
-    IsOnWhatsAppError
+    IsOnWhatsAppError,
+    GetUserInfoError,
 )
 
 
@@ -285,15 +289,61 @@ class NewClient:
         return self.__client.SendChatPresence(
             self.uuid, jidbyte, len(jidbyte), state.value, media.value
         ).decode()
+
     def is_on_whatsapp(self, numbers: List[str] = []) -> IsOnWhatsAppResponse:
+        """Check if the provided phone numbers are on WhatsApp.
+
+        :param numbers: List of phone numbers to check. Defaults to [].
+        :type numbers: List[str], optional
+        :raises IsOnWhatsAppError: Raised if there is an error while checking.
+        :return: A response object containing information about WhatsApp presence.
+        :rtype: IsOnWhatsAppResponse
+        """
         if numbers:
-            numbers_buf = ' '.join(numbers).encode()
-            response = self.__client.IsOnWhatsApp(self.uuid, numbers_buf, len(numbers_buf)).get_bytes()
+            numbers_buf = " ".join(numbers).encode()
+            response = self.__client.IsOnWhatsApp(
+                self.uuid, numbers_buf, len(numbers_buf)
+            ).get_bytes()
             model = IsOnWhatsAppReturnFunction.FromString(response)
             if model.Error:
                 raise IsOnWhatsAppError(model.Error)
             return model.IsOnWhatsAppResponse
         return []
+
+    @property
+    def is_connected(self) -> bool:
+        """Check if the object is currently connected.
+
+        :return: True if the object is connected, False otherwise.
+        :rtype: bool
+        """
+        return self.__client.IsConnected(self.uuid)
+
+    @property
+    def is_logged_in(self) -> bool:
+        """Check if the user is currently logged in.
+
+        :return: True if the user is logged in, False otherwise.
+        :rtype: bool
+        """
+        return self.__client.IsLoggedIn(self.uuid)
+
+    def get_user_info(self, jid: List[JID]) -> GetUserInfoSingleReturnFunction:
+        """Retrieve information for the provided JIDs.
+
+        :param jid: List of JIDs (Jabber IDs) for which to retrieve information.
+        :type jid: List[JID]
+        :raises GetUserInfoError: Raised if there is an error while retrieving user information.
+        :return: A function providing information for the specified JIDs.
+        :rtype: GetUserInfoSingleReturnFunction
+        """
+        jidbuf = JIDArray(JIDS=jid).SerializeToString()
+        getUser = self.__client.GetUserInfo(self.uuid, jidbuf, len(jidbuf)).get_bytes()
+        model = GetUserInfoReturnFunction.FromString(getUser)
+        if model.Error:
+            raise GetUserInfoError(model.Error)
+        return model.UsersInfo
+
     def get_group_info(self, jid: JID) -> GroupInfo:
         """Retrieves information about a group.
 

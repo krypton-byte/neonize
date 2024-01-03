@@ -5,6 +5,13 @@ description = "whatsmeow binder for python"
 authors = ["krypton-byte <rosid6434@gmail.com>"]
 license = "Apache-2.0"
 readme = "README.md"
+exclude = [
+    "docs/",
+    "neonize/gocode"
+]
+include = [
+    "neonize/gocode/gocode.so"
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"

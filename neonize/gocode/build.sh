@@ -10,4 +10,3 @@ rm -rf github.com/
 GOOS=linux GOARCH=amd64 CGO_ENABLED=1 go build -buildmode=c-shared -ldflags=-s -o gocode.so main.go
 
 
-

@@ -56,6 +56,13 @@ message IsOnWhatsAppResponse {
     optional VerifiedName VerifiedName = 4;
 }
 
+message UserInfo {
+    optional VerifiedName VerifiedName = 1;
+    required string status = 2;
+    required string PictureID = 3;
+    repeated JID Devices = 4;
+}
+
 
 
 
@@ -188,10 +195,21 @@ message IsOnWhatsAppReturnFunction {
     repeated IsOnWhatsAppResponse IsOnWhatsAppResponse = 1;
     optional string Error = 2;
 }
+message GetUserInfoSingleReturnFunction {
+    optional JID JID = 1;
+    optional UserInfo UserInfo = 2;
+}
+message GetUserInfoReturnFunction {
+    repeated GetUserInfoSingleReturnFunction UsersInfo = 1;
+    optional string Error = 2;
+}
 message ReqCreateGroup {
     required string name = 1;
     repeated JID Participants = 2;
     required string CreateKey = 3;
     optional GroupParent GroupParent = 4;
     optional GroupLinkedParent GroupLinkedParent = 5;
+}
+message JIDArray {
+    repeated JID JIDS = 1;
 }

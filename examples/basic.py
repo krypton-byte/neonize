@@ -172,5 +172,11 @@ def onMessage(client: NewClient, from_: MessageSource, message: Message):
     elif text == "ison":
         resp = client.is_on_whatsapp([])
         client.send_message(from_.Chat, resp.__str__())
+    elif text == "connected?":
+        client.send_message(from_.Chat, client.is_connected.__str__())
+    elif text == "logged?":
+        client.send_message(from_.Chat, client.is_logged_in.__str__())
+    elif text == "userinfo":
+        client.send_message(from_.Chat, client.get_user_info([from_.Chat]).__str__())
 client = NewClient("krypton.so", messageCallback=onMessage, qrCallback=onQr)
 client.connect()
