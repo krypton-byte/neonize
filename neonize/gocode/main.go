@@ -369,6 +369,32 @@ func SendChatPresence(id *C.char, JIDByte *C.uchar, JIDSize C.int, state C.int, 
 	return C.CString("")
 }
 
+//export BuildRevoke
+func BuildRevoke(id *C.char, ChatByte *C.uchar, ChatSize C.int, SenderByte *C.uchar, SenderSize C.int, messageID *C.char) C.struct_BytesReturn {
+	chatByte := getByteByAddr(ChatByte, ChatSize)
+	senderByte := getByteByAddr(SenderByte, SenderSize)
+	var Chat neonize.JID
+	var Sender neonize.JID
+	err := proto.Unmarshal(chatByte, &Chat)
+	if err != nil {
+		panic(err)
+	}
+	err_ := proto.Unmarshal(senderByte, &Sender)
+	if err_ != nil {
+		panic(err_)
+	}
+	message := clients[C.GoString(id)].BuildRevoke(
+		utils.DecodeJidProto(&Chat),
+		utils.DecodeJidProto(&Sender),
+		C.GoString(messageID),
+	)
+	messageByte, err_marshal := proto.Marshal(message)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(messageByte)
+}
+
 ///
 
 func main() {

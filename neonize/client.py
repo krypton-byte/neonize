@@ -76,7 +76,22 @@ class NewClient:
             self.uuid, to_bytes, len(to_bytes), message_bytes, len(message_bytes)
         ).get_bytes()
         return SendMessageReturnFunction.FromString(sendresponse)
-
+    def build_revoke(
+        self,
+        chat: JID,
+        sender: JID,
+        message_id: str
+    ) -> Message:
+        chat_buf = chat.SerializeToString()
+        sender_buf = sender.SerializeToString()
+        return Message.FromString(self.__client.BuildRevoke(
+            self.uuid,
+            chat_buf,
+            len(chat_buf),
+            sender_buf,
+            len(sender_buf),
+            message_id.encode()
+        ).get_bytes())
     def send_sticker(
         self,
         to: JID,
@@ -175,7 +190,6 @@ class NewClient:
     def set_group_photo(self, jid: JID, file_or_bytes: typing.Union[str, bytes]):
         data = get_bytes_from_name_or_url(file_or_bytes)
         jid_buf = jid.SerializeToString()
-        print("send grup photo")
         response = self.__client.SetGroupPhoto(
             self.uuid, jid_buf, len(jid_buf), data, len(data)
         )
@@ -194,7 +208,6 @@ class NewClient:
 
     def join_group_with_link(self, code: str) -> JoinGroupWithLinkReturnFunction:
         resp = self.__client.JoinGroupWithLink(self.uuid, code.encode()).get_bytes()
-        print("result", resp)
         return JoinGroupWithLinkReturnFunction.FromString(resp)
 
     def connect(self):

@@ -107,6 +107,7 @@ extern char* LeaveGroup(char* id, unsigned char* JIDByte, int JIDSize);
 extern struct BytesReturn GetGroupInviteLink(char* id, unsigned char* JIDByte, int JIDSize, _Bool revoke);
 extern struct BytesReturn JoinGroupWithLink(char* id, char* code);
 extern char* SendChatPresence(char* id, unsigned char* JIDByte, int JIDSize, int state, int media);
+extern struct BytesReturn BuildRevoke(char* id, unsigned char* ChatByte, int ChatSize, unsigned char* SenderByte, int SenderSize, char* messageID);
 
 #ifdef __cplusplus
 }

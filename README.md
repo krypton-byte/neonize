@@ -14,6 +14,20 @@ Berikut adalah daftar tugas yang perlu diselesaikan dalam proyek ini. Silakan ta
 - [x] **Tugas 4:** Receive Message
 - [x] **Tugas 5:** Send Message/Media Message
 - [x] **Tugas 6:** Receive And Download Media Message
+- [x] **Tugas 7:** Set Group Name
+- [] **Tugas 8:** Set Group Photo
+- [x] **Tugas 9:** Get Group Info
+- [x] **Tugas 10:** Leave Group
+- [x] **Tugas 11:** Join Group With Link
+- [x] **Tugas 12:** Get Group Invite Link
+- [x] **Tugas 13:** Revoke Group Invite Link
+- [] **Tugas 14:** Revoke Message
+
+
+
+
+
+
 
 
 ## Panduan Kontribusi

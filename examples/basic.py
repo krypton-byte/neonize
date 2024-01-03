@@ -158,5 +158,11 @@ def onMessage(client: NewClient, from_: MessageSource, message: Message):
         return_ = client.send_chat_presence(from_.Chat, ChatPresence.CHAT_PRESENCE_COMPOSING, ChatPresenceMedia.CHAT_PRESENCE_MEDIA_TEXT)
         time.sleep(2)
         client.send_chat_presence(from_.Chat, ChatPresence.CHAT_PRESENCE_PAUSED, ChatPresenceMedia.CHAT_PRESENCE_MEDIA_TEXT)
+    elif text == "delete":
+        client.build_revoke(
+            from_.Chat,
+            from_.Sender,
+            from_.ID
+        )
 client = NewClient("krypton.so", messageCallback=onMessage, qrCallback=onQr)
 client.connect()
