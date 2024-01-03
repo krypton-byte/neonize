@@ -169,5 +169,8 @@ def onMessage(client: NewClient, from_: MessageSource, message: Message):
     elif text == "creategroup":
         grup_info=client.create_group("kryton_byte", [from_.Chat])
         client.send_message(from_.Chat, grup_info.__str__())
+    elif text == "ison":
+        resp = client.is_on_whatsapp([])
+        client.send_message(from_.Chat, resp.__str__())
 client = NewClient("krypton.so", messageCallback=onMessage, qrCallback=onQr)
 client.connect()

@@ -22,6 +22,8 @@ from .proto.Neonize_pb2 import (
     ReqCreateGroup,
     GroupLinkedParent,
     GroupParent,
+    IsOnWhatsAppReturnFunction,
+    IsOnWhatsAppResponse
 )
 from .proto import Neonize_pb2 as neonize_proto
 from .proto.def_pb2 import Message, StickerMessage, ExtendedTextMessage, ContextInfo
@@ -40,6 +42,7 @@ from .exc import (
     SetGroupPhotoError,
     GetGroupInviteLinkError,
     CreateGroupError,
+    IsOnWhatsAppError
 )
 
 
@@ -282,7 +285,15 @@ class NewClient:
         return self.__client.SendChatPresence(
             self.uuid, jidbyte, len(jidbyte), state.value, media.value
         ).decode()
-
+    def is_on_whatsapp(self, numbers: List[str] = []) -> IsOnWhatsAppResponse:
+        if numbers:
+            numbers_buf = ' '.join(numbers).encode()
+            response = self.__client.IsOnWhatsApp(self.uuid, numbers_buf, len(numbers_buf)).get_bytes()
+            model = IsOnWhatsAppReturnFunction.FromString(response)
+            if model.Error:
+                raise IsOnWhatsAppError(model.Error)
+            return model.IsOnWhatsAppResponse
+        return []
     def get_group_info(self, jid: JID) -> GroupInfo:
         """Retrieves information about a group.
 

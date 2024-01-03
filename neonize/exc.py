@@ -26,3 +26,6 @@ class GetGroupInviteLinkError(Exception):
 
 class CreateGroupError(Exception):
     pass
+
+class IsOnWhatsAppError(Exception):
+    pass
