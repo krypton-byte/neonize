@@ -74,6 +74,11 @@ func Upload(id *C.char, mediabuff *C.uchar, mediaSize C.int, mediatype C.int) C.
 	return ReturnBytes(return_buf)
 }
 
+//export GenerateMessageID
+func GenerateMessageID(id *C.char) *C.char {
+	return C.CString(clients[C.GoString(id)].GenerateMessageID())
+}
+
 //export SendMessage
 func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uchar, messageSize C.int) C.struct_BytesReturn {
 	client := clients[C.GoString(id)]
@@ -400,6 +405,29 @@ func BuildRevoke(id *C.char, ChatByte *C.uchar, ChatSize C.int, SenderByte *C.uc
 		panic(err_marshal)
 	}
 	return ReturnBytes(messageByte)
+}
+
+//export CreateGroup
+func CreateGroup(id *C.char, createGroupByte *C.uchar, createGroupSize C.int) C.struct_BytesReturn {
+	creategrupbyte := getByteByAddr(createGroupByte, createGroupSize)
+	var reqCreateGroup neonize.ReqCreateGroup
+	err := proto.Unmarshal(creategrupbyte, &reqCreateGroup)
+	if err != nil {
+		panic(err)
+	}
+	group_info, err_ := clients[C.GoString(id)].CreateGroup(utils.DecodeReqCreateGroup(&reqCreateGroup))
+	return_ := neonize.GetGroupInfoReturnFunction{}
+	if group_info != nil {
+		return_.GroupInfo = utils.EncodeGroupInfo(group_info)
+	}
+	if err_ != nil {
+		return_.Error = proto.String(err.Error())
+	}
+	return_buf, err_marshal := proto.Marshal(&return_)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(return_buf)
 }
 
 ///

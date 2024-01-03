@@ -19,5 +19,10 @@ class GetGroupInfoError(Exception):
 class SetGroupPhotoError(Exception):
     pass
 
+
 class GetGroupInviteLinkError(Exception):
+    pass
+
+
+class CreateGroupError(Exception):
     pass

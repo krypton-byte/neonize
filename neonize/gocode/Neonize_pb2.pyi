@@ -693,3 +693,34 @@ class SetGroupPhotoReturnFunction(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "PictureID", b"PictureID"]) -> None: ...
 
 global___SetGroupPhotoReturnFunction = SetGroupPhotoReturnFunction
+
+@typing_extensions.final
+class ReqCreateGroup(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    PARTICIPANTS_FIELD_NUMBER: builtins.int
+    CREATEKEY_FIELD_NUMBER: builtins.int
+    GROUPPARENT_FIELD_NUMBER: builtins.int
+    GROUPLINKEDPARENT_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    @property
+    def Participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    CreateKey: builtins.str
+    @property
+    def GroupParent(self) -> global___GroupParent: ...
+    @property
+    def GroupLinkedParent(self) -> global___GroupLinkedParent: ...
+    def __init__(
+        self,
+        *,
+        name: builtins.str | None = ...,
+        Participants: collections.abc.Iterable[global___JID] | None = ...,
+        CreateKey: builtins.str | None = ...,
+        GroupParent: global___GroupParent | None = ...,
+        GroupLinkedParent: global___GroupLinkedParent | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["CreateKey", b"CreateKey", "GroupLinkedParent", b"GroupLinkedParent", "GroupParent", b"GroupParent", "name", b"name"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["CreateKey", b"CreateKey", "GroupLinkedParent", b"GroupLinkedParent", "GroupParent", b"GroupParent", "Participants", b"Participants", "name", b"name"]) -> None: ...
+
+global___ReqCreateGroup = ReqCreateGroup

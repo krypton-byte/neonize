@@ -1874,6 +1874,85 @@ func (x *SetGroupPhotoReturnFunction) GetError() string {
 	return ""
 }
 
+type ReqCreateGroup struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name              *string            `protobuf:"bytes,1,req,name=name" json:"name,omitempty"`
+	Participants      []*JID             `protobuf:"bytes,2,rep,name=Participants" json:"Participants,omitempty"`
+	CreateKey         *string            `protobuf:"bytes,3,req,name=CreateKey" json:"CreateKey,omitempty"`
+	GroupParent       *GroupParent       `protobuf:"bytes,4,opt,name=GroupParent" json:"GroupParent,omitempty"`
+	GroupLinkedParent *GroupLinkedParent `protobuf:"bytes,5,opt,name=GroupLinkedParent" json:"GroupLinkedParent,omitempty"`
+}
+
+func (x *ReqCreateGroup) Reset() {
+	*x = ReqCreateGroup{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[26]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReqCreateGroup) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReqCreateGroup) ProtoMessage() {}
+
+func (x *ReqCreateGroup) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[26]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReqCreateGroup.ProtoReflect.Descriptor instead.
+func (*ReqCreateGroup) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *ReqCreateGroup) GetName() string {
+	if x != nil && x.Name != nil {
+		return *x.Name
+	}
+	return ""
+}
+
+func (x *ReqCreateGroup) GetParticipants() []*JID {
+	if x != nil {
+		return x.Participants
+	}
+	return nil
+}
+
+func (x *ReqCreateGroup) GetCreateKey() string {
+	if x != nil && x.CreateKey != nil {
+		return *x.CreateKey
+	}
+	return ""
+}
+
+func (x *ReqCreateGroup) GetGroupParent() *GroupParent {
+	if x != nil {
+		return x.GroupParent
+	}
+	return nil
+}
+
+func (x *ReqCreateGroup) GetGroupLinkedParent() *GroupLinkedParent {
+	if x != nil {
+		return x.GroupLinkedParent
+	}
+	return nil
+}
+
 var File_Neonize_proto protoreflect.FileDescriptor
 
 var file_Neonize_proto_rawDesc = []byte{
@@ -2134,8 +2213,24 @@ var file_Neonize_proto_rawDesc = []byte{
 	0x72, 0x6e, 0x46, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1c, 0x0a, 0x09, 0x50, 0x69,
 	0x63, 0x74, 0x75, 0x72, 0x65, 0x49, 0x44, 0x18, 0x01, 0x20, 0x02, 0x28, 0x09, 0x52, 0x09, 0x50,
 	0x69, 0x63, 0x74, 0x75, 0x72, 0x65, 0x49, 0x44, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x72, 0x72, 0x6f,
-	0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x42, 0x0b,
-	0x5a, 0x09, 0x2e, 0x2f, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65,
+	0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x22, 0xf6,
+	0x01, 0x0a, 0x0e, 0x52, 0x65, 0x71, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x02, 0x28, 0x09, 0x52,
+	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x30, 0x0a, 0x0c, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69,
+	0x70, 0x61, 0x6e, 0x74, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x6e, 0x65,
+	0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4a, 0x49, 0x44, 0x52, 0x0c, 0x50, 0x61, 0x72, 0x74, 0x69,
+	0x63, 0x69, 0x70, 0x61, 0x6e, 0x74, 0x73, 0x12, 0x1c, 0x0a, 0x09, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x4b, 0x65, 0x79, 0x18, 0x03, 0x20, 0x02, 0x28, 0x09, 0x52, 0x09, 0x43, 0x72, 0x65, 0x61,
+	0x74, 0x65, 0x4b, 0x65, 0x79, 0x12, 0x36, 0x0a, 0x0b, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x50, 0x61,
+	0x72, 0x65, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x6e, 0x65, 0x6f,
+	0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x50, 0x61, 0x72, 0x65, 0x6e, 0x74,
+	0x52, 0x0b, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x50, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x12, 0x48, 0x0a,
+	0x11, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x50, 0x61, 0x72, 0x65,
+	0x6e, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69,
+	0x7a, 0x65, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x50, 0x61,
+	0x72, 0x65, 0x6e, 0x74, 0x52, 0x11, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4c, 0x69, 0x6e, 0x6b, 0x65,
+	0x64, 0x50, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x42, 0x0b, 0x5a, 0x09, 0x2e, 0x2f, 0x6e, 0x65, 0x6f,
+	0x6e, 0x69, 0x7a, 0x65,
 }
 
 var (
@@ -2151,7 +2246,7 @@ func file_Neonize_proto_rawDescGZIP() []byte {
 }
 
 var file_Neonize_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_Neonize_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
+var file_Neonize_proto_msgTypes = make([]protoimpl.MessageInfo, 27)
 var file_Neonize_proto_goTypes = []interface{}{
 	(GroupInfo_MemberAddMode)(0),             // 0: neonize.GroupInfo.MemberAddMode
 	(*JID)(nil),                              // 1: neonize.JID
@@ -2180,6 +2275,7 @@ var file_Neonize_proto_goTypes = []interface{}{
 	(*DownloadReturnFunction)(nil),           // 24: neonize.DownloadReturnFunction
 	(*UploadReturnFunction)(nil),             // 25: neonize.UploadReturnFunction
 	(*SetGroupPhotoReturnFunction)(nil),      // 26: neonize.SetGroupPhotoReturnFunction
+	(*ReqCreateGroup)(nil),                   // 27: neonize.ReqCreateGroup
 }
 var file_Neonize_proto_depIdxs = []int32{
 	1,  // 0: neonize.MessageSource.Chat:type_name -> neonize.JID
@@ -2209,11 +2305,14 @@ var file_Neonize_proto_depIdxs = []int32{
 	17, // 24: neonize.GetGroupInfoReturnFunction.GroupInfo:type_name -> neonize.GroupInfo
 	1,  // 25: neonize.JoinGroupWithLinkReturnFunction.Jid:type_name -> neonize.JID
 	2,  // 26: neonize.UploadReturnFunction.UploadResponse:type_name -> neonize.UploadResponse
-	27, // [27:27] is the sub-list for method output_type
-	27, // [27:27] is the sub-list for method input_type
-	27, // [27:27] is the sub-list for extension type_name
-	27, // [27:27] is the sub-list for extension extendee
-	0,  // [0:27] is the sub-list for field type_name
+	1,  // 27: neonize.ReqCreateGroup.Participants:type_name -> neonize.JID
+	12, // 28: neonize.ReqCreateGroup.GroupParent:type_name -> neonize.GroupParent
+	13, // 29: neonize.ReqCreateGroup.GroupLinkedParent:type_name -> neonize.GroupLinkedParent
+	30, // [30:30] is the sub-list for method output_type
+	30, // [30:30] is the sub-list for method input_type
+	30, // [30:30] is the sub-list for extension type_name
+	30, // [30:30] is the sub-list for extension extendee
+	0,  // [0:30] is the sub-list for field type_name
 }
 
 func init() { file_Neonize_proto_init() }
@@ -2534,6 +2633,18 @@ func file_Neonize_proto_init() {
 				return nil
 			}
 		}
+		file_Neonize_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReqCreateGroup); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -2541,7 +2652,7 @@ func file_Neonize_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_Neonize_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   26,
+			NumMessages:   27,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

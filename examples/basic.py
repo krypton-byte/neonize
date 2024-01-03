@@ -164,5 +164,10 @@ def onMessage(client: NewClient, from_: MessageSource, message: Message):
             from_.Sender,
             from_.ID
         )
+    elif text == "id":
+        client.send_message(from_.Chat, client.generate_message_id())
+    elif text == "creategroup":
+        grup_info=client.create_group("kryton_byte", [from_.Chat])
+        client.send_message(from_.Chat, grup_info.__str__())
 client = NewClient("krypton.so", messageCallback=onMessage, qrCallback=onQr)
 client.connect()

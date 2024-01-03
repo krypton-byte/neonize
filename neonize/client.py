@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ._binder import gocode, func_bytes, func_string
-from typing import Optional, Callable
+from typing import Optional, Callable, List
 import typing
 import magic
 import ctypes
@@ -19,6 +19,9 @@ from .proto.Neonize_pb2 import (
     SendMessageReturnFunction,
     UploadResponse,
     SetGroupPhotoReturnFunction,
+    ReqCreateGroup,
+    GroupLinkedParent,
+    GroupParent,
 )
 from .proto import Neonize_pb2 as neonize_proto
 from .proto.def_pb2 import Message, StickerMessage, ExtendedTextMessage, ContextInfo
@@ -35,7 +38,8 @@ from .exc import (
     InviteLinkError,
     GetGroupInfoError,
     SetGroupPhotoError,
-    GetGroupInviteLinkError
+    GetGroupInviteLinkError,
+    CreateGroupError,
 )
 
 
@@ -49,6 +53,17 @@ class NewClient:
         ] = None,
         uuid: Optional[str] = None,
     ):
+        """Initializes a new client instance.
+
+        :param name: The name or identifier for the new client.
+        :type name: str
+        :param qrCallback: Optional. A callback function for handling QR code updates, defaults to None.
+        :type qrCallback: Optional[Callable[[NewClient, bytes], None]], optional
+        :param messageCallback: Optional. A callback function for handling incoming messages, defaults to None.
+        :type messageCallback: Optional[Callable[[NewClient, MessageSource, Message], None]], optional
+        :param uuid: Optional. A unique identifier for the client, defaults to None.
+        :type uuid: Optional[str], optional
+        """
         self.name = name
         self.uuid = (uuid or name).encode()
         self.qrCallback = qrCallback
@@ -69,7 +84,18 @@ class NewClient:
         message_source: int,
         message_source_size: int,
     ):
-        if self.__onMessage:
+        """Handles incoming messages.
+
+        :param message_protobytes: The bytes representing the message.
+        :type message_protobytes: int
+        :param message_size: The size of the message in bytes.
+        :type message_size: int
+        :param message_source: The source of the message.
+        :type message_source: int
+        :param message_source_size: The size of the message source.
+        :type message_source_size: int
+        """
+        if self.messageCallback:
             bytes_data = ctypes.string_at(message_protobytes, message_size)
             message_source_data = ctypes.string_at(message_source, message_source_size)
             self.messageCallback(
@@ -144,7 +170,7 @@ class NewClient:
         :type from_: Optional[MessageSource], optional
         :return: A function for handling the result of the sticker sending process.
         :rtype: SendMessageReturnFunction
-        """  
+        """
         if isinstance(file_or_bytes, str):
             with open(file_or_bytes, "rb") as file:
                 image_buf = file.read()
@@ -193,7 +219,7 @@ class NewClient:
         :raises UploadError: Raised if there is an issue with the upload.
         :return: An UploadResponse containing information about the upload.
         :rtype: UploadResponse
-        """    
+        """
         if not media_type:
             mime = MediaType.from_magic(binary)
         else:
@@ -229,6 +255,14 @@ class NewClient:
                 file.write(media.binary)
         else:
             return media.Binary
+
+    def generate_message_id(self) -> str:
+        """Generates a unique identifier for a message.
+
+        :return: A string representing the unique identifier for the message.
+        :rtype: str
+        """
+        return self.__client.GenerateMessageID(self.uuid).decode()
 
     def send_chat_presence(
         self, jid: JID, state: ChatPresence, media: ChatPresenceMedia
@@ -350,6 +384,40 @@ class NewClient:
         if model.Error:
             raise InviteLinkError(model.Error)
         return model.Jid
+
+    def create_group(
+        self,
+        name: str,
+        participants: List[JID] = [],
+        linked_parent: Optional[GroupLinkedParent] = None,
+        group_parent: Optional[GroupParent] = None,
+    ) -> GroupInfo:
+        """Creates a new group.
+
+        :param name: The name of the new group.
+        :type name: str
+        :param participants: Optional. A list of participant JIDs (Jabber Identifiers) to be included in the group. Defaults to an empty list.
+        :type participants: List[JID], optional
+        :param linked_parent: Optional. Information about a linked parent group, if applicable. Defaults to None.
+        :type linked_parent: Optional[GroupLinkedParent], optional
+        :param group_parent: Optional. Information about a parent group, if applicable. Defaults to None.
+        :type group_parent: Optional[GroupParent], optional
+        :return: Information about the newly created group.
+        :rtype: GroupInfo
+        """
+        group_info = ReqCreateGroup(
+            name=name, Participants=participants, CreateKey=self.generate_message_id()
+        )
+        if linked_parent:
+            group_info.GroupLinkedParent = linked_parent
+        if group_parent:
+            group_info.GroupParent = group_parent
+        group_info_buf = group_info.SerializeToString()
+        resp = self.__client.CreateGroup(self.uuid, group_info_buf, len(group_info_buf))
+        model = GetGroupInfoReturnFunction.FromString(resp.get_bytes())
+        if model.Error:
+            return CreateGroupError(model.Error)
+        return model.GroupInfo
 
     def connect(self):
         self.__client.Neonize(

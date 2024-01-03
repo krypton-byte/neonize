@@ -168,7 +168,15 @@ message UploadReturnFunction {
     optional string Error = 2;
 }
 
-message SetGroupPhotoReturnFunction{
+message SetGroupPhotoReturnFunction {
     required string PictureID = 1;
     optional string Error = 2;
+}
+
+message ReqCreateGroup {
+    required string name = 1;
+    repeated JID Participants = 2;
+    required string CreateKey = 3;
+    optional GroupParent GroupParent = 4;
+    optional GroupLinkedParent GroupLinkedParent = 5;
 }

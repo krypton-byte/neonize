@@ -43,3 +43,7 @@ gocode.BuildRevoke.argtypes = [
     ctypes.c_char_p,
 ]
 gocode.BuildRevoke.restype = Bytes
+gocode.CreateGroup.restype = Bytes
+gocode.GenerateMessageID.restype = ctypes.c_char_p
+
+
