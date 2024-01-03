@@ -98,6 +98,7 @@ extern char* GenerateMessageID(char* id);
 extern struct BytesReturn SendMessage(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* messageByte, int messageSize);
 extern void Neonize(char* db, char* id, ptr_to_python_function_string qrCb, ptr_to_python_function_string logStatus, ptr_to_python_function_bytes messageCb);
 extern struct BytesReturn Download(char* id, unsigned char* messageProto, int size);
+extern struct BytesReturn IsOnWhatsApp(char* id, char* numbers);
 
 // /GROUP
 //

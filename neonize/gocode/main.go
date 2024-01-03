@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"unsafe"
 
@@ -237,6 +238,25 @@ func Download(id *C.char, messageProto *C.uchar, size C.int) C.struct_BytesRetur
 
 }
 
+//export IsOnWhatsApp
+func IsOnWhatsApp(id *C.char, numbers *C.char) C.struct_BytesReturn {
+	onWhatsApp := []*neonize.IsOnWhatsAppResponse{}
+	return_ := neonize.IsOnWhatsAppReturnFunction{}
+	response, err := clients[C.GoString(id)].IsOnWhatsApp(strings.Split(C.GoString(numbers), " "))
+	for _, participant := range response {
+		onWhatsApp = append(onWhatsApp, utils.EncodeIsOnWhatsApp(participant))
+	}
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+	}
+	return_.IsOnWhatsAppResponse = onWhatsApp
+	return_buf, err := proto.Marshal(&return_)
+	if err != nil {
+		panic(err)
+	}
+	return ReturnBytes(return_buf)
+}
+
 // /GROUP
 //
 //export GetGroupInfo
@@ -358,7 +378,6 @@ func JoinGroupWithLink(id *C.char, code *C.char) C.struct_BytesReturn {
 	if err_ != nil {
 		panic(err_)
 	}
-
 	return ReturnBytes(jidBuf)
 }
 

@@ -3,8 +3,10 @@ package utils
 import (
 	"C"
 
+	WAProto "github.com/krypton-byte/neonize/defproto"
 	"github.com/krypton-byte/neonize/neonize"
 	"go.mau.fi/whatsmeow"
+	waProto "go.mau.fi/whatsmeow/binary/proto"
 	"go.mau.fi/whatsmeow/types"
 	"google.golang.org/protobuf/proto"
 )
@@ -151,4 +153,48 @@ func EncodeSendResponse(sendResponse whatsmeow.SendResponse) *neonize.SendRespon
 		ServerID:     proto.Int64(int64(sendResponse.ServerID)),
 		DebugTimings: EncodeMessageDebugTimings(sendResponse.DebugTimings),
 	}
+}
+func EncodeVerifiedNameCertificate(verifiedNameCertificate *waProto.VerifiedNameCertificate) *WAProto.VerifiedNameCertificate {
+	return &WAProto.VerifiedNameCertificate{
+		Details:         verifiedNameCertificate.Details,
+		Signature:       verifiedNameCertificate.Signature,
+		ServerSignature: verifiedNameCertificate.ServerSignature,
+	}
+}
+func EncodeLocalizedName(localizedname *waProto.LocalizedName) *WAProto.LocalizedName {
+	return &WAProto.LocalizedName{
+		Lg:           localizedname.Lg,
+		Lc:           localizedname.Lc,
+		VerifiedName: localizedname.VerifiedName,
+	}
+}
+func EncodeVerifiedNameCertificate_Details(details *waProto.VerifiedNameCertificate_Details) *WAProto.VerifiedNameCertificate_Details {
+	localizedName := []*WAProto.LocalizedName{}
+	for _, localized := range details.LocalizedNames {
+		localizedName = append(localizedName, EncodeLocalizedName(localized))
+	}
+	return &WAProto.VerifiedNameCertificate_Details{
+		Serial:         details.Serial,
+		Issuer:         details.Issuer,
+		VerifiedName:   details.VerifiedName,
+		LocalizedNames: localizedName,
+		IssueTime:      details.IssueTime,
+	}
+}
+func EncodeVerifiedName(verifiedName *types.VerifiedName) *neonize.VerifiedName {
+	return &neonize.VerifiedName{
+		Certificate: EncodeVerifiedNameCertificate(verifiedName.Certificate),
+		Details:     EncodeVerifiedNameCertificate_Details(verifiedName.Details),
+	}
+}
+func EncodeIsOnWhatsApp(isOnWhatsApp types.IsOnWhatsAppResponse) *neonize.IsOnWhatsAppResponse {
+	model := &neonize.IsOnWhatsAppResponse{
+		Query: &isOnWhatsApp.Query,
+		JID:   EncodeJidProto(isOnWhatsApp.JID),
+		IsIn:  &isOnWhatsApp.IsIn,
+	}
+	if isOnWhatsApp.VerifiedName != nil {
+		model.VerifiedName = EncodeVerifiedName(isOnWhatsApp.VerifiedName)
+	}
+	return model
 }

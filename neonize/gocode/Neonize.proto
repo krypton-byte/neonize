@@ -1,6 +1,8 @@
 syntax = "proto2";
+import "def.proto";
 option go_package = "./neonize";
 package neonize;
+
 //types
 message JID {
     required string User = 1;
@@ -42,6 +44,16 @@ message MessageInfo{
     required string MediaType = 9;
     required string EditAttribute = 10;
 
+}
+message VerifiedName {
+    optional defproto.VerifiedNameCertificate Certificate = 1;
+    optional defproto.VerifiedNameCertificate.Details Details = 2;
+}
+message IsOnWhatsAppResponse {
+    required string Query = 1;
+    required JID JID = 2;
+    required bool IsIn = 3;
+    optional VerifiedName VerifiedName = 4;
 }
 
 
@@ -172,7 +184,10 @@ message SetGroupPhotoReturnFunction {
     required string PictureID = 1;
     optional string Error = 2;
 }
-
+message IsOnWhatsAppReturnFunction {
+    repeated IsOnWhatsAppResponse IsOnWhatsAppResponse = 1;
+    optional string Error = 2;
+}
 message ReqCreateGroup {
     required string name = 1;
     repeated JID Participants = 2;

@@ -31,3 +31,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 docsbuild = "docs.generate:build"
+build = "neonize.gocode.build:build"

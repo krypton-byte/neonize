@@ -1,5 +1,6 @@
 syntax = "proto2";
-package proto;
+option go_package = "github.com/krypton-byte/neonize/defproto;defproto";
+package defproto;
 
 message ADVSignedKeyIndexList {
     optional bytes details = 1;

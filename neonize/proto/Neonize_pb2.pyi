@@ -4,6 +4,7 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import def_pb2
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
@@ -178,6 +179,54 @@ class MessageInfo(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["Category", b"Category", "EditAttribute", b"EditAttribute", "ID", b"ID", "MediaType", b"MediaType", "MessageSource", b"MessageSource", "Multicast", b"Multicast", "PushName", b"PushName", "ServerID", b"ServerID", "Timestamp", b"Timestamp", "Type", b"Type"]) -> None: ...
 
 global___MessageInfo = MessageInfo
+
+@typing_extensions.final
+class VerifiedName(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CERTIFICATE_FIELD_NUMBER: builtins.int
+    DETAILS_FIELD_NUMBER: builtins.int
+    @property
+    def Certificate(self) -> def_pb2.VerifiedNameCertificate: ...
+    @property
+    def Details(self) -> def_pb2.VerifiedNameCertificate.Details: ...
+    def __init__(
+        self,
+        *,
+        Certificate: def_pb2.VerifiedNameCertificate | None = ...,
+        Details: def_pb2.VerifiedNameCertificate.Details | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Certificate", b"Certificate", "Details", b"Details"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Certificate", b"Certificate", "Details", b"Details"]) -> None: ...
+
+global___VerifiedName = VerifiedName
+
+@typing_extensions.final
+class IsOnWhatsAppResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    QUERY_FIELD_NUMBER: builtins.int
+    JID_FIELD_NUMBER: builtins.int
+    ISIN_FIELD_NUMBER: builtins.int
+    VERIFIEDNAME_FIELD_NUMBER: builtins.int
+    Query: builtins.str
+    @property
+    def JID(self) -> global___JID: ...
+    IsIn: builtins.bool
+    @property
+    def VerifiedName(self) -> global___VerifiedName: ...
+    def __init__(
+        self,
+        *,
+        Query: builtins.str | None = ...,
+        JID: global___JID | None = ...,
+        IsIn: builtins.bool | None = ...,
+        VerifiedName: global___VerifiedName | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["IsIn", b"IsIn", "JID", b"JID", "Query", b"Query", "VerifiedName", b"VerifiedName"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["IsIn", b"IsIn", "JID", b"JID", "Query", b"Query", "VerifiedName", b"VerifiedName"]) -> None: ...
+
+global___IsOnWhatsAppResponse = IsOnWhatsAppResponse
 
 @typing_extensions.final
 class GroupName(google.protobuf.message.Message):
@@ -693,6 +742,26 @@ class SetGroupPhotoReturnFunction(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "PictureID", b"PictureID"]) -> None: ...
 
 global___SetGroupPhotoReturnFunction = SetGroupPhotoReturnFunction
+
+@typing_extensions.final
+class IsOnWhatsAppReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ISONWHATSAPPRESPONSE_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def IsOnWhatsAppResponse(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IsOnWhatsAppResponse]: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        IsOnWhatsAppResponse: collections.abc.Iterable[global___IsOnWhatsAppResponse] | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "IsOnWhatsAppResponse", b"IsOnWhatsAppResponse"]) -> None: ...
+
+global___IsOnWhatsAppReturnFunction = IsOnWhatsAppReturnFunction
 
 @typing_extensions.final
 class ReqCreateGroup(google.protobuf.message.Message):

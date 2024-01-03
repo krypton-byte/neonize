@@ -32,7 +32,7 @@ def onMessage(client: NewClient, from_: MessageSource, message: Message):
             from_.Chat,
             "/home/krypton-byte/Downloads/WhatsApp Image 2023-12-30 at 6.54.03 AM.jpeg",
             quoted=message,
-            from_=from_
+            from_=from_,
         )
         # gg = open("stickx.webp","rb").read()
         # resp = client.upload(gg, media_type=MediaType.MediaImage)
