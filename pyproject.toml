@@ -22,6 +22,8 @@ mypy-protobuf = "^3.5.0"
 [tool.poetry.group.docs.dependencies]
 sphinx = "^7.2.6"
 sphinx-rtd-theme = "^2.0.0"
+myst-parser = "^2.0.0"
+sphinx-autodoc-typehints = "^1.25.2"
 
 [build-system]
 requires = ["poetry-core"]

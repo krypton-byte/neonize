@@ -1,8 +1,6 @@
 package utils
 
 import (
-	"fmt"
-
 	"github.com/krypton-byte/neonize/neonize"
 	"go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/types"
@@ -38,7 +36,6 @@ func DecodeReqCreateGroup(reqCreateGroup *neonize.ReqCreateGroup) whatsmeow.ReqC
 		Participants: participants,
 		CreateKey:    *reqCreateGroup.CreateKey,
 	}
-	fmt.Println("gk tawu", reqCreateGroup.GroupParent)
 	if reqCreateGroup.GroupParent != nil {
 		new_type.GroupParent = DecodeGroupParent(reqCreateGroup.GroupParent)
 	}

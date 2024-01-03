@@ -154,7 +154,7 @@ class NewClient:
     def send_sticker(
         self,
         to: JID,
-        file_or_bytes: typing.Union[str | bytes],
+        file_or_bytes: typing.Union[str, bytes],
         quoted: Optional[Message] = None,
         from_: Optional[MessageSource] = None,
     ) -> SendMessageReturnFunction:
@@ -232,7 +232,7 @@ class NewClient:
 
     def download(
         self, message: Message, path: Optional[str] = None
-    ) -> Union[None, bytes]:
+    ) -> typing.Union[None, bytes]:
         """Downloads content from a message.
 
         :param message: The message containing the content to download.

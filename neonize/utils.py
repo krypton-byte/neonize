@@ -4,6 +4,7 @@ import io
 import magic
 import typing
 import requests
+from .proto.Neonize_pb2 import JID
 
 
 class MediaType(Enum):
