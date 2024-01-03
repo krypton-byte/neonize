@@ -167,3 +167,8 @@ message UploadReturnFunction {
     optional UploadResponse UploadResponse = 1;
     optional string Error = 2;
 }
+
+message SetGroupPhotoReturnFunction{
+    required string PictureID = 1;
+    optional string Error = 2;
+}

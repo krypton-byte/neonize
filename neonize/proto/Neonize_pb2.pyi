@@ -674,3 +674,22 @@ class UploadReturnFunction(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "UploadResponse", b"UploadResponse"]) -> None: ...
 
 global___UploadReturnFunction = UploadReturnFunction
+
+@typing_extensions.final
+class SetGroupPhotoReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PICTUREID_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    PictureID: builtins.str
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        PictureID: builtins.str | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "PictureID", b"PictureID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "PictureID", b"PictureID"]) -> None: ...
+
+global___SetGroupPhotoReturnFunction = SetGroupPhotoReturnFunction

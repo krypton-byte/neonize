@@ -1819,6 +1819,61 @@ func (x *UploadReturnFunction) GetError() string {
 	return ""
 }
 
+type SetGroupPhotoReturnFunction struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	PictureID *string `protobuf:"bytes,1,req,name=PictureID" json:"PictureID,omitempty"`
+	Error     *string `protobuf:"bytes,2,opt,name=Error" json:"Error,omitempty"`
+}
+
+func (x *SetGroupPhotoReturnFunction) Reset() {
+	*x = SetGroupPhotoReturnFunction{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[25]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SetGroupPhotoReturnFunction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetGroupPhotoReturnFunction) ProtoMessage() {}
+
+func (x *SetGroupPhotoReturnFunction) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[25]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetGroupPhotoReturnFunction.ProtoReflect.Descriptor instead.
+func (*SetGroupPhotoReturnFunction) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *SetGroupPhotoReturnFunction) GetPictureID() string {
+	if x != nil && x.PictureID != nil {
+		return *x.PictureID
+	}
+	return ""
+}
+
+func (x *SetGroupPhotoReturnFunction) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
 var File_Neonize_proto protoreflect.FileDescriptor
 
 var file_Neonize_proto_rawDesc = []byte{
@@ -2074,8 +2129,13 @@ var file_Neonize_proto_rawDesc = []byte{
 	0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x73,
 	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x0e, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x73,
 	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x42, 0x0b, 0x5a, 0x09, 0x2e,
-	0x2f, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x51, 0x0a, 0x1b, 0x53,
+	0x65, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x50, 0x68, 0x6f, 0x74, 0x6f, 0x52, 0x65, 0x74, 0x75,
+	0x72, 0x6e, 0x46, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1c, 0x0a, 0x09, 0x50, 0x69,
+	0x63, 0x74, 0x75, 0x72, 0x65, 0x49, 0x44, 0x18, 0x01, 0x20, 0x02, 0x28, 0x09, 0x52, 0x09, 0x50,
+	0x69, 0x63, 0x74, 0x75, 0x72, 0x65, 0x49, 0x44, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x72, 0x72, 0x6f,
+	0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x42, 0x0b,
+	0x5a, 0x09, 0x2e, 0x2f, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65,
 }
 
 var (
@@ -2091,7 +2151,7 @@ func file_Neonize_proto_rawDescGZIP() []byte {
 }
 
 var file_Neonize_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_Neonize_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
+var file_Neonize_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
 var file_Neonize_proto_goTypes = []interface{}{
 	(GroupInfo_MemberAddMode)(0),             // 0: neonize.GroupInfo.MemberAddMode
 	(*JID)(nil),                              // 1: neonize.JID
@@ -2119,6 +2179,7 @@ var file_Neonize_proto_goTypes = []interface{}{
 	(*GetGroupInviteLinkReturnFunction)(nil), // 23: neonize.GetGroupInviteLinkReturnFunction
 	(*DownloadReturnFunction)(nil),           // 24: neonize.DownloadReturnFunction
 	(*UploadReturnFunction)(nil),             // 25: neonize.UploadReturnFunction
+	(*SetGroupPhotoReturnFunction)(nil),      // 26: neonize.SetGroupPhotoReturnFunction
 }
 var file_Neonize_proto_depIdxs = []int32{
 	1,  // 0: neonize.MessageSource.Chat:type_name -> neonize.JID
@@ -2461,6 +2522,18 @@ func file_Neonize_proto_init() {
 				return nil
 			}
 		}
+		file_Neonize_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SetGroupPhotoReturnFunction); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -2468,7 +2541,7 @@ func file_Neonize_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_Neonize_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   25,
+			NumMessages:   26,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
