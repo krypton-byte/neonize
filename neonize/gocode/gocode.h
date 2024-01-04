@@ -114,7 +114,12 @@ extern struct BytesReturn GetGroupInviteLink(char* id, unsigned char* JIDByte, i
 extern struct BytesReturn JoinGroupWithLink(char* id, char* code);
 extern char* SendChatPresence(char* id, unsigned char* JIDByte, int JIDSize, int state, int media);
 extern struct BytesReturn BuildRevoke(char* id, unsigned char* ChatByte, int ChatSize, unsigned char* SenderByte, int SenderSize, char* messageID);
+extern struct BytesReturn BuildPollVoteCreation(char* id, char* name, unsigned char* options, int optionsSize, int selectableOptionCount);
+extern struct BytesReturn CreateNewsletter(char* id, unsigned char* createNewsletterParams, int size);
+extern char* FollowNewsletter(char* id, unsigned char* jid, int size);
+extern struct BytesReturn GetBlocklist(char* id);
 extern struct BytesReturn BuildPollVote(char* id, unsigned char* pollInfo, int pollInfoSize, unsigned char* optionName, int optionNameSize);
+extern struct BytesReturn BuildReaction(char* id, unsigned char* chat, int chatSize, unsigned char* sender, int senderSize, char* messageID, char* reaction);
 extern struct BytesReturn CreateGroup(char* id, unsigned char* createGroupByte, int createGroupSize);
 extern struct BytesReturn GetMe(char* id);
 

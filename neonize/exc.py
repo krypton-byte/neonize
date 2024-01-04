@@ -35,3 +35,15 @@ class GetUserInfoError(Exception):
 
 class SendMessageError(Exception):
     pass
+
+class BuildPollVoteError(Exception):
+    pass
+
+class CreateNewsletterError(Exception):
+    pass
+
+class FollowNewsletterError(Exception):
+    pass
+
+class GetBlocklistError(Exception):
+    pass

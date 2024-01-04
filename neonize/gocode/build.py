@@ -5,5 +5,6 @@ from pathlib import Path
 def build():
     subprocess.call(
         shlex.split("bash build.sh"),
-        cwd=Path(__file__).parent
+        cwd=Path(__file__).parent,
+        env=os.environ.update({'build_neonize': '1'})
     )

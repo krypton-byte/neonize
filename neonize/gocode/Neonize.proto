@@ -227,6 +227,14 @@ message BuildPollVoteReturnFunction {
     optional defproto.Message PollVote = 1;
     optional string Error = 2;
 }
+message CreateNewsLetterReturnFunction{
+    optional NewsletterMetadata NewsletterMetadata = 1;
+    optional string Error = 2;
+}
+message GetBlocklistReturnFunction{
+    optional Blocklist Blocklist = 1;
+    optional string Error = 2;
+}
 message ReqCreateGroup {
     required string name = 1;
     repeated JID Participants = 2;
@@ -256,4 +264,82 @@ message Message {
     required string UnavailableRequestID = 8;
     required int64 RetryCount = 9;
     optional NewsLetterMessageMeta NewsLetterMeta = 10;
+}
+message CreateNewsletterParams {
+    required string Name = 1;
+    required string Description = 2;
+    required bytes Picture = 3;
+}
+message WrappedNewsletterState {
+    enum NewsletterState {
+        ACTIVE = 1;
+        SUSPENDED = 2;
+        GEOSUSPENDED = 3;
+    }
+    required NewsletterState Type = 1;
+}
+message NewsletterText {
+    required string Text = 1;
+    required string ID = 2;
+    required int64 UpdateTime = 3;
+}
+message ProfilePictureInfo {
+    required string URL = 1;
+    required string ID = 2;
+    required string Type = 3;
+    required string DirectPath = 4;
+}
+message NewsletterReactionSettings {
+    enum NewsletterReactionsMode {
+        ALL = 1;
+        BASIC = 2;
+        NONE = 3;
+        BLOCKLIST = 4;
+    }
+    required NewsletterReactionsMode Value = 1;
+}
+message NewsletterSetting {
+    required NewsletterReactionSettings ReactionCodes = 1;
+}
+message NewsletterThreadMetadata {
+    enum NewsletterVerificationState {
+        VERIFIED = 1;
+        UNVERIFIED = 2;
+    }
+    required int64 CreationTime = 1;
+    required string InviteCode = 2;
+    required NewsletterText Name = 3;
+    required NewsletterText Description = 4;
+    required int64 SubscriberCount = 5;
+    required NewsletterVerificationState VerificationState = 6;
+    optional ProfilePictureInfo Picture = 7;
+    required ProfilePictureInfo Preview = 8;
+    required NewsletterSetting Settings = 9;
+
+}
+message NewsletterViewerMetadata {
+    enum NewsletterMuteState {
+        ON = 1;
+        OFF = 2;
+    }
+    enum NewsletterRole {
+        SUBSCRIBER = 1;
+        GUEST = 2;
+        ADMIN = 3;
+        OWNER = 4;
+    }
+    required NewsletterMuteState Mute= 1;
+    required NewsletterRole Role = 2;
+}
+message NewsletterMetadata {
+    required JID ID = 1;
+    required WrappedNewsletterState State = 2;
+    required NewsletterThreadMetadata ThreadMeta = 3;
+    optional NewsletterViewerMetadata ViewerMeta = 4;
+
+}
+
+message Blocklist {
+    required string DHash = 1;
+    repeated JID JIDs = 2;
 }

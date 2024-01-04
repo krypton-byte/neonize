@@ -892,6 +892,46 @@ class BuildPollVoteReturnFunction(google.protobuf.message.Message):
 global___BuildPollVoteReturnFunction = BuildPollVoteReturnFunction
 
 @typing_extensions.final
+class CreateNewsLetterReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NEWSLETTERMETADATA_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def NewsletterMetadata(self) -> global___NewsletterMetadata: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        NewsletterMetadata: global___NewsletterMetadata | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "NewsletterMetadata", b"NewsletterMetadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "NewsletterMetadata", b"NewsletterMetadata"]) -> None: ...
+
+global___CreateNewsLetterReturnFunction = CreateNewsLetterReturnFunction
+
+@typing_extensions.final
+class GetBlocklistReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    BLOCKLIST_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def Blocklist(self) -> global___Blocklist: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        Blocklist: global___Blocklist | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Blocklist", b"Blocklist", "Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Blocklist", b"Blocklist", "Error", b"Error"]) -> None: ...
+
+global___GetBlocklistReturnFunction = GetBlocklistReturnFunction
+
+@typing_extensions.final
 class ReqCreateGroup(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1019,3 +1059,309 @@ class Message(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["Info", b"Info", "IsEdit", b"IsEdit", "IsEphemeral", b"IsEphemeral", "IsViewOnce", b"IsViewOnce", "IsViewOnceV2", b"IsViewOnceV2", "Message", b"Message", "NewsLetterMeta", b"NewsLetterMeta", "RetryCount", b"RetryCount", "SourceWebMsg", b"SourceWebMsg", "UnavailableRequestID", b"UnavailableRequestID"]) -> None: ...
 
 global___Message = Message
+
+@typing_extensions.final
+class CreateNewsletterParams(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    DESCRIPTION_FIELD_NUMBER: builtins.int
+    PICTURE_FIELD_NUMBER: builtins.int
+    Name: builtins.str
+    Description: builtins.str
+    Picture: builtins.bytes
+    def __init__(
+        self,
+        *,
+        Name: builtins.str | None = ...,
+        Description: builtins.str | None = ...,
+        Picture: builtins.bytes | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Description", b"Description", "Name", b"Name", "Picture", b"Picture"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Description", b"Description", "Name", b"Name", "Picture", b"Picture"]) -> None: ...
+
+global___CreateNewsletterParams = CreateNewsletterParams
+
+@typing_extensions.final
+class WrappedNewsletterState(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _NewsletterState:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _NewsletterStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[WrappedNewsletterState._NewsletterState.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        ACTIVE: WrappedNewsletterState._NewsletterState.ValueType  # 1
+        SUSPENDED: WrappedNewsletterState._NewsletterState.ValueType  # 2
+        GEOSUSPENDED: WrappedNewsletterState._NewsletterState.ValueType  # 3
+
+    class NewsletterState(_NewsletterState, metaclass=_NewsletterStateEnumTypeWrapper): ...
+    ACTIVE: WrappedNewsletterState.NewsletterState.ValueType  # 1
+    SUSPENDED: WrappedNewsletterState.NewsletterState.ValueType  # 2
+    GEOSUSPENDED: WrappedNewsletterState.NewsletterState.ValueType  # 3
+
+    TYPE_FIELD_NUMBER: builtins.int
+    Type: global___WrappedNewsletterState.NewsletterState.ValueType
+    def __init__(
+        self,
+        *,
+        Type: global___WrappedNewsletterState.NewsletterState.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Type", b"Type"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Type", b"Type"]) -> None: ...
+
+global___WrappedNewsletterState = WrappedNewsletterState
+
+@typing_extensions.final
+class NewsletterText(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TEXT_FIELD_NUMBER: builtins.int
+    ID_FIELD_NUMBER: builtins.int
+    UPDATETIME_FIELD_NUMBER: builtins.int
+    Text: builtins.str
+    ID: builtins.str
+    UpdateTime: builtins.int
+    def __init__(
+        self,
+        *,
+        Text: builtins.str | None = ...,
+        ID: builtins.str | None = ...,
+        UpdateTime: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["ID", b"ID", "Text", b"Text", "UpdateTime", b"UpdateTime"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ID", b"ID", "Text", b"Text", "UpdateTime", b"UpdateTime"]) -> None: ...
+
+global___NewsletterText = NewsletterText
+
+@typing_extensions.final
+class ProfilePictureInfo(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    URL_FIELD_NUMBER: builtins.int
+    ID_FIELD_NUMBER: builtins.int
+    TYPE_FIELD_NUMBER: builtins.int
+    DIRECTPATH_FIELD_NUMBER: builtins.int
+    URL: builtins.str
+    ID: builtins.str
+    Type: builtins.str
+    DirectPath: builtins.str
+    def __init__(
+        self,
+        *,
+        URL: builtins.str | None = ...,
+        ID: builtins.str | None = ...,
+        Type: builtins.str | None = ...,
+        DirectPath: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["DirectPath", b"DirectPath", "ID", b"ID", "Type", b"Type", "URL", b"URL"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["DirectPath", b"DirectPath", "ID", b"ID", "Type", b"Type", "URL", b"URL"]) -> None: ...
+
+global___ProfilePictureInfo = ProfilePictureInfo
+
+@typing_extensions.final
+class NewsletterReactionSettings(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _NewsletterReactionsMode:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _NewsletterReactionsModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[NewsletterReactionSettings._NewsletterReactionsMode.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        ALL: NewsletterReactionSettings._NewsletterReactionsMode.ValueType  # 1
+        BASIC: NewsletterReactionSettings._NewsletterReactionsMode.ValueType  # 2
+        NONE: NewsletterReactionSettings._NewsletterReactionsMode.ValueType  # 3
+        BLOCKLIST: NewsletterReactionSettings._NewsletterReactionsMode.ValueType  # 4
+
+    class NewsletterReactionsMode(_NewsletterReactionsMode, metaclass=_NewsletterReactionsModeEnumTypeWrapper): ...
+    ALL: NewsletterReactionSettings.NewsletterReactionsMode.ValueType  # 1
+    BASIC: NewsletterReactionSettings.NewsletterReactionsMode.ValueType  # 2
+    NONE: NewsletterReactionSettings.NewsletterReactionsMode.ValueType  # 3
+    BLOCKLIST: NewsletterReactionSettings.NewsletterReactionsMode.ValueType  # 4
+
+    VALUE_FIELD_NUMBER: builtins.int
+    Value: global___NewsletterReactionSettings.NewsletterReactionsMode.ValueType
+    def __init__(
+        self,
+        *,
+        Value: global___NewsletterReactionSettings.NewsletterReactionsMode.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Value", b"Value"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Value", b"Value"]) -> None: ...
+
+global___NewsletterReactionSettings = NewsletterReactionSettings
+
+@typing_extensions.final
+class NewsletterSetting(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    REACTIONCODES_FIELD_NUMBER: builtins.int
+    @property
+    def ReactionCodes(self) -> global___NewsletterReactionSettings: ...
+    def __init__(
+        self,
+        *,
+        ReactionCodes: global___NewsletterReactionSettings | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["ReactionCodes", b"ReactionCodes"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ReactionCodes", b"ReactionCodes"]) -> None: ...
+
+global___NewsletterSetting = NewsletterSetting
+
+@typing_extensions.final
+class NewsletterThreadMetadata(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _NewsletterVerificationState:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _NewsletterVerificationStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[NewsletterThreadMetadata._NewsletterVerificationState.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        VERIFIED: NewsletterThreadMetadata._NewsletterVerificationState.ValueType  # 1
+        UNVERIFIED: NewsletterThreadMetadata._NewsletterVerificationState.ValueType  # 2
+
+    class NewsletterVerificationState(_NewsletterVerificationState, metaclass=_NewsletterVerificationStateEnumTypeWrapper): ...
+    VERIFIED: NewsletterThreadMetadata.NewsletterVerificationState.ValueType  # 1
+    UNVERIFIED: NewsletterThreadMetadata.NewsletterVerificationState.ValueType  # 2
+
+    CREATIONTIME_FIELD_NUMBER: builtins.int
+    INVITECODE_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    DESCRIPTION_FIELD_NUMBER: builtins.int
+    SUBSCRIBERCOUNT_FIELD_NUMBER: builtins.int
+    VERIFICATIONSTATE_FIELD_NUMBER: builtins.int
+    PICTURE_FIELD_NUMBER: builtins.int
+    PREVIEW_FIELD_NUMBER: builtins.int
+    SETTINGS_FIELD_NUMBER: builtins.int
+    CreationTime: builtins.int
+    InviteCode: builtins.str
+    @property
+    def Name(self) -> global___NewsletterText: ...
+    @property
+    def Description(self) -> global___NewsletterText: ...
+    SubscriberCount: builtins.int
+    VerificationState: global___NewsletterThreadMetadata.NewsletterVerificationState.ValueType
+    @property
+    def Picture(self) -> global___ProfilePictureInfo: ...
+    @property
+    def Preview(self) -> global___ProfilePictureInfo: ...
+    @property
+    def Settings(self) -> global___NewsletterSetting: ...
+    def __init__(
+        self,
+        *,
+        CreationTime: builtins.int | None = ...,
+        InviteCode: builtins.str | None = ...,
+        Name: global___NewsletterText | None = ...,
+        Description: global___NewsletterText | None = ...,
+        SubscriberCount: builtins.int | None = ...,
+        VerificationState: global___NewsletterThreadMetadata.NewsletterVerificationState.ValueType | None = ...,
+        Picture: global___ProfilePictureInfo | None = ...,
+        Preview: global___ProfilePictureInfo | None = ...,
+        Settings: global___NewsletterSetting | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["CreationTime", b"CreationTime", "Description", b"Description", "InviteCode", b"InviteCode", "Name", b"Name", "Picture", b"Picture", "Preview", b"Preview", "Settings", b"Settings", "SubscriberCount", b"SubscriberCount", "VerificationState", b"VerificationState"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["CreationTime", b"CreationTime", "Description", b"Description", "InviteCode", b"InviteCode", "Name", b"Name", "Picture", b"Picture", "Preview", b"Preview", "Settings", b"Settings", "SubscriberCount", b"SubscriberCount", "VerificationState", b"VerificationState"]) -> None: ...
+
+global___NewsletterThreadMetadata = NewsletterThreadMetadata
+
+@typing_extensions.final
+class NewsletterViewerMetadata(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _NewsletterMuteState:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _NewsletterMuteStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[NewsletterViewerMetadata._NewsletterMuteState.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        ON: NewsletterViewerMetadata._NewsletterMuteState.ValueType  # 1
+        OFF: NewsletterViewerMetadata._NewsletterMuteState.ValueType  # 2
+
+    class NewsletterMuteState(_NewsletterMuteState, metaclass=_NewsletterMuteStateEnumTypeWrapper): ...
+    ON: NewsletterViewerMetadata.NewsletterMuteState.ValueType  # 1
+    OFF: NewsletterViewerMetadata.NewsletterMuteState.ValueType  # 2
+
+    class _NewsletterRole:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _NewsletterRoleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[NewsletterViewerMetadata._NewsletterRole.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        SUBSCRIBER: NewsletterViewerMetadata._NewsletterRole.ValueType  # 1
+        GUEST: NewsletterViewerMetadata._NewsletterRole.ValueType  # 2
+        ADMIN: NewsletterViewerMetadata._NewsletterRole.ValueType  # 3
+        OWNER: NewsletterViewerMetadata._NewsletterRole.ValueType  # 4
+
+    class NewsletterRole(_NewsletterRole, metaclass=_NewsletterRoleEnumTypeWrapper): ...
+    SUBSCRIBER: NewsletterViewerMetadata.NewsletterRole.ValueType  # 1
+    GUEST: NewsletterViewerMetadata.NewsletterRole.ValueType  # 2
+    ADMIN: NewsletterViewerMetadata.NewsletterRole.ValueType  # 3
+    OWNER: NewsletterViewerMetadata.NewsletterRole.ValueType  # 4
+
+    MUTE_FIELD_NUMBER: builtins.int
+    ROLE_FIELD_NUMBER: builtins.int
+    Mute: global___NewsletterViewerMetadata.NewsletterMuteState.ValueType
+    Role: global___NewsletterViewerMetadata.NewsletterRole.ValueType
+    def __init__(
+        self,
+        *,
+        Mute: global___NewsletterViewerMetadata.NewsletterMuteState.ValueType | None = ...,
+        Role: global___NewsletterViewerMetadata.NewsletterRole.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Mute", b"Mute", "Role", b"Role"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Mute", b"Mute", "Role", b"Role"]) -> None: ...
+
+global___NewsletterViewerMetadata = NewsletterViewerMetadata
+
+@typing_extensions.final
+class NewsletterMetadata(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ID_FIELD_NUMBER: builtins.int
+    STATE_FIELD_NUMBER: builtins.int
+    THREADMETA_FIELD_NUMBER: builtins.int
+    VIEWERMETA_FIELD_NUMBER: builtins.int
+    @property
+    def ID(self) -> global___JID: ...
+    @property
+    def State(self) -> global___WrappedNewsletterState: ...
+    @property
+    def ThreadMeta(self) -> global___NewsletterThreadMetadata: ...
+    @property
+    def ViewerMeta(self) -> global___NewsletterViewerMetadata: ...
+    def __init__(
+        self,
+        *,
+        ID: global___JID | None = ...,
+        State: global___WrappedNewsletterState | None = ...,
+        ThreadMeta: global___NewsletterThreadMetadata | None = ...,
+        ViewerMeta: global___NewsletterViewerMetadata | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["ID", b"ID", "State", b"State", "ThreadMeta", b"ThreadMeta", "ViewerMeta", b"ViewerMeta"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ID", b"ID", "State", b"State", "ThreadMeta", b"ThreadMeta", "ViewerMeta", b"ViewerMeta"]) -> None: ...
+
+global___NewsletterMetadata = NewsletterMetadata
+
+@typing_extensions.final
+class Blocklist(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DHASH_FIELD_NUMBER: builtins.int
+    JIDS_FIELD_NUMBER: builtins.int
+    DHash: builtins.str
+    @property
+    def JIDs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def __init__(
+        self,
+        *,
+        DHash: builtins.str | None = ...,
+        JIDs: collections.abc.Iterable[global___JID] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["DHash", b"DHash"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["DHash", b"DHash", "JIDs", b"JIDs"]) -> None: ...
+
+global___Blocklist = Blocklist

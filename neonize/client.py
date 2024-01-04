@@ -29,7 +29,7 @@ from .proto.Neonize_pb2 import (
     GetUserInfoReturnFunction,
     GetUserInfoSingleReturnFunction,
     SendResponse,
-    Device
+    Device,
 )
 from .proto import Neonize_pb2 as neonize_proto
 from .proto.def_pb2 import Message, StickerMessage, ExtendedTextMessage, ContextInfo
@@ -51,12 +51,13 @@ from .exc import (
     CreateGroupError,
     IsOnWhatsAppError,
     GetUserInfoError,
-    SendMessageError
+    SendMessageError,
+    BuildPollVoteError,
+    CreateNewsletterError,
+    FollowNewsletterError,
+    GetBlocklistError
 )
-from .builder import (
-    build_edit,
-    build_revoke
-)
+from .builder import build_edit, build_revoke
 
 
 class NewClient:
@@ -111,13 +112,11 @@ class NewClient:
         """
         if self.messageCallback:
             bytes_data = ctypes.string_at(message_protobytes, message_size)
-            self.messageCallback(
-                self,neonize_proto.Message.FromString(bytes_data)
-            )
+            self.messageCallback(self, neonize_proto.Message.FromString(bytes_data))
 
     def send_message(
         self, to: JID, message: typing.Union[Message, str]
-    ) -> SendResponse: # edit commenct
+    ) -> SendResponse:  # edit commenct
         """_summary_
 
         :param to: _description_
@@ -127,7 +126,7 @@ class NewClient:
         :raises SendMessageError: _description_
         :return: _description_
         :rtype: SendResponse
-        """                
+        """
         to_bytes = to.SerializeToString()
         if isinstance(message, str):
             message_bytes = Message(conversation=message).SerializeToString()
@@ -141,7 +140,9 @@ class NewClient:
             raise SendMessageError(model.Error)
         return model.SendResponse
 
-    def edit_message(self, chat: JID, message_id: str, new_message: Message) -> SendResponse:
+    def edit_message(
+        self, chat: JID, message_id: str, new_message: Message
+    ) -> SendResponse:
         """_summary_
 
         :param chat: _description_
@@ -152,7 +153,7 @@ class NewClient:
         :type new_message: Message
         :return: _description_
         :rtype: SendResponse
-        """             
+        """
         return self.send_message(chat, build_edit(chat, message_id, new_message))
 
     def revoke_message(self, chat: JID, sender: JID, message_id: str) -> SendResponse:
@@ -166,10 +167,62 @@ class NewClient:
         :type message_id: str
         :return: _description_
         :rtype: SendResponse
-        """        
+        """
         return self.send_message(chat, self.build_revoke(chat, sender, message_id))
 
-    def build_revoke(self, chat: JID, sender: JID, message_id: str, with_go: bool = False) -> Message:
+    def build_poll_vote_creation(
+        self, name: str, options: List[str], selectable_count: int
+    ) -> Message:
+        options_buf = neonize_proto.ArrayString(data=options).SerializeToString()
+        return Message.FromString(
+            self.__client.BuildPollVoteCreation(
+                self.uuid,
+                name.encode(),
+                options_buf,
+                len(options_buf),
+                selectable_count,
+            ).get_bytes()
+        )
+
+    def build_poll_vote(
+        self, poll_info: MessageInfo, option_names: List[str]
+    ) -> Message:
+        option_names_proto = neonize_proto.ArrayString(
+            data=option_names
+        ).SerializeToString()
+        poll_info_proto = poll_info.SerializeToString()
+        resp = self.__client.BuildPollVote(
+            self.uuid,
+            poll_info_proto,
+            len(poll_info_proto),
+            option_names_proto,
+            len(option_names_proto),
+        ).get_bytes()
+        model = neonize_proto.BuildPollVoteReturnFunction.FromString(resp)
+        if model.Error:
+            raise BuildPollVoteError(model.Error)
+        return model.PollVote
+
+    def build_reaction(
+        self, chat: JID, sender: JID, message_id: str, reaction: str
+    ) -> Message:
+        sender_proto = sender.SerializeToString()
+        chat_proto = chat.SerializeToString()
+        return Message.FromString(
+            self.__client.BuildReaction(
+                self.uuid,
+                chat_proto,
+                len(chat_proto),
+                sender_proto,
+                len(sender_proto),
+                message_id.encode(),
+                reaction.encode(),
+            ).get_bytes()
+        )
+
+    def build_revoke(
+        self, chat: JID, sender: JID, message_id: str, with_go: bool = False
+    ) -> Message:
         """Builds a message to revoke a previous message.
 
         :param chat: The JID (Jabber Identifier) of the chat where the message should be revoked.
@@ -195,12 +248,8 @@ class NewClient:
                 ).get_bytes()
             )
         else:
-            return build_revoke(
-                chat,
-                sender,
-                message_id,
-                self.get_me().JID
-            )
+            return build_revoke(chat, sender, message_id, self.get_me().JID)
+
     def send_sticker(
         self,
         to: JID,
@@ -279,6 +328,7 @@ class NewClient:
         if upload_model.Error:
             raise UploadError(upload_model.Error)
         return upload_model.UploadResponse
+
     def download(
         self, message: Message, path: Optional[str] = None
     ) -> typing.Union[None, bytes]:
@@ -522,6 +572,33 @@ class NewClient:
             return CreateGroupError(model.Error)
         return model.GroupInfo
 
+    def create_newsletter(
+        self, name: str, description: str, picture: typing.Union[str, bytes]
+    ) -> neonize_proto.NewsletterMetadata:
+        protobuf = neonize_proto.CreateNewsletterParams(
+            Name=name,
+            Description=description,
+            Picture=get_bytes_from_name_or_url(picture),
+        ).SerializeToString()
+        model = neonize_proto.CreateNewsLetterReturnFunction.FromString(
+            self.__client.CreateNewsletter(
+                self.uuid, protobuf, len(protobuf)
+            ).get_bytes()
+        )
+        if model.Error:
+            raise CreateNewsletterError(model.Error)
+        return model.NewsletterMetadata
+    def follow_newsletter(self, jid: JID):
+        jidbyte = jid.SerializeToString()
+        err = self.__client.FollowNewsletter(self.uuid, jidbyte, len(jidbyte)).decode()
+        if err:
+            raise FollowNewsletterError(err)
+        return err
+    def get_blocklist(self) -> neonize_proto.Blocklist:
+        model = neonize_proto.GetBlocklistReturnFunction.FromString(self.__client.GetBlocklist(self.uuid).get_bytes())
+        if model.Error:
+            raise GetBlocklistError(model.Error)
+        return model.Blocklist
     def get_me(self) -> Device:
         return Device.FromString(self.__client.GetMe(self.uuid).get_bytes())
 

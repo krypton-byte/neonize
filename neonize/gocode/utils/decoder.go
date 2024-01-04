@@ -126,3 +126,11 @@ func DecodeMessageInfo(messageInfo *neonize.MessageInfo) *types.MessageInfo {
 	}
 	return model
 }
+
+func DecodeCreateNewsletterParams(createletterNewsParams *neonize.CreateNewsletterParams) whatsmeow.CreateNewsletterParams {
+	return whatsmeow.CreateNewsletterParams{
+		Name:        *createletterNewsParams.Name,
+		Description: *createletterNewsParams.Description,
+		Picture:     createletterNewsParams.Picture,
+	}
+}

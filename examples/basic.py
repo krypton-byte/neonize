@@ -15,7 +15,7 @@ from neonize.proto.def_pb2 import (
     Chat,
     VideoMessage,
 )
-from neonize.proto.Neonize_pb2 import Message
+from neonize.proto.Neonize_pb2 import Message, MessageInfo
 from neonize.utils import Jid2String, MediaType
 from neonize.utils import ChatPresence, ChatPresenceMedia
 import magic
@@ -27,8 +27,10 @@ def onQr(client: NewClient, data_qr: bytes):
 
 
 def onMessage(client: NewClient, message: Message):
-    client.send_message(message.Info.MessageSource.Chat, "hai gess")
-    
+    client.send_message(
+        message.Info.MessageSource.Chat,
+        client.get_blocklist().__str__()
+    )
 
 
 client = NewClient("krypton.so", messageCallback=onMessage, qrCallback=onQr)

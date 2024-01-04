@@ -26,9 +26,17 @@
 - [x] **Task 14:** Revoke Message
 - [x] **Task 15:** Create Group
 - [x] **Task 16:** Check Phone Number
-- [x] **Task 17:** Get Info User
+- [x] **Task 17:** Get User Info
 - [x] **Task 18:** Send Presence
 - [x] **Task 19:** IsConnected/IsLoggedIn
+- [x] **Task 20:** Poll Vote
+- [x] **Task 21:** Create Poll Message
+- [x] **Task 22:** React Message
+- [x] **Task 23:** Create Newsletter [no tested]
+- [x] **Task 24:** Get Blocklist
+
+
+
 
 
 

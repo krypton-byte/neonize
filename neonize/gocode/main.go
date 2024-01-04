@@ -465,6 +465,81 @@ func BuildRevoke(id *C.char, ChatByte *C.uchar, ChatSize C.int, SenderByte *C.uc
 	return ReturnBytes(messageByte)
 }
 
+//export BuildPollVoteCreation
+func BuildPollVoteCreation(id *C.char, name *C.char, options *C.uchar, optionsSize C.int, selectableOptionCount C.int) C.struct_BytesReturn {
+	var options_proto neonize.ArrayString
+	options_array := []string{}
+	option_byte := getByteByAddr(options, optionsSize)
+	err := proto.Unmarshal(option_byte, &options_proto)
+	if err != nil {
+		panic(err)
+	}
+	for _, option := range options_proto.Data {
+		options_array = append(options_array, option)
+	}
+	msg := clients[C.GoString(id)].BuildPollCreation(C.GoString(name), options_array, int(selectableOptionCount))
+	return_, err_marshal := proto.Marshal(msg)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(return_)
+}
+
+//export CreateNewsletter
+func CreateNewsletter(id *C.char, createNewsletterParams *C.uchar, size C.int) C.struct_BytesReturn {
+	var neonizeParams neonize.CreateNewsletterParams
+	params_byte := getByteByAddr(createNewsletterParams, size)
+	err := proto.Unmarshal(params_byte, &neonizeParams)
+	if err != nil {
+		panic(err)
+	}
+	return_ := neonize.CreateNewsLetterReturnFunction{}
+	metadata, err_metadata := clients[C.GoString(id)].CreateNewsletter(utils.DecodeCreateNewsletterParams(&neonizeParams))
+	if err_metadata != nil {
+		return_.Error = proto.String(err_metadata.Error())
+	}
+	if metadata != nil {
+		return_.NewsletterMetadata = utils.EncodeNewsLetterMessageMetadata(*metadata)
+	}
+	retrun_buf, err_marshal := proto.Marshal(&return_)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(retrun_buf)
+}
+
+//export FollowNewsletter
+func FollowNewsletter(id *C.char, jid *C.uchar, size C.int) *C.char {
+	var JID neonize.JID
+	jid_byte := getByteByAddr(jid, size)
+	unmarshal_err := proto.Unmarshal(jid_byte, &JID)
+	if unmarshal_err != nil {
+		panic(unmarshal_err)
+	}
+	err := clients[C.GoString(id)].FollowNewsletter(utils.DecodeJidProto(&JID))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString(err.Error())
+}
+
+//export GetBlocklist
+func GetBlocklist(id *C.char) C.struct_BytesReturn {
+	blocklist, err := clients[C.GoString(id)].GetBlocklist()
+	return_ := neonize.GetBlocklistReturnFunction{}
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+	}
+	if blocklist != nil {
+		return_.Blocklist = utils.EncodeBlocklist(blocklist)
+	}
+	return_buf, err_marshal := proto.Marshal(&return_)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(return_buf)
+}
+
 //export BuildPollVote
 func BuildPollVote(id *C.char, pollInfo *C.uchar, pollInfoSize C.int, optionName *C.uchar, optionNameSize C.int) C.struct_BytesReturn {
 	var msgInfo neonize.MessageInfo
@@ -476,11 +551,6 @@ func BuildPollVote(id *C.char, pollInfo *C.uchar, pollInfoSize C.int, optionName
 	err_2 := proto.Unmarshal(getByteByAddr(optionName, optionNameSize), &optionNames)
 	if err_2 != nil {
 		panic(err_2)
-	}
-	pollInfoByte := getByteByAddr(pollInfo, pollInfoSize)
-	err_3 := proto.Unmarshal(pollInfoByte, &msgInfo)
-	if err_3 != nil {
-		panic(err_3)
 	}
 	optionsname := []string{}
 	for _, option := range optionNames.Data {
@@ -499,6 +569,31 @@ func BuildPollVote(id *C.char, pollInfo *C.uchar, pollInfoSize C.int, optionName
 		panic(err_decode)
 	}
 	return ReturnBytes(return_buf)
+}
+
+//export BuildReaction
+func BuildReaction(id *C.char, chat *C.uchar, chatSize C.int, sender *C.uchar, senderSize C.int, messageID *C.char, reaction *C.char) C.struct_BytesReturn {
+	var Chat neonize.JID
+	var Sender neonize.JID
+	chat_err := proto.Unmarshal(getByteByAddr(chat, chatSize), &Chat)
+	if chat_err != nil {
+		panic(chat_err)
+	}
+	sender_err := proto.Unmarshal(getByteByAddr(sender, senderSize), &Sender)
+	if sender_err != nil {
+		panic(sender_err)
+	}
+	msg := clients[C.GoString(id)].BuildReaction(
+		utils.DecodeJidProto(&Chat),
+		utils.DecodeJidProto(&Sender),
+		C.GoString(messageID),
+		C.GoString(reaction),
+	)
+	return_, err := proto.Marshal(msg)
+	if err != nil {
+		panic(err)
+	}
+	return ReturnBytes(return_)
 }
 
 //export CreateGroup

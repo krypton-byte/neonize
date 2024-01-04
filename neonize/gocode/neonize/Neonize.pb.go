@@ -74,6 +74,301 @@ func (GroupInfo_MemberAddMode) EnumDescriptor() ([]byte, []int) {
 	return file_Neonize_proto_rawDescGZIP(), []int{20, 0}
 }
 
+type WrappedNewsletterState_NewsletterState int32
+
+const (
+	WrappedNewsletterState_ACTIVE       WrappedNewsletterState_NewsletterState = 1
+	WrappedNewsletterState_SUSPENDED    WrappedNewsletterState_NewsletterState = 2
+	WrappedNewsletterState_GEOSUSPENDED WrappedNewsletterState_NewsletterState = 3
+)
+
+// Enum value maps for WrappedNewsletterState_NewsletterState.
+var (
+	WrappedNewsletterState_NewsletterState_name = map[int32]string{
+		1: "ACTIVE",
+		2: "SUSPENDED",
+		3: "GEOSUSPENDED",
+	}
+	WrappedNewsletterState_NewsletterState_value = map[string]int32{
+		"ACTIVE":       1,
+		"SUSPENDED":    2,
+		"GEOSUSPENDED": 3,
+	}
+)
+
+func (x WrappedNewsletterState_NewsletterState) Enum() *WrappedNewsletterState_NewsletterState {
+	p := new(WrappedNewsletterState_NewsletterState)
+	*p = x
+	return p
+}
+
+func (x WrappedNewsletterState_NewsletterState) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (WrappedNewsletterState_NewsletterState) Descriptor() protoreflect.EnumDescriptor {
+	return file_Neonize_proto_enumTypes[1].Descriptor()
+}
+
+func (WrappedNewsletterState_NewsletterState) Type() protoreflect.EnumType {
+	return &file_Neonize_proto_enumTypes[1]
+}
+
+func (x WrappedNewsletterState_NewsletterState) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Do not use.
+func (x *WrappedNewsletterState_NewsletterState) UnmarshalJSON(b []byte) error {
+	num, err := protoimpl.X.UnmarshalJSONEnum(x.Descriptor(), b)
+	if err != nil {
+		return err
+	}
+	*x = WrappedNewsletterState_NewsletterState(num)
+	return nil
+}
+
+// Deprecated: Use WrappedNewsletterState_NewsletterState.Descriptor instead.
+func (WrappedNewsletterState_NewsletterState) EnumDescriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{42, 0}
+}
+
+type NewsletterReactionSettings_NewsletterReactionsMode int32
+
+const (
+	NewsletterReactionSettings_ALL       NewsletterReactionSettings_NewsletterReactionsMode = 1
+	NewsletterReactionSettings_BASIC     NewsletterReactionSettings_NewsletterReactionsMode = 2
+	NewsletterReactionSettings_NONE      NewsletterReactionSettings_NewsletterReactionsMode = 3
+	NewsletterReactionSettings_BLOCKLIST NewsletterReactionSettings_NewsletterReactionsMode = 4
+)
+
+// Enum value maps for NewsletterReactionSettings_NewsletterReactionsMode.
+var (
+	NewsletterReactionSettings_NewsletterReactionsMode_name = map[int32]string{
+		1: "ALL",
+		2: "BASIC",
+		3: "NONE",
+		4: "BLOCKLIST",
+	}
+	NewsletterReactionSettings_NewsletterReactionsMode_value = map[string]int32{
+		"ALL":       1,
+		"BASIC":     2,
+		"NONE":      3,
+		"BLOCKLIST": 4,
+	}
+)
+
+func (x NewsletterReactionSettings_NewsletterReactionsMode) Enum() *NewsletterReactionSettings_NewsletterReactionsMode {
+	p := new(NewsletterReactionSettings_NewsletterReactionsMode)
+	*p = x
+	return p
+}
+
+func (x NewsletterReactionSettings_NewsletterReactionsMode) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (NewsletterReactionSettings_NewsletterReactionsMode) Descriptor() protoreflect.EnumDescriptor {
+	return file_Neonize_proto_enumTypes[2].Descriptor()
+}
+
+func (NewsletterReactionSettings_NewsletterReactionsMode) Type() protoreflect.EnumType {
+	return &file_Neonize_proto_enumTypes[2]
+}
+
+func (x NewsletterReactionSettings_NewsletterReactionsMode) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Do not use.
+func (x *NewsletterReactionSettings_NewsletterReactionsMode) UnmarshalJSON(b []byte) error {
+	num, err := protoimpl.X.UnmarshalJSONEnum(x.Descriptor(), b)
+	if err != nil {
+		return err
+	}
+	*x = NewsletterReactionSettings_NewsletterReactionsMode(num)
+	return nil
+}
+
+// Deprecated: Use NewsletterReactionSettings_NewsletterReactionsMode.Descriptor instead.
+func (NewsletterReactionSettings_NewsletterReactionsMode) EnumDescriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{45, 0}
+}
+
+type NewsletterThreadMetadata_NewsletterVerificationState int32
+
+const (
+	NewsletterThreadMetadata_VERIFIED   NewsletterThreadMetadata_NewsletterVerificationState = 1
+	NewsletterThreadMetadata_UNVERIFIED NewsletterThreadMetadata_NewsletterVerificationState = 2
+)
+
+// Enum value maps for NewsletterThreadMetadata_NewsletterVerificationState.
+var (
+	NewsletterThreadMetadata_NewsletterVerificationState_name = map[int32]string{
+		1: "VERIFIED",
+		2: "UNVERIFIED",
+	}
+	NewsletterThreadMetadata_NewsletterVerificationState_value = map[string]int32{
+		"VERIFIED":   1,
+		"UNVERIFIED": 2,
+	}
+)
+
+func (x NewsletterThreadMetadata_NewsletterVerificationState) Enum() *NewsletterThreadMetadata_NewsletterVerificationState {
+	p := new(NewsletterThreadMetadata_NewsletterVerificationState)
+	*p = x
+	return p
+}
+
+func (x NewsletterThreadMetadata_NewsletterVerificationState) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (NewsletterThreadMetadata_NewsletterVerificationState) Descriptor() protoreflect.EnumDescriptor {
+	return file_Neonize_proto_enumTypes[3].Descriptor()
+}
+
+func (NewsletterThreadMetadata_NewsletterVerificationState) Type() protoreflect.EnumType {
+	return &file_Neonize_proto_enumTypes[3]
+}
+
+func (x NewsletterThreadMetadata_NewsletterVerificationState) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Do not use.
+func (x *NewsletterThreadMetadata_NewsletterVerificationState) UnmarshalJSON(b []byte) error {
+	num, err := protoimpl.X.UnmarshalJSONEnum(x.Descriptor(), b)
+	if err != nil {
+		return err
+	}
+	*x = NewsletterThreadMetadata_NewsletterVerificationState(num)
+	return nil
+}
+
+// Deprecated: Use NewsletterThreadMetadata_NewsletterVerificationState.Descriptor instead.
+func (NewsletterThreadMetadata_NewsletterVerificationState) EnumDescriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{47, 0}
+}
+
+type NewsletterViewerMetadata_NewsletterMuteState int32
+
+const (
+	NewsletterViewerMetadata_ON  NewsletterViewerMetadata_NewsletterMuteState = 1
+	NewsletterViewerMetadata_OFF NewsletterViewerMetadata_NewsletterMuteState = 2
+)
+
+// Enum value maps for NewsletterViewerMetadata_NewsletterMuteState.
+var (
+	NewsletterViewerMetadata_NewsletterMuteState_name = map[int32]string{
+		1: "ON",
+		2: "OFF",
+	}
+	NewsletterViewerMetadata_NewsletterMuteState_value = map[string]int32{
+		"ON":  1,
+		"OFF": 2,
+	}
+)
+
+func (x NewsletterViewerMetadata_NewsletterMuteState) Enum() *NewsletterViewerMetadata_NewsletterMuteState {
+	p := new(NewsletterViewerMetadata_NewsletterMuteState)
+	*p = x
+	return p
+}
+
+func (x NewsletterViewerMetadata_NewsletterMuteState) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (NewsletterViewerMetadata_NewsletterMuteState) Descriptor() protoreflect.EnumDescriptor {
+	return file_Neonize_proto_enumTypes[4].Descriptor()
+}
+
+func (NewsletterViewerMetadata_NewsletterMuteState) Type() protoreflect.EnumType {
+	return &file_Neonize_proto_enumTypes[4]
+}
+
+func (x NewsletterViewerMetadata_NewsletterMuteState) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Do not use.
+func (x *NewsletterViewerMetadata_NewsletterMuteState) UnmarshalJSON(b []byte) error {
+	num, err := protoimpl.X.UnmarshalJSONEnum(x.Descriptor(), b)
+	if err != nil {
+		return err
+	}
+	*x = NewsletterViewerMetadata_NewsletterMuteState(num)
+	return nil
+}
+
+// Deprecated: Use NewsletterViewerMetadata_NewsletterMuteState.Descriptor instead.
+func (NewsletterViewerMetadata_NewsletterMuteState) EnumDescriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{48, 0}
+}
+
+type NewsletterViewerMetadata_NewsletterRole int32
+
+const (
+	NewsletterViewerMetadata_SUBSCRIBER NewsletterViewerMetadata_NewsletterRole = 1
+	NewsletterViewerMetadata_GUEST      NewsletterViewerMetadata_NewsletterRole = 2
+	NewsletterViewerMetadata_ADMIN      NewsletterViewerMetadata_NewsletterRole = 3
+	NewsletterViewerMetadata_OWNER      NewsletterViewerMetadata_NewsletterRole = 4
+)
+
+// Enum value maps for NewsletterViewerMetadata_NewsletterRole.
+var (
+	NewsletterViewerMetadata_NewsletterRole_name = map[int32]string{
+		1: "SUBSCRIBER",
+		2: "GUEST",
+		3: "ADMIN",
+		4: "OWNER",
+	}
+	NewsletterViewerMetadata_NewsletterRole_value = map[string]int32{
+		"SUBSCRIBER": 1,
+		"GUEST":      2,
+		"ADMIN":      3,
+		"OWNER":      4,
+	}
+)
+
+func (x NewsletterViewerMetadata_NewsletterRole) Enum() *NewsletterViewerMetadata_NewsletterRole {
+	p := new(NewsletterViewerMetadata_NewsletterRole)
+	*p = x
+	return p
+}
+
+func (x NewsletterViewerMetadata_NewsletterRole) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (NewsletterViewerMetadata_NewsletterRole) Descriptor() protoreflect.EnumDescriptor {
+	return file_Neonize_proto_enumTypes[5].Descriptor()
+}
+
+func (NewsletterViewerMetadata_NewsletterRole) Type() protoreflect.EnumType {
+	return &file_Neonize_proto_enumTypes[5]
+}
+
+func (x NewsletterViewerMetadata_NewsletterRole) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Do not use.
+func (x *NewsletterViewerMetadata_NewsletterRole) UnmarshalJSON(b []byte) error {
+	num, err := protoimpl.X.UnmarshalJSONEnum(x.Descriptor(), b)
+	if err != nil {
+		return err
+	}
+	*x = NewsletterViewerMetadata_NewsletterRole(num)
+	return nil
+}
+
+// Deprecated: Use NewsletterViewerMetadata_NewsletterRole.Descriptor instead.
+func (NewsletterViewerMetadata_NewsletterRole) EnumDescriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{48, 1}
+}
+
 // types
 type JID struct {
 	state         protoimpl.MessageState
@@ -2388,6 +2683,116 @@ func (x *BuildPollVoteReturnFunction) GetError() string {
 	return ""
 }
 
+type CreateNewsLetterReturnFunction struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	NewsletterMetadata *NewsletterMetadata `protobuf:"bytes,1,opt,name=NewsletterMetadata" json:"NewsletterMetadata,omitempty"`
+	Error              *string             `protobuf:"bytes,2,opt,name=Error" json:"Error,omitempty"`
+}
+
+func (x *CreateNewsLetterReturnFunction) Reset() {
+	*x = CreateNewsLetterReturnFunction{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[34]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateNewsLetterReturnFunction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateNewsLetterReturnFunction) ProtoMessage() {}
+
+func (x *CreateNewsLetterReturnFunction) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[34]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateNewsLetterReturnFunction.ProtoReflect.Descriptor instead.
+func (*CreateNewsLetterReturnFunction) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{34}
+}
+
+func (x *CreateNewsLetterReturnFunction) GetNewsletterMetadata() *NewsletterMetadata {
+	if x != nil {
+		return x.NewsletterMetadata
+	}
+	return nil
+}
+
+func (x *CreateNewsLetterReturnFunction) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
+type GetBlocklistReturnFunction struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Blocklist *Blocklist `protobuf:"bytes,1,opt,name=Blocklist" json:"Blocklist,omitempty"`
+	Error     *string    `protobuf:"bytes,2,opt,name=Error" json:"Error,omitempty"`
+}
+
+func (x *GetBlocklistReturnFunction) Reset() {
+	*x = GetBlocklistReturnFunction{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[35]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetBlocklistReturnFunction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetBlocklistReturnFunction) ProtoMessage() {}
+
+func (x *GetBlocklistReturnFunction) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[35]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetBlocklistReturnFunction.ProtoReflect.Descriptor instead.
+func (*GetBlocklistReturnFunction) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *GetBlocklistReturnFunction) GetBlocklist() *Blocklist {
+	if x != nil {
+		return x.Blocklist
+	}
+	return nil
+}
+
+func (x *GetBlocklistReturnFunction) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
 type ReqCreateGroup struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2403,7 +2808,7 @@ type ReqCreateGroup struct {
 func (x *ReqCreateGroup) Reset() {
 	*x = ReqCreateGroup{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_Neonize_proto_msgTypes[34]
+		mi := &file_Neonize_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2416,7 +2821,7 @@ func (x *ReqCreateGroup) String() string {
 func (*ReqCreateGroup) ProtoMessage() {}
 
 func (x *ReqCreateGroup) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[34]
+	mi := &file_Neonize_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2429,7 +2834,7 @@ func (x *ReqCreateGroup) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReqCreateGroup.ProtoReflect.Descriptor instead.
 func (*ReqCreateGroup) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{34}
+	return file_Neonize_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *ReqCreateGroup) GetName() string {
@@ -2478,7 +2883,7 @@ type JIDArray struct {
 func (x *JIDArray) Reset() {
 	*x = JIDArray{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_Neonize_proto_msgTypes[35]
+		mi := &file_Neonize_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2491,7 +2896,7 @@ func (x *JIDArray) String() string {
 func (*JIDArray) ProtoMessage() {}
 
 func (x *JIDArray) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[35]
+	mi := &file_Neonize_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2504,7 +2909,7 @@ func (x *JIDArray) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use JIDArray.ProtoReflect.Descriptor instead.
 func (*JIDArray) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{35}
+	return file_Neonize_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *JIDArray) GetJIDS() []*JID {
@@ -2525,7 +2930,7 @@ type ArrayString struct {
 func (x *ArrayString) Reset() {
 	*x = ArrayString{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_Neonize_proto_msgTypes[36]
+		mi := &file_Neonize_proto_msgTypes[38]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2538,7 +2943,7 @@ func (x *ArrayString) String() string {
 func (*ArrayString) ProtoMessage() {}
 
 func (x *ArrayString) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[36]
+	mi := &file_Neonize_proto_msgTypes[38]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2551,7 +2956,7 @@ func (x *ArrayString) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ArrayString.ProtoReflect.Descriptor instead.
 func (*ArrayString) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{36}
+	return file_Neonize_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *ArrayString) GetData() []string {
@@ -2573,7 +2978,7 @@ type NewsLetterMessageMeta struct {
 func (x *NewsLetterMessageMeta) Reset() {
 	*x = NewsLetterMessageMeta{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_Neonize_proto_msgTypes[37]
+		mi := &file_Neonize_proto_msgTypes[39]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2586,7 +2991,7 @@ func (x *NewsLetterMessageMeta) String() string {
 func (*NewsLetterMessageMeta) ProtoMessage() {}
 
 func (x *NewsLetterMessageMeta) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[37]
+	mi := &file_Neonize_proto_msgTypes[39]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2599,7 +3004,7 @@ func (x *NewsLetterMessageMeta) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NewsLetterMessageMeta.ProtoReflect.Descriptor instead.
 func (*NewsLetterMessageMeta) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{37}
+	return file_Neonize_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *NewsLetterMessageMeta) GetEditTS() int64 {
@@ -2636,7 +3041,7 @@ type Message struct {
 func (x *Message) Reset() {
 	*x = Message{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_Neonize_proto_msgTypes[38]
+		mi := &file_Neonize_proto_msgTypes[40]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2649,7 +3054,7 @@ func (x *Message) String() string {
 func (*Message) ProtoMessage() {}
 
 func (x *Message) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[38]
+	mi := &file_Neonize_proto_msgTypes[40]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2662,7 +3067,7 @@ func (x *Message) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Message.ProtoReflect.Descriptor instead.
 func (*Message) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{38}
+	return file_Neonize_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *Message) GetInfo() *MessageInfo {
@@ -2731,6 +3136,636 @@ func (x *Message) GetRetryCount() int64 {
 func (x *Message) GetNewsLetterMeta() *NewsLetterMessageMeta {
 	if x != nil {
 		return x.NewsLetterMeta
+	}
+	return nil
+}
+
+type CreateNewsletterParams struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name        *string `protobuf:"bytes,1,req,name=Name" json:"Name,omitempty"`
+	Description *string `protobuf:"bytes,2,req,name=Description" json:"Description,omitempty"`
+	Picture     []byte  `protobuf:"bytes,3,req,name=Picture" json:"Picture,omitempty"`
+}
+
+func (x *CreateNewsletterParams) Reset() {
+	*x = CreateNewsletterParams{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[41]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateNewsletterParams) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateNewsletterParams) ProtoMessage() {}
+
+func (x *CreateNewsletterParams) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[41]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateNewsletterParams.ProtoReflect.Descriptor instead.
+func (*CreateNewsletterParams) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{41}
+}
+
+func (x *CreateNewsletterParams) GetName() string {
+	if x != nil && x.Name != nil {
+		return *x.Name
+	}
+	return ""
+}
+
+func (x *CreateNewsletterParams) GetDescription() string {
+	if x != nil && x.Description != nil {
+		return *x.Description
+	}
+	return ""
+}
+
+func (x *CreateNewsletterParams) GetPicture() []byte {
+	if x != nil {
+		return x.Picture
+	}
+	return nil
+}
+
+type WrappedNewsletterState struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Type *WrappedNewsletterState_NewsletterState `protobuf:"varint,1,req,name=Type,enum=neonize.WrappedNewsletterState_NewsletterState" json:"Type,omitempty"`
+}
+
+func (x *WrappedNewsletterState) Reset() {
+	*x = WrappedNewsletterState{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[42]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *WrappedNewsletterState) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WrappedNewsletterState) ProtoMessage() {}
+
+func (x *WrappedNewsletterState) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[42]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WrappedNewsletterState.ProtoReflect.Descriptor instead.
+func (*WrappedNewsletterState) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *WrappedNewsletterState) GetType() WrappedNewsletterState_NewsletterState {
+	if x != nil && x.Type != nil {
+		return *x.Type
+	}
+	return WrappedNewsletterState_ACTIVE
+}
+
+type NewsletterText struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Text       *string `protobuf:"bytes,1,req,name=Text" json:"Text,omitempty"`
+	ID         *string `protobuf:"bytes,2,req,name=ID" json:"ID,omitempty"`
+	UpdateTime *int64  `protobuf:"varint,3,req,name=UpdateTime" json:"UpdateTime,omitempty"`
+}
+
+func (x *NewsletterText) Reset() {
+	*x = NewsletterText{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[43]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NewsletterText) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NewsletterText) ProtoMessage() {}
+
+func (x *NewsletterText) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[43]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NewsletterText.ProtoReflect.Descriptor instead.
+func (*NewsletterText) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *NewsletterText) GetText() string {
+	if x != nil && x.Text != nil {
+		return *x.Text
+	}
+	return ""
+}
+
+func (x *NewsletterText) GetID() string {
+	if x != nil && x.ID != nil {
+		return *x.ID
+	}
+	return ""
+}
+
+func (x *NewsletterText) GetUpdateTime() int64 {
+	if x != nil && x.UpdateTime != nil {
+		return *x.UpdateTime
+	}
+	return 0
+}
+
+type ProfilePictureInfo struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	URL        *string `protobuf:"bytes,1,req,name=URL" json:"URL,omitempty"`
+	ID         *string `protobuf:"bytes,2,req,name=ID" json:"ID,omitempty"`
+	Type       *string `protobuf:"bytes,3,req,name=Type" json:"Type,omitempty"`
+	DirectPath *string `protobuf:"bytes,4,req,name=DirectPath" json:"DirectPath,omitempty"`
+}
+
+func (x *ProfilePictureInfo) Reset() {
+	*x = ProfilePictureInfo{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[44]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ProfilePictureInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProfilePictureInfo) ProtoMessage() {}
+
+func (x *ProfilePictureInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[44]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProfilePictureInfo.ProtoReflect.Descriptor instead.
+func (*ProfilePictureInfo) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *ProfilePictureInfo) GetURL() string {
+	if x != nil && x.URL != nil {
+		return *x.URL
+	}
+	return ""
+}
+
+func (x *ProfilePictureInfo) GetID() string {
+	if x != nil && x.ID != nil {
+		return *x.ID
+	}
+	return ""
+}
+
+func (x *ProfilePictureInfo) GetType() string {
+	if x != nil && x.Type != nil {
+		return *x.Type
+	}
+	return ""
+}
+
+func (x *ProfilePictureInfo) GetDirectPath() string {
+	if x != nil && x.DirectPath != nil {
+		return *x.DirectPath
+	}
+	return ""
+}
+
+type NewsletterReactionSettings struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Value *NewsletterReactionSettings_NewsletterReactionsMode `protobuf:"varint,1,req,name=Value,enum=neonize.NewsletterReactionSettings_NewsletterReactionsMode" json:"Value,omitempty"`
+}
+
+func (x *NewsletterReactionSettings) Reset() {
+	*x = NewsletterReactionSettings{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[45]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NewsletterReactionSettings) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NewsletterReactionSettings) ProtoMessage() {}
+
+func (x *NewsletterReactionSettings) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[45]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NewsletterReactionSettings.ProtoReflect.Descriptor instead.
+func (*NewsletterReactionSettings) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{45}
+}
+
+func (x *NewsletterReactionSettings) GetValue() NewsletterReactionSettings_NewsletterReactionsMode {
+	if x != nil && x.Value != nil {
+		return *x.Value
+	}
+	return NewsletterReactionSettings_ALL
+}
+
+type NewsletterSetting struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ReactionCodes *NewsletterReactionSettings `protobuf:"bytes,1,req,name=ReactionCodes" json:"ReactionCodes,omitempty"`
+}
+
+func (x *NewsletterSetting) Reset() {
+	*x = NewsletterSetting{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[46]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NewsletterSetting) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NewsletterSetting) ProtoMessage() {}
+
+func (x *NewsletterSetting) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[46]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NewsletterSetting.ProtoReflect.Descriptor instead.
+func (*NewsletterSetting) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{46}
+}
+
+func (x *NewsletterSetting) GetReactionCodes() *NewsletterReactionSettings {
+	if x != nil {
+		return x.ReactionCodes
+	}
+	return nil
+}
+
+type NewsletterThreadMetadata struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	CreationTime      *int64                                                `protobuf:"varint,1,req,name=CreationTime" json:"CreationTime,omitempty"`
+	InviteCode        *string                                               `protobuf:"bytes,2,req,name=InviteCode" json:"InviteCode,omitempty"`
+	Name              *NewsletterText                                       `protobuf:"bytes,3,req,name=Name" json:"Name,omitempty"`
+	Description       *NewsletterText                                       `protobuf:"bytes,4,req,name=Description" json:"Description,omitempty"`
+	SubscriberCount   *int64                                                `protobuf:"varint,5,req,name=SubscriberCount" json:"SubscriberCount,omitempty"`
+	VerificationState *NewsletterThreadMetadata_NewsletterVerificationState `protobuf:"varint,6,req,name=VerificationState,enum=neonize.NewsletterThreadMetadata_NewsletterVerificationState" json:"VerificationState,omitempty"`
+	Picture           *ProfilePictureInfo                                   `protobuf:"bytes,7,opt,name=Picture" json:"Picture,omitempty"`
+	Preview           *ProfilePictureInfo                                   `protobuf:"bytes,8,req,name=Preview" json:"Preview,omitempty"`
+	Settings          *NewsletterSetting                                    `protobuf:"bytes,9,req,name=Settings" json:"Settings,omitempty"`
+}
+
+func (x *NewsletterThreadMetadata) Reset() {
+	*x = NewsletterThreadMetadata{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[47]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NewsletterThreadMetadata) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NewsletterThreadMetadata) ProtoMessage() {}
+
+func (x *NewsletterThreadMetadata) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[47]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NewsletterThreadMetadata.ProtoReflect.Descriptor instead.
+func (*NewsletterThreadMetadata) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{47}
+}
+
+func (x *NewsletterThreadMetadata) GetCreationTime() int64 {
+	if x != nil && x.CreationTime != nil {
+		return *x.CreationTime
+	}
+	return 0
+}
+
+func (x *NewsletterThreadMetadata) GetInviteCode() string {
+	if x != nil && x.InviteCode != nil {
+		return *x.InviteCode
+	}
+	return ""
+}
+
+func (x *NewsletterThreadMetadata) GetName() *NewsletterText {
+	if x != nil {
+		return x.Name
+	}
+	return nil
+}
+
+func (x *NewsletterThreadMetadata) GetDescription() *NewsletterText {
+	if x != nil {
+		return x.Description
+	}
+	return nil
+}
+
+func (x *NewsletterThreadMetadata) GetSubscriberCount() int64 {
+	if x != nil && x.SubscriberCount != nil {
+		return *x.SubscriberCount
+	}
+	return 0
+}
+
+func (x *NewsletterThreadMetadata) GetVerificationState() NewsletterThreadMetadata_NewsletterVerificationState {
+	if x != nil && x.VerificationState != nil {
+		return *x.VerificationState
+	}
+	return NewsletterThreadMetadata_VERIFIED
+}
+
+func (x *NewsletterThreadMetadata) GetPicture() *ProfilePictureInfo {
+	if x != nil {
+		return x.Picture
+	}
+	return nil
+}
+
+func (x *NewsletterThreadMetadata) GetPreview() *ProfilePictureInfo {
+	if x != nil {
+		return x.Preview
+	}
+	return nil
+}
+
+func (x *NewsletterThreadMetadata) GetSettings() *NewsletterSetting {
+	if x != nil {
+		return x.Settings
+	}
+	return nil
+}
+
+type NewsletterViewerMetadata struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Mute *NewsletterViewerMetadata_NewsletterMuteState `protobuf:"varint,1,req,name=Mute,enum=neonize.NewsletterViewerMetadata_NewsletterMuteState" json:"Mute,omitempty"`
+	Role *NewsletterViewerMetadata_NewsletterRole      `protobuf:"varint,2,req,name=Role,enum=neonize.NewsletterViewerMetadata_NewsletterRole" json:"Role,omitempty"`
+}
+
+func (x *NewsletterViewerMetadata) Reset() {
+	*x = NewsletterViewerMetadata{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[48]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NewsletterViewerMetadata) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NewsletterViewerMetadata) ProtoMessage() {}
+
+func (x *NewsletterViewerMetadata) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[48]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NewsletterViewerMetadata.ProtoReflect.Descriptor instead.
+func (*NewsletterViewerMetadata) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{48}
+}
+
+func (x *NewsletterViewerMetadata) GetMute() NewsletterViewerMetadata_NewsletterMuteState {
+	if x != nil && x.Mute != nil {
+		return *x.Mute
+	}
+	return NewsletterViewerMetadata_ON
+}
+
+func (x *NewsletterViewerMetadata) GetRole() NewsletterViewerMetadata_NewsletterRole {
+	if x != nil && x.Role != nil {
+		return *x.Role
+	}
+	return NewsletterViewerMetadata_SUBSCRIBER
+}
+
+type NewsletterMetadata struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ID         *JID                      `protobuf:"bytes,1,req,name=ID" json:"ID,omitempty"`
+	State      *WrappedNewsletterState   `protobuf:"bytes,2,req,name=State" json:"State,omitempty"`
+	ThreadMeta *NewsletterThreadMetadata `protobuf:"bytes,3,req,name=ThreadMeta" json:"ThreadMeta,omitempty"`
+	ViewerMeta *NewsletterViewerMetadata `protobuf:"bytes,4,opt,name=ViewerMeta" json:"ViewerMeta,omitempty"`
+}
+
+func (x *NewsletterMetadata) Reset() {
+	*x = NewsletterMetadata{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[49]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NewsletterMetadata) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NewsletterMetadata) ProtoMessage() {}
+
+func (x *NewsletterMetadata) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[49]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NewsletterMetadata.ProtoReflect.Descriptor instead.
+func (*NewsletterMetadata) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{49}
+}
+
+func (x *NewsletterMetadata) GetID() *JID {
+	if x != nil {
+		return x.ID
+	}
+	return nil
+}
+
+func (x *NewsletterMetadata) GetState() *WrappedNewsletterState {
+	if x != nil {
+		return x.State
+	}
+	return nil
+}
+
+func (x *NewsletterMetadata) GetThreadMeta() *NewsletterThreadMetadata {
+	if x != nil {
+		return x.ThreadMeta
+	}
+	return nil
+}
+
+func (x *NewsletterMetadata) GetViewerMeta() *NewsletterViewerMetadata {
+	if x != nil {
+		return x.ViewerMeta
+	}
+	return nil
+}
+
+type Blocklist struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	DHash *string `protobuf:"bytes,1,req,name=DHash" json:"DHash,omitempty"`
+	JIDs  []*JID  `protobuf:"bytes,2,rep,name=JIDs" json:"JIDs,omitempty"`
+}
+
+func (x *Blocklist) Reset() {
+	*x = Blocklist{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Neonize_proto_msgTypes[50]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Blocklist) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Blocklist) ProtoMessage() {}
+
+func (x *Blocklist) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[50]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Blocklist.ProtoReflect.Descriptor instead.
+func (*Blocklist) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{50}
+}
+
+func (x *Blocklist) GetDHash() string {
+	if x != nil && x.DHash != nil {
+		return *x.DHash
+	}
+	return ""
+}
+
+func (x *Blocklist) GetJIDs() []*JID {
+	if x != nil {
+		return x.JIDs
 	}
 	return nil
 }
@@ -3074,61 +4109,195 @@ var file_Neonize_proto_rawDesc = []byte{
 	0x64, 0x65, 0x66, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
 	0x52, 0x08, 0x50, 0x6f, 0x6c, 0x6c, 0x56, 0x6f, 0x74, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x72,
 	0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72,
-	0x22, 0xf6, 0x01, 0x0a, 0x0e, 0x52, 0x65, 0x71, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x72,
-	0x6f, 0x75, 0x70, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x02, 0x28,
-	0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x30, 0x0a, 0x0c, 0x50, 0x61, 0x72, 0x74, 0x69,
-	0x63, 0x69, 0x70, 0x61, 0x6e, 0x74, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0c, 0x2e,
-	0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4a, 0x49, 0x44, 0x52, 0x0c, 0x50, 0x61, 0x72,
-	0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x6e, 0x74, 0x73, 0x12, 0x1c, 0x0a, 0x09, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x4b, 0x65, 0x79, 0x18, 0x03, 0x20, 0x02, 0x28, 0x09, 0x52, 0x09, 0x43, 0x72,
-	0x65, 0x61, 0x74, 0x65, 0x4b, 0x65, 0x79, 0x12, 0x36, 0x0a, 0x0b, 0x47, 0x72, 0x6f, 0x75, 0x70,
-	0x50, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x6e,
-	0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x50, 0x61, 0x72, 0x65,
-	0x6e, 0x74, 0x52, 0x0b, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x50, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x12,
-	0x48, 0x0a, 0x11, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x50, 0x61,
-	0x72, 0x65, 0x6e, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x6e, 0x65, 0x6f,
-	0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64,
-	0x50, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x52, 0x11, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4c, 0x69, 0x6e,
-	0x6b, 0x65, 0x64, 0x50, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x22, 0x2c, 0x0a, 0x08, 0x4a, 0x49, 0x44,
-	0x41, 0x72, 0x72, 0x61, 0x79, 0x12, 0x20, 0x0a, 0x04, 0x4a, 0x49, 0x44, 0x53, 0x18, 0x01, 0x20,
-	0x03, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4a, 0x49,
-	0x44, 0x52, 0x04, 0x4a, 0x49, 0x44, 0x53, 0x22, 0x21, 0x0a, 0x0b, 0x41, 0x72, 0x72, 0x61, 0x79,
-	0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01,
-	0x20, 0x03, 0x28, 0x09, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x4f, 0x0a, 0x15, 0x4e, 0x65,
-	0x77, 0x73, 0x4c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4d,
-	0x65, 0x74, 0x61, 0x12, 0x16, 0x0a, 0x06, 0x45, 0x64, 0x69, 0x74, 0x54, 0x53, 0x18, 0x01, 0x20,
-	0x02, 0x28, 0x03, 0x52, 0x06, 0x45, 0x64, 0x69, 0x74, 0x54, 0x53, 0x12, 0x1e, 0x0a, 0x0a, 0x4f,
-	0x72, 0x69, 0x67, 0x69, 0x6e, 0x61, 0x6c, 0x54, 0x53, 0x18, 0x02, 0x20, 0x02, 0x28, 0x03, 0x52,
-	0x0a, 0x4f, 0x72, 0x69, 0x67, 0x69, 0x6e, 0x61, 0x6c, 0x54, 0x53, 0x22, 0xb8, 0x03, 0x0a, 0x07,
-	0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x28, 0x0a, 0x04, 0x49, 0x6e, 0x66, 0x6f, 0x18,
-	0x01, 0x20, 0x02, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e,
-	0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04, 0x49, 0x6e, 0x66,
-	0x6f, 0x12, 0x2b, 0x0a, 0x07, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x11, 0x2e, 0x64, 0x65, 0x66, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x65,
-	0x73, 0x73, 0x61, 0x67, 0x65, 0x52, 0x07, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x20,
-	0x0a, 0x0b, 0x49, 0x73, 0x45, 0x70, 0x68, 0x65, 0x6d, 0x65, 0x72, 0x61, 0x6c, 0x18, 0x03, 0x20,
-	0x02, 0x28, 0x08, 0x52, 0x0b, 0x49, 0x73, 0x45, 0x70, 0x68, 0x65, 0x6d, 0x65, 0x72, 0x61, 0x6c,
-	0x12, 0x1e, 0x0a, 0x0a, 0x49, 0x73, 0x56, 0x69, 0x65, 0x77, 0x4f, 0x6e, 0x63, 0x65, 0x18, 0x04,
-	0x20, 0x02, 0x28, 0x08, 0x52, 0x0a, 0x49, 0x73, 0x56, 0x69, 0x65, 0x77, 0x4f, 0x6e, 0x63, 0x65,
-	0x12, 0x22, 0x0a, 0x0c, 0x49, 0x73, 0x56, 0x69, 0x65, 0x77, 0x4f, 0x6e, 0x63, 0x65, 0x56, 0x32,
-	0x18, 0x05, 0x20, 0x02, 0x28, 0x08, 0x52, 0x0c, 0x49, 0x73, 0x56, 0x69, 0x65, 0x77, 0x4f, 0x6e,
-	0x63, 0x65, 0x56, 0x32, 0x12, 0x16, 0x0a, 0x06, 0x49, 0x73, 0x45, 0x64, 0x69, 0x74, 0x18, 0x06,
-	0x20, 0x02, 0x28, 0x08, 0x52, 0x06, 0x49, 0x73, 0x45, 0x64, 0x69, 0x74, 0x12, 0x3c, 0x0a, 0x0c,
-	0x53, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x57, 0x65, 0x62, 0x4d, 0x73, 0x67, 0x18, 0x07, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x18, 0x2e, 0x64, 0x65, 0x66, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x57, 0x65,
-	0x62, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x0c, 0x53, 0x6f,
-	0x75, 0x72, 0x63, 0x65, 0x57, 0x65, 0x62, 0x4d, 0x73, 0x67, 0x12, 0x32, 0x0a, 0x14, 0x55, 0x6e,
-	0x61, 0x76, 0x61, 0x69, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x49, 0x44, 0x18, 0x08, 0x20, 0x02, 0x28, 0x09, 0x52, 0x14, 0x55, 0x6e, 0x61, 0x76, 0x61, 0x69,
-	0x6c, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x49, 0x44, 0x12, 0x1e,
-	0x0a, 0x0a, 0x52, 0x65, 0x74, 0x72, 0x79, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x09, 0x20, 0x02,
-	0x28, 0x03, 0x52, 0x0a, 0x52, 0x65, 0x74, 0x72, 0x79, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x46,
-	0x0a, 0x0e, 0x4e, 0x65, 0x77, 0x73, 0x4c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x4d, 0x65, 0x74, 0x61,
-	0x18, 0x0a, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65,
-	0x2e, 0x4e, 0x65, 0x77, 0x73, 0x4c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x4d, 0x65, 0x73, 0x73, 0x61,
-	0x67, 0x65, 0x4d, 0x65, 0x74, 0x61, 0x52, 0x0e, 0x4e, 0x65, 0x77, 0x73, 0x4c, 0x65, 0x74, 0x74,
-	0x65, 0x72, 0x4d, 0x65, 0x74, 0x61, 0x42, 0x0b, 0x5a, 0x09, 0x2e, 0x2f, 0x6e, 0x65, 0x6f, 0x6e,
-	0x69, 0x7a, 0x65,
+	0x22, 0x83, 0x01, 0x0a, 0x1e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4e, 0x65, 0x77, 0x73, 0x4c,
+	0x65, 0x74, 0x74, 0x65, 0x72, 0x52, 0x65, 0x74, 0x75, 0x72, 0x6e, 0x46, 0x75, 0x6e, 0x63, 0x74,
+	0x69, 0x6f, 0x6e, 0x12, 0x4b, 0x0a, 0x12, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65,
+	0x72, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x1b, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65,
+	0x74, 0x74, 0x65, 0x72, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x52, 0x12, 0x4e, 0x65,
+	0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
+	0x12, 0x14, 0x0a, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x64, 0x0a, 0x1a, 0x47, 0x65, 0x74, 0x42, 0x6c, 0x6f,
+	0x63, 0x6b, 0x6c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x74, 0x75, 0x72, 0x6e, 0x46, 0x75, 0x6e, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x30, 0x0a, 0x09, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x6c, 0x69, 0x73,
+	0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a,
+	0x65, 0x2e, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x6c, 0x69, 0x73, 0x74, 0x52, 0x09, 0x42, 0x6c, 0x6f,
+	0x63, 0x6b, 0x6c, 0x69, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x22, 0xf6, 0x01, 0x0a,
+	0x0e, 0x52, 0x65, 0x71, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x12,
+	0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x02, 0x28, 0x09, 0x52, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x12, 0x30, 0x0a, 0x0c, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61,
+	0x6e, 0x74, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x6e, 0x65, 0x6f, 0x6e,
+	0x69, 0x7a, 0x65, 0x2e, 0x4a, 0x49, 0x44, 0x52, 0x0c, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69,
+	0x70, 0x61, 0x6e, 0x74, 0x73, 0x12, 0x1c, 0x0a, 0x09, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4b,
+	0x65, 0x79, 0x18, 0x03, 0x20, 0x02, 0x28, 0x09, 0x52, 0x09, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x4b, 0x65, 0x79, 0x12, 0x36, 0x0a, 0x0b, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x50, 0x61, 0x72, 0x65,
+	0x6e, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69,
+	0x7a, 0x65, 0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x50, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x52, 0x0b,
+	0x47, 0x72, 0x6f, 0x75, 0x70, 0x50, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x12, 0x48, 0x0a, 0x11, 0x47,
+	0x72, 0x6f, 0x75, 0x70, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x50, 0x61, 0x72, 0x65, 0x6e, 0x74,
+	0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65,
+	0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x50, 0x61, 0x72, 0x65,
+	0x6e, 0x74, 0x52, 0x11, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x50,
+	0x61, 0x72, 0x65, 0x6e, 0x74, 0x22, 0x2c, 0x0a, 0x08, 0x4a, 0x49, 0x44, 0x41, 0x72, 0x72, 0x61,
+	0x79, 0x12, 0x20, 0x0a, 0x04, 0x4a, 0x49, 0x44, 0x53, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32,
+	0x0c, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4a, 0x49, 0x44, 0x52, 0x04, 0x4a,
+	0x49, 0x44, 0x53, 0x22, 0x21, 0x0a, 0x0b, 0x41, 0x72, 0x72, 0x61, 0x79, 0x53, 0x74, 0x72, 0x69,
+	0x6e, 0x67, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09,
+	0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x4f, 0x0a, 0x15, 0x4e, 0x65, 0x77, 0x73, 0x4c, 0x65,
+	0x74, 0x74, 0x65, 0x72, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4d, 0x65, 0x74, 0x61, 0x12,
+	0x16, 0x0a, 0x06, 0x45, 0x64, 0x69, 0x74, 0x54, 0x53, 0x18, 0x01, 0x20, 0x02, 0x28, 0x03, 0x52,
+	0x06, 0x45, 0x64, 0x69, 0x74, 0x54, 0x53, 0x12, 0x1e, 0x0a, 0x0a, 0x4f, 0x72, 0x69, 0x67, 0x69,
+	0x6e, 0x61, 0x6c, 0x54, 0x53, 0x18, 0x02, 0x20, 0x02, 0x28, 0x03, 0x52, 0x0a, 0x4f, 0x72, 0x69,
+	0x67, 0x69, 0x6e, 0x61, 0x6c, 0x54, 0x53, 0x22, 0xb8, 0x03, 0x0a, 0x07, 0x4d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x12, 0x28, 0x0a, 0x04, 0x49, 0x6e, 0x66, 0x6f, 0x18, 0x01, 0x20, 0x02, 0x28,
+	0x0b, 0x32, 0x14, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x2b, 0x0a,
+	0x07, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x11,
+	0x2e, 0x64, 0x65, 0x66, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67,
+	0x65, 0x52, 0x07, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x49, 0x73,
+	0x45, 0x70, 0x68, 0x65, 0x6d, 0x65, 0x72, 0x61, 0x6c, 0x18, 0x03, 0x20, 0x02, 0x28, 0x08, 0x52,
+	0x0b, 0x49, 0x73, 0x45, 0x70, 0x68, 0x65, 0x6d, 0x65, 0x72, 0x61, 0x6c, 0x12, 0x1e, 0x0a, 0x0a,
+	0x49, 0x73, 0x56, 0x69, 0x65, 0x77, 0x4f, 0x6e, 0x63, 0x65, 0x18, 0x04, 0x20, 0x02, 0x28, 0x08,
+	0x52, 0x0a, 0x49, 0x73, 0x56, 0x69, 0x65, 0x77, 0x4f, 0x6e, 0x63, 0x65, 0x12, 0x22, 0x0a, 0x0c,
+	0x49, 0x73, 0x56, 0x69, 0x65, 0x77, 0x4f, 0x6e, 0x63, 0x65, 0x56, 0x32, 0x18, 0x05, 0x20, 0x02,
+	0x28, 0x08, 0x52, 0x0c, 0x49, 0x73, 0x56, 0x69, 0x65, 0x77, 0x4f, 0x6e, 0x63, 0x65, 0x56, 0x32,
+	0x12, 0x16, 0x0a, 0x06, 0x49, 0x73, 0x45, 0x64, 0x69, 0x74, 0x18, 0x06, 0x20, 0x02, 0x28, 0x08,
+	0x52, 0x06, 0x49, 0x73, 0x45, 0x64, 0x69, 0x74, 0x12, 0x3c, 0x0a, 0x0c, 0x53, 0x6f, 0x75, 0x72,
+	0x63, 0x65, 0x57, 0x65, 0x62, 0x4d, 0x73, 0x67, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18,
+	0x2e, 0x64, 0x65, 0x66, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x57, 0x65, 0x62, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x0c, 0x53, 0x6f, 0x75, 0x72, 0x63, 0x65,
+	0x57, 0x65, 0x62, 0x4d, 0x73, 0x67, 0x12, 0x32, 0x0a, 0x14, 0x55, 0x6e, 0x61, 0x76, 0x61, 0x69,
+	0x6c, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x49, 0x44, 0x18, 0x08,
+	0x20, 0x02, 0x28, 0x09, 0x52, 0x14, 0x55, 0x6e, 0x61, 0x76, 0x61, 0x69, 0x6c, 0x61, 0x62, 0x6c,
+	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x49, 0x44, 0x12, 0x1e, 0x0a, 0x0a, 0x52, 0x65,
+	0x74, 0x72, 0x79, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x09, 0x20, 0x02, 0x28, 0x03, 0x52, 0x0a,
+	0x52, 0x65, 0x74, 0x72, 0x79, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x46, 0x0a, 0x0e, 0x4e, 0x65,
+	0x77, 0x73, 0x4c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x4d, 0x65, 0x74, 0x61, 0x18, 0x0a, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4e, 0x65, 0x77,
+	0x73, 0x4c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x4d, 0x65,
+	0x74, 0x61, 0x52, 0x0e, 0x4e, 0x65, 0x77, 0x73, 0x4c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x4d, 0x65,
+	0x74, 0x61, 0x22, 0x68, 0x0a, 0x16, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4e, 0x65, 0x77, 0x73,
+	0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x12, 0x0a, 0x04,
+	0x4e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x02, 0x28, 0x09, 0x52, 0x04, 0x4e, 0x61, 0x6d, 0x65,
+	0x12, 0x20, 0x0a, 0x0b, 0x44, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18,
+	0x02, 0x20, 0x02, 0x28, 0x09, 0x52, 0x0b, 0x44, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0x12, 0x18, 0x0a, 0x07, 0x50, 0x69, 0x63, 0x74, 0x75, 0x72, 0x65, 0x18, 0x03, 0x20,
+	0x02, 0x28, 0x0c, 0x52, 0x07, 0x50, 0x69, 0x63, 0x74, 0x75, 0x72, 0x65, 0x22, 0x9d, 0x01, 0x0a,
+	0x16, 0x57, 0x72, 0x61, 0x70, 0x70, 0x65, 0x64, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74,
+	0x65, 0x72, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12, 0x43, 0x0a, 0x04, 0x54, 0x79, 0x70, 0x65, 0x18,
+	0x01, 0x20, 0x02, 0x28, 0x0e, 0x32, 0x2f, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e,
+	0x57, 0x72, 0x61, 0x70, 0x70, 0x65, 0x64, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65,
+	0x72, 0x53, 0x74, 0x61, 0x74, 0x65, 0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65,
+	0x72, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x04, 0x54, 0x79, 0x70, 0x65, 0x22, 0x3e, 0x0a, 0x0f,
+	0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12,
+	0x0a, 0x0a, 0x06, 0x41, 0x43, 0x54, 0x49, 0x56, 0x45, 0x10, 0x01, 0x12, 0x0d, 0x0a, 0x09, 0x53,
+	0x55, 0x53, 0x50, 0x45, 0x4e, 0x44, 0x45, 0x44, 0x10, 0x02, 0x12, 0x10, 0x0a, 0x0c, 0x47, 0x45,
+	0x4f, 0x53, 0x55, 0x53, 0x50, 0x45, 0x4e, 0x44, 0x45, 0x44, 0x10, 0x03, 0x22, 0x54, 0x0a, 0x0e,
+	0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x54, 0x65, 0x78, 0x74, 0x12, 0x12,
+	0x0a, 0x04, 0x54, 0x65, 0x78, 0x74, 0x18, 0x01, 0x20, 0x02, 0x28, 0x09, 0x52, 0x04, 0x54, 0x65,
+	0x78, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x02, 0x20, 0x02, 0x28, 0x09, 0x52, 0x02,
+	0x49, 0x44, 0x12, 0x1e, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65,
+	0x18, 0x03, 0x20, 0x02, 0x28, 0x03, 0x52, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x69,
+	0x6d, 0x65, 0x22, 0x6a, 0x0a, 0x12, 0x50, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x50, 0x69, 0x63,
+	0x74, 0x75, 0x72, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x10, 0x0a, 0x03, 0x55, 0x52, 0x4c, 0x18,
+	0x01, 0x20, 0x02, 0x28, 0x09, 0x52, 0x03, 0x55, 0x52, 0x4c, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44,
+	0x18, 0x02, 0x20, 0x02, 0x28, 0x09, 0x52, 0x02, 0x49, 0x44, 0x12, 0x12, 0x0a, 0x04, 0x54, 0x79,
+	0x70, 0x65, 0x18, 0x03, 0x20, 0x02, 0x28, 0x09, 0x52, 0x04, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1e,
+	0x0a, 0x0a, 0x44, 0x69, 0x72, 0x65, 0x63, 0x74, 0x50, 0x61, 0x74, 0x68, 0x18, 0x04, 0x20, 0x02,
+	0x28, 0x09, 0x52, 0x0a, 0x44, 0x69, 0x72, 0x65, 0x63, 0x74, 0x50, 0x61, 0x74, 0x68, 0x22, 0xb7,
+	0x01, 0x0a, 0x1a, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x52, 0x65, 0x61,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x12, 0x51, 0x0a,
+	0x05, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x01, 0x20, 0x02, 0x28, 0x0e, 0x32, 0x3b, 0x2e, 0x6e,
+	0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65,
+	0x72, 0x52, 0x65, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67,
+	0x73, 0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x52, 0x65, 0x61, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x73, 0x4d, 0x6f, 0x64, 0x65, 0x52, 0x05, 0x56, 0x61, 0x6c, 0x75, 0x65,
+	0x22, 0x46, 0x0a, 0x17, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x52, 0x65,
+	0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x4d, 0x6f, 0x64, 0x65, 0x12, 0x07, 0x0a, 0x03, 0x41,
+	0x4c, 0x4c, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x42, 0x41, 0x53, 0x49, 0x43, 0x10, 0x02, 0x12,
+	0x08, 0x0a, 0x04, 0x4e, 0x4f, 0x4e, 0x45, 0x10, 0x03, 0x12, 0x0d, 0x0a, 0x09, 0x42, 0x4c, 0x4f,
+	0x43, 0x4b, 0x4c, 0x49, 0x53, 0x54, 0x10, 0x04, 0x22, 0x5e, 0x0a, 0x11, 0x4e, 0x65, 0x77, 0x73,
+	0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x12, 0x49, 0x0a,
+	0x0d, 0x52, 0x65, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x18, 0x01,
+	0x20, 0x02, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4e,
+	0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x52, 0x65, 0x61, 0x63, 0x74, 0x69, 0x6f,
+	0x6e, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x52, 0x0d, 0x52, 0x65, 0x61, 0x63, 0x74,
+	0x69, 0x6f, 0x6e, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x22, 0xc0, 0x04, 0x0a, 0x18, 0x4e, 0x65, 0x77,
+	0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x54, 0x68, 0x72, 0x65, 0x61, 0x64, 0x4d, 0x65, 0x74,
+	0x61, 0x64, 0x61, 0x74, 0x61, 0x12, 0x22, 0x0a, 0x0c, 0x43, 0x72, 0x65, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x02, 0x28, 0x03, 0x52, 0x0c, 0x43, 0x72, 0x65,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x49, 0x6e, 0x76,
+	0x69, 0x74, 0x65, 0x43, 0x6f, 0x64, 0x65, 0x18, 0x02, 0x20, 0x02, 0x28, 0x09, 0x52, 0x0a, 0x49,
+	0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x2b, 0x0a, 0x04, 0x4e, 0x61, 0x6d,
+	0x65, 0x18, 0x03, 0x20, 0x02, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a,
+	0x65, 0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x54, 0x65, 0x78, 0x74,
+	0x52, 0x04, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x39, 0x0a, 0x0b, 0x44, 0x65, 0x73, 0x63, 0x72, 0x69,
+	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x04, 0x20, 0x02, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x6e, 0x65,
+	0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72,
+	0x54, 0x65, 0x78, 0x74, 0x52, 0x0b, 0x44, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x12, 0x28, 0x0a, 0x0f, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x72, 0x43,
+	0x6f, 0x75, 0x6e, 0x74, 0x18, 0x05, 0x20, 0x02, 0x28, 0x03, 0x52, 0x0f, 0x53, 0x75, 0x62, 0x73,
+	0x63, 0x72, 0x69, 0x62, 0x65, 0x72, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x6b, 0x0a, 0x11, 0x56,
+	0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x65,
+	0x18, 0x06, 0x20, 0x02, 0x28, 0x0e, 0x32, 0x3d, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65,
+	0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x54, 0x68, 0x72, 0x65, 0x61,
+	0x64, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65,
+	0x74, 0x74, 0x65, 0x72, 0x56, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x11, 0x56, 0x65, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12, 0x35, 0x0a, 0x07, 0x50, 0x69, 0x63, 0x74,
+	0x75, 0x72, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x6e, 0x65, 0x6f, 0x6e,
+	0x69, 0x7a, 0x65, 0x2e, 0x50, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x50, 0x69, 0x63, 0x74, 0x75,
+	0x72, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x07, 0x50, 0x69, 0x63, 0x74, 0x75, 0x72, 0x65, 0x12,
+	0x35, 0x0a, 0x07, 0x50, 0x72, 0x65, 0x76, 0x69, 0x65, 0x77, 0x18, 0x08, 0x20, 0x02, 0x28, 0x0b,
+	0x32, 0x1b, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x50, 0x72, 0x6f, 0x66, 0x69,
+	0x6c, 0x65, 0x50, 0x69, 0x63, 0x74, 0x75, 0x72, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x07, 0x50,
+	0x72, 0x65, 0x76, 0x69, 0x65, 0x77, 0x12, 0x36, 0x0a, 0x08, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e,
+	0x67, 0x73, 0x18, 0x09, 0x20, 0x02, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69,
+	0x7a, 0x65, 0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x53, 0x65, 0x74,
+	0x74, 0x69, 0x6e, 0x67, 0x52, 0x08, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x22, 0x3b,
+	0x0a, 0x1b, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x56, 0x65, 0x72, 0x69,
+	0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12, 0x0c, 0x0a,
+	0x08, 0x56, 0x45, 0x52, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x01, 0x12, 0x0e, 0x0a, 0x0a, 0x55,
+	0x4e, 0x56, 0x45, 0x52, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x02, 0x22, 0x96, 0x02, 0x0a, 0x18,
+	0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x56, 0x69, 0x65, 0x77, 0x65, 0x72,
+	0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x12, 0x49, 0x0a, 0x04, 0x4d, 0x75, 0x74, 0x65,
+	0x18, 0x01, 0x20, 0x02, 0x28, 0x0e, 0x32, 0x35, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65,
+	0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x56, 0x69, 0x65, 0x77, 0x65,
+	0x72, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65,
+	0x74, 0x74, 0x65, 0x72, 0x4d, 0x75, 0x74, 0x65, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x04, 0x4d,
+	0x75, 0x74, 0x65, 0x12, 0x44, 0x0a, 0x04, 0x52, 0x6f, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x02, 0x28,
+	0x0e, 0x32, 0x30, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4e, 0x65, 0x77, 0x73,
+	0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x56, 0x69, 0x65, 0x77, 0x65, 0x72, 0x4d, 0x65, 0x74, 0x61,
+	0x64, 0x61, 0x74, 0x61, 0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x52,
+	0x6f, 0x6c, 0x65, 0x52, 0x04, 0x52, 0x6f, 0x6c, 0x65, 0x22, 0x26, 0x0a, 0x13, 0x4e, 0x65, 0x77,
+	0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x4d, 0x75, 0x74, 0x65, 0x53, 0x74, 0x61, 0x74, 0x65,
+	0x12, 0x06, 0x0a, 0x02, 0x4f, 0x4e, 0x10, 0x01, 0x12, 0x07, 0x0a, 0x03, 0x4f, 0x46, 0x46, 0x10,
+	0x02, 0x22, 0x41, 0x0a, 0x0e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x52,
+	0x6f, 0x6c, 0x65, 0x12, 0x0e, 0x0a, 0x0a, 0x53, 0x55, 0x42, 0x53, 0x43, 0x52, 0x49, 0x42, 0x45,
+	0x52, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x47, 0x55, 0x45, 0x53, 0x54, 0x10, 0x02, 0x12, 0x09,
+	0x0a, 0x05, 0x41, 0x44, 0x4d, 0x49, 0x4e, 0x10, 0x03, 0x12, 0x09, 0x0a, 0x05, 0x4f, 0x57, 0x4e,
+	0x45, 0x52, 0x10, 0x04, 0x22, 0xef, 0x01, 0x0a, 0x12, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74,
+	0x74, 0x65, 0x72, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x12, 0x1c, 0x0a, 0x02, 0x49,
+	0x44, 0x18, 0x01, 0x20, 0x02, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a,
+	0x65, 0x2e, 0x4a, 0x49, 0x44, 0x52, 0x02, 0x49, 0x44, 0x12, 0x35, 0x0a, 0x05, 0x53, 0x74, 0x61,
+	0x74, 0x65, 0x18, 0x02, 0x20, 0x02, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69,
+	0x7a, 0x65, 0x2e, 0x57, 0x72, 0x61, 0x70, 0x70, 0x65, 0x64, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65,
+	0x74, 0x74, 0x65, 0x72, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x05, 0x53, 0x74, 0x61, 0x74, 0x65,
+	0x12, 0x41, 0x0a, 0x0a, 0x54, 0x68, 0x72, 0x65, 0x61, 0x64, 0x4d, 0x65, 0x74, 0x61, 0x18, 0x03,
+	0x20, 0x02, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65, 0x2e, 0x4e,
+	0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x54, 0x68, 0x72, 0x65, 0x61, 0x64, 0x4d,
+	0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x52, 0x0a, 0x54, 0x68, 0x72, 0x65, 0x61, 0x64, 0x4d,
+	0x65, 0x74, 0x61, 0x12, 0x41, 0x0a, 0x0a, 0x56, 0x69, 0x65, 0x77, 0x65, 0x72, 0x4d, 0x65, 0x74,
+	0x61, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a,
+	0x65, 0x2e, 0x4e, 0x65, 0x77, 0x73, 0x6c, 0x65, 0x74, 0x74, 0x65, 0x72, 0x56, 0x69, 0x65, 0x77,
+	0x65, 0x72, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x52, 0x0a, 0x56, 0x69, 0x65, 0x77,
+	0x65, 0x72, 0x4d, 0x65, 0x74, 0x61, 0x22, 0x43, 0x0a, 0x09, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x6c,
+	0x69, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x44, 0x48, 0x61, 0x73, 0x68, 0x18, 0x01, 0x20, 0x02,
+	0x28, 0x09, 0x52, 0x05, 0x44, 0x48, 0x61, 0x73, 0x68, 0x12, 0x20, 0x0a, 0x04, 0x4a, 0x49, 0x44,
+	0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a,
+	0x65, 0x2e, 0x4a, 0x49, 0x44, 0x52, 0x04, 0x4a, 0x49, 0x44, 0x73, 0x42, 0x0b, 0x5a, 0x09, 0x2e,
+	0x2f, 0x6e, 0x65, 0x6f, 0x6e, 0x69, 0x7a, 0x65,
 }
 
 var (
@@ -3143,109 +4312,144 @@ func file_Neonize_proto_rawDescGZIP() []byte {
 	return file_Neonize_proto_rawDescData
 }
 
-var file_Neonize_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_Neonize_proto_msgTypes = make([]protoimpl.MessageInfo, 39)
+var file_Neonize_proto_enumTypes = make([]protoimpl.EnumInfo, 6)
+var file_Neonize_proto_msgTypes = make([]protoimpl.MessageInfo, 51)
 var file_Neonize_proto_goTypes = []interface{}{
-	(GroupInfo_MemberAddMode)(0),                     // 0: neonize.GroupInfo.MemberAddMode
-	(*JID)(nil),                                      // 1: neonize.JID
-	(*MessageInfo)(nil),                              // 2: neonize.MessageInfo
-	(*UploadResponse)(nil),                           // 3: neonize.UploadResponse
-	(*MessageSource)(nil),                            // 4: neonize.MessageSource
-	(*DeviceSentMeta)(nil),                           // 5: neonize.DeviceSentMeta
-	(*VerifiedName)(nil),                             // 6: neonize.VerifiedName
-	(*IsOnWhatsAppResponse)(nil),                     // 7: neonize.IsOnWhatsAppResponse
-	(*UserInfo)(nil),                                 // 8: neonize.UserInfo
-	(*Device)(nil),                                   // 9: neonize.Device
-	(*GroupName)(nil),                                // 10: neonize.GroupName
-	(*GroupTopic)(nil),                               // 11: neonize.GroupTopic
-	(*GroupLocked)(nil),                              // 12: neonize.GroupLocked
-	(*GroupAnnounce)(nil),                            // 13: neonize.GroupAnnounce
-	(*GroupEphemeral)(nil),                           // 14: neonize.GroupEphemeral
-	(*GroupIncognito)(nil),                           // 15: neonize.GroupIncognito
-	(*GroupParent)(nil),                              // 16: neonize.GroupParent
-	(*GroupLinkedParent)(nil),                        // 17: neonize.GroupLinkedParent
-	(*GroupIsDefaultSub)(nil),                        // 18: neonize.GroupIsDefaultSub
-	(*GroupParticipantAddRequest)(nil),               // 19: neonize.GroupParticipantAddRequest
-	(*GroupParticipant)(nil),                         // 20: neonize.GroupParticipant
-	(*GroupInfo)(nil),                                // 21: neonize.GroupInfo
-	(*MessageDebugTimings)(nil),                      // 22: neonize.MessageDebugTimings
-	(*SendResponse)(nil),                             // 23: neonize.SendResponse
-	(*SendMessageReturnFunction)(nil),                // 24: neonize.SendMessageReturnFunction
-	(*GetGroupInfoReturnFunction)(nil),               // 25: neonize.GetGroupInfoReturnFunction
-	(*JoinGroupWithLinkReturnFunction)(nil),          // 26: neonize.JoinGroupWithLinkReturnFunction
-	(*GetGroupInviteLinkReturnFunction)(nil),         // 27: neonize.GetGroupInviteLinkReturnFunction
-	(*DownloadReturnFunction)(nil),                   // 28: neonize.DownloadReturnFunction
-	(*UploadReturnFunction)(nil),                     // 29: neonize.UploadReturnFunction
-	(*SetGroupPhotoReturnFunction)(nil),              // 30: neonize.SetGroupPhotoReturnFunction
-	(*IsOnWhatsAppReturnFunction)(nil),               // 31: neonize.IsOnWhatsAppReturnFunction
-	(*GetUserInfoSingleReturnFunction)(nil),          // 32: neonize.GetUserInfoSingleReturnFunction
-	(*GetUserInfoReturnFunction)(nil),                // 33: neonize.GetUserInfoReturnFunction
-	(*BuildPollVoteReturnFunction)(nil),              // 34: neonize.BuildPollVoteReturnFunction
-	(*ReqCreateGroup)(nil),                           // 35: neonize.ReqCreateGroup
-	(*JIDArray)(nil),                                 // 36: neonize.JIDArray
-	(*ArrayString)(nil),                              // 37: neonize.ArrayString
-	(*NewsLetterMessageMeta)(nil),                    // 38: neonize.NewsLetterMessageMeta
-	(*Message)(nil),                                  // 39: neonize.Message
-	(*defproto.VerifiedNameCertificate)(nil),         // 40: defproto.VerifiedNameCertificate
-	(*defproto.VerifiedNameCertificate_Details)(nil), // 41: defproto.VerifiedNameCertificate.Details
-	(*defproto.Message)(nil),                         // 42: defproto.Message
-	(*defproto.WebMessageInfo)(nil),                  // 43: defproto.WebMessageInfo
+	(GroupInfo_MemberAddMode)(0),                              // 0: neonize.GroupInfo.MemberAddMode
+	(WrappedNewsletterState_NewsletterState)(0),               // 1: neonize.WrappedNewsletterState.NewsletterState
+	(NewsletterReactionSettings_NewsletterReactionsMode)(0),   // 2: neonize.NewsletterReactionSettings.NewsletterReactionsMode
+	(NewsletterThreadMetadata_NewsletterVerificationState)(0), // 3: neonize.NewsletterThreadMetadata.NewsletterVerificationState
+	(NewsletterViewerMetadata_NewsletterMuteState)(0),         // 4: neonize.NewsletterViewerMetadata.NewsletterMuteState
+	(NewsletterViewerMetadata_NewsletterRole)(0),              // 5: neonize.NewsletterViewerMetadata.NewsletterRole
+	(*JID)(nil),                                      // 6: neonize.JID
+	(*MessageInfo)(nil),                              // 7: neonize.MessageInfo
+	(*UploadResponse)(nil),                           // 8: neonize.UploadResponse
+	(*MessageSource)(nil),                            // 9: neonize.MessageSource
+	(*DeviceSentMeta)(nil),                           // 10: neonize.DeviceSentMeta
+	(*VerifiedName)(nil),                             // 11: neonize.VerifiedName
+	(*IsOnWhatsAppResponse)(nil),                     // 12: neonize.IsOnWhatsAppResponse
+	(*UserInfo)(nil),                                 // 13: neonize.UserInfo
+	(*Device)(nil),                                   // 14: neonize.Device
+	(*GroupName)(nil),                                // 15: neonize.GroupName
+	(*GroupTopic)(nil),                               // 16: neonize.GroupTopic
+	(*GroupLocked)(nil),                              // 17: neonize.GroupLocked
+	(*GroupAnnounce)(nil),                            // 18: neonize.GroupAnnounce
+	(*GroupEphemeral)(nil),                           // 19: neonize.GroupEphemeral
+	(*GroupIncognito)(nil),                           // 20: neonize.GroupIncognito
+	(*GroupParent)(nil),                              // 21: neonize.GroupParent
+	(*GroupLinkedParent)(nil),                        // 22: neonize.GroupLinkedParent
+	(*GroupIsDefaultSub)(nil),                        // 23: neonize.GroupIsDefaultSub
+	(*GroupParticipantAddRequest)(nil),               // 24: neonize.GroupParticipantAddRequest
+	(*GroupParticipant)(nil),                         // 25: neonize.GroupParticipant
+	(*GroupInfo)(nil),                                // 26: neonize.GroupInfo
+	(*MessageDebugTimings)(nil),                      // 27: neonize.MessageDebugTimings
+	(*SendResponse)(nil),                             // 28: neonize.SendResponse
+	(*SendMessageReturnFunction)(nil),                // 29: neonize.SendMessageReturnFunction
+	(*GetGroupInfoReturnFunction)(nil),               // 30: neonize.GetGroupInfoReturnFunction
+	(*JoinGroupWithLinkReturnFunction)(nil),          // 31: neonize.JoinGroupWithLinkReturnFunction
+	(*GetGroupInviteLinkReturnFunction)(nil),         // 32: neonize.GetGroupInviteLinkReturnFunction
+	(*DownloadReturnFunction)(nil),                   // 33: neonize.DownloadReturnFunction
+	(*UploadReturnFunction)(nil),                     // 34: neonize.UploadReturnFunction
+	(*SetGroupPhotoReturnFunction)(nil),              // 35: neonize.SetGroupPhotoReturnFunction
+	(*IsOnWhatsAppReturnFunction)(nil),               // 36: neonize.IsOnWhatsAppReturnFunction
+	(*GetUserInfoSingleReturnFunction)(nil),          // 37: neonize.GetUserInfoSingleReturnFunction
+	(*GetUserInfoReturnFunction)(nil),                // 38: neonize.GetUserInfoReturnFunction
+	(*BuildPollVoteReturnFunction)(nil),              // 39: neonize.BuildPollVoteReturnFunction
+	(*CreateNewsLetterReturnFunction)(nil),           // 40: neonize.CreateNewsLetterReturnFunction
+	(*GetBlocklistReturnFunction)(nil),               // 41: neonize.GetBlocklistReturnFunction
+	(*ReqCreateGroup)(nil),                           // 42: neonize.ReqCreateGroup
+	(*JIDArray)(nil),                                 // 43: neonize.JIDArray
+	(*ArrayString)(nil),                              // 44: neonize.ArrayString
+	(*NewsLetterMessageMeta)(nil),                    // 45: neonize.NewsLetterMessageMeta
+	(*Message)(nil),                                  // 46: neonize.Message
+	(*CreateNewsletterParams)(nil),                   // 47: neonize.CreateNewsletterParams
+	(*WrappedNewsletterState)(nil),                   // 48: neonize.WrappedNewsletterState
+	(*NewsletterText)(nil),                           // 49: neonize.NewsletterText
+	(*ProfilePictureInfo)(nil),                       // 50: neonize.ProfilePictureInfo
+	(*NewsletterReactionSettings)(nil),               // 51: neonize.NewsletterReactionSettings
+	(*NewsletterSetting)(nil),                        // 52: neonize.NewsletterSetting
+	(*NewsletterThreadMetadata)(nil),                 // 53: neonize.NewsletterThreadMetadata
+	(*NewsletterViewerMetadata)(nil),                 // 54: neonize.NewsletterViewerMetadata
+	(*NewsletterMetadata)(nil),                       // 55: neonize.NewsletterMetadata
+	(*Blocklist)(nil),                                // 56: neonize.Blocklist
+	(*defproto.VerifiedNameCertificate)(nil),         // 57: defproto.VerifiedNameCertificate
+	(*defproto.VerifiedNameCertificate_Details)(nil), // 58: defproto.VerifiedNameCertificate.Details
+	(*defproto.Message)(nil),                         // 59: defproto.Message
+	(*defproto.WebMessageInfo)(nil),                  // 60: defproto.WebMessageInfo
 }
 var file_Neonize_proto_depIdxs = []int32{
-	4,  // 0: neonize.MessageInfo.MessageSource:type_name -> neonize.MessageSource
-	6,  // 1: neonize.MessageInfo.VerifiedName:type_name -> neonize.VerifiedName
-	5,  // 2: neonize.MessageInfo.DeviceSentMeta:type_name -> neonize.DeviceSentMeta
-	1,  // 3: neonize.MessageSource.Chat:type_name -> neonize.JID
-	1,  // 4: neonize.MessageSource.Sender:type_name -> neonize.JID
-	1,  // 5: neonize.MessageSource.BroadcastListOwner:type_name -> neonize.JID
-	40, // 6: neonize.VerifiedName.Certificate:type_name -> defproto.VerifiedNameCertificate
-	41, // 7: neonize.VerifiedName.Details:type_name -> defproto.VerifiedNameCertificate.Details
-	1,  // 8: neonize.IsOnWhatsAppResponse.JID:type_name -> neonize.JID
-	6,  // 9: neonize.IsOnWhatsAppResponse.VerifiedName:type_name -> neonize.VerifiedName
-	6,  // 10: neonize.UserInfo.VerifiedName:type_name -> neonize.VerifiedName
-	1,  // 11: neonize.UserInfo.Devices:type_name -> neonize.JID
-	1,  // 12: neonize.Device.JID:type_name -> neonize.JID
-	1,  // 13: neonize.GroupName.NameSetBy:type_name -> neonize.JID
-	1,  // 14: neonize.GroupTopic.TopicSetBy:type_name -> neonize.JID
-	1,  // 15: neonize.GroupLinkedParent.LinkedParentJID:type_name -> neonize.JID
-	1,  // 16: neonize.GroupParticipant.JID:type_name -> neonize.JID
-	1,  // 17: neonize.GroupParticipant.LID:type_name -> neonize.JID
-	19, // 18: neonize.GroupParticipant.AddRequest:type_name -> neonize.GroupParticipantAddRequest
-	1,  // 19: neonize.GroupInfo.OwnerJID:type_name -> neonize.JID
-	1,  // 20: neonize.GroupInfo.JID:type_name -> neonize.JID
-	10, // 21: neonize.GroupInfo.GroupName:type_name -> neonize.GroupName
-	11, // 22: neonize.GroupInfo.GroupTopic:type_name -> neonize.GroupTopic
-	12, // 23: neonize.GroupInfo.GroupLocked:type_name -> neonize.GroupLocked
-	13, // 24: neonize.GroupInfo.GroupAnnounce:type_name -> neonize.GroupAnnounce
-	14, // 25: neonize.GroupInfo.GroupEphemeral:type_name -> neonize.GroupEphemeral
-	15, // 26: neonize.GroupInfo.GroupIncognito:type_name -> neonize.GroupIncognito
-	16, // 27: neonize.GroupInfo.GroupParent:type_name -> neonize.GroupParent
-	17, // 28: neonize.GroupInfo.GroupLinkedParent:type_name -> neonize.GroupLinkedParent
-	18, // 29: neonize.GroupInfo.GroupIsDefaultSub:type_name -> neonize.GroupIsDefaultSub
-	20, // 30: neonize.GroupInfo.Participants:type_name -> neonize.GroupParticipant
-	22, // 31: neonize.SendResponse.DebugTimings:type_name -> neonize.MessageDebugTimings
-	23, // 32: neonize.SendMessageReturnFunction.SendResponse:type_name -> neonize.SendResponse
-	21, // 33: neonize.GetGroupInfoReturnFunction.GroupInfo:type_name -> neonize.GroupInfo
-	1,  // 34: neonize.JoinGroupWithLinkReturnFunction.Jid:type_name -> neonize.JID
-	3,  // 35: neonize.UploadReturnFunction.UploadResponse:type_name -> neonize.UploadResponse
-	7,  // 36: neonize.IsOnWhatsAppReturnFunction.IsOnWhatsAppResponse:type_name -> neonize.IsOnWhatsAppResponse
-	1,  // 37: neonize.GetUserInfoSingleReturnFunction.JID:type_name -> neonize.JID
-	8,  // 38: neonize.GetUserInfoSingleReturnFunction.UserInfo:type_name -> neonize.UserInfo
-	32, // 39: neonize.GetUserInfoReturnFunction.UsersInfo:type_name -> neonize.GetUserInfoSingleReturnFunction
-	42, // 40: neonize.BuildPollVoteReturnFunction.PollVote:type_name -> defproto.Message
-	1,  // 41: neonize.ReqCreateGroup.Participants:type_name -> neonize.JID
-	16, // 42: neonize.ReqCreateGroup.GroupParent:type_name -> neonize.GroupParent
-	17, // 43: neonize.ReqCreateGroup.GroupLinkedParent:type_name -> neonize.GroupLinkedParent
-	1,  // 44: neonize.JIDArray.JIDS:type_name -> neonize.JID
-	2,  // 45: neonize.Message.Info:type_name -> neonize.MessageInfo
-	42, // 46: neonize.Message.Message:type_name -> defproto.Message
-	43, // 47: neonize.Message.SourceWebMsg:type_name -> defproto.WebMessageInfo
-	38, // 48: neonize.Message.NewsLetterMeta:type_name -> neonize.NewsLetterMessageMeta
-	49, // [49:49] is the sub-list for method output_type
-	49, // [49:49] is the sub-list for method input_type
-	49, // [49:49] is the sub-list for extension type_name
-	49, // [49:49] is the sub-list for extension extendee
-	0,  // [0:49] is the sub-list for field type_name
+	9,  // 0: neonize.MessageInfo.MessageSource:type_name -> neonize.MessageSource
+	11, // 1: neonize.MessageInfo.VerifiedName:type_name -> neonize.VerifiedName
+	10, // 2: neonize.MessageInfo.DeviceSentMeta:type_name -> neonize.DeviceSentMeta
+	6,  // 3: neonize.MessageSource.Chat:type_name -> neonize.JID
+	6,  // 4: neonize.MessageSource.Sender:type_name -> neonize.JID
+	6,  // 5: neonize.MessageSource.BroadcastListOwner:type_name -> neonize.JID
+	57, // 6: neonize.VerifiedName.Certificate:type_name -> defproto.VerifiedNameCertificate
+	58, // 7: neonize.VerifiedName.Details:type_name -> defproto.VerifiedNameCertificate.Details
+	6,  // 8: neonize.IsOnWhatsAppResponse.JID:type_name -> neonize.JID
+	11, // 9: neonize.IsOnWhatsAppResponse.VerifiedName:type_name -> neonize.VerifiedName
+	11, // 10: neonize.UserInfo.VerifiedName:type_name -> neonize.VerifiedName
+	6,  // 11: neonize.UserInfo.Devices:type_name -> neonize.JID
+	6,  // 12: neonize.Device.JID:type_name -> neonize.JID
+	6,  // 13: neonize.GroupName.NameSetBy:type_name -> neonize.JID
+	6,  // 14: neonize.GroupTopic.TopicSetBy:type_name -> neonize.JID
+	6,  // 15: neonize.GroupLinkedParent.LinkedParentJID:type_name -> neonize.JID
+	6,  // 16: neonize.GroupParticipant.JID:type_name -> neonize.JID
+	6,  // 17: neonize.GroupParticipant.LID:type_name -> neonize.JID
+	24, // 18: neonize.GroupParticipant.AddRequest:type_name -> neonize.GroupParticipantAddRequest
+	6,  // 19: neonize.GroupInfo.OwnerJID:type_name -> neonize.JID
+	6,  // 20: neonize.GroupInfo.JID:type_name -> neonize.JID
+	15, // 21: neonize.GroupInfo.GroupName:type_name -> neonize.GroupName
+	16, // 22: neonize.GroupInfo.GroupTopic:type_name -> neonize.GroupTopic
+	17, // 23: neonize.GroupInfo.GroupLocked:type_name -> neonize.GroupLocked
+	18, // 24: neonize.GroupInfo.GroupAnnounce:type_name -> neonize.GroupAnnounce
+	19, // 25: neonize.GroupInfo.GroupEphemeral:type_name -> neonize.GroupEphemeral
+	20, // 26: neonize.GroupInfo.GroupIncognito:type_name -> neonize.GroupIncognito
+	21, // 27: neonize.GroupInfo.GroupParent:type_name -> neonize.GroupParent
+	22, // 28: neonize.GroupInfo.GroupLinkedParent:type_name -> neonize.GroupLinkedParent
+	23, // 29: neonize.GroupInfo.GroupIsDefaultSub:type_name -> neonize.GroupIsDefaultSub
+	25, // 30: neonize.GroupInfo.Participants:type_name -> neonize.GroupParticipant
+	27, // 31: neonize.SendResponse.DebugTimings:type_name -> neonize.MessageDebugTimings
+	28, // 32: neonize.SendMessageReturnFunction.SendResponse:type_name -> neonize.SendResponse
+	26, // 33: neonize.GetGroupInfoReturnFunction.GroupInfo:type_name -> neonize.GroupInfo
+	6,  // 34: neonize.JoinGroupWithLinkReturnFunction.Jid:type_name -> neonize.JID
+	8,  // 35: neonize.UploadReturnFunction.UploadResponse:type_name -> neonize.UploadResponse
+	12, // 36: neonize.IsOnWhatsAppReturnFunction.IsOnWhatsAppResponse:type_name -> neonize.IsOnWhatsAppResponse
+	6,  // 37: neonize.GetUserInfoSingleReturnFunction.JID:type_name -> neonize.JID
+	13, // 38: neonize.GetUserInfoSingleReturnFunction.UserInfo:type_name -> neonize.UserInfo
+	37, // 39: neonize.GetUserInfoReturnFunction.UsersInfo:type_name -> neonize.GetUserInfoSingleReturnFunction
+	59, // 40: neonize.BuildPollVoteReturnFunction.PollVote:type_name -> defproto.Message
+	55, // 41: neonize.CreateNewsLetterReturnFunction.NewsletterMetadata:type_name -> neonize.NewsletterMetadata
+	56, // 42: neonize.GetBlocklistReturnFunction.Blocklist:type_name -> neonize.Blocklist
+	6,  // 43: neonize.ReqCreateGroup.Participants:type_name -> neonize.JID
+	21, // 44: neonize.ReqCreateGroup.GroupParent:type_name -> neonize.GroupParent
+	22, // 45: neonize.ReqCreateGroup.GroupLinkedParent:type_name -> neonize.GroupLinkedParent
+	6,  // 46: neonize.JIDArray.JIDS:type_name -> neonize.JID
+	7,  // 47: neonize.Message.Info:type_name -> neonize.MessageInfo
+	59, // 48: neonize.Message.Message:type_name -> defproto.Message
+	60, // 49: neonize.Message.SourceWebMsg:type_name -> defproto.WebMessageInfo
+	45, // 50: neonize.Message.NewsLetterMeta:type_name -> neonize.NewsLetterMessageMeta
+	1,  // 51: neonize.WrappedNewsletterState.Type:type_name -> neonize.WrappedNewsletterState.NewsletterState
+	2,  // 52: neonize.NewsletterReactionSettings.Value:type_name -> neonize.NewsletterReactionSettings.NewsletterReactionsMode
+	51, // 53: neonize.NewsletterSetting.ReactionCodes:type_name -> neonize.NewsletterReactionSettings
+	49, // 54: neonize.NewsletterThreadMetadata.Name:type_name -> neonize.NewsletterText
+	49, // 55: neonize.NewsletterThreadMetadata.Description:type_name -> neonize.NewsletterText
+	3,  // 56: neonize.NewsletterThreadMetadata.VerificationState:type_name -> neonize.NewsletterThreadMetadata.NewsletterVerificationState
+	50, // 57: neonize.NewsletterThreadMetadata.Picture:type_name -> neonize.ProfilePictureInfo
+	50, // 58: neonize.NewsletterThreadMetadata.Preview:type_name -> neonize.ProfilePictureInfo
+	52, // 59: neonize.NewsletterThreadMetadata.Settings:type_name -> neonize.NewsletterSetting
+	4,  // 60: neonize.NewsletterViewerMetadata.Mute:type_name -> neonize.NewsletterViewerMetadata.NewsletterMuteState
+	5,  // 61: neonize.NewsletterViewerMetadata.Role:type_name -> neonize.NewsletterViewerMetadata.NewsletterRole
+	6,  // 62: neonize.NewsletterMetadata.ID:type_name -> neonize.JID
+	48, // 63: neonize.NewsletterMetadata.State:type_name -> neonize.WrappedNewsletterState
+	53, // 64: neonize.NewsletterMetadata.ThreadMeta:type_name -> neonize.NewsletterThreadMetadata
+	54, // 65: neonize.NewsletterMetadata.ViewerMeta:type_name -> neonize.NewsletterViewerMetadata
+	6,  // 66: neonize.Blocklist.JIDs:type_name -> neonize.JID
+	67, // [67:67] is the sub-list for method output_type
+	67, // [67:67] is the sub-list for method input_type
+	67, // [67:67] is the sub-list for extension type_name
+	67, // [67:67] is the sub-list for extension extendee
+	0,  // [0:67] is the sub-list for field type_name
 }
 
 func init() { file_Neonize_proto_init() }
@@ -3663,7 +4867,7 @@ func file_Neonize_proto_init() {
 			}
 		}
 		file_Neonize_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReqCreateGroup); i {
+			switch v := v.(*CreateNewsLetterReturnFunction); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3675,7 +4879,7 @@ func file_Neonize_proto_init() {
 			}
 		}
 		file_Neonize_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*JIDArray); i {
+			switch v := v.(*GetBlocklistReturnFunction); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3687,7 +4891,7 @@ func file_Neonize_proto_init() {
 			}
 		}
 		file_Neonize_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ArrayString); i {
+			switch v := v.(*ReqCreateGroup); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3699,7 +4903,7 @@ func file_Neonize_proto_init() {
 			}
 		}
 		file_Neonize_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*NewsLetterMessageMeta); i {
+			switch v := v.(*JIDArray); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3711,7 +4915,151 @@ func file_Neonize_proto_init() {
 			}
 		}
 		file_Neonize_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ArrayString); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NewsLetterMessageMeta); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Message); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateNewsletterParams); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*WrappedNewsletterState); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NewsletterText); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ProfilePictureInfo); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[45].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NewsletterReactionSettings); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[46].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NewsletterSetting); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[47].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NewsletterThreadMetadata); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[48].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NewsletterViewerMetadata); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[49].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NewsletterMetadata); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Neonize_proto_msgTypes[50].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Blocklist); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3728,8 +5076,8 @@ func file_Neonize_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_Neonize_proto_rawDesc,
-			NumEnums:      1,
-			NumMessages:   39,
+			NumEnums:      6,
+			NumMessages:   51,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

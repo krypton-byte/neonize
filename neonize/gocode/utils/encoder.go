@@ -10,7 +10,9 @@ import (
 	"go.mau.fi/whatsmeow/types"
 	"google.golang.org/protobuf/proto"
 )
-import "go.mau.fi/whatsmeow/types/events"
+import (
+	"go.mau.fi/whatsmeow/types/events"
+)
 
 // Function
 func EncodeUploadResponse(response whatsmeow.UploadResponse) *neonize.UploadResponse {
@@ -310,4 +312,123 @@ func EncodeEventTypesMessage(message *events.Message) *neonize.Message {
 		model.Message = EncodeMessage(message.Message)
 	}
 	return model
+}
+func EncodeNewsletterText(newsletterText types.NewsletterText) *neonize.NewsletterText {
+	return &neonize.NewsletterText{
+		Text:       &newsletterText.Text,
+		ID:         &newsletterText.ID,
+		UpdateTime: proto.Int64(newsletterText.UpdateTime.Unix()),
+	}
+}
+func EncodeWrappedNewsletterState(state types.WrappedNewsletterState) *neonize.WrappedNewsletterState {
+	var enum neonize.WrappedNewsletterState_NewsletterState
+	switch state.Type {
+	case types.NewsletterStateActive:
+		enum = neonize.WrappedNewsletterState_ACTIVE
+	case types.NewsletterStateSuspended:
+		enum = neonize.WrappedNewsletterState_SUSPENDED
+	case types.NewsletterStateGeoSuspended:
+		enum = neonize.WrappedNewsletterState_GEOSUSPENDED
+	}
+	return &neonize.WrappedNewsletterState{
+		Type: &enum,
+	}
+}
+func EncodeProfilePictureInfo(profilePictureInfo types.ProfilePictureInfo) *neonize.ProfilePictureInfo {
+	return &neonize.ProfilePictureInfo{
+		URL:        &profilePictureInfo.URL,
+		ID:         &profilePictureInfo.ID,
+		Type:       &profilePictureInfo.Type,
+		DirectPath: &profilePictureInfo.DirectPath,
+	}
+}
+func EncodeNewsletterReactionSettings(reactionSettings types.NewsletterReactionSettings) *neonize.NewsletterReactionSettings {
+	var reactionMode neonize.NewsletterReactionSettings_NewsletterReactionsMode
+	switch reactionSettings.Value {
+	case types.NewsletterReactionsModeAll:
+		reactionMode = neonize.NewsletterReactionSettings_ALL
+	case types.NewsletterReactionsModeBasic:
+		reactionMode = neonize.NewsletterReactionSettings_BASIC
+	case types.NewsletterReactionsModeNone:
+		reactionMode = neonize.NewsletterReactionSettings_NONE
+	case types.NewsletterReactionsModeBlocklist:
+		reactionMode = neonize.NewsletterReactionSettings_BLOCKLIST
+	}
+	return &neonize.NewsletterReactionSettings{
+		Value: &reactionMode,
+	}
+}
+func EncodeNewsletterSetting(settings types.NewsletterSettings) *neonize.NewsletterSetting {
+	return &neonize.NewsletterSetting{
+		ReactionCodes: EncodeNewsletterReactionSettings(settings.ReactionCodes),
+	}
+}
+func EncodeNewsletterThreadMetadata(threadMetadata types.NewsletterThreadMetadata) *neonize.NewsletterThreadMetadata {
+	var state neonize.NewsletterThreadMetadata_NewsletterVerificationState
+	switch threadMetadata.VerificationState {
+	case types.NewsletterVerificationStateVerified:
+		state = neonize.NewsletterThreadMetadata_VERIFIED
+	case types.NewsletterVerificationStateUnverified:
+		state = neonize.NewsletterThreadMetadata_UNVERIFIED
+	}
+	metadata := neonize.NewsletterThreadMetadata{
+		CreationTime:      proto.Int64(threadMetadata.CreationTime.Unix()),
+		InviteCode:        &threadMetadata.InviteCode,
+		Name:              EncodeNewsletterText(threadMetadata.Name),
+		Description:       EncodeNewsletterText(threadMetadata.Description),
+		SubscriberCount:   proto.Int64(int64(threadMetadata.SubscriberCount)),
+		VerificationState: &state,
+		Preview:           EncodeProfilePictureInfo(threadMetadata.Preview),
+		Settings:          EncodeNewsletterSetting(threadMetadata.Settings),
+	}
+	if threadMetadata.Picture != nil {
+		metadata.Picture = EncodeProfilePictureInfo(*threadMetadata.Picture)
+	}
+	return &metadata
+}
+func EncodeNewsletterViewerMetadata(viewerMetadata *types.NewsletterViewerMetadata) *neonize.NewsletterViewerMetadata {
+	var mute neonize.NewsletterViewerMetadata_NewsletterMuteState
+	var role neonize.NewsletterViewerMetadata_NewsletterRole
+	switch viewerMetadata.Mute {
+	case types.NewsletterMuteOff:
+		mute = neonize.NewsletterViewerMetadata_OFF
+	case types.NewsletterMuteOn:
+		mute = neonize.NewsletterViewerMetadata_ON
+	}
+	switch viewerMetadata.Role {
+	case types.NewsletterRoleSubscriber:
+		role = neonize.NewsletterViewerMetadata_SUBSCRIBER
+	case types.NewsletterRoleGuest:
+		role = neonize.NewsletterViewerMetadata_GUEST
+	case types.NewsletterRoleAdmin:
+		role = neonize.NewsletterViewerMetadata_ADMIN
+	case types.NewsletterRoleOwner:
+		role = neonize.NewsletterViewerMetadata_OWNER
+
+	}
+	return &neonize.NewsletterViewerMetadata{
+		Mute: &mute,
+		Role: &role,
+	}
+}
+func EncodeNewsLetterMessageMetadata(metadata types.NewsletterMetadata) *neonize.NewsletterMetadata {
+	model := &neonize.NewsletterMetadata{
+		ID:         EncodeJidProto(metadata.ID),
+		State:      EncodeWrappedNewsletterState(metadata.State),
+		ThreadMeta: EncodeNewsletterThreadMetadata(metadata.ThreadMeta),
+	}
+	if metadata.ViewerMeta != nil {
+		model.ViewerMeta = EncodeNewsletterViewerMetadata(metadata.ViewerMeta)
+	}
+	return model
+}
+func EncodeBlocklist(blocklist *types.Blocklist) *neonize.Blocklist {
+	JIDs := []*neonize.JID{}
+	for _, jid := range blocklist.JIDs {
+		JIDs = append(JIDs, EncodeJidProto(jid))
+	}
+	return &neonize.Blocklist{
+		DHash: &blocklist.DHash,
+		JIDs:  JIDs,
+	}
 }
