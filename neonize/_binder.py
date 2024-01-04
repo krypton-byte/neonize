@@ -4,7 +4,7 @@ from pathlib import Path
 gocode = ctypes.CDLL((Path(__file__).parent / "gocode/gocode.so"))
 func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
 func_bytes = ctypes.CFUNCTYPE(
-    None, ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_int
+    None, ctypes.c_void_p, ctypes.c_int
 )
 
 
@@ -49,3 +49,4 @@ gocode.IsOnWhatsApp.restype = Bytes
 gocode.IsConnected.restype = ctypes.c_bool
 gocode.IsLoggedIn.restype = ctypes.c_bool
 gocode.GetUserInfo.restype = Bytes
+gocode.GetMe.restype = Bytes

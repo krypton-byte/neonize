@@ -11,10 +11,10 @@ package main
    static inline void call_c_func_string(ptr_to_python_function_string ptr, char* xStr) {
     (ptr)(xStr);
     }
-	typedef void (*ptr_to_python_function_bytes)(const char*, size_t, const char*, size_t);
+	typedef void (*ptr_to_python_function_bytes)(const char*, size_t);
 
-	static inline void call_c_func_bytes(ptr_to_python_function_bytes ptr, const char* data, size_t size, const char* msginfo, size_t msginfo_size) {
-		(ptr)(data, size, msginfo, msginfo_size);
+	static inline void call_c_func_bytes(ptr_to_python_function_bytes ptr, const char* data, size_t size) {
+		(ptr)(data, size);
 	}
 */
 import "C"
@@ -81,6 +81,15 @@ func GenerateMessageID(id *C.char) *C.char {
 	return C.CString(clients[C.GoString(id)].GenerateMessageID())
 }
 
+//export AcceptTOSNotice
+func AcceptTOSNotice(id *C.char, noticeID *C.char, stage *C.char) *C.char {
+	err := clients[C.GoString(id)].AcceptTOSNotice(C.GoString(noticeID), C.GoString(stage))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
 //export SendMessage
 func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uchar, messageSize C.int) C.struct_BytesReturn {
 	client := clients[C.GoString(id)]
@@ -129,13 +138,6 @@ func Neonize(db *C.char, id *C.char, qrCb C.ptr_to_python_function_string, logSt
 		switch v := evt.(type) {
 		case *events.Message:
 			// fmt.Println("Received a message!", v.Message.GetConversation())
-			proto.Merge(v.Message, &waProto.Message{
-				Chat: &waProto.Chat{
-					DisplayName: &v.Info.PushName,
-					Id:          &v.Info.ID,
-				},
-			})
-			data, err := proto.Marshal(v.Message)
 			if err != nil {
 				panic(err)
 			}
@@ -150,25 +152,14 @@ func Neonize(db *C.char, id *C.char, qrCb C.ptr_to_python_function_string, logSt
 			// if err != nil {
 			// 	panic(err)
 			// }
-			messageSource := neonize.MessageSource{
-				Chat:               utils.EncodeJidProto(v.Info.Chat),
-				Sender:             utils.EncodeJidProto(v.Info.Sender),
-				IsFromMe:           &v.Info.IsFromMe,
-				IsGroup:            &v.Info.IsGroup,
-				BroadcastListOwner: utils.EncodeJidProto(v.Info.BroadcastListOwner),
-				ID:                 &v.Info.ID,
-			}
-			messageSourceBytes, err := proto.Marshal(&messageSource)
+			messageSource := utils.EncodeEventTypesMessage(v)
+			messageSourceBytes, err := proto.Marshal(messageSource)
 			if err != nil {
 				panic(err)
 			}
 			messageSourceCDATA := (*C.char)(unsafe.Pointer(&messageSourceBytes[0]))
 			messageSourceCSize := C.size_t(len(messageSourceBytes))
-			CData := (*C.char)(unsafe.Pointer(&data[0]))
-			// defer C.free(unsafe.Pointer(CData))
-			CSize := C.size_t(len(data))
-			// defer C.free(unsafe.Pointer(&CSize))
-			C.call_c_func_bytes(messageCb, CData, CSize, messageSourceCDATA, messageSourceCSize)
+			C.call_c_func_bytes(messageCb, messageSourceCDATA, messageSourceCSize)
 			// C.free(unsafe.Pointer(CData))
 
 		}
@@ -454,6 +445,7 @@ func BuildRevoke(id *C.char, ChatByte *C.uchar, ChatSize C.int, SenderByte *C.uc
 	var Chat neonize.JID
 	var Sender neonize.JID
 	err := proto.Unmarshal(chatByte, &Chat)
+
 	if err != nil {
 		panic(err)
 	}
@@ -471,6 +463,42 @@ func BuildRevoke(id *C.char, ChatByte *C.uchar, ChatSize C.int, SenderByte *C.uc
 		panic(err_marshal)
 	}
 	return ReturnBytes(messageByte)
+}
+
+//export BuildPollVote
+func BuildPollVote(id *C.char, pollInfo *C.uchar, pollInfoSize C.int, optionName *C.uchar, optionNameSize C.int) C.struct_BytesReturn {
+	var msgInfo neonize.MessageInfo
+	var optionNames neonize.ArrayString
+	err := proto.Unmarshal(getByteByAddr(pollInfo, pollInfoSize), &msgInfo)
+	if err != nil {
+		panic(err)
+	}
+	err_2 := proto.Unmarshal(getByteByAddr(optionName, optionNameSize), &optionNames)
+	if err_2 != nil {
+		panic(err_2)
+	}
+	pollInfoByte := getByteByAddr(pollInfo, pollInfoSize)
+	err_3 := proto.Unmarshal(pollInfoByte, &msgInfo)
+	if err_3 != nil {
+		panic(err_3)
+	}
+	optionsname := []string{}
+	for _, option := range optionNames.Data {
+		optionsname = append(optionsname, option)
+	}
+	pollInfo_, err_poll := clients[C.GoString(id)].BuildPollVote(utils.DecodeMessageInfo(&msgInfo), optionsname)
+	return_ := neonize.BuildPollVoteReturnFunction{}
+	if err != nil {
+		return_.Error = proto.String(err_poll.Error())
+	}
+	if pollInfo_ != nil {
+		return_.PollVote = utils.EncodeMessage(pollInfo_)
+	}
+	return_buf, err_decode := proto.Marshal(&return_)
+	if err_decode != nil {
+		panic(err_decode)
+	}
+	return ReturnBytes(return_buf)
 }
 
 //export CreateGroup
@@ -494,6 +522,25 @@ func CreateGroup(id *C.char, createGroupByte *C.uchar, createGroupSize C.int) C.
 		panic(err_marshal)
 	}
 	return ReturnBytes(return_buf)
+}
+
+//export GetMe
+func GetMe(id *C.char) C.struct_BytesReturn {
+	cli := clients[C.GoString(id)].Store
+	device := neonize.Device{
+		PushName:      &cli.PushName,
+		Platform:      &cli.Platform,
+		BussinessName: &cli.BusinessName,
+		Initialized:   &cli.Initialized,
+	}
+	if cli.ID != nil {
+		device.JID = utils.EncodeJidProto(*cli.ID)
+	}
+	DeviceBuf, err := proto.Marshal(&device)
+	if err != nil {
+		panic(DeviceBuf)
+	}
+	return ReturnBytes(DeviceBuf)
 }
 
 ///

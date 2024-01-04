@@ -6,6 +6,7 @@ import magic
 import ctypes
 from PIL import Image
 from io import BytesIO
+import time
 from .proto.Neonize_pb2 import (
     MessageInfo,
     MessageSource,
@@ -27,9 +28,12 @@ from .proto.Neonize_pb2 import (
     JIDArray,
     GetUserInfoReturnFunction,
     GetUserInfoSingleReturnFunction,
+    SendResponse,
+    Device
 )
 from .proto import Neonize_pb2 as neonize_proto
 from .proto.def_pb2 import Message, StickerMessage, ExtendedTextMessage, ContextInfo
+from .proto import def_pb2 as waProto
 from .utils import (
     MediaType,
     Jid2String,
@@ -47,6 +51,11 @@ from .exc import (
     CreateGroupError,
     IsOnWhatsAppError,
     GetUserInfoError,
+    SendMessageError
+)
+from .builder import (
+    build_edit,
+    build_revoke
 )
 
 
@@ -56,7 +65,7 @@ class NewClient:
         name: str,
         qrCallback: Optional[Callable[[NewClient, bytes], None]] = None,
         messageCallback: Optional[
-            Callable[[NewClient, MessageSource, Message], None]
+            Callable[[NewClient, neonize_proto.Message], None]
         ] = None,
         uuid: Optional[str] = None,
     ):
@@ -88,8 +97,6 @@ class NewClient:
         self,
         message_protobytes: int,
         message_size: int,
-        message_source: int,
-        message_source_size: int,
     ):
         """Handles incoming messages.
 
@@ -104,25 +111,23 @@ class NewClient:
         """
         if self.messageCallback:
             bytes_data = ctypes.string_at(message_protobytes, message_size)
-            message_source_data = ctypes.string_at(message_source, message_source_size)
             self.messageCallback(
-                self,
-                MessageSource.FromString(message_source_data),
-                Message.FromString(bytes_data),
+                self,neonize_proto.Message.FromString(bytes_data)
             )
 
     def send_message(
         self, to: JID, message: typing.Union[Message, str]
-    ) -> SendMessageReturnFunction:
-        """Sends a message to the specified recipient.
+    ) -> SendResponse: # edit commenct
+        """_summary_
 
-        :param to: The JID (Jabber Identifier) of the recipient.
+        :param to: _description_
         :type to: JID
-        :param message: Either a string for plain text messages or a Message object for specialized messages.
+        :param message: _description_
         :type message: typing.Union[Message, str]
-        :return: A function for handling the result of the message sending process.
-        :rtype: SendMessageReturnFunction
-        """
+        :raises SendMessageError: _description_
+        :return: _description_
+        :rtype: SendResponse
+        """                
         to_bytes = to.SerializeToString()
         if isinstance(message, str):
             message_bytes = Message(conversation=message).SerializeToString()
@@ -131,9 +136,40 @@ class NewClient:
         sendresponse = self.__client.SendMessage(
             self.uuid, to_bytes, len(to_bytes), message_bytes, len(message_bytes)
         ).get_bytes()
-        return SendMessageReturnFunction.FromString(sendresponse)
+        model = SendMessageReturnFunction.FromString(sendresponse)
+        if model.Error:
+            raise SendMessageError(model.Error)
+        return model.SendResponse
 
-    def build_revoke(self, chat: JID, sender: JID, message_id: str) -> Message:
+    def edit_message(self, chat: JID, message_id: str, new_message: Message) -> SendResponse:
+        """_summary_
+
+        :param chat: _description_
+        :type chat: JID
+        :param message_id: _description_
+        :type message_id: str
+        :param new_message: _description_
+        :type new_message: Message
+        :return: _description_
+        :rtype: SendResponse
+        """             
+        return self.send_message(chat, build_edit(chat, message_id, new_message))
+
+    def revoke_message(self, chat: JID, sender: JID, message_id: str) -> SendResponse:
+        """_summary_
+
+        :param chat: _description_
+        :type chat: JID
+        :param sender: _description_
+        :type sender: JID
+        :param message_id: _description_
+        :type message_id: str
+        :return: _description_
+        :rtype: SendResponse
+        """        
+        return self.send_message(chat, self.build_revoke(chat, sender, message_id))
+
+    def build_revoke(self, chat: JID, sender: JID, message_id: str, with_go: bool = False) -> Message:
         """Builds a message to revoke a previous message.
 
         :param chat: The JID (Jabber Identifier) of the chat where the message should be revoked.
@@ -145,19 +181,26 @@ class NewClient:
         :return: The constructed Message object for revoking the specified message.
         :rtype: Message
         """
-        chat_buf = chat.SerializeToString()
-        sender_buf = sender.SerializeToString()
-        return Message.FromString(
-            self.__client.BuildRevoke(
-                self.uuid,
-                chat_buf,
-                len(chat_buf),
-                sender_buf,
-                len(sender_buf),
-                message_id.encode(),
-            ).get_bytes()
-        )
-
+        if with_go:
+            chat_buf = chat.SerializeToString()
+            sender_buf = sender.SerializeToString()
+            return Message.FromString(
+                self.__client.BuildRevoke(
+                    self.uuid,
+                    chat_buf,
+                    len(chat_buf),
+                    sender_buf,
+                    len(sender_buf),
+                    message_id.encode(),
+                ).get_bytes()
+            )
+        else:
+            return build_revoke(
+                chat,
+                sender,
+                message_id,
+                self.get_me().JID
+            )
     def send_sticker(
         self,
         to: JID,
@@ -236,7 +279,6 @@ class NewClient:
         if upload_model.Error:
             raise UploadError(upload_model.Error)
         return upload_model.UploadResponse
-
     def download(
         self, message: Message, path: Optional[str] = None
     ) -> typing.Union[None, bytes]:
@@ -479,6 +521,9 @@ class NewClient:
         if model.Error:
             return CreateGroupError(model.Error)
         return model.GroupInfo
+
+    def get_me(self) -> Device:
+        return Device.FromString(self.__client.GetMe(self.uuid).get_bytes())
 
     def connect(self):
         self.__client.Neonize(

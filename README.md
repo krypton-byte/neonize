@@ -27,8 +27,8 @@
 - [x] **Task 15:** Create Group
 - [x] **Task 16:** Check Phone Number
 - [x] **Task 17:** Get Info User
-- [x] **Task 14:** Send Presence
-- [x] **Task 15:** IsConnected/IsLoggedIn
+- [x] **Task 18:** Send Presence
+- [x] **Task 19:** IsConnected/IsLoggedIn
 
 
 

@@ -31,10 +31,10 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
    static inline void call_c_func_string(ptr_to_python_function_string ptr, char* xStr) {
     (ptr)(xStr);
     }
-	typedef void (*ptr_to_python_function_bytes)(const char*, size_t, const char*, size_t);
+	typedef void (*ptr_to_python_function_bytes)(const char*, size_t);
 
-	static inline void call_c_func_bytes(ptr_to_python_function_bytes ptr, const char* data, size_t size, const char* msginfo, size_t msginfo_size) {
-		(ptr)(data, size, msginfo, msginfo_size);
+	static inline void call_c_func_bytes(ptr_to_python_function_bytes ptr, const char* data, size_t size) {
+		(ptr)(data, size);
 	}
 
 #line 1 "cgo-generated-wrapper"
@@ -95,6 +95,7 @@ extern "C" {
 
 extern struct BytesReturn Upload(char* id, unsigned char* mediabuff, int mediaSize, int mediatype);
 extern char* GenerateMessageID(char* id);
+extern char* AcceptTOSNotice(char* id, char* noticeID, char* stage);
 extern struct BytesReturn SendMessage(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* messageByte, int messageSize);
 extern void Neonize(char* db, char* id, ptr_to_python_function_string qrCb, ptr_to_python_function_string logStatus, ptr_to_python_function_bytes messageCb);
 extern struct BytesReturn Download(char* id, unsigned char* messageProto, int size);
@@ -113,7 +114,9 @@ extern struct BytesReturn GetGroupInviteLink(char* id, unsigned char* JIDByte, i
 extern struct BytesReturn JoinGroupWithLink(char* id, char* code);
 extern char* SendChatPresence(char* id, unsigned char* JIDByte, int JIDSize, int state, int media);
 extern struct BytesReturn BuildRevoke(char* id, unsigned char* ChatByte, int ChatSize, unsigned char* SenderByte, int SenderSize, char* messageID);
+extern struct BytesReturn BuildPollVote(char* id, unsigned char* pollInfo, int pollInfoSize, unsigned char* optionName, int optionNameSize);
 extern struct BytesReturn CreateGroup(char* id, unsigned char* createGroupByte, int createGroupSize);
+extern struct BytesReturn GetMe(char* id);
 
 #ifdef __cplusplus
 }

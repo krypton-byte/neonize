@@ -10,6 +10,7 @@ import (
 	"go.mau.fi/whatsmeow/types"
 	"google.golang.org/protobuf/proto"
 )
+import "go.mau.fi/whatsmeow/types/events"
 
 // Function
 func EncodeUploadResponse(response whatsmeow.UploadResponse) *neonize.UploadResponse {
@@ -26,12 +27,14 @@ func EncodeUploadResponse(response whatsmeow.UploadResponse) *neonize.UploadResp
 
 // types.go
 func EncodeJidProto(data types.JID) *neonize.JID {
+	isempty := data.IsEmpty()
 	return &neonize.JID{
 		User:       &data.User,
 		RawAgent:   proto.Uint32(uint32(data.RawAgent)),
 		Device:     proto.Uint32(uint32(data.Device)),
 		Integrator: proto.Uint32(uint32(data.Integrator)),
 		Server:     &data.Server,
+		IsEmpty:    &isempty,
 	}
 }
 func EncodeGroupName(groupName types.GroupName) *neonize.GroupName {
@@ -217,4 +220,94 @@ func EncodeUserInfo(userInfo types.UserInfo) *neonize.UserInfo {
 		models.VerifiedName = EncodeVerifiedName(userInfo.VerifiedName)
 	}
 	return models
+}
+func EncodeMessageSource(messageSource types.MessageSource) *neonize.MessageSource {
+	return &neonize.MessageSource{
+		Chat:               EncodeJidProto(messageSource.Chat),
+		Sender:             EncodeJidProto(messageSource.Sender),
+		IsFromMe:           &messageSource.IsFromMe,
+		IsGroup:            &messageSource.IsGroup,
+		BroadcastListOwner: EncodeJidProto(messageSource.BroadcastListOwner),
+	}
+}
+func EncodeDeviceSentMeta(deviceSentMeta *types.DeviceSentMeta) *neonize.DeviceSentMeta {
+	return &neonize.DeviceSentMeta{
+		DestinationJID: &deviceSentMeta.DestinationJID,
+		Phash:          &deviceSentMeta.Phash,
+	}
+}
+func EncodeMessageInfo(messageInfo types.MessageInfo) *neonize.MessageInfo {
+	model := &neonize.MessageInfo{
+		MessageSource: EncodeMessageSource(messageInfo.MessageSource),
+		ID:            &messageInfo.ID,
+		ServerID:      proto.Int64(messageInfo.Timestamp.Unix()),
+		Type:          &messageInfo.Type,
+		Pushname:      &messageInfo.PushName,
+		Timestamp:     proto.Int64(messageInfo.Timestamp.Unix()),
+		Category:      &messageInfo.Category,
+		Multicast:     &messageInfo.Multicast,
+		MediaType:     &messageInfo.MediaType,
+		Edit:          (*string)(&messageInfo.Edit),
+	}
+	if messageInfo.VerifiedName != nil {
+		model.VerifiedName = EncodeVerifiedName(messageInfo.VerifiedName)
+	}
+	if messageInfo.DeviceSentMeta != nil {
+		model.DeviceSentMeta = EncodeDeviceSentMeta(messageInfo.DeviceSentMeta)
+	}
+	return model
+}
+
+func EncodeMessage(message *waProto.Message) *defproto.Message {
+	var neonizeMessage defproto.Message
+	encoded, err := proto.Marshal(message)
+	if err != nil {
+		panic(err)
+	}
+	err_decode := proto.Unmarshal(encoded, &neonizeMessage)
+	if err_decode != nil {
+		panic(err_decode)
+	}
+	return &neonizeMessage
+}
+func EncodeNewsLetterMessageMeta(newsLetter *events.NewsletterMessageMeta) *neonize.NewsLetterMessageMeta {
+	return &neonize.NewsLetterMessageMeta{
+		EditTS:     proto.Int64(int64(newsLetter.EditTS.Unix())),
+		OriginalTS: proto.Int64(int64(newsLetter.OriginalTS.Unix())),
+	}
+}
+func EncodeWebMessageInfo(sourceWebMsg *waProto.WebMessageInfo) *defproto.WebMessageInfo {
+	var sourcewebmsg defproto.WebMessageInfo
+	sourceWebBuf, err := proto.Marshal(sourceWebMsg)
+	if err != nil {
+		panic(err)
+	}
+	err_decoded := proto.Unmarshal(sourceWebBuf, &sourcewebmsg)
+	if err_decoded != nil {
+		panic(err)
+	}
+	return &sourcewebmsg
+
+}
+
+func EncodeEventTypesMessage(message *events.Message) *neonize.Message {
+	model := &neonize.Message{
+		Info:                 EncodeMessageInfo(message.Info),
+		IsEphemeral:          &message.IsEphemeral,
+		IsViewOnce:           &message.IsViewOnce,
+		IsViewOnceV2:         &message.IsViewOnceV2,
+		IsEdit:               &message.IsEdit,
+		UnavailableRequestID: &message.UnavailableRequestID,
+		RetryCount:           proto.Int64(int64(message.RetryCount)),
+	}
+	if message.NewsletterMeta != nil {
+		model.NewsLetterMeta = EncodeNewsLetterMessageMeta(message.NewsletterMeta)
+	}
+	if message.SourceWebMsg != nil {
+		model.SourceWebMsg = EncodeWebMessageInfo(message.SourceWebMsg)
+	}
+	if message.Message != nil {
+		model.Message = EncodeMessage(message.Message)
+	}
+	return model
 }

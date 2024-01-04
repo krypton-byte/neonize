@@ -10,6 +10,21 @@ message JID {
     required uint32 Device = 3;
     required uint32 Integrator= 4;
     required string Server=5;
+    required bool IsEmpty = 6;
+}
+message MessageInfo{
+    required MessageSource MessageSource = 1;
+    required string ID = 2;
+    required int64 ServerID = 3;
+    required string Type = 4;
+    required string Pushname = 5;
+    required int64 Timestamp = 6;
+    required string Category = 7;
+    required bool Multicast = 8;
+    required string MediaType = 9;
+    required string Edit = 10; //enum
+    optional VerifiedName VerifiedName = 11;
+    optional DeviceSentMeta DeviceSentMeta = 12;
 }
 message UploadResponse {
     required string url = 1;
@@ -26,25 +41,24 @@ message MessageSource {
     required bool IsFromMe = 3;
     required bool IsGroup = 4;
     required JID BroadcastListOwner = 5;
-    required string ID = 6;
 }
 message DeviceSentMeta {
     required string DestinationJID = 1;
     required string Phash = 2;
 }
-message MessageInfo{
-    required MessageSource MessageSource = 1;
-    required string ID = 2;
-    required string ServerID=3;
-    required string Type = 4;
-    required string PushName = 5;
-    required uint64 Timestamp = 6;
-    required string Category = 7;
-    required bool Multicast = 8;
-    required string MediaType = 9;
-    required string EditAttribute = 10;
+// message MessageInfo{
+//     required MessageSource MessageSource = 1;
+//     required string ID = 2;
+//     required string ServerID=3;
+//     required string Type = 4;
+//     required string PushName = 5;
+//     required uint64 Timestamp = 6;
+//     required string Category = 7;
+//     required bool Multicast = 8;
+//     required string MediaType = 9;
+//     required string EditAttribute = 10;
 
-}
+// }
 message VerifiedName {
     optional defproto.VerifiedNameCertificate Certificate = 1;
     optional defproto.VerifiedNameCertificate.Details Details = 2;
@@ -58,12 +72,18 @@ message IsOnWhatsAppResponse {
 
 message UserInfo {
     optional VerifiedName VerifiedName = 1;
-    required string status = 2;
+    required string Status = 2;
     required string PictureID = 3;
     repeated JID Devices = 4;
 }
 
-
+message Device {
+    optional JID JID = 1;
+    required string Platform = 2;
+    required string BussinessName = 3;
+    required string PushName = 4;
+    required bool Initialized = 5;
+}
 
 
 // GROUP
@@ -203,6 +223,10 @@ message GetUserInfoReturnFunction {
     repeated GetUserInfoSingleReturnFunction UsersInfo = 1;
     optional string Error = 2;
 }
+message BuildPollVoteReturnFunction {
+    optional defproto.Message PollVote = 1;
+    optional string Error = 2;
+}
 message ReqCreateGroup {
     required string name = 1;
     repeated JID Participants = 2;
@@ -212,4 +236,24 @@ message ReqCreateGroup {
 }
 message JIDArray {
     repeated JID JIDS = 1;
+}
+
+message ArrayString {
+    repeated string data = 1;
+}
+message NewsLetterMessageMeta {
+    required int64 EditTS = 1;
+    required int64 OriginalTS = 2; 
+}
+message Message {
+    required MessageInfo Info = 1;
+    optional defproto.Message Message = 2;
+    required bool IsEphemeral = 3;
+    required bool IsViewOnce = 4;
+    required bool IsViewOnceV2 = 5;
+    required bool IsEdit = 6;
+    optional defproto.WebMessageInfo SourceWebMsg = 7;
+    required string UnavailableRequestID = 8;
+    required int64 RetryCount = 9;
+    optional NewsLetterMessageMeta NewsLetterMeta = 10;
 }

@@ -32,3 +32,6 @@ class IsOnWhatsAppError(Exception):
 
 class GetUserInfoError(Exception):
     pass
+
+class SendMessageError(Exception):
+    pass
