@@ -55,7 +55,13 @@ from .exc import (
     BuildPollVoteError,
     CreateNewsletterError,
     FollowNewsletterError,
-    GetBlocklistError
+    GetBlocklistError,
+    GetContactQrLinkError,
+    GetGroupRequestParticipantsError,
+    GetJoinedGroupsError,
+    GetLinkedGroupParticipantsError,
+    GetNewsletterInfoError,
+    GetNewsletterInfoWithInviteError,
 )
 from .builder import build_edit, build_revoke
 
@@ -456,6 +462,34 @@ class NewClient:
             raise GetGroupInfoError(model.Error)
         return model.GroupInfo
 
+    def get_group_info_from_link(self, code: str) -> GroupInfo:
+        model = GetGroupInfoReturnFunction.FromString(
+            self.__client.GetGroupInfoFromLink(self.uuid, code.encode()).get_bytes()
+        )
+        if model.Error:
+            raise GetGroupInfoError(model.Error)
+        return model.GroupInfo
+
+    def get_group_info_from_invite(
+        self, jid: JID, inviter: JID, code: str, expiration: int
+    ) -> GroupInfo:
+        jidbyte = jid.SerializeToString()
+        inviterbyte = inviter.SerializeToString()
+        model = GetGroupInfoReturnFunction.FromString(
+            self.__client(
+                self.uuid,
+                jidbyte,
+                len(jidbyte),
+                inviterbyte,
+                len(inviterbyte),
+                code.encode(),
+                expiration,
+            ).get_bytes()
+        )
+        if model.Error:
+            raise GetGroupInfoError(model.Error)
+        return model.GroupInfo
+
     def set_group_name(self, jid: JID, name: str) -> str:
         """Sets the name of a group.
 
@@ -572,6 +606,25 @@ class NewClient:
             return CreateGroupError(model.Error)
         return model.GroupInfo
 
+    def get_group_request_participants(self, jid: JID) -> List[JID]:
+        jidbyte = jid.SerializeToString()
+        model = neonize_proto.GetGroupRequestParticipantsReturnFunction.FromString(
+            self.__client.GetGroupRequestParticipants(
+                self.uuid, jidbyte, len(jidbyte)
+            ).get_bytes()
+        )
+        if model.Error:
+            raise GetGroupRequestParticipantsError(model.Error)
+        return model.Participants
+
+    def get_joined_groups(self) -> List[GroupInfo]:
+        model = neonize_proto.GetJoinedGroupsReturnFunction.FromString(
+            self.__client.GetJoinedGroups(self.uuid).get_bytes()
+        )
+        if model.Error:
+            raise GetJoinedGroupsError(model.Error)
+        return model.Group
+
     def create_newsletter(
         self, name: str, description: str, picture: typing.Union[str, bytes]
     ) -> neonize_proto.NewsletterMetadata:
@@ -588,19 +641,68 @@ class NewClient:
         if model.Error:
             raise CreateNewsletterError(model.Error)
         return model.NewsletterMetadata
+
     def follow_newsletter(self, jid: JID):
         jidbyte = jid.SerializeToString()
         err = self.__client.FollowNewsletter(self.uuid, jidbyte, len(jidbyte)).decode()
         if err:
             raise FollowNewsletterError(err)
         return err
+
+    def get_newsletter_info_with_invite(
+        self, key: str
+    ) -> neonize_proto.NewsletterMetadata:
+        model = neonize_proto.CreateNewsLetterReturnFunction.FromString(
+            self.__client.GetNewsletterInfoWithInvite(
+                self.uuid, key.encode()
+            ).get_bytes()
+        )
+        if model.Error:
+            raise GetNewsletterInfoWithInviteError(model.Error)
+        return model.NewsletterMetadata
+
     def get_blocklist(self) -> neonize_proto.Blocklist:
-        model = neonize_proto.GetBlocklistReturnFunction.FromString(self.__client.GetBlocklist(self.uuid).get_bytes())
+        model = neonize_proto.GetBlocklistReturnFunction.FromString(
+            self.__client.GetBlocklist(self.uuid).get_bytes()
+        )
         if model.Error:
             raise GetBlocklistError(model.Error)
         return model.Blocklist
+
     def get_me(self) -> Device:
         return Device.FromString(self.__client.GetMe(self.uuid).get_bytes())
+
+    def get_contact_qr_link(self, revoke: bool = False) -> str:
+        model = neonize_proto.GetContactQRLinkReturnFunction.FromString(
+            self.__client.GetContactQRLink(self.uuid, revoke).get_bytes()
+        )
+        if model.Error:
+            raise GetContactQrLinkError(model.Error)
+        return model.Link
+
+    def get_linked_group_participants(self, community: JID) -> List[JID]:  # untested
+        jidbyte = community.SerializeToString()
+        model = neonize_proto.GetGroupRequestParticipantsReturnFunction.FromString(
+            self.__client.GetLinkedGroupsParticipants(
+                self.uuid, jidbyte, len(jidbyte)
+            ).get_bytes()
+        )
+        if model.Error:
+            raise GetLinkedGroupParticipantsError(model.Error)
+        return model.Participants
+
+    def get_newsletter_info(
+        self, jid: JID
+    ) -> neonize_proto.NewsletterMetadata:  # untested
+        jidbyte = jid.SerializeToString()
+        model = neonize_proto.CreateNewsLetterReturnFunction.FromString(
+            self.__client.GetNewsletterInfo(
+                self.uuid, jidbyte, len(jidbyte)
+            ).get_bytes()
+        )
+        if model.Error:
+            raise GetNewsletterInfoError(model.Error)
+        return model.NewsletterMetadata
 
     def connect(self):
         self.__client.Neonize(

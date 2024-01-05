@@ -321,6 +321,99 @@ func GetGroupInfo(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.struct_BytesRet
 	return ReturnBytes(databuf)
 }
 
+//export GetGroupInfoFromInvite
+func GetGroupInfoFromInvite(id *C.char, JIDByte *C.uchar, JIDSize C.int, inviter *C.uchar, inviterSize C.int, code *C.char, expiration C.int) C.struct_BytesReturn {
+	var JIDInviter neonize.JID
+	var JID neonize.JID
+	err_jid := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err_jid != nil {
+		panic(err_jid)
+	}
+	err_inviter := proto.Unmarshal(getByteByAddr(inviter, inviterSize), &JIDInviter)
+	if err_inviter != nil {
+		panic(err_inviter)
+	}
+	group_info, err := clients[C.GoString(id)].GetGroupInfoFromInvite(utils.DecodeJidProto(&JID), utils.DecodeJidProto(&JIDInviter), C.GoString(code), int64(expiration))
+	return_proto := neonize.GetGroupInfoReturnFunction{}
+	if err != nil {
+		return_proto.Error = proto.String(err.Error())
+	}
+	if group_info != nil {
+		return_proto.GroupInfo = utils.EncodeGroupInfo(group_info)
+	}
+	return_, err_marshal := proto.Marshal(&return_proto)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(return_)
+}
+
+//export GetGroupInfoFromLink
+func GetGroupInfoFromLink(id *C.char, code *C.char) C.struct_BytesReturn {
+	return_proto := neonize.GetGroupInfoReturnFunction{}
+	info, err := clients[C.GoString(id)].GetGroupInfoFromLink(C.GoString(code))
+	if err != nil {
+		return_proto.Error = proto.String(err.Error())
+	}
+	if info != nil {
+		return_proto.GroupInfo = utils.EncodeGroupInfo(info)
+	}
+	return_, err_marshal := proto.Marshal(&return_proto)
+	if err_marshal != nil {
+		panic(err)
+	}
+	return ReturnBytes(return_)
+}
+
+//export GetGroupRequestParticipants
+func GetGroupRequestParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.struct_BytesReturn {
+	var JID neonize.JID
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		panic(err)
+	}
+	request_participants, err_request := clients[C.GoString(id)].GetGroupRequestParticipants(utils.DecodeJidProto(&JID))
+	participants := []*neonize.JID{}
+	for _, participant := range request_participants {
+		participants = append(participants, utils.EncodeJidProto(participant))
+	}
+	return_ := neonize.GetGroupRequestParticipantsReturnFunction{
+		Participants: participants,
+	}
+	if err_request != nil {
+		return_.Error = proto.String(err_request.Error())
+	}
+	return_buf, err_marshal := proto.Marshal(&return_)
+	if err_marshal != nil {
+		panic(err)
+	}
+	return ReturnBytes(return_buf)
+}
+
+//export GetLinkedGroupsParticipants
+func GetLinkedGroupsParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.struct_BytesReturn {
+	var JID neonize.JID
+	return_ := neonize.GetGroupRequestParticipantsReturnFunction{}
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		panic(err)
+	}
+	JIDS, err_get := clients[C.GoString(id)].GetLinkedGroupsParticipants(utils.DecodeJidProto(&JID))
+	if err_get != nil {
+		return_.Error = proto.String(err_get.Error())
+	}
+	neonizeJID := []*neonize.JID{}
+	for _, jid := range JIDS {
+		neonizeJID = append(neonizeJID, utils.EncodeJidProto(jid))
+	}
+	return_.Participants = neonizeJID
+	return_buf, err_marshal := proto.Marshal(&return_)
+	if err_marshal != nil {
+		panic(err)
+	}
+	return ReturnBytes(return_buf)
+}
+
 //export SetGroupName
 func SetGroupName(id *C.char, JIDByte *C.uchar, JIDSize C.int, name *C.char) *C.char {
 	jidbyte := getByteByAddr(JIDByte, JIDSize)
@@ -523,6 +616,42 @@ func FollowNewsletter(id *C.char, jid *C.uchar, size C.int) *C.char {
 	return C.CString(err.Error())
 }
 
+//export GetNewsletterInfo
+func GetNewsletterInfo(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.struct_BytesReturn {
+	var JID neonize.JID
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		panic(err)
+	}
+	metadata_proto := neonize.CreateNewsLetterReturnFunction{}
+	metadata, err_metadata := clients[C.GoString(id)].GetNewsletterInfo(utils.DecodeJidProto(&JID))
+	if metadata != nil {
+		metadata_proto.NewsletterMetadata = utils.EncodeNewsLetterMessageMetadata(*metadata)
+	}
+	if err_metadata != nil {
+		metadata_proto.Error = proto.String(err_metadata.Error())
+	}
+	return_, err_marshal := proto.Marshal(&metadata_proto)
+	if err_marshal != nil {
+		panic(err)
+	}
+	return ReturnBytes(return_)
+}
+
+//export GetNewsletterInfoWithInvite
+func GetNewsletterInfoWithInvite(id *C.char, key *C.char) C.struct_BytesReturn {
+	return_ := neonize.CreateNewsLetterReturnFunction{}
+	metadata, err := clients[C.GoString(id)].GetNewsletterInfoWithInvite(C.GoString(key))
+	if metadata != nil {
+		return_.NewsletterMetadata = utils.EncodeNewsLetterMessageMetadata(*metadata)
+	}
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+	}
+	return_buf, err := proto.Marshal(&return_)
+	return ReturnBytes(return_buf)
+}
+
 //export GetBlocklist
 func GetBlocklist(id *C.char) C.struct_BytesReturn {
 	blocklist, err := clients[C.GoString(id)].GetBlocklist()
@@ -619,6 +748,26 @@ func CreateGroup(id *C.char, createGroupByte *C.uchar, createGroupSize C.int) C.
 	return ReturnBytes(return_buf)
 }
 
+//export GetJoinedGroups
+func GetJoinedGroups(id *C.char) C.struct_BytesReturn {
+	neonize_groups_info := []*neonize.GroupInfo{}
+	joined_groups, err := clients[C.GoString(id)].GetJoinedGroups()
+	return_ := neonize.GetJoinedGroupsReturnFunction{}
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+	}
+	for _, group_info := range joined_groups {
+		neonize_groups_info = append(neonize_groups_info, utils.EncodeGroupInfo(group_info))
+	}
+	return_.Group = neonize_groups_info
+	return_buf, err_marshal := proto.Marshal(&return_)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(return_buf)
+
+}
+
 //export GetMe
 func GetMe(id *C.char) C.struct_BytesReturn {
 	cli := clients[C.GoString(id)].Store
@@ -636,6 +785,23 @@ func GetMe(id *C.char) C.struct_BytesReturn {
 		panic(DeviceBuf)
 	}
 	return ReturnBytes(DeviceBuf)
+}
+
+//export GetContactQRLink
+func GetContactQRLink(id *C.char, revoke C.bool) C.struct_BytesReturn {
+	link, err := clients[C.GoString(id)].GetContactQRLink(bool(revoke))
+	QRLinkReturn := neonize.GetContactQRLinkReturnFunction{
+		Link: &link,
+	}
+	if err != nil {
+		QRLinkReturn.Error = proto.String(err.Error())
+	}
+	return_, err_masrhal := proto.Marshal(&QRLinkReturn)
+	if err_masrhal != nil {
+		panic(err_masrhal)
+	}
+	return ReturnBytes(return_)
+
 }
 
 ///

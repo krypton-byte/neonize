@@ -151,7 +151,7 @@ message GroupInfo{
     required float GroupCreated = 12;
     required string ParticipantVersionID = 13;
     repeated GroupParticipant Participants = 14;
-    enum MemberAddMode {
+    enum GroupMemberAddMode {
         GroupMemberAddModeAdmin = 1;
     }
 }
@@ -233,6 +233,18 @@ message CreateNewsLetterReturnFunction{
 }
 message GetBlocklistReturnFunction{
     optional Blocklist Blocklist = 1;
+    optional string Error = 2;
+}
+message GetContactQRLinkReturnFunction {
+    required string Link = 1;
+    optional string Error = 2;
+}
+message GetGroupRequestParticipantsReturnFunction {
+    repeated JID Participants = 1;
+    optional string Error = 2;
+}
+message GetJoinedGroupsReturnFunction {
+    repeated GroupInfo Group = 1;
     optional string Error = 2;
 }
 message ReqCreateGroup {

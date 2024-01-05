@@ -531,16 +531,16 @@ global___GroupParticipant = GroupParticipant
 class GroupInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    class _MemberAddMode:
+    class _GroupMemberAddMode:
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _MemberAddModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GroupInfo._MemberAddMode.ValueType], builtins.type):
+    class _GroupMemberAddModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GroupInfo._GroupMemberAddMode.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        GroupMemberAddModeAdmin: GroupInfo._MemberAddMode.ValueType  # 1
+        GroupMemberAddModeAdmin: GroupInfo._GroupMemberAddMode.ValueType  # 1
 
-    class MemberAddMode(_MemberAddMode, metaclass=_MemberAddModeEnumTypeWrapper): ...
-    GroupMemberAddModeAdmin: GroupInfo.MemberAddMode.ValueType  # 1
+    class GroupMemberAddMode(_GroupMemberAddMode, metaclass=_GroupMemberAddModeEnumTypeWrapper): ...
+    GroupMemberAddModeAdmin: GroupInfo.GroupMemberAddMode.ValueType  # 1
 
     OWNERJID_FIELD_NUMBER: builtins.int
     JID_FIELD_NUMBER: builtins.int
@@ -930,6 +930,65 @@ class GetBlocklistReturnFunction(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["Blocklist", b"Blocklist", "Error", b"Error"]) -> None: ...
 
 global___GetBlocklistReturnFunction = GetBlocklistReturnFunction
+
+@typing_extensions.final
+class GetContactQRLinkReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LINK_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    Link: builtins.str
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        Link: builtins.str | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "Link", b"Link"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "Link", b"Link"]) -> None: ...
+
+global___GetContactQRLinkReturnFunction = GetContactQRLinkReturnFunction
+
+@typing_extensions.final
+class GetGroupRequestParticipantsReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PARTICIPANTS_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def Participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        Participants: collections.abc.Iterable[global___JID] | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "Participants", b"Participants"]) -> None: ...
+
+global___GetGroupRequestParticipantsReturnFunction = GetGroupRequestParticipantsReturnFunction
+
+@typing_extensions.final
+class GetJoinedGroupsReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    GROUP_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def Group(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GroupInfo]: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        Group: collections.abc.Iterable[global___GroupInfo] | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "Group", b"Group"]) -> None: ...
+
+global___GetJoinedGroupsReturnFunction = GetJoinedGroupsReturnFunction
 
 @typing_extensions.final
 class ReqCreateGroup(google.protobuf.message.Message):

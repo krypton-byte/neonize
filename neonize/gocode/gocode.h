@@ -107,6 +107,10 @@ extern struct BytesReturn GetUserInfo(char* id, unsigned char* JIDSByte, int JID
 // /GROUP
 //
 extern struct BytesReturn GetGroupInfo(char* id, unsigned char* JIDByte, int JIDSize);
+extern struct BytesReturn GetGroupInfoFromInvite(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* inviter, int inviterSize, char* code, int expiration);
+extern struct BytesReturn GetGroupInfoFromLink(char* id, char* code);
+extern struct BytesReturn GetGroupRequestParticipants(char* id, unsigned char* JIDByte, int JIDSize);
+extern struct BytesReturn GetLinkedGroupsParticipants(char* id, unsigned char* JIDByte, int JIDSize);
 extern char* SetGroupName(char* id, unsigned char* JIDByte, int JIDSize, char* name);
 extern struct BytesReturn SetGroupPhoto(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* Photo, int PhotoSize);
 extern char* LeaveGroup(char* id, unsigned char* JIDByte, int JIDSize);
@@ -117,11 +121,15 @@ extern struct BytesReturn BuildRevoke(char* id, unsigned char* ChatByte, int Cha
 extern struct BytesReturn BuildPollVoteCreation(char* id, char* name, unsigned char* options, int optionsSize, int selectableOptionCount);
 extern struct BytesReturn CreateNewsletter(char* id, unsigned char* createNewsletterParams, int size);
 extern char* FollowNewsletter(char* id, unsigned char* jid, int size);
+extern struct BytesReturn GetNewsletterInfo(char* id, unsigned char* JIDByte, int JIDSize);
+extern struct BytesReturn GetNewsletterInfoWithInvite(char* id, char* key);
 extern struct BytesReturn GetBlocklist(char* id);
 extern struct BytesReturn BuildPollVote(char* id, unsigned char* pollInfo, int pollInfoSize, unsigned char* optionName, int optionNameSize);
 extern struct BytesReturn BuildReaction(char* id, unsigned char* chat, int chatSize, unsigned char* sender, int senderSize, char* messageID, char* reaction);
 extern struct BytesReturn CreateGroup(char* id, unsigned char* createGroupByte, int createGroupSize);
+extern struct BytesReturn GetJoinedGroups(char* id);
 extern struct BytesReturn GetMe(char* id);
+extern struct BytesReturn GetContactQRLink(char* id, _Bool revoke);
 
 #ifdef __cplusplus
 }

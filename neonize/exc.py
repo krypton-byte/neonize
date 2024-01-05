@@ -47,3 +47,21 @@ class FollowNewsletterError(Exception):
 
 class GetBlocklistError(Exception):
     pass
+
+class GetContactQrLinkError(Exception):
+    pass
+
+class GetGroupRequestParticipantsError(Exception):
+    pass
+
+class GetJoinedGroupsError(Exception):
+    pass
+
+class GetLinkedGroupParticipantsError(Exception):
+    pass
+
+class GetNewsletterInfoError(Exception):
+    pass
+
+class GetNewsletterInfoWithInviteError(Exception):
+    pass
