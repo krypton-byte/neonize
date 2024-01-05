@@ -1,7 +1,11 @@
 import ctypes
-from pathlib import Path
+import os
 
-gocode = ctypes.CDLL((Path(__file__).parent / "gocode/gocode.so"))
+from platform import system
+
+file_ext = "dll" if system() == "Windows" else "so"
+root_dir = os.path.abspath(os.path.dirname(__file__))
+gocode = ctypes.CDLL(f"{root_dir}/gocode/gocode.{file_ext}")
 func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
 func_bytes = ctypes.CFUNCTYPE(
     None, ctypes.c_void_p, ctypes.c_int

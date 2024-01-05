@@ -5,7 +5,8 @@
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-import sys, os
+import os
+import sys
 
 sys.path.insert(0, os.path.abspath(".."))
 project = "neonize"
@@ -24,7 +25,7 @@ extensions = [
 ]
 
 templates_path = ["_templates"]
-utosummary_generate = True
+autosummary_generate = True
 autodoc_default_flags = ["members"]
 exclude_patterns = ["gocode"]
 
@@ -33,4 +34,4 @@ exclude_patterns = ["gocode"]
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "sphinx_rtd_theme"
-html_static_path = ["_static"]
+# html_static_path = ["_static"]
