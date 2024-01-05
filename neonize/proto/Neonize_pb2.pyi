@@ -1424,3 +1424,126 @@ class Blocklist(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["DHash", b"DHash", "JIDs", b"JIDs"]) -> None: ...
 
 global___Blocklist = Blocklist
+
+@typing_extensions.final
+class Reaction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TYPE_FIELD_NUMBER: builtins.int
+    COUNT_FIELD_NUMBER: builtins.int
+    type: builtins.str
+    count: builtins.int
+    def __init__(
+        self,
+        *,
+        type: builtins.str | None = ...,
+        count: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["count", b"count", "type", b"type"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["count", b"count", "type", b"type"]) -> None: ...
+
+global___Reaction = Reaction
+
+@typing_extensions.final
+class NewsletterMessage(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MESSAGESERVERID_FIELD_NUMBER: builtins.int
+    VIEWSCOUNT_FIELD_NUMBER: builtins.int
+    REACTIONCOUNTS_FIELD_NUMBER: builtins.int
+    MESSAGE_FIELD_NUMBER: builtins.int
+    MessageServerID: builtins.int
+    ViewsCount: builtins.int
+    @property
+    def ReactionCounts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Reaction]: ...
+    @property
+    def Message(self) -> def_pb2.Message: ...
+    def __init__(
+        self,
+        *,
+        MessageServerID: builtins.int | None = ...,
+        ViewsCount: builtins.int | None = ...,
+        ReactionCounts: collections.abc.Iterable[global___Reaction] | None = ...,
+        Message: def_pb2.Message | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Message", b"Message", "MessageServerID", b"MessageServerID", "ViewsCount", b"ViewsCount"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Message", b"Message", "MessageServerID", b"MessageServerID", "ReactionCounts", b"ReactionCounts", "ViewsCount", b"ViewsCount"]) -> None: ...
+
+global___NewsletterMessage = NewsletterMessage
+
+@typing_extensions.final
+class GetNewsletterMessageUpdateReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NEWSLETTERMESSAGE_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def NewsletterMessage(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___NewsletterMessage]: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        NewsletterMessage: collections.abc.Iterable[global___NewsletterMessage] | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "NewsletterMessage", b"NewsletterMessage"]) -> None: ...
+
+global___GetNewsletterMessageUpdateReturnFunction = GetNewsletterMessageUpdateReturnFunction
+
+@typing_extensions.final
+class PrivacySettings(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _PrivacySetting:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _PrivacySettingEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PrivacySettings._PrivacySetting.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNDEFINED: PrivacySettings._PrivacySetting.ValueType  # 1
+        ALL: PrivacySettings._PrivacySetting.ValueType  # 2
+        CONTACTS: PrivacySettings._PrivacySetting.ValueType  # 3
+        CONTACT_BLACKLIST: PrivacySettings._PrivacySetting.ValueType  # 4
+        MATCH_LAST_SEEN: PrivacySettings._PrivacySetting.ValueType  # 5
+        KNOWN: PrivacySettings._PrivacySetting.ValueType  # 6
+        NONE: PrivacySettings._PrivacySetting.ValueType  # 7
+
+    class PrivacySetting(_PrivacySetting, metaclass=_PrivacySettingEnumTypeWrapper): ...
+    UNDEFINED: PrivacySettings.PrivacySetting.ValueType  # 1
+    ALL: PrivacySettings.PrivacySetting.ValueType  # 2
+    CONTACTS: PrivacySettings.PrivacySetting.ValueType  # 3
+    CONTACT_BLACKLIST: PrivacySettings.PrivacySetting.ValueType  # 4
+    MATCH_LAST_SEEN: PrivacySettings.PrivacySetting.ValueType  # 5
+    KNOWN: PrivacySettings.PrivacySetting.ValueType  # 6
+    NONE: PrivacySettings.PrivacySetting.ValueType  # 7
+
+    GROUPADD_FIELD_NUMBER: builtins.int
+    LASTSEEN_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    PROFILE_FIELD_NUMBER: builtins.int
+    READRECEIPTS_FIELD_NUMBER: builtins.int
+    CALLADD_FIELD_NUMBER: builtins.int
+    ONLINE_FIELD_NUMBER: builtins.int
+    GroupAdd: global___PrivacySettings.PrivacySetting.ValueType
+    LastSeen: global___PrivacySettings.PrivacySetting.ValueType
+    Status: global___PrivacySettings.PrivacySetting.ValueType
+    Profile: global___PrivacySettings.PrivacySetting.ValueType
+    ReadReceipts: global___PrivacySettings.PrivacySetting.ValueType
+    CallAdd: global___PrivacySettings.PrivacySetting.ValueType
+    Online: global___PrivacySettings.PrivacySetting.ValueType
+    def __init__(
+        self,
+        *,
+        GroupAdd: global___PrivacySettings.PrivacySetting.ValueType | None = ...,
+        LastSeen: global___PrivacySettings.PrivacySetting.ValueType | None = ...,
+        Status: global___PrivacySettings.PrivacySetting.ValueType | None = ...,
+        Profile: global___PrivacySettings.PrivacySetting.ValueType | None = ...,
+        ReadReceipts: global___PrivacySettings.PrivacySetting.ValueType | None = ...,
+        CallAdd: global___PrivacySettings.PrivacySetting.ValueType | None = ...,
+        Online: global___PrivacySettings.PrivacySetting.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["CallAdd", b"CallAdd", "GroupAdd", b"GroupAdd", "LastSeen", b"LastSeen", "Online", b"Online", "Profile", b"Profile", "ReadReceipts", b"ReadReceipts", "Status", b"Status"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["CallAdd", b"CallAdd", "GroupAdd", b"GroupAdd", "LastSeen", b"LastSeen", "Online", b"Online", "Profile", b"Profile", "ReadReceipts", b"ReadReceipts", "Status", b"Status"]) -> None: ...
+
+global___PrivacySettings = PrivacySettings

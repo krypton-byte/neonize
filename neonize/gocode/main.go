@@ -25,6 +25,7 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
+	"time"
 	"unsafe"
 
 	"github.com/krypton-byte/neonize/neonize"
@@ -187,12 +188,12 @@ func Neonize(db *C.char, id *C.char, qrCb C.ptr_to_python_function_string, logSt
 				// Render the QR code here
 				// e.g. qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
 				// or just manually `echo 2@... | qrencode -t ansiutf8` in a terminal
-				qrFuncCb(evt.Code)
+				go qrFuncCb(evt.Code)
 				// fmt.Println(cstr)
 				// C.free(unsafe.Pointer(cstr))
 			} else {
 				fmt.Println("Login event:", evt.Event)
-				logStatusCb(evt.Event)
+				go logStatusCb(evt.Event)
 			}
 		}
 	} else {
@@ -652,6 +653,77 @@ func GetNewsletterInfoWithInvite(id *C.char, key *C.char) C.struct_BytesReturn {
 	return ReturnBytes(return_buf)
 }
 
+//export GetNewsletterMessageUpdate
+func GetNewsletterMessageUpdate(id *C.char, JIDByte *C.uchar, JIDSize C.int, Count C.int, Since C.int, After C.int) C.struct_BytesReturn {
+	var JID neonize.JID
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		panic(err)
+	}
+	newsletterMessage, errnewsletter := clients[C.GoString(id)].GetNewsletterMessageUpdates(utils.DecodeJidProto(&JID), &whatsmeow.GetNewsletterUpdatesParams{
+		Count: int(Count),
+		Since: time.Unix(int64(Since), 0),
+		After: int(After),
+	})
+	return_ := neonize.GetNewsletterMessageUpdateReturnFunction{}
+	if errnewsletter != nil {
+		return_.Error = proto.String(errnewsletter.Error())
+	}
+	NewsletterMessages := []*neonize.NewsletterMessage{}
+	for _, msg := range newsletterMessage {
+		NewsletterMessages = append(NewsletterMessages, utils.EncodeNewsletterMessage(msg))
+	}
+	if newsletterMessage != nil {
+		return_.NewsletterMessage = NewsletterMessages
+	}
+	return_buf, err_marshal := proto.Marshal(&return_)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(return_buf)
+
+}
+
+//export GetNewsletterMessages
+func GetNewsletterMessages(id *C.char, JIDByte *C.uchar, JIDSize C.int, Count C.int, Before C.int) C.struct_BytesReturn {
+	var JID neonize.JID
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		panic(err)
+	}
+	newsletterMessage, errnewsletter := clients[C.GoString(id)].GetNewsletterMessages(utils.DecodeJidProto(&JID), &whatsmeow.GetNewsletterMessagesParams{
+		Count:  int(Count),
+		Before: int(Before),
+	})
+	return_ := neonize.GetNewsletterMessageUpdateReturnFunction{}
+	if errnewsletter != nil {
+		return_.Error = proto.String(errnewsletter.Error())
+	}
+	NewsletterMessages := []*neonize.NewsletterMessage{}
+	for _, msg := range newsletterMessage {
+		NewsletterMessages = append(NewsletterMessages, utils.EncodeNewsletterMessage(msg))
+	}
+	if newsletterMessage != nil {
+		return_.NewsletterMessage = NewsletterMessages
+	}
+	return_buf, err_marshal := proto.Marshal(&return_)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(return_buf)
+
+}
+
+//export GetPrivacySettings
+func GetPrivacySettings(id *C.char) C.struct_BytesReturn {
+	settings := clients[C.GoString(id)].GetPrivacySettings()
+	return_buf, err := proto.Marshal(utils.EncodePrivacySettings(settings))
+	if err != nil {
+		panic(err)
+	}
+	return ReturnBytes(return_buf)
+}
+
 //export GetBlocklist
 func GetBlocklist(id *C.char) C.struct_BytesReturn {
 	blocklist, err := clients[C.GoString(id)].GetBlocklist()
@@ -801,7 +873,6 @@ func GetContactQRLink(id *C.char, revoke C.bool) C.struct_BytesReturn {
 		panic(err_masrhal)
 	}
 	return ReturnBytes(return_)
-
 }
 
 ///

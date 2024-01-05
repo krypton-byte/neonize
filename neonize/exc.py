@@ -65,3 +65,9 @@ class GetNewsletterInfoError(Exception):
 
 class GetNewsletterInfoWithInviteError(Exception):
     pass
+
+class GetNewsletterMessageUpdateError(Exception):
+    pass
+
+class GetNewsletterMessagesError(Exception):
+    pass

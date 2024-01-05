@@ -432,3 +432,60 @@ func EncodeBlocklist(blocklist *types.Blocklist) *neonize.Blocklist {
 		JIDs:  JIDs,
 	}
 }
+func EncodeNewsletterMessage(message *types.NewsletterMessage) *neonize.NewsletterMessage {
+	var defmessage defproto.Message
+	message_buf, err := proto.Marshal(message.Message)
+	if err != nil {
+		panic(err)
+	}
+	err_unmarshal := proto.Unmarshal(message_buf, &defmessage)
+	if err_unmarshal != nil {
+		panic(err)
+	}
+	reacts := []*neonize.Reaction{}
+	for react, count := range message.ReactionCounts {
+		reacts = append(reacts, &neonize.Reaction{
+			Type:  &react,
+			Count: proto.Int64(int64(count)),
+		})
+	}
+	return &neonize.NewsletterMessage{
+		MessageServerID: proto.Int64(int64(message.MessageServerID)),
+		ViewsCount:      proto.Int64(int64(message.ViewsCount)),
+		Message:         &defmessage,
+		ReactionCounts:  reacts,
+	}
+}
+
+func EncodePrivacySetting(privacy types.PrivacySetting) *neonize.PrivacySettings_PrivacySetting {
+	var privacySetting neonize.PrivacySettings_PrivacySetting
+	switch privacy {
+	case types.PrivacySettingUndefined:
+		privacySetting = neonize.PrivacySettings_UNDEFINED
+	case types.PrivacySettingAll:
+		privacySetting = neonize.PrivacySettings_ALL
+	case types.PrivacySettingContacts:
+		privacySetting = neonize.PrivacySettings_CONTACTS
+	case types.PrivacySettingContactBlacklist:
+		privacySetting = neonize.PrivacySettings_CONTACT_BLACKLIST
+	case types.PrivacySettingMatchLastSeen:
+		privacySetting = neonize.PrivacySettings_MATCH_LAST_SEEN
+	case types.PrivacySettingKnown:
+		privacySetting = neonize.PrivacySettings_KNOWN
+	case types.PrivacySettingNone:
+		privacySetting = neonize.PrivacySettings_NONE
+	}
+	return &privacySetting
+}
+
+func EncodePrivacySettings(privacySetting types.PrivacySettings) *neonize.PrivacySettings {
+	return &neonize.PrivacySettings{
+		GroupAdd:     EncodePrivacySetting(privacySetting.GroupAdd),
+		LastSeen:     EncodePrivacySetting(privacySetting.LastSeen),
+		Status:       EncodePrivacySetting(privacySetting.Status),
+		Profile:      EncodePrivacySetting(privacySetting.Profile),
+		ReadReceipts: EncodePrivacySetting(privacySetting.ReadReceipts),
+		CallAdd:      EncodePrivacySetting(privacySetting.CallAdd),
+		Online:       EncodePrivacySetting(privacySetting.Online),
+	}
+}

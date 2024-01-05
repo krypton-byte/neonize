@@ -355,3 +355,37 @@ message Blocklist {
     required string DHash = 1;
     repeated JID JIDs = 2;
 }
+message Reaction {
+    required string type = 1;
+    required int64 count = 2;
+}
+message NewsletterMessage {
+    required int64 MessageServerID = 1;
+    required int64 ViewsCount = 2;
+    repeated Reaction ReactionCounts = 3;
+    required defproto.Message Message = 4;
+}
+
+message GetNewsletterMessageUpdateReturnFunction {
+    repeated NewsletterMessage NewsletterMessage  = 1;
+    optional string Error = 2;
+}
+
+message PrivacySettings {
+    enum PrivacySetting {
+        UNDEFINED = 1;
+        ALL = 2;
+        CONTACTS = 3;
+        CONTACT_BLACKLIST = 4;
+        MATCH_LAST_SEEN = 5;
+        KNOWN = 6;
+        NONE = 7;
+    }
+    required PrivacySetting GroupAdd = 1;
+    required PrivacySetting LastSeen = 2;
+    required PrivacySetting Status = 3;
+    required PrivacySetting Profile = 4;
+    required PrivacySetting ReadReceipts = 5;
+    required PrivacySetting CallAdd = 6;
+    required PrivacySetting Online = 7;
+}

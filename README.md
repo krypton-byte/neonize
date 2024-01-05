@@ -20,7 +20,7 @@
 - [ ] **Task 8:** Set Group Photo
 - [x] **Task 9:** Get Group Info
 - [x] **Task 10:** Leave Group
-- [x] **Task 11:** Join Group With Link
+- [x] **Task 11:** Join Group
 - [x] **Task 12:** Get Group Invite Link
 - [x] **Task 13:** Revoke Group Invite Link
 - [x] **Task 14:** Revoke Message
@@ -34,6 +34,15 @@
 - [x] **Task 22:** React Message
 - [x] **Task 23:** Create Newsletter [no tested]
 - [x] **Task 24:** Get Blocklist
+- [x] **Task 25:** Get Group Request Participants
+- [x] **Task 26:** Get Joined Group
+- [x] **Task 27:** Get Linked Groups Participants
+- [x] **Task 28:** GetLinked Groups Participants
+- [x] **Task 29:** Get Newsletter Info
+- [x] **Task 30:** Get Newsletter Info
+- [x] **Task 31:** Get Newsletter Messages
+- [x] **Task 32:** Get Privacy Settings
+
 
 
 

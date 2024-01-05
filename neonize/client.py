@@ -24,7 +24,7 @@ from .exc import (
     BuildPollVoteError,
     CreateNewsletterError,
     FollowNewsletterError,
-    GetBlocklistError
+    GetBlocklistError,
 )
 from .proto import Neonize_pb2 as neonize_proto
 from .proto.Neonize_pb2 import (
@@ -80,19 +80,22 @@ from .exc import (
     GetLinkedGroupParticipantsError,
     GetNewsletterInfoError,
     GetNewsletterInfoWithInviteError,
+    GetNewsletterMessageUpdateError,
+    GetNewsletterMessagesError,
 )
 from .builder import build_edit, build_revoke
+from .types import MessageServerID
 
 
 class NewClient:
     def __init__(
-            self,
-            name: str,
-            qrCallback: Optional[Callable[[NewClient, bytes], None]] = None,
-            messageCallback: Optional[
-                Callable[[NewClient, neonize_proto.Message], None]
-            ] = None,
-            uuid: Optional[str] = None,
+        self,
+        name: str,
+        qrCallback: Optional[Callable[[NewClient, bytes], None]] = None,
+        messageCallback: Optional[
+            Callable[[NewClient, neonize_proto.Message], None]
+        ] = None,
+        uuid: Optional[str] = None,
     ):
         """Initializes a new client instance.
 
@@ -119,9 +122,9 @@ class NewClient:
             self.qrCallback(self, ctypes.string_at(qr_protobytes))
 
     def __onMessage(
-            self,
-            message_protobytes: int,
-            message_size: int,
+        self,
+        message_protobytes: int,
+        message_size: int,
     ):
         """Handles incoming messages.
 
@@ -139,7 +142,7 @@ class NewClient:
             self.messageCallback(self, neonize_proto.Message.FromString(bytes_data))
 
     def send_message(
-            self, to: JID, message: typing.Union[Message, str]
+        self, to: JID, message: typing.Union[Message, str]
     ) -> SendResponse:
         """Send a message to the specified JID.
 
@@ -165,7 +168,7 @@ class NewClient:
         return model.SendResponse
 
     def edit_message(
-            self, chat: JID, message_id: str, new_message: Message
+        self, chat: JID, message_id: str, new_message: Message
     ) -> SendResponse:
         """Edit a message.
 
@@ -195,10 +198,10 @@ class NewClient:
         return self.send_message(chat, self.build_revoke(chat, sender, message_id))
 
     def build_poll_vote_creation(
-            self, name: str, options: List[str], selectable_count: int
+        self, name: str, options: List[str], selectable_count: int
     ) -> Message:
         """Build a poll vote creation message.
-        
+
         :param name: The name of the poll.
         :type name: str
         :param options: The options for the poll.
@@ -220,7 +223,7 @@ class NewClient:
         )
 
     def build_poll_vote(
-            self, poll_info: MessageInfo, option_names: List[str]
+        self, poll_info: MessageInfo, option_names: List[str]
     ) -> Message:
         """
         Builds a poll vote.
@@ -250,7 +253,7 @@ class NewClient:
         return model.PollVote
 
     def build_reaction(
-            self, chat: JID, sender: JID, message_id: str, reaction: str
+        self, chat: JID, sender: JID, message_id: str, reaction: str
     ) -> Message:
         sender_proto = sender.SerializeToString()
         chat_proto = chat.SerializeToString()
@@ -267,7 +270,7 @@ class NewClient:
         )
 
     def build_revoke(
-            self, chat: JID, sender: JID, message_id: str, with_go: bool = False
+        self, chat: JID, sender: JID, message_id: str, with_go: bool = False
     ) -> Message:
         """Builds a message to revoke a previous message.
 
@@ -297,11 +300,11 @@ class NewClient:
             return build_revoke(chat, sender, message_id, self.get_me().JID)
 
     def send_sticker(
-            self,
-            to: JID,
-            file_or_bytes: typing.Union[str, bytes],
-            quoted: Optional[Message] = None,
-            from_: Optional[MessageSource] = None,
+        self,
+        to: JID,
+        file_or_bytes: typing.Union[str, bytes],
+        quoted: Optional[Message] = None,
+        from_: Optional[MessageSource] = None,
     ) -> SendMessageReturnFunction:
         """Sends a sticker to the specified recipient.
 
@@ -353,7 +356,7 @@ class NewClient:
         )
 
     def upload(
-            self, binary: bytes, media_type: Optional[MediaType] = None
+        self, binary: bytes, media_type: Optional[MediaType] = None
     ) -> UploadResponse:
         """Uploads media content.
 
@@ -376,7 +379,7 @@ class NewClient:
         return upload_model.UploadResponse
 
     def download(
-            self, message: Message, path: Optional[str] = None
+        self, message: Message, path: Optional[str] = None
     ) -> typing.Union[None, bytes]:
         """Downloads content from a message.
 
@@ -410,7 +413,7 @@ class NewClient:
         return self.__client.GenerateMessageID(self.uuid).decode()
 
     def send_chat_presence(
-            self, jid: JID, state: ChatPresence, media: ChatPresenceMedia
+        self, jid: JID, state: ChatPresence, media: ChatPresenceMedia
     ) -> str:
         """Sends chat presence information.
 
@@ -613,11 +616,11 @@ class NewClient:
         return model.Jid
 
     def create_group(
-            self,
-            name: str,
-            participants: List[JID] = [],
-            linked_parent: Optional[GroupLinkedParent] = None,
-            group_parent: Optional[GroupParent] = None,
+        self,
+        name: str,
+        participants: List[JID] = [],
+        linked_parent: Optional[GroupLinkedParent] = None,
+        group_parent: Optional[GroupParent] = None,
     ) -> GroupInfo | CreateGroupError:
         """Create a new group.
 
@@ -666,7 +669,7 @@ class NewClient:
         return model.Group
 
     def create_newsletter(
-            self, name: str, description: str, picture: typing.Union[str, bytes]
+        self, name: str, description: str, picture: typing.Union[str, bytes]
     ) -> neonize_proto.NewsletterMetadata:
         """Create a newsletter with the given name, description, and picture.
 
@@ -721,6 +724,37 @@ class NewClient:
             raise GetNewsletterInfoWithInviteError(model.Error)
         return model.NewsletterMetadata
 
+    def get_newsletter_message_update(
+        self, jid: JID, count: int, since: int, after: int
+    ) -> List[neonize_proto.NewsletterMessage]:
+        jidbyte = jid.SerializeToString()
+        model = neonize_proto.GetNewsletterMessageUpdateReturnFunction.FromString(
+            self.__client.GetNewsletterMessageUpdate(
+                self.uuid, jidbyte, len(jidbyte), count, since, after
+            ).get_bytes()
+        )
+        if model.Error:
+            raise GetNewsletterMessageUpdateError(model.Error)
+        return model.NewsletterMessage
+
+    def get_newsletter_messages(
+        self, jid: JID, count: int, before: MessageServerID
+    ) -> List[neonize_proto.NewsletterMessage]:
+        jidbyte = jid.SerializeToString()
+        model = neonize_proto.GetNewsletterMessageUpdateReturnFunction.FromString(
+            self.__client.GetNewsletterMessages(
+                self.uuid, jidbyte, len(jidbyte), count, before
+            ).get_bytes()
+        )
+        if model.Error:
+            raise GetNewsletterMessagesError(model.Error)
+        return model.NewsletterMessage
+
+    def get_privacy_settings(self) -> neonize_proto.PrivacySettings:
+        return neonize_proto.PrivacySettings.FromString(
+            self.__client.GetPrivacySettings(self.uuid).get_bytes()
+        )
+
     def get_blocklist(self) -> neonize_proto.Blocklist:
         """
         Retrieves the blocklist from the client.
@@ -728,7 +762,9 @@ class NewClient:
         :return: neonize_proto.Blocklist: The retrieved blocklist.
         :raises GetBlocklistError: If there was an error retrieving the blocklist.
         """
-        model = neonize_proto.GetBlocklistReturnFunction.FromString(self.__client.GetBlocklist(self.uuid).get_bytes())
+        model = neonize_proto.GetBlocklistReturnFunction.FromString(
+            self.__client.GetBlocklist(self.uuid).get_bytes()
+        )
         if model.Error:
             raise GetBlocklistError(model.Error)
         return model.Blocklist

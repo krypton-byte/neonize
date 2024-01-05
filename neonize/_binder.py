@@ -157,3 +157,22 @@ gocode.GetNewsletterInfo.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_
 gocode.GetNewsletterInfo.restype = Bytes
 gocode.GetNewsletterInfoWithInvite.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
 gocode.GetNewsletterInfoWithInvite.restype = Bytes
+gocode.GetNewsletterMessageUpdate.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_int,
+    ctypes.c_int,
+    ctypes.c_int
+]
+gocode.GetNewsletterMessageUpdate.restype = Bytes
+gocode.GetNewsletterMessages.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_int,
+    ctypes.c_int
+]
+gocode.GetNewsletterMessages.restype = Bytes
+gocode.GetPrivacySettings.argtypes = [ctypes.c_char_p]
+gocode.GetPrivacySettings.restype = Bytes
