@@ -6,3 +6,4 @@ neonize
 
    neonize
    neonize.proto
+   neonize.utils

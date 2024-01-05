@@ -93,35 +93,35 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
-extern struct BytesReturn Upload(char* id, unsigned char* mediabuff, int mediaSize, int mediatype);
-extern char* GenerateMessageID(char* id);
-extern char* AcceptTOSNotice(char* id, char* noticeID, char* stage);
-extern struct BytesReturn SendMessage(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* messageByte, int messageSize);
-extern void Neonize(char* db, char* id, ptr_to_python_function_string qrCb, ptr_to_python_function_string logStatus, ptr_to_python_function_bytes messageCb);
-extern struct BytesReturn Download(char* id, unsigned char* messageProto, int size);
-extern struct BytesReturn IsOnWhatsApp(char* id, char* numbers);
-extern _Bool IsConnected(char* id);
-extern _Bool IsLoggedIn(char* id);
-extern struct BytesReturn GetUserInfo(char* id, unsigned char* JIDSByte, int JIDSSize);
+extern __declspec(dllexport) struct BytesReturn Upload(char* id, unsigned char* mediabuff, int mediaSize, int mediatype);
+extern __declspec(dllexport) char* GenerateMessageID(char* id);
+extern __declspec(dllexport) char* AcceptTOSNotice(char* id, char* noticeID, char* stage);
+extern __declspec(dllexport) struct BytesReturn SendMessage(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* messageByte, int messageSize);
+extern __declspec(dllexport) void Neonize(char* db, char* id, ptr_to_python_function_string qrCb, ptr_to_python_function_string logStatus, ptr_to_python_function_bytes messageCb);
+extern __declspec(dllexport) struct BytesReturn Download(char* id, unsigned char* messageProto, int size);
+extern __declspec(dllexport) struct BytesReturn IsOnWhatsApp(char* id, char* numbers);
+extern __declspec(dllexport) _Bool IsConnected(char* id);
+extern __declspec(dllexport) _Bool IsLoggedIn(char* id);
+extern __declspec(dllexport) struct BytesReturn GetUserInfo(char* id, unsigned char* JIDSByte, int JIDSSize);
 
 // /GROUP
 //
-extern struct BytesReturn GetGroupInfo(char* id, unsigned char* JIDByte, int JIDSize);
-extern char* SetGroupName(char* id, unsigned char* JIDByte, int JIDSize, char* name);
-extern struct BytesReturn SetGroupPhoto(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* Photo, int PhotoSize);
-extern char* LeaveGroup(char* id, unsigned char* JIDByte, int JIDSize);
-extern struct BytesReturn GetGroupInviteLink(char* id, unsigned char* JIDByte, int JIDSize, _Bool revoke);
-extern struct BytesReturn JoinGroupWithLink(char* id, char* code);
-extern char* SendChatPresence(char* id, unsigned char* JIDByte, int JIDSize, int state, int media);
-extern struct BytesReturn BuildRevoke(char* id, unsigned char* ChatByte, int ChatSize, unsigned char* SenderByte, int SenderSize, char* messageID);
-extern struct BytesReturn BuildPollVoteCreation(char* id, char* name, unsigned char* options, int optionsSize, int selectableOptionCount);
-extern struct BytesReturn CreateNewsletter(char* id, unsigned char* createNewsletterParams, int size);
-extern char* FollowNewsletter(char* id, unsigned char* jid, int size);
-extern struct BytesReturn GetBlocklist(char* id);
-extern struct BytesReturn BuildPollVote(char* id, unsigned char* pollInfo, int pollInfoSize, unsigned char* optionName, int optionNameSize);
-extern struct BytesReturn BuildReaction(char* id, unsigned char* chat, int chatSize, unsigned char* sender, int senderSize, char* messageID, char* reaction);
-extern struct BytesReturn CreateGroup(char* id, unsigned char* createGroupByte, int createGroupSize);
-extern struct BytesReturn GetMe(char* id);
+extern __declspec(dllexport) struct BytesReturn GetGroupInfo(char* id, unsigned char* JIDByte, int JIDSize);
+extern __declspec(dllexport) char* SetGroupName(char* id, unsigned char* JIDByte, int JIDSize, char* name);
+extern __declspec(dllexport) struct BytesReturn SetGroupPhoto(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* Photo, int PhotoSize);
+extern __declspec(dllexport) char* LeaveGroup(char* id, unsigned char* JIDByte, int JIDSize);
+extern __declspec(dllexport) struct BytesReturn GetGroupInviteLink(char* id, unsigned char* JIDByte, int JIDSize, _Bool revoke);
+extern __declspec(dllexport) struct BytesReturn JoinGroupWithLink(char* id, char* code);
+extern __declspec(dllexport) char* SendChatPresence(char* id, unsigned char* JIDByte, int JIDSize, int state, int media);
+extern __declspec(dllexport) struct BytesReturn BuildRevoke(char* id, unsigned char* ChatByte, int ChatSize, unsigned char* SenderByte, int SenderSize, char* messageID);
+extern __declspec(dllexport) struct BytesReturn BuildPollVoteCreation(char* id, char* name, unsigned char* options, int optionsSize, int selectableOptionCount);
+extern __declspec(dllexport) struct BytesReturn CreateNewsletter(char* id, unsigned char* createNewsletterParams, int size);
+extern __declspec(dllexport) char* FollowNewsletter(char* id, unsigned char* jid, int size);
+extern __declspec(dllexport) struct BytesReturn GetBlocklist(char* id);
+extern __declspec(dllexport) struct BytesReturn BuildPollVote(char* id, unsigned char* pollInfo, int pollInfoSize, unsigned char* optionName, int optionNameSize);
+extern __declspec(dllexport) struct BytesReturn BuildReaction(char* id, unsigned char* chat, int chatSize, unsigned char* sender, int senderSize, char* messageID, char* reaction);
+extern __declspec(dllexport) struct BytesReturn CreateGroup(char* id, unsigned char* createGroupByte, int createGroupSize);
+extern __declspec(dllexport) struct BytesReturn GetMe(char* id);
 
 #ifdef __cplusplus
 }
