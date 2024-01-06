@@ -10,22 +10,7 @@ from PIL import Image
 
 from ._binder import gocode, func_bytes, func_string
 from .builder import build_edit, build_revoke
-from .exc import (
-    DownloadError,
-    UploadError,
-    InviteLinkError,
-    GetGroupInfoError,
-    SetGroupPhotoError,
-    GetGroupInviteLinkError,
-    CreateGroupError,
-    IsOnWhatsAppError,
-    GetUserInfoError,
-    SendMessageError,
-    BuildPollVoteError,
-    CreateNewsletterError,
-    FollowNewsletterError,
-    GetBlocklistError,
-)
+
 from .proto import Neonize_pb2 as neonize_proto
 from .proto.Neonize_pb2 import (
     MessageInfo,
@@ -225,8 +210,7 @@ class NewClient:
     def build_poll_vote(
         self, poll_info: MessageInfo, option_names: List[str]
     ) -> Message:
-        """
-        Builds a poll vote.
+        """Builds a poll vote.
 
         :param poll_info: The information about the poll.
         :type poll_info: MessageInfo
@@ -506,6 +490,14 @@ class NewClient:
         return model.GroupInfo
 
     def get_group_info_from_link(self, code: str) -> GroupInfo:
+        """Retrieves group information from a given link.
+
+        :param code: The link code.
+        :type code: str
+        :return: An object containing the group information.
+        :rtype: GroupInfo
+        :raises GetGroupInfoError: If there is an error retrieving the group information.
+        """
         model = GetGroupInfoReturnFunction.FromString(
             self.__client.GetGroupInfoFromLink(self.uuid, code.encode()).get_bytes()
         )
@@ -516,6 +508,22 @@ class NewClient:
     def get_group_info_from_invite(
         self, jid: JID, inviter: JID, code: str, expiration: int
     ) -> GroupInfo:
+        """Retrieves group information from an invite.
+
+        :param jid: The JID (Jabber ID) of the group.
+        :type jid: JID
+        :param inviter: The JID of the user who sent the invite.
+        :type inviter: JID
+        :param code: The invite code.
+        :type code: str
+        :param expiration: The expiration time of the invite.
+        :type expiration: int
+
+        :return: The group information.
+        :rtype: GroupInfo
+
+        :raises GetGroupInfoError: If there is an error retrieving the group information.
+        """
         jidbyte = jid.SerializeToString()
         inviterbyte = inviter.SerializeToString()
         model = GetGroupInfoReturnFunction.FromString(
@@ -650,6 +658,13 @@ class NewClient:
         return model.GroupInfo
 
     def get_group_request_participants(self, jid: JID) -> List[JID]:
+        """Get the participants of a group request.
+
+        :param jid: The JID of the group request.
+        :type jid: JID
+        :return: A list of JIDs representing the participants of the group request.
+        :rtype: List[JID]
+        """
         jidbyte = jid.SerializeToString()
         model = neonize_proto.GetGroupRequestParticipantsReturnFunction.FromString(
             self.__client.GetGroupRequestParticipants(
@@ -661,6 +676,13 @@ class NewClient:
         return model.Participants
 
     def get_joined_groups(self) -> List[GroupInfo]:
+        """Get the joined groups for the current user.
+
+        :return: A list of :class:`GroupInfo` objects representing the joined groups.
+        :rtype: List[GroupInfo]
+
+        :raises GetJoinedGroupsError: If there was an error retrieving the joined groups.
+        """
         model = neonize_proto.GetJoinedGroupsReturnFunction.FromString(
             self.__client.GetJoinedGroups(self.uuid).get_bytes()
         )
@@ -715,6 +737,14 @@ class NewClient:
     def get_newsletter_info_with_invite(
         self, key: str
     ) -> neonize_proto.NewsletterMetadata:
+        """Retrieves the newsletter information with an invite using the provided key.
+
+        :param key: The key used to identify the newsletter.
+        :type key: str
+        :return: The newsletter metadata.
+        :rtype: neonize_proto.NewsletterMetadata
+        :raises GetNewsletterInfoWithInviteError: If there is an error retrieving the newsletter information.
+        """
         model = neonize_proto.CreateNewsLetterReturnFunction.FromString(
             self.__client.GetNewsletterInfoWithInvite(
                 self.uuid, key.encode()
@@ -727,6 +757,22 @@ class NewClient:
     def get_newsletter_message_update(
         self, jid: JID, count: int, since: int, after: int
     ) -> List[neonize_proto.NewsletterMessage]:
+        """Retrieves a list of newsletter messages that have been updated since a given timestamp.
+
+        :param jid: The JID (Jabber ID) of the user.
+        :type jid: JID
+        :param count: The maximum number of messages to retrieve.
+        :type count: int
+        :param since: The timestamp (in milliseconds) to retrieve messages from.
+        :type since: int
+        :param after: The timestamp (in milliseconds) to retrieve messages after.
+        :type after: int
+
+        :return: A list of updated newsletter messages.
+        :rtype: List[neonize_proto.NewsletterMessage]
+
+        :raises GetNewsletterMessageUpdateError: If there was an error retrieving the newsletter messages.
+        """
         jidbyte = jid.SerializeToString()
         model = neonize_proto.GetNewsletterMessageUpdateReturnFunction.FromString(
             self.__client.GetNewsletterMessageUpdate(
@@ -740,6 +786,17 @@ class NewClient:
     def get_newsletter_messages(
         self, jid: JID, count: int, before: MessageServerID
     ) -> List[neonize_proto.NewsletterMessage]:
+        """Retrieves a list of newsletter messages for a given JID.
+
+        :param jid: The JID (Jabber Identifier) of the user.
+        :type jid: JID
+        :param count: The maximum number of messages to retrieve.
+        :type count: int
+        :param before: The ID of the message before which to retrieve messages.
+        :type before: MessageServerID
+        :return: A list of newsletter messages.
+        :rtype: List[neonize_proto.NewsletterMessage]
+        """
         jidbyte = jid.SerializeToString()
         model = neonize_proto.GetNewsletterMessageUpdateReturnFunction.FromString(
             self.__client.GetNewsletterMessages(
@@ -756,8 +813,7 @@ class NewClient:
         )
 
     def get_blocklist(self) -> neonize_proto.Blocklist:
-        """
-        Retrieves the blocklist from the client.
+        """Retrieves the blocklist from the client.
 
         :return: neonize_proto.Blocklist: The retrieved blocklist.
         :raises GetBlocklistError: If there was an error retrieving the blocklist.
