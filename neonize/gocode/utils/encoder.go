@@ -445,7 +445,7 @@ func EncodeNewsletterMessage(message *types.NewsletterMessage) *neonize.Newslett
 	reacts := []*neonize.Reaction{}
 	for react, count := range message.ReactionCounts {
 		reacts = append(reacts, &neonize.Reaction{
-			Type:  &react,
+			Type:  proto.String(react),
 			Count: proto.Int64(int64(count)),
 		})
 	}

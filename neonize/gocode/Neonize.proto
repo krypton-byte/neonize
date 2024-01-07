@@ -450,6 +450,10 @@ message GetUserDevicesreturnFunction {
     repeated JID JID =1;
     optional string Error = 2;
 }
+message NewsletterSubscribeLiveUpdatesReturnFunction {
+    optional int64 Duration = 1;
+    optional string Error = 2;
+}
 // events
 message PairStatus { //1
     enum PStatus {

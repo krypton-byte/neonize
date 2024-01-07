@@ -22,6 +22,7 @@ import (
 	"github.com/krypton-byte/neonize/utils"
 	_ "github.com/mattn/go-sqlite3"
 	"go.mau.fi/whatsmeow"
+	"go.mau.fi/whatsmeow/store"
 	"go.mau.fi/whatsmeow/store/sqlstore"
 	"go.mau.fi/whatsmeow/types"
 	"go.mau.fi/whatsmeow/types/events"
@@ -110,8 +111,13 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 }
 
 //export Neonize
-func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, subscribes *C.uchar, lenSubscriber C.int) { // ,
+func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, subscribes *C.uchar, lenSubscriber C.int, devicePropsBuf *C.uchar, devicePropsSize C.int) { // ,
 	subscribers := map[int]bool{}
+	var deviceProps waProto.DeviceProps
+	err_proto := proto.Unmarshal(getByteByAddr(devicePropsBuf, devicePropsSize), &deviceProps)
+	if err_proto != nil {
+		panic(err_proto)
+	}
 	for _, s := range getByteByAddr(subscribes, lenSubscriber) {
 		subscribers[int(s)] = true
 	}
@@ -126,6 +132,7 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 	if err != nil {
 		panic(err)
 	}
+	proto.Merge(store.DeviceProps, &deviceProps)
 	clientLog := waLog.Stdout("Client", C.GoString(logLevel), true)
 	client := whatsmeow.NewClient(deviceStore, clientLog)
 	uuid := C.GoString(id)
@@ -635,7 +642,7 @@ func FollowNewsletter(id *C.char, jid *C.uchar, size C.int) *C.char {
 	if err != nil {
 		return C.CString(err.Error())
 	}
-	return C.CString(err.Error())
+	return C.CString("")
 }
 
 //export GetNewsletterInfo
@@ -742,6 +749,77 @@ func Logout(id *C.char) *C.char {
 		return C.CString(err.Error())
 	}
 	return C.CString("")
+}
+
+//export MarkRead
+func MarkRead(id *C.char, ids *C.char, timestamp C.int, chatByte *C.uchar, chatSize C.int, senderByte *C.uchar, senderSize C.int, receiptType *C.char) *C.char {
+	var chatJID, senderJID neonize.JID
+	chat_err := proto.Unmarshal(getByteByAddr(chatByte, chatSize), &chatJID)
+	if chat_err != nil {
+		panic(chat_err)
+	}
+	sender_err := proto.Unmarshal(getByteByAddr(senderByte, senderSize), &senderJID)
+	if sender_err != nil {
+		panic(sender_err)
+	}
+	err := clients[C.GoString(id)].MarkRead(strings.Split(C.GoString(ids), " "), time.Unix(int64(timestamp), 0), utils.DecodeJidProto(&chatJID), utils.DecodeJidProto(&senderJID), types.ReceiptType(C.GoString(receiptType)))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
+//export NewsletterMarkViewed
+func NewsletterMarkViewed(id *C.char, JIDByte *C.uchar, JIDSize C.int, MessageServerID *C.uchar, MessageServerIDSize C.int) *C.char {
+	var JID neonize.JID
+	var serverIDs = make([]int, int(MessageServerIDSize))
+	for _, msid := range getByteByAddr(MessageServerID, MessageServerIDSize) {
+		serverIDs = append(serverIDs, int(msid))
+	}
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		panic(err)
+	}
+	err_return := clients[C.GoString(id)].NewsletterMarkViewed(utils.DecodeJidProto(&JID), serverIDs)
+	if err_return != nil {
+		return C.CString(err_return.Error())
+	}
+	return C.CString("")
+}
+
+//export  NewsletterSendReaction
+func NewsletterSendReaction(id *C.char, JIDByte *C.uchar, JIDSize, messageServerID C.int, reaction *C.char, messageID *C.char) *C.char {
+	var JID neonize.JID
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		panic(err)
+	}
+	err_react := clients[C.GoString(id)].NewsletterSendReaction(utils.DecodeJidProto(&JID), int(messageServerID), C.GoString(reaction), C.GoString(messageID))
+	if err_react != nil {
+		return C.CString(err_react.Error())
+	}
+	return C.CString(err_react.Error())
+}
+
+//export NewsletterSubscribeLiveUpdates
+func NewsletterSubscribeLiveUpdates(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.struct_BytesReturn {
+	var JID neonize.JID
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		panic(err)
+	}
+	duration, err_subs := clients[C.GoString(id)].NewsletterSubscribeLiveUpdates(context.Background(), utils.DecodeJidProto(&JID))
+	return_ := neonize.NewsletterSubscribeLiveUpdatesReturnFunction{
+		Duration: proto.Int64(int64(duration)),
+	}
+	if err_subs != nil {
+		return_.Error = proto.String(err_subs.Error())
+	}
+	return_buf, return_err := proto.Marshal(&return_)
+	if return_err != nil {
+		panic(return_err)
+	}
+	return ReturnBytes(return_buf)
 }
 
 //export GetPrivacySettings

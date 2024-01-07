@@ -118,3 +118,15 @@ class LinkGroupError(Exception):
 
 class LogoutError(Exception):
     pass
+
+class MarkReadError(Exception):
+    pass
+
+class NewsletterMarkViewedError(Exception):
+    pass
+
+class NewsletterSendReactionError(Exception):
+    pass
+
+class NewsletterSubscribeLiveUpdatesError(Exception):
+    pass

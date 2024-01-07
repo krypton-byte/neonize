@@ -208,7 +208,7 @@ gocode.JoinGroupWithLink.argtypes = [
     ctypes.c_char_p,
     ctypes.c_int,
     ctypes.c_char_p,
-    ctypes.c_int
+    ctypes.c_int,
 ]
 gocode.JoinGroupWithInvite.restype = ctypes.c_char_p
 gocode.LinkGroup.argtypes = [
@@ -219,7 +219,35 @@ gocode.LinkGroup.argtypes = [
     ctypes.c_int,
 ]
 gocode.LinkGroup.restype = Bytes
-gocode.Logout.argtypes = [
-    ctypes.c_char
-]
+gocode.Logout.argtypes = [ctypes.c_char_p]
 gocode.Logout.restype = ctypes.c_char_p
+gocode.MarkRead.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+]
+gocode.MarkRead.restype = ctypes.c_char_p
+gocode.NewsletterMarkViewed.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+    ctypes.c_int
+]
+gocode.NewsletterMarkViewed.restype = ctypes.c_char_p
+gocode.NewsletterSendReaction.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_int,
+    ctypes.c_char_p,
+    ctypes.c_char_p
+]
+gocode.NewsletterSendReaction.restype = ctypes.c_char_p
+gocode.NewsletterSubscribeLiveUpdates.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+gocode.NewsletterSubscribeLiveUpdates.restype = Bytes

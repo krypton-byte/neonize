@@ -1839,6 +1839,25 @@ class GetUserDevicesreturnFunction(google.protobuf.message.Message):
 global___GetUserDevicesreturnFunction = GetUserDevicesreturnFunction
 
 @typing_extensions.final
+class NewsletterSubscribeLiveUpdatesReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DURATION_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    Duration: builtins.int
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        Duration: builtins.int | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Duration", b"Duration", "Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Duration", b"Duration", "Error", b"Error"]) -> None: ...
+
+global___NewsletterSubscribeLiveUpdatesReturnFunction = NewsletterSubscribeLiveUpdatesReturnFunction
+
+@typing_extensions.final
 class PairStatus(google.protobuf.message.Message):
     """events
     1

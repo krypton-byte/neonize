@@ -4,10 +4,10 @@ import ctypes
 import typing
 from io import BytesIO
 from typing import Optional, Callable, List
-
+import time
 import magic
 from PIL import Image
-
+import struct
 from ._binder import gocode, func_bytes, func_string, func_callback_bytes
 from .builder import build_edit, build_revoke
 from .exc import (
@@ -29,7 +29,10 @@ from .exc import (
     GetStatusPrivacyError,
     GetSubGroupsError,
     GetSubscribedNewslettersError,
-    LogoutError
+    LogoutError,
+    MarkReadError,
+    NewsletterMarkViewedError,
+    NewsletterSendReactionError,
 )
 from .proto import Neonize_pb2 as neonize_proto
 from .proto.Neonize_pb2 import (
@@ -65,6 +68,7 @@ from .utils import (
     ChatPresence,
     ChatPresenceMedia,
     LogLevel,
+    ReceiptType,
 )
 from .exc import (
     DownloadError,
@@ -92,10 +96,12 @@ from .exc import (
     GetUserDevicesError,
     JoinGroupWithInviteError,
     LinkGroupError,
+    NewsletterSubscribeLiveUpdatesError,
 )
 from .builder import build_edit, build_revoke
 from .types import MessageServerID
 from .utils._events import Event
+from .proto.def_pb2 import DeviceProps
 
 
 class NewClient:
@@ -103,6 +109,7 @@ class NewClient:
         self,
         name: str,
         qrCallback: Optional[Callable[[NewClient, bytes], None]] = None,
+        props: Optional[DeviceProps] = None,
         uuid: Optional[str] = None,
     ):
         """Initializes a new client instance.
@@ -117,6 +124,7 @@ class NewClient:
         :type uuid: Optional[str], optional
         """
         self.name = name
+        self.device_props = props
         self.uuid = (uuid or name).encode()
         self.qrCallback = qrCallback
         self.__client = gocode
@@ -676,10 +684,77 @@ class NewClient:
         ).decode()
         if err:
             raise LinkGroupError(err)
+
     def logout(self):
-        err = self.__client.Logout().decode()
+        err = self.__client.Logout(self.uuid).decode()
         if err:
             raise LogoutError(err)
+
+    def mark_read(
+        self,
+        message_ids: List[str],
+        chat: JID,
+        sender: JID,
+        receipt: ReceiptType,
+        timestamp: Optional[int] = None,
+    ):
+        chat_proto = chat.SerializeToString()
+        sender_proto = sender.SerializeToString()
+        timestamp_args = int(time.time()) if timestamp is None else timestamp
+        err = self.__client.MarkRead(
+            self.uuid,
+            " ".join(message_ids).encode(),
+            timestamp_args,
+            chat_proto,
+            len(chat_proto),
+            sender_proto,
+            len(sender_proto),
+            receipt.value,
+        )
+        if err:
+            raise MarkReadError(err.decode())
+
+    def newsletter_mark_viewed(
+        self, jid: JID, message_server_ids: List[MessageServerID]
+    ):
+        servers = struct.pack(f"{len(server_ids)}b", *message_server_ids)
+        jid_proto = jid.SerializeToString()
+        err = self.__client.NewsletterMarkViewed(
+            self.uuid, jid_proto, len(jid_proto), servers, len(servers)
+        )
+        if err:
+            raise NewsletterMarkViewedError(err)
+
+    def newsletter_send_reaction(
+        self,
+        jid: JID,
+        message_server_id: MessageServerID,
+        reaction: str,
+        message_id: str,
+    ):
+        jid_proto = jid.SerializeToString()
+        err = self.__client.NewsletterSendReaction(
+            self.uuid,
+            jid_proto,
+            len(jid_proto),
+            message_server_id,
+            reaction.encode(),
+            message_id.encode(),
+        )
+        if err:
+            raise NewsletterSendReactionError(err)
+        return 
+    def newsletter_subscribe_live_updates(self, jid: JID) -> int:
+        jid_proto = jid.SerializeToString()
+        model = neonize_proto.NewsletterSubscribeLiveUpdatesReturnFunction.FromString(
+            self.__client.NewsletterSubscribeLiveUpdates(
+                self.uuid, jid_proto, len(jid_proto)
+            ).get_bytes()
+        )
+        if model.Error:
+            raise NewsletterSubscribeLiveUpdatesError(model.Error)
+        return model.Duration
+
     def create_group(
         self,
         name: str,
@@ -714,7 +789,9 @@ class NewClient:
             return CreateGroupError(model.Error)
         return model.GroupInfo
 
-    def get_group_request_participants(self, jid: JID) -> RepeatedCompositeFieldContainer[JID]:
+    def get_group_request_participants(
+        self, jid: JID
+    ) -> RepeatedCompositeFieldContainer[JID]:
         """Get the participants of a group request.
 
         :param jid: The JID of the group request.
@@ -878,7 +955,11 @@ class NewClient:
         extra_bytes = extra.SerializeToString()
         model = neonize_proto.GetProfilePictureReturnFunction.FromString(
             self.__client.GetProfilePicture(
-                self.uuid, jid_bytes, len(jid_bytes), extra_bytes, len(extra_bytes),
+                self.uuid,
+                jid_bytes,
+                len(jid_bytes),
+                extra_bytes,
+                len(extra_bytes),
             ).get_bytes()
         )
         if model.Error:
@@ -977,6 +1058,11 @@ class NewClient:
 
     def connect(self, log_level: Optional[LogLevel] = None):
         d = bytearray(list(self.event.list_func))
+        deviceprops = (
+            DeviceProps(os="Neonize", platformType=5)
+            if self.device_props is None
+            else self.device_props
+        ).SerializeToString()
         self.__client.Neonize(
             self.name.encode(),
             self.uuid,
@@ -986,4 +1072,6 @@ class NewClient:
             func_callback_bytes(self.event.execute),
             (ctypes.c_char * self.event.list_func.__len__()).from_buffer(d),
             len(d),
+            deviceprops,
+            len(deviceprops),
         )

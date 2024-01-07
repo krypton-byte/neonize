@@ -51,3 +51,17 @@ class LogLevel(Enum):
     DEBUG = 1
     INFO = 2
     ERROR = 4
+
+class ReceiptType(Enum):
+    DELIVERED = b""
+    SENDER = b"sender"
+    RETRY = b"RETRY"
+    READ = b"read"
+    READ_SELF = b"read-self"
+    PLAYED = b"played"
+    PLAYED_SELF = b"played-self"
+    SERVER_ERROR = b"server-error"
+    INACTIVE = b"inactive"
+    PEER_MSG = b"peer_msg"
+    HISTORY_SYNC = "hist_sync"
+    
