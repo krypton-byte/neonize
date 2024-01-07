@@ -63,6 +63,10 @@ def onMessage(client: NewClient, message: MessageResponse):
                     )
                 )
             )
+        case "profile_pict":
+            client.send_message(chat, client.get_profile_picture(chat).__str__())
+        case "status_privacy":
+            client.send_message(chat, client.get_status_privacy().__str__())
 
 @client.event(PairStatus)
 def PairStatusMessage(client: NewClient, message: PairStatus):

@@ -222,4 +222,4 @@ gocode.LinkGroup.restype = Bytes
 gocode.Logout.argtypes = [
     ctypes.c_char
 ]
-gocode.LoggedOut.restype = ctypes.c_char_p
+gocode.Logout.restype = ctypes.c_char_p

@@ -878,7 +878,7 @@ class NewClient:
         extra_bytes = extra.SerializeToString()
         model = neonize_proto.GetProfilePictureReturnFunction.FromString(
             self.__client.GetProfilePicture(
-                self.uuid, jid_bytes, len(jid_bytes), extra_bytes, len(jid_bytes)
+                self.uuid, jid_bytes, len(jid_bytes), extra_bytes, len(extra_bytes),
             ).get_bytes()
         )
         if model.Error:
