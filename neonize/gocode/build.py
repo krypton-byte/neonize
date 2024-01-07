@@ -1,20 +1,13 @@
 import os
 import shlex
 import subprocess
-from pathlib import Path
-from platform import system
 
 
 def build():
-    if system() == "Windows":
-        subprocess.call(
-            shlex.split("build.bat"),
-            cwd=Path(__file__).parent,
-            env=os.environ.update({"build_neonize": "1"}),
-        )
-    else:
-        subprocess.call(
-            shlex.split("bash build.sh"),
-            cwd=Path(__file__).parent,
-            env=os.environ.update({"build_neonize": "1"}),
-        )
+    command = shlex.split("build.bat" if os.name == "nt" else "bash build.sh")
+    subprocess.call(
+        command,
+        cwd=os.path.dirname(__file__),
+        env=os.environ.update({'build_neonize': '1'}),
+        shell=os.name == "nt"
+    )
