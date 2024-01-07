@@ -60,11 +60,24 @@ from .proto.Neonize_pb2 import (
     Device,
 )
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
-from .proto.def_pb2 import Message, StickerMessage, ContextInfo
+from .proto.def_pb2 import (
+    Message,
+    StickerMessage,
+    ContextInfo,
+    ExtendedTextMessage,
+    VideoMessage,
+    ImageMessage,
+    AudioMessage,
+    DocumentMessage,
+    ContactMessage,
+)
 from .utils import (
     MediaType,
     Jid2String,
     get_bytes_from_name_or_url,
+    generate_thumbnail,
+    get_duration,
+    gen_vcard,
     ChatPresence,
     ChatPresenceMedia,
     LogLevel,
@@ -182,6 +195,33 @@ class NewClient:
         if model.Error:
             raise SendMessageError(model.Error)
         return model.SendResponse
+    
+    def reply_message(
+        self, to: JID, text: str, quoted: Message
+    ) -> SendResponse:
+        """Send a reply message to a specified JID.
+
+        :param to: The JID of the recipient.
+        :type to: JID
+        :param text: The text of the reply message.
+        :type text: str
+        :param quoted: The message to be quoted.
+        :type quoted: Message
+
+        :return: The response from sending the message.
+        :rtype: SendResponse
+        """
+        message = Message(
+            extendedTextMessage=ExtendedTextMessage(
+                text=text,
+                contextInfo=ContextInfo(
+                    stanzaId=quoted.Info.ID,
+                    participant=Jid2String(quoted.Info.MessageSource.Sender),
+                    quotedMessage=quoted.Message,
+                )
+            )
+        )
+        return self.send_message(to, message)
 
     def edit_message(
         self, chat: JID, message_id: str, new_message: Message
@@ -369,6 +409,252 @@ class NewClient:
             to,
             message,
         )
+
+    def send_video(
+        self,
+        to: JID,
+        file: str | bytes,
+        caption: Optional[str] = None,
+        quoted: Optional[Message] = None,
+        viewonce: bool = False,
+    ) -> SendResponse:
+        """Sends a video to the specified recipient.
+
+        :param to: The JID (Jabber Identifier) of the recipient.
+        :type to: JID
+        :param file: Either a file path (str), url (str) or binary data (bytes) representing the video.
+        :type file: typing.Union[str | bytes]
+        :param caption: Optional. The caption of the video. Defaults to None.
+        :type caption: Optional[str], optional
+        :param quoted: Optional. The message to which the video is a reply. Defaults to None.
+        :type quoted: Optional[Message], optional
+        :param viewonce: Optional. Whether the video should be viewonce. Defaults to False.
+        :type viewonce: bool, optional
+        :return: A function for handling the result of the video sending process.
+        :rtype: SendMessageReturnFunction
+        """
+        io = BytesIO(get_bytes_from_name_or_url(file))
+        io.seek(0)
+        buff = io.read()
+        upload = self.upload(buff)
+        message = Message(
+            videoMessage=VideoMessage(
+                url=upload.url,
+                caption=caption,
+                seconds=int(get_duration(buff)),
+                directPath=upload.DirectPath,
+                fileEncSha256=upload.FileEncSHA256,
+                fileLength=upload.FileLength,
+                fileSha256=upload.FileSHA256,
+                mediaKey=upload.MediaKey,
+                mimetype=magic.from_buffer(buff, mime=True),
+                jpegThumbnail=generate_thumbnail(buff),
+                thumbnailDirectPath=upload.DirectPath,
+                thumbnailEncSha256=upload.FileEncSHA256,
+                thumbnailSha256=upload.FileSHA256,
+                viewOnce=viewonce,
+            )
+        )
+        if quoted:
+            message.videoMessage.contextInfo.MergeFrom(
+                ContextInfo(
+                    stanzaId=quoted.Info.ID,
+                    participant=Jid2String(quoted.Info.MessageSource.Sender),
+                    quotedMessage=quoted.Message,
+                )
+            )
+        return self.send_message(to, message)
+
+    def send_image(
+        self,
+        to: JID,
+        file: str | bytes,
+        caption: Optional[str] = None,
+        quoted: Optional[Message] = None,
+        viewonce: bool = False,
+    ) -> SendResponse:
+        """Sends an image to the specified recipient.
+
+        :param to: The JID (Jabber Identifier) of the recipient.
+        :type to: JID
+        :param file: Either a file path (str), url (str) or binary data (bytes) representing the image.
+        :type file: typing.Union[str | bytes]
+        :param caption: Optional. The caption of the image. Defaults to None.
+        :type caption: Optional[str], optional
+        :param quoted: Optional. The message to which the image is a reply. Defaults to None.
+        :type quoted: Optional[Message], optional
+        :param viewonce: Optional. Whether the image should be viewonce. Defaults to False.
+        :type viewonce: bool, optional
+        :return: A function for handling the result of the image sending process.
+        :rtype: SendMessageReturnFunction
+        """
+        io = BytesIO(get_bytes_from_name_or_url(file))
+        io.seek(0)
+        buff = io.read()
+        upload = self.upload(buff)
+        message = Message(
+            imageMessage=ImageMessage(
+                url=upload.url,
+                caption=caption,
+                directPath=upload.DirectPath,
+                fileEncSha256=upload.FileEncSHA256,
+                fileLength=upload.FileLength,
+                fileSha256=upload.FileSHA256,
+                mediaKey=upload.MediaKey,
+                mimetype=magic.from_buffer(buff, mime=True),
+                jpegThumbnail=generate_thumbnail(buff),
+                thumbnailDirectPath=upload.DirectPath,
+                thumbnailEncSha256=upload.FileEncSHA256,
+                thumbnailSha256=upload.FileSHA256,
+                viewOnce=viewonce,
+            )
+        )
+        if quoted:
+            message.imageMessage.contextInfo.MergeFrom(
+                ContextInfo(
+                    stanzaId=quoted.Info.ID,
+                    participant=Jid2String(quoted.Info.MessageSource.Sender),
+                    quotedMessage=quoted.Message,
+                )
+            )
+        return self.send_message(to, message)
+
+    def send_audio(
+        self,
+        to: JID,
+        file: str | bytes,
+        ptt: bool = False,
+        quoted: Optional[Message] = None,
+    ) -> SendResponse:
+        """Sends an audio to the specified recipient.
+
+        :param to: The JID (Jabber Identifier) of the recipient.
+        :type to: JID
+        :param file: Either a file path (str), url (str) or binary data (bytes) representing the audio.
+        :type file: typing.Union[str | bytes]
+        :param ptt: Optional. Whether the audio should be ptt. Defaults to False.
+        :type ptt: bool, optional
+        :param quoted: Optional. The message to which the audio is a reply. Defaults to None.
+        :type quoted: Optional[Message], optional
+        :return: A function for handling the result of the audio sending process.
+        :rtype: SendMessageReturnFunction
+        """
+        io = BytesIO(get_bytes_from_name_or_url(file))
+        io.seek(0)
+        buff = io.read()
+        upload = self.upload(buff)
+        message = Message(
+            audioMessage=AudioMessage(
+                url=upload.url,
+                seconds=int(get_duration(buff)),
+                directPath=upload.DirectPath,
+                fileEncSha256=upload.FileEncSHA256,
+                fileLength=upload.FileLength,
+                fileSha256=upload.FileSHA256,
+                mediaKey=upload.MediaKey,
+                mimetype=magic.from_buffer(buff, mime=True),
+                ptt=ptt,
+            )
+        )
+        if quoted:
+            message.audioMessage.contextInfo.MergeFrom(
+                ContextInfo(
+                    stanzaId=quoted.Info.ID,
+                    participant=Jid2String(quoted.Info.MessageSource.Sender),
+                    quotedMessage=quoted.Message,
+                )
+            )
+        return self.send_message(to, message)
+
+    def send_document(
+        self,
+        to: JID,
+        file: str | bytes,
+        caption: Optional[str] = None,
+        title: Optional[str] = None,
+        filename: Optional[str] = None,
+        quoted: Optional[Message] = None,
+    ) -> SendResponse:
+        """Sends a document to the specified recipient.
+
+        :param to: The JID (Jabber Identifier) of the recipient.
+        :type to: JID
+        :param file: Either a file path (str), url (str) or binary data (bytes) representing the document.
+        :type file: typing.Union[str | bytes]
+        :param caption: Optional. The caption of the document. Defaults to None.
+        :type caption: Optional[str], optional
+        :param title: Optional. The title of the document. Defaults to None.
+        :type title: Optional[str], optional
+        :param filename: Optional. The filename of the document. Defaults to None.
+        :type filename: Optional[str], optional
+        :param quoted: Optional. The message to which the document is a reply. Defaults to None.
+        :type quoted: Optional[Message], optional
+        :return: A function for handling the result of the document sending process.
+        :rtype: SendMessageReturnFunction
+        """
+        io = BytesIO(get_bytes_from_name_or_url(file))
+        io.seek(0)
+        buff = io.read()
+        upload = self.upload(buff)
+        message = Message(
+            documentMessage=DocumentMessage(
+                url=upload.url,
+                caption=caption,
+                directPath=upload.DirectPath,
+                fileEncSha256=upload.FileEncSHA256,
+                fileLength=upload.FileLength,
+                fileSha256=upload.FileSHA256,
+                mediaKey=upload.MediaKey,
+                mimetype=magic.from_buffer(buff, mime=True),
+                title=title,
+                fileName=filename,
+            )
+        )
+        if quoted:
+            message.documentMessage.contextInfo.MergeFrom(
+                ContextInfo(
+                    stanzaId=quoted.Info.ID,
+                    participant=Jid2String(quoted.Info.MessageSource.Sender),
+                    quotedMessage=quoted.Message,
+                )
+            )
+        return self.send_message(to, message)
+
+    def send_contact(
+        self,
+        to: JID,
+        contact_name: str,
+        contact_number: str,
+        quoted: Optional[Message] = None,
+    ) -> SendResponse:
+        """Sends a contact to the specified recipient.
+
+        :param to: The JID (Jabber Identifier) of the recipient.
+        :type to: JID
+        :param contact_name: The name of the contact.
+        :type contact_name: str
+        :param contact_number: The number of the contact.
+        :type contact_number: str
+        :param quoted: Optional. The message to which the contact is a reply. Defaults to None.
+        :type quoted: Optional[Message], optional
+        :return: A function for handling the result of the contact sending process.
+        :rtype: SendMessageReturnFunction
+        """
+        message = Message(
+            contactMessage=ContactMessage(
+                displayName=contact_name,
+                vcard=gen_vcard(contact_name, contact_number),
+            )
+        )
+        if quoted:
+            message.contactMessage.contextInfo.MergeFrom(
+                ContextInfo(
+                    stanzaId=quoted.Info.ID,
+                    participant=Jid2String(quoted.Info.MessageSource.Sender),
+                    quotedMessage=quoted.Message,
+                )
+            )
+        return self.send_message(to, message)
 
     def upload(
         self, binary: bytes, media_type: Optional[MediaType] = None
