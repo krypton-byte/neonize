@@ -4,9 +4,10 @@ from ..proto.Neonize_pb2 import JID
 
 def JIDToNonAD(jid: JID):
     new_jid = copy.deepcopy(jid)
-    new_jid.RawAgent=0
+    new_jid.RawAgent = 0
     new_jid.Device = 0
     return new_jid
+
 
 def Jid2String(jid: JID) -> str:
     """Converts a Jabber Identifier (JID) to a string.
@@ -17,9 +18,9 @@ def Jid2String(jid: JID) -> str:
     :rtype: str
     """
     if jid.RawAgent > 0:
-        return '%s.%s:%d@%s' % (jid.User, jid.RawAgent, jid.Device, jid.Server)
+        return "%s.%s:%d@%s" % (jid.User, jid.RawAgent, jid.Device, jid.Server)
     elif jid.Device > 0:
-        return '%s:%d@%s' % (jid.User, jid.Device, jid.Server)
+        return "%s:%d@%s" % (jid.User, jid.Device, jid.Server)
     elif len(jid.User) > 0:
-        return '%s@%s' % (jid.User, jid.Server)
+        return "%s@%s" % (jid.User, jid.Server)
     return jid.Server

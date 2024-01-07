@@ -17,110 +17,55 @@ from neonize.proto.def_pb2 import (
     Chat,
     VideoMessage,
 )
-from neonize.proto.Neonize_pb2 import Message as MessageResponse, MessageInfo, JID
+from neonize.proto.Neonize_pb2 import Message as MessageResponse, MessageInfo, JID, PairStatus
 from neonize.utils import Jid2String, MediaType
 from neonize.utils import ChatPresence, ChatPresenceMedia
+from neonize.utils import LogLevel
 import magic
 import time
 
 
 def onQr(client: NewClient, data_qr: bytes):
-    print("qr", data_qr)
+    print(data_qr)
 
+client = NewClient("krypton.so", qrCallback=onQr)
 
+@client.event(MessageResponse)
 def onMessage(client: NewClient, message: MessageResponse):
-    match message.Message.extendedTextMessage.text:
-        case "test":
+    text = message.Message.conversation or message.Message.extendedTextMessage.text
+    chat = message.Info.MessageSource.Chat
+    match text:
+        case "ping":
+            client.send_message(chat, "pong")
+        case "sticker":
+            client.send_sticker(chat, "/home/krypton-byte/Downloads/5b231c4cdac4c254142ff.png")
+        case "debug":
+            client.send_message(chat, message.__str__())
+        case "viewonce":
+            upload = client.upload(open("/home/krypton-byte/Downloads/5b231c4cdac4c254142ff.png", "rb").read())
             client.send_message(
-                message.Info.MessageSource.Chat, client.get_contact_qr_link()
-            )
-        case "request":
-            client.send_message(
-                message.Info.MessageSource.Chat,
-                client.get_group_request_participants(
-                    message.Info.MessageSource.Chat
-                ).__str__(),
-            )
-        case "list_groups":
-            client.send_message(
-                message.Info.MessageSource.Chat, client.get_joined_groups().__str__()
-            )
-        case "get_linked":
-            client.send_message(
-                message.Info.MessageSource.Chat,
-                client.get_linked_group_participants(
-                    message.Info.MessageSource.Chat
-                ).__str__(),
-            )
-        case "newsletter":
-            client.send_message(
-                message.Info.MessageSource.Chat,
-                client.get_newsletter_info(message.Info.MessageSource.Chat).__str__(),
-            )
-        case "newsletter_link":
-            client.send_message(
-                message.Info.MessageSource.Chat,
-                client.get_newsletter_info_with_invite(
-                    "https://whatsapp.com/channel/0029Va7gIOyBKfi4aw2cYy24"
-                ).__str__(),
-            )
-        case "newsletter_update":
-            e = client.get_newsletter_message_update(
-                JID(
-                    User="120363170957151564",
-                    RawAgent=0,
-                    Device=0,
-                    Integrator=0,
-                    Server="newsletter",
-                    IsEmpty=False,
-                ),
-                4,
-                int(datetime(2024, 1, 1).timestamp()),
-                0,
-            )
-            client.send_message(message.Info.MessageSource.Chat, e.__str__())
-        case "newsletter_message":
-            client.send_message(
-                message.Info.MessageSource.Chat,
-                client.get_newsletter_messages(
-                    JID(
-                        User="120363170957151564",
-                        RawAgent=0,
-                        Device=0,
-                        Integrator=0,
-                        Server="newsletter",
-                        IsEmpty=False,
-                    ),
-                    4,
-                    0,
-                ).__str__(),
-            )
-        case "privacy_settings":
-            client.send_message(
-                message.Info.MessageSource.Chat,
-                client.get_privacy_settings().__str__(),
-            )
-        case "status":
-            response = client.send_message(
-                JID(
-                    User="status",
-                    Device=0,
-                    Integrator=0,
-                    RawAgent=0,
-                    Server="broadcast",
-                    IsEmpty=False,
-                ),
+                chat,
                 Message(
-                    extendedTextMessage=ExtendedTextMessage(
-                        text="test",
-                        font=ExtendedTextMessage.FontType.SYSTEM,
-                        backgroundArgb=1000,
-                        textArgb=1000,
+                    imageMessage=ImageMessage(
+                        url=upload.url,
+                        caption="CAPTION",
+                        directPath=upload.DirectPath,
+                        fileEncSha256=upload.FileEncSHA256,
+                        fileLength=upload.FileLength,
+                        fileSha256=upload.FileSHA256,
+                        jpegThumbnail=open("/home/krypton-byte/Downloads/5b231c4cdac4c254142ff.png","rb").read(),
+                        mediaKey=upload.MediaKey,
+                        mimetype=magic.from_file("/home/krypton-byte/Downloads/5b231c4cdac4c254142ff.png", mime=True),
+                        thumbnailDirectPath=upload.DirectPath,
+                        thumbnailEncSha256=upload.FileEncSHA256,
+                        thumbnailSha256=upload.FileSHA256,
+                        viewOnce=True
                     )
-                ),
+                )
             )
-            client.send_message(message.Info.MessageSource.Chat, response.__str__())
 
+@client.event(PairStatus)
+def PairStatusMessage(client: NewClient, message: PairStatus):
+    print(client, message)
 
-client = NewClient("krypton.so", messageCallback=onMessage, qrCallback=onQr)
-client.connect()
+client.connect(log_level=LogLevel.INFO)

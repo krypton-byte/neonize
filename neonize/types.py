@@ -1,4 +1,4 @@
 import typing
 
 
-MessageServerID = typing.NewType('MessageServerID', int)
+MessageServerID = typing.NewType("MessageServerID", int)

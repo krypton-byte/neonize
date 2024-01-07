@@ -37,9 +37,9 @@
 - [x] **Task 25:** Get Group Request Participants
 - [x] **Task 26:** Get Joined Group
 - [x] **Task 27:** Get Linked Groups Participants
-- [x] **Task 28:** GetLinked Groups Participants
+- [x] **Task 28:** Get Linked Groups Participants
 - [x] **Task 29:** Get Newsletter Info
-- [x] **Task 30:** Get Newsletter Info
+- [x] **Task 30:** Get Newsletter Message Update
 - [x] **Task 31:** Get Newsletter Messages
 - [x] **Task 32:** Get Privacy Settings
 

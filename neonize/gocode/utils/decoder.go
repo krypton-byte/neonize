@@ -134,3 +134,14 @@ func DecodeCreateNewsletterParams(createletterNewsParams *neonize.CreateNewslett
 		Picture:     createletterNewsParams.Picture,
 	}
 }
+
+func DecodeGetProfilePictureParams(params *neonize.GetProfilePictureParams) *whatsmeow.GetProfilePictureParams {
+	if params.Preview == nil || params.ExistingID == nil || params.IsCommunity == nil {
+		return nil
+	}
+	return &whatsmeow.GetProfilePictureParams{
+		Preview:     *params.Preview,
+		ExistingID:  *params.ExistingID,
+		IsCommunity: *params.IsCommunity,
+	}
+}

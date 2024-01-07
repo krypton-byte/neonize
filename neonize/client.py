@@ -8,7 +8,7 @@ from typing import Optional, Callable, List
 import magic
 from PIL import Image
 
-from ._binder import gocode, func_bytes, func_string
+from ._binder import gocode, func_bytes, func_string, func_callback_bytes
 from .builder import build_edit, build_revoke
 from .exc import (
     DownloadError,
@@ -25,6 +25,11 @@ from .exc import (
     CreateNewsletterError,
     FollowNewsletterError,
     GetBlocklistError,
+    GetProfilePictureError,
+    GetStatusPrivacyError,
+    GetSubGroupsError,
+    GetSubscribedNewslettersError,
+    LogoutError
 )
 from .proto import Neonize_pb2 as neonize_proto
 from .proto.Neonize_pb2 import (
@@ -51,6 +56,7 @@ from .proto.Neonize_pb2 import (
     SendResponse,
     Device,
 )
+from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 from .proto.def_pb2 import Message, StickerMessage, ContextInfo
 from .utils import (
     MediaType,
@@ -58,6 +64,7 @@ from .utils import (
     get_bytes_from_name_or_url,
     ChatPresence,
     ChatPresenceMedia,
+    LogLevel,
 )
 from .exc import (
     DownloadError,
@@ -82,9 +89,13 @@ from .exc import (
     GetNewsletterInfoWithInviteError,
     GetNewsletterMessageUpdateError,
     GetNewsletterMessagesError,
+    GetUserDevicesError,
+    JoinGroupWithInviteError,
+    LinkGroupError,
 )
 from .builder import build_edit, build_revoke
 from .types import MessageServerID
+from .utils._events import Event
 
 
 class NewClient:
@@ -92,9 +103,6 @@ class NewClient:
         self,
         name: str,
         qrCallback: Optional[Callable[[NewClient, bytes], None]] = None,
-        messageCallback: Optional[
-            Callable[[NewClient, neonize_proto.Message], None]
-        ] = None,
         uuid: Optional[str] = None,
     ):
         """Initializes a new client instance.
@@ -111,8 +119,8 @@ class NewClient:
         self.name = name
         self.uuid = (uuid or name).encode()
         self.qrCallback = qrCallback
-        self.messageCallback = messageCallback
         self.__client = gocode
+        self.event = Event(self, self.__client)
 
     def __onLoginStatus(self, s: str):
         print(s)
@@ -121,25 +129,25 @@ class NewClient:
         if self.qrCallback:
             self.qrCallback(self, ctypes.string_at(qr_protobytes))
 
-    def __onMessage(
-        self,
-        message_protobytes: int,
-        message_size: int,
-    ):
-        """Handles incoming messages.
+    # def __onMessage(
+    #     self,
+    #     message_protobytes: int,
+    #     message_size: int,
+    # ):
+    #     """Handles incoming messages.
 
-        :param message_protobytes: The bytes representing the message.
-        :type message_protobytes: int
-        :param message_size: The size of the message in bytes.
-        :type message_size: int
-        :param message_source: The source of the message.
-        :type message_source: int
-        :param message_source_size: The size of the message source.
-        :type message_source_size: int
-        """
-        if self.messageCallback:
-            bytes_data = ctypes.string_at(message_protobytes, message_size)
-            self.messageCallback(self, neonize_proto.Message.FromString(bytes_data))
+    #     :param message_protobytes: The bytes representing the message.
+    #     :type message_protobytes: int
+    #     :param message_size: The size of the message in bytes.
+    #     :type message_size: int
+    #     :param message_source: The source of the message.
+    #     :type message_source: int
+    #     :param message_source_size: The size of the message source.
+    #     :type message_source_size: int
+    #     """
+    #     if self.messageCallback:
+    #         bytes_data = ctypes.string_at(message_protobytes, message_size)
+    #         self.messageCallback(self, neonize_proto.Message.FromString(bytes_data))
 
     def send_message(
         self, to: JID, message: typing.Union[Message, str]
@@ -304,8 +312,8 @@ class NewClient:
         to: JID,
         file_or_bytes: typing.Union[str, bytes],
         quoted: Optional[Message] = None,
-        from_: Optional[MessageSource] = None,
-    ) -> SendMessageReturnFunction:
+        from_: Optional[neonize_proto.Message] = None,
+    ) -> SendResponse:
         """Sends a sticker to the specified recipient.
 
         :param to: The JID (Jabber Identifier) of the recipient.
@@ -345,8 +353,8 @@ class NewClient:
         if quoted and from_:
             message.stickerMessage.contextInfo.MergeFrom(
                 ContextInfo(
-                    stanzaId=from_.ID,
-                    participant=Jid2String(from_.Sender),
+                    stanzaId=from_.Info.ID,
+                    participant=Jid2String(from_.Info.MessageSource.Sender),
                     quotedMessage=message,
                 )
             )
@@ -400,9 +408,10 @@ class NewClient:
             raise DownloadError(media.Error)
         if path:
             with open(path, "wb") as file:
-                file.write(media.binary)
+                file.write(media.Binary)
         else:
             return media.Binary
+        return None
 
     def generate_message_id(self) -> str:
         """Generates a unique identifier for a message.
@@ -431,7 +440,9 @@ class NewClient:
             self.uuid, jidbyte, len(jidbyte), state.value, media.value
         ).decode()
 
-    def is_on_whatsapp(self, numbers: List[str] = []) -> IsOnWhatsAppResponse:
+    def is_on_whatsapp(
+        self, numbers: List[str] = []
+    ) -> RepeatedCompositeFieldContainer[IsOnWhatsAppResponse] | List:
         """Check if the provided phone numbers are on WhatsApp.
 
         :param numbers: List of phone numbers to check. Defaults to [].
@@ -469,7 +480,9 @@ class NewClient:
         """
         return self.__client.IsLoggedIn(self.uuid)
 
-    def get_user_info(self, jid: List[JID]) -> GetUserInfoSingleReturnFunction:
+    def get_user_info(
+        self, jid: List[JID]
+    ) -> RepeatedCompositeFieldContainer[GetUserInfoSingleReturnFunction]:
         """Retrieve information for the provided JIDs.
 
         :param jid: List of JIDs (Jabber IDs) for which to retrieve information.
@@ -519,7 +532,7 @@ class NewClient:
         jidbyte = jid.SerializeToString()
         inviterbyte = inviter.SerializeToString()
         model = GetGroupInfoReturnFunction.FromString(
-            self.__client(
+            self.__client.GetGroupInfoFromInvite(
                 self.uuid,
                 jidbyte,
                 len(jidbyte),
@@ -615,6 +628,35 @@ class NewClient:
             raise InviteLinkError(model.Error)
         return model.Jid
 
+    def join_group_with_invite(
+        self, jid: JID, inviter: JID, code: str, expiration: int
+    ):
+        jidbytes = jid.SerializeToString()
+        inviterbytes = inviter.SerializeToString()
+        err = self.__client.JoinGroupWithInvite(
+            self.uuid,
+            jidbytes,
+            len(jidbytes),
+            inviterbytes,
+            len(inviterbytes),
+            code.encode(),
+            expiration,
+        ).decode()
+        if err:
+            raise JoinGroupWithInviteError(err)
+
+    def link_group(self, parent: JID, child: JID):
+        parent_bytes = parent.SerializeToString()
+        child_bytes = child.SerializeToString()
+        err = self.__client.LinkGroup(
+            self.uuid, parent_bytes, len(parent_bytes), child_bytes, len(child_bytes)
+        ).decode()
+        if err:
+            raise LinkGroupError(err)
+    def logout(self):
+        err = self.__client.Logout().decode()
+        if err:
+            raise LogoutError(err)
     def create_group(
         self,
         name: str,
@@ -649,7 +691,9 @@ class NewClient:
             return CreateGroupError(model.Error)
         return model.GroupInfo
 
-    def get_group_request_participants(self, jid: JID) -> List[JID]:
+    def get_group_request_participants(
+        self, jid: JID
+    ) -> RepeatedCompositeFieldContainer[JID]:
         jidbyte = jid.SerializeToString()
         model = neonize_proto.GetGroupRequestParticipantsReturnFunction.FromString(
             self.__client.GetGroupRequestParticipants(
@@ -660,7 +704,7 @@ class NewClient:
             raise GetGroupRequestParticipantsError(model.Error)
         return model.Participants
 
-    def get_joined_groups(self) -> List[GroupInfo]:
+    def get_joined_groups(self) -> RepeatedCompositeFieldContainer[GroupInfo]:
         model = neonize_proto.GetJoinedGroupsReturnFunction.FromString(
             self.__client.GetJoinedGroups(self.uuid).get_bytes()
         )
@@ -726,7 +770,7 @@ class NewClient:
 
     def get_newsletter_message_update(
         self, jid: JID, count: int, since: int, after: int
-    ) -> List[neonize_proto.NewsletterMessage]:
+    ) -> RepeatedCompositeFieldContainer[neonize_proto.NewsletterMessage]:
         jidbyte = jid.SerializeToString()
         model = neonize_proto.GetNewsletterMessageUpdateReturnFunction.FromString(
             self.__client.GetNewsletterMessageUpdate(
@@ -739,7 +783,7 @@ class NewClient:
 
     def get_newsletter_messages(
         self, jid: JID, count: int, before: MessageServerID
-    ) -> List[neonize_proto.NewsletterMessage]:
+    ) -> RepeatedCompositeFieldContainer[neonize_proto.NewsletterMessage]:
         jidbyte = jid.SerializeToString()
         model = neonize_proto.GetNewsletterMessageUpdateReturnFunction.FromString(
             self.__client.GetNewsletterMessages(
@@ -754,6 +798,62 @@ class NewClient:
         return neonize_proto.PrivacySettings.FromString(
             self.__client.GetPrivacySettings(self.uuid).get_bytes()
         )
+
+    def get_profile_picture(
+        self,
+        jid: JID,
+        extra: neonize_proto.GetProfilePictureParams = neonize_proto.GetProfilePictureParams(),
+    ) -> neonize_proto.ProfilePictureInfo:
+        jid_bytes = jid.SerializeToString()
+        extra_bytes = extra.SerializeToString()
+        model = neonize_proto.GetProfilePictureReturnFunction.FromString(
+            self.__client.GetProfilePicture(
+                self.uuid, jid_bytes, len(jid_bytes), extra_bytes, len(jid_bytes)
+            ).get_bytes()
+        )
+        if model.Error:
+            raise GetProfilePictureError(model)
+        return model.Picture
+
+    def get_status_privacy(
+        self,
+    ) -> RepeatedCompositeFieldContainer[neonize_proto.StatusPrivacy]:
+        model = neonize_proto.GetStatusPrivacyReturnFunction.FromString(
+            self.__client.GetStatusPrivacy(self.uuid).get_bytes()
+        )
+        if model.Error:
+            raise GetStatusPrivacyError(model.Error)
+        return model.StatusPrivacy
+
+    def get_sub_groups(
+        self, community: JID
+    ) -> RepeatedCompositeFieldContainer[neonize_proto.GroupLinkTarget]:
+        jid = community.SerializeToString()
+        model = neonize_proto.GetSubGroupsReturnFunction.FromString(
+            self.__client.GetSubGroups(self.uuid, jid, len(jid)).get_bytes()
+        )
+        if model.Error:
+            raise GetSubGroupsError(model.Error)
+        return model.GroupLinkTarget
+
+    def get_subscribed_newletters(
+        self,
+    ) -> RepeatedCompositeFieldContainer[neonize_proto.NewsletterMetadata]:
+        model = neonize_proto.GetSubscribedNewslettersReturnFunction.FromString(
+            self.__client.GetSubscribedNewsletters(self.uuid).get_bytes()
+        )
+        if model.Error:
+            raise GetSubscribedNewslettersError(model.Error)
+        return model.Newsletter
+
+    def get_user_devices(self, jids: List[JID]) -> RepeatedCompositeFieldContainer[JID]:
+        jids_ = neonize_proto.JIDArray(JIDS=jids).SerializeToString()
+        model = neonize_proto.GetUserDevicesreturnFunction.FromString(
+            self.__client.GetIserDevices(self.uuid, jids_, len(jids_)).get_bytes()
+        )
+        if model.Error:
+            raise GetUserDevicesError(model.Error)
+        return model.JID
 
     def get_blocklist(self) -> neonize_proto.Blocklist:
         """
@@ -780,7 +880,9 @@ class NewClient:
             raise GetContactQrLinkError(model.Error)
         return model.Link
 
-    def get_linked_group_participants(self, community: JID) -> List[JID]:  # untested
+    def get_linked_group_participants(
+        self, community: JID
+    ) -> RepeatedCompositeFieldContainer[JID]:  # untested
         jidbyte = community.SerializeToString()
         model = neonize_proto.GetGroupRequestParticipantsReturnFunction.FromString(
             self.__client.GetLinkedGroupsParticipants(
@@ -804,11 +906,15 @@ class NewClient:
             raise GetNewsletterInfoError(model.Error)
         return model.NewsletterMetadata
 
-    def connect(self):
+    def connect(self, log_level: Optional[LogLevel] = None):
+        d = bytearray(list(self.event.list_func))
         self.__client.Neonize(
-            ctypes.create_string_buffer(self.name.encode()),
-            ctypes.create_string_buffer(self.uuid),
+            self.name.encode(),
+            self.uuid,
+            b"" if log_level is None else log_level.name.encode(),
             func_string(self.__onQr),
-            func_bytes(self.__onLoginStatus),
-            func_bytes(self.__onMessage),
+            func_string(self.__onLoginStatus),
+            func_callback_bytes(self.event.execute),
+            (ctypes.c_char * self.event.list_func.__len__()).from_buffer(d),
+            len(d),
         )

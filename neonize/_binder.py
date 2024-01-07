@@ -8,6 +8,9 @@ root_dir = os.path.abspath(os.path.dirname(__file__))
 gocode = ctypes.CDLL(f"{root_dir}/gocode/gocode.{file_ext}")
 func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
 func_bytes = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_int)
+func_callback_bytes = ctypes.CFUNCTYPE(
+    None, ctypes.c_void_p, ctypes.c_int, ctypes.c_int
+)
 
 
 class Bytes(ctypes.Structure):
@@ -19,6 +22,15 @@ class Bytes(ctypes.Structure):
         return ctypes.string_at(self.ptr, self.size)
 
 
+gocode.Neonize.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    func_string,
+    func_string,
+    func_callback_bytes,
+    ctypes.c_char_p,
+]
 gocode.Upload.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_int]
 gocode.Upload.restype = Bytes
 gocode.Download.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
@@ -131,18 +143,15 @@ gocode.GetGroupInfoFromInvite.argtypes = [
     ctypes.c_char_p,
     ctypes.c_int,
     ctypes.c_char_p,
-    ctypes.c_int
+    ctypes.c_int,
 ]
 gocode.GetGroupInfoFromInvite.restype = Bytes
-gocode.GetGroupInfoFromLink.argtypes = [
-    ctypes.c_char_p,
-    ctypes.c_char_p
-]
+gocode.GetGroupInfoFromLink.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
 gocode.GetGroupInfoFromLink.restype = Bytes
 gocode.GetGroupRequestParticipants.argtypes = [
     ctypes.c_char_p,
     ctypes.c_char_p,
-    ctypes.c_int
+    ctypes.c_int,
 ]
 gocode.GetGroupRequestParticipants.restype = Bytes
 gocode.GetJoinedGroups.argtypes = [ctypes.c_char_p]
@@ -150,7 +159,7 @@ gocode.GetJoinedGroups.restype = Bytes
 gocode.GetLinkedGroupsParticipants.argtypes = [
     ctypes.c_char_p,
     ctypes.c_char_p,
-    ctypes.c_int
+    ctypes.c_int,
 ]
 gocode.GetLinkedGroupsParticipants.restype = Bytes
 gocode.GetNewsletterInfo.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
@@ -163,7 +172,7 @@ gocode.GetNewsletterMessageUpdate.argtypes = [
     ctypes.c_int,
     ctypes.c_int,
     ctypes.c_int,
-    ctypes.c_int
+    ctypes.c_int,
 ]
 gocode.GetNewsletterMessageUpdate.restype = Bytes
 gocode.GetNewsletterMessages.argtypes = [
@@ -171,8 +180,46 @@ gocode.GetNewsletterMessages.argtypes = [
     ctypes.c_char_p,
     ctypes.c_int,
     ctypes.c_int,
-    ctypes.c_int
+    ctypes.c_int,
 ]
 gocode.GetNewsletterMessages.restype = Bytes
 gocode.GetPrivacySettings.argtypes = [ctypes.c_char_p]
 gocode.GetPrivacySettings.restype = Bytes
+gocode.GetProfilePicture.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+    ctypes.c_int,
+]
+gocode.GetProfilePicture.restype = Bytes
+gocode.GetStatusPrivacy.argtypes = [ctypes.c_char_p]
+gocode.GetStatusPrivacy.restype = Bytes
+gocode.GetSubGroups.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+gocode.GetSubGroups.restype = Bytes
+gocode.GetSubscribedNewsletters.argtypes = [ctypes.c_char_p]
+gocode.GetSubscribedNewsletters.restype = Bytes
+gocode.GetUserDevices.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+gocode.GetUserDevices.restype = Bytes
+gocode.JoinGroupWithLink.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+    ctypes.c_int
+]
+gocode.JoinGroupWithInvite.restype = ctypes.c_char_p
+gocode.LinkGroup.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+    ctypes.c_int,
+]
+gocode.LinkGroup.restype = Bytes
+gocode.Logout.argtypes = [
+    ctypes.c_char
+]
+gocode.LoggedOut.restype = ctypes.c_char_p

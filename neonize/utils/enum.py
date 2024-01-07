@@ -3,6 +3,7 @@ from enum import Enum
 import magic
 import typing
 
+
 class MediaType(Enum):
     MediaImage = 0
     MediaVideo = 1
@@ -24,13 +25,13 @@ class MediaType(Enum):
         magic_func = (
             magic.from_file if isinstance(fn_or_bytes, str) else magic.from_buffer
         )
-        mime = magic_func(fn_or_bytes, mime=True).split('/')[0]
+        mime = magic_func(fn_or_bytes, mime=True).split("/")[0]
         match mime:
-            case 'image':
+            case "image":
                 return cls.MediaImage
-            case 'video':
+            case "video":
                 return cls.MediaVideo
-            case 'audio':
+            case "audio":
                 return cls.MediaAudio
             case _:
                 return cls.MediaDocument
@@ -40,6 +41,13 @@ class ChatPresence(Enum):
     CHAT_PRESENCE_COMPOSING = 0
     CHAT_PRESENCE_PAUSED = 1
 
+
 class ChatPresenceMedia(Enum):
     CHAT_PRESENCE_MEDIA_TEXT = 0
     CHAT_PRESENCE_MEDIA_AUDIO = 1
+
+
+class LogLevel(Enum):
+    DEBUG = 1
+    INFO = 2
+    ERROR = 4

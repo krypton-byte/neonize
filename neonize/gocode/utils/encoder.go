@@ -387,23 +387,23 @@ func EncodeNewsletterThreadMetadata(threadMetadata types.NewsletterThreadMetadat
 	return &metadata
 }
 func EncodeNewsletterViewerMetadata(viewerMetadata *types.NewsletterViewerMetadata) *neonize.NewsletterViewerMetadata {
-	var mute neonize.NewsletterViewerMetadata_NewsletterMuteState
-	var role neonize.NewsletterViewerMetadata_NewsletterRole
+	var mute neonize.NewsletterMuteState
+	var role neonize.NewsletterRole
 	switch viewerMetadata.Mute {
 	case types.NewsletterMuteOff:
-		mute = neonize.NewsletterViewerMetadata_OFF
+		mute = neonize.NewsletterMuteState_OFF
 	case types.NewsletterMuteOn:
-		mute = neonize.NewsletterViewerMetadata_ON
+		mute = neonize.NewsletterMuteState_ON
 	}
 	switch viewerMetadata.Role {
 	case types.NewsletterRoleSubscriber:
-		role = neonize.NewsletterViewerMetadata_SUBSCRIBER
+		role = neonize.NewsletterRole_SUBSCRIBER
 	case types.NewsletterRoleGuest:
-		role = neonize.NewsletterViewerMetadata_GUEST
+		role = neonize.NewsletterRole_GUEST
 	case types.NewsletterRoleAdmin:
-		role = neonize.NewsletterViewerMetadata_ADMIN
+		role = neonize.NewsletterRole_ADMIN
 	case types.NewsletterRoleOwner:
-		role = neonize.NewsletterViewerMetadata_OWNER
+		role = neonize.NewsletterRole_OWNER
 
 	}
 	return &neonize.NewsletterViewerMetadata{
@@ -487,5 +487,34 @@ func EncodePrivacySettings(privacySetting types.PrivacySettings) *neonize.Privac
 		ReadReceipts: EncodePrivacySetting(privacySetting.ReadReceipts),
 		CallAdd:      EncodePrivacySetting(privacySetting.CallAdd),
 		Online:       EncodePrivacySetting(privacySetting.Online),
+	}
+}
+
+func EncodeStatusPrivacy(statusPrivacy types.StatusPrivacy) *neonize.StatusPrivacy {
+	var ptype neonize.StatusPrivacy_StatusPrivacyType
+	JIDS := []*neonize.JID{}
+	switch statusPrivacy.Type {
+	case types.StatusPrivacyTypeBlacklist:
+		ptype = neonize.StatusPrivacy_BLACKLIST
+	case types.StatusPrivacyTypeContacts:
+		ptype = neonize.StatusPrivacy_CONTACTS
+	case types.StatusPrivacyTypeWhitelist:
+		ptype = neonize.StatusPrivacy_WHITELIST
+	}
+	for _, jid := range statusPrivacy.List {
+		JIDS = append(JIDS, EncodeJidProto(jid))
+	}
+	return &neonize.StatusPrivacy{
+		Type:      &ptype,
+		List:      JIDS,
+		IsDefault: &statusPrivacy.IsDefault,
+	}
+}
+
+func EncodeGroupLinkTarget(group types.GroupLinkTarget) *neonize.GroupLinkTarget {
+	return &neonize.GroupLinkTarget{
+		JID:               EncodeJidProto(group.JID),
+		GroupName:         EncodeGroupName(group.GroupName),
+		GroupIsDefaultSub: EncodeGroupIsDefaultSub(group.GroupIsDefaultSub),
 	}
 }

@@ -12,16 +12,18 @@ def get_bytes_from_name_or_url(args: typing.Union[str, bytes]) -> bytes:
     :rtype: bytes
     """
     if isinstance(args, str):
-        if args.startswith('http'):
+        if args.startswith("http"):
             return requests.get(args).content
         else:
-            with open(args, 'rb') as file:
+            with open(args, "rb") as file:
                 return file.read()
     else:
         return args
 
 
-def write_from_bytesio_or_filename(fn_or_bytesio: typing.Union[io.BytesIO, str], data: bytes):
+def write_from_bytesio_or_filename(
+    fn_or_bytesio: typing.Union[io.BytesIO, str], data: bytes
+):
     """Writes bytes to either a BytesIO object or a file specified by its name.
 
     :param fn_or_bytesio: Either a BytesIO object or the name of the file to write data to.
@@ -32,5 +34,5 @@ def write_from_bytesio_or_filename(fn_or_bytesio: typing.Union[io.BytesIO, str],
     if isinstance(fn_or_bytesio, io.BytesIO):
         fn_or_bytesio.write(data)
     else:
-        with open(fn_or_bytesio, 'wb') as file:
+        with open(fn_or_bytesio, "wb") as file:
             file.write(data)

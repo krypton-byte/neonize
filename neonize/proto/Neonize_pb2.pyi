@@ -19,6 +19,72 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class _NewsletterRole:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _NewsletterRoleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_NewsletterRole.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    SUBSCRIBER: _NewsletterRole.ValueType  # 1
+    GUEST: _NewsletterRole.ValueType  # 2
+    ADMIN: _NewsletterRole.ValueType  # 3
+    OWNER: _NewsletterRole.ValueType  # 4
+
+class NewsletterRole(_NewsletterRole, metaclass=_NewsletterRoleEnumTypeWrapper): ...
+
+SUBSCRIBER: NewsletterRole.ValueType  # 1
+GUEST: NewsletterRole.ValueType  # 2
+ADMIN: NewsletterRole.ValueType  # 3
+OWNER: NewsletterRole.ValueType  # 4
+global___NewsletterRole = NewsletterRole
+
+class _NewsletterMuteState:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _NewsletterMuteStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_NewsletterMuteState.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    ON: _NewsletterMuteState.ValueType  # 1
+    OFF: _NewsletterMuteState.ValueType  # 2
+
+class NewsletterMuteState(_NewsletterMuteState, metaclass=_NewsletterMuteStateEnumTypeWrapper): ...
+
+ON: NewsletterMuteState.ValueType  # 1
+OFF: NewsletterMuteState.ValueType  # 2
+global___NewsletterMuteState = NewsletterMuteState
+
+class _ConnectFailureReason:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _ConnectFailureReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ConnectFailureReason.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    GENERIC: _ConnectFailureReason.ValueType  # 1
+    LOGGED_OUT: _ConnectFailureReason.ValueType  # 2
+    TEMP_BANNED: _ConnectFailureReason.ValueType  # 3
+    MAIN_DEVICE_GONE: _ConnectFailureReason.ValueType  # 4
+    UNKNOWN_LOGOUT: _ConnectFailureReason.ValueType  # 5
+    CLIENT_OUTDATED: _ConnectFailureReason.ValueType  # 6
+    BAD_USER_AGENT: _ConnectFailureReason.ValueType  # 7
+    INTERNAL_SERVER_ERROR: _ConnectFailureReason.ValueType  # 8
+    EXPERIMENTAL: _ConnectFailureReason.ValueType  # 9
+    SERVICE_UNAVAILABLE: _ConnectFailureReason.ValueType  # 10
+
+class ConnectFailureReason(_ConnectFailureReason, metaclass=_ConnectFailureReasonEnumTypeWrapper):
+    """message KeepAliveRestored"""
+
+GENERIC: ConnectFailureReason.ValueType  # 1
+LOGGED_OUT: ConnectFailureReason.ValueType  # 2
+TEMP_BANNED: ConnectFailureReason.ValueType  # 3
+MAIN_DEVICE_GONE: ConnectFailureReason.ValueType  # 4
+UNKNOWN_LOGOUT: ConnectFailureReason.ValueType  # 5
+CLIENT_OUTDATED: ConnectFailureReason.ValueType  # 6
+BAD_USER_AGENT: ConnectFailureReason.ValueType  # 7
+INTERNAL_SERVER_ERROR: ConnectFailureReason.ValueType  # 8
+EXPERIMENTAL: ConnectFailureReason.ValueType  # 9
+SERVICE_UNAVAILABLE: ConnectFailureReason.ValueType  # 10
+global___ConnectFailureReason = ConnectFailureReason
+
 @typing_extensions.final
 class JID(google.protobuf.message.Message):
     """types"""
@@ -1331,45 +1397,15 @@ global___NewsletterThreadMetadata = NewsletterThreadMetadata
 class NewsletterViewerMetadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    class _NewsletterMuteState:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
-
-    class _NewsletterMuteStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[NewsletterViewerMetadata._NewsletterMuteState.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        ON: NewsletterViewerMetadata._NewsletterMuteState.ValueType  # 1
-        OFF: NewsletterViewerMetadata._NewsletterMuteState.ValueType  # 2
-
-    class NewsletterMuteState(_NewsletterMuteState, metaclass=_NewsletterMuteStateEnumTypeWrapper): ...
-    ON: NewsletterViewerMetadata.NewsletterMuteState.ValueType  # 1
-    OFF: NewsletterViewerMetadata.NewsletterMuteState.ValueType  # 2
-
-    class _NewsletterRole:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
-
-    class _NewsletterRoleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[NewsletterViewerMetadata._NewsletterRole.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        SUBSCRIBER: NewsletterViewerMetadata._NewsletterRole.ValueType  # 1
-        GUEST: NewsletterViewerMetadata._NewsletterRole.ValueType  # 2
-        ADMIN: NewsletterViewerMetadata._NewsletterRole.ValueType  # 3
-        OWNER: NewsletterViewerMetadata._NewsletterRole.ValueType  # 4
-
-    class NewsletterRole(_NewsletterRole, metaclass=_NewsletterRoleEnumTypeWrapper): ...
-    SUBSCRIBER: NewsletterViewerMetadata.NewsletterRole.ValueType  # 1
-    GUEST: NewsletterViewerMetadata.NewsletterRole.ValueType  # 2
-    ADMIN: NewsletterViewerMetadata.NewsletterRole.ValueType  # 3
-    OWNER: NewsletterViewerMetadata.NewsletterRole.ValueType  # 4
-
     MUTE_FIELD_NUMBER: builtins.int
     ROLE_FIELD_NUMBER: builtins.int
-    Mute: global___NewsletterViewerMetadata.NewsletterMuteState.ValueType
-    Role: global___NewsletterViewerMetadata.NewsletterRole.ValueType
+    Mute: global___NewsletterMuteState.ValueType
+    Role: global___NewsletterRole.ValueType
     def __init__(
         self,
         *,
-        Mute: global___NewsletterViewerMetadata.NewsletterMuteState.ValueType | None = ...,
-        Role: global___NewsletterViewerMetadata.NewsletterRole.ValueType | None = ...,
+        Mute: global___NewsletterMuteState.ValueType | None = ...,
+        Role: global___NewsletterRole.ValueType | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["Mute", b"Mute", "Role", b"Role"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["Mute", b"Mute", "Role", b"Role"]) -> None: ...
@@ -1547,3 +1583,902 @@ class PrivacySettings(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["CallAdd", b"CallAdd", "GroupAdd", b"GroupAdd", "LastSeen", b"LastSeen", "Online", b"Online", "Profile", b"Profile", "ReadReceipts", b"ReadReceipts", "Status", b"Status"]) -> None: ...
 
 global___PrivacySettings = PrivacySettings
+
+@typing_extensions.final
+class NodeAttrs(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    VALUE_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    value: builtins.str
+    def __init__(
+        self,
+        *,
+        name: builtins.str | None = ...,
+        value: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]) -> None: ...
+
+global___NodeAttrs = NodeAttrs
+
+@typing_extensions.final
+class Node(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TAG_FIELD_NUMBER: builtins.int
+    ATTRS_FIELD_NUMBER: builtins.int
+    CONTENT_FIELD_NUMBER: builtins.int
+    Tag: builtins.str
+    @property
+    def Attrs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___NodeAttrs]: ...
+    @property
+    def Content(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Node]: ...
+    def __init__(
+        self,
+        *,
+        Tag: builtins.str | None = ...,
+        Attrs: collections.abc.Iterable[global___NodeAttrs] | None = ...,
+        Content: collections.abc.Iterable[global___Node] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Tag", b"Tag"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Attrs", b"Attrs", "Content", b"Content", "Tag", b"Tag"]) -> None: ...
+
+global___Node = Node
+
+@typing_extensions.final
+class InfoQuery(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAMESPACE_FIELD_NUMBER: builtins.int
+    TYPE_FIELD_NUMBER: builtins.int
+    TO_FIELD_NUMBER: builtins.int
+    CONTENT_FIELD_NUMBER: builtins.int
+    Namespace: builtins.str
+    Type: builtins.str
+    To: builtins.str
+    @property
+    def Content(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Node]: ...
+    def __init__(
+        self,
+        *,
+        Namespace: builtins.str | None = ...,
+        Type: builtins.str | None = ...,
+        To: builtins.str | None = ...,
+        Content: collections.abc.Iterable[global___Node] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Namespace", b"Namespace", "To", b"To", "Type", b"Type"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Content", b"Content", "Namespace", b"Namespace", "To", b"To", "Type", b"Type"]) -> None: ...
+
+global___InfoQuery = InfoQuery
+
+@typing_extensions.final
+class GetProfilePictureParams(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PREVIEW_FIELD_NUMBER: builtins.int
+    EXISTINGID_FIELD_NUMBER: builtins.int
+    ISCOMMUNITY_FIELD_NUMBER: builtins.int
+    Preview: builtins.bool
+    ExistingID: builtins.str
+    IsCommunity: builtins.bool
+    def __init__(
+        self,
+        *,
+        Preview: builtins.bool | None = ...,
+        ExistingID: builtins.str | None = ...,
+        IsCommunity: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["ExistingID", b"ExistingID", "IsCommunity", b"IsCommunity", "Preview", b"Preview"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ExistingID", b"ExistingID", "IsCommunity", b"IsCommunity", "Preview", b"Preview"]) -> None: ...
+
+global___GetProfilePictureParams = GetProfilePictureParams
+
+@typing_extensions.final
+class GetProfilePictureReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PICTURE_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def Picture(self) -> global___ProfilePictureInfo: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        Picture: global___ProfilePictureInfo | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "Picture", b"Picture"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "Picture", b"Picture"]) -> None: ...
+
+global___GetProfilePictureReturnFunction = GetProfilePictureReturnFunction
+
+@typing_extensions.final
+class StatusPrivacy(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _StatusPrivacyType:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _StatusPrivacyTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[StatusPrivacy._StatusPrivacyType.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        CONTACTS: StatusPrivacy._StatusPrivacyType.ValueType  # 1
+        BLACKLIST: StatusPrivacy._StatusPrivacyType.ValueType  # 2
+        WHITELIST: StatusPrivacy._StatusPrivacyType.ValueType  # 3
+
+    class StatusPrivacyType(_StatusPrivacyType, metaclass=_StatusPrivacyTypeEnumTypeWrapper): ...
+    CONTACTS: StatusPrivacy.StatusPrivacyType.ValueType  # 1
+    BLACKLIST: StatusPrivacy.StatusPrivacyType.ValueType  # 2
+    WHITELIST: StatusPrivacy.StatusPrivacyType.ValueType  # 3
+
+    TYPE_FIELD_NUMBER: builtins.int
+    LIST_FIELD_NUMBER: builtins.int
+    ISDEFAULT_FIELD_NUMBER: builtins.int
+    Type: global___StatusPrivacy.StatusPrivacyType.ValueType
+    @property
+    def List(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    IsDefault: builtins.bool
+    def __init__(
+        self,
+        *,
+        Type: global___StatusPrivacy.StatusPrivacyType.ValueType | None = ...,
+        List: collections.abc.Iterable[global___JID] | None = ...,
+        IsDefault: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["IsDefault", b"IsDefault", "Type", b"Type"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["IsDefault", b"IsDefault", "List", b"List", "Type", b"Type"]) -> None: ...
+
+global___StatusPrivacy = StatusPrivacy
+
+@typing_extensions.final
+class GetStatusPrivacyReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STATUSPRIVACY_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def StatusPrivacy(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusPrivacy]: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        StatusPrivacy: collections.abc.Iterable[global___StatusPrivacy] | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "StatusPrivacy", b"StatusPrivacy"]) -> None: ...
+
+global___GetStatusPrivacyReturnFunction = GetStatusPrivacyReturnFunction
+
+@typing_extensions.final
+class GroupLinkTarget(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    JID_FIELD_NUMBER: builtins.int
+    GROUPNAME_FIELD_NUMBER: builtins.int
+    GROUPISDEFAULTSUB_FIELD_NUMBER: builtins.int
+    @property
+    def JID(self) -> global___JID: ...
+    @property
+    def GroupName(self) -> global___GroupName: ...
+    @property
+    def GroupIsDefaultSub(self) -> global___GroupIsDefaultSub: ...
+    def __init__(
+        self,
+        *,
+        JID: global___JID | None = ...,
+        GroupName: global___GroupName | None = ...,
+        GroupIsDefaultSub: global___GroupIsDefaultSub | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["GroupIsDefaultSub", b"GroupIsDefaultSub", "GroupName", b"GroupName", "JID", b"JID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["GroupIsDefaultSub", b"GroupIsDefaultSub", "GroupName", b"GroupName", "JID", b"JID"]) -> None: ...
+
+global___GroupLinkTarget = GroupLinkTarget
+
+@typing_extensions.final
+class GetSubGroupsReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    GROUPLINKTARGET_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def GroupLinkTarget(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GroupLinkTarget]: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        GroupLinkTarget: collections.abc.Iterable[global___GroupLinkTarget] | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "GroupLinkTarget", b"GroupLinkTarget"]) -> None: ...
+
+global___GetSubGroupsReturnFunction = GetSubGroupsReturnFunction
+
+@typing_extensions.final
+class GetSubscribedNewslettersReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NEWSLETTER_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def Newsletter(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___NewsletterMetadata]: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        Newsletter: collections.abc.Iterable[global___NewsletterMetadata] | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "Newsletter", b"Newsletter"]) -> None: ...
+
+global___GetSubscribedNewslettersReturnFunction = GetSubscribedNewslettersReturnFunction
+
+@typing_extensions.final
+class GetUserDevicesreturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    JID_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def JID(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        JID: collections.abc.Iterable[global___JID] | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "JID", b"JID"]) -> None: ...
+
+global___GetUserDevicesreturnFunction = GetUserDevicesreturnFunction
+
+@typing_extensions.final
+class PairStatus(google.protobuf.message.Message):
+    """events
+    1
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _PStatus:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _PStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PairStatus._PStatus.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        ERROR: PairStatus._PStatus.ValueType  # 1
+        SUCCESS: PairStatus._PStatus.ValueType  # 2
+
+    class PStatus(_PStatus, metaclass=_PStatusEnumTypeWrapper): ...
+    ERROR: PairStatus.PStatus.ValueType  # 1
+    SUCCESS: PairStatus.PStatus.ValueType  # 2
+
+    ID_FIELD_NUMBER: builtins.int
+    BUSINESSNAME_FIELD_NUMBER: builtins.int
+    PLATFORM_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def ID(self) -> global___JID: ...
+    BusinessName: builtins.str
+    Platform: builtins.str
+    Status: global___PairStatus.PStatus.ValueType
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        ID: global___JID | None = ...,
+        BusinessName: builtins.str | None = ...,
+        Platform: builtins.str | None = ...,
+        Status: global___PairStatus.PStatus.ValueType | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["BusinessName", b"BusinessName", "Error", b"Error", "ID", b"ID", "Platform", b"Platform", "Status", b"Status"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["BusinessName", b"BusinessName", "Error", b"Error", "ID", b"ID", "Platform", b"Platform", "Status", b"Status"]) -> None: ...
+
+global___PairStatus = PairStatus
+
+@typing_extensions.final
+class KeepAliveTimeout(google.protobuf.message.Message):
+    """message Connected 2
+
+    3
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ERRORCOUNT_FIELD_NUMBER: builtins.int
+    LASTSUCCESS_FIELD_NUMBER: builtins.int
+    ErrorCount: builtins.int
+    LastSuccess: builtins.int
+    def __init__(
+        self,
+        *,
+        ErrorCount: builtins.int | None = ...,
+        LastSuccess: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["ErrorCount", b"ErrorCount", "LastSuccess", b"LastSuccess"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ErrorCount", b"ErrorCount", "LastSuccess", b"LastSuccess"]) -> None: ...
+
+global___KeepAliveTimeout = KeepAliveTimeout
+
+@typing_extensions.final
+class LoggedOut(google.protobuf.message.Message):
+    """4"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ONCONNECT_FIELD_NUMBER: builtins.int
+    REASON_FIELD_NUMBER: builtins.int
+    OnConnect: builtins.bool
+    Reason: global___ConnectFailureReason.ValueType
+    def __init__(
+        self,
+        *,
+        OnConnect: builtins.bool | None = ...,
+        Reason: global___ConnectFailureReason.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["OnConnect", b"OnConnect", "Reason", b"Reason"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["OnConnect", b"OnConnect", "Reason", b"Reason"]) -> None: ...
+
+global___LoggedOut = LoggedOut
+
+@typing_extensions.final
+class TemporaryBan(google.protobuf.message.Message):
+    """5"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _TempBanReason:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _TempBanReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TemporaryBan._TempBanReason.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        SEND_TO_TOO_MANY_PEOPLE: TemporaryBan._TempBanReason.ValueType  # 1
+        BLOCKED_BY_USERS: TemporaryBan._TempBanReason.ValueType  # 2
+        CREATED_TOO_MANY_GROUPS: TemporaryBan._TempBanReason.ValueType  # 3
+        SENT_TOO_MANY_SAME_MESSAGE: TemporaryBan._TempBanReason.ValueType  # 4
+        BROADCAST_LIST: TemporaryBan._TempBanReason.ValueType  # 5
+
+    class TempBanReason(_TempBanReason, metaclass=_TempBanReasonEnumTypeWrapper): ...
+    SEND_TO_TOO_MANY_PEOPLE: TemporaryBan.TempBanReason.ValueType  # 1
+    BLOCKED_BY_USERS: TemporaryBan.TempBanReason.ValueType  # 2
+    CREATED_TOO_MANY_GROUPS: TemporaryBan.TempBanReason.ValueType  # 3
+    SENT_TOO_MANY_SAME_MESSAGE: TemporaryBan.TempBanReason.ValueType  # 4
+    BROADCAST_LIST: TemporaryBan.TempBanReason.ValueType  # 5
+
+    CODE_FIELD_NUMBER: builtins.int
+    EXPIRE_FIELD_NUMBER: builtins.int
+    Code: global___TemporaryBan.TempBanReason.ValueType
+    Expire: builtins.int
+    def __init__(
+        self,
+        *,
+        Code: global___TemporaryBan.TempBanReason.ValueType | None = ...,
+        Expire: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Code", b"Code", "Expire", b"Expire"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Code", b"Code", "Expire", b"Expire"]) -> None: ...
+
+global___TemporaryBan = TemporaryBan
+
+@typing_extensions.final
+class ConnectFailure(google.protobuf.message.Message):
+    """6"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    REASON_FIELD_NUMBER: builtins.int
+    MESSAGE_FIELD_NUMBER: builtins.int
+    RAW_FIELD_NUMBER: builtins.int
+    Reason: global___ConnectFailureReason.ValueType
+    Message: builtins.str
+    @property
+    def Raw(self) -> global___Node: ...
+    def __init__(
+        self,
+        *,
+        Reason: global___ConnectFailureReason.ValueType | None = ...,
+        Message: builtins.str | None = ...,
+        Raw: global___Node | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Message", b"Message", "Raw", b"Raw", "Reason", b"Reason"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Message", b"Message", "Raw", b"Raw", "Reason", b"Reason"]) -> None: ...
+
+global___ConnectFailure = ConnectFailure
+
+@typing_extensions.final
+class StreamError(google.protobuf.message.Message):
+    """message ClientOutdated // 7
+
+    8
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CODE_FIELD_NUMBER: builtins.int
+    RAW_FIELD_NUMBER: builtins.int
+    Code: builtins.str
+    @property
+    def Raw(self) -> global___Node: ...
+    def __init__(
+        self,
+        *,
+        Code: builtins.str | None = ...,
+        Raw: global___Node | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Code", b"Code", "Raw", b"Raw"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Code", b"Code", "Raw", b"Raw"]) -> None: ...
+
+global___StreamError = StreamError
+
+@typing_extensions.final
+class HistorySync(google.protobuf.message.Message):
+    """message Disconnected // 9
+
+    10
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DATA_FIELD_NUMBER: builtins.int
+    @property
+    def Data(self) -> def_pb2.HistorySync: ...
+    def __init__(
+        self,
+        *,
+        Data: def_pb2.HistorySync | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Data", b"Data"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Data", b"Data"]) -> None: ...
+
+global___HistorySync = HistorySync
+
+@typing_extensions.final
+class Receipt(google.protobuf.message.Message):
+    """message DecryptFailMode // 11
+    message UndecryptableMessage // 12
+    message NewsLetterMessageMeta (Defined) // 13
+    Message (Defined) // 14
+    15
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _ReceiptType:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _ReceiptTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Receipt._ReceiptType.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DELIVERED: Receipt._ReceiptType.ValueType  # 1
+        SENDER: Receipt._ReceiptType.ValueType  # 2
+        RETRY: Receipt._ReceiptType.ValueType  # 3
+        READ: Receipt._ReceiptType.ValueType  # 4
+        READ_SELF: Receipt._ReceiptType.ValueType  # 5
+        PLAYED: Receipt._ReceiptType.ValueType  # 6
+
+    class ReceiptType(_ReceiptType, metaclass=_ReceiptTypeEnumTypeWrapper): ...
+    DELIVERED: Receipt.ReceiptType.ValueType  # 1
+    SENDER: Receipt.ReceiptType.ValueType  # 2
+    RETRY: Receipt.ReceiptType.ValueType  # 3
+    READ: Receipt.ReceiptType.ValueType  # 4
+    READ_SELF: Receipt.ReceiptType.ValueType  # 5
+    PLAYED: Receipt.ReceiptType.ValueType  # 6
+
+    MESSAGESOURCE_FIELD_NUMBER: builtins.int
+    MESSAGEIDS_FIELD_NUMBER: builtins.int
+    TIMESTAMP_FIELD_NUMBER: builtins.int
+    TYPE_FIELD_NUMBER: builtins.int
+    @property
+    def MessageSource(self) -> global___MessageSource: ...
+    @property
+    def MessageIDs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    Timestamp: builtins.int
+    Type: global___Receipt.ReceiptType.ValueType
+    def __init__(
+        self,
+        *,
+        MessageSource: global___MessageSource | None = ...,
+        MessageIDs: collections.abc.Iterable[builtins.str] | None = ...,
+        Timestamp: builtins.int | None = ...,
+        Type: global___Receipt.ReceiptType.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["MessageSource", b"MessageSource", "Timestamp", b"Timestamp", "Type", b"Type"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["MessageIDs", b"MessageIDs", "MessageSource", b"MessageSource", "Timestamp", b"Timestamp", "Type", b"Type"]) -> None: ...
+
+global___Receipt = Receipt
+
+@typing_extensions.final
+class ChatPresence(google.protobuf.message.Message):
+    """16"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _ChatPresence:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _ChatPresenceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ChatPresence._ChatPresence.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        COMPOSING: ChatPresence._ChatPresence.ValueType  # 1
+        PAUSED: ChatPresence._ChatPresence.ValueType  # 2
+
+    class ChatPresence(_ChatPresence, metaclass=_ChatPresenceEnumTypeWrapper): ...
+    COMPOSING: ChatPresence.ChatPresence.ValueType  # 1
+    PAUSED: ChatPresence.ChatPresence.ValueType  # 2
+
+    class _ChatPresenceMedia:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _ChatPresenceMediaEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ChatPresence._ChatPresenceMedia.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        TEXT: ChatPresence._ChatPresenceMedia.ValueType  # 1
+        AUDIO: ChatPresence._ChatPresenceMedia.ValueType  # 2
+
+    class ChatPresenceMedia(_ChatPresenceMedia, metaclass=_ChatPresenceMediaEnumTypeWrapper): ...
+    TEXT: ChatPresence.ChatPresenceMedia.ValueType  # 1
+    AUDIO: ChatPresence.ChatPresenceMedia.ValueType  # 2
+
+    MESSAGESOURCE_FIELD_NUMBER: builtins.int
+    STATE_FIELD_NUMBER: builtins.int
+    MEDIA_FIELD_NUMBER: builtins.int
+    @property
+    def MessageSource(self) -> global___MessageSource: ...
+    State: global___ChatPresence.ChatPresence.ValueType
+    Media: global___ChatPresence.ChatPresenceMedia.ValueType
+    def __init__(
+        self,
+        *,
+        MessageSource: global___MessageSource | None = ...,
+        State: global___ChatPresence.ChatPresence.ValueType | None = ...,
+        Media: global___ChatPresence.ChatPresenceMedia.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Media", b"Media", "MessageSource", b"MessageSource", "State", b"State"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Media", b"Media", "MessageSource", b"MessageSource", "State", b"State"]) -> None: ...
+
+global___ChatPresence = ChatPresence
+
+@typing_extensions.final
+class Presence(google.protobuf.message.Message):
+    """17"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FROM_FIELD_NUMBER: builtins.int
+    UNAVAILABLE_FIELD_NUMBER: builtins.int
+    LASTSEEN_FIELD_NUMBER: builtins.int
+    @property
+    def From(self) -> global___JID: ...
+    Unavailable: builtins.bool
+    LastSeen: builtins.int
+    def __init__(
+        self,
+        *,
+        From: global___JID | None = ...,
+        Unavailable: builtins.bool | None = ...,
+        LastSeen: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["From", b"From", "LastSeen", b"LastSeen", "Unavailable", b"Unavailable"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["From", b"From", "LastSeen", b"LastSeen", "Unavailable", b"Unavailable"]) -> None: ...
+
+global___Presence = Presence
+
+@typing_extensions.final
+class JoinedGroup(google.protobuf.message.Message):
+    """18"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    REASON_FIELD_NUMBER: builtins.int
+    TYPE_FIELD_NUMBER: builtins.int
+    CREATEKEY_FIELD_NUMBER: builtins.int
+    GROUPINFO_FIELD_NUMBER: builtins.int
+    Reason: builtins.str
+    Type: builtins.str
+    CreateKey: builtins.str
+    @property
+    def GroupInfo(self) -> global___GroupInfo: ...
+    def __init__(
+        self,
+        *,
+        Reason: builtins.str | None = ...,
+        Type: builtins.str | None = ...,
+        CreateKey: builtins.str | None = ...,
+        GroupInfo: global___GroupInfo | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["CreateKey", b"CreateKey", "GroupInfo", b"GroupInfo", "Reason", b"Reason", "Type", b"Type"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["CreateKey", b"CreateKey", "GroupInfo", b"GroupInfo", "Reason", b"Reason", "Type", b"Type"]) -> None: ...
+
+global___JoinedGroup = JoinedGroup
+
+@typing_extensions.final
+class Picture(google.protobuf.message.Message):
+    """19"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    JID_FIELD_NUMBER: builtins.int
+    AUTHOR_FIELD_NUMBER: builtins.int
+    TIMESTAMP_FIELD_NUMBER: builtins.int
+    REMOVE_FIELD_NUMBER: builtins.int
+    @property
+    def JID(self) -> global___JID: ...
+    @property
+    def Author(self) -> global___JID: ...
+    Timestamp: builtins.int
+    Remove: builtins.bool
+    def __init__(
+        self,
+        *,
+        JID: global___JID | None = ...,
+        Author: global___JID | None = ...,
+        Timestamp: builtins.int | None = ...,
+        Remove: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Author", b"Author", "JID", b"JID", "Remove", b"Remove", "Timestamp", b"Timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Author", b"Author", "JID", b"JID", "Remove", b"Remove", "Timestamp", b"Timestamp"]) -> None: ...
+
+global___Picture = Picture
+
+@typing_extensions.final
+class IdentityChange(google.protobuf.message.Message):
+    """20"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    JID_FIELD_NUMBER: builtins.int
+    TIMESTAMP_FIELD_NUMBER: builtins.int
+    IMPLICIT_FIELD_NUMBER: builtins.int
+    @property
+    def JID(self) -> global___JID: ...
+    Timestamp: builtins.int
+    Implicit: builtins.bool
+    def __init__(
+        self,
+        *,
+        JID: global___JID | None = ...,
+        Timestamp: builtins.int | None = ...,
+        Implicit: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Implicit", b"Implicit", "JID", b"JID", "Timestamp", b"Timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Implicit", b"Implicit", "JID", b"JID", "Timestamp", b"Timestamp"]) -> None: ...
+
+global___IdentityChange = IdentityChange
+
+@typing_extensions.final
+class OfflineSyncPreview(google.protobuf.message.Message):
+    """PrivacySettings (Defined) //21
+
+    22
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TOTAL_FIELD_NUMBER: builtins.int
+    APPDATACHANGES_FIELD_NUMBER: builtins.int
+    MESSAGE_FIELD_NUMBER: builtins.int
+    NOTIFICATIONS_FIELD_NUMBER: builtins.int
+    RECEIPTS_FIELD_NUMBER: builtins.int
+    Total: builtins.int
+    AppDataChanges: builtins.int
+    Message: builtins.int
+    Notifications: builtins.int
+    Receipts: builtins.int
+    def __init__(
+        self,
+        *,
+        Total: builtins.int | None = ...,
+        AppDataChanges: builtins.int | None = ...,
+        Message: builtins.int | None = ...,
+        Notifications: builtins.int | None = ...,
+        Receipts: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["AppDataChanges", b"AppDataChanges", "Message", b"Message", "Notifications", b"Notifications", "Receipts", b"Receipts", "Total", b"Total"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["AppDataChanges", b"AppDataChanges", "Message", b"Message", "Notifications", b"Notifications", "Receipts", b"Receipts", "Total", b"Total"]) -> None: ...
+
+global___OfflineSyncPreview = OfflineSyncPreview
+
+@typing_extensions.final
+class OfflineSyncCompleted(google.protobuf.message.Message):
+    """23"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    COUNT_FIELD_NUMBER: builtins.int
+    Count: builtins.int
+    def __init__(
+        self,
+        *,
+        Count: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Count", b"Count"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Count", b"Count"]) -> None: ...
+
+global___OfflineSyncCompleted = OfflineSyncCompleted
+
+@typing_extensions.final
+class BlocklistEvent(google.protobuf.message.Message):
+    """26"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _Actions:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _ActionsEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BlocklistEvent._Actions.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DEFAULT: BlocklistEvent._Actions.ValueType  # 1
+        MODIFY: BlocklistEvent._Actions.ValueType  # 2
+
+    class Actions(_Actions, metaclass=_ActionsEnumTypeWrapper): ...
+    DEFAULT: BlocklistEvent.Actions.ValueType  # 1
+    MODIFY: BlocklistEvent.Actions.ValueType  # 2
+
+    ACTION_FIELD_NUMBER: builtins.int
+    DHASH_FIELD_NUMBER: builtins.int
+    PREVDHASH_FIELD_NUMBER: builtins.int
+    CHANGES_FIELD_NUMBER: builtins.int
+    Action: global___BlocklistEvent.Actions.ValueType
+    DHASH: builtins.str
+    PrevDHash: builtins.str
+    @property
+    def Changes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BlocklistChange]: ...
+    def __init__(
+        self,
+        *,
+        Action: global___BlocklistEvent.Actions.ValueType | None = ...,
+        DHASH: builtins.str | None = ...,
+        PrevDHash: builtins.str | None = ...,
+        Changes: collections.abc.Iterable[global___BlocklistChange] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Action", b"Action", "DHASH", b"DHASH", "PrevDHash", b"PrevDHash"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Action", b"Action", "Changes", b"Changes", "DHASH", b"DHASH", "PrevDHash", b"PrevDHash"]) -> None: ...
+
+global___BlocklistEvent = BlocklistEvent
+
+@typing_extensions.final
+class BlocklistChange(google.protobuf.message.Message):
+    """27"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _Action:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _ActionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BlocklistChange._Action.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        BLOCK: BlocklistChange._Action.ValueType  # 1
+        UNBLOCK: BlocklistChange._Action.ValueType  # 2
+
+    class Action(_Action, metaclass=_ActionEnumTypeWrapper): ...
+    BLOCK: BlocklistChange.Action.ValueType  # 1
+    UNBLOCK: BlocklistChange.Action.ValueType  # 2
+
+    JID_FIELD_NUMBER: builtins.int
+    @property
+    def JID(self) -> global___JID: ...
+    def __init__(
+        self,
+        *,
+        JID: global___JID | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["JID", b"JID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["JID", b"JID"]) -> None: ...
+
+global___BlocklistChange = BlocklistChange
+
+@typing_extensions.final
+class NewsletterJoin(google.protobuf.message.Message):
+    """28"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NEWSLETTERMETADATA_FIELD_NUMBER: builtins.int
+    @property
+    def NewsletterMetadata(self) -> global___NewsletterMetadata: ...
+    def __init__(
+        self,
+        *,
+        NewsletterMetadata: global___NewsletterMetadata | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["NewsletterMetadata", b"NewsletterMetadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["NewsletterMetadata", b"NewsletterMetadata"]) -> None: ...
+
+global___NewsletterJoin = NewsletterJoin
+
+@typing_extensions.final
+class NewsletterLeave(google.protobuf.message.Message):
+    """29"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ID_FIELD_NUMBER: builtins.int
+    ROLE_FIELD_NUMBER: builtins.int
+    @property
+    def ID(self) -> global___JID: ...
+    Role: global___NewsletterRole.ValueType
+    def __init__(
+        self,
+        *,
+        ID: global___JID | None = ...,
+        Role: global___NewsletterRole.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["ID", b"ID", "Role", b"Role"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ID", b"ID", "Role", b"Role"]) -> None: ...
+
+global___NewsletterLeave = NewsletterLeave
+
+@typing_extensions.final
+class NewsletterMuteChange(google.protobuf.message.Message):
+    """30"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ID_FIELD_NUMBER: builtins.int
+    MUTE_FIELD_NUMBER: builtins.int
+    @property
+    def ID(self) -> global___JID: ...
+    Mute: global___NewsletterMuteState.ValueType
+    def __init__(
+        self,
+        *,
+        ID: global___JID | None = ...,
+        Mute: global___NewsletterMuteState.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["ID", b"ID", "Mute", b"Mute"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ID", b"ID", "Mute", b"Mute"]) -> None: ...
+
+global___NewsletterMuteChange = NewsletterMuteChange
+
+@typing_extensions.final
+class NewsletterLiveUpdate(google.protobuf.message.Message):
+    """31"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    JID_FIELD_NUMBER: builtins.int
+    TIME_FIELD_NUMBER: builtins.int
+    MESSAGES_FIELD_NUMBER: builtins.int
+    @property
+    def JID(self) -> global___JID: ...
+    TIME: builtins.int
+    @property
+    def Messages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___NewsletterMessage]: ...
+    def __init__(
+        self,
+        *,
+        JID: global___JID | None = ...,
+        TIME: builtins.int | None = ...,
+        Messages: collections.abc.Iterable[global___NewsletterMessage] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["JID", b"JID", "TIME", b"TIME"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["JID", b"JID", "Messages", b"Messages", "TIME", b"TIME"]) -> None: ...
+
+global___NewsletterLiveUpdate = NewsletterLiveUpdate
+
+@typing_extensions.final
+class QR(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CODES_FIELD_NUMBER: builtins.int
+    @property
+    def Codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def __init__(
+        self,
+        *,
+        Codes: collections.abc.Iterable[builtins.str] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Codes", b"Codes"]) -> None: ...
+
+global___QR = QR

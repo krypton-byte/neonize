@@ -10,11 +10,11 @@ def build():
         subprocess.call(
             shlex.split("build.bat"),
             cwd=Path(__file__).parent,
-            env=os.environ.update({'build_neonize': '1'})
+            env=os.environ.update({"build_neonize": "1"}),
         )
     else:
         subprocess.call(
             shlex.split("bash build.sh"),
             cwd=Path(__file__).parent,
-            env=os.environ.update({'build_neonize': '1'})
+            env=os.environ.update({"build_neonize": "1"}),
         )

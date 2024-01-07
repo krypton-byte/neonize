@@ -25,17 +25,7 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
    #include <stdlib.h>
    #include <stdbool.h>
    #include "header/cstruct.h"
-
-   typedef void (*ptr_to_python_function_string) (char*);
-
-   static inline void call_c_func_string(ptr_to_python_function_string ptr, char* xStr) {
-    (ptr)(xStr);
-    }
-	typedef void (*ptr_to_python_function_bytes)(const char*, size_t);
-
-	static inline void call_c_func_bytes(ptr_to_python_function_bytes ptr, const char* data, size_t size) {
-		(ptr)(data, size);
-	}
+   #include "pythonptr.h"
 
 #line 1 "cgo-generated-wrapper"
 
@@ -97,7 +87,7 @@ extern struct BytesReturn Upload(char* id, unsigned char* mediabuff, int mediaSi
 extern char* GenerateMessageID(char* id);
 extern char* AcceptTOSNotice(char* id, char* noticeID, char* stage);
 extern struct BytesReturn SendMessage(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* messageByte, int messageSize);
-extern void Neonize(char* db, char* id, ptr_to_python_function_string qrCb, ptr_to_python_function_string logStatus, ptr_to_python_function_bytes messageCb);
+extern void Neonize(char* db, char* id, char* logLevel, ptr_to_python_function_string qrCb, ptr_to_python_function_string logStatus, ptr_to_python_function_bytes event, unsigned char* subscribes, int lenSubscriber);
 extern struct BytesReturn Download(char* id, unsigned char* messageProto, int size);
 extern struct BytesReturn IsOnWhatsApp(char* id, char* numbers);
 extern _Bool IsConnected(char* id);
@@ -116,6 +106,8 @@ extern struct BytesReturn SetGroupPhoto(char* id, unsigned char* JIDByte, int JI
 extern char* LeaveGroup(char* id, unsigned char* JIDByte, int JIDSize);
 extern struct BytesReturn GetGroupInviteLink(char* id, unsigned char* JIDByte, int JIDSize, _Bool revoke);
 extern struct BytesReturn JoinGroupWithLink(char* id, char* code);
+extern char* JoinGroupWithInvite(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* inviterByte, int inviterSize, char* code, int expiration);
+extern char* LinkGroup(char* id, unsigned char* parent, int parentSize, unsigned char* child, int childSize);
 extern char* SendChatPresence(char* id, unsigned char* JIDByte, int JIDSize, int state, int media);
 extern struct BytesReturn BuildRevoke(char* id, unsigned char* ChatByte, int ChatSize, unsigned char* SenderByte, int SenderSize, char* messageID);
 extern struct BytesReturn BuildPollVoteCreation(char* id, char* name, unsigned char* options, int optionsSize, int selectableOptionCount);
@@ -125,7 +117,13 @@ extern struct BytesReturn GetNewsletterInfo(char* id, unsigned char* JIDByte, in
 extern struct BytesReturn GetNewsletterInfoWithInvite(char* id, char* key);
 extern struct BytesReturn GetNewsletterMessageUpdate(char* id, unsigned char* JIDByte, int JIDSize, int Count, int Since, int After);
 extern struct BytesReturn GetNewsletterMessages(char* id, unsigned char* JIDByte, int JIDSize, int Count, int Before);
+extern char* Logout(char* id);
 extern struct BytesReturn GetPrivacySettings(char* id);
+extern struct BytesReturn GetProfilePicture(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* paramsByte, int paramsSize);
+extern struct BytesReturn GetStatusPrivacy(char* id);
+extern struct BytesReturn GetSubGroups(char* id, unsigned char* JIDByte, int JIDSize);
+extern struct BytesReturn GetSubscribedNewsletters(char* id);
+extern struct BytesReturn GetUserDevices(char* id, unsigned char* JIDSByte, int JIDSSize);
 extern struct BytesReturn GetBlocklist(char* id);
 extern struct BytesReturn BuildPollVote(char* id, unsigned char* pollInfo, int pollInfoSize, unsigned char* optionName, int optionNameSize);
 extern struct BytesReturn BuildReaction(char* id, unsigned char* chat, int chatSize, unsigned char* sender, int senderSize, char* messageID, char* reaction);

@@ -5,17 +5,7 @@ package main
    #include <stdlib.h>
    #include <stdbool.h>
    #include "header/cstruct.h"
-
-   typedef void (*ptr_to_python_function_string) (char*);
-
-   static inline void call_c_func_string(ptr_to_python_function_string ptr, char* xStr) {
-    (ptr)(xStr);
-    }
-	typedef void (*ptr_to_python_function_bytes)(const char*, size_t);
-
-	static inline void call_c_func_bytes(ptr_to_python_function_bytes ptr, const char* data, size_t size) {
-		(ptr)(data, size);
-	}
+   #include "pythonptr.h"
 */
 import "C"
 import (
@@ -120,8 +110,12 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 }
 
 //export Neonize
-func Neonize(db *C.char, id *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, messageCb C.ptr_to_python_function_bytes) {
-	dbLog := waLog.Stdout("Database", "DEBUG", true)
+func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, subscribes *C.uchar, lenSubscriber C.int) { // ,
+	subscribers := map[int]bool{}
+	for _, s := range getByteByAddr(subscribes, lenSubscriber) {
+		subscribers[int(s)] = true
+	}
+	dbLog := waLog.Stdout("Database", C.GoString(logLevel), true)
 	// Make sure you add appropriate DB connector imports, e.g. github.com/mattn/go-sqlite3 for SQLite
 	container, err := sqlstore.New("sqlite3", fmt.Sprintf("file:%s?_foreign_keys=on", C.GoString(db)), dbLog)
 	if err != nil {
@@ -132,35 +126,26 @@ func Neonize(db *C.char, id *C.char, qrCb C.ptr_to_python_function_string, logSt
 	if err != nil {
 		panic(err)
 	}
-	clientLog := waLog.Stdout("Client", "DEBUG", true)
+	clientLog := waLog.Stdout("Client", C.GoString(logLevel), true)
 	client := whatsmeow.NewClient(deviceStore, clientLog)
-	clients[C.GoString(id)] = client
+	uuid := C.GoString(id)
+	clients[uuid] = client
 	eventHandler := func(evt interface{}) {
 		switch v := evt.(type) {
 		case *events.Message:
-			// fmt.Println("Received a message!", v.Message.GetConversation())
 			if err != nil {
 				panic(err)
 			}
-			// fname := "z.buf"
-			// file, err := os.Create(fname)
-			// if err != nil {
-			// 	panic(err)
-			// }
-			// file.Write(data)
-			// defer file.Close()
-			// fmt.Println("dataproto: ", data)
-			// if err != nil {
-			// 	panic(err)
-			// }
-			messageSource := utils.EncodeEventTypesMessage(v)
-			messageSourceBytes, err := proto.Marshal(messageSource)
-			if err != nil {
-				panic(err)
+			if _, ok := subscribers[14]; ok {
+				messageSource := utils.EncodeEventTypesMessage(v)
+				messageSourceBytes, err := proto.Marshal(messageSource)
+				if err != nil {
+					panic(err)
+				}
+				messageSourceCDATA := (*C.char)(unsafe.Pointer(&messageSourceBytes[0]))
+				messageSourceCSize := C.size_t(len(messageSourceBytes))
+				C.call_c_func_callback_bytes(event, messageSourceCDATA, messageSourceCSize, C.int(14))
 			}
-			messageSourceCDATA := (*C.char)(unsafe.Pointer(&messageSourceBytes[0]))
-			messageSourceCSize := C.size_t(len(messageSourceBytes))
-			C.call_c_func_bytes(messageCb, messageSourceCDATA, messageSourceCSize)
 			// C.free(unsafe.Pointer(CData))
 
 		}
@@ -189,7 +174,6 @@ func Neonize(db *C.char, id *C.char, qrCb C.ptr_to_python_function_string, logSt
 				// e.g. qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
 				// or just manually `echo 2@... | qrencode -t ansiutf8` in a terminal
 				go qrFuncCb(evt.Code)
-				// fmt.Println(cstr)
 				// C.free(unsafe.Pointer(cstr))
 			} else {
 				fmt.Println("Login event:", evt.Event)
@@ -513,6 +497,43 @@ func JoinGroupWithLink(id *C.char, code *C.char) C.struct_BytesReturn {
 	return ReturnBytes(jidBuf)
 }
 
+//export JoinGroupWithInvite
+func JoinGroupWithInvite(id *C.char, JIDByte *C.uchar, JIDSize C.int, inviterByte *C.uchar, inviterSize C.int, code *C.char, expiration C.int) *C.char {
+	var JID, Inviter neonize.JID
+	err := proto.Unmarshal(getByteByAddr(inviterByte, inviterSize), &Inviter)
+	if err != nil {
+		panic(err)
+	}
+	err_unmarshal := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err_unmarshal != nil {
+		panic(err)
+	}
+	err_join := clients[C.GoString(id)].JoinGroupWithInvite(utils.DecodeJidProto(&JID), utils.DecodeJidProto(&Inviter), C.GoString(code), int64(expiration))
+	if err != nil {
+		return C.CString(err_join.Error())
+	}
+	return C.CString("")
+}
+
+//export LinkGroup
+func LinkGroup(id *C.char, parent *C.uchar, parentSize C.int, child *C.uchar, childSize C.int) *C.char {
+	var parentJID, childJID neonize.JID
+	err_parent := proto.Unmarshal(getByteByAddr(parent, parentSize), &parentJID)
+	if err_parent != nil {
+		panic(err_parent)
+	}
+	err_child := proto.Unmarshal(getByteByAddr(child, childSize), &childJID)
+	if err_child != nil {
+		panic(err_child)
+	}
+	err := clients[C.GoString(id)].LinkGroup(utils.DecodeJidProto(&parentJID), utils.DecodeJidProto(&childJID))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+
+}
+
 //export SendChatPresence
 func SendChatPresence(id *C.char, JIDByte *C.uchar, JIDSize C.int, state C.int, media C.int) *C.char {
 	jidbyte := getByteByAddr(JIDByte, JIDSize)
@@ -714,10 +735,133 @@ func GetNewsletterMessages(id *C.char, JIDByte *C.uchar, JIDSize C.int, Count C.
 
 }
 
+//export Logout
+func Logout(id *C.char) *C.char {
+	err := clients[C.GoString(id)].Logout()
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
 //export GetPrivacySettings
 func GetPrivacySettings(id *C.char) C.struct_BytesReturn {
 	settings := clients[C.GoString(id)].GetPrivacySettings()
 	return_buf, err := proto.Marshal(utils.EncodePrivacySettings(settings))
+	if err != nil {
+		panic(err)
+	}
+	return ReturnBytes(return_buf)
+}
+
+//export GetProfilePicture
+func GetProfilePicture(id *C.char, JIDByte *C.uchar, JIDSize C.int, paramsByte *C.uchar, paramsSize C.int) C.struct_BytesReturn {
+	var neonizeJID neonize.JID
+	var neonizeParams neonize.GetProfilePictureParams
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &neonizeJID)
+	if err != nil {
+		panic(err)
+	}
+	err_params := proto.Unmarshal(getByteByAddr(paramsByte, paramsSize), &neonizeParams)
+	if err_params != nil {
+		panic(err_params)
+	}
+	return_ := neonize.GetProfilePictureReturnFunction{}
+	picture, err_pict := clients[C.GoString(id)].GetProfilePictureInfo(utils.DecodeJidProto(&neonizeJID), utils.DecodeGetProfilePictureParams(&neonizeParams))
+	if err_params != nil {
+		return_.Error = proto.String(err_pict.Error())
+	}
+	if picture != nil {
+		return_.Picture = utils.EncodeProfilePictureInfo(*picture)
+	}
+	return_buf, err_buf := proto.Marshal(&return_)
+	if err_buf != nil {
+		panic(err_buf)
+	}
+	return ReturnBytes(return_buf)
+}
+
+//export GetStatusPrivacy
+func GetStatusPrivacy(id *C.char) C.struct_BytesReturn {
+	return_ := neonize.GetStatusPrivacyReturnFunction{}
+	status_privacy_encoded := []*neonize.StatusPrivacy{}
+	status_privacy, err := clients[C.GoString(id)].GetStatusPrivacy()
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+	}
+	for _, privacy := range status_privacy {
+		status_privacy_encoded = append(status_privacy_encoded, utils.EncodeStatusPrivacy(privacy))
+	}
+	return_.StatusPrivacy = status_privacy_encoded
+	return_buf, err_buf := proto.Marshal(&return_)
+	if err_buf != nil {
+		panic(err)
+	}
+	return ReturnBytes(return_buf)
+}
+
+//export GetSubGroups
+func GetSubGroups(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.struct_BytesReturn {
+	var JID neonize.JID
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		panic(err)
+	}
+	groups := []*neonize.GroupLinkTarget{}
+	return_ := neonize.GetSubGroupsReturnFunction{}
+	linked_groups, group_err := clients[C.GoString(id)].GetSubGroups(utils.DecodeJidProto(&JID))
+	if group_err != nil {
+		return_.Error = proto.String(group_err.Error())
+	}
+	for _, group := range linked_groups {
+		groups = append(groups, utils.EncodeGroupLinkTarget(*group))
+	}
+	return_.GroupLinkTarget = groups
+	return_buf, err := proto.Marshal(&return_)
+	return ReturnBytes(return_buf)
+}
+
+//export GetSubscribedNewsletters
+func GetSubscribedNewsletters(id *C.char) C.struct_BytesReturn {
+	return_ := neonize.GetSubscribedNewslettersReturnFunction{}
+	newsletters_ := []*neonize.NewsletterMetadata{}
+	newsletters, err_newsletter := clients[C.GoString(id)].GetSubscribedNewsletters()
+	for _, newsletter := range newsletters {
+		newsletters_ = append(newsletters_, utils.EncodeNewsLetterMessageMetadata(*newsletter))
+	}
+	return_.Newsletter = newsletters_
+	if err_newsletter != nil {
+		return_.Error = proto.String(err_newsletter.Error())
+	}
+	return_buf, err := proto.Marshal(&return_)
+	if err != nil {
+		panic(err)
+	}
+	return ReturnBytes(return_buf)
+}
+
+//export GetUserDevices
+func GetUserDevices(id *C.char, JIDSByte *C.uchar, JIDSSize C.int) C.struct_BytesReturn {
+	var JIDS neonize.JIDArray
+	jids := []types.JID{}
+	err := proto.Unmarshal(getByteByAddr(JIDSByte, JIDSSize), &JIDS)
+	if err != nil {
+		panic(err)
+	}
+	for _, jid := range JIDS.JIDS {
+		jids = append(jids, utils.DecodeJidProto(jid))
+	}
+	return_ := neonize.GetUserDevicesreturnFunction{}
+	jidstypes, err_jids := clients[C.GoString(id)].GetUserDevices(jids)
+	neonizeJID := []*neonize.JID{}
+	for _, jid := range jidstypes {
+		neonizeJID = append(neonizeJID, utils.EncodeJidProto(jid))
+	}
+	return_.JID = neonizeJID
+	if err_jids != nil {
+		return_.Error = proto.String(err_jids.Error())
+	}
+	return_buf, err := proto.Marshal(&return_)
 	if err != nil {
 		panic(err)
 	}
