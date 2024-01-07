@@ -19,6 +19,9 @@ protobuf = "^4.25.1"
 python-magic = "0.4.27"
 pillow = "^10.1.0"
 requests = "^2.31.0"
+moviepy = "^1.0.3"
+pydub = "^0.25.1"
+phonenumbers = "^8.13.27"
 
 
 [tool.poetry.group.dev.dependencies]
