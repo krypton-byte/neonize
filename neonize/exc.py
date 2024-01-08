@@ -119,16 +119,38 @@ class LinkGroupError(Exception):
 class LogoutError(Exception):
     pass
 
+
 class MarkReadError(Exception):
     pass
+
 
 class NewsletterMarkViewedError(Exception):
     pass
 
+
 class NewsletterSendReactionError(Exception):
     pass
 
+
 class NewsletterSubscribeLiveUpdatesError(Exception):
     pass
+
+
 class NewsletterToggleMuteError(Exception):
+    pass
+
+
+class ResolveContactQRLinkError(Exception):
+    pass
+
+
+class ResolveBusinessMessageLinkError(Exception):
+    pass
+
+
+class SendAppStateError(Exception):
+    pass
+
+
+class SetDefaultDisappearingTimerError(Exception):
     pass

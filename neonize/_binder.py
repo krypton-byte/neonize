@@ -13,6 +13,7 @@ func_callback_bytes = ctypes.CFUNCTYPE(
     None, ctypes.c_void_p, ctypes.c_int, ctypes.c_int
 )
 
+
 class Bytes(ctypes.Structure):
     ptr: int
     size: int
@@ -35,7 +36,7 @@ gocode.Neonize.argtypes = [
     ctypes.c_char_p,
     ctypes.c_int,
     ctypes.c_char_p,
-    ctypes.c_int
+    ctypes.c_int,
 ]
 gocode.Upload.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_int]
 gocode.Upload.restype = Bytes
@@ -243,7 +244,7 @@ gocode.NewsletterMarkViewed.argtypes = [
     ctypes.c_char_p,
     ctypes.c_int,
     ctypes.c_char_p,
-    ctypes.c_int
+    ctypes.c_int,
 ]
 gocode.NewsletterMarkViewed.restype = ctypes.c_char_p
 gocode.NewsletterSendReaction.argtypes = [
@@ -252,16 +253,28 @@ gocode.NewsletterSendReaction.argtypes = [
     ctypes.c_int,
     ctypes.c_int,
     ctypes.c_char_p,
-    ctypes.c_char_p
+    ctypes.c_char_p,
 ]
 gocode.NewsletterSendReaction.restype = ctypes.c_char_p
-gocode.NewsletterSubscribeLiveUpdates.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+gocode.NewsletterSubscribeLiveUpdates.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+]
 gocode.NewsletterSubscribeLiveUpdates.restype = Bytes
 gocode.NewsletterToggleMute.argtypes = [
     ctypes.c_char_p,
     ctypes.c_char_p,
     ctypes.c_int,
-    ctypes.c_bool
+    ctypes.c_bool,
 ]
 gocode.NewsletterToggleMute.restype = ctypes.c_char_p
 gocode.Disconnect.argtypes = [ctypes.c_char_p]
+gocode.ResolveContactQRLink.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+gocode.ResolveContactQRLink.restype = Bytes
+gocode.ResolveBusinessMessageLink.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+gocode.ResolveBusinessMessageLink.restype = Bytes
+gocode.SendAppState.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+gocode.SendAppState.restype = ctypes.c_char_p
+gocode.SetDefaultDisappearingTimer.argtypes = [ctypes.c_char_p, ctypes.c_int64]
+gocode.SetDefaultDisappearingTimer.restype = ctypes.c_char_p

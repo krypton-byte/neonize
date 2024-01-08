@@ -6,6 +6,7 @@ import (
 	defproto "github.com/krypton-byte/neonize/defproto"
 	"github.com/krypton-byte/neonize/neonize"
 	"go.mau.fi/whatsmeow"
+	"go.mau.fi/whatsmeow/appstate"
 	waProto "go.mau.fi/whatsmeow/binary/proto"
 	"go.mau.fi/whatsmeow/types"
 	"google.golang.org/protobuf/proto"
@@ -143,5 +144,42 @@ func DecodeGetProfilePictureParams(params *neonize.GetProfilePictureParams) *wha
 		Preview:     *params.Preview,
 		ExistingID:  *params.ExistingID,
 		IsCommunity: *params.IsCommunity,
+	}
+}
+func DecodeMutationInfo(mutationInfo *neonize.MutationInfo) appstate.MutationInfo {
+	//passing through protobuf
+	var Action waProto.SyncActionValue
+	action_byte, err := proto.Marshal(mutationInfo.Value)
+	if err != nil {
+		panic(err)
+	}
+	err_unmarshal := proto.Unmarshal(action_byte, &Action)
+	if err_unmarshal != nil {
+		panic(err_unmarshal)
+	}
+	return appstate.MutationInfo{
+		Index:   mutationInfo.Index,
+		Version: *mutationInfo.Version,
+		Value:   &Action,
+	}
+}
+func DecodePatchInfo(patchInfo *neonize.PatchInfo) *appstate.PatchInfo {
+	var Type appstate.WAPatchName
+	switch patchInfo.Type {
+	case neonize.PatchInfo_CRITICAL_BLOCK.Enum():
+		Type = appstate.WAPatchCriticalBlock
+	case neonize.PatchInfo_CRITICAL_UNBLOCK_LOW.Enum():
+		Type = appstate.WAPatchCriticalUnblockLow
+	case neonize.PatchInfo_REGULAR.Enum():
+		Type = appstate.WAPatchRegular
+	}
+	mutationInfo := []appstate.MutationInfo{}
+	for _, mutation := range patchInfo.Mutations {
+		mutationInfo = append(mutationInfo, DecodeMutationInfo(mutation))
+	}
+	return &appstate.PatchInfo{
+		Timestamp: time.Unix(*patchInfo.Timestamp, 0),
+		Type:      Type,
+		Mutations: mutationInfo,
 	}
 }

@@ -7,7 +7,7 @@ import typing
 import struct
 from io import BytesIO
 from typing import Optional, Callable, List
-
+from datetime import datetime, timedelta
 import magic
 from PIL import Image
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
@@ -20,6 +20,9 @@ from .proto import Neonize_pb2 as neonize_proto
 from .proto.def_pb2 import DeviceProps
 from .exc import (
     DownloadError,
+    ResolveContactQRLinkError,
+    SendAppStateError,
+    SetDefaultDisappearingTimerError,
     UploadError,
     InviteLinkError,
     GetGroupInfoError,
@@ -91,7 +94,7 @@ from .utils import (
     ReceiptType,
     ClientType,
     ClientName,
-    log
+    log,
 )
 from .exc import (
     DownloadError,
@@ -150,7 +153,8 @@ class NewClient:
         self.__client = gocode
         self.event = Event(self)
         self.blocking = self.event.blocking
-        log.debug('create NewClient instance')
+        log.debug("create NewClient instance")
+
     def __onLoginStatus(self, s: str):
         print(s)
 
@@ -181,9 +185,12 @@ class NewClient:
     def _parse_mention(self, text: Optional[str] = None) -> list[str]:
         if text is None:
             return []
-        return [jid.group(1) + '@s.whatsapp.net' for jid in re.finditer(r'@([0-9]{5,16}|0)', text)]
+        return [
+            jid.group(1) + "@s.whatsapp.net"
+            for jid in re.finditer(r"@([0-9]{5,16}|0)", text)
+        ]
 
-    def _make_quoted_message(self, message: Message) -> ContextInfo:
+    def _make_quoted_message(self, message: neonize_proto.Message) -> ContextInfo:
         return ContextInfo(
             stanzaId=message.Info.ID,
             participant=Jid2String(JIDToNonAD(message.Info.MessageSource.Sender)),
@@ -216,7 +223,9 @@ class NewClient:
             raise SendMessageError(model.Error)
         return model.SendResponse
 
-    def reply_message(self, to: JID, text: str, quoted: Message) -> SendResponse:
+    def reply_message(
+        self, to: JID, text: str, quoted: neonize_proto.Message
+    ) -> SendResponse:
         """Send a reply message to a specified JID.
 
         :param to: The JID of the recipient.
@@ -237,7 +246,9 @@ class NewClient:
                 ),
             )
         )
-        message.extendedTextMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
+        message.extendedTextMessage.contextInfo.MergeFrom(
+            self._make_quoted_message(quoted)
+        )
         return self.send_message(to, message)
 
     def edit_message(
@@ -375,7 +386,7 @@ class NewClient:
         self,
         to: JID,
         file: typing.Union[str, bytes],
-        quoted: Optional[Message] = None,
+        quoted: Optional[neonize_proto.Message] = None,
     ) -> SendResponse:
         """Sends a sticker to the specified recipient.
 
@@ -408,7 +419,9 @@ class NewClient:
             )
         )
         if quoted:
-            message.stickerMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
+            message.stickerMessage.contextInfo.MergeFrom(
+                self._make_quoted_message(quoted)
+            )
         return self.send_message(
             to,
             message,
@@ -419,7 +432,7 @@ class NewClient:
         to: JID,
         file: str | bytes,
         caption: Optional[str] = None,
-        quoted: Optional[Message] = None,
+        quoted: Optional[neonize_proto.Message] = None,
         viewonce: bool = False,
     ) -> SendResponse:
         """Sends a video to the specified recipient.
@@ -463,7 +476,9 @@ class NewClient:
             )
         )
         if quoted:
-            message.videoMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
+            message.videoMessage.contextInfo.MergeFrom(
+                self._make_quoted_message(quoted)
+            )
         return self.send_message(to, message)
 
     def send_image(
@@ -471,7 +486,7 @@ class NewClient:
         to: JID,
         file: str | bytes,
         caption: Optional[str] = None,
-        quoted: Optional[Message] = None,
+        quoted: Optional[neonize_proto.Message] = None,
         viewonce: bool = False,
     ) -> SendResponse:
         """Sends an image to the specified recipient.
@@ -514,7 +529,9 @@ class NewClient:
             )
         )
         if quoted:
-            message.imageMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
+            message.imageMessage.contextInfo.MergeFrom(
+                self._make_quoted_message(quoted)
+            )
         return self.send_message(to, message)
 
     def send_audio(
@@ -522,7 +539,7 @@ class NewClient:
         to: JID,
         file: str | bytes,
         ptt: bool = False,
-        quoted: Optional[Message] = None,
+        quoted: Optional[neonize_proto.Message] = None,
     ) -> SendResponse:
         """Sends an audio to the specified recipient.
 
@@ -555,7 +572,9 @@ class NewClient:
             )
         )
         if quoted:
-            message.audioMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
+            message.audioMessage.contextInfo.MergeFrom(
+                self._make_quoted_message(quoted)
+            )
         return self.send_message(to, message)
 
     def send_document(
@@ -565,7 +584,7 @@ class NewClient:
         caption: Optional[str] = None,
         title: Optional[str] = None,
         filename: Optional[str] = None,
-        quoted: Optional[Message] = None,
+        quoted: Optional[neonize_proto.Message] = None,
     ) -> SendResponse:
         """Sends a document to the specified recipient.
 
@@ -597,7 +616,9 @@ class NewClient:
                 fileLength=upload.FileLength,
                 fileSha256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(buff, mime=True).replace("application", "document"),
+                mimetype=magic.from_buffer(buff, mime=True).replace(
+                    "application", "document"
+                ),
                 title=title,
                 fileName=filename,
                 contextInfo=ContextInfo(
@@ -606,7 +627,9 @@ class NewClient:
             )
         )
         if quoted:
-            message.documentMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
+            message.documentMessage.contextInfo.MergeFrom(
+                self._make_quoted_message(quoted)
+            )
         return self.send_message(to, message)
 
     def send_contact(
@@ -614,7 +637,7 @@ class NewClient:
         to: JID,
         contact_name: str,
         contact_number: str,
-        quoted: Optional[Message] = None,
+        quoted: Optional[neonize_proto.Message] = None,
     ) -> SendResponse:
         """Sends a contact to the specified recipient.
 
@@ -636,7 +659,9 @@ class NewClient:
             )
         )
         if quoted:
-            message.contactMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
+            message.contactMessage.contextInfo.MergeFrom(
+                self._make_quoted_message(quoted)
+            )
         return self.send_message(to, message)
 
     def upload(
@@ -986,7 +1011,7 @@ class NewClient:
     def newsletter_mark_viewed(
         self, jid: JID, message_server_ids: List[MessageServerID]
     ):
-        servers = struct.pack(f"{len(server_ids)}b", *message_server_ids)
+        servers = struct.pack(f"{len(message_server_ids)}b", *message_server_ids)
         jid_proto = jid.SerializeToString()
         err = self.__client.NewsletterMarkViewed(
             self.uuid, jid_proto, len(jid_proto), servers, len(servers)
@@ -1033,6 +1058,42 @@ class NewClient:
         if err:
             raise NewsletterToggleMuteError(err)
 
+    def resolve_business_message_link(
+        self, code: str
+    ) -> neonize_proto.BusinessMessageLinkTarget:
+        model = neonize_proto.ResolveBusinessMessageLinkReturnFunction.FromString(
+            self.__client.ResolveBusinessMessageLink(
+                self.uuid, code.encode()
+            ).get_bytes()
+        )
+        if model.Error:
+            raise ResolveContactQRLinkError(model.Error)
+        return model.MessageLinkTarget
+
+    def resolve_contact_qr_link(self, code: str) -> neonize_proto.ContactQRLinkTarget:
+        model = neonize_proto.ResolveContactQRLinkReturnFunction.FromString(
+            self.__client.ResolveContactQRLink(self.uuid, code.encode()).get_bytes()
+        )
+        if model.Error:
+            raise ResolveContactQRLinkError(model.Error)
+        return model.ContactQrLink
+
+    def send_app_state(self, patch_info: neonize_proto.PatchInfo):
+        patch = patch_info.SerializeToString()
+        err = self.__client.SendAppState(self.uuid, patch, len(patch)).decode()
+        if err:
+            raise SendAppStateError(err)
+
+    def set_default_disappearing_timer(self, timer: typing.Union[timedelta, int]):
+        timestamp = 0
+        if isinstance(timer, timedelta):
+            timestamp = int(timer.total_seconds() * 1000**3)
+        else:
+            timestamp = timer
+        err = self.__client.SetDefaultDisappearingTimer(self.uuid, timestamp).decode()
+        if err:
+            raise SetDefaultDisappearingTimerError(err)
+
     def create_group(
         self,
         name: str,
@@ -1057,9 +1118,9 @@ class NewClient:
             name=name, Participants=participants, CreateKey=self.generate_message_id()
         )
         if linked_parent:
-            group_info.GroupLinkedParent = linked_parent
+            group_info.GroupLinkedParent.MergeFrom(linked_parent)
         if group_parent:
-            group_info.GroupParent = group_parent
+            group_info.GroupParent.MergeFrom(group_parent)
         group_info_buf = group_info.SerializeToString()
         resp = self.__client.CreateGroup(self.uuid, group_info_buf, len(group_info_buf))
         model = GetGroupInfoReturnFunction.FromString(resp.get_bytes())
@@ -1353,7 +1414,7 @@ class NewClient:
             phone=phone,
             clientDisplayName="%s (%s)" % (client_type.name, client_name.name),
             clientType=client_type.value,
-            showPushNotification=show_push_notification
+            showPushNotification=show_push_notification,
         )
         payload = pl.SerializeToString()
         d = bytearray(list(self.event.list_func))
@@ -1376,8 +1437,9 @@ class NewClient:
             deviceprops,
             len(deviceprops),
             payload,
-            len(payload)
+            len(payload),
         )
+
     def connect(self):
         d = bytearray(list(self.event.list_func))
         log.debug("trying connect to whatsapp servers")
@@ -1399,7 +1461,8 @@ class NewClient:
             deviceprops,
             len(deviceprops),
             b"",
-            0
+            0,
         )
+
     def disconnect(self):
         return self.__client.Disconnect(self.uuid)

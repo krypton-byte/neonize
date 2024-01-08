@@ -13,7 +13,7 @@ def get_bytes_from_name_or_url(args: typing.Union[str, bytes]) -> bytes:
     """
     headers = {
         "User-Agent": f"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                      f"(KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+        f"(KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
     }
     if isinstance(args, str):
         if args.startswith("http"):
@@ -26,7 +26,7 @@ def get_bytes_from_name_or_url(args: typing.Union[str, bytes]) -> bytes:
 
 
 def write_from_bytesio_or_filename(
-        fn_or_bytesio: typing.Union[io.BytesIO, str], data: bytes
+    fn_or_bytesio: typing.Union[io.BytesIO, str], data: bytes
 ):
     """Writes bytes to either a BytesIO object or a file specified by its name.
 

@@ -7,13 +7,15 @@ import time
 import inspect
 from typing import TypeVar, Type, Callable, TYPE_CHECKING, Dict, Any, Union
 from google.protobuf.message import Message
-from google._upb._message import Message as MessageUpb
+
+# from google._upb._message import Message as MessageUpb
 from abc import abstractmethod, ABC
 from threading import Event as EventThread
-log=logging.getLogger(__name__)
+
+log = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from ..client import NewClient
-EventType = TypeVar('EventType', bound=Message)
+EventType = TypeVar("EventType", bound=Message)
 
 EVENT_TO_INT: Dict[Type[Message], int] = {
     neonize.PairStatus: 1,
@@ -41,9 +43,11 @@ EVENT_TO_INT: Dict[Type[Message], int] = {
     neonize.NewsletterMuteChange: 30,
     neonize.NewsletterLiveUpdate: 31,
 }
-INT_TO_EVENT: Dict[int, Message | MessageUpb] = {code: ev for ev, code in EVENT_TO_INT.items()}
+INT_TO_EVENT: Dict[int, Type[Message]] = {code: ev for ev, code in EVENT_TO_INT.items()}
 
 event = EventThread()
+
+
 class Event:
     def __init__(self, client: NewClient):
         self.client = client
@@ -56,13 +60,17 @@ class Event:
     def wrap(self, f: Callable[[NewClient, EventType], None], event: Type[EventType]):
         def serialization(binary: int, size: int):
             f(self.client, event.FromString(ctypes.string_at(binary, size)))
+
         return serialization
+
     @property
     def blocking(self):
         def block(f: Callable[[NewClient], None]):
-            self.blocking_func = lambda _:f(self.client)
+            self.blocking_func = lambda _: f(self.client)
             return self.blocking_func
+
         return block
+
     @classmethod
     def default_blocking(cls, x):
         log.debug("blocking function called")
@@ -77,5 +85,3 @@ class Event:
             self.list_func.update({EVENT_TO_INT[event]: wrapped_func})
 
         return callback
-
-

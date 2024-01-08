@@ -20,7 +20,9 @@ def save_file_to_temp_directory(data):
     return temp_file_name, temp_file
 
 
-def generate_thumbnail(file: str | bytes, thumbnail_size: tuple[int, int] = (200, 200)) -> bytes:
+def generate_thumbnail(
+    file: str | bytes, thumbnail_size: tuple[int, int] = (200, 200)
+) -> bytes:
     buff = BytesIO(get_bytes_from_name_or_url(file))
     byte_stream = BytesIO()
     _type = magic.from_buffer(buff.read(), mime=True).split("/")[0]
@@ -28,7 +30,7 @@ def generate_thumbnail(file: str | bytes, thumbnail_size: tuple[int, int] = (200
         image = Image.open(buff)
         image.thumbnail(thumbnail_size)
 
-        image.save(byte_stream, format='JPEG')
+        image.save(byte_stream, format="JPEG")
     elif _type == "video":
         filename, temp_file = save_file_to_temp_directory(buff.getvalue())
         video = VideoFileClip(filename)
@@ -36,7 +38,7 @@ def generate_thumbnail(file: str | bytes, thumbnail_size: tuple[int, int] = (200
         frame_image = Image.fromarray(frame)
         frame_image.thumbnail(thumbnail_size)
 
-        frame_image.save(byte_stream, format='JPEG')
+        frame_image.save(byte_stream, format="JPEG")
         temp_file.close()
 
     return byte_stream.getvalue()

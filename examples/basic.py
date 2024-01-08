@@ -4,7 +4,7 @@ import sys, os
 from neonize.types import MessageServerID
 
 sys.path.insert(0, os.getcwd())
-from datetime import datetime
+from datetime import datetime, timedelta
 from PIL import Image
 import time
 import random
@@ -69,7 +69,8 @@ def onMessage(client: NewClient, message: MessageResponse):
             client.reply_message(chat, "pong", message)
         case "_sticker":
             client.send_sticker(
-                chat, "https://mystickermania.com/cdn/stickers/anime/spy-family-anya-smirk-512x512.png"
+                chat,
+                "https://mystickermania.com/cdn/stickers/anime/spy-family-anya-smirk-512x512.png",
             )
         case "_image":
             client.send_image(
@@ -142,11 +143,14 @@ def onMessage(client: NewClient, message: MessageResponse):
             metadata = client.get_newsletter_info_with_invite(
                 "https://whatsapp.com/channel/0029Va4K0PZ5a245NkngBA2M"
             )
-            data_msg = client.get_newsletter_messages(metadata.ID, 2, MessageServerID(0))
+            data_msg = client.get_newsletter_messages(
+                metadata.ID, 2, MessageServerID(0)
+            )
             client.send_message(chat, data_msg.__str__())
             for _ in data_msg:
                 client.newsletter_send_reaction(
-                    metadata.ID, MessageServerID(0), "🗿", "")
+                    metadata.ID, MessageServerID(0), "🗿", ""
+                )
         case "subscribe_channel_updates":
             metadata = client.get_newsletter_info_with_invite(
                 "https://whatsapp.com/channel/0029Va4K0PZ5a245NkngBA2M"
@@ -160,6 +164,10 @@ def onMessage(client: NewClient, message: MessageResponse):
             client.send_message(
                 chat, client.newsletter_toggle_mute(metadata.ID, False).__str__()
             )
+        case "set_diseapearing":
+            client.send_message(
+                chat, client.set_default_disappearing_timer(timedelta(days=7)).__str__()
+            )
 
 
 @client.event(PairStatus)
@@ -167,8 +175,5 @@ def PairStatusMessage(client: NewClient, message: PairStatus):
     print(client, message)
 
 
-client.PairPhone(
-    "13372922220",
-    True,
-)
+client.connect()
 # print(log.level)

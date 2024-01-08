@@ -518,3 +518,22 @@ func EncodeGroupLinkTarget(group types.GroupLinkTarget) *neonize.GroupLinkTarget
 		GroupIsDefaultSub: EncodeGroupIsDefaultSub(group.GroupIsDefaultSub),
 	}
 }
+
+func EncodeContactQRLinkTarget(contact types.ContactQRLinkTarget) *neonize.ContactQRLinkTarget {
+	return &neonize.ContactQRLinkTarget{
+		JID:      EncodeJidProto(contact.JID),
+		Type:     &contact.Type,
+		PushName: &contact.PushName,
+	}
+}
+
+func EncodeBusinessMessageLinkTarget(message types.BusinessMessageLinkTarget) *neonize.BusinessMessageLinkTarget {
+	return &neonize.BusinessMessageLinkTarget{
+		JID:           EncodeJidProto(message.JID),
+		PushName:      proto.String(message.PushName),
+		VerifiedName:  proto.String(message.VerifiedName),
+		IsSigned:      &message.IsSigned,
+		VerifiedLevel: &message.VerifiedLevel,
+		Message:       &message.Message,
+	}
+}

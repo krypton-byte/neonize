@@ -54,11 +54,13 @@ class LogLevel(Enum):
     INFO = 1
     WARN = 2
     ERROR = 3
+
     @property
     def level(self):
         if self is self.__class__.NOTSET:
             return b""
         return self.name.encode()
+
     @classmethod
     def from_logging(cls, level: int):
         match level:
@@ -75,6 +77,7 @@ class LogLevel(Enum):
             case 0:
                 return cls.NOTSET
         return cls.INFO
+
     def log_level(self) -> int:
         return (self.value + 1) * 10
 
@@ -92,6 +95,7 @@ class ReceiptType(Enum):
     PEER_MSG = b"peer_msg"
     HISTORY_SYNC = "hist_sync"
 
+
 class ClientType(Enum):
     UNKNOWN = 0
     CHROME = 1
@@ -103,14 +107,17 @@ class ClientType(Enum):
     ELECTRON = 7
     UWP = 8
     OTHER = 9
+
     @property
     def name(self) -> str:
         return super().name.title()
+
 
 class ClientName(Enum):
     LINUX = "linux"
     WINDOWS = "windows nt"
     ANDROID = "android"
+
     @property
     def name(self) -> str:
         return super().name.title()

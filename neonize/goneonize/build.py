@@ -9,5 +9,5 @@ def build():
         command,
         cwd=os.path.dirname(__file__),
         env=os.environ.update({"build_neonize": "1"}),
-        shell=os.name == "nt"
+        shell=os.name == "nt",
     )

@@ -4,6 +4,7 @@ package main
 
    #include <stdlib.h>
    #include <stdbool.h>
+   #include <stdint.h>
    #include "header/cstruct.h"
    #include "python/pythonptr.h"
 */
@@ -32,13 +33,14 @@ import (
 var clients = make(map[string]*whatsmeow.Client)
 
 func getByteByAddr(addr *C.uchar, size C.int) []byte {
-	var result []byte
-	for i := 0; i < int(size); i++ {
-		value := *(*C.uchar)(unsafe.Pointer(uintptr(unsafe.Pointer(addr)) + uintptr(i)))
-		// 	fmt.Println(value)
-		result = append(result, byte(value))
-	}
-	return result
+	return C.GoBytes(unsafe.Pointer(addr), size)
+	// var result []byte
+	// for i := 0; i < int(size); i++ {
+	// 	value := *(*C.uchar)(unsafe.Pointer(uintptr(unsafe.Pointer(addr)) + uintptr(i)))
+	// 	// 	fmt.Println(value)
+	// 	result = append(result, byte(value))
+	// }
+	// return result
 }
 
 func ReturnBytes(data []byte) C.struct_BytesReturn {
@@ -858,6 +860,63 @@ func NewsletterToggleMute(id *C.char, JIDByte *C.uchar, JIDSize C.int, mute C.bo
 	err_togglemute := clients[C.GoString(id)].NewsletterToggleMute(utils.DecodeJidProto(&JID), bool(mute))
 	if err_togglemute != nil {
 		return C.CString(err_togglemute.Error())
+	}
+	return C.CString("")
+}
+
+//export ResolveBusinessMessageLink
+func ResolveBusinessMessageLink(id *C.char, code *C.char) C.struct_BytesReturn {
+	return_ := neonize.ResolveBusinessMessageLinkReturnFunction{}
+	message_link, err := clients[C.GoString(id)].ResolveBusinessMessageLink(C.GoString(code))
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+	}
+	if message_link != nil {
+		return_.MessageLinkTarget = utils.EncodeBusinessMessageLinkTarget(*message_link)
+	}
+	return_buf, err_marshal := proto.Marshal(&return_)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(return_buf)
+}
+
+//export ResolveContactQRLink
+func ResolveContactQRLink(id *C.char, code *C.char) C.struct_BytesReturn {
+	return_ := neonize.ResolveContactQRLinkReturnFunction{}
+	contact, err := clients[C.GoString(id)].ResolveContactQRLink(C.GoString(code))
+	if contact != nil {
+		return_.ContactQrLink = utils.EncodeContactQRLinkTarget(*contact)
+	}
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+	}
+	return_buf, err_marshal := proto.Marshal(&return_)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(return_buf)
+}
+
+//export SendAppState
+func SendAppState(id *C.char, patchByte *C.uchar, patchSize C.int) *C.char {
+	var patchInfo neonize.PatchInfo
+	err_unmarshal := proto.Unmarshal(getByteByAddr(patchByte, patchSize), &patchInfo)
+	if err_unmarshal != nil {
+		panic(err_unmarshal)
+	}
+	err := clients[C.GoString(id)].SendAppState(*utils.DecodePatchInfo(&patchInfo))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
+//export SetDefaultDisappearingTimer
+func SetDefaultDisappearingTimer(id *C.char, timer C.int64_t) *C.char {
+	err := clients[C.GoString(id)].SetDefaultDisappearingTimer(time.Duration(int64(timer)))
+	if err != nil {
+		return C.CString(err.Error())
 	}
 	return C.CString("")
 }

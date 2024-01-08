@@ -460,6 +460,46 @@ message PairPhoneParams{
     optional int32 clientType = 3;
     optional string clientDisplayName = 4;
 }
+
+message ContactQRLinkTarget {
+    required JID JID = 1;
+    required string Type = 2;
+    required string PushName = 3;
+}
+
+message ResolveContactQRLinkReturnFunction {
+    optional ContactQRLinkTarget ContactQrLink = 1;
+    optional string Error = 2;
+}
+message BusinessMessageLinkTarget {
+    required JID JID = 1;
+    required string PushName = 2;
+    required string VerifiedName = 3;
+    required bool IsSigned = 4;
+    required string VerifiedLevel = 5;
+    required string Message = 6;
+}
+message ResolveBusinessMessageLinkReturnFunction {
+    optional BusinessMessageLinkTarget MessageLinkTarget = 1;
+    optional string Error =2;
+}
+message MutationInfo {
+    repeated string Index = 1;
+    required int32 Version = 2;
+    required defproto.SyncActionValue Value = 3;
+}
+message PatchInfo {
+    enum WAPatchName {
+        CRITICAL_BLOCK = 1;
+        CRITICAL_UNBLOCK_LOW = 2;
+        REGULAR_LOW = 3;
+        REGULAR_HIGH = 4;
+        REGULAR = 5;
+    }
+    required int64 Timestamp = 1;
+    required WAPatchName Type = 2;
+    repeated MutationInfo Mutations = 3;
+}
 // events
 message PairStatus { //1
     enum PStatus {
