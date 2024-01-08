@@ -1,17 +1,17 @@
 import ctypes
 import os
-
 from platform import system
+
 
 file_ext = "dll" if system() == "Windows" else "so"
 root_dir = os.path.abspath(os.path.dirname(__file__))
 gocode = ctypes.CDLL(f"{root_dir}/gocode/gocode.{file_ext}")
 func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
+func = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
 func_bytes = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_int)
 func_callback_bytes = ctypes.CFUNCTYPE(
     None, ctypes.c_void_p, ctypes.c_int, ctypes.c_int
 )
-
 
 class Bytes(ctypes.Structure):
     ptr: int
@@ -30,6 +30,12 @@ gocode.Neonize.argtypes = [
     func_string,
     func_callback_bytes,
     ctypes.c_char_p,
+    ctypes.c_int,
+    func,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+    ctypes.c_int
 ]
 gocode.Upload.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_int]
 gocode.Upload.restype = Bytes
@@ -251,3 +257,11 @@ gocode.NewsletterSendReaction.argtypes = [
 gocode.NewsletterSendReaction.restype = ctypes.c_char_p
 gocode.NewsletterSubscribeLiveUpdates.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
 gocode.NewsletterSubscribeLiveUpdates.restype = Bytes
+gocode.NewsletterToggleMute.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_bool
+]
+gocode.NewsletterToggleMute.restype = ctypes.c_char_p
+gocode.Disconnect.argtypes = [ctypes.c_char_p]

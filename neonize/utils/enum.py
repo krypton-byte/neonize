@@ -1,5 +1,6 @@
 from __future__ import annotations
 from enum import Enum
+from re import DEBUG
 import magic
 import typing
 
@@ -48,9 +49,35 @@ class ChatPresenceMedia(Enum):
 
 
 class LogLevel(Enum):
-    DEBUG = 1
-    INFO = 2
-    ERROR = 4
+    NOTSET = -1
+    DEBUG = 0
+    INFO = 1
+    WARN = 2
+    ERROR = 3
+    @property
+    def level(self):
+        if self is self.__class__.NOTSET:
+            return b""
+        return self.name.encode()
+    @classmethod
+    def from_logging(cls, level: int):
+        match level:
+            case 50:
+                return cls.ERROR
+            case 40:
+                return cls.ERROR
+            case 30:
+                return cls.WARN
+            case 20:
+                return cls.INFO
+            case 10:
+                return cls.DEBUG
+            case 0:
+                return cls.NOTSET
+        return cls.INFO
+    def log_level(self) -> int:
+        return (self.value + 1) * 10
+
 
 class ReceiptType(Enum):
     DELIVERED = b""
@@ -64,4 +91,26 @@ class ReceiptType(Enum):
     INACTIVE = b"inactive"
     PEER_MSG = b"peer_msg"
     HISTORY_SYNC = "hist_sync"
-    
+
+class ClientType(Enum):
+    UNKNOWN = 0
+    CHROME = 1
+    EDGE = 2
+    FIREFOX = 3
+    IE = 4
+    OPERA = 5
+    SAFARI = 6
+    ELECTRON = 7
+    UWP = 8
+    OTHER = 9
+    @property
+    def name(self) -> str:
+        return super().name.title()
+
+class ClientName(Enum):
+    LINUX = "linux"
+    WINDOWS = "windows nt"
+    ANDROID = "android"
+    @property
+    def name(self) -> str:
+        return super().name.title()

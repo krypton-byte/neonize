@@ -1,17 +1,20 @@
-from .enum import ChatPresence, ChatPresenceMedia, MediaType, LogLevel, ReceiptType
+from .enum import ChatPresence, ChatPresenceMedia, MediaType, LogLevel, ReceiptType, ClientType, ClientName
 from io import BytesIO
 from moviepy.editor import VideoFileClip
 from .iofile import (
     get_bytes_from_name_or_url,
     write_from_bytesio_or_filename,
 )
+from ._events import event
 from .jid import Jid2String
 from .thumbnail import generate_thumbnail, save_file_to_temp_directory
-
+import logging
 import magic
 from pydub import AudioSegment
 from phonenumbers import parse, PhoneNumberFormat, format_number
 
+log = logging.getLogger(__name__)
+logging.basicConfig(format='%(asctime)s.%(msecs)03d [%(name)s %(levelname)s] - %(message)s', datefmt='%H:%M:%S', level=logging.INFO)
 
 def get_duration(file: str | bytes) -> float:
     buff = BytesIO(get_bytes_from_name_or_url(file))

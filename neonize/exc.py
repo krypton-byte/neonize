@@ -130,3 +130,5 @@ class NewsletterSendReactionError(Exception):
 
 class NewsletterSubscribeLiveUpdatesError(Exception):
     pass
+class NewsletterToggleMuteError(Exception):
+    pass

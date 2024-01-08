@@ -1,15 +1,22 @@
 from __future__ import annotations
 
 import ctypes
+import time
 import typing
+import struct
 from io import BytesIO
 from typing import Optional, Callable, List
-import time
+
 import magic
 from PIL import Image
-import struct
-from ._binder import gocode, func_bytes, func_string, func_callback_bytes
+from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
+
+from ._binder import gocode, func_string, func_callback_bytes, func
 from .builder import build_edit, build_revoke
+from .types import MessageServerID
+from .utils._events import Event
+from .proto import Neonize_pb2 as neonize_proto
+from .proto.def_pb2 import DeviceProps
 from .exc import (
     DownloadError,
     UploadError,
@@ -34,7 +41,6 @@ from .exc import (
     NewsletterMarkViewedError,
     NewsletterSendReactionError,
 )
-from .proto import Neonize_pb2 as neonize_proto
 from .proto.Neonize_pb2 import (
     MessageInfo,
     MessageSource,
@@ -59,7 +65,6 @@ from .proto.Neonize_pb2 import (
     SendResponse,
     Device,
 )
-from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 from .proto.def_pb2 import (
     Message,
     StickerMessage,
@@ -82,6 +87,9 @@ from .utils import (
     ChatPresenceMedia,
     LogLevel,
     ReceiptType,
+    ClientType,
+    ClientName,
+    log
 )
 from .exc import (
     DownloadError,
@@ -110,11 +118,8 @@ from .exc import (
     JoinGroupWithInviteError,
     LinkGroupError,
     NewsletterSubscribeLiveUpdatesError,
+    NewsletterToggleMuteError,
 )
-from .builder import build_edit, build_revoke
-from .types import MessageServerID
-from .utils._events import Event
-from .proto.def_pb2 import DeviceProps
 
 
 class NewClient:
@@ -141,8 +146,9 @@ class NewClient:
         self.uuid = (uuid or name).encode()
         self.qrCallback = qrCallback
         self.__client = gocode
-        self.event = Event(self, self.__client)
-
+        self.event = Event(self)
+        self.blocking = self.event.blocking
+        log.debug('create NewClient instance')
     def __onLoginStatus(self, s: str):
         print(s)
 
@@ -195,10 +201,8 @@ class NewClient:
         if model.Error:
             raise SendMessageError(model.Error)
         return model.SendResponse
-    
-    def reply_message(
-        self, to: JID, text: str, quoted: Message
-    ) -> SendResponse:
+
+    def reply_message(self, to: JID, text: str, quoted: Message) -> SendResponse:
         """Send a reply message to a specified JID.
 
         :param to: The JID of the recipient.
@@ -218,7 +222,7 @@ class NewClient:
                     stanzaId=quoted.Info.ID,
                     participant=Jid2String(quoted.Info.MessageSource.Sender),
                     quotedMessage=quoted.Message,
-                )
+                ),
             )
         )
         return self.send_message(to, message)
@@ -1029,7 +1033,8 @@ class NewClient:
         )
         if err:
             raise NewsletterSendReactionError(err)
-        return 
+        return
+
     def newsletter_subscribe_live_updates(self, jid: JID) -> int:
         jid_proto = jid.SerializeToString()
         model = neonize_proto.NewsletterSubscribeLiveUpdatesReturnFunction.FromString(
@@ -1040,6 +1045,14 @@ class NewClient:
         if model.Error:
             raise NewsletterSubscribeLiveUpdatesError(model.Error)
         return model.Duration
+
+    def newsletter_toggle_mute(self, jid: JID, mute: bool):
+        jid_proto = jid.SerializeToString()
+        err = self.__client.NewsletterToggleMute(
+            self.uuid, jid_proto, len(jid_proto), mute
+        ).decode()
+        if err:
+            raise NewsletterToggleMuteError(err)
 
     def create_group(
         self,
@@ -1342,22 +1355,72 @@ class NewClient:
             raise GetNewsletterInfoError(model.Error)
         return model.NewsletterMetadata
 
-    def connect(self, log_level: Optional[LogLevel] = None):
+    def PairPhone(
+        self,
+        phone: str,
+        show_push_notification: bool,
+        client_name: ClientName = ClientName.LINUX,
+        client_type: Optional[ClientType] = None,
+    ):
+        if client_type is None:
+            if self.device_props is None:
+                client_type = ClientType.FIREFOX
+            else:
+                try:
+                    client_type = ClientType(self.device_props.platformType)
+                except ValueError:
+                    client_type = ClientType.FIREFOX
+        pl = neonize_proto.PairPhoneParams(
+            phone=phone,
+            clientDisplayName="%s (%s)" % (client_type.name, client_name.name),
+            clientType=client_type.value,
+            showPushNotification=show_push_notification
+        )
+        payload = pl.SerializeToString()
         d = bytearray(list(self.event.list_func))
+        log.debug("trying to connect to whatsapp servers")
         deviceprops = (
-            DeviceProps(os="Neonize", platformType=5)
+            DeviceProps(os="Neonize", platformType=DeviceProps.SAFARI)
             if self.device_props is None
             else self.device_props
         ).SerializeToString()
         self.__client.Neonize(
             self.name.encode(),
             self.uuid,
-            b"" if log_level is None else log_level.name.encode(),
+            LogLevel.from_logging(log.level).level,
             func_string(self.__onQr),
             func_string(self.__onLoginStatus),
             func_callback_bytes(self.event.execute),
             (ctypes.c_char * self.event.list_func.__len__()).from_buffer(d),
             len(d),
+            func(self.event.blocking_func),
             deviceprops,
             len(deviceprops),
+            payload,
+            len(payload)
         )
+    def connect(self):
+        d = bytearray(list(self.event.list_func))
+        log.debug("trying connect to whatsapp servers")
+        deviceprops = (
+            DeviceProps(os="Neonize", platformType=DeviceProps.SAFARI)
+            if self.device_props is None
+            else self.device_props
+        ).SerializeToString()
+        self.__client.Neonize(
+            self.name.encode(),
+            self.uuid,
+            LogLevel.from_logging(log.level).level,
+            func_string(self.__onQr),
+            func_string(self.__onLoginStatus),
+            func_callback_bytes(self.event.execute),
+            (ctypes.c_char * self.event.list_func.__len__()).from_buffer(d),
+            len(d),
+            func(self.event.blocking_func),
+            deviceprops,
+            len(deviceprops),
+            b"",
+            0
+        )
+    def disconnect(self):
+        return self.__client.Disconnect(self.uuid)

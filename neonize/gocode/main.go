@@ -11,10 +11,7 @@ import "C"
 import (
 	"context"
 	"fmt"
-	"os"
-	"os/signal"
 	"strings"
-	"syscall"
 	"time"
 	"unsafe"
 
@@ -111,9 +108,10 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 }
 
 //export Neonize
-func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, subscribes *C.uchar, lenSubscriber C.int, devicePropsBuf *C.uchar, devicePropsSize C.int) { // ,
+func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, subscribes *C.uchar, lenSubscriber C.int, blocking C.ptr_to_python_function, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int) { // ,
 	subscribers := map[int]bool{}
 	var deviceProps waProto.DeviceProps
+	var loginStateChan = make(chan bool)
 	err_proto := proto.Unmarshal(getByteByAddr(devicePropsBuf, devicePropsSize), &deviceProps)
 	if err_proto != nil {
 		panic(err_proto)
@@ -154,7 +152,8 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 				C.call_c_func_callback_bytes(event, messageSourceCDATA, messageSourceCSize, C.int(14))
 			}
 			// C.free(unsafe.Pointer(CData))
-
+		case *events.Connected:
+			loginStateChan <- true
 		}
 	}
 	client.AddEventHandler(eventHandler)
@@ -170,23 +169,49 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 	}
 	if client.Store.ID == nil {
 		// No ID stored, new login
-		qrChan, _ := client.GetQRChannel(context.Background())
-		err = client.Connect()
-		if err != nil {
-			panic(err)
-		}
-		for evt := range qrChan {
-			if evt.Event == "code" {
-				// Render the QR code here
-				// e.g. qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
-				// or just manually `echo 2@... | qrencode -t ansiutf8` in a terminal
-				go qrFuncCb(evt.Code)
-				// C.free(unsafe.Pointer(cstr))
-			} else {
-				fmt.Println("Login event:", evt.Event)
-				go logStatusCb(evt.Event)
+		if int(pairphoneSize) > 0 {
+			phone_number := getByteByAddr(pairphone, pairphoneSize)
+			var PairPhone neonize.PairPhoneParams
+			err_pairparams := proto.Unmarshal(phone_number, &PairPhone)
+			if err_pairparams != nil {
+				panic(err_pairparams)
+			}
+			phone := *PairPhone.Phone
+			notif := *PairPhone.ShowPushNotification
+			displayname := *PairPhone.ClientDisplayName
+			clientType := *PairPhone.ClientType
+			client.Connect()
+			code_, code_err := client.PairPhone(phone, notif, whatsmeow.PairClientType(int(clientType)), displayname)
+			if code_err != nil {
+				panic(code_err)
+			}
+			fmt.Println("Pair Code: ", code_)
+			for stat := range loginStateChan {
+				if stat {
+					break
+				}
+			}
+
+		} else {
+			qrChan, _ := client.GetQRChannel(context.Background())
+			err = client.Connect()
+			if err != nil {
+				panic(err)
+			}
+			for evt := range qrChan {
+				if evt.Event == "code" {
+					// Render the QR code here
+					// e.g. qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
+					// or just manually `echo 2@... | qrencode -t ansiutf8` in a terminal
+					go qrFuncCb(evt.Code)
+					// C.free(unsafe.Pointer(cstr))
+				} else {
+					fmt.Println("Login event:", evt.Event)
+					go logStatusCb(evt.Event)
+				}
 			}
 		}
+
 	} else {
 		// Already logged in, just connect
 		err = client.Connect()
@@ -196,11 +221,12 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 	}
 
 	// Listen to Ctrl+C (you can also do something else that prevents the program from exiting)
-	c := make(chan os.Signal)
-	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
-	<-c
+	C.call_c_func(blocking, false)
+}
 
-	client.Disconnect()
+//export Disconnect
+func Disconnect(id *C.char) {
+	clients[C.GoString(id)].Disconnect()
 }
 
 //export Download
@@ -820,6 +846,20 @@ func NewsletterSubscribeLiveUpdates(id *C.char, JIDByte *C.uchar, JIDSize C.int)
 		panic(return_err)
 	}
 	return ReturnBytes(return_buf)
+}
+
+//export NewsletterToggleMute
+func NewsletterToggleMute(id *C.char, JIDByte *C.uchar, JIDSize C.int, mute C.bool) *C.char {
+	var JID neonize.JID
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		panic(err)
+	}
+	err_togglemute := clients[C.GoString(id)].NewsletterToggleMute(utils.DecodeJidProto(&JID), bool(mute))
+	if err_togglemute != nil {
+		return C.CString(err_togglemute.Error())
+	}
+	return C.CString("")
 }
 
 //export GetPrivacySettings

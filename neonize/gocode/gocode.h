@@ -87,7 +87,8 @@ extern struct BytesReturn Upload(char* id, unsigned char* mediabuff, int mediaSi
 extern char* GenerateMessageID(char* id);
 extern char* AcceptTOSNotice(char* id, char* noticeID, char* stage);
 extern struct BytesReturn SendMessage(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* messageByte, int messageSize);
-extern void Neonize(char* db, char* id, char* logLevel, ptr_to_python_function_string qrCb, ptr_to_python_function_string logStatus, ptr_to_python_function_bytes event, unsigned char* subscribes, int lenSubscriber, unsigned char* devicePropsBuf, int devicePropsSize);
+extern void Neonize(char* db, char* id, char* logLevel, ptr_to_python_function_string qrCb, ptr_to_python_function_string logStatus, ptr_to_python_function_bytes event, unsigned char* subscribes, int lenSubscriber, ptr_to_python_function blocking, unsigned char* devicePropsBuf, int devicePropsSize, unsigned char* pairphone, int pairphoneSize);
+extern void Disconnect(char* id);
 extern struct BytesReturn Download(char* id, unsigned char* messageProto, int size);
 extern struct BytesReturn IsOnWhatsApp(char* id, char* numbers);
 extern _Bool IsConnected(char* id);
@@ -122,6 +123,7 @@ extern char* MarkRead(char* id, char* ids, int timestamp, unsigned char* chatByt
 extern char* NewsletterMarkViewed(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* MessageServerID, int MessageServerIDSize);
 extern char* NewsletterSendReaction(char* id, unsigned char* JIDByte, int JIDSize, int messageServerID, char* reaction, char* messageID);
 extern struct BytesReturn NewsletterSubscribeLiveUpdates(char* id, unsigned char* JIDByte, int JIDSize);
+extern char* NewsletterToggleMute(char* id, unsigned char* JIDByte, int JIDSize, _Bool mute);
 extern struct BytesReturn GetPrivacySettings(char* id);
 extern struct BytesReturn GetProfilePicture(char* id, unsigned char* JIDByte, int JIDSize, unsigned char* paramsByte, int paramsSize);
 extern struct BytesReturn GetStatusPrivacy(char* id);

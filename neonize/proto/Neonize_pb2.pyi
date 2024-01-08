@@ -1858,6 +1858,31 @@ class NewsletterSubscribeLiveUpdatesReturnFunction(google.protobuf.message.Messa
 global___NewsletterSubscribeLiveUpdatesReturnFunction = NewsletterSubscribeLiveUpdatesReturnFunction
 
 @typing_extensions.final
+class PairPhoneParams(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PHONE_FIELD_NUMBER: builtins.int
+    SHOWPUSHNOTIFICATION_FIELD_NUMBER: builtins.int
+    CLIENTTYPE_FIELD_NUMBER: builtins.int
+    CLIENTDISPLAYNAME_FIELD_NUMBER: builtins.int
+    phone: builtins.str
+    showPushNotification: builtins.bool
+    clientType: builtins.int
+    clientDisplayName: builtins.str
+    def __init__(
+        self,
+        *,
+        phone: builtins.str | None = ...,
+        showPushNotification: builtins.bool | None = ...,
+        clientType: builtins.int | None = ...,
+        clientDisplayName: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["clientDisplayName", b"clientDisplayName", "clientType", b"clientType", "phone", b"phone", "showPushNotification", b"showPushNotification"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["clientDisplayName", b"clientDisplayName", "clientType", b"clientType", "phone", b"phone", "showPushNotification", b"showPushNotification"]) -> None: ...
+
+global___PairPhoneParams = PairPhoneParams
+
+@typing_extensions.final
 class PairStatus(google.protobuf.message.Message):
     """events
     1

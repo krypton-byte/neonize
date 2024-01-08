@@ -454,6 +454,12 @@ message NewsletterSubscribeLiveUpdatesReturnFunction {
     optional int64 Duration = 1;
     optional string Error = 2;
 }
+message PairPhoneParams{
+    optional string phone = 1;
+    optional bool showPushNotification = 2;
+    optional int32 clientType = 3;
+    optional string clientDisplayName = 4;
+}
 // events
 message PairStatus { //1
     enum PStatus {
