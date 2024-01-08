@@ -5,7 +5,7 @@ package main
    #include <stdlib.h>
    #include <stdbool.h>
    #include "header/cstruct.h"
-   #include "pythonptr.h"
+   #include "python/pythonptr.h"
 */
 import "C"
 import (

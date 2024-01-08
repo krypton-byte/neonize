@@ -5,7 +5,7 @@ from platform import system
 
 file_ext = "dll" if system() == "Windows" else "so"
 root_dir = os.path.abspath(os.path.dirname(__file__))
-gocode = ctypes.CDLL(f"{root_dir}/gocode/gocode.{file_ext}")
+gocode = ctypes.CDLL(f"{root_dir}/neonize.{file_ext}")
 func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
 func = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
 func_bytes = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_int)

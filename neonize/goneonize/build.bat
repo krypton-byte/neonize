@@ -20,4 +20,5 @@ if exist github.com/krypton-byte/neonize/defproto move github.com/krypton-byte/n
 rmdir /s /q github.com
 
 :: Build the Go shared library
-go build -buildmode=c-shared -ldflags=-s -o gocode.dll main.go
+go build -buildmode=c-shared -ldflags=-s -o neonize.dll main.go
+move /Y neonize.dll ..

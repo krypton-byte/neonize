@@ -1,6 +1,8 @@
 import logging
 import sys, os
 
+from neonize.types import MessageServerID
+
 sys.path.insert(0, os.getcwd())
 from datetime import datetime
 from PIL import Image
@@ -116,7 +118,7 @@ def onMessage(client: NewClient, message: MessageResponse):
             )
             err = client.follow_newsletter(metadata.ID)
             client.send_message(chat, "error: " + err)
-            resp = client.newsletter_mark_viewed(metadata.ID, [0])
+            resp = client.newsletter_mark_viewed(metadata.ID, [MessageServerID(0)])
             client.send_message(chat, resp.__str__() + "\n" + metadata.__str__())
         case "keluar#09":
             client.logout()
@@ -124,11 +126,11 @@ def onMessage(client: NewClient, message: MessageResponse):
             metadata = client.get_newsletter_info_with_invite(
                 "https://whatsapp.com/channel/0029Va4K0PZ5a245NkngBA2M"
             )
-            data_msg = client.get_newsletter_messages(metadata.ID, 2, 0)
+            data_msg = client.get_newsletter_messages(metadata.ID, 2, MessageServerID(0))
             client.send_message(chat, data_msg.__str__())
             for data in data_msg:
                 client.newsletter_send_reaction(
-                    metadata.ID, data.MessageServerID, "🗿", data.Message.ID)
+                    metadata.ID, MessageServerID(0), "🗿", "")
         case "subscribe_channel_updates":
             metadata = client.get_newsletter_info_with_invite(
                 "https://whatsapp.com/channel/0029Va4K0PZ5a245NkngBA2M"

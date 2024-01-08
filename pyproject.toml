@@ -7,10 +7,10 @@ license = "Apache-2.0"
 readme = "README.md"
 exclude = [
     "docs/",
-    "neonize/gocode"
+    "neonize/goneonize"
 ]
 include = [
-    "neonize/gocode/gocode.so"
+    "neonize/neonize.so"
 ]
 
 [tool.poetry.dependencies]
@@ -42,4 +42,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 docsbuild = "docs.generate:build"
-build = "neonize.gocode.build:build"
+build = "neonize.goneonize.build:build"
