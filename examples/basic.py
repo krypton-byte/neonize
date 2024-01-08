@@ -35,15 +35,22 @@ import segno
 import signal
 import sys
 from neonize.utils import event
+
+
 def interrupted(*args):
     event.set()
 
+
 log.setLevel(logging.DEBUG)
 signal.signal(signal.SIGINT, interrupted)
-def onQr(client: NewClient, data_qr: bytes):
-    segno.make_qr(data_qr).terminal()
+
+
+def onQr(_: NewClient, data_qr: bytes):
+    segno.make_qr(data_qr).terminal(compact=True)
+
 
 client = NewClient("krypton_pairphone.so", qrCallback=onQr)
+
 
 @client.blocking
 def testblock(client: NewClient):
@@ -59,44 +66,53 @@ def onMessage(client: NewClient, message: MessageResponse):
     chat = message.Info.MessageSource.Chat
     match text:
         case "ping":
-            client.send_message(chat, "pong")
-        case "sticker":
+            client.reply_message(chat, "pong", message)
+        case "_sticker":
             client.send_sticker(
-                chat, "/home/krypton-byte/Downloads/5b231c4cdac4c254142ff.png"
+                chat, "https://mystickermania.com/cdn/stickers/anime/spy-family-anya-smirk-512x512.png"
+            )
+        case "_image":
+            client.send_image(
+                chat,
+                "https://download.samplelib.com/png/sample-boat-400x300.png",
+                caption="Test",
+                quoted=message,
+            )
+        case "_video":
+            client.send_video(
+                chat,
+                "https://download.samplelib.com/mp4/sample-5s.mp4",
+                caption="Test",
+                quoted=message,
+            )
+        case "_audio":
+            client.send_audio(
+                chat,
+                "https://download.samplelib.com/mp3/sample-12s.mp3",
+                quoted=message,
+            )
+        case "_ptt":
+            client.send_audio(
+                chat,
+                "https://download.samplelib.com/mp3/sample-12s.mp3",
+                ptt=True,
+                quoted=message,
+            )
+        case "_doc":
+            client.send_document(
+                chat,
+                "https://download.samplelib.com/xls/sample-heavy-1.xls",
+                caption="Test",
+                filename="test.xls",
+                quoted=message,
             )
         case "debug":
             client.send_message(chat, message.__str__())
         case "viewonce":
-            upload = client.upload(
-                open(
-                    "/home/krypton-byte/Downloads/5b231c4cdac4c254142ff.png", "rb"
-                ).read()
-            )
-            client.send_message(
+            client.send_image(
                 chat,
-                Message(
-                    imageMessage=ImageMessage(
-                        url=upload.url,
-                        caption="CAPTION",
-                        directPath=upload.DirectPath,
-                        fileEncSha256=upload.FileEncSHA256,
-                        fileLength=upload.FileLength,
-                        fileSha256=upload.FileSHA256,
-                        jpegThumbnail=open(
-                            "/home/krypton-byte/Downloads/5b231c4cdac4c254142ff.png",
-                            "rb",
-                        ).read(),
-                        mediaKey=upload.MediaKey,
-                        mimetype=magic.from_file(
-                            "/home/krypton-byte/Downloads/5b231c4cdac4c254142ff.png",
-                            mime=True,
-                        ),
-                        thumbnailDirectPath=upload.DirectPath,
-                        thumbnailEncSha256=upload.FileEncSHA256,
-                        thumbnailSha256=upload.FileSHA256,
-                        viewOnce=True,
-                    )
-                ),
+                "https://pbs.twimg.com/media/GC3ywBMb0AAAEWO?format=jpg&name=medium",
+                viewonce=True,
             )
         case "profile_pict":
             client.send_message(chat, client.get_profile_picture(chat).__str__())
@@ -128,7 +144,7 @@ def onMessage(client: NewClient, message: MessageResponse):
             )
             data_msg = client.get_newsletter_messages(metadata.ID, 2, MessageServerID(0))
             client.send_message(chat, data_msg.__str__())
-            for data in data_msg:
+            for _ in data_msg:
                 client.newsletter_send_reaction(
                     metadata.ID, MessageServerID(0), "🗿", "")
         case "subscribe_channel_updates":

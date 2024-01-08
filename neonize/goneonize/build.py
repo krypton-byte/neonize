@@ -8,6 +8,6 @@ def build():
     subprocess.call(
         command,
         cwd=os.path.dirname(__file__),
-        env=os.environ.update({'build_neonize': '1'}),
+        env=os.environ.update({"build_neonize": "1"}),
         shell=os.name == "nt"
     )

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ctypes
+import re
 import time
 import typing
 import struct
@@ -79,6 +80,7 @@ from .proto.def_pb2 import (
 from .utils import (
     MediaType,
     Jid2String,
+    JIDToNonAD,
     get_bytes_from_name_or_url,
     generate_thumbnail,
     get_duration,
@@ -176,6 +178,18 @@ class NewClient:
     #         bytes_data = ctypes.string_at(message_protobytes, message_size)
     #         self.messageCallback(self, neonize_proto.Message.FromString(bytes_data))
 
+    def _parse_mention(self, text: Optional[str] = None) -> list[str]:
+        if text is None:
+            return []
+        return [jid.group(1) + '@s.whatsapp.net' for jid in re.finditer(r'@([0-9]{5,16}|0)', text)]
+
+    def _make_quoted_message(self, message: Message) -> ContextInfo:
+        return ContextInfo(
+            stanzaId=message.Info.ID,
+            participant=Jid2String(JIDToNonAD(message.Info.MessageSource.Sender)),
+            quotedMessage=message.Message,
+        )
+
     def send_message(
         self, to: JID, message: typing.Union[Message, str]
     ) -> SendResponse:
@@ -219,12 +233,11 @@ class NewClient:
             extendedTextMessage=ExtendedTextMessage(
                 text=text,
                 contextInfo=ContextInfo(
-                    stanzaId=quoted.Info.ID,
-                    participant=Jid2String(quoted.Info.MessageSource.Sender),
-                    quotedMessage=quoted.Message,
+                    mentionedJid=self._parse_mention(text),
                 ),
             )
         )
+        message.extendedTextMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
         return self.send_message(to, message)
 
     def edit_message(
@@ -361,28 +374,21 @@ class NewClient:
     def send_sticker(
         self,
         to: JID,
-        file_or_bytes: typing.Union[str, bytes],
+        file: typing.Union[str, bytes],
         quoted: Optional[Message] = None,
-        from_: Optional[neonize_proto.Message] = None,
     ) -> SendResponse:
         """Sends a sticker to the specified recipient.
 
         :param to: The JID (Jabber Identifier) of the recipient.
         :type to: JID
-        :param file_or_bytes: Either a file path (str) or binary data (bytes) representing the sticker.
-        :type file_or_bytes: typing.Union[str | bytes]
+        :param file: Either a file path (str) or URL (str) or binary data (bytes) representing the sticker.
+        :type file: typing.Union[str | bytes]
         :param quoted: Optional. The message to which the sticker is a reply. Defaults to None.
         :type quoted: Optional[Message], optional
-        :param from_: Optional. The source information of the sender. Defaults to None.
-        :type from_: Optional[MessageSource], optional
         :return: A function for handling the result of the sticker sending process.
-        :rtype: SendMessageReturnFunction
+        :rtype: SendResponse
         """
-        if isinstance(file_or_bytes, str):
-            with open(file_or_bytes, "rb") as file:
-                image_buf = file.read()
-        else:
-            image_buf = file_or_bytes
+        image_buf = get_bytes_from_name_or_url(file)
         io_save = BytesIO()
         Image.open(BytesIO(image_buf)).convert("RGBA").resize((512, 512)).save(
             io_save, format="webp"
@@ -401,14 +407,8 @@ class NewClient:
                 mimetype=magic.from_buffer(save, mime=True),
             )
         )
-        if quoted and from_:
-            message.stickerMessage.contextInfo.MergeFrom(
-                ContextInfo(
-                    stanzaId=from_.Info.ID,
-                    participant=Jid2String(from_.Info.MessageSource.Sender),
-                    quotedMessage=message,
-                )
-            )
+        if quoted:
+            message.stickerMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
         return self.send_message(
             to,
             message,
@@ -435,7 +435,7 @@ class NewClient:
         :param viewonce: Optional. Whether the video should be viewonce. Defaults to False.
         :type viewonce: bool, optional
         :return: A function for handling the result of the video sending process.
-        :rtype: SendMessageReturnFunction
+        :rtype: SendResponse
         """
         io = BytesIO(get_bytes_from_name_or_url(file))
         io.seek(0)
@@ -457,16 +457,13 @@ class NewClient:
                 thumbnailEncSha256=upload.FileEncSHA256,
                 thumbnailSha256=upload.FileSHA256,
                 viewOnce=viewonce,
+                contextInfo=ContextInfo(
+                    mentionedJid=self._parse_mention(caption),
+                ),
             )
         )
         if quoted:
-            message.videoMessage.contextInfo.MergeFrom(
-                ContextInfo(
-                    stanzaId=quoted.Info.ID,
-                    participant=Jid2String(quoted.Info.MessageSource.Sender),
-                    quotedMessage=quoted.Message,
-                )
-            )
+            message.videoMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
         return self.send_message(to, message)
 
     def send_image(
@@ -490,7 +487,7 @@ class NewClient:
         :param viewonce: Optional. Whether the image should be viewonce. Defaults to False.
         :type viewonce: bool, optional
         :return: A function for handling the result of the image sending process.
-        :rtype: SendMessageReturnFunction
+        :rtype: SendResponse
         """
         io = BytesIO(get_bytes_from_name_or_url(file))
         io.seek(0)
@@ -511,16 +508,13 @@ class NewClient:
                 thumbnailEncSha256=upload.FileEncSHA256,
                 thumbnailSha256=upload.FileSHA256,
                 viewOnce=viewonce,
+                contextInfo=ContextInfo(
+                    mentionedJid=self._parse_mention(caption),
+                ),
             )
         )
         if quoted:
-            message.imageMessage.contextInfo.MergeFrom(
-                ContextInfo(
-                    stanzaId=quoted.Info.ID,
-                    participant=Jid2String(quoted.Info.MessageSource.Sender),
-                    quotedMessage=quoted.Message,
-                )
-            )
+            message.imageMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
         return self.send_message(to, message)
 
     def send_audio(
@@ -541,7 +535,7 @@ class NewClient:
         :param quoted: Optional. The message to which the audio is a reply. Defaults to None.
         :type quoted: Optional[Message], optional
         :return: A function for handling the result of the audio sending process.
-        :rtype: SendMessageReturnFunction
+        :rtype: SendResponse
         """
         io = BytesIO(get_bytes_from_name_or_url(file))
         io.seek(0)
@@ -561,13 +555,7 @@ class NewClient:
             )
         )
         if quoted:
-            message.audioMessage.contextInfo.MergeFrom(
-                ContextInfo(
-                    stanzaId=quoted.Info.ID,
-                    participant=Jid2String(quoted.Info.MessageSource.Sender),
-                    quotedMessage=quoted.Message,
-                )
-            )
+            message.audioMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
         return self.send_message(to, message)
 
     def send_document(
@@ -594,7 +582,7 @@ class NewClient:
         :param quoted: Optional. The message to which the document is a reply. Defaults to None.
         :type quoted: Optional[Message], optional
         :return: A function for handling the result of the document sending process.
-        :rtype: SendMessageReturnFunction
+        :rtype: SendResponse
         """
         io = BytesIO(get_bytes_from_name_or_url(file))
         io.seek(0)
@@ -609,19 +597,16 @@ class NewClient:
                 fileLength=upload.FileLength,
                 fileSha256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(buff, mime=True),
+                mimetype=magic.from_buffer(buff, mime=True).replace("application", "document"),
                 title=title,
                 fileName=filename,
+                contextInfo=ContextInfo(
+                    mentionedJid=self._parse_mention(caption),
+                ),
             )
         )
         if quoted:
-            message.documentMessage.contextInfo.MergeFrom(
-                ContextInfo(
-                    stanzaId=quoted.Info.ID,
-                    participant=Jid2String(quoted.Info.MessageSource.Sender),
-                    quotedMessage=quoted.Message,
-                )
-            )
+            message.documentMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
         return self.send_message(to, message)
 
     def send_contact(
@@ -642,7 +627,7 @@ class NewClient:
         :param quoted: Optional. The message to which the contact is a reply. Defaults to None.
         :type quoted: Optional[Message], optional
         :return: A function for handling the result of the contact sending process.
-        :rtype: SendMessageReturnFunction
+        :rtype: SendResponse
         """
         message = Message(
             contactMessage=ContactMessage(
@@ -651,13 +636,7 @@ class NewClient:
             )
         )
         if quoted:
-            message.contactMessage.contextInfo.MergeFrom(
-                ContextInfo(
-                    stanzaId=quoted.Info.ID,
-                    participant=Jid2String(quoted.Info.MessageSource.Sender),
-                    quotedMessage=quoted.Message,
-                )
-            )
+            message.contactMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
         return self.send_message(to, message)
 
     def upload(
