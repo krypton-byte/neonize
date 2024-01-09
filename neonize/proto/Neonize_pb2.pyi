@@ -3355,6 +3355,36 @@ class PatchInfo(google.protobuf.message.Message):
 global___PatchInfo = PatchInfo
 
 @typing_extensions.final
+class SetPrivacySettingReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SETTINGS_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def settings(self) -> global___PrivacySettings: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        settings: global___PrivacySettings | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "settings", b"settings"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "settings", b"settings"
+        ],
+    ) -> None: ...
+
+global___SetPrivacySettingReturnFunction = SetPrivacySettingReturnFunction
+
+@typing_extensions.final
 class PairStatus(google.protobuf.message.Message):
     """events
     1
@@ -4303,3 +4333,34 @@ class QR(google.protobuf.message.Message):
     ) -> None: ...
 
 global___QR = QR
+
+@typing_extensions.final
+class UpdateGroupParticipantsReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ERROR_FIELD_NUMBER: builtins.int
+    PARTICIPANTS_FIELD_NUMBER: builtins.int
+    Error: builtins.str
+    @property
+    def participants(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___GroupParticipant
+    ]: ...
+    def __init__(
+        self,
+        *,
+        Error: builtins.str | None = ...,
+        participants: collections.abc.Iterable[global___GroupParticipant] | None = ...,
+    ) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "participants", b"participants"
+        ],
+    ) -> None: ...
+
+global___UpdateGroupParticipantsReturnFunction = UpdateGroupParticipantsReturnFunction

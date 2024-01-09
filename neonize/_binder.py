@@ -278,3 +278,64 @@ gocode.SendAppState.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
 gocode.SendAppState.restype = ctypes.c_char_p
 gocode.SetDefaultDisappearingTimer.argtypes = [ctypes.c_char_p, ctypes.c_int64]
 gocode.SetDefaultDisappearingTimer.restype = ctypes.c_char_p
+gocode.SetDisappearingTimer.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_int64,
+]
+gocode.SetDisappearingTimer.restype = ctypes.c_char_p
+gocode.SetForceActiveDeliveryReceipts.argtypes = [ctypes.c_char_p, ctypes.c_bool]
+gocode.SetForceActiveDeliveryReceipts.restype = ctypes.c_void_p
+gocode.SetGroupAnnounce.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_bool,
+]
+gocode.SetGroupAnnounce.restype = ctypes.c_char_p
+gocode.SetGroupLocked.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_bool,
+]
+gocode.SetGroupLocked.restype = ctypes.c_char_p
+gocode.SetGroupTopic.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+]
+gocode.SetGroupTopic.restype = ctypes.c_char_p
+gocode.SetPrivacySetting.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
+gocode.SetPrivacySetting.restype = Bytes
+gocode.SetPassive.argtypes = [ctypes.c_char_p, ctypes.c_bool]
+gocode.SetPassive.restype = ctypes.c_char_p
+gocode.SetStatusMessage.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+gocode.SetStatusMessage.restype = ctypes.c_char_p
+gocode.SubscribePresence.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+gocode.SubscribePresence.restype = ctypes.c_char_p
+gocode.UnfollowNewsletter.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+gocode.UnfollowNewsletter.restype = ctypes.c_char_p
+gocode.UnlinkGroup.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+    ctypes.c_int,
+]
+gocode.UnlinkGroup.restype = ctypes.c_char_p
+gocode.UpdateBlocklist.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
+gocode.UpdateBlocklist.restype = Bytes
+gocode.UpdateGroupParticipants.argtypes = [
+    ctypes.c_char_p,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+    ctypes.c_int,
+    ctypes.c_char_p,
+]
+gocode.UpdateGroupParticipants.restype = Bytes

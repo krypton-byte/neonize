@@ -4,37 +4,18 @@ import sys, os
 from neonize.types import MessageServerID
 
 sys.path.insert(0, os.getcwd())
-from datetime import datetime, timedelta
-from PIL import Image
-import time
-import random
-import base64
-from io import BytesIO
+from datetime import timedelta
 from neonize.client import NewClient
-from neonize.proto.def_pb2 import (
-    Message,
-    ImageMessage,
-    ContextInfo,
-    ExtendedTextMessage,
-    StickerMessage,
-    Chat,
-    VideoMessage,
-)
 from neonize.proto.Neonize_pb2 import (
     Message as MessageResponse,
-    MessageInfo,
-    JID,
     PairStatus,
 )
-from neonize.utils import Jid2String, MediaType
-from neonize.utils import ChatPresence, ChatPresenceMedia
-from neonize.utils import LogLevel, ReceiptType, log
-import magic
-import time
+from neonize.utils.enum import ReceiptType
+from neonize.utils import log
 import segno
 import signal
 import sys
-from neonize.utils import event
+from neonize.events import event
 
 
 def interrupted(*args):

@@ -154,3 +154,55 @@ class SendAppStateError(Exception):
 
 class SetDefaultDisappearingTimerError(Exception):
     pass
+
+
+class SetDisappearingTimerError(Exception):
+    pass
+
+
+class SetGroupAnnounceError(Exception):
+    pass
+
+
+class SetGroupLockedError(Exception):
+    pass
+
+
+class SetGroupTopicError(Exception):
+    pass
+
+
+class SetPrivacySettingError(Exception):
+    pass
+
+
+class SetPassiveError(Exception):
+    pass
+
+
+class SetStatusMessageError(Exception):
+    pass
+
+
+class SubscribePresenceError(Exception):
+    pass
+
+
+class UnfollowNewsletterError(Exception):
+    pass
+
+
+class UnlinkGroupErro(Exception):
+    pass
+
+
+class UnlinkGroupError(Exception):
+    pass
+
+
+class UpdateBlocklistError(Exception):
+    pass
+
+
+class UpdateGroupParticipantsError(Exception):
+    pass

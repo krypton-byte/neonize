@@ -7,7 +7,7 @@ import typing
 import struct
 from io import BytesIO
 from typing import Optional, Callable, List
-from datetime import datetime, timedelta
+from datetime import timedelta
 import magic
 from PIL import Image
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
@@ -15,7 +15,7 @@ from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 from ._binder import gocode, func_string, func_callback_bytes, func
 from .builder import build_edit, build_revoke
 from .types import MessageServerID
-from .utils._events import Event
+from .events import Event
 from .proto import Neonize_pb2 as neonize_proto
 from .proto.def_pb2 import DeviceProps
 from .exc import (
@@ -23,6 +23,18 @@ from .exc import (
     ResolveContactQRLinkError,
     SendAppStateError,
     SetDefaultDisappearingTimerError,
+    SetDisappearingTimerError,
+    SetGroupAnnounceError,
+    SetGroupLockedError,
+    SetGroupTopicError,
+    SetPassiveError,
+    SetPrivacySettingError,
+    SetStatusMessageError,
+    SubscribePresenceError,
+    UnfollowNewsletterError,
+    UnlinkGroupError,
+    UpdateBlocklistError,
+    UpdateGroupParticipantsError,
     UploadError,
     InviteLinkError,
     GetGroupInfoError,
@@ -46,9 +58,16 @@ from .exc import (
     NewsletterSendReactionError,
 )
 from .proto.Neonize_pb2 import (
+    GroupParticipant,
+    Blocklist,
+    GroupLinkTarget,
     MessageInfo,
-    MessageSource,
     JID,
+    NewsletterMessage,
+    NewsletterMetadata,
+    PrivacySettings,
+    ProfilePictureInfo,
+    StatusPrivacy,
     UploadReturnFunction,
     GroupInfo,
     JoinGroupWithLinkReturnFunction,
@@ -80,37 +99,24 @@ from .proto.def_pb2 import (
     DocumentMessage,
     ContactMessage,
 )
-from .utils import (
+from .utils.jid import Jid2String, JIDToNonAD
+from .utils.iofile import get_bytes_from_name_or_url
+from .utils.thumbnail import generate_thumbnail, get_bytes_from_name_or_url
+from .utils.enum import (
+    BlocklistAction,
     MediaType,
-    Jid2String,
-    JIDToNonAD,
-    get_bytes_from_name_or_url,
-    generate_thumbnail,
-    get_duration,
-    gen_vcard,
     ChatPresence,
     ChatPresenceMedia,
     LogLevel,
+    ParticipantChange,
     ReceiptType,
     ClientType,
     ClientName,
-    log,
+    PrivacySetting,
+    PrivacySettingType,
 )
+from .utils import get_duration, gen_vcard, log
 from .exc import (
-    DownloadError,
-    UploadError,
-    InviteLinkError,
-    GetGroupInfoError,
-    SetGroupPhotoError,
-    GetGroupInviteLinkError,
-    CreateGroupError,
-    IsOnWhatsAppError,
-    GetUserInfoError,
-    SendMessageError,
-    BuildPollVoteError,
-    CreateNewsletterError,
-    FollowNewsletterError,
-    GetBlocklistError,
     GetContactQrLinkError,
     GetGroupRequestParticipantsError,
     GetJoinedGroupsError,
@@ -1094,13 +1100,142 @@ class NewClient:
         if err:
             raise SetDefaultDisappearingTimerError(err)
 
+    def set_disappearing_timer(self, jid: JID, timer: typing.Union[timedelta, int]):
+        timestamp = 0
+        jid_proto = jid.SerializeToString()
+        if isinstance(timer, timedelta):
+            timestamp = int(timer.total_seconds() * 1000**3)
+        else:
+            timestamp = timer
+        err = self.__client.SetDisappearingTimer(
+            self.uuid, jid_proto, len(jid_proto), timestamp
+        ).decode()
+        if err:
+            raise SetDisappearingTimerError(err)
+
+    def set_force_activate_delivery_receipts(self, active: bool):
+        self.__client.SetForceActiveDeliveryReceipts(self.uuid, active)
+
+    def set_group_announce(self, jid: JID, announce: bool):
+        jid_proto = jid.SerializeToString()
+        err = self.__client.SetGroupAnnounce(
+            self.uuid, jid_proto, len(jid_proto), announce
+        ).decode()
+        if err:
+            raise SetGroupAnnounceError(err)
+
+    def set_group_locked(self, jid: JID, locked: bool):
+        jid_proto = jid.SerializeToString()
+        err = self.__client.SetGroupLocked(
+            self.uuid, jid_proto, len(jid_proto), locked
+        ).decode()
+        if err:
+            raise SetGroupLockedError(err)
+
+    def set_group_topic(self, jid: JID, previous_id: str, new_id: str, topic: str):
+        jid_proto = jid.SerializeToString()
+        err = self.__client.SetGroupTopic(
+            self.uuid,
+            jid_proto,
+            len(jid_proto),
+            previous_id.encode(),
+            new_id.encode(),
+            topic.encode(),
+        ).decode()
+        if err:
+            raise SetGroupTopicError(err)
+
+    def set_privacy_setting(self, name: PrivacySettingType, value: PrivacySetting):
+        err = self.__client.SetPrivacySetting(
+            self.uuid, name.value.encode(), value.value.encode()
+        ).decode()
+        if err:
+            raise SetPrivacySettingError(err)
+
+    def set_passive(self, passive: bool):
+        err = self.__client.SetPassive(self.uuid, passive)
+        if err:
+            raise SetPassiveError(err)
+
+    def set_status_message(self, msg: str):
+        err = self.__client.SetStatusMessage(self.uuid, msg.encode()).decode()
+        if err:
+            raise SetStatusMessageError(err)
+
+    def subscribe_presence(self, jid: JID):
+        jid_proto = jid.SerializeToString()
+        err = self.__client.SubscribePresence(
+            self.uuid, jid_proto, len(jid_proto)
+        ).decode()
+        if err:
+            raise SubscribePresenceError(err)
+
+    def unfollow_newsletter(self, jid: JID):
+        jid_proto = jid.SerializeToString()
+        err = self.__client.UnfollowNewsletter(
+            self.uuid, jid_proto, len(jid_proto)
+        ).decode()
+        if err:
+            raise UnfollowNewsletterError(err)
+
+    def unlink_group(self, parent: JID, child: JID):
+        parent_proto = parent.SerializeToString()
+        child_proto = child.SerializeToString()
+        err = self.__client.UnlinkGroup(
+            self.uuid, parent_proto, len(parent_proto), child_proto, len(child_proto)
+        ).decode()
+        if err:
+            raise UnlinkGroupError(err)
+
+    def update_blocklist(self, jid: JID, action: BlocklistAction) -> Blocklist:
+        jid_proto = jid.SerializeToString()
+        model = neonize_proto.GetBlocklistReturnFunction.FromString(
+            self.__client.UpdateBlocklist(
+                self.uuid, jid_proto, len(jid_proto), action.value.encode()
+            ).get_bytes()
+        )
+        if model.Error:
+            raise UpdateBlocklistError(model.Error)
+        return model.Blocklist
+
+    def update_group_participants(
+        self, jid: JID, participants_changes: List[JID], action: ParticipantChange
+    ) -> RepeatedCompositeFieldContainer[GroupParticipant]:
+        jid_proto = jid.SerializeToString()
+        jids_proto = neonize_proto.JIDArray(
+            JIDS=participants_changes
+        ).SerializeToString()
+        model = neonize_proto.UpdateGroupParticipantsReturnFunction.FromString(
+            self.__client.UpdateGroupParticipants(
+                self.uuid,
+                jid_proto,
+                len(jid_proto),
+                jids_proto,
+                len(jids_proto),
+                action.value.encode(),
+            ).get_bytes()
+        )
+        if model.Error:
+            raise UpdateGroupParticipantsError(model.Error)
+        return model.participants
+
+    def upload_newsletter(self, data: bytes, media_type: MediaType) -> UploadResponse:
+        model = UploadReturnFunction.FromString(
+            self.__client.UploadNewsletter(
+                self.uuid, data, len(data), media_type.value
+            ).get_bytes()
+        )
+        if model.Error:
+            raise UploadError(model.Error)
+        return model.UploadResponse
+
     def create_group(
         self,
         name: str,
         participants: List[JID] = [],
         linked_parent: Optional[GroupLinkedParent] = None,
         group_parent: Optional[GroupParent] = None,
-    ) -> GroupInfo | CreateGroupError:
+    ) -> GroupInfo:
         """Create a new group.
 
         :param name: The name of the new group.
@@ -1125,7 +1260,7 @@ class NewClient:
         resp = self.__client.CreateGroup(self.uuid, group_info_buf, len(group_info_buf))
         model = GetGroupInfoReturnFunction.FromString(resp.get_bytes())
         if model.Error:
-            return CreateGroupError(model.Error)
+            raise CreateGroupError(model.Error)
         return model.GroupInfo
 
     def get_group_request_participants(
@@ -1165,7 +1300,7 @@ class NewClient:
 
     def create_newsletter(
         self, name: str, description: str, picture: typing.Union[str, bytes]
-    ) -> neonize_proto.NewsletterMetadata:
+    ) -> NewsletterMetadata:
         """Create a newsletter with the given name, description, and picture.
 
         :param name: The name of the newsletter.
@@ -1197,25 +1332,23 @@ class NewClient:
 
         :param jid: The JID of the newsletter to follow.
         :type jid: JID
-        :return: The error message, if any.
-        :rtype: str
+        :return: None
+        :rtype: None
         :raises FollowNewsletterError: If there is an error following the newsletter.
         """
+
         jidbyte = jid.SerializeToString()
         err = self.__client.FollowNewsletter(self.uuid, jidbyte, len(jidbyte)).decode()
         if err:
             raise FollowNewsletterError(err)
-        return err
 
-    def get_newsletter_info_with_invite(
-        self, key: str
-    ) -> neonize_proto.NewsletterMetadata:
+    def get_newsletter_info_with_invite(self, key: str) -> NewsletterMetadata:
         """Retrieves the newsletter information with an invite using the provided key.
 
         :param key: The key used to identify the newsletter.
         :type key: str
         :return: The newsletter metadata.
-        :rtype: neonize_proto.NewsletterMetadata
+        :rtype: NewsletterMetadata
         :raises GetNewsletterInfoWithInviteError: If there is an error retrieving the newsletter information.
         """
         model = neonize_proto.CreateNewsLetterReturnFunction.FromString(
@@ -1229,7 +1362,7 @@ class NewClient:
 
     def get_newsletter_message_update(
         self, jid: JID, count: int, since: int, after: int
-    ) -> RepeatedCompositeFieldContainer[neonize_proto.NewsletterMessage]:
+    ) -> RepeatedCompositeFieldContainer[NewsletterMessage]:
         """Retrieves a list of newsletter messages that have been updated since a given timestamp.
 
         :param jid: The JID (Jabber ID) of the user.
@@ -1242,7 +1375,7 @@ class NewClient:
         :type after: int
 
         :return: A list of updated newsletter messages.
-        :rtype: RepeatedCompositeFieldContainer[neonize_proto.NewsletterMessage]
+        :rtype: RepeatedCompositeFieldContainer[NewsletterMessage]
 
         :raises GetNewsletterMessageUpdateError: If there was an error retrieving the newsletter messages.
         """
@@ -1258,7 +1391,7 @@ class NewClient:
 
     def get_newsletter_messages(
         self, jid: JID, count: int, before: MessageServerID
-    ) -> RepeatedCompositeFieldContainer[neonize_proto.NewsletterMessage]:
+    ) -> RepeatedCompositeFieldContainer[NewsletterMessage]:
         """Retrieves a list of newsletter messages for a given JID.
 
         :param jid: The JID (Jabber Identifier) of the user.
@@ -1268,7 +1401,7 @@ class NewClient:
         :param before: The ID of the message before which to retrieve messages.
         :type before: MessageServerID
         :return: A list of newsletter messages.
-        :rtype: RepeatedCompositeFieldContaine[neonize_proto.NewsletterMessage]
+        :rtype: RepeatedCompositeFieldContaine[NewsletterMessage]
         """
         jidbyte = jid.SerializeToString()
         model = neonize_proto.GetNewsletterMessageUpdateReturnFunction.FromString(
@@ -1280,7 +1413,7 @@ class NewClient:
             raise GetNewsletterMessagesError(model.Error)
         return model.NewsletterMessage
 
-    def get_privacy_settings(self) -> neonize_proto.PrivacySettings:
+    def get_privacy_settings(self) -> PrivacySettings:
         return neonize_proto.PrivacySettings.FromString(
             self.__client.GetPrivacySettings(self.uuid).get_bytes()
         )
@@ -1289,7 +1422,7 @@ class NewClient:
         self,
         jid: JID,
         extra: neonize_proto.GetProfilePictureParams = neonize_proto.GetProfilePictureParams(),
-    ) -> neonize_proto.ProfilePictureInfo:
+    ) -> ProfilePictureInfo:
         jid_bytes = jid.SerializeToString()
         extra_bytes = extra.SerializeToString()
         model = neonize_proto.GetProfilePictureReturnFunction.FromString(
@@ -1307,7 +1440,7 @@ class NewClient:
 
     def get_status_privacy(
         self,
-    ) -> RepeatedCompositeFieldContainer[neonize_proto.StatusPrivacy]:
+    ) -> RepeatedCompositeFieldContainer[StatusPrivacy]:
         model = neonize_proto.GetStatusPrivacyReturnFunction.FromString(
             self.__client.GetStatusPrivacy(self.uuid).get_bytes()
         )
@@ -1317,7 +1450,7 @@ class NewClient:
 
     def get_sub_groups(
         self, community: JID
-    ) -> RepeatedCompositeFieldContainer[neonize_proto.GroupLinkTarget]:
+    ) -> RepeatedCompositeFieldContainer[GroupLinkTarget]:
         jid = community.SerializeToString()
         model = neonize_proto.GetSubGroupsReturnFunction.FromString(
             self.__client.GetSubGroups(self.uuid, jid, len(jid)).get_bytes()
@@ -1328,7 +1461,7 @@ class NewClient:
 
     def get_subscribed_newletters(
         self,
-    ) -> RepeatedCompositeFieldContainer[neonize_proto.NewsletterMetadata]:
+    ) -> RepeatedCompositeFieldContainer[NewsletterMetadata]:
         model = neonize_proto.GetSubscribedNewslettersReturnFunction.FromString(
             self.__client.GetSubscribedNewsletters(self.uuid).get_bytes()
         )
@@ -1345,10 +1478,10 @@ class NewClient:
             raise GetUserDevicesError(model.Error)
         return model.JID
 
-    def get_blocklist(self) -> neonize_proto.Blocklist:
+    def get_blocklist(self) -> Blocklist:
         """Retrieves the blocklist from the client.
 
-        :return: neonize_proto.Blocklist: The retrieved blocklist.
+        :return: Blocklist: The retrieved blocklist.
         :raises GetBlocklistError: If there was an error retrieving the blocklist.
         """
         model = neonize_proto.GetBlocklistReturnFunction.FromString(
@@ -1418,7 +1551,7 @@ class NewClient:
         )
         payload = pl.SerializeToString()
         d = bytearray(list(self.event.list_func))
-        log.debug("trying to connect to whatsapp servers")
+        log.debug("trying connect to whatsapp servers")
         deviceprops = (
             DeviceProps(os="Neonize", platformType=DeviceProps.SAFARI)
             if self.device_props is None

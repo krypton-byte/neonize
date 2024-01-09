@@ -1,6 +1,5 @@
 from __future__ import annotations
 from enum import Enum
-from re import DEBUG
 import magic
 import typing
 
@@ -121,3 +120,40 @@ class ClientName(Enum):
     @property
     def name(self) -> str:
         return super().name.title()
+
+
+class PrivacySettingType(Enum):
+    GROUP_ADD = "groupadd"
+    LAST_SEEN = "last"
+    STATUS = "status"
+    PROFILE = "profile"
+    READ_RECEIPTS = "readreceipts"
+    ONLINE = "online"
+    CALL_ADD = "calladd"
+
+
+class PrivacySetting(Enum):
+    UNDEFINED = ""
+    ALL = "all"
+    CONTACTS = "contacts"
+    CONTACTS_BLACKLIST = "contacts_blacklist"
+    MATCH_LAST_SEEN = "match_last_seen"
+    KNOWN = "known"
+    NONE = "none"
+
+
+class BlocklistAction(Enum):
+    BLOCK = "block"
+    UNBLOCK = "unblock"
+
+
+class ParticipantChange(Enum):
+    ADD = "add"
+    REMOVE = "remove"
+    PROMOTE = "promote"
+    DEMOTE = "demote"
+
+
+class ParticipantRequestChange(Enum):
+    APPROVE = "approve"
+    REJECT = "reject"
