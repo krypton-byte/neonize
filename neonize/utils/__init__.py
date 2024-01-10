@@ -25,18 +25,18 @@ logging.basicConfig(
 
 def add_exif(filename: str, name: str = "", author: str = ""):
     json_data = {
-        'sticker-pack-id': "com.snowcorp.stickerly.android.stickercontentprovider b5e7275f-f1de-4137-961f-57becfad34f2",
-        'sticker-pack-name': name,
-        'sticker-pack-publisher': author,
-        'android-app-store-link': 'https://play.google.com/store/apps/details?id=com.marsvard.stickermakerforwhatsapp',
-        'ios-app-store-link': 'https://itunes.apple.com/app/sticker-maker-studio/id1443326857'
+        "sticker-pack-id": "com.snowcorp.stickerly.android.stickercontentprovider b5e7275f-f1de-4137-961f-57becfad34f2",
+        "sticker-pack-name": name,
+        "sticker-pack-publisher": author,
+        "android-app-store-link": "https://play.google.com/store/apps/details?id=com.marsvard.stickermakerforwhatsapp",
+        "ios-app-store-link": "https://itunes.apple.com/app/sticker-maker-studio/id1443326857"
     }
 
-    exif_attr = bytes.fromhex('49 49 2A 00 08 00 00 00 01 00 41 57 07 00 00 00 00 00 16 00 00 00')
-    json_buffer = json.dumps(json_data).encode('utf-8')
+    exif_attr = bytes.fromhex("49 49 2A 00 08 00 00 00 01 00 41 57 07 00 00 00 00 00 16 00 00 00")
+    json_buffer = json.dumps(json_data).encode("utf-8")
     exif = exif_attr + json_buffer
     exif_length = len(json_buffer)
-    exif = exif[:14] + exif_length.to_bytes(4, 'little') + exif[18:]
+    exif = exif[:14] + exif_length.to_bytes(4, "little") + exif[18:]
 
     exif_out = save_file_to_temp_directory(exif)
 
