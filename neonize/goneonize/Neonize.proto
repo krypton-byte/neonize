@@ -265,6 +265,10 @@ message NewsLetterMessageMeta {
     required int64 EditTS = 1;
     required int64 OriginalTS = 2; 
 }
+message GroupDelete {
+    required bool Deleted = 1;
+    required string DeletedReason = 2;
+}
 message Message {
     required MessageInfo Info = 1;
     optional defproto.Message Message = 2;
@@ -392,13 +396,19 @@ message PrivacySettings {
 
 message NodeAttrs {
     required string name = 1;
-    required string value = 2;
+    oneof Value {
+        bool boolean = 2;
+        int64 integer = 3;
+        string text = 4;
+    }
 }
 
 message Node {
     required string Tag = 1;
     repeated NodeAttrs Attrs = 2;
-    repeated Node Content = 3;
+    repeated Node Nodes = 3;
+    optional bool Nil = 4 [default=false]; 
+    optional bytes Bytes = 5;
 }
 
 message InfoQuery {
@@ -437,6 +447,16 @@ message GroupLinkTarget {
     required JID JID = 1;
     required GroupName GroupName = 2;
     required GroupIsDefaultSub GroupIsDefaultSub = 3;
+}
+message GroupLinkChange {
+    enum ChangeType {
+        PARENT = 1;
+        SUB = 2;
+        SIBLING = 3;
+    }
+    required ChangeType Type = 1;
+    required string UnlinkReason = 2;
+    required GroupLinkTarget Group = 3;
 }
 message GetSubGroupsReturnFunction{
     repeated GroupLinkTarget GroupLinkTarget = 1;
@@ -504,8 +524,13 @@ message SetPrivacySettingReturnFunction {
     optional PrivacySettings settings = 1;
     optional string Error = 2;
 }
+
+
 // events
-message PairStatus { //1
+message QR{ //1
+    repeated string Codes = 1;
+}
+message PairStatus { //2
     enum PStatus {
         ERROR = 1;
         SUCCESS = 2;
@@ -516,15 +541,16 @@ message PairStatus { //1
     required PStatus Status = 4;
     optional string Error = 5;
 }
+message Connected {
+    required bool status = 1;
+} // 3
 
-//message Connected 2
-
-message KeepAliveTimeout { // 3
+message KeepAliveTimeout { // 4
     required int64 ErrorCount = 1;
     required int64 LastSuccess = 2;
 }
 
-//message KeepAliveRestored
+message KeepAliveRestored{} //5
 
 enum ConnectFailureReason {
     GENERIC = 1;
@@ -538,12 +564,12 @@ enum ConnectFailureReason {
     EXPERIMENTAL = 9;
     SERVICE_UNAVAILABLE = 10;
 }
-message LoggedOut { // 4
+message LoggedOut { // 6
     required bool OnConnect = 1;
     required ConnectFailureReason Reason = 2;
 }
-
-message TemporaryBan { // 5
+message StreamReplaced {} //7
+message TemporaryBan { // 8
     enum TempBanReason {
         SEND_TO_TOO_MANY_PEOPLE = 1;
         BLOCKED_BY_USERS = 2;
@@ -555,30 +581,32 @@ message TemporaryBan { // 5
     required int64 Expire = 2;
 }
 
-message ConnectFailure { //6
+message ConnectFailure { //9
     required ConnectFailureReason Reason = 1;
     required string Message = 2;
     required Node Raw = 3;
 }
 
-// message ClientOutdated // 7
+message ClientOutdated{} // 10
 
-message StreamError { // 8
+message StreamError { // 11
     required string Code = 1;
     required Node Raw = 4;
 }
 
-//message Disconnected // 9
+message Disconnected{
+    required bool status = 1;
+} // 12
 
-message HistorySync { // 10
+message HistorySync { // 13
     required defproto.HistorySync Data = 1;
 }
 
-//message DecryptFailMode // 11
-//message UndecryptableMessage // 12
-//message NewsLetterMessageMeta (Defined) // 13
-// Message (Defined) // 14
-message Receipt { //15
+//message DecryptFailMode // 14
+//message UndecryptableMessage // 15
+//message NewsLetterMessageMeta (Defined) // 16
+// Message (Defined) // 17
+message Receipt { //18
     enum ReceiptType {
         DELIVERED = 1;
         SENDER = 2;
@@ -593,7 +621,7 @@ message Receipt { //15
     required ReceiptType Type = 4;
 }
 
-message ChatPresence { //16
+message ChatPresence { //19
     enum ChatPresence {
         COMPOSING = 1;
         PAUSED = 2;
@@ -607,36 +635,58 @@ message ChatPresence { //16
     required ChatPresenceMedia Media = 3;
 }
 
-message Presence { // 17
+message Presence { // 20
     required JID From = 1;
     required bool Unavailable = 2;
     required int64 LastSeen = 3;
 }
 
-message JoinedGroup { // 18
+message JoinedGroup { // 21
     required string Reason = 1;
     required string Type = 2;
     required string CreateKey = 3;
     required GroupInfo GroupInfo = 4;
 }
+message GroupInfoEvent { //22
+    required JID JID = 1;
+    required string Notify = 2;
+    optional JID Sender = 3;
+    required int64 Timestamp = 4;
+    optional GroupName Name = 5;
+    optional GroupTopic Topic = 6;
+    optional GroupLocked Locked = 7;
+    optional GroupAnnounce Announce = 8;
+    optional GroupEphemeral Ephemeral =9;
+    optional GroupDelete Delete = 10;
+    optional GroupLinkChange Link = 11;
+    optional GroupLinkChange Unlink = 12;
+    optional string NewInviteLink = 13;
+    required string PrevParticipantsVersionID = 14;
+    required string ParticipantVersionID = 15;
+    repeated JID Join = 16;
+    repeated JID Leave = 17;
+    repeated JID Promote = 18;
+    repeated JID Demote = 19;
+    repeated Node UnknownChanges = 20;
 
-message Picture { // 19
+}
+message Picture { // 23
     required JID JID = 1;
     required JID Author = 2;
     required int64 Timestamp = 3;
     required bool Remove = 4;
 }
 
-message IdentityChange { // 20
+message IdentityChange { // 24
     required JID JID = 1;
     required int64 Timestamp = 2;
     required bool Implicit = 3;
 }
 
-// PrivacySettings (Defined) //21
+// PrivacySettings (Defined) //25
 
 
-message OfflineSyncPreview { //22
+message OfflineSyncPreview { //26
     required int64 Total = 1;
     required int64 AppDataChanges = 2;
     required int64 Message = 3;
@@ -644,13 +694,13 @@ message OfflineSyncPreview { //22
     required int64 Receipts = 5;
 }
 
-message OfflineSyncCompleted { // 23
+message OfflineSyncCompleted { // 27
     required int64 Count = 1;
 }
-//MediaRetryError (not implemented) // 24
-//Mediaretry(not implemented) // 25
+//MediaRetryError (not implemented yet) // 28
+//MediaRetry(not implemented yet) // 29
 
-message BlocklistEvent { // 26
+message BlocklistEvent { // 30
     enum Actions {
         DEFAULT = 1;
         MODIFY = 2;
@@ -661,7 +711,7 @@ message BlocklistEvent { // 26
     repeated BlocklistChange Changes = 4;
 }
 
-message BlocklistChange { // 27
+message BlocklistChange { // 31
     enum Action {
         BLOCK = 1;
         UNBLOCK = 2;
@@ -669,27 +719,23 @@ message BlocklistChange { // 27
     required JID JID = 1;
 }
 
-message NewsletterJoin { // 28
+message NewsletterJoin { // 32
     required NewsletterMetadata NewsletterMetadata = 1;
 }
-message NewsletterLeave { // 29
+message NewsletterLeave { // 33
     required JID ID = 1;
     required NewsletterRole Role = 2;
 }
 
-message NewsletterMuteChange { // 30
+message NewsletterMuteChange { // 34
     required JID ID = 1;
     required NewsletterMuteState Mute = 2;
 }
 
-message NewsletterLiveUpdate { //31
+message NewsletterLiveUpdate { //35
     required JID JID = 1;
     required int64 TIME = 2;
     repeated NewsletterMessage Messages = 3;
-}
-
-message QR {
-    repeated string Codes = 1;
 }
 
 message UpdateGroupParticipantsReturnFunction {

@@ -6,6 +6,7 @@ import (
 	defproto "github.com/krypton-byte/neonize/defproto"
 	"github.com/krypton-byte/neonize/neonize"
 	"go.mau.fi/whatsmeow"
+	waBinary "go.mau.fi/whatsmeow/binary"
 	waProto "go.mau.fi/whatsmeow/binary/proto"
 	"go.mau.fi/whatsmeow/types"
 	"google.golang.org/protobuf/proto"
@@ -535,5 +536,123 @@ func EncodeBusinessMessageLinkTarget(message types.BusinessMessageLinkTarget) *n
 		IsSigned:      &message.IsSigned,
 		VerifiedLevel: &message.VerifiedLevel,
 		Message:       &message.Message,
+	}
+}
+
+func EncodePairSuccess(pair *events.PairSuccess) *neonize.PairStatus {
+	return &neonize.PairStatus{
+		ID:           EncodeJidProto(pair.ID),
+		BusinessName: &pair.BusinessName,
+		Platform:     &pair.Platform,
+		Status:       neonize.PairStatus_SUCCESS.Enum(),
+	}
+}
+
+func EncodePairError(pair *events.PairError) *neonize.PairStatus {
+	return &neonize.PairStatus{
+		ID:           EncodeJidProto(pair.ID),
+		BusinessName: &pair.BusinessName,
+		Platform:     &pair.Platform,
+		Status:       neonize.PairStatus_ERROR.Enum(),
+		Error:        proto.String(pair.Error.Error()),
+	}
+}
+func EncodeConnectFailureReason(reason_types events.ConnectFailureReason) *neonize.ConnectFailureReason {
+	var reason *neonize.ConnectFailureReason
+	switch reason_types {
+	case events.ConnectFailureGeneric:
+		reason = neonize.ConnectFailureReason_GENERIC.Enum()
+	case events.ConnectFailureLoggedOut:
+		reason = neonize.ConnectFailureReason_LOGGED_OUT.Enum()
+	case events.ConnectFailureTempBanned:
+		reason = neonize.ConnectFailureReason_TEMP_BANNED.Enum()
+	case events.ConnectFailureMainDeviceGone:
+		reason = neonize.ConnectFailureReason_MAIN_DEVICE_GONE.Enum()
+	case events.ConnectFailureUnknownLogout:
+		reason = neonize.ConnectFailureReason_UNKNOWN_LOGOUT.Enum()
+	case events.ConnectFailureClientOutdated:
+		reason = neonize.ConnectFailureReason_CLIENT_OUTDATED.Enum()
+	case events.ConnectFailureBadUserAgent:
+		reason = neonize.ConnectFailureReason_BAD_USER_AGENT.Enum()
+	case events.ConnectFailureInternalServerError:
+		reason = neonize.ConnectFailureReason_INTERNAL_SERVER_ERROR.Enum()
+	case events.ConnectFailureExperimental:
+		reason = neonize.ConnectFailureReason_EXPERIMENTAL.Enum()
+	case events.ConnectFailureServiceUnavailable:
+		reason = neonize.ConnectFailureReason_SERVICE_UNAVAILABLE.Enum()
+	}
+	return reason
+}
+func EncodeLoggedOut(logout *events.LoggedOut) *neonize.LoggedOut {
+	return &neonize.LoggedOut{
+		OnConnect: &logout.OnConnect,
+		Reason:    EncodeConnectFailureReason(logout.Reason),
+	}
+}
+
+func EncodeTemporaryBan(ban *events.TemporaryBan) *neonize.TemporaryBan {
+	var reason *neonize.TemporaryBan_TempBanReason
+	switch ban.Code {
+	case events.TempBanSentToTooManyPeople:
+		reason = neonize.TemporaryBan_SEND_TO_TOO_MANY_PEOPLE.Enum()
+	case events.TempBanBlockedByUsers:
+		reason = neonize.TemporaryBan_BLOCKED_BY_USERS.Enum()
+	case events.TempBanCreatedTooManyGroups:
+		reason = neonize.TemporaryBan_CREATED_TOO_MANY_GROUPS.Enum()
+	case events.TempBanSentTooManySameMessage:
+		reason = neonize.TemporaryBan_SENT_TOO_MANY_SAME_MESSAGE.Enum()
+	case events.TempBanBroadcastList:
+		reason = neonize.TemporaryBan_BROADCAST_LIST.Enum()
+	}
+	return &neonize.TemporaryBan{
+		Code:   reason,
+		Expire: proto.Int64(int64(ban.Expire.Seconds())),
+	}
+}
+func EncodeNodeAttrs(attrs waBinary.Attrs) []*neonize.NodeAttrs {
+	n_attr := []*neonize.NodeAttrs{}
+	for k, v := range attrs {
+		attr := neonize.NodeAttrs{Name: proto.String(k)}
+		switch value := v.(type) {
+		case *int:
+			attr.Value = &neonize.NodeAttrs_Integer{Integer: *proto.Int64(int64(*value))}
+		case *int32:
+			attr.Value = &neonize.NodeAttrs_Integer{Integer: *proto.Int64(int64(*value))}
+		case *int64:
+			attr.Value = &neonize.NodeAttrs_Integer{Integer: *proto.Int64(int64(*value))}
+		case *bool:
+			attr.Value = &neonize.NodeAttrs_Boolean{Boolean: *value}
+		case *string:
+			attr.Value = &neonize.NodeAttrs_Text{Text: *value}
+		}
+		n_attr = append(n_attr, &attr)
+	}
+	return n_attr
+}
+func EncodeNode(node *waBinary.Node) *neonize.Node {
+	nodes := neonize.Node{
+		Tag:   &node.Tag,
+		Attrs: EncodeNodeAttrs(node.Attrs),
+	}
+	switch v := node.Content.(type) {
+	case nil:
+		nodes.Nil = proto.Bool(true)
+	case []waBinary.Node:
+		var content = make([]*neonize.Node, len(v))
+		for i, c_node := range v {
+			content[i] = EncodeNode(&c_node)
+		}
+		nodes.Nodes = content
+	case []byte:
+		nodes.Bytes = v
+	}
+	return &nodes
+
+}
+func EncodeConnectFailure(connect *events.ConnectFailure) *neonize.ConnectFailure {
+	return &neonize.ConnectFailure{
+		Reason:  EncodeConnectFailureReason(connect.Reason),
+		Message: &connect.Message,
+		Raw:     EncodeNode(connect.Raw),
 	}
 }

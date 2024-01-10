@@ -1,13 +1,46 @@
 neonize package
 ===============
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   neonize.proto
+   neonize.utils
+
 Submodules
 ----------
+
+neonize.builder module
+----------------------
+
+.. automodule:: neonize.builder
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 neonize.client module
 ---------------------
 
 .. automodule:: neonize.client
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+neonize.const module
+--------------------
+
+.. automodule:: neonize.const
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+neonize.events module
+---------------------
+
+.. automodule:: neonize.events
    :members:
    :undoc-members:
    :show-inheritance:
@@ -20,10 +53,18 @@ neonize.exc module
    :undoc-members:
    :show-inheritance:
 
-neonize.utils module
+neonize.neonize module
+----------------------
+
+.. automodule:: neonize.neonize
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+neonize.types module
 --------------------
 
-.. automodule:: neonize.utils
+.. automodule:: neonize.types
    :members:
    :undoc-members:
    :show-inheritance:

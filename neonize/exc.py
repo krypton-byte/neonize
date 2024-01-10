@@ -206,3 +206,7 @@ class UpdateBlocklistError(Exception):
 
 class UpdateGroupParticipantsError(Exception):
     pass
+
+
+class UnsupportedEvent(Exception):
+    pass

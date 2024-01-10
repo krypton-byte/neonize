@@ -49,6 +49,11 @@ func ReturnBytes(data []byte) C.struct_BytesReturn {
 	// defer C.free(unsafe.Pointer(&ptr))
 	return C.struct_BytesReturn{ptr, size}
 }
+func getBytesAndSize(data []byte) (*C.char, C.size_t) {
+	messageSourceCDATA := (*C.char)(unsafe.Pointer(&data[0]))
+	messageSourceCSize := C.size_t(len(data))
+	return messageSourceCDATA, messageSourceCSize
+}
 
 //export Upload
 func Upload(id *C.char, mediabuff *C.uchar, mediaSize C.int, mediatype C.int) C.struct_BytesReturn {
@@ -154,24 +159,161 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 	clients[uuid] = client
 	eventHandler := func(evt interface{}) {
 		switch v := evt.(type) {
-		case *events.Message:
-			if err != nil {
-				panic(err)
+		case *events.QR:
+			if _, ok := subscribers[1]; ok {
+				qr := neonize.QR{
+					Codes: v.Codes,
+				}
+				qr_bytes, err := proto.Marshal(&qr)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(qr_bytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(1))
 			}
-			if _, ok := subscribers[14]; ok {
+		case *events.PairError:
+			if _, ok := subscribers[2]; ok {
+				pair := utils.EncodePairError(v)
+				pair_bytes, err := proto.Marshal(pair)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(pair_bytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(2))
+			}
+		case *events.PairSuccess:
+			if _, ok := subscribers[2]; ok {
+				pair := utils.EncodePairSuccess(v)
+				pair_bytes, err := proto.Marshal(pair)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(pair_bytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(2))
+			}
+		case *events.Connected:
+			if int(pairphoneSize) > 0 {
+				loginStateChan <- true
+			}
+			if _, ok := subscribers[3]; ok {
+				connected := neonize.Connected{Status: proto.Bool(true)}
+				conn_bytes, err_ := proto.Marshal(&connected)
+				if err_ != nil {
+					panic(err_)
+				}
+				data, size := getBytesAndSize(conn_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(3))
+			}
+		case *events.KeepAliveTimeout:
+			if _, ok := subscribers[4]; ok {
+				timeout := neonize.KeepAliveTimeout{
+					ErrorCount:  proto.Int64(int64(v.ErrorCount)),
+					LastSuccess: proto.Int64(v.LastSuccess.Unix()),
+				}
+				timeout_bytes, err := proto.Marshal(&timeout)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(timeout_bytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(4))
+			}
+		case *events.KeepAliveRestored:
+			if _, ok := subscribers[5]; ok {
+				restored := neonize.KeepAliveRestored{}
+				restored_bytes, err := proto.Marshal(&restored)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(restored_bytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(5))
+			}
+		case *events.LoggedOut:
+			if _, ok := subscribers[6]; ok {
+				logout := utils.EncodeLoggedOut(v)
+				logout_bytes, err := proto.Marshal(logout)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(logout_bytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(6))
+			}
+		case *events.StreamReplaced:
+			if _, ok := subscribers[7]; ok {
+				stream := neonize.StreamReplaced{}
+				stream_bytes, err := proto.Marshal(&stream)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(stream_bytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(7))
+			}
+		case *events.TemporaryBan:
+			if _, ok := subscribers[8]; ok {
+				ban := utils.EncodeTemporaryBan(v)
+				ban_bytes, err := proto.Marshal(ban)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(ban_bytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(8))
+			}
+		case *events.ConnectFailure:
+			if _, ok := subscribers[9]; ok {
+				failure := utils.EncodeConnectFailure(v)
+				failure_bytes, err := proto.Marshal(failure)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(failure_bytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(8))
+			}
+		case *events.ClientOutdated:
+			if _, ok := subscribers[10]; ok {
+				outdated := neonize.ClientOutdated{}
+				outdated_bytes, err := proto.Marshal(&outdated)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(outdated_bytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(10))
+			}
+		case *events.StreamError:
+			if _, ok := subscribers[11]; ok {
+				stream_error := neonize.StreamError{
+					Code: &v.Code,
+					Raw:  utils.EncodeNode(v.Raw),
+				}
+				stream_bytes, err := proto.Marshal(&stream_error)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(stream_bytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(11))
+			}
+		case *events.Disconnected:
+			if _, ok := subscribers[12]; ok {
+				disconnect := neonize.Disconnected{
+					Status: proto.Bool(true),
+				}
+				disconnect_bytes, err := proto.Marshal(&disconnect)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(disconnect_bytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(12))
+			}
+		case *events.Message:
+			if _, ok := subscribers[17]; ok {
 				messageSource := utils.EncodeEventTypesMessage(v)
 				messageSourceBytes, err := proto.Marshal(messageSource)
 				if err != nil {
 					panic(err)
 				}
-				messageSourceCDATA := (*C.char)(unsafe.Pointer(&messageSourceBytes[0]))
-				messageSourceCSize := C.size_t(len(messageSourceBytes))
-				C.call_c_func_callback_bytes(event, messageSourceCDATA, messageSourceCSize, C.int(14))
+				data, size := getBytesAndSize(messageSourceBytes)
+				C.call_c_func_callback_bytes(event, data, size, C.int(17))
 			}
-			// C.free(unsafe.Pointer(CData))
-		case *events.Connected:
-			loginStateChan <- true
 		}
+		// C.free(unsafe.Pointer(CData))
 	}
 	client.AddEventHandler(eventHandler)
 	qrFuncCb := func(data string) {

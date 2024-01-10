@@ -1,42 +1,85 @@
 from __future__ import annotations
 import logging
+
+from neonize.exc import UnsupportedEvent
 from .proto import Neonize_pb2 as neonize
 import ctypes
 from typing import TypeVar, Type, Callable, TYPE_CHECKING, Dict
 from google.protobuf.message import Message
 
 from threading import Event as EventThread
+from .proto.Neonize_pb2 import (
+    QR as QREv,
+    PairStatus as PairStatusEv,
+    Connected as ConnectedEv,
+    KeepAliveTimeout as KeepAliveTimeoutEv,
+    KeepAliveRestored as KeepAliveRestoredEv,
+    LoggedOut as LoggedOutEv,
+    StreamReplaced as StreamReplacedEv,
+    TemporaryBan as TemporaryBanEv,
+    ConnectFailure as ConnectFailureEv,
+    ClientOutdated as ClientOutdatedEv,
+    StreamError as StreamErrorEv,
+    Disconnected as DisconnectedEv,
+    HistorySync as HistorySyncEv,
+    NewsLetterMessageMeta as NewsLetterMessageMetaEv,
+    Message as MessageEv,
+    Receipt as receiptEv,
+    ChatPresence as ChatPresenceEv,
+    Presence as PresenceEv,
+    JoinedGroup as JoinedGroupEv,
+    GroupInfoEvent as GroupInfoEv,
+    Picture as PictureEv,
+    IdentityChange as IdentityChangeEv,
+    PrivacySettings as PrivacySettingsEv,
+    OfflineSyncPreview as OfflineSyncPreviewEv,
+    OfflineSyncCompleted as OfflineSyncCompletedEv,
+    BlocklistEvent as BlocklistEv,
+    BlocklistChange as BlocklistChangeEv,
+    NewsletterJoin as NewsletterJoinEv,
+    NewsletterLeave as NewsletterLeaveEv,
+    NewsletterMuteChange as NewsletterMuteChangeEv,
+    NewsletterLiveUpdate as NewsletterLiveUpdateEV
 
+
+)
 log = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from .client import NewClient
 EventType = TypeVar("EventType", bound=Message)
 
 EVENT_TO_INT: Dict[Type[Message], int] = {
-    neonize.PairStatus: 1,
-    neonize.KeepAliveTimeout: 3,
-    neonize.LoggedOut: 4,
-    neonize.TemporaryBan: 5,
-    neonize.ConnectFailure: 6,
-    neonize.StreamError: 8,
-    neonize.HistorySync: 10,
-    neonize.NewsletterMetadata: 13,
-    neonize.Message: 14,
-    neonize.Receipt: 15,
-    neonize.ChatPresence: 16,
-    neonize.Presence: 17,
-    neonize.JoinedGroup: 18,
-    neonize.Picture: 19,
-    neonize.IdentityChange: 20,
-    neonize.PrivacySettings: 21,
-    neonize.OfflineSyncPreview: 22,
-    neonize.OfflineSyncCompleted: 23,
-    neonize.BlocklistEvent: 26,
-    neonize.BlocklistChange: 27,
-    neonize.NewsletterJoin: 28,
-    neonize.NewsletterLeave: 29,
-    neonize.NewsletterMuteChange: 30,
-    neonize.NewsletterLiveUpdate: 31,
+    QREv: 1,
+    PairStatusEv: 2,
+    ConnectedEv: 3,
+    KeepAliveTimeoutEv: 4,
+    KeepAliveRestoredEv: 5,
+    LoggedOutEv: 6,
+    StreamReplacedEv: 7,
+    TemporaryBanEv: 8,
+    ConnectFailureEv: 9,
+    ClientOutdatedEv: 10,
+    StreamErrorEv: 11,
+    DisconnectedEv: 12,
+    HistorySyncEv: 13,
+    NewsLetterMessageMetaEv: 16,
+    MessageEv: 17,
+    receiptEv: 18,
+    ChatPresenceEv: 19,
+    PresenceEv: 20,
+    JoinedGroupEv: 21,
+    GroupInfoEv: 22,
+    PictureEv: 23,
+    IdentityChangeEv: 24,
+    PrivacySettingsEv: 25,
+    OfflineSyncPreviewEv: 26,
+    OfflineSyncCompletedEv: 27,
+    BlocklistEv: 30,
+    BlocklistChangeEv:31,
+    NewsletterJoinEv: 32,
+    NewsletterLeaveEv: 33,
+    NewsletterMuteChangeEv: 34,
+    NewsletterLiveUpdateEV: 35
 }
 INT_TO_EVENT: Dict[int, Type[Message]] = {code: ev for ev, code in EVENT_TO_INT.items()}
 
@@ -53,6 +96,8 @@ class Event:
         self.list_func[code](binary, size)
 
     def wrap(self, f: Callable[[NewClient, EventType], None], event: Type[EventType]):
+        if event not in EVENT_TO_INT:
+            raise UnsupportedEvent()
         def serialization(binary: int, size: int):
             f(self.client, event.FromString(ctypes.string_at(binary, size)))
 

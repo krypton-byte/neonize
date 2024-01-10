@@ -6,10 +6,7 @@ from neonize.types import MessageServerID
 sys.path.insert(0, os.getcwd())
 from datetime import timedelta
 from neonize.client import NewClient
-from neonize.proto.Neonize_pb2 import (
-    Message as MessageResponse,
-    PairStatus,
-)
+from neonize.events import ConnectedEv, MessageEv, PairStatusEv
 from neonize.utils.enum import ReceiptType
 from neonize.utils import log
 import segno
@@ -40,9 +37,12 @@ def testblock(client: NewClient):
     client.disconnect()
     log.debug("Blocking Function Quit!")
 
+@client.event(ConnectedEv)
+def on_connected(_: NewClient, __: ConnectedEv):
+    log.info('[*] Connected')
 
-@client.event(MessageResponse)
-def onMessage(client: NewClient, message: MessageResponse):
+@client.event(MessageEv)
+def onMessage(client: NewClient, message: MessageEv):
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     chat = message.Info.MessageSource.Chat
     match text:
@@ -115,7 +115,7 @@ def onMessage(client: NewClient, message: MessageResponse):
                 "https://whatsapp.com/channel/0029Va4K0PZ5a245NkngBA2M"
             )
             err = client.follow_newsletter(metadata.ID)
-            client.send_message(chat, "error: " + err)
+            client.send_message(chat, "error: " + err.__str__())
             resp = client.newsletter_mark_viewed(metadata.ID, [MessageServerID(0)])
             client.send_message(chat, resp.__str__() + "\n" + metadata.__str__())
         case "keluar#09":
@@ -151,8 +151,8 @@ def onMessage(client: NewClient, message: MessageResponse):
             )
 
 
-@client.event(PairStatus)
-def PairStatusMessage(client: NewClient, message: PairStatus):
+@client.event(PairStatusEv)
+def PairStatusMessage(client: NewClient, message: PairStatusEv):
     print(client, message)
 
 

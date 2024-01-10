@@ -28,6 +28,14 @@ neonize.utils.jid module
    :undoc-members:
    :show-inheritance:
 
+neonize.utils.thumbnail module
+------------------------------
+
+.. automodule:: neonize.utils.thumbnail
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
