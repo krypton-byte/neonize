@@ -1,21 +1,22 @@
 import logging
-import sys, os
-
-from neonize.types import MessageServerID
-
-sys.path.insert(0, os.getcwd())
+import os
+import signal
+import sys
 from datetime import timedelta
+
+import segno
+
 from neonize.client import NewClient
+from neonize.events import event
 from neonize.proto.Neonize_pb2 import (
     Message as MessageResponse,
     PairStatus,
 )
-from neonize.utils.enum import ReceiptType
+from neonize.types import MessageServerID
 from neonize.utils import log
-import segno
-import signal
-import sys
-from neonize.events import event
+from neonize.utils.enum import ReceiptType
+
+sys.path.insert(0, os.getcwd())
 
 
 def interrupted(*args):
@@ -52,6 +53,13 @@ def onMessage(client: NewClient, message: MessageResponse):
             client.send_sticker(
                 chat,
                 "https://mystickermania.com/cdn/stickers/anime/spy-family-anya-smirk-512x512.png",
+            )
+        case "_sticker_exif":
+            client.send_sticker(
+                chat,
+                "https://mystickermania.com/cdn/stickers/anime/spy-family-anya-smirk-512x512.png",
+                name="@Neonize",
+                author="2024",
             )
         case "_image":
             client.send_image(
