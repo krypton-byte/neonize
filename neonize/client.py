@@ -10,7 +10,6 @@ from io import BytesIO
 from typing import Optional, Callable, List
 
 import magic
-from PIL import Image
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 
 from ._binder import gocode, func_string, func_callback_bytes, func
@@ -115,7 +114,7 @@ from .proto.def_pb2 import (
     ContactMessage,
 )
 from .types import MessageServerID
-from .utils import get_duration, gen_vcard, log, vid_to_webp
+from .utils import get_duration, gen_vcard, log, cv_to_webp
 from .utils.enum import (
     BlocklistAction,
     MediaType,
@@ -394,6 +393,7 @@ class NewClient:
         to: JID,
         file: typing.Union[str, bytes],
         quoted: Optional[neonize_proto.Message] = None,
+        **kwargs: typing.Any,
     ) -> SendResponse:
         """Sends a sticker to the specified recipient.
 
@@ -403,18 +403,15 @@ class NewClient:
         :type file: typing.Union[str | bytes]
         :param quoted: Optional. The message to which the sticker is a reply. Defaults to None.
         :type quoted: Optional[Message], optional
+        :param kwargs: Additional keyword arguments.
+        :type kwargs: typing.Any
         :return: A function for handling the result of the sticker sending process.
         :rtype: SendResponse
         """
         image_buf = get_bytes_from_name_or_url(file)
-        io_save = BytesIO()
         mimetype = magic.from_buffer(image_buf, mime=True)
-        if "video" or "gif" in mimetype:
-            io_save = vid_to_webp(image_buf)
-        elif "image" in mimetype:
-            Image.open(BytesIO(image_buf)).convert("RGBA").resize((512, 512)).save(
-                io_save, format="webp"
-            )
+        is_video = "video" or "gif" in mimetype
+        io_save = cv_to_webp(image_buf, is_video=is_video, **kwargs)
         io_save.seek(0)
         save = io_save.read()
         upload = self.upload(save)

@@ -54,6 +54,13 @@ def onMessage(client: NewClient, message: MessageResponse):
                 chat,
                 "https://mystickermania.com/cdn/stickers/anime/spy-family-anya-smirk-512x512.png",
             )
+        case "_sticker_exif":
+            client.send_sticker(
+                chat,
+                "https://mystickermania.com/cdn/stickers/anime/spy-family-anya-smirk-512x512.png",
+                name="@Neonize",
+                author="2024",
+            )
         case "_image":
             client.send_image(
                 chat,
