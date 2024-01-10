@@ -1,18 +1,18 @@
 import logging
-import sys, os
-
-from neonize.types import MessageServerID
-
-sys.path.insert(0, os.getcwd())
-from datetime import timedelta
-from neonize.client import NewClient
-from neonize.events import ConnectedEv, MessageEv, PairStatusEv
-from neonize.utils.enum import ReceiptType
-from neonize.utils import log
-import segno
+import os
 import signal
 import sys
-from neonize.events import event
+from datetime import timedelta
+
+import segno
+
+from neonize.client import NewClient
+from neonize.events import ConnectedEv, MessageEv, PairStatusEv, event
+from neonize.utils.enum import ReceiptType
+from neonize.utils import log
+from neonize.utils.enum import ReceiptType
+
+sys.path.insert(0, os.getcwd())
 
 
 def interrupted(*args):
@@ -39,7 +39,7 @@ def testblock(client: NewClient):
 
 @client.event(ConnectedEv)
 def on_connected(_: NewClient, __: ConnectedEv):
-    log.info('[*] Connected')
+    log.info('[✔] Connected')
 
 @client.event(MessageEv)
 def onMessage(client: NewClient, message: MessageEv):
@@ -52,6 +52,13 @@ def onMessage(client: NewClient, message: MessageEv):
             client.send_sticker(
                 chat,
                 "https://mystickermania.com/cdn/stickers/anime/spy-family-anya-smirk-512x512.png",
+            )
+        case "_sticker_exif":
+            client.send_sticker(
+                chat,
+                "https://mystickermania.com/cdn/stickers/anime/spy-family-anya-smirk-512x512.png",
+                name="@Neonize",
+                author="2024",
             )
         case "_image":
             client.send_image(

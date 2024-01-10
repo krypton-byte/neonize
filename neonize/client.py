@@ -2,22 +2,19 @@ from __future__ import annotations
 
 import ctypes
 import re
+import struct
 import time
 import typing
-import struct
+from datetime import timedelta
 from io import BytesIO
 from typing import Optional, Callable, List
-from datetime import timedelta
+
 import magic
-from PIL import Image
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 
 from ._binder import gocode, func_string, func_callback_bytes, func
 from .builder import build_edit, build_revoke
-from .types import MessageServerID
 from .events import Event
-from .proto import Neonize_pb2 as neonize_proto
-from .proto.def_pb2 import DeviceProps
 from .exc import (
     DownloadError,
     ResolveContactQRLinkError,
@@ -57,6 +54,22 @@ from .exc import (
     NewsletterMarkViewedError,
     NewsletterSendReactionError,
 )
+from .exc import (
+    GetContactQrLinkError,
+    GetGroupRequestParticipantsError,
+    GetJoinedGroupsError,
+    GetLinkedGroupParticipantsError,
+    GetNewsletterInfoError,
+    GetNewsletterInfoWithInviteError,
+    GetNewsletterMessageUpdateError,
+    GetNewsletterMessagesError,
+    GetUserDevicesError,
+    JoinGroupWithInviteError,
+    LinkGroupError,
+    NewsletterSubscribeLiveUpdatesError,
+    NewsletterToggleMuteError,
+)
+from .proto import Neonize_pb2 as neonize_proto
 from .proto.Neonize_pb2 import (
     GroupParticipant,
     Blocklist,
@@ -88,6 +101,7 @@ from .proto.Neonize_pb2 import (
     SendResponse,
     Device,
 )
+from .proto.def_pb2 import DeviceProps
 from .proto.def_pb2 import (
     Message,
     StickerMessage,
@@ -99,9 +113,8 @@ from .proto.def_pb2 import (
     DocumentMessage,
     ContactMessage,
 )
-from .utils.jid import Jid2String, JIDToNonAD
-from .utils.iofile import get_bytes_from_name_or_url
-from .utils.thumbnail import generate_thumbnail, get_bytes_from_name_or_url
+from .types import MessageServerID
+from .utils import get_duration, gen_vcard, log, cv_to_webp
 from .utils.enum import (
     BlocklistAction,
     MediaType,
@@ -115,22 +128,9 @@ from .utils.enum import (
     PrivacySetting,
     PrivacySettingType,
 )
-from .utils import get_duration, gen_vcard, log
-from .exc import (
-    GetContactQrLinkError,
-    GetGroupRequestParticipantsError,
-    GetJoinedGroupsError,
-    GetLinkedGroupParticipantsError,
-    GetNewsletterInfoError,
-    GetNewsletterInfoWithInviteError,
-    GetNewsletterMessageUpdateError,
-    GetNewsletterMessagesError,
-    GetUserDevicesError,
-    JoinGroupWithInviteError,
-    LinkGroupError,
-    NewsletterSubscribeLiveUpdatesError,
-    NewsletterToggleMuteError,
-)
+from .utils.iofile import get_bytes_from_name_or_url
+from .utils.jid import Jid2String, JIDToNonAD
+from .utils.thumbnail import generate_thumbnail
 
 
 class NewClient:
@@ -393,23 +393,25 @@ class NewClient:
         to: JID,
         file: typing.Union[str, bytes],
         quoted: Optional[neonize_proto.Message] = None,
+        **kwargs: typing.Any,
     ) -> SendResponse:
         """Sends a sticker to the specified recipient.
 
         :param to: The JID (Jabber Identifier) of the recipient.
         :type to: JID
-        :param file: Either a file path (str) or URL (str) or binary data (bytes) representing the sticker.
+        :param file: Either a file path (str) or URL (str) or binary data (bytes) Image/Video/Gif.
         :type file: typing.Union[str | bytes]
         :param quoted: Optional. The message to which the sticker is a reply. Defaults to None.
         :type quoted: Optional[Message], optional
+        :param kwargs: Additional keyword arguments.
+        :type kwargs: typing.Any
         :return: A function for handling the result of the sticker sending process.
         :rtype: SendResponse
         """
         image_buf = get_bytes_from_name_or_url(file)
-        io_save = BytesIO()
-        Image.open(BytesIO(image_buf)).convert("RGBA").resize((512, 512)).save(
-            io_save, format="webp"
-        )
+        mimetype = magic.from_buffer(image_buf, mime=True)
+        is_video = "video" or "gif" in mimetype
+        io_save = cv_to_webp(image_buf, is_video=is_video, **kwargs)
         io_save.seek(0)
         save = io_save.read()
         upload = self.upload(save)

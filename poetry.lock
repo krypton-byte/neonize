@@ -1019,7 +1019,30 @@ brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)"]
 socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
+[[package]]
+name = "uuid"
+version = "1.30"
+description = "UUID object and generation functions (Python 2.3 or higher)"
+optional = false
+python-versions = "*"
+files = [
+    {file = "uuid-1.30.tar.gz", hash = "sha256:1f87cc004ac5120466f36c5beae48b4c48cc411968eed0eaecd3da82aa96193f"},
+]
+
+[[package]]
+name = "webptools"
+version = "0.0.9"
+description = "webptools is a Webp image conversion package for python"
+optional = false
+python-versions = "*"
+files = [
+    {file = "webptools-0.0.9.tar.gz", hash = "sha256:7393b53dc6b7bb38294a93ec5d82e009cb0160eec749bf1f53249c81fba63918"},
+]
+
+[package.dependencies]
+uuid = "*"
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "82db4039a6e58294781e568312cc7e9a19b157f6378d8a1f4a6b3683a92ddd4f"
+content-hash = "4b4cb7a039d5ce5acf1e3ef6b88c6548584b9e70c18f553888acbd8a894d3d7d"
