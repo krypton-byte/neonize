@@ -1,4 +1,4 @@
-name: Release Neonize Library
+name: Release
 
 on:
   workflow_dispatch:
