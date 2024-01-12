@@ -56,7 +56,7 @@ class LogLevel(Enum):
 
     @property
     def level(self):
-        if self is self.__class__.NOTSET:
+        if self is self.NOTSET:
             return b""
         return self.name.encode()
 

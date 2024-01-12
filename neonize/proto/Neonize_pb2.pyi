@@ -2586,6 +2586,7 @@ class GroupInfoEvent(google.protobuf.message.Message):
     NEWINVITELINK_FIELD_NUMBER: builtins.int
     PREVPARTICIPANTSVERSIONID_FIELD_NUMBER: builtins.int
     PARTICIPANTVERSIONID_FIELD_NUMBER: builtins.int
+    JOINREASON_FIELD_NUMBER: builtins.int
     JOIN_FIELD_NUMBER: builtins.int
     LEAVE_FIELD_NUMBER: builtins.int
     PROMOTE_FIELD_NUMBER: builtins.int
@@ -2616,6 +2617,7 @@ class GroupInfoEvent(google.protobuf.message.Message):
     NewInviteLink: builtins.str
     PrevParticipantsVersionID: builtins.str
     ParticipantVersionID: builtins.str
+    JoinReason: builtins.str
     @property
     def Join(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
     @property
@@ -2644,14 +2646,15 @@ class GroupInfoEvent(google.protobuf.message.Message):
         NewInviteLink: builtins.str | None = ...,
         PrevParticipantsVersionID: builtins.str | None = ...,
         ParticipantVersionID: builtins.str | None = ...,
+        JoinReason: builtins.str | None = ...,
         Join: collections.abc.Iterable[global___JID] | None = ...,
         Leave: collections.abc.Iterable[global___JID] | None = ...,
         Promote: collections.abc.Iterable[global___JID] | None = ...,
         Demote: collections.abc.Iterable[global___JID] | None = ...,
         UnknownChanges: collections.abc.Iterable[global___Node] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Announce", b"Announce", "Delete", b"Delete", "Ephemeral", b"Ephemeral", "JID", b"JID", "Link", b"Link", "Locked", b"Locked", "Name", b"Name", "NewInviteLink", b"NewInviteLink", "Notify", b"Notify", "ParticipantVersionID", b"ParticipantVersionID", "PrevParticipantsVersionID", b"PrevParticipantsVersionID", "Sender", b"Sender", "Timestamp", b"Timestamp", "Topic", b"Topic", "Unlink", b"Unlink"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Announce", b"Announce", "Delete", b"Delete", "Demote", b"Demote", "Ephemeral", b"Ephemeral", "JID", b"JID", "Join", b"Join", "Leave", b"Leave", "Link", b"Link", "Locked", b"Locked", "Name", b"Name", "NewInviteLink", b"NewInviteLink", "Notify", b"Notify", "ParticipantVersionID", b"ParticipantVersionID", "PrevParticipantsVersionID", b"PrevParticipantsVersionID", "Promote", b"Promote", "Sender", b"Sender", "Timestamp", b"Timestamp", "Topic", b"Topic", "UnknownChanges", b"UnknownChanges", "Unlink", b"Unlink"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["Announce", b"Announce", "Delete", b"Delete", "Ephemeral", b"Ephemeral", "JID", b"JID", "JoinReason", b"JoinReason", "Link", b"Link", "Locked", b"Locked", "Name", b"Name", "NewInviteLink", b"NewInviteLink", "Notify", b"Notify", "ParticipantVersionID", b"ParticipantVersionID", "PrevParticipantsVersionID", b"PrevParticipantsVersionID", "Sender", b"Sender", "Timestamp", b"Timestamp", "Topic", b"Topic", "Unlink", b"Unlink"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["Announce", b"Announce", "Delete", b"Delete", "Demote", b"Demote", "Ephemeral", b"Ephemeral", "JID", b"JID", "Join", b"Join", "JoinReason", b"JoinReason", "Leave", b"Leave", "Link", b"Link", "Locked", b"Locked", "Name", b"Name", "NewInviteLink", b"NewInviteLink", "Notify", b"Notify", "ParticipantVersionID", b"ParticipantVersionID", "PrevParticipantsVersionID", b"PrevParticipantsVersionID", "Promote", b"Promote", "Sender", b"Sender", "Timestamp", b"Timestamp", "Topic", b"Topic", "UnknownChanges", b"UnknownChanges", "Unlink", b"Unlink"]) -> None: ...
 
 global___GroupInfoEvent = GroupInfoEvent
 
@@ -2710,11 +2713,48 @@ class IdentityChange(google.protobuf.message.Message):
 global___IdentityChange = IdentityChange
 
 @typing_extensions.final
-class OfflineSyncPreview(google.protobuf.message.Message):
-    """PrivacySettings (Defined) //25
+class privacySettingsEvent(google.protobuf.message.Message):
+    """25"""
 
-    26
-    """
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NEWSETTINGS_FIELD_NUMBER: builtins.int
+    GROUPADDCHANGED_FIELD_NUMBER: builtins.int
+    LASTSEENCHANGED_FIELD_NUMBER: builtins.int
+    STATUSCHANGED_FIELD_NUMBER: builtins.int
+    PROFILECHANGED_FIELD_NUMBER: builtins.int
+    READRECEIPTSCHANGED_FIELD_NUMBER: builtins.int
+    ONLINECHANGED_FIELD_NUMBER: builtins.int
+    CALLADDCHANGED_FIELD_NUMBER: builtins.int
+    @property
+    def NewSettings(self) -> global___PrivacySettings: ...
+    GroupAddChanged: builtins.bool
+    LastSeenChanged: builtins.bool
+    StatusChanged: builtins.bool
+    ProfileChanged: builtins.bool
+    ReadReceiptsChanged: builtins.bool
+    OnlineChanged: builtins.bool
+    CallAddChanged: builtins.bool
+    def __init__(
+        self,
+        *,
+        NewSettings: global___PrivacySettings | None = ...,
+        GroupAddChanged: builtins.bool | None = ...,
+        LastSeenChanged: builtins.bool | None = ...,
+        StatusChanged: builtins.bool | None = ...,
+        ProfileChanged: builtins.bool | None = ...,
+        ReadReceiptsChanged: builtins.bool | None = ...,
+        OnlineChanged: builtins.bool | None = ...,
+        CallAddChanged: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["CallAddChanged", b"CallAddChanged", "GroupAddChanged", b"GroupAddChanged", "LastSeenChanged", b"LastSeenChanged", "NewSettings", b"NewSettings", "OnlineChanged", b"OnlineChanged", "ProfileChanged", b"ProfileChanged", "ReadReceiptsChanged", b"ReadReceiptsChanged", "StatusChanged", b"StatusChanged"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["CallAddChanged", b"CallAddChanged", "GroupAddChanged", b"GroupAddChanged", "LastSeenChanged", b"LastSeenChanged", "NewSettings", b"NewSettings", "OnlineChanged", b"OnlineChanged", "ProfileChanged", b"ProfileChanged", "ReadReceiptsChanged", b"ReadReceiptsChanged", "StatusChanged", b"StatusChanged"]) -> None: ...
+
+global___privacySettingsEvent = privacySettingsEvent
+
+@typing_extensions.final
+class OfflineSyncPreview(google.protobuf.message.Message):
+    """26"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2821,15 +2861,18 @@ class BlocklistChange(google.protobuf.message.Message):
     UNBLOCK: BlocklistChange.Action.ValueType  # 2
 
     JID_FIELD_NUMBER: builtins.int
+    BLOCKACTION_FIELD_NUMBER: builtins.int
     @property
     def JID(self) -> global___JID: ...
+    BlockAction: global___BlocklistChange.Action.ValueType
     def __init__(
         self,
         *,
         JID: global___JID | None = ...,
+        BlockAction: global___BlocklistChange.Action.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["JID", b"JID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["JID", b"JID"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["BlockAction", b"BlockAction", "JID", b"JID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["BlockAction", b"BlockAction", "JID", b"JID"]) -> None: ...
 
 global___BlocklistChange = BlocklistChange
 

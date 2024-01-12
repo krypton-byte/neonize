@@ -663,11 +663,12 @@ message GroupInfoEvent { //22
     optional string NewInviteLink = 13;
     required string PrevParticipantsVersionID = 14;
     required string ParticipantVersionID = 15;
-    repeated JID Join = 16;
-    repeated JID Leave = 17;
-    repeated JID Promote = 18;
-    repeated JID Demote = 19;
-    repeated Node UnknownChanges = 20;
+    required string JoinReason = 16;
+    repeated JID Join = 17;
+    repeated JID Leave = 18;
+    repeated JID Promote = 19;
+    repeated JID Demote = 20;
+    repeated Node UnknownChanges = 21;
 
 }
 message Picture { // 23
@@ -683,19 +684,27 @@ message IdentityChange { // 24
     required bool Implicit = 3;
 }
 
-// PrivacySettings (Defined) //25
-
+message privacySettingsEvent { // 25
+    required PrivacySettings NewSettings = 1;
+    required bool GroupAddChanged = 2;
+    required bool LastSeenChanged = 3;
+    required bool StatusChanged = 4;
+    required bool ProfileChanged = 5;
+    required bool ReadReceiptsChanged = 6;
+    required bool OnlineChanged = 7;
+    required bool CallAddChanged = 8;
+}
 
 message OfflineSyncPreview { //26
-    required int64 Total = 1;
-    required int64 AppDataChanges = 2;
-    required int64 Message = 3;
-    required int64 Notifications = 4;
-    required int64 Receipts = 5;
+    required int32 Total = 1;
+    required int32 AppDataChanges = 2;
+    required int32 Message = 3;
+    required int32 Notifications = 4;
+    required int32 Receipts = 5;
 }
 
 message OfflineSyncCompleted { // 27
-    required int64 Count = 1;
+    required int32 Count = 1;
 }
 //MediaRetryError (not implemented yet) // 28
 //MediaRetry(not implemented yet) // 29
@@ -717,6 +726,7 @@ message BlocklistChange { // 31
         UNBLOCK = 2;
     }
     required JID JID = 1;
+    required Action BlockAction = 2;
 }
 
 message NewsletterJoin { // 32

@@ -656,3 +656,229 @@ func EncodeConnectFailure(connect *events.ConnectFailure) *neonize.ConnectFailur
 		Raw:     EncodeNode(connect.Raw),
 	}
 }
+
+func EncodeReceipts(receipt *events.Receipt) neonize.Receipt {
+	var Type *neonize.Receipt_ReceiptType
+	switch receipt.Type {
+	case types.ReceiptTypeDelivered:
+		Type = neonize.Receipt_DELIVERED.Enum()
+	case types.ReceiptTypeSender:
+		Type = neonize.Receipt_SENDER.Enum()
+	case types.ReceiptTypeRetry:
+		Type = neonize.Receipt_RETRY.Enum()
+	case types.ReceiptTypeRead:
+		Type = neonize.Receipt_READ.Enum()
+	case types.ReceiptTypeReadSelf:
+		Type = neonize.Receipt_READ_SELF.Enum()
+	case types.ReceiptTypePlayed:
+		Type = neonize.Receipt_PLAYED.Enum()
+	}
+	return neonize.Receipt{
+		MessageSource: EncodeMessageSource(receipt.MessageSource),
+		MessageIDs:    receipt.MessageIDs,
+		Timestamp:     proto.Int64(receipt.Timestamp.Unix()),
+		Type:          Type,
+	}
+}
+
+func EncodeChatPresence(presence *events.ChatPresence) neonize.ChatPresence {
+	var chat_presence *neonize.ChatPresence_ChatPresence
+	var chat_presence_media *neonize.ChatPresence_ChatPresenceMedia
+	switch presence.State {
+	case types.ChatPresenceComposing:
+		chat_presence = neonize.ChatPresence_COMPOSING.Enum()
+	case types.ChatPresencePaused:
+		chat_presence = neonize.ChatPresence_PAUSED.Enum()
+	}
+	switch presence.Media {
+	case types.ChatPresenceMediaAudio:
+		chat_presence_media = neonize.ChatPresence_AUDIO.Enum()
+	case types.ChatPresenceMediaText:
+		chat_presence_media = neonize.ChatPresence_TEXT.Enum()
+	}
+	return neonize.ChatPresence{
+		MessageSource: EncodeMessageSource(presence.MessageSource),
+		State:         chat_presence,
+		Media:         chat_presence_media,
+	}
+}
+func EncodePresence(presence *events.Presence) neonize.Presence {
+	return neonize.Presence{
+		From:        EncodeJidProto(presence.From),
+		Unavailable: &presence.Unavailable,
+		LastSeen:    proto.Int64(presence.LastSeen.Unix()),
+	}
+}
+
+func EncodeJoinedGroup(joined *events.JoinedGroup) neonize.JoinedGroup {
+	return neonize.JoinedGroup{
+		Reason:    &joined.Reason,
+		Type:      &joined.Reason,
+		CreateKey: &joined.CreateKey,
+		GroupInfo: EncodeGroupInfo(&joined.GroupInfo),
+	}
+}
+func EncodeGroupDelete(delete types.GroupDelete) *neonize.GroupDelete {
+	return &neonize.GroupDelete{
+		Deleted:       &delete.Deleted,
+		DeletedReason: &delete.DeleteReason,
+	}
+}
+func EncodeGroupLinkChange(group *types.GroupLinkChange) *neonize.GroupLinkChange {
+	var Type *neonize.GroupLinkChange_ChangeType
+	switch group.Type {
+	case types.GroupLinkChangeTypeParent:
+		Type = neonize.GroupLinkChange_PARENT.Enum()
+	case types.GroupLinkChangeTypeSub:
+		Type = neonize.GroupLinkChange_SUB.Enum()
+	case types.GroupLinkChangeTypeSibling:
+		Type = neonize.GroupLinkChange_SIBLING.Enum()
+	}
+	return &neonize.GroupLinkChange{
+		Type:         Type,
+		UnlinkReason: (*string)(&group.UnlinkReason),
+		Group:        EncodeGroupLinkTarget(group.Group),
+	}
+}
+func EncodeGroupInfoEvent(groupInfo *events.GroupInfo) *neonize.GroupInfoEvent {
+	var Join = make([]*neonize.JID, len(groupInfo.Join))
+	var Leave = make([]*neonize.JID, len(groupInfo.Leave))
+	var Promote = make([]*neonize.JID, len(groupInfo.Promote))
+	var Demote = make([]*neonize.JID, len(groupInfo.Demote))
+	var UnknownChanges = make([]*neonize.Node, len(groupInfo.UnknownChanges))
+	for i, jidJoin := range groupInfo.Join {
+		Join[i] = EncodeJidProto(jidJoin)
+	}
+	for i, jidLeave := range groupInfo.Leave {
+		Leave[i] = EncodeJidProto(jidLeave)
+	}
+	for i, jidPromote := range groupInfo.Promote {
+		Promote[i] = EncodeJidProto(jidPromote)
+	}
+	for i, jidDemote := range groupInfo.Demote {
+		Demote[i] = EncodeJidProto(jidDemote)
+	}
+	for i, changes := range groupInfo.UnknownChanges {
+		UnknownChanges[i] = EncodeNode(changes)
+	}
+	group_info := neonize.GroupInfoEvent{
+		JID:                       EncodeJidProto(groupInfo.JID),
+		Notify:                    &groupInfo.Notify,
+		Timestamp:                 proto.Int64(groupInfo.Timestamp.Unix()),
+		PrevParticipantsVersionID: &groupInfo.PrevParticipantVersionID,
+		ParticipantVersionID:      &groupInfo.ParticipantVersionID,
+		JoinReason:                &groupInfo.JoinReason,
+		Join:                      Join,
+		Leave:                     Leave,
+		Promote:                   Promote,
+		Demote:                    Demote,
+		UnknownChanges:            UnknownChanges,
+	}
+	if groupInfo.Sender != nil {
+		group_info.Sender = EncodeJidProto(*groupInfo.Sender)
+	}
+	if groupInfo.Name != nil {
+		group_info.Name = EncodeGroupName(*groupInfo.Name)
+	}
+	if groupInfo.Topic != nil {
+		group_info.Topic = EncodeGroupTopic(*groupInfo.Topic)
+	}
+	if groupInfo.Locked != nil {
+		group_info.Locked = EncodeGroupLocked(*groupInfo.Locked)
+	}
+	if groupInfo.Announce != nil {
+		group_info.Announce = EncodeGroupAnnounce(*groupInfo.Announce)
+	}
+	if groupInfo.Ephemeral != nil {
+		group_info.Ephemeral = EncodeGroupEphemeral(*groupInfo.Ephemeral)
+	}
+	if groupInfo.Delete != nil {
+		group_info.Delete = EncodeGroupDelete(*groupInfo.Delete)
+	}
+	if groupInfo.Link != nil {
+		group_info.Link = EncodeGroupLinkChange(groupInfo.Link)
+	}
+	if groupInfo.Unlink != nil {
+		group_info.Unlink = EncodeGroupLinkChange(groupInfo.Unlink)
+	}
+	if groupInfo.NewInviteLink != nil {
+		group_info.NewInviteLink = groupInfo.NewInviteLink
+	}
+	return &group_info
+}
+
+func EncodeBlocklistChange(blocklist *events.BlocklistChange) *neonize.BlocklistChange {
+	var action *neonize.BlocklistChange_Action
+	switch blocklist.Action {
+	case events.BlocklistChangeActionBlock:
+		action = neonize.BlocklistChange_BLOCK.Enum()
+	case events.BlocklistChangeActionUnblock:
+		action = neonize.BlocklistChange_UNBLOCK.Enum()
+	}
+	return &neonize.BlocklistChange{
+		JID:         EncodeJidProto(blocklist.JID),
+		BlockAction: action,
+	}
+}
+
+func EncodeBlocklistEvent(blocklist *events.Blocklist) neonize.BlocklistEvent {
+	var action *neonize.BlocklistEvent_Actions
+	var blocklistchanges = make([]*neonize.BlocklistChange, len(blocklist.Changes))
+	for i, changes := range blocklist.Changes {
+		blocklistchanges[i] = EncodeBlocklistChange(&changes)
+	}
+	switch blocklist.Action {
+	case events.BlocklistActionDefault:
+		action = neonize.BlocklistEvent_DEFAULT.Enum()
+	case events.BlocklistActionModify:
+		action = neonize.BlocklistEvent_MODIFY.Enum()
+	}
+	return neonize.BlocklistEvent{
+		Action:    action,
+		DHASH:     &blocklist.DHash,
+		PrevDHash: &blocklist.PrevDHash,
+		Changes:   blocklistchanges,
+	}
+}
+
+func EncodeNewsletterLeave(leave *events.NewsletterLeave) neonize.NewsletterLeave {
+	var role *neonize.NewsletterRole
+	switch leave.Role {
+	case types.NewsletterRoleAdmin:
+		role = neonize.NewsletterRole_ADMIN.Enum()
+	case types.NewsletterRoleGuest:
+		role = neonize.NewsletterRole_GUEST.Enum()
+	case types.NewsletterRoleOwner:
+		role = neonize.NewsletterRole_OWNER.Enum()
+	case types.NewsletterRoleSubscriber:
+		role = neonize.NewsletterRole_SUBSCRIBER.Enum()
+	}
+	return neonize.NewsletterLeave{
+		ID:   EncodeJidProto(leave.ID),
+		Role: role,
+	}
+}
+func EncodeNewsletterMuteChange(mute *events.NewsletterMuteChange) neonize.NewsletterMuteChange {
+	var state *neonize.NewsletterMuteState
+	switch mute.Mute {
+	case types.NewsletterMuteOff:
+		state = neonize.NewsletterMuteState_OFF.Enum()
+	case types.NewsletterMuteOn:
+		state = neonize.NewsletterMuteState_ON.Enum()
+	}
+	return neonize.NewsletterMuteChange{
+		ID:   EncodeJidProto(mute.ID),
+		Mute: state,
+	}
+}
+func EncodeNewsletterLiveUpdate(update *events.NewsletterLiveUpdate) neonize.NewsletterLiveUpdate {
+	var messages = make([]*neonize.NewsletterMessage, len(update.Messages))
+	for i, message := range update.Messages {
+		messages[i] = EncodeNewsletterMessage(message)
+	}
+	return neonize.NewsletterLiveUpdate{
+		JID:      EncodeJidProto(update.JID),
+		TIME:     proto.Int64(int64(update.Time.Unix())),
+		Messages: messages,
+	}
+}

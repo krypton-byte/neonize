@@ -7,7 +7,7 @@ from datetime import timedelta
 import segno
 
 from neonize.client import NewClient
-from neonize.events import ConnectedEv, MessageEv, PairStatusEv, event
+from neonize.events import ConnectedEv, MessageEv, PairStatusEv, event, ReceiptEv
 from neonize.utils.enum import ReceiptType
 from neonize.utils import log
 from neonize.utils.enum import ReceiptType
@@ -40,6 +40,11 @@ def testblock(client: NewClient):
 @client.event(ConnectedEv)
 def on_connected(_: NewClient, __: ConnectedEv):
     log.info('[✔] Connected')
+
+@client.event(ReceiptEv)
+def on_receipt(client: NewClient, receipt: ReceiptEv):
+    log.info(receipt)
+
 
 @client.event(MessageEv)
 def onMessage(client: NewClient, message: MessageEv):

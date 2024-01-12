@@ -16,6 +16,7 @@ import (
 	"time"
 	"unsafe"
 
+	"github.com/krypton-byte/neonize/defproto"
 	"github.com/krypton-byte/neonize/neonize"
 	"github.com/krypton-byte/neonize/utils"
 	_ "github.com/mattn/go-sqlite3"
@@ -169,7 +170,7 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(qr_bytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(1))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(1))
 			}
 		case *events.PairError:
 			if _, ok := subscribers[2]; ok {
@@ -179,7 +180,7 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(pair_bytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(2))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(2))
 			}
 		case *events.PairSuccess:
 			if _, ok := subscribers[2]; ok {
@@ -189,7 +190,7 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(pair_bytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(2))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(2))
 			}
 		case *events.Connected:
 			if int(pairphoneSize) > 0 {
@@ -215,7 +216,7 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(timeout_bytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(4))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(4))
 			}
 		case *events.KeepAliveRestored:
 			if _, ok := subscribers[5]; ok {
@@ -225,7 +226,7 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(restored_bytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(5))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(5))
 			}
 		case *events.LoggedOut:
 			if _, ok := subscribers[6]; ok {
@@ -235,7 +236,7 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(logout_bytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(6))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(6))
 			}
 		case *events.StreamReplaced:
 			if _, ok := subscribers[7]; ok {
@@ -245,7 +246,7 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(stream_bytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(7))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(7))
 			}
 		case *events.TemporaryBan:
 			if _, ok := subscribers[8]; ok {
@@ -255,7 +256,7 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(ban_bytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(8))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(8))
 			}
 		case *events.ConnectFailure:
 			if _, ok := subscribers[9]; ok {
@@ -265,7 +266,7 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(failure_bytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(8))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(8))
 			}
 		case *events.ClientOutdated:
 			if _, ok := subscribers[10]; ok {
@@ -275,7 +276,7 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(outdated_bytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(10))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(10))
 			}
 		case *events.StreamError:
 			if _, ok := subscribers[11]; ok {
@@ -288,7 +289,7 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(stream_bytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(11))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(11))
 			}
 		case *events.Disconnected:
 			if _, ok := subscribers[12]; ok {
@@ -300,7 +301,28 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(disconnect_bytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(12))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(12))
+			}
+		case *events.HistorySync:
+			if _, ok := subscribers[13]; ok {
+				history_bytes, err := proto.Marshal(v.Data)
+				if err != nil {
+					panic(err)
+				}
+				var history defproto.HistorySync
+				err_unmarshal := proto.Unmarshal(history_bytes, &history)
+				if err_unmarshal != nil {
+					panic(err_unmarshal)
+				}
+				data := neonize.HistorySync{
+					Data: &history,
+				}
+				data_bytes, err_data := proto.Marshal(&data)
+				if err_data != nil {
+					panic(err_data)
+				}
+				data_b, size := getBytesAndSize(data_bytes)
+				go C.call_c_func_callback_bytes(event, data_b, size, C.int(13))
 			}
 		case *events.Message:
 			if _, ok := subscribers[17]; ok {
@@ -310,7 +332,195 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 					panic(err)
 				}
 				data, size := getBytesAndSize(messageSourceBytes)
-				C.call_c_func_callback_bytes(event, data, size, C.int(17))
+				go C.call_c_func_callback_bytes(event, data, size, C.int(17))
+			}
+		case *events.Receipt:
+			if _, ok := subscribers[18]; ok {
+				receipt := utils.EncodeReceipts(v)
+				receipt_byte, err := proto.Marshal(&receipt)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(receipt_byte)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(18))
+			}
+		case *events.ChatPresence:
+			if _, ok := subscribers[19]; ok {
+				presence := utils.EncodeChatPresence(v)
+				presence_bytes, err := proto.Marshal(&presence)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(presence_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(19))
+			}
+		case *events.Presence:
+			if _, ok := subscribers[20]; ok {
+				presence := utils.EncodePresence(v)
+				presence_bytes, err := proto.Marshal(&presence)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(presence_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(20))
+			}
+		case *events.JoinedGroup:
+			if _, ok := subscribers[21]; ok {
+				joined := utils.EncodeJoinedGroup(v)
+				joined_bytes, err := proto.Marshal(&joined)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(joined_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(21))
+			}
+		case *events.GroupInfo:
+			if _, ok := subscribers[22]; ok {
+				groupinfo := utils.EncodeGroupInfoEvent(v)
+				groupinfo_bytes, err := proto.Marshal(groupinfo)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(groupinfo_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(22))
+			}
+		case *events.Picture:
+			if _, ok := subscribers[23]; ok {
+				picture := neonize.Picture{
+					JID:       utils.EncodeJidProto(v.JID),
+					Author:    utils.EncodeJidProto(v.Author),
+					Timestamp: proto.Int64(v.Timestamp.Unix()),
+					Remove:    &v.Remove,
+				}
+				picture_bytes, err := proto.Marshal(&picture)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(picture_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(23))
+			}
+		case *events.IdentityChange:
+			if _, ok := subscribers[24]; ok {
+				identity := neonize.IdentityChange{
+					JID:       utils.EncodeJidProto(v.JID),
+					Timestamp: proto.Int64(v.Timestamp.Unix()),
+					Implicit:  &v.Implicit,
+				}
+				identity_bytes, err := proto.Marshal(&identity)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(identity_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(24))
+			}
+		case *events.PrivacySettings:
+			if _, ok := subscribers[25]; ok {
+				privacy_event := neonize.PrivacySettingsEvent{
+					NewSettings:         utils.EncodePrivacySettings(v.NewSettings),
+					GroupAddChanged:     &v.GroupAddChanged,
+					LastSeenChanged:     &v.LastSeenChanged,
+					StatusChanged:       &v.StatusChanged,
+					ProfileChanged:      &v.ProfileChanged,
+					ReadReceiptsChanged: &v.ReadReceiptsChanged,
+					OnlineChanged:       &v.OnlineChanged,
+					CallAddChanged:      &v.CallAddChanged,
+				}
+				privacy_bytes, err := proto.Marshal(&privacy_event)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(privacy_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(25))
+			}
+		case *events.OfflineSyncPreview:
+			if _, ok := subscribers[26]; ok {
+				sync := neonize.OfflineSyncPreview{
+					Total:          proto.Int32(int32(v.Total)),
+					AppDataChanges: proto.Int32(int32(v.AppDataChanges)),
+					Message:        proto.Int32(int32(v.Messages)),
+					Notifications:  proto.Int32(int32(v.Notifications)),
+					Receipts:       proto.Int32(int32(v.Receipts)),
+				}
+				sync_bytes, err := proto.Marshal(&sync)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(sync_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(26))
+			}
+		case *events.OfflineSyncCompleted:
+			if _, ok := subscribers[27]; ok {
+				sync := neonize.OfflineSyncCompleted{
+					Count: proto.Int32(int32(v.Count)),
+				}
+				sync_bytes, err := proto.Marshal(&sync)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(sync_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(27))
+			}
+		case *events.Blocklist:
+			if _, ok := subscribers[30]; ok {
+				blocklist := utils.EncodeBlocklistEvent(v)
+				block_bytes, err := proto.Marshal(&blocklist)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(block_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(30))
+			}
+		case *events.BlocklistChange:
+			if _, ok := subscribers[31]; ok {
+				block := utils.EncodeBlocklistChange(v)
+				block_bytes, err := proto.Marshal(block)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(block_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(31))
+			}
+		case *events.NewsletterJoin:
+			if _, ok := subscribers[32]; ok {
+				newsletter := neonize.NewsletterJoin{
+					NewsletterMetadata: utils.EncodeNewsLetterMessageMetadata(v.NewsletterMetadata),
+				}
+				newsletter_bytes, err := proto.Marshal(&newsletter)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(newsletter_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(32))
+			}
+		case *events.NewsletterLeave:
+			if _, ok := subscribers[33]; ok {
+				leave := utils.EncodeNewsletterLeave(v)
+				leave_bytes, err := proto.Marshal(&leave)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(leave_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(33))
+			}
+		case *events.NewsletterMuteChange:
+			if _, ok := subscribers[34]; ok {
+				mute := utils.EncodeNewsletterMuteChange(v)
+				mute_bytes, err := proto.Marshal(&mute)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(mute_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(34))
+			}
+		case *events.NewsletterLiveUpdate:
+			if _, ok := subscribers[35]; ok {
+				update := utils.EncodeNewsletterLiveUpdate(v)
+				update_bytes, err := proto.Marshal(&update)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(update_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(35))
 			}
 		}
 		// C.free(unsafe.Pointer(CData))
