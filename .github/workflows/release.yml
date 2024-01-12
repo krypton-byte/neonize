@@ -31,13 +31,11 @@ jobs:
         #AMD64/X86_64
         export CGO_ENABLED=1
         poetry run build goneonize
-    - name: Set Tag and Version
-      run: 
     - uses: softprops/action-gh-release@v1
-        with:
-          draft: true
-          files: ./neonize/*.so
-          generate_release_notes: true
+      with:
+        draft: true
+        files: ./neonize/*.so
+        generate_release_notes: true
     #     #ARM64/AARCH64
     #     export GOOS=linux
     #     export GOARCH=arm64
