@@ -1,0 +1,111 @@
+name: ci
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: set release version
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v4
+      with:
+        go-version: '^1.21.5'
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python - -y
+    - name: Installing Dependencies
+      run: |
+        sudo apt install wget -y # gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu
+        poetry install
+        poetry version ${{ github.event.inputs.version }}
+    - name: LINUX
+      run: |
+        #AMD64/X86_64
+        export CGO_ENABLED=1
+        poetry run build goneonize
+    - name: Set Tag and Version
+      run: 
+    - uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: ./neonize/*.so
+          generate_release_notes: true
+    #     #ARM64/AARCH64
+    #     export GOOS=linux
+    #     export GOARCH=arm64
+    #     export CC=$(which aarch64-linux-gnu-gcc)
+    #     export CXX=$(which aarch64-linux-gnu-cpp)
+    #     poetry run build goneonize
+    #     #RISCV64
+    #     export GOOS=linux
+    #     export GOARCH=riscv64
+    #     export CC=$(which riscv64-linux-gnu-gcc)
+    #     export CXX=$(which riscv64-linux-gnu-cpp)
+    #     poetry run build goneonize
+    #     #S390X
+    #     export GOOS=linux
+    #     export GOARCH=s390x
+    #     export CC=$(which s390x-linux-gnu-gcc)
+    #     export CXX=$(which s390x-linux-gnu-cpp)
+    #     poetry run build goneonize
+    # - name: WINDOWS SHARED LIBRARY USING ZIG
+    #   run: |
+    #     wget https://ziglang.org/builds/zig-linux-x86_64-0.12.0-dev.2150+63de8a598.tar.xz
+    #     xz -d zig-linux-x86_64-0.12.0-dev.2150+63de8a598.tar.xz
+    #     tar -xf zig-linux-x86_64-0.12.0-dev.2150+63de8a598.tar
+    #     export PATH=$(pwd)/zig-linux-x86_64-0.12.0-dev.2150+63de8a598:$PATH
+    #     export CGO_ENABLED=1
+    #     #AMD64
+    #     export GOOS=windows
+    #     export GOARCH=amd64
+    #     export CC="zig cc -target x86_64-windows"
+    #     poetry run build goneonize
+    #     #ARM64
+    #     export GOOS=windows
+    #     export GOARCH=arm64
+    #     export CC="zig cc -target aarch64-windows"
+    #     poetry run build goneonize
+    #     #X86 / 386
+    #     export GOOS=windows
+    #     export GOARCH=386
+    #     export CC="zig cc -target x86-windows"
+    #     poetry run build goneonize
+    # - name: ANDROID
+    #   run: |
+    #     export CGO_ENABLED=1
+    #     wget https://dl.google.com/android/repository/android-ndk-r26b-linux.zip > /dev/null
+    #     unzip android-ndk-r26b-linux.zip > /dev/null
+    #     export ANDROID_NDK_HOME=$(pwd)/android-ndk-r26b
+    #     export PATH=$PATH:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
+    #     #ARM64/AARCH64
+    #     export CC=$(which aarch64-linux-android28-clang)
+    #     export CXX=$(which aarch64-linux-android28-clang++)
+    #     export GOOS=android
+    #     export GOARCH=arm64
+    #     poetry run build goneonize
+    #     #ARM
+    #     export CC=$(which armv7a-linux-androideabi28-clang)
+    #     export CXX=$(which armv7a-linux-androideabi28-clang++)
+    #     export GOOS=android
+    #     export GOARCH=arm
+    #     poetry run build goneonize
+    #     #AMD64/x86_64
+    #     export CC=$(which x86_64-linux-android28-clang)
+    #     export CXX=$(which x86_64-linux-android28-clang++)
+    #     export GOOS=android
+    #     export GOARCH=amd64
+    #     poetry run build goneonize
+    #     #386/686
+    #     export CC=$(which i686-linux-android28-clang)
+    #     export CXX=$(which i686-linux-android28-clang++)
+    #     export GOOS=android
+    #     export GOARCH=386
+    #     poetry run build goneonize
