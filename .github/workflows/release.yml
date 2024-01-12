@@ -102,11 +102,12 @@ jobs:
         export GOOS=android
         export GOARCH=386
         poetry run build goneonize
-
     - name: Upload shared library File
       uses: softprops/action-gh-release@v1
       with:
         draft: true
-        files: ./neonize/*.so
+        files: |
+          ./neonize/*.so
+          ./neonize/*.dll
         generate_release_notes: true
         tag_name: ${{ github.event.inputs.version }}
