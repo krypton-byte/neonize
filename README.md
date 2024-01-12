@@ -1,9 +1,8 @@
-<center> 
-<img src="assets/logo.jpg" width="20%">
+<p align="center"> <img src="assets/logo.jpg" width="20%">
+</p>
 
-# Neonize
+## <p align="center">Neonize</p>
 
-</center>
 
 [![Release](https://github.com/krypton-byte/neonize/actions/workflows/release.yml/badge.svg)](https://github.com/krypton-byte/neonize/actions/workflows/release.yml)
 
