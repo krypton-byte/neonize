@@ -1,11 +1,28 @@
 import ctypes
 import os
 from platform import system
-
+import platform
+from typing import Dict
+def arch_normalizer(arch_: str) -> str:
+    arch: Dict[str, str] = {
+        "aarch64":"arm64",
+        "x86_64":"amd64",
+    }
+    return arch.get(arch_, arch_)
+def generated_name(os_name = "", arch_name =""):
+    os_name = os_name or platform.system().lower()
+    arch_name = arch_normalizer(arch_name or platform.machine().lower())
+    if os_name== "windows":
+        ext = "dll"
+    elif os_name  == "linux":
+        ext = "so"
+    else:
+        ext = "so"
+    return f"neonize-{os_name}-{arch_name}.{ext}"
 
 file_ext = "dll" if system() == "Windows" else "so"
 root_dir = os.path.abspath(os.path.dirname(__file__))
-gocode = ctypes.CDLL(f"{root_dir}/neonize.{file_ext}")
+gocode = ctypes.CDLL(f"{root_dir}/{generated_name()}")
 func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
 func = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
 func_bytes = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_int)
