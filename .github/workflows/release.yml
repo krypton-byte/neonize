@@ -23,7 +23,7 @@ jobs:
         curl -sSL https://install.python-poetry.org | python - -y
     - name: Installing Dependencies
       run: |
-        sudo apt install wget -y # gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu
+        sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
         poetry install
         poetry version ${{ github.event.inputs.version }}
     - name: LINUX
