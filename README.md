@@ -1,4 +1,4 @@
-<p align="center"> <img src="assets/logo.jpg" width="20%">
+<p align="center"> <img src="assets/logo.jpg" width="150px">
 </p>
 
 ## <p align="center">Neonize</p>
