@@ -5,5 +5,3 @@ neonize
    :maxdepth: 4
 
    neonize
-   neonize.proto
-   neonize.utils

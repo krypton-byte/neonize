@@ -8,69 +8,17 @@ on:
         required: true
 
 jobs:
-  build:
+  android:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-go@v4
-      with:
-        go-version: '^1.21.5'
     - uses: actions/setup-python@v4
       with:
         python-version: "3.11"
     - name: Install Poetry
       run: |
         curl -sSL https://install.python-poetry.org | python - -y
-    - name: Installing Dependencies
-      run: |
-        sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
         poetry install
-        poetry version ${{ github.event.inputs.version }}
-    - name: LINUX
-      run: |
-        #AMD64/X86_64
-        export CGO_ENABLED=1
-        poetry run build goneonize
-        #ARM64/AARCH64
-        export GOOS=linux
-        export GOARCH=arm64
-        export CC=$(which aarch64-linux-gnu-gcc)
-        export CXX=$(which aarch64-linux-gnu-cpp)
-        poetry run build goneonize
-        #RISCV64
-        export GOOS=linux
-        export GOARCH=riscv64
-        export CC=$(which riscv64-linux-gnu-gcc)
-        export CXX=$(which riscv64-linux-gnu-cpp)
-        poetry run build goneonize
-        #S390X
-        export GOOS=linux
-        export GOARCH=s390x
-        export CC=$(which s390x-linux-gnu-gcc)
-        export CXX=$(which s390x-linux-gnu-cpp)
-        poetry run build goneonize
-    - name: WINDOWS SHARED LIBRARY USING ZIG
-      run: |
-        wget https://ziglang.org/builds/zig-linux-x86_64-0.12.0-dev.2150+63de8a598.tar.xz
-        xz -d zig-linux-x86_64-0.12.0-dev.2150+63de8a598.tar.xz
-        tar -xf zig-linux-x86_64-0.12.0-dev.2150+63de8a598.tar
-        export PATH=$(pwd)/zig-linux-x86_64-0.12.0-dev.2150+63de8a598:$PATH
-        export CGO_ENABLED=1
-        #AMD64
-        export GOOS=windows
-        export GOARCH=amd64
-        export CC="zig cc -target x86_64-windows"
-        poetry run build goneonize
-        #ARM64
-        export GOOS=windows
-        export GOARCH=arm64
-        export CC="zig cc -target aarch64-windows"
-        poetry run build goneonize
-        #X86 / 386
-        export GOOS=windows
-        export GOARCH=386
-        export CC="zig cc -target x86-windows"
-        poetry run build goneonize
     - name: ANDROID
       run: |
         export CGO_ENABLED=1
@@ -102,12 +50,117 @@ jobs:
         export GOOS=android
         export GOARCH=386
         poetry run build goneonize
-    - name: Upload shared library File
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with: 
+        name: Linux
+        if-no-files-found: error
+        retention-days: 1
+        path: neonize/*.so
+  zig:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python - -y
+        poetry install
+      run: |
+        wget https://ziglang.org/builds/zig-linux-x86_64-0.12.0-dev.2150+63de8a598.tar.xz
+        xz -d zig-linux-x86_64-0.12.0-dev.2150+63de8a598.tar.xz
+        tar -xf zig-linux-x86_64-0.12.0-dev.2150+63de8a598.tar
+        export PATH=$(pwd)/zig-linux-x86_64-0.12.0-dev.2150+63de8a598:$PATH
+        export CGO_ENABLED=1
+        #AMD64
+        export GOOS=windows
+        export GOARCH=amd64
+        export CC="zig cc -target x86_64-windows"
+        poetry run build goneonize
+        #ARM64
+        export GOOS=windows
+        export GOARCH=arm64
+        export CC="zig cc -target aarch64-windows"
+        poetry run build goneonize
+        #X86 / 386
+        export GOOS=windows
+        export GOARCH=386
+        export CC="zig cc -target x86-windows"
+        poetry run build goneonize
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with: 
+        name: Zig
+        if-no-files-found: error
+        retention-days: 1
+        path: |
+          neonize/*.so
+          neonize/*.dll
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v4
+      with:
+        go-version: '^1.21.5'
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python - -y
+    - name: Installing Dependencies
+      run: |
+        sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
+        poetry install
+    - name: LINUX
+      run: |
+        #AMD64/X86_64
+        export CGO_ENABLED=1
+        poetry run build goneonize
+        #ARM64/AARCH64
+        export GOOS=linux
+        export GOARCH=arm64
+        export CC=$(which aarch64-linux-gnu-gcc)
+        export CXX=$(which aarch64-linux-gnu-cpp)
+        poetry run build goneonize
+        #RISCV64
+        export GOOS=linux
+        export GOARCH=riscv64
+        export CC=$(which riscv64-linux-gnu-gcc)
+        export CXX=$(which riscv64-linux-gnu-cpp)
+        poetry run build goneonize
+        #S390X
+        export GOOS=linux
+        export GOARCH=s390x
+        export CC=$(which s390x-linux-gnu-gcc)
+        export CXX=$(which s390x-linux-gnu-cpp)
+        poetry run build goneonize
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with: 
+        name: Android
+        if-no-files-found: error
+        retention-days: 1
+        path: neonize/*.so
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+      name: |
+        Android
+        Zig
+        Linux
+    - name: Upload shared library to draft release
       uses: softprops/action-gh-release@v1
       with:
         draft: true
         files: |
-          ./neonize/*.so
-          ./neonize/*.dll
+          *.so
+          *.dll
         generate_release_notes: true
         tag_name: ${{ github.event.inputs.version }}

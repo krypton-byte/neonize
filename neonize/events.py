@@ -39,10 +39,9 @@ from .proto.Neonize_pb2 import (
     NewsletterJoin as NewsletterJoinEv,
     NewsletterLeave as NewsletterLeaveEv,
     NewsletterMuteChange as NewsletterMuteChangeEv,
-    NewsletterLiveUpdate as NewsletterLiveUpdateEV
-
-
+    NewsletterLiveUpdate as NewsletterLiveUpdateEV,
 )
+
 log = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from .client import NewClient
@@ -75,11 +74,11 @@ EVENT_TO_INT: Dict[Type[Message], int] = {
     OfflineSyncPreviewEv: 26,
     OfflineSyncCompletedEv: 27,
     BlocklistEv: 30,
-    BlocklistChangeEv:31,
+    BlocklistChangeEv: 31,
     NewsletterJoinEv: 32,
     NewsletterLeaveEv: 33,
     NewsletterMuteChangeEv: 34,
-    NewsletterLiveUpdateEV: 35
+    NewsletterLiveUpdateEV: 35,
 }
 INT_TO_EVENT: Dict[int, Type[Message]] = {code: ev for ev, code in EVENT_TO_INT.items()}
 
@@ -98,6 +97,7 @@ class Event:
     def wrap(self, f: Callable[[NewClient, EventType], None], event: Type[EventType]):
         if event not in EVENT_TO_INT:
             raise UnsupportedEvent()
+
         def serialization(binary: int, size: int):
             f(self.client, event.FromString(ctypes.string_at(binary, size)))
 

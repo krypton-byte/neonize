@@ -29,10 +29,12 @@ def add_exif(filename: str, name: str = "", author: str = ""):
         "sticker-pack-name": name,
         "sticker-pack-publisher": author,
         "android-app-store-link": "https://play.google.com/store/apps/details?id=com.marsvard.stickermakerforwhatsapp",
-        "ios-app-store-link": "https://itunes.apple.com/app/sticker-maker-studio/id1443326857"
+        "ios-app-store-link": "https://itunes.apple.com/app/sticker-maker-studio/id1443326857",
     }
 
-    exif_attr = bytes.fromhex("49 49 2A 00 08 00 00 00 01 00 41 57 07 00 00 00 00 00 16 00 00 00")
+    exif_attr = bytes.fromhex(
+        "49 49 2A 00 08 00 00 00 01 00 41 57 07 00 00 00 00 00 16 00 00 00"
+    )
     json_buffer = json.dumps(json_data).encode("utf-8")
     exif = exif_attr + json_buffer
     exif_length = len(json_buffer)
@@ -63,21 +65,29 @@ def cv_to_webp(file: str | bytes, is_video: bool = False, **kwargs) -> BytesIO:
     output = filename + ".webp"
     ffmpeg_command = [
         "ffmpeg",
-        "-v", "quiet",
-        "-i", filename,
-        "-vcodec", "libwebp",
-        "-vf", (
+        "-v",
+        "quiet",
+        "-i",
+        filename,
+        "-vcodec",
+        "libwebp",
+        "-vf",
+        (
             f"scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, "
             f"pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] "
             f"palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse"
         ),
-        output
+        output,
     ]
     if is_video:
-        ffmpeg_command.extend([
-            "-ss", "00:00:00.0",
-            "-t", "00:00:06.0",
-        ])
+        ffmpeg_command.extend(
+            [
+                "-ss",
+                "00:00:00.0",
+                "-t",
+                "00:00:06.0",
+            ]
+        )
     subprocess.call(ffmpeg_command)
     if kwargs.get("name") or kwargs.get("author"):
         add_exif(output, **kwargs)

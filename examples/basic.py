@@ -37,9 +37,11 @@ def testblock(client: NewClient):
     client.disconnect()
     log.debug("Blocking Function Quit!")
 
+
 @client.event(ConnectedEv)
 def on_connected(_: NewClient, __: ConnectedEv):
-    log.info('[✔] Connected')
+    log.info("[✔] Connected")
+
 
 @client.event(ReceiptEv)
 def on_receipt(client: NewClient, receipt: ReceiptEv):

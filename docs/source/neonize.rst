@@ -53,14 +53,6 @@ neonize.exc module
    :undoc-members:
    :show-inheritance:
 
-neonize.neonize module
-----------------------
-
-.. automodule:: neonize.neonize
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 neonize.types module
 --------------------
 
