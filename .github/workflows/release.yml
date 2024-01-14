@@ -158,13 +158,14 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v4
       with:
-        name: [Android, Linux, Zig]
+        merge-multiple: true
+        path: sharedlib
     - name: Upload shared library to draft release
       uses: softprops/action-gh-release@v1
       with:
         draft: true
         files: |
-          *.so
-          *.dll
+          sharedlib/*.so
+          sharedlib/*.dll
         generate_release_notes: true
         tag_name: ${{ github.event.inputs.version }}
