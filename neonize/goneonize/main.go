@@ -985,16 +985,12 @@ func BuildRevoke(id *C.char, ChatByte *C.uchar, ChatSize C.int, SenderByte *C.uc
 //export BuildPollVoteCreation
 func BuildPollVoteCreation(id *C.char, name *C.char, options *C.uchar, optionsSize C.int, selectableOptionCount C.int) C.struct_BytesReturn {
 	var options_proto neonize.ArrayString
-	options_array := []string{}
 	option_byte := getByteByAddr(options, optionsSize)
 	err := proto.Unmarshal(option_byte, &options_proto)
 	if err != nil {
 		panic(err)
 	}
-	for _, option := range options_proto.Data {
-		options_array = append(options_array, option)
-	}
-	msg := clients[C.GoString(id)].BuildPollCreation(C.GoString(name), options_array, int(selectableOptionCount))
+	msg := clients[C.GoString(id)].BuildPollCreation(C.GoString(name), options_proto.Data, int(selectableOptionCount))
 	return_, err_marshal := proto.Marshal(msg)
 	if err_marshal != nil {
 		panic(err_marshal)
@@ -1073,6 +1069,9 @@ func GetNewsletterInfoWithInvite(id *C.char, key *C.char) C.struct_BytesReturn {
 		return_.Error = proto.String(err.Error())
 	}
 	return_buf, err := proto.Marshal(&return_)
+	if err != nil {
+		panic(err)
+	}
 	return ReturnBytes(return_buf)
 }
 
@@ -1558,6 +1557,9 @@ func GetSubGroups(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.struct_BytesRet
 	}
 	return_.GroupLinkTarget = groups
 	return_buf, err := proto.Marshal(&return_)
+	if err != nil {
+		panic(err)
+	}
 	return ReturnBytes(return_buf)
 }
 
@@ -1637,11 +1639,7 @@ func BuildPollVote(id *C.char, pollInfo *C.uchar, pollInfoSize C.int, optionName
 	if err_2 != nil {
 		panic(err_2)
 	}
-	optionsname := []string{}
-	for _, option := range optionNames.Data {
-		optionsname = append(optionsname, option)
-	}
-	pollInfo_, err_poll := clients[C.GoString(id)].BuildPollVote(utils.DecodeMessageInfo(&msgInfo), optionsname)
+	pollInfo_, err_poll := clients[C.GoString(id)].BuildPollVote(utils.DecodeMessageInfo(&msgInfo), optionNames.Data)
 	return_ := neonize.BuildPollVoteReturnFunction{}
 	if err != nil {
 		return_.Error = proto.String(err_poll.Error())
