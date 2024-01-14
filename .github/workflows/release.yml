@@ -163,11 +163,6 @@ jobs:
     steps:
     - name: Download Artifact
       uses: actions/download-artifact@v4
-      with:
-        name: |
-          Android
-          Zig
-          Linux
     - name: Upload shared library to draft release
       uses: softprops/action-gh-release@v1
       with:
