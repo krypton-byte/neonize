@@ -19,7 +19,7 @@ jobs:
       run: |
         curl -sSL https://install.python-poetry.org | python - -y
         poetry install
-    - name: ANDROID
+    - name: build
       run: |
         export CGO_ENABLED=1
         wget https://dl.google.com/android/repository/android-ndk-r26b-linux.zip > /dev/null
@@ -68,6 +68,7 @@ jobs:
       run: |
         curl -sSL https://install.python-poetry.org | python - -y
         poetry install
+    - name: build
       run: |
         wget https://ziglang.org/builds/zig-linux-x86_64-0.12.0-dev.2150+63de8a598.tar.xz
         xz -d zig-linux-x86_64-0.12.0-dev.2150+63de8a598.tar.xz
@@ -120,7 +121,7 @@ jobs:
       run: |
         sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
         poetry install
-    - name: LINUX
+    - name: build
       run: |
         #AMD64/X86_64
         export CGO_ENABLED=1
@@ -152,6 +153,7 @@ jobs:
         path: neonize/*.so
   release:
     runs-on: ubuntu-latest
+    needs: [android, zig, linux]
     steps:
     - name: Download Artifact
       uses: actions/download-artifact@v4
