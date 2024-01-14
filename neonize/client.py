@@ -137,7 +137,6 @@ class NewClient:
     def __init__(
         self,
         name: str,
-        qrCallback: Optional[Callable[[NewClient, bytes], None]] = None,
         props: Optional[DeviceProps] = None,
         uuid: Optional[str] = None,
     ):
@@ -155,40 +154,41 @@ class NewClient:
         self.name = name
         self.device_props = props
         self.uuid = (uuid or name).encode()
-        self.qrCallback = qrCallback
         self.__client = gocode
         self.event = Event(self)
         self.blocking = self.event.blocking
-        log.debug("create NewClient instance")
+        self.qr = self.event.qr
+        log.debug("🔨 Creating a NewClient instance")
 
     def __onLoginStatus(self, s: str):
         print(s)
 
-    def __onQr(self, qr_protobytes):
-        if self.qrCallback:
-            self.qrCallback(self, ctypes.string_at(qr_protobytes))
+    def __onQr(self, qr_protoaddr: int):
+        """
+        This method triggers an event when a QR code is detected.
 
-    # def __onMessage(
-    #     self,
-    #     message_protobytes: int,
-    #     message_size: int,
-    # ):
-    #     """Handles incoming messages.
-
-    #     :param message_protobytes: The bytes representing the message.
-    #     :type message_protobytes: int
-    #     :param message_size: The size of the message in bytes.
-    #     :type message_size: int
-    #     :param message_source: The source of the message.
-    #     :type message_source: int
-    #     :param message_source_size: The size of the message source.
-    #     :type message_source_size: int
-    #     """
-    #     if self.messageCallback:
-    #         bytes_data = ctypes.string_at(message_protobytes, message_size)
-    #         self.messageCallback(self, neonize_proto.Message.FromString(bytes_data))
+        :param qr_protoaddr: The address of the QR code in memory.
+        :type qr_protoaddr: int
+        """
+        self.event._qr(self, ctypes.string_at(qr_protoaddr))
 
     def _parse_mention(self, text: Optional[str] = None) -> list[str]:
+        """_summary_
+
+        :param text: _description_, defaults to None
+        :type text: Optional[str], optional
+        :return: _description_
+        :rtype: list[str]
+        """
+        """
+        This function parses a given text and returns a list of 'mentions' in the format of 'mention@s.whatsapp.net'.
+        A 'mention' is defined as a sequence of numbers (5 to 16 digits long) that is prefixed by '@' in the text.
+    
+        :param text: The text to be parsed for mentions, defaults to None
+        :type text: Optional[str], optional
+        :return: A list of mentions in the format of 'mention@s.whatsapp.net'
+        :rtype: list[str]
+        """
         if text is None:
             return []
         return [
@@ -410,7 +410,7 @@ class NewClient:
         """
         image_buf = get_bytes_from_name_or_url(file)
         mimetype = magic.from_buffer(image_buf, mime=True)
-        is_video = "video" or "gif" in mimetype
+        is_video = "video" in mimetype or "gif" in mimetype
         io_save = cv_to_webp(image_buf, is_video=is_video, **kwargs)
         io_save.seek(0)
         save = io_save.read()
@@ -964,6 +964,20 @@ class NewClient:
     def join_group_with_invite(
         self, jid: JID, inviter: JID, code: str, expiration: int
     ):
+        """
+        This function allows a user to join a group in a chat application using an invite.
+        It uses the JID (Jabber ID) of the group, the JID of the inviter, an invitation code, and an expiration time for the code.
+
+        :param jid: The JID of the group to join.
+        :type jid: JID
+        :param inviter: The JID of the person who sent the invite.
+        :type inviter: JID
+        :param code: The invitation code.
+        :type code: str
+        :param expiration: The expiration time of the invitation code in seconds.
+        :type expiration: int
+        :raises JoinGroupWithInviteError: If there is an error in joining the group, such as an invalid code or expired invitation.
+        """
         jidbytes = jid.SerializeToString()
         inviterbytes = inviter.SerializeToString()
         err = self.__client.JoinGroupWithInvite(
@@ -979,6 +993,15 @@ class NewClient:
             raise JoinGroupWithInviteError(err)
 
     def link_group(self, parent: JID, child: JID):
+        """
+        Links a child group to a parent group.
+
+        :param parent: The JID of the parent group
+        :type parent: JID
+        :param child: The JID of the child group
+        :type child: JID
+        :raises LinkGroupError: If there is an error while linking the groups
+        """
         parent_bytes = parent.SerializeToString()
         child_bytes = child.SerializeToString()
         err = self.__client.LinkGroup(
@@ -1000,6 +1023,20 @@ class NewClient:
         receipt: ReceiptType,
         timestamp: Optional[int] = None,
     ):
+        """Marks the specified messages as read.
+
+        :param message_ids: List of IDs of the messages to be marked as read.
+        :type message_ids: List[str]
+        :param chat: The chat where the messages are located.
+        :type chat: JID
+        :param sender: The sender of the messages.
+        :type sender: JID
+        :param receipt: The receipt type of the messages.
+        :type receipt: ReceiptType
+        :param timestamp: The timestamp when the messages were read, defaults to current time if not provided.
+        :type timestamp: Optional[int], optional
+        :raises MarkReadError: If there is an error while marking the messages as read.
+        """
         chat_proto = chat.SerializeToString()
         sender_proto = sender.SerializeToString()
         timestamp_args = int(time.time()) if timestamp is None else timestamp
@@ -1019,6 +1056,15 @@ class NewClient:
     def newsletter_mark_viewed(
         self, jid: JID, message_server_ids: List[MessageServerID]
     ):
+        """
+        Marks the specified newsletters as viewed by the user with the given JID.
+
+        :param jid: The JID (Jabber ID) of the user who has viewed the newsletters.
+        :type jid: JID
+        :param message_server_ids: List of server IDs of the newsletters that have been viewed.
+        :type message_server_ids: List[MessageServerID]
+        :raises NewsletterMarkViewedError: If an error occurs while marking the newsletters as viewed.
+        """
         servers = struct.pack(f"{len(message_server_ids)}b", *message_server_ids)
         jid_proto = jid.SerializeToString()
         err = self.__client.NewsletterMarkViewed(
@@ -1034,6 +1080,19 @@ class NewClient:
         reaction: str,
         message_id: str,
     ):
+        """
+        Sends a reaction to a newsletter.
+
+        :param jid: The unique identifier for the recipient of the newsletter.
+        :type jid: JID
+        :param message_server_id: The unique identifier for the server where the message is stored.
+        :type message_server_id: MessageServerID
+        :param reaction: The reaction to be sent.
+        :type reaction: str
+        :param message_id: The unique identifier for the message to which the reaction is being sent.
+        :type message_id: str
+        :raises NewsletterSendReactionError: If an error occurs while sending the reaction.
+        """
         jid_proto = jid.SerializeToString()
         err = self.__client.NewsletterSendReaction(
             self.uuid,
@@ -1048,6 +1107,14 @@ class NewClient:
         return
 
     def newsletter_subscribe_live_updates(self, jid: JID) -> int:
+        """Subscribes a user to live updates of a newsletter.
+
+        :param jid: The unique identifier of the user subscribing to the newsletter.
+        :type jid: JID
+        :raises NewsletterSubscribeLiveUpdatesError: If there is an error during the subscription process.
+        :return: The duration for which the subscription is valid.
+        :rtype: int
+        """
         jid_proto = jid.SerializeToString()
         model = neonize_proto.NewsletterSubscribeLiveUpdatesReturnFunction.FromString(
             self.__client.NewsletterSubscribeLiveUpdates(
@@ -1059,6 +1126,14 @@ class NewClient:
         return model.Duration
 
     def newsletter_toggle_mute(self, jid: JID, mute: bool):
+        """Toggle the mute status of a given JID.
+
+        :param jid: The JID (Jabber Identifier) of the user.
+        :type jid: JID
+        :param mute: The desired mute status. If True, the user will be muted. If False, the user will be unmuted.
+        :type mute: bool
+        :raises NewsletterToggleMuteError: If there is an error while toggling the mute status.
+        """
         jid_proto = jid.SerializeToString()
         err = self.__client.NewsletterToggleMute(
             self.uuid, jid_proto, len(jid_proto), mute
@@ -1069,6 +1144,14 @@ class NewClient:
     def resolve_business_message_link(
         self, code: str
     ) -> neonize_proto.BusinessMessageLinkTarget:
+        """Resolves the target of a business message link.
+
+        :param code: The code of the business message link to be resolved.
+        :type code: str
+        :raises ResolveContactQRLinkError: If an error occurs while resolving the link.
+        :return: The target of the business message link.
+        :rtype: neonize_proto.BusinessMessageLinkTarget
+        """
         model = neonize_proto.ResolveBusinessMessageLinkReturnFunction.FromString(
             self.__client.ResolveBusinessMessageLink(
                 self.uuid, code.encode()
@@ -1079,6 +1162,14 @@ class NewClient:
         return model.MessageLinkTarget
 
     def resolve_contact_qr_link(self, code: str) -> neonize_proto.ContactQRLinkTarget:
+        """Resolves a QR link for a specific contact.
+
+        :param code: The QR code to be resolved.
+        :type code: str
+        :raises ResolveContactQRLinkError: If an error occurs while resolving the QR link.
+        :return: The target contact of the QR link.
+        :rtype: neonize_proto.ContactQRLinkTarget
+        """
         model = neonize_proto.ResolveContactQRLinkReturnFunction.FromString(
             self.__client.ResolveContactQRLink(self.uuid, code.encode()).get_bytes()
         )
@@ -1087,12 +1178,28 @@ class NewClient:
         return model.ContactQrLink
 
     def send_app_state(self, patch_info: neonize_proto.PatchInfo):
+        """
+        This function serializes the application state and sends it to the client. If there's an error during this process,
+        it raises a SendAppStateError exception.
+
+        :param patch_info: Contains the information about the application state that needs to be patched.
+        :type patch_info: neonize_proto.PatchInfo
+        :raises SendAppStateError: If there's an error while sending the application state, this exception is raised.
+        """
         patch = patch_info.SerializeToString()
         err = self.__client.SendAppState(self.uuid, patch, len(patch)).decode()
         if err:
             raise SendAppStateError(err)
 
     def set_default_disappearing_timer(self, timer: typing.Union[timedelta, int]):
+        """
+        Sets a default disappearing timer for messages. The timer can be specified as a timedelta or an integer.
+        If a timedelta is provided, it is converted to nanoseconds. If an integer is provided, it is used directly as the timer.
+
+        :param timer: The duration for messages to exist before disappearing. Can be a timedelta or an integer.
+        :type timer: typing.Union[timedelta, int]
+        :raises SetDefaultDisappearingTimerError: If an error occurs while setting the disappearing timer.
+        """
         timestamp = 0
         if isinstance(timer, timedelta):
             timestamp = int(timer.total_seconds() * 1000**3)
@@ -1103,6 +1210,16 @@ class NewClient:
             raise SetDefaultDisappearingTimerError(err)
 
     def set_disappearing_timer(self, jid: JID, timer: typing.Union[timedelta, int]):
+        """
+        Set a disappearing timer for a specific JID. The timer can be set as either a timedelta object or an integer.
+        If a timedelta object is provided, it's converted into nanoseconds. If an integer is provided, it's interpreted as nanoseconds.
+
+        :param jid: The JID for which the disappearing timer is to be set
+        :type jid: JID
+        :param timer: The duration for the disappearing timer. Can be a timedelta object or an integer representing nanoseconds.
+        :type timer: typing.Union[timedelta, int]
+        :raises SetDisappearingTimerError: If there is an error in setting the disappearing timer
+        """
         timestamp = 0
         jid_proto = jid.SerializeToString()
         if isinstance(timer, timedelta):
@@ -1116,9 +1233,24 @@ class NewClient:
             raise SetDisappearingTimerError(err)
 
     def set_force_activate_delivery_receipts(self, active: bool):
+        """
+        This method is used to forcibly activate or deactivate the delivery receipts for a client.
+
+        :param active: This parameter determines whether the delivery receipts should be forcibly activated or deactivated. If it's True, the delivery receipts will be forcibly activated, otherwise, they will be deactivated.
+        :type active: bool
+        """
         self.__client.SetForceActiveDeliveryReceipts(self.uuid, active)
 
     def set_group_announce(self, jid: JID, announce: bool):
+        """
+        Sets the announcement status of a group.
+
+        :param jid: The unique identifier of the group
+        :type jid: JID
+        :param announce: The announcement status to be set. If True, announcements are enabled. If False, they are disabled.
+        :type announce: bool
+        :raises SetGroupAnnounceError: If there is an error while setting the announcement status
+        """
         jid_proto = jid.SerializeToString()
         err = self.__client.SetGroupAnnounce(
             self.uuid, jid_proto, len(jid_proto), announce
@@ -1127,6 +1259,15 @@ class NewClient:
             raise SetGroupAnnounceError(err)
 
     def set_group_locked(self, jid: JID, locked: bool):
+        """
+        Sets the locked status of a group identified by the given JID.
+
+        :param jid: The JID (Jabber ID) of the group to be locked/unlocked.
+        :type jid: JID
+        :param locked: The new locked status of the group. True to lock the group, False to unlock.
+        :type locked: bool
+        :raises SetGroupLockedError: If the operation fails, an error with the reason for the failure is raised.
+        """
         jid_proto = jid.SerializeToString()
         err = self.__client.SetGroupLocked(
             self.uuid, jid_proto, len(jid_proto), locked
@@ -1135,6 +1276,19 @@ class NewClient:
             raise SetGroupLockedError(err)
 
     def set_group_topic(self, jid: JID, previous_id: str, new_id: str, topic: str):
+        """
+        Set the topic of a group in a chat application.
+
+        :param jid: The unique identifier of the group
+        :type jid: JID
+        :param previous_id: The previous identifier of the topic
+        :type previous_id: str
+        :param new_id: The new identifier for the topic
+        :type new_id: str
+        :param topic: The new topic to be set
+        :type topic: str
+        :raises SetGroupTopicError: If there is an error setting the group topic
+        """
         jid_proto = jid.SerializeToString()
         err = self.__client.SetGroupTopic(
             self.uuid,
@@ -1148,6 +1302,15 @@ class NewClient:
             raise SetGroupTopicError(err)
 
     def set_privacy_setting(self, name: PrivacySettingType, value: PrivacySetting):
+        """
+        This method is used to set the privacy settings of a user.
+
+        :param name: The name of the privacy setting to be changed.
+        :type name: PrivacySettingType
+        :param value: The new value for the privacy setting.
+        :type value: PrivacySetting
+        :raises SetPrivacySettingError: If there is an error while setting the privacy setting.
+        """
         err = self.__client.SetPrivacySetting(
             self.uuid, name.value.encode(), value.value.encode()
         ).decode()
@@ -1155,16 +1318,37 @@ class NewClient:
             raise SetPrivacySettingError(err)
 
     def set_passive(self, passive: bool):
+        """
+        Sets the passive mode of the client.
+
+        :param passive: If True, sets the client to passive mode. If False, sets the client to active mode.
+        :type passive: bool
+        :raises SetPassiveError: If an error occurs while setting the client to passive mode.
+        """
         err = self.__client.SetPassive(self.uuid, passive)
         if err:
             raise SetPassiveError(err)
 
     def set_status_message(self, msg: str):
+        """
+        Sets a status message for a client using the client's UUID.
+
+        :param msg: The status message to be set.
+        :type msg: str
+        :raises SetStatusMessageError: If there is an error while setting the status message.
+        """
         err = self.__client.SetStatusMessage(self.uuid, msg.encode()).decode()
         if err:
             raise SetStatusMessageError(err)
 
     def subscribe_presence(self, jid: JID):
+        """
+        This method is used to subscribe to the presence of a certain JID (Jabber ID).
+
+        :param jid: The Jabber ID (JID) that we want to subscribe to.
+        :type jid: JID
+        :raises SubscribePresenceError: If there is an error while subscribing to the presence of the JID.
+        """
         jid_proto = jid.SerializeToString()
         err = self.__client.SubscribePresence(
             self.uuid, jid_proto, len(jid_proto)
@@ -1173,6 +1357,13 @@ class NewClient:
             raise SubscribePresenceError(err)
 
     def unfollow_newsletter(self, jid: JID):
+        """
+        Unfollows a newsletter by providing the JID (Jabber ID) of the newsletter.
+
+        :param jid: The Jabber ID of the newsletter to unfollow.
+        :type jid: JID
+        :raises UnfollowNewsletterError: If there is an error while attempting to unfollow the newsletter.
+        """
         jid_proto = jid.SerializeToString()
         err = self.__client.UnfollowNewsletter(
             self.uuid, jid_proto, len(jid_proto)
@@ -1181,6 +1372,15 @@ class NewClient:
             raise UnfollowNewsletterError(err)
 
     def unlink_group(self, parent: JID, child: JID):
+        """
+        This method is used to unlink a child group from a parent group.
+
+        :param parent: The JID of the parent group from which the child group is to be unlinked.
+        :type parent: JID
+        :param child: The JID of the child group which is to be unlinked from the parent group.
+        :type child: JID
+        :raises UnlinkGroupError: If there is an error while unlinking the child group from the parent group.
+        """
         parent_proto = parent.SerializeToString()
         child_proto = child.SerializeToString()
         err = self.__client.UnlinkGroup(
@@ -1190,6 +1390,17 @@ class NewClient:
             raise UnlinkGroupError(err)
 
     def update_blocklist(self, jid: JID, action: BlocklistAction) -> Blocklist:
+        """
+        Function to update the blocklist with a given action on a specific JID.
+
+        :param jid: The Jabber ID (JID) of the user to be blocked or unblocked.
+        :type jid: JID
+        :param action: The action to be performed (block or unblock) on the JID.
+        :type action: BlocklistAction
+        :raises UpdateBlocklistError: If there is an error while updating the blocklist.
+        :return: The updated blocklist.
+        :rtype: Blocklist
+        """
         jid_proto = jid.SerializeToString()
         model = neonize_proto.GetBlocklistReturnFunction.FromString(
             self.__client.UpdateBlocklist(
@@ -1203,6 +1414,20 @@ class NewClient:
     def update_group_participants(
         self, jid: JID, participants_changes: List[JID], action: ParticipantChange
     ) -> RepeatedCompositeFieldContainer[GroupParticipant]:
+        """
+        This method is used to update the list of participants in a group.
+        It takes in the group's JID, a list of participant changes, and an action to perform.
+
+        :param jid: The JID (Jabber ID) of the group to update.
+        :type jid: JID
+        :param participants_changes: A list of JIDs representing the participants to be added or removed.
+        :type participants_changes: List[JID]
+        :param action: The action to perform (add, remove, promote or demote participants).
+        :type action: ParticipantChange
+        :raises UpdateGroupParticipantsError: This error is raised if there is a problem updating the group participants.
+        :return: A list of the updated group participants.
+        :rtype: RepeatedCompositeFieldContainer[GroupParticipant]
+        """
         jid_proto = jid.SerializeToString()
         jids_proto = neonize_proto.JIDArray(
             JIDS=participants_changes
@@ -1222,6 +1447,16 @@ class NewClient:
         return model.participants
 
     def upload_newsletter(self, data: bytes, media_type: MediaType) -> UploadResponse:
+        """Uploads the newsletter to the server.
+
+        :param data: The newsletter content in bytes.
+        :type data: bytes
+        :param media_type: The type of media being uploaded.
+        :type media_type: MediaType
+        :raises UploadError: If there is an error during the upload process.
+        :return: The response from the server after the upload.
+        :rtype: UploadResponse
+        """
         model = UploadReturnFunction.FromString(
             self.__client.UploadNewsletter(
                 self.uuid, data, len(data), media_type.value
@@ -1416,6 +1651,12 @@ class NewClient:
         return model.NewsletterMessage
 
     def get_privacy_settings(self) -> PrivacySettings:
+        """
+        This function retrieves the my privacy settings.
+
+        :return: privacy settings
+        :rtype: PrivacySettings
+        """
         return neonize_proto.PrivacySettings.FromString(
             self.__client.GetPrivacySettings(self.uuid).get_bytes()
         )
@@ -1425,6 +1666,17 @@ class NewClient:
         jid: JID,
         extra: neonize_proto.GetProfilePictureParams = neonize_proto.GetProfilePictureParams(),
     ) -> ProfilePictureInfo:
+        """
+        This function is used to get the profile picture of a user.
+
+        :param jid: The unique identifier of the user whose profile picture we want to retrieve.
+        :type jid: JID
+        :param extra: Additional parameters, defaults to neonize_proto.GetProfilePictureParams()
+        :type extra: neonize_proto.GetProfilePictureParams, optional
+        :raises GetProfilePictureError: If there is an error while trying to get the profile picture.
+        :return: The information about the profile picture.
+        :rtype: ProfilePictureInfo
+        """
         jid_bytes = jid.SerializeToString()
         extra_bytes = extra.SerializeToString()
         model = neonize_proto.GetProfilePictureReturnFunction.FromString(
@@ -1443,6 +1695,12 @@ class NewClient:
     def get_status_privacy(
         self,
     ) -> RepeatedCompositeFieldContainer[StatusPrivacy]:
+        """Returns the status privacy settings of the user.
+
+        :raises GetStatusPrivacyError: If there is an error in getting the status privacy.
+        :return: The status privacy settings of the user.
+        :rtype: RepeatedCompositeFieldContainer[StatusPrivacy]
+        """
         model = neonize_proto.GetStatusPrivacyReturnFunction.FromString(
             self.__client.GetStatusPrivacy(self.uuid).get_bytes()
         )
@@ -1453,6 +1711,15 @@ class NewClient:
     def get_sub_groups(
         self, community: JID
     ) -> RepeatedCompositeFieldContainer[GroupLinkTarget]:
+        """
+        Get the subgroups of a given community.
+
+        :param community: The community for which to get the subgroups.
+        :type community: JID
+        :raises GetSubGroupsError: If there is an error while getting the subgroups.
+        :return: The subgroups of the given community.
+        :rtype: RepeatedCompositeFieldContainer[GroupLinkTarget]
+        """
         jid = community.SerializeToString()
         model = neonize_proto.GetSubGroupsReturnFunction.FromString(
             self.__client.GetSubGroups(self.uuid, jid, len(jid)).get_bytes()
@@ -1464,6 +1731,13 @@ class NewClient:
     def get_subscribed_newletters(
         self,
     ) -> RepeatedCompositeFieldContainer[NewsletterMetadata]:
+        """
+        This function retrieves the newsletters the user has subscribed to.
+
+        :raises GetSubscribedNewslettersError: If there is an error while fetching the subscribed newsletters
+        :return: A container with the metadata of each subscribed newsletter
+        :rtype: RepeatedCompositeFieldContainer[NewsletterMetadata]
+        """
         model = neonize_proto.GetSubscribedNewslettersReturnFunction.FromString(
             self.__client.GetSubscribedNewsletters(self.uuid).get_bytes()
         )
@@ -1472,6 +1746,14 @@ class NewClient:
         return model.Newsletter
 
     def get_user_devices(self, jids: List[JID]) -> RepeatedCompositeFieldContainer[JID]:
+        """_summary_
+
+        :param jids: _description_
+        :type jids: List[JID]
+        :raises GetUserDevicesError: _description_
+        :return: _description_
+        :rtype: RepeatedCompositeFieldContainer[JID]
+        """
         jids_ = neonize_proto.JIDArray(JIDS=jids).SerializeToString()
         model = neonize_proto.GetUserDevicesreturnFunction.FromString(
             self.__client.GetIserDevices(self.uuid, jids_, len(jids_)).get_bytes()
@@ -1494,9 +1776,25 @@ class NewClient:
         return model.Blocklist
 
     def get_me(self) -> Device:
+        """
+        This method is used to get the device information associated with a given UUID.
+
+        :return: It returns a Device object created from the byte string response from the client's GetMe method.
+        :rtype: Device
+        """
         return Device.FromString(self.__client.GetMe(self.uuid).get_bytes())
 
     def get_contact_qr_link(self, revoke: bool = False) -> str:
+        """
+        This function returns a QR link for a specific contact. If the 'revoke' parameter is set to True,
+        it revokes the existing QR link and generates a new one.
+
+        :param revoke: If set to True, revokes the existing QR link and generates a new one. Defaults to False.
+        :type revoke: bool, optional
+        :raises GetContactQrLinkError: If there is an error in getting the QR link.
+        :return: The QR link for the contact.
+        :rtype: str
+        """
         model = neonize_proto.GetContactQRLinkReturnFunction.FromString(
             self.__client.GetContactQRLink(self.uuid, revoke).get_bytes()
         )
@@ -1506,7 +1804,15 @@ class NewClient:
 
     def get_linked_group_participants(
         self, community: JID
-    ) -> RepeatedCompositeFieldContainer[JID]:  # untested
+    ) -> RepeatedCompositeFieldContainer[JID]:
+        """Fetches the participants of a linked group in a community.
+
+        :param community: The community in which the linked group belongs.
+        :type community: JID
+        :raises GetLinkedGroupParticipantsError: If there is an error while fetching the participants.
+        :return: A list of participants in the linked group.
+        :rtype: RepeatedCompositeFieldContainer[JID]
+        """
         jidbyte = community.SerializeToString()
         model = neonize_proto.GetGroupRequestParticipantsReturnFunction.FromString(
             self.__client.GetLinkedGroupsParticipants(
@@ -1517,9 +1823,16 @@ class NewClient:
             raise GetLinkedGroupParticipantsError(model.Error)
         return model.Participants
 
-    def get_newsletter_info(
-        self, jid: JID
-    ) -> neonize_proto.NewsletterMetadata:  # untested
+    def get_newsletter_info(self, jid: JID) -> neonize_proto.NewsletterMetadata:
+        """
+        Fetches the metadata of a specific newsletter using its JID.
+
+        :param jid: The unique identifier of the newsletter
+        :type jid: JID
+        :raises GetNewsletterInfoError: If there is an error while fetching the newsletter information
+        :return: The metadata of the requested newsletter
+        :rtype: neonize_proto.NewsletterMetadata
+        """
         jidbyte = jid.SerializeToString()
         model = neonize_proto.CreateNewsLetterReturnFunction.FromString(
             self.__client.GetNewsletterInfo(
@@ -1537,6 +1850,20 @@ class NewClient:
         client_name: ClientName = ClientName.LINUX,
         client_type: Optional[ClientType] = None,
     ):
+        """
+        Pair a phone with the client. This function will try to connect to the WhatsApp servers and pair the phone.
+        If successful, it will show a push notification on the paired phone.
+
+        :param phone: The phone number to be paired.
+        :type phone: str
+        :param show_push_notification: If true, a push notification will be shown on the paired phone.
+        :type show_push_notification: bool
+        :param client_name: The name of the client, defaults to LINUX.
+        :type client_name: ClientName, optional
+        :param client_type: The type of the client, defaults to None. If None, it will be set to FIREFOX or determined by the device properties.
+        :type client_type: Optional[ClientType], optional
+        """
+
         if client_type is None:
             if self.device_props is None:
                 client_type = ClientType.FIREFOX
@@ -1545,6 +1872,7 @@ class NewClient:
                     client_type = ClientType(self.device_props.platformType)
                 except ValueError:
                     client_type = ClientType.FIREFOX
+
         pl = neonize_proto.PairPhoneParams(
             phone=phone,
             clientDisplayName="%s (%s)" % (client_type.name, client_name.name),
@@ -1553,12 +1881,15 @@ class NewClient:
         )
         payload = pl.SerializeToString()
         d = bytearray(list(self.event.list_func))
+
         log.debug("trying connect to whatsapp servers")
+
         deviceprops = (
             DeviceProps(os="Neonize", platformType=DeviceProps.SAFARI)
             if self.device_props is None
             else self.device_props
         ).SerializeToString()
+
         self.__client.Neonize(
             self.name.encode(),
             self.uuid,
@@ -1575,14 +1906,50 @@ class NewClient:
             len(payload),
         )
 
+    def get_message_for_retry(
+        self, requester: JID, to: JID, message_id: str
+    ) -> typing.Union[None, Message]:
+        """
+        This function retrieves a specific message for retrying transmission.
+        It communicates with a client to get the message using provided requester, recipient, and message ID.
+
+        :param requester: The JID of the entity requesting the message.
+        :type requester: JID
+        :param to: The JID of the intended recipient of the message.
+        :type to: JID
+        :param message_id: The unique identifier of the message to be retrieved.
+        :type message_id: str
+        :return: The message to be retried if found, None otherwise.
+        :rtype: Union[None, Message]
+        """
+        requester_buf = requester.SerializeToString()
+        to_buf = to.SerializeToString()
+        model = neonize_proto.GetMessageForRetryReturnFunction.FromString(
+            self.__client.GetMessageForRetry(
+                self.uuid,
+                requester_buf,
+                len(requester_buf),
+                to_buf,
+                len(to_buf),
+                message_id.encode(),
+            ).get_bytes()
+        )
+        if not model.isEmpty:
+            return model.Message
+
     def connect(self):
+        """Establishes a connection to the WhatsApp servers."""
+        # Convert the list of functions to a bytearray
         d = bytearray(list(self.event.list_func))
-        log.debug("trying connect to whatsapp servers")
+        log.debug("🔒 Attempting to connect to the WhatsApp servers.")
+        # Set device properties
         deviceprops = (
             DeviceProps(os="Neonize", platformType=DeviceProps.SAFARI)
             if self.device_props is None
             else self.device_props
         ).SerializeToString()
+
+        # Initiate connection to the server
         self.__client.Neonize(
             self.name.encode(),
             self.uuid,
@@ -1590,7 +1957,7 @@ class NewClient:
             func_string(self.__onQr),
             func_string(self.__onLoginStatus),
             func_callback_bytes(self.event.execute),
-            (ctypes.c_char * self.event.list_func.__len__()).from_buffer(d),
+            (ctypes.c_char * len(self.event.list_func)).from_buffer(d),
             len(d),
             func(self.event.blocking_func),
             deviceprops,
@@ -1599,5 +1966,8 @@ class NewClient:
             0,
         )
 
-    def disconnect(self):
-        return self.__client.Disconnect(self.uuid)
+    def disconnect(self) -> None:
+        """
+        Disconnect the client
+        """
+        self.__client.Disconnect(self.uuid)

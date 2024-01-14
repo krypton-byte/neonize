@@ -3,11 +3,13 @@ import os
 import signal
 import sys
 from datetime import timedelta
+import time
 
 import segno
 
 from neonize.client import NewClient
 from neonize.events import ConnectedEv, MessageEv, PairStatusEv, event, ReceiptEv
+from neonize.types import MessageServerID
 from neonize.utils.enum import ReceiptType
 from neonize.utils import log
 from neonize.utils.enum import ReceiptType
@@ -15,7 +17,7 @@ from neonize.utils.enum import ReceiptType
 sys.path.insert(0, os.getcwd())
 
 
-def interrupted(*args):
+def interrupted(*_):
     event.set()
 
 
@@ -23,33 +25,25 @@ log.setLevel(logging.DEBUG)
 signal.signal(signal.SIGINT, interrupted)
 
 
-def onQr(_: NewClient, data_qr: bytes):
-    segno.make_qr(data_qr).terminal(compact=True)
-
-
-client = NewClient("krypton_pairphone.so", qrCallback=onQr)
-
-
-@client.blocking
-def testblock(client: NewClient):
-    log.debug("Blocking Function!")
-    event.wait()
-    client.disconnect()
-    log.debug("Blocking Function Quit!")
+client = NewClient("db.sqlite3")
 
 
 @client.event(ConnectedEv)
 def on_connected(_: NewClient, __: ConnectedEv):
-    log.info("[✔] Connected")
+    log.info("⚡ Connected")
 
 
 @client.event(ReceiptEv)
 def on_receipt(client: NewClient, receipt: ReceiptEv):
-    log.info(receipt)
+    log.debug(receipt)
 
 
 @client.event(MessageEv)
-def onMessage(client: NewClient, message: MessageEv):
+def on_message(client: NewClient, message: MessageEv):
+    handler(client, message)
+
+
+def handler(client: NewClient, message: MessageEv):
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     chat = message.Info.MessageSource.Chat
     match text:
@@ -166,9 +160,11 @@ def onMessage(client: NewClient, message: MessageEv):
 
 
 @client.event(PairStatusEv)
-def PairStatusMessage(client: NewClient, message: PairStatusEv):
-    print(client, message)
+def PairStatusMessage(_: NewClient, message: PairStatusEv):
+    log.info(f"logged as {message.ID.User}")
 
 
 client.connect()
+# print(dir(client))
+# client._NewClient__onQr(b"hahaa")
 # print(log.level)

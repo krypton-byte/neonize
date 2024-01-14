@@ -752,3 +752,8 @@ message UpdateGroupParticipantsReturnFunction {
     optional string Error = 1;
     repeated GroupParticipant participants = 2;
 }
+
+message GetMessageForRetryReturnFunction{
+    optional bool isEmpty = 1 [default=false];
+    optional defproto.Message Message = 2;
+}

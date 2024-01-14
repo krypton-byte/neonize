@@ -243,10 +243,10 @@ func EncodeMessageInfo(messageInfo types.MessageInfo) *neonize.MessageInfo {
 	model := &neonize.MessageInfo{
 		MessageSource: EncodeMessageSource(messageInfo.MessageSource),
 		ID:            &messageInfo.ID,
-		ServerID:      proto.Int64(messageInfo.Timestamp.Unix()),
+		ServerID:      proto.Int64(messageInfo.Timestamp.UnixMilli()),
 		Type:          &messageInfo.Type,
 		Pushname:      &messageInfo.PushName,
-		Timestamp:     proto.Int64(messageInfo.Timestamp.Unix()),
+		Timestamp:     proto.Int64(messageInfo.Timestamp.UnixMilli()),
 		Category:      &messageInfo.Category,
 		Multicast:     &messageInfo.Multicast,
 		MediaType:     &messageInfo.MediaType,

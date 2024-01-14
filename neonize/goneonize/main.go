@@ -1759,7 +1759,30 @@ func GetContactQRLink(id *C.char, revoke C.bool) C.struct_BytesReturn {
 	return ReturnBytes(return_)
 }
 
-///
+//export GetMessageForRetry
+func GetMessageForRetry(id *C.char, requester *C.uchar, requesterSize C.int, to *C.uchar, toSize C.int, messageID *C.char) C.struct_BytesReturn {
+	var RequesterJID, toJID neonize.JID
+	err_req := proto.Unmarshal(getByteByAddr(requester, requesterSize), &RequesterJID)
+	if err_req != nil {
+		panic(err_req)
+	}
+	err_to := proto.Unmarshal(getByteByAddr(to, toSize), &toJID)
+	if err_to != nil {
+		panic(err_to)
+	}
+	msg := clients[C.GoString(id)].GetMessageForRetry(utils.DecodeJidProto(&RequesterJID), utils.DecodeJidProto(&toJID), C.GoString(messageID))
+	return_ := neonize.GetMessageForRetryReturnFunction{}
+	if msg == nil {
+		return_.IsEmpty = proto.Bool(true)
+	} else {
+		return_.Message = utils.EncodeMessage(msg)
+	}
+	return_bytes, err := proto.Marshal(&return_)
+	if err != nil {
+		panic(err)
+	}
+	return ReturnBytes(return_bytes)
+}
 
 func main() {
 

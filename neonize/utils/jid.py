@@ -3,6 +3,13 @@ from ..proto.Neonize_pb2 import JID
 
 
 def JIDToNonAD(jid: JID):
+    """_summary_
+
+    :param jid: _description_
+    :type jid: JID
+    :return: _description_
+    :rtype: _type_
+    """
     new_jid = copy.deepcopy(jid)
     new_jid.RawAgent = 0
     new_jid.Device = 0

@@ -4,6 +4,7 @@ import logging
 from neonize.exc import UnsupportedEvent
 from .proto import Neonize_pb2 as neonize
 import ctypes
+import segno
 from typing import TypeVar, Type, Callable, TYPE_CHECKING, Dict
 from google.protobuf.message import Message
 
@@ -86,15 +87,45 @@ event = EventThread()
 
 
 class Event:
-    def __init__(self, client: NewClient):
+    def __init__(self, client):
+        """
+        Initializes the Event class with a client of type NewClient.
+        Also sets up a default blocking function and an empty dictionary for list functions.
+
+        :param client: An instance of the NewClient class
+        :type client: NewClient
+        """
         self.client = client
-        self.blocking_func = self.default_blocking
+        self.blocking_func = self.blocking(self.default_blocking)
         self.list_func: Dict[int, Callable[[int, int], None]] = {}
+        self._qr = self.__onqr
 
     def execute(self, binary: int, size: int, code: int):
+        """Executes a function from the list of functions based on the given code.
+
+        :param binary: The binary data to be processed by the function.
+        :type binary: int
+        :param size: The size of the binary data.
+        :type size: int
+        :param code: The index of the function to be executed from the list of functions.
+        :type code: int
+        """
         self.list_func[code](binary, size)
 
     def wrap(self, f: Callable[[NewClient, EventType], None], event: Type[EventType]):
+        """
+        This method wraps the function 'f' and returns a new function 'serialization' that
+        takes two parameters - binary and size. The 'serialization' function calls 'f' with
+        the client and an event deserialized from a string.
+
+        :param f: Function to be wrapped. It should accept two parameters - a NewClient object and an EventType object.
+        :type f: Callable[[NewClient, EventType], None]
+        :param event: Type of the event.
+        :type event: Type[EventType]
+        :raises UnsupportedEvent: If the provided event is not supported.
+        :return: Returns a function 'serialization' that accepts two parameters - binary and size.
+        :rtype: Callable[[int, int], None]
+        """
         if event not in EVENT_TO_INT:
             raise UnsupportedEvent()
 
@@ -103,19 +134,30 @@ class Event:
 
         return serialization
 
+    def __onqr(self, _: NewClient, data_qr: bytes):
+        segno.make_qr(data_qr).terminal(compact=True)
+
+    def qr(self, f: Callable[[NewClient, bytes], None]):
+        self._qr = f
+
     @property
     def blocking(self):
         def block(f: Callable[[NewClient], None]):
+            """This method assigns a blocking function to process a new client and prevents the process from ending.
+
+            :param f: A function that takes a new client as an argument and returns nothing.
+            :type f: Callable[[NewClient], None]
+            """
             self.blocking_func = lambda _: f(self.client)
             return self.blocking_func
 
         return block
 
     @classmethod
-    def default_blocking(cls, x):
-        log.debug("blocking function called")
+    def default_blocking(cls, _):
+        log.debug("🚧 The blocking function has been called.")
         event.wait()
-        log.debug("function unblocked")
+        log.debug("🚦 The function has been unblocked.")
 
     def __call__(
         self, event: Type[EventType]

@@ -2,7 +2,7 @@ import ctypes
 import os
 from platform import system
 import platform
-from typing import Dict
+from typing import Any, Dict
 from pathlib import Path
 
 func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
@@ -17,6 +17,7 @@ from .utils.platform import generated_name
 if not os.environ.get("SPHINX"):
     if not (Path(__file__).parent / generated_name()).exists():
         from .download import download
+
         download()
     file_ext = "dll" if system() == "Windows" else "so"
     root_dir = os.path.abspath(os.path.dirname(__file__))
@@ -363,5 +364,14 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
     ]
     gocode.UpdateGroupParticipants.restype = Bytes
+    gocode.GetMessageForRetry.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+    ]
+    gocode.GetMessageForRetry.restype = Bytes
 else:
-    gocode = None
+    gocode: Any = object()
