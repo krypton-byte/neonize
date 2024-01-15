@@ -1,3 +1,4 @@
+import os
 from typing import Dict
 import platform
 
@@ -16,6 +17,9 @@ def generated_name(os_name="", arch_name=""):
     if os_name == "windows":
         ext = "dll"
     elif os_name == "linux":
+        is_android = 'android' in os.popen('uname').read().strip()
+        if is_android:
+            os_name = "android"
         ext = "so"
     else:
         ext = "so"
