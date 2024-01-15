@@ -598,8 +598,8 @@ func Disconnect(id *C.char) {
 	clients[C.GoString(id)].Disconnect()
 }
 
-//export Download
-func Download(id *C.char, messageProto *C.uchar, size C.int) C.struct_BytesReturn {
+//export DownloadAny
+func DownloadAny(id *C.char, messageProto *C.uchar, size C.int) C.struct_BytesReturn {
 	var message waProto.Message
 	err := proto.Unmarshal(getByteByAddr(messageProto, size), &message)
 	if err != nil {
@@ -613,7 +613,11 @@ func Download(id *C.char, messageProto *C.uchar, size C.int) C.struct_BytesRetur
 	if data_buff != nil {
 		return_.Binary = data_buff
 	}
-	return ReturnBytes(data_buff)
+	download_proto, err := proto.Marshal(&return_)
+	if err != nil {
+		panic(err)
+	}
+	return ReturnBytes(download_proto)
 
 }
 

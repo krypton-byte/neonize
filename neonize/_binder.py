@@ -53,8 +53,8 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
     ]
     gocode.Upload.restype = Bytes
-    gocode.Download.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.Download.restype = Bytes
+    gocode.DownloadAny.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.DownloadAny.restype = Bytes
     gocode.GetGroupInfo.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.GetGroupInfo.restype = Bytes
     gocode.SetGroupPhoto.argtypes = [

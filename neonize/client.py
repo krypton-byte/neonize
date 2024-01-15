@@ -695,7 +695,7 @@ class NewClient:
             raise UploadError(upload_model.Error)
         return upload_model.UploadResponse
 
-    def download(
+    def download_any(
         self, message: Message, path: Optional[str] = None
     ) -> typing.Union[None, bytes]:
         """Downloads content from a message.
@@ -709,7 +709,7 @@ class NewClient:
         :rtype: Union[None, bytes]
         """
         msg_protobuf = message.SerializeToString()
-        media_buff = self.__client.Download(
+        media_buff = self.__client.DownloadAny(
             self.uuid, msg_protobuf, len(msg_protobuf)
         ).get_bytes()
         media = DownloadReturnFunction.FromString(media_buff)
