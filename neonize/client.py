@@ -721,7 +721,36 @@ class NewClient:
         else:
             return media.Binary
         return None
-
+    def download_media_with_path(self, direct_path: str, enc_file_hash: bytes, file_hash: bytes, media_key: bytes, file_length: int, media_type: MediaType, mms_type: str) -> bytes:
+        """
+        Downloads media with the given parameters and path. The media is downloaded from the path specified.
+    
+        :param direct_path: The direct path to the media to be downloaded.
+        :type direct_path: str
+        :param enc_file_hash: The encrypted hash of the file.
+        :type enc_file_hash: bytes
+        :param file_hash: The hash of the file.
+        :type file_hash: bytes
+        :param media_key: The key of the media to be downloaded.
+        :type media_key: bytes
+        :param file_length: The length of the file to be downloaded.
+        :type file_length: int
+        :param media_type: The type of the media to be downloaded.
+        :type media_type: MediaType
+        :param mms_type: The type of the MMS to be downloaded.
+        :type mms_type: str
+        :raises DownloadError: If there is an error in the download process.
+        :return: The downloaded media in bytes.
+        :rtype: bytes
+        """        
+        model = neonize_proto.DownloadReturnFunction.FromString(
+            self.__client.DownloadMediaWithPath(
+                self.uuid, direct_path.encode(), enc_file_hash, len(enc_file_hash), file_hash, len(file_hash), media_key, len(media_key), file_length, media_type.value, mms_type.encode()
+            ).get_bytes()
+        )
+        if model.Error:
+            raise DownloadError(model.Error)
+        return model.Binary
     def generate_message_id(self) -> str:
         """Generates a unique identifier for a message.
 

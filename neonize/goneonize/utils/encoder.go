@@ -672,6 +672,14 @@ func EncodeReceipts(receipt *events.Receipt) neonize.Receipt {
 		Type = neonize.Receipt_READ_SELF.Enum()
 	case types.ReceiptTypePlayed:
 		Type = neonize.Receipt_PLAYED.Enum()
+	case types.ReceiptTypePlayedSelf:
+		Type = neonize.Receipt_SERVER_ERROR.Enum()
+	case types.ReceiptTypeInactive:
+		Type = neonize.Receipt_INACTIVE.Enum()
+	case types.ReceiptTypePeerMsg:
+		Type = neonize.Receipt_PEER_MSG.Enum()
+	case types.ReceiptTypeHistorySync:
+		Type = neonize.Receipt_HISTORY_SYNC.Enum()
 	}
 	return neonize.Receipt{
 		MessageSource: EncodeMessageSource(receipt.MessageSource),

@@ -621,6 +621,23 @@ func DownloadAny(id *C.char, messageProto *C.uchar, size C.int) C.struct_BytesRe
 
 }
 
+//export DownloadMediaWithPath
+func DownloadMediaWithPath(id *C.char, directPath *C.char, encFileHash *C.uchar, encFileHashSize C.int, fileHash *C.uchar, fileHashSize C.int, mediakey *C.uchar, mediaKeySize C.int, fileLength C.int, mediaType C.int, mmsType *C.char) C.struct_BytesReturn {
+	data_buff, err := clients[C.GoString(id)].DownloadMediaWithPath(C.GoString(directPath), getByteByAddr(encFileHash, encFileHashSize), getByteByAddr(fileHash, fileHashSize), getByteByAddr(mediakey, mediaKeySize), int(fileLength), utils.MediaType[mediaType], C.GoString(mmsType))
+	return_ := neonize.DownloadReturnFunction{}
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+	}
+	if data_buff != nil {
+		return_.Binary = data_buff
+	}
+	download_proto, err := proto.Marshal(&return_)
+	if err != nil {
+		panic(err)
+	}
+	return ReturnBytes(download_proto)
+}
+
 //export IsOnWhatsApp
 func IsOnWhatsApp(id *C.char, numbers *C.char) C.struct_BytesReturn {
 	onWhatsApp := []*neonize.IsOnWhatsAppResponse{}

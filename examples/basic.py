@@ -10,7 +10,7 @@ import segno
 from neonize.client import NewClient
 from neonize.events import ConnectedEv, MessageEv, PairStatusEv, event, ReceiptEv
 from neonize.types import MessageServerID
-from neonize.utils.enum import ReceiptType
+from neonize.utils.enum import MediaType, ReceiptType
 from neonize.utils import log
 from neonize.utils.enum import ReceiptType
 
@@ -46,6 +46,18 @@ def on_message(client: NewClient, message: MessageEv):
 def handler(client: NewClient, message: MessageEv):
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     chat = message.Info.MessageSource.Chat
+    im = message.Message.imageMessage
+    if im and im.mediaKey:
+        binary =client.download_media_with_path(
+            direct_path=im.directPath,
+            enc_file_hash=im.fileEncSha256,
+            file_hash=im.fileSha256,
+            file_length=im.fileLength,
+            media_key=im.mediaKey,
+            media_type=MediaType.MediaImage,
+            mms_type=""
+        )
+        client.send_image(chat, binary, "forwarded", message)
     match text:
         case "ping":
             client.reply_message(chat, "pong", message)

@@ -55,6 +55,8 @@ if not os.environ.get("SPHINX"):
     gocode.Upload.restype = Bytes
     gocode.DownloadAny.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.DownloadAny.restype = Bytes
+    gocode.DownloadMediaWithPath.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_char_p]
+    gocode.DownloadMediaWithPath.restype = Bytes
     gocode.GetGroupInfo.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.GetGroupInfo.restype = Bytes
     gocode.SetGroupPhoto.argtypes = [

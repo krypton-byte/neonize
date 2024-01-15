@@ -614,6 +614,11 @@ message Receipt { //18
         READ = 4;
         READ_SELF = 5;
         PLAYED = 6;
+        PLAYED_SELF = 7;
+        SERVER_ERROR = 8;
+        INACTIVE = 9;
+        PEER_MSG = 10;
+        HISTORY_SYNC = 11;
     }
     required MessageSource MessageSource = 1;
     repeated string MessageIDs = 2;
