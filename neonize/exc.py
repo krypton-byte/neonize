@@ -210,3 +210,7 @@ class UpdateGroupParticipantsError(Exception):
 
 class UnsupportedEvent(Exception):
     pass
+
+
+class ContactStoreError(Exception):
+    pass

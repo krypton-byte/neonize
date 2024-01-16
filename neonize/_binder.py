@@ -55,7 +55,19 @@ if not os.environ.get("SPHINX"):
     gocode.Upload.restype = Bytes
     gocode.DownloadAny.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.DownloadAny.restype = Bytes
-    gocode.DownloadMediaWithPath.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_char_p]
+    gocode.DownloadMediaWithPath.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_int,
+        ctypes.c_int,
+        ctypes.c_char_p,
+    ]
     gocode.DownloadMediaWithPath.restype = Bytes
     gocode.GetGroupInfo.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.GetGroupInfo.restype = Bytes
@@ -375,5 +387,30 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
     ]
     gocode.GetMessageForRetry.restype = Bytes
+    gocode.PutPushName.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+    ]
+    gocode.PutPushName.restype = Bytes
+    gocode.PutContactName.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+    ]
+    gocode.PutPushName.restype = ctypes.c_char_p
+    gocode.PutAllContactNames.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
+    gocode.PutAllContactNames.restype = ctypes.c_char_p
+    gocode.GetContact.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.GetContact.restype = Bytes
+    gocode.GetAllContacts.argtypes = [ctypes.c_char_p]
+    gocode.GetAllContacts.restype = Bytes
 else:
     gocode: Any = object()

@@ -23,7 +23,12 @@ class _NewsletterRole:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _NewsletterRoleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_NewsletterRole.ValueType], builtins.type):
+class _NewsletterRoleEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+        _NewsletterRole.ValueType
+    ],
+    builtins.type,
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     SUBSCRIBER: _NewsletterRole.ValueType  # 1
     GUEST: _NewsletterRole.ValueType  # 2
@@ -42,12 +47,19 @@ class _NewsletterMuteState:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _NewsletterMuteStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_NewsletterMuteState.ValueType], builtins.type):
+class _NewsletterMuteStateEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+        _NewsletterMuteState.ValueType
+    ],
+    builtins.type,
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     ON: _NewsletterMuteState.ValueType  # 1
     OFF: _NewsletterMuteState.ValueType  # 2
 
-class NewsletterMuteState(_NewsletterMuteState, metaclass=_NewsletterMuteStateEnumTypeWrapper): ...
+class NewsletterMuteState(
+    _NewsletterMuteState, metaclass=_NewsletterMuteStateEnumTypeWrapper
+): ...
 
 ON: NewsletterMuteState.ValueType  # 1
 OFF: NewsletterMuteState.ValueType  # 2
@@ -57,7 +69,12 @@ class _ConnectFailureReason:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _ConnectFailureReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ConnectFailureReason.ValueType], builtins.type):
+class _ConnectFailureReasonEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+        _ConnectFailureReason.ValueType
+    ],
+    builtins.type,
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     GENERIC: _ConnectFailureReason.ValueType  # 1
     LOGGED_OUT: _ConnectFailureReason.ValueType  # 2
@@ -70,7 +87,9 @@ class _ConnectFailureReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wr
     EXPERIMENTAL: _ConnectFailureReason.ValueType  # 9
     SERVICE_UNAVAILABLE: _ConnectFailureReason.ValueType  # 10
 
-class ConnectFailureReason(_ConnectFailureReason, metaclass=_ConnectFailureReasonEnumTypeWrapper): ...
+class ConnectFailureReason(
+    _ConnectFailureReason, metaclass=_ConnectFailureReasonEnumTypeWrapper
+): ...
 
 GENERIC: ConnectFailureReason.ValueType  # 1
 LOGGED_OUT: ConnectFailureReason.ValueType  # 2
@@ -112,8 +131,40 @@ class JID(google.protobuf.message.Message):
         Server: builtins.str | None = ...,
         IsEmpty: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Device", b"Device", "Integrator", b"Integrator", "IsEmpty", b"IsEmpty", "RawAgent", b"RawAgent", "Server", b"Server", "User", b"User"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Device", b"Device", "Integrator", b"Integrator", "IsEmpty", b"IsEmpty", "RawAgent", b"RawAgent", "Server", b"Server", "User", b"User"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Device",
+            b"Device",
+            "Integrator",
+            b"Integrator",
+            "IsEmpty",
+            b"IsEmpty",
+            "RawAgent",
+            b"RawAgent",
+            "Server",
+            b"Server",
+            "User",
+            b"User",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Device",
+            b"Device",
+            "Integrator",
+            b"Integrator",
+            "IsEmpty",
+            b"IsEmpty",
+            "RawAgent",
+            b"RawAgent",
+            "Server",
+            b"Server",
+            "User",
+            b"User",
+        ],
+    ) -> None: ...
 
 global___JID = JID
 
@@ -165,8 +216,64 @@ class MessageInfo(google.protobuf.message.Message):
         VerifiedName: global___VerifiedName | None = ...,
         DeviceSentMeta: global___DeviceSentMeta | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Category", b"Category", "DeviceSentMeta", b"DeviceSentMeta", "Edit", b"Edit", "ID", b"ID", "MediaType", b"MediaType", "MessageSource", b"MessageSource", "Multicast", b"Multicast", "Pushname", b"Pushname", "ServerID", b"ServerID", "Timestamp", b"Timestamp", "Type", b"Type", "VerifiedName", b"VerifiedName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Category", b"Category", "DeviceSentMeta", b"DeviceSentMeta", "Edit", b"Edit", "ID", b"ID", "MediaType", b"MediaType", "MessageSource", b"MessageSource", "Multicast", b"Multicast", "Pushname", b"Pushname", "ServerID", b"ServerID", "Timestamp", b"Timestamp", "Type", b"Type", "VerifiedName", b"VerifiedName"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Category",
+            b"Category",
+            "DeviceSentMeta",
+            b"DeviceSentMeta",
+            "Edit",
+            b"Edit",
+            "ID",
+            b"ID",
+            "MediaType",
+            b"MediaType",
+            "MessageSource",
+            b"MessageSource",
+            "Multicast",
+            b"Multicast",
+            "Pushname",
+            b"Pushname",
+            "ServerID",
+            b"ServerID",
+            "Timestamp",
+            b"Timestamp",
+            "Type",
+            b"Type",
+            "VerifiedName",
+            b"VerifiedName",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Category",
+            b"Category",
+            "DeviceSentMeta",
+            b"DeviceSentMeta",
+            "Edit",
+            b"Edit",
+            "ID",
+            b"ID",
+            "MediaType",
+            b"MediaType",
+            "MessageSource",
+            b"MessageSource",
+            "Multicast",
+            b"Multicast",
+            "Pushname",
+            b"Pushname",
+            "ServerID",
+            b"ServerID",
+            "Timestamp",
+            b"Timestamp",
+            "Type",
+            b"Type",
+            "VerifiedName",
+            b"VerifiedName",
+        ],
+    ) -> None: ...
 
 global___MessageInfo = MessageInfo
 
@@ -199,8 +306,44 @@ class UploadResponse(google.protobuf.message.Message):
         FileSHA256: builtins.bytes | None = ...,
         FileLength: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["DirectPath", b"DirectPath", "FileEncSHA256", b"FileEncSHA256", "FileLength", b"FileLength", "FileSHA256", b"FileSHA256", "Handle", b"Handle", "MediaKey", b"MediaKey", "url", b"url"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["DirectPath", b"DirectPath", "FileEncSHA256", b"FileEncSHA256", "FileLength", b"FileLength", "FileSHA256", b"FileSHA256", "Handle", b"Handle", "MediaKey", b"MediaKey", "url", b"url"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "DirectPath",
+            b"DirectPath",
+            "FileEncSHA256",
+            b"FileEncSHA256",
+            "FileLength",
+            b"FileLength",
+            "FileSHA256",
+            b"FileSHA256",
+            "Handle",
+            b"Handle",
+            "MediaKey",
+            b"MediaKey",
+            "url",
+            b"url",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "DirectPath",
+            b"DirectPath",
+            "FileEncSHA256",
+            b"FileEncSHA256",
+            "FileLength",
+            b"FileLength",
+            "FileSHA256",
+            b"FileSHA256",
+            "Handle",
+            b"Handle",
+            "MediaKey",
+            b"MediaKey",
+            "url",
+            b"url",
+        ],
+    ) -> None: ...
 
 global___UploadResponse = UploadResponse
 
@@ -230,8 +373,36 @@ class MessageSource(google.protobuf.message.Message):
         IsGroup: builtins.bool | None = ...,
         BroadcastListOwner: global___JID | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["BroadcastListOwner", b"BroadcastListOwner", "Chat", b"Chat", "IsFromMe", b"IsFromMe", "IsGroup", b"IsGroup", "Sender", b"Sender"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["BroadcastListOwner", b"BroadcastListOwner", "Chat", b"Chat", "IsFromMe", b"IsFromMe", "IsGroup", b"IsGroup", "Sender", b"Sender"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "BroadcastListOwner",
+            b"BroadcastListOwner",
+            "Chat",
+            b"Chat",
+            "IsFromMe",
+            b"IsFromMe",
+            "IsGroup",
+            b"IsGroup",
+            "Sender",
+            b"Sender",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "BroadcastListOwner",
+            b"BroadcastListOwner",
+            "Chat",
+            b"Chat",
+            "IsFromMe",
+            b"IsFromMe",
+            "IsGroup",
+            b"IsGroup",
+            "Sender",
+            b"Sender",
+        ],
+    ) -> None: ...
 
 global___MessageSource = MessageSource
 
@@ -249,8 +420,18 @@ class DeviceSentMeta(google.protobuf.message.Message):
         DestinationJID: builtins.str | None = ...,
         Phash: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["DestinationJID", b"DestinationJID", "Phash", b"Phash"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["DestinationJID", b"DestinationJID", "Phash", b"Phash"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "DestinationJID", b"DestinationJID", "Phash", b"Phash"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "DestinationJID", b"DestinationJID", "Phash", b"Phash"
+        ],
+    ) -> None: ...
 
 global___DeviceSentMeta = DeviceSentMeta
 
@@ -272,8 +453,18 @@ class VerifiedName(google.protobuf.message.Message):
         Certificate: def_pb2.VerifiedNameCertificate | None = ...,
         Details: def_pb2.VerifiedNameCertificate.Details | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Certificate", b"Certificate", "Details", b"Details"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Certificate", b"Certificate", "Details", b"Details"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Certificate", b"Certificate", "Details", b"Details"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Certificate", b"Certificate", "Details", b"Details"
+        ],
+    ) -> None: ...
 
 global___VerifiedName = VerifiedName
 
@@ -299,8 +490,32 @@ class IsOnWhatsAppResponse(google.protobuf.message.Message):
         IsIn: builtins.bool | None = ...,
         VerifiedName: global___VerifiedName | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["IsIn", b"IsIn", "JID", b"JID", "Query", b"Query", "VerifiedName", b"VerifiedName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["IsIn", b"IsIn", "JID", b"JID", "Query", b"Query", "VerifiedName", b"VerifiedName"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "IsIn",
+            b"IsIn",
+            "JID",
+            b"JID",
+            "Query",
+            b"Query",
+            "VerifiedName",
+            b"VerifiedName",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "IsIn",
+            b"IsIn",
+            "JID",
+            b"JID",
+            "Query",
+            b"Query",
+            "VerifiedName",
+            b"VerifiedName",
+        ],
+    ) -> None: ...
 
 global___IsOnWhatsAppResponse = IsOnWhatsAppResponse
 
@@ -317,7 +532,11 @@ class UserInfo(google.protobuf.message.Message):
     Status: builtins.str
     PictureID: builtins.str
     @property
-    def Devices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def Devices(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___JID
+    ]: ...
     def __init__(
         self,
         *,
@@ -326,8 +545,30 @@ class UserInfo(google.protobuf.message.Message):
         PictureID: builtins.str | None = ...,
         Devices: collections.abc.Iterable[global___JID] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["PictureID", b"PictureID", "Status", b"Status", "VerifiedName", b"VerifiedName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Devices", b"Devices", "PictureID", b"PictureID", "Status", b"Status", "VerifiedName", b"VerifiedName"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "PictureID",
+            b"PictureID",
+            "Status",
+            b"Status",
+            "VerifiedName",
+            b"VerifiedName",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Devices",
+            b"Devices",
+            "PictureID",
+            b"PictureID",
+            "Status",
+            b"Status",
+            "VerifiedName",
+            b"VerifiedName",
+        ],
+    ) -> None: ...
 
 global___UserInfo = UserInfo
 
@@ -355,8 +596,36 @@ class Device(google.protobuf.message.Message):
         PushName: builtins.str | None = ...,
         Initialized: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["BussinessName", b"BussinessName", "Initialized", b"Initialized", "JID", b"JID", "Platform", b"Platform", "PushName", b"PushName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["BussinessName", b"BussinessName", "Initialized", b"Initialized", "JID", b"JID", "Platform", b"Platform", "PushName", b"PushName"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "BussinessName",
+            b"BussinessName",
+            "Initialized",
+            b"Initialized",
+            "JID",
+            b"JID",
+            "Platform",
+            b"Platform",
+            "PushName",
+            b"PushName",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "BussinessName",
+            b"BussinessName",
+            "Initialized",
+            b"Initialized",
+            "JID",
+            b"JID",
+            "Platform",
+            b"Platform",
+            "PushName",
+            b"PushName",
+        ],
+    ) -> None: ...
 
 global___Device = Device
 
@@ -380,8 +649,18 @@ class GroupName(google.protobuf.message.Message):
         NameSetAt: builtins.int | None = ...,
         NameSetBy: global___JID | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Name", b"Name", "NameSetAt", b"NameSetAt", "NameSetBy", b"NameSetBy"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Name", b"Name", "NameSetAt", b"NameSetAt", "NameSetBy", b"NameSetBy"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Name", b"Name", "NameSetAt", b"NameSetAt", "NameSetBy", b"NameSetBy"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Name", b"Name", "NameSetAt", b"NameSetAt", "NameSetBy", b"NameSetBy"
+        ],
+    ) -> None: ...
 
 global___GroupName = GroupName
 
@@ -409,8 +688,36 @@ class GroupTopic(google.protobuf.message.Message):
         TopicSetBy: global___JID | None = ...,
         TopicDeleted: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Topic", b"Topic", "TopicDeleted", b"TopicDeleted", "TopicID", b"TopicID", "TopicSetAt", b"TopicSetAt", "TopicSetBy", b"TopicSetBy"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Topic", b"Topic", "TopicDeleted", b"TopicDeleted", "TopicID", b"TopicID", "TopicSetAt", b"TopicSetAt", "TopicSetBy", b"TopicSetBy"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Topic",
+            b"Topic",
+            "TopicDeleted",
+            b"TopicDeleted",
+            "TopicID",
+            b"TopicID",
+            "TopicSetAt",
+            b"TopicSetAt",
+            "TopicSetBy",
+            b"TopicSetBy",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Topic",
+            b"Topic",
+            "TopicDeleted",
+            b"TopicDeleted",
+            "TopicID",
+            b"TopicID",
+            "TopicSetAt",
+            b"TopicSetAt",
+            "TopicSetBy",
+            b"TopicSetBy",
+        ],
+    ) -> None: ...
 
 global___GroupTopic = GroupTopic
 
@@ -425,8 +732,12 @@ class GroupLocked(google.protobuf.message.Message):
         *,
         isLocked: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["isLocked", b"isLocked"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["isLocked", b"isLocked"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["isLocked", b"isLocked"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["isLocked", b"isLocked"]
+    ) -> None: ...
 
 global___GroupLocked = GroupLocked
 
@@ -444,8 +755,18 @@ class GroupAnnounce(google.protobuf.message.Message):
         IsAnnounce: builtins.bool | None = ...,
         AnnounceVersionID: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["AnnounceVersionID", b"AnnounceVersionID", "IsAnnounce", b"IsAnnounce"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["AnnounceVersionID", b"AnnounceVersionID", "IsAnnounce", b"IsAnnounce"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "AnnounceVersionID", b"AnnounceVersionID", "IsAnnounce", b"IsAnnounce"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "AnnounceVersionID", b"AnnounceVersionID", "IsAnnounce", b"IsAnnounce"
+        ],
+    ) -> None: ...
 
 global___GroupAnnounce = GroupAnnounce
 
@@ -463,8 +784,18 @@ class GroupEphemeral(google.protobuf.message.Message):
         IsEphemeral: builtins.bool | None = ...,
         DisappearingTimer: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["DisappearingTimer", b"DisappearingTimer", "IsEphemeral", b"IsEphemeral"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["DisappearingTimer", b"DisappearingTimer", "IsEphemeral", b"IsEphemeral"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "DisappearingTimer", b"DisappearingTimer", "IsEphemeral", b"IsEphemeral"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "DisappearingTimer", b"DisappearingTimer", "IsEphemeral", b"IsEphemeral"
+        ],
+    ) -> None: ...
 
 global___GroupEphemeral = GroupEphemeral
 
@@ -479,8 +810,12 @@ class GroupIncognito(google.protobuf.message.Message):
         *,
         IsIncognito: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["IsIncognito", b"IsIncognito"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["IsIncognito", b"IsIncognito"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["IsIncognito", b"IsIncognito"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["IsIncognito", b"IsIncognito"]
+    ) -> None: ...
 
 global___GroupIncognito = GroupIncognito
 
@@ -498,8 +833,24 @@ class GroupParent(google.protobuf.message.Message):
         IsParent: builtins.bool | None = ...,
         DefaultMembershipApprovalMode: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["DefaultMembershipApprovalMode", b"DefaultMembershipApprovalMode", "IsParent", b"IsParent"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["DefaultMembershipApprovalMode", b"DefaultMembershipApprovalMode", "IsParent", b"IsParent"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "DefaultMembershipApprovalMode",
+            b"DefaultMembershipApprovalMode",
+            "IsParent",
+            b"IsParent",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "DefaultMembershipApprovalMode",
+            b"DefaultMembershipApprovalMode",
+            "IsParent",
+            b"IsParent",
+        ],
+    ) -> None: ...
 
 global___GroupParent = GroupParent
 
@@ -515,8 +866,14 @@ class GroupLinkedParent(google.protobuf.message.Message):
         *,
         LinkedParentJID: global___JID | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["LinkedParentJID", b"LinkedParentJID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["LinkedParentJID", b"LinkedParentJID"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal["LinkedParentJID", b"LinkedParentJID"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal["LinkedParentJID", b"LinkedParentJID"],
+    ) -> None: ...
 
 global___GroupLinkedParent = GroupLinkedParent
 
@@ -531,8 +888,18 @@ class GroupIsDefaultSub(google.protobuf.message.Message):
         *,
         IsDefaultSubGroup: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["IsDefaultSubGroup", b"IsDefaultSubGroup"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["IsDefaultSubGroup", b"IsDefaultSubGroup"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "IsDefaultSubGroup", b"IsDefaultSubGroup"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "IsDefaultSubGroup", b"IsDefaultSubGroup"
+        ],
+    ) -> None: ...
 
 global___GroupIsDefaultSub = GroupIsDefaultSub
 
@@ -550,8 +917,18 @@ class GroupParticipantAddRequest(google.protobuf.message.Message):
         Code: builtins.str | None = ...,
         Expiration: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Code", b"Code", "Expiration", b"Expiration"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Code", b"Code", "Expiration", b"Expiration"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Code", b"Code", "Expiration", b"Expiration"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Code", b"Code", "Expiration", b"Expiration"
+        ],
+    ) -> None: ...
 
 global___GroupParticipantAddRequest = GroupParticipantAddRequest
 
@@ -587,8 +964,44 @@ class GroupParticipant(google.protobuf.message.Message):
         Error: builtins.int | None = ...,
         AddRequest: global___GroupParticipantAddRequest | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID", "LID", b"LID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID", "LID", b"LID"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "AddRequest",
+            b"AddRequest",
+            "DisplayName",
+            b"DisplayName",
+            "Error",
+            b"Error",
+            "IsAdmin",
+            b"IsAdmin",
+            "IsSuperAdmin",
+            b"IsSuperAdmin",
+            "JID",
+            b"JID",
+            "LID",
+            b"LID",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "AddRequest",
+            b"AddRequest",
+            "DisplayName",
+            b"DisplayName",
+            "Error",
+            b"Error",
+            "IsAdmin",
+            b"IsAdmin",
+            "IsSuperAdmin",
+            b"IsSuperAdmin",
+            "JID",
+            b"JID",
+            "LID",
+            b"LID",
+        ],
+    ) -> None: ...
 
 global___GroupParticipant = GroupParticipant
 
@@ -600,11 +1013,18 @@ class GroupInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _GroupMemberAddModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GroupInfo._GroupMemberAddMode.ValueType], builtins.type):
+    class _GroupMemberAddModeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            GroupInfo._GroupMemberAddMode.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         GroupMemberAddModeAdmin: GroupInfo._GroupMemberAddMode.ValueType  # 1
 
-    class GroupMemberAddMode(_GroupMemberAddMode, metaclass=_GroupMemberAddModeEnumTypeWrapper): ...
+    class GroupMemberAddMode(
+        _GroupMemberAddMode, metaclass=_GroupMemberAddModeEnumTypeWrapper
+    ): ...
     GroupMemberAddModeAdmin: GroupInfo.GroupMemberAddMode.ValueType  # 1
 
     OWNERJID_FIELD_NUMBER: builtins.int
@@ -646,7 +1066,11 @@ class GroupInfo(google.protobuf.message.Message):
     GroupCreated: builtins.float
     ParticipantVersionID: builtins.str
     @property
-    def Participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GroupParticipant]: ...
+    def Participants(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___GroupParticipant
+    ]: ...
     def __init__(
         self,
         *,
@@ -665,8 +1089,70 @@ class GroupInfo(google.protobuf.message.Message):
         ParticipantVersionID: builtins.str | None = ...,
         Participants: collections.abc.Iterable[global___GroupParticipant] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["GroupAnnounce", b"GroupAnnounce", "GroupCreated", b"GroupCreated", "GroupEphemeral", b"GroupEphemeral", "GroupIncognito", b"GroupIncognito", "GroupIsDefaultSub", b"GroupIsDefaultSub", "GroupLinkedParent", b"GroupLinkedParent", "GroupLocked", b"GroupLocked", "GroupName", b"GroupName", "GroupParent", b"GroupParent", "GroupTopic", b"GroupTopic", "JID", b"JID", "OwnerJID", b"OwnerJID", "ParticipantVersionID", b"ParticipantVersionID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["GroupAnnounce", b"GroupAnnounce", "GroupCreated", b"GroupCreated", "GroupEphemeral", b"GroupEphemeral", "GroupIncognito", b"GroupIncognito", "GroupIsDefaultSub", b"GroupIsDefaultSub", "GroupLinkedParent", b"GroupLinkedParent", "GroupLocked", b"GroupLocked", "GroupName", b"GroupName", "GroupParent", b"GroupParent", "GroupTopic", b"GroupTopic", "JID", b"JID", "OwnerJID", b"OwnerJID", "ParticipantVersionID", b"ParticipantVersionID", "Participants", b"Participants"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "GroupAnnounce",
+            b"GroupAnnounce",
+            "GroupCreated",
+            b"GroupCreated",
+            "GroupEphemeral",
+            b"GroupEphemeral",
+            "GroupIncognito",
+            b"GroupIncognito",
+            "GroupIsDefaultSub",
+            b"GroupIsDefaultSub",
+            "GroupLinkedParent",
+            b"GroupLinkedParent",
+            "GroupLocked",
+            b"GroupLocked",
+            "GroupName",
+            b"GroupName",
+            "GroupParent",
+            b"GroupParent",
+            "GroupTopic",
+            b"GroupTopic",
+            "JID",
+            b"JID",
+            "OwnerJID",
+            b"OwnerJID",
+            "ParticipantVersionID",
+            b"ParticipantVersionID",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "GroupAnnounce",
+            b"GroupAnnounce",
+            "GroupCreated",
+            b"GroupCreated",
+            "GroupEphemeral",
+            b"GroupEphemeral",
+            "GroupIncognito",
+            b"GroupIncognito",
+            "GroupIsDefaultSub",
+            b"GroupIsDefaultSub",
+            "GroupLinkedParent",
+            b"GroupLinkedParent",
+            "GroupLocked",
+            b"GroupLocked",
+            "GroupName",
+            b"GroupName",
+            "GroupParent",
+            b"GroupParent",
+            "GroupTopic",
+            b"GroupTopic",
+            "JID",
+            b"JID",
+            "OwnerJID",
+            b"OwnerJID",
+            "ParticipantVersionID",
+            b"ParticipantVersionID",
+            "Participants",
+            b"Participants",
+        ],
+    ) -> None: ...
 
 global___GroupInfo = GroupInfo
 
@@ -705,8 +1191,52 @@ class MessageDebugTimings(google.protobuf.message.Message):
         Resp: builtins.int | None = ...,
         Retry: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["GetDevices", b"GetDevices", "GetParticipants", b"GetParticipants", "GroupEncrypt", b"GroupEncrypt", "Marshal", b"Marshal", "PeerEncrypt", b"PeerEncrypt", "Queue", b"Queue", "Resp", b"Resp", "Retry", b"Retry", "Send", b"Send"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["GetDevices", b"GetDevices", "GetParticipants", b"GetParticipants", "GroupEncrypt", b"GroupEncrypt", "Marshal", b"Marshal", "PeerEncrypt", b"PeerEncrypt", "Queue", b"Queue", "Resp", b"Resp", "Retry", b"Retry", "Send", b"Send"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "GetDevices",
+            b"GetDevices",
+            "GetParticipants",
+            b"GetParticipants",
+            "GroupEncrypt",
+            b"GroupEncrypt",
+            "Marshal",
+            b"Marshal",
+            "PeerEncrypt",
+            b"PeerEncrypt",
+            "Queue",
+            b"Queue",
+            "Resp",
+            b"Resp",
+            "Retry",
+            b"Retry",
+            "Send",
+            b"Send",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "GetDevices",
+            b"GetDevices",
+            "GetParticipants",
+            b"GetParticipants",
+            "GroupEncrypt",
+            b"GroupEncrypt",
+            "Marshal",
+            b"Marshal",
+            "PeerEncrypt",
+            b"PeerEncrypt",
+            "Queue",
+            b"Queue",
+            "Resp",
+            b"Resp",
+            "Retry",
+            b"Retry",
+            "Send",
+            b"Send",
+        ],
+    ) -> None: ...
 
 global___MessageDebugTimings = MessageDebugTimings
 
@@ -731,8 +1261,32 @@ class SendResponse(google.protobuf.message.Message):
         ServerID: builtins.int | None = ...,
         DebugTimings: global___MessageDebugTimings | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["DebugTimings", b"DebugTimings", "ID", b"ID", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["DebugTimings", b"DebugTimings", "ID", b"ID", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "DebugTimings",
+            b"DebugTimings",
+            "ID",
+            b"ID",
+            "ServerID",
+            b"ServerID",
+            "Timestamp",
+            b"Timestamp",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "DebugTimings",
+            b"DebugTimings",
+            "ID",
+            b"ID",
+            "ServerID",
+            b"ServerID",
+            "Timestamp",
+            b"Timestamp",
+        ],
+    ) -> None: ...
 
 global___SendResponse = SendResponse
 
@@ -751,8 +1305,18 @@ class SendMessageReturnFunction(google.protobuf.message.Message):
         Error: builtins.str | None = ...,
         SendResponse: global___SendResponse | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "SendResponse", b"SendResponse"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "SendResponse", b"SendResponse"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "SendResponse", b"SendResponse"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "SendResponse", b"SendResponse"
+        ],
+    ) -> None: ...
 
 global___SendMessageReturnFunction = SendMessageReturnFunction
 
@@ -773,8 +1337,18 @@ class GetGroupInfoReturnFunction(google.protobuf.message.Message):
         GroupInfo: global___GroupInfo | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "GroupInfo", b"GroupInfo"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "GroupInfo", b"GroupInfo"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "GroupInfo", b"GroupInfo"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "GroupInfo", b"GroupInfo"
+        ],
+    ) -> None: ...
 
 global___GetGroupInfoReturnFunction = GetGroupInfoReturnFunction
 
@@ -793,8 +1367,12 @@ class JoinGroupWithLinkReturnFunction(google.protobuf.message.Message):
         Error: builtins.str | None = ...,
         Jid: global___JID | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "Jid", b"Jid"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "Jid", b"Jid"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error", "Jid", b"Jid"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["Error", b"Error", "Jid", b"Jid"]
+    ) -> None: ...
 
 global___JoinGroupWithLinkReturnFunction = JoinGroupWithLinkReturnFunction
 
@@ -812,8 +1390,18 @@ class GetGroupInviteLinkReturnFunction(google.protobuf.message.Message):
         InviteLink: builtins.str | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "InviteLink", b"InviteLink"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "InviteLink", b"InviteLink"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "InviteLink", b"InviteLink"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "InviteLink", b"InviteLink"
+        ],
+    ) -> None: ...
 
 global___GetGroupInviteLinkReturnFunction = GetGroupInviteLinkReturnFunction
 
@@ -831,8 +1419,14 @@ class DownloadReturnFunction(google.protobuf.message.Message):
         Binary: builtins.bytes | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Binary", b"Binary", "Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Binary", b"Binary", "Error", b"Error"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal["Binary", b"Binary", "Error", b"Error"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal["Binary", b"Binary", "Error", b"Error"],
+    ) -> None: ...
 
 global___DownloadReturnFunction = DownloadReturnFunction
 
@@ -851,8 +1445,18 @@ class UploadReturnFunction(google.protobuf.message.Message):
         UploadResponse: global___UploadResponse | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "UploadResponse", b"UploadResponse"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "UploadResponse", b"UploadResponse"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "UploadResponse", b"UploadResponse"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "UploadResponse", b"UploadResponse"
+        ],
+    ) -> None: ...
 
 global___UploadReturnFunction = UploadReturnFunction
 
@@ -870,8 +1474,18 @@ class SetGroupPhotoReturnFunction(google.protobuf.message.Message):
         PictureID: builtins.str | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "PictureID", b"PictureID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "PictureID", b"PictureID"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "PictureID", b"PictureID"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "PictureID", b"PictureID"
+        ],
+    ) -> None: ...
 
 global___SetGroupPhotoReturnFunction = SetGroupPhotoReturnFunction
 
@@ -882,16 +1496,28 @@ class IsOnWhatsAppReturnFunction(google.protobuf.message.Message):
     ISONWHATSAPPRESPONSE_FIELD_NUMBER: builtins.int
     ERROR_FIELD_NUMBER: builtins.int
     @property
-    def IsOnWhatsAppResponse(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___IsOnWhatsAppResponse]: ...
+    def IsOnWhatsAppResponse(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___IsOnWhatsAppResponse
+    ]: ...
     Error: builtins.str
     def __init__(
         self,
         *,
-        IsOnWhatsAppResponse: collections.abc.Iterable[global___IsOnWhatsAppResponse] | None = ...,
+        IsOnWhatsAppResponse: collections.abc.Iterable[global___IsOnWhatsAppResponse]
+        | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "IsOnWhatsAppResponse", b"IsOnWhatsAppResponse"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "IsOnWhatsAppResponse", b"IsOnWhatsAppResponse"
+        ],
+    ) -> None: ...
 
 global___IsOnWhatsAppReturnFunction = IsOnWhatsAppReturnFunction
 
@@ -911,8 +1537,14 @@ class GetUserInfoSingleReturnFunction(google.protobuf.message.Message):
         JID: global___JID | None = ...,
         UserInfo: global___UserInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["JID", b"JID", "UserInfo", b"UserInfo"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["JID", b"JID", "UserInfo", b"UserInfo"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal["JID", b"JID", "UserInfo", b"UserInfo"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal["JID", b"JID", "UserInfo", b"UserInfo"],
+    ) -> None: ...
 
 global___GetUserInfoSingleReturnFunction = GetUserInfoSingleReturnFunction
 
@@ -923,16 +1555,28 @@ class GetUserInfoReturnFunction(google.protobuf.message.Message):
     USERSINFO_FIELD_NUMBER: builtins.int
     ERROR_FIELD_NUMBER: builtins.int
     @property
-    def UsersInfo(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GetUserInfoSingleReturnFunction]: ...
+    def UsersInfo(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___GetUserInfoSingleReturnFunction
+    ]: ...
     Error: builtins.str
     def __init__(
         self,
         *,
-        UsersInfo: collections.abc.Iterable[global___GetUserInfoSingleReturnFunction] | None = ...,
+        UsersInfo: collections.abc.Iterable[global___GetUserInfoSingleReturnFunction]
+        | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "UsersInfo", b"UsersInfo"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "UsersInfo", b"UsersInfo"
+        ],
+    ) -> None: ...
 
 global___GetUserInfoReturnFunction = GetUserInfoReturnFunction
 
@@ -951,8 +1595,18 @@ class BuildPollVoteReturnFunction(google.protobuf.message.Message):
         PollVote: def_pb2.Message | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "PollVote", b"PollVote"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "PollVote", b"PollVote"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "PollVote", b"PollVote"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "PollVote", b"PollVote"
+        ],
+    ) -> None: ...
 
 global___BuildPollVoteReturnFunction = BuildPollVoteReturnFunction
 
@@ -971,8 +1625,18 @@ class CreateNewsLetterReturnFunction(google.protobuf.message.Message):
         NewsletterMetadata: global___NewsletterMetadata | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "NewsletterMetadata", b"NewsletterMetadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "NewsletterMetadata", b"NewsletterMetadata"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "NewsletterMetadata", b"NewsletterMetadata"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "NewsletterMetadata", b"NewsletterMetadata"
+        ],
+    ) -> None: ...
 
 global___CreateNewsLetterReturnFunction = CreateNewsLetterReturnFunction
 
@@ -991,8 +1655,18 @@ class GetBlocklistReturnFunction(google.protobuf.message.Message):
         Blocklist: global___Blocklist | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Blocklist", b"Blocklist", "Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Blocklist", b"Blocklist", "Error", b"Error"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Blocklist", b"Blocklist", "Error", b"Error"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Blocklist", b"Blocklist", "Error", b"Error"
+        ],
+    ) -> None: ...
 
 global___GetBlocklistReturnFunction = GetBlocklistReturnFunction
 
@@ -1010,8 +1684,12 @@ class GetContactQRLinkReturnFunction(google.protobuf.message.Message):
         Link: builtins.str | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "Link", b"Link"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "Link", b"Link"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error", "Link", b"Link"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["Error", b"Error", "Link", b"Link"]
+    ) -> None: ...
 
 global___GetContactQRLinkReturnFunction = GetContactQRLinkReturnFunction
 
@@ -1022,7 +1700,11 @@ class GetGroupRequestParticipantsReturnFunction(google.protobuf.message.Message)
     PARTICIPANTS_FIELD_NUMBER: builtins.int
     ERROR_FIELD_NUMBER: builtins.int
     @property
-    def Participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def Participants(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___JID
+    ]: ...
     Error: builtins.str
     def __init__(
         self,
@@ -1030,10 +1712,19 @@ class GetGroupRequestParticipantsReturnFunction(google.protobuf.message.Message)
         Participants: collections.abc.Iterable[global___JID] | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "Participants", b"Participants"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "Participants", b"Participants"
+        ],
+    ) -> None: ...
 
-global___GetGroupRequestParticipantsReturnFunction = GetGroupRequestParticipantsReturnFunction
+global___GetGroupRequestParticipantsReturnFunction = (
+    GetGroupRequestParticipantsReturnFunction
+)
 
 @typing_extensions.final
 class GetJoinedGroupsReturnFunction(google.protobuf.message.Message):
@@ -1042,7 +1733,11 @@ class GetJoinedGroupsReturnFunction(google.protobuf.message.Message):
     GROUP_FIELD_NUMBER: builtins.int
     ERROR_FIELD_NUMBER: builtins.int
     @property
-    def Group(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GroupInfo]: ...
+    def Group(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___GroupInfo
+    ]: ...
     Error: builtins.str
     def __init__(
         self,
@@ -1050,8 +1745,13 @@ class GetJoinedGroupsReturnFunction(google.protobuf.message.Message):
         Group: collections.abc.Iterable[global___GroupInfo] | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "Group", b"Group"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal["Error", b"Error", "Group", b"Group"],
+    ) -> None: ...
 
 global___GetJoinedGroupsReturnFunction = GetJoinedGroupsReturnFunction
 
@@ -1066,7 +1766,11 @@ class ReqCreateGroup(google.protobuf.message.Message):
     GROUPLINKEDPARENT_FIELD_NUMBER: builtins.int
     name: builtins.str
     @property
-    def Participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def Participants(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___JID
+    ]: ...
     CreateKey: builtins.str
     @property
     def GroupParent(self) -> global___GroupParent: ...
@@ -1081,8 +1785,34 @@ class ReqCreateGroup(google.protobuf.message.Message):
         GroupParent: global___GroupParent | None = ...,
         GroupLinkedParent: global___GroupLinkedParent | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["CreateKey", b"CreateKey", "GroupLinkedParent", b"GroupLinkedParent", "GroupParent", b"GroupParent", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["CreateKey", b"CreateKey", "GroupLinkedParent", b"GroupLinkedParent", "GroupParent", b"GroupParent", "Participants", b"Participants", "name", b"name"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "CreateKey",
+            b"CreateKey",
+            "GroupLinkedParent",
+            b"GroupLinkedParent",
+            "GroupParent",
+            b"GroupParent",
+            "name",
+            b"name",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "CreateKey",
+            b"CreateKey",
+            "GroupLinkedParent",
+            b"GroupLinkedParent",
+            "GroupParent",
+            b"GroupParent",
+            "Participants",
+            b"Participants",
+            "name",
+            b"name",
+        ],
+    ) -> None: ...
 
 global___ReqCreateGroup = ReqCreateGroup
 
@@ -1092,13 +1822,19 @@ class JIDArray(google.protobuf.message.Message):
 
     JIDS_FIELD_NUMBER: builtins.int
     @property
-    def JIDS(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def JIDS(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___JID
+    ]: ...
     def __init__(
         self,
         *,
         JIDS: collections.abc.Iterable[global___JID] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["JIDS", b"JIDS"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["JIDS", b"JIDS"]
+    ) -> None: ...
 
 global___JIDArray = JIDArray
 
@@ -1108,13 +1844,19 @@ class ArrayString(google.protobuf.message.Message):
 
     DATA_FIELD_NUMBER: builtins.int
     @property
-    def data(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def data(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
+        builtins.str
+    ]: ...
     def __init__(
         self,
         *,
         data: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["data", b"data"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["data", b"data"]
+    ) -> None: ...
 
 global___ArrayString = ArrayString
 
@@ -1132,8 +1874,18 @@ class NewsLetterMessageMeta(google.protobuf.message.Message):
         EditTS: builtins.int | None = ...,
         OriginalTS: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["EditTS", b"EditTS", "OriginalTS", b"OriginalTS"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["EditTS", b"EditTS", "OriginalTS", b"OriginalTS"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "EditTS", b"EditTS", "OriginalTS", b"OriginalTS"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "EditTS", b"EditTS", "OriginalTS", b"OriginalTS"
+        ],
+    ) -> None: ...
 
 global___NewsLetterMessageMeta = NewsLetterMessageMeta
 
@@ -1151,8 +1903,18 @@ class GroupDelete(google.protobuf.message.Message):
         Deleted: builtins.bool | None = ...,
         DeletedReason: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Deleted", b"Deleted", "DeletedReason", b"DeletedReason"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Deleted", b"Deleted", "DeletedReason", b"DeletedReason"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Deleted", b"Deleted", "DeletedReason", b"DeletedReason"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Deleted", b"Deleted", "DeletedReason", b"DeletedReason"
+        ],
+    ) -> None: ...
 
 global___GroupDelete = GroupDelete
 
@@ -1198,8 +1960,56 @@ class Message(google.protobuf.message.Message):
         RetryCount: builtins.int | None = ...,
         NewsLetterMeta: global___NewsLetterMessageMeta | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Info", b"Info", "IsEdit", b"IsEdit", "IsEphemeral", b"IsEphemeral", "IsViewOnce", b"IsViewOnce", "IsViewOnceV2", b"IsViewOnceV2", "Message", b"Message", "NewsLetterMeta", b"NewsLetterMeta", "RetryCount", b"RetryCount", "SourceWebMsg", b"SourceWebMsg", "UnavailableRequestID", b"UnavailableRequestID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Info", b"Info", "IsEdit", b"IsEdit", "IsEphemeral", b"IsEphemeral", "IsViewOnce", b"IsViewOnce", "IsViewOnceV2", b"IsViewOnceV2", "Message", b"Message", "NewsLetterMeta", b"NewsLetterMeta", "RetryCount", b"RetryCount", "SourceWebMsg", b"SourceWebMsg", "UnavailableRequestID", b"UnavailableRequestID"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Info",
+            b"Info",
+            "IsEdit",
+            b"IsEdit",
+            "IsEphemeral",
+            b"IsEphemeral",
+            "IsViewOnce",
+            b"IsViewOnce",
+            "IsViewOnceV2",
+            b"IsViewOnceV2",
+            "Message",
+            b"Message",
+            "NewsLetterMeta",
+            b"NewsLetterMeta",
+            "RetryCount",
+            b"RetryCount",
+            "SourceWebMsg",
+            b"SourceWebMsg",
+            "UnavailableRequestID",
+            b"UnavailableRequestID",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Info",
+            b"Info",
+            "IsEdit",
+            b"IsEdit",
+            "IsEphemeral",
+            b"IsEphemeral",
+            "IsViewOnce",
+            b"IsViewOnce",
+            "IsViewOnceV2",
+            b"IsViewOnceV2",
+            "Message",
+            b"Message",
+            "NewsLetterMeta",
+            b"NewsLetterMeta",
+            "RetryCount",
+            b"RetryCount",
+            "SourceWebMsg",
+            b"SourceWebMsg",
+            "UnavailableRequestID",
+            b"UnavailableRequestID",
+        ],
+    ) -> None: ...
 
 global___Message = Message
 
@@ -1220,8 +2030,18 @@ class CreateNewsletterParams(google.protobuf.message.Message):
         Description: builtins.str | None = ...,
         Picture: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Description", b"Description", "Name", b"Name", "Picture", b"Picture"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Description", b"Description", "Name", b"Name", "Picture", b"Picture"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Description", b"Description", "Name", b"Name", "Picture", b"Picture"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Description", b"Description", "Name", b"Name", "Picture", b"Picture"
+        ],
+    ) -> None: ...
 
 global___CreateNewsletterParams = CreateNewsletterParams
 
@@ -1233,13 +2053,20 @@ class WrappedNewsletterState(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _NewsletterStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[WrappedNewsletterState._NewsletterState.ValueType], builtins.type):
+    class _NewsletterStateEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            WrappedNewsletterState._NewsletterState.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         ACTIVE: WrappedNewsletterState._NewsletterState.ValueType  # 1
         SUSPENDED: WrappedNewsletterState._NewsletterState.ValueType  # 2
         GEOSUSPENDED: WrappedNewsletterState._NewsletterState.ValueType  # 3
 
-    class NewsletterState(_NewsletterState, metaclass=_NewsletterStateEnumTypeWrapper): ...
+    class NewsletterState(
+        _NewsletterState, metaclass=_NewsletterStateEnumTypeWrapper
+    ): ...
     ACTIVE: WrappedNewsletterState.NewsletterState.ValueType  # 1
     SUSPENDED: WrappedNewsletterState.NewsletterState.ValueType  # 2
     GEOSUSPENDED: WrappedNewsletterState.NewsletterState.ValueType  # 3
@@ -1251,8 +2078,12 @@ class WrappedNewsletterState(google.protobuf.message.Message):
         *,
         Type: global___WrappedNewsletterState.NewsletterState.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Type", b"Type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Type", b"Type"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Type", b"Type"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["Type", b"Type"]
+    ) -> None: ...
 
 global___WrappedNewsletterState = WrappedNewsletterState
 
@@ -1273,8 +2104,18 @@ class NewsletterText(google.protobuf.message.Message):
         ID: builtins.str | None = ...,
         UpdateTime: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ID", b"ID", "Text", b"Text", "UpdateTime", b"UpdateTime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ID", b"ID", "Text", b"Text", "UpdateTime", b"UpdateTime"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ID", b"ID", "Text", b"Text", "UpdateTime", b"UpdateTime"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ID", b"ID", "Text", b"Text", "UpdateTime", b"UpdateTime"
+        ],
+    ) -> None: ...
 
 global___NewsletterText = NewsletterText
 
@@ -1298,8 +2139,18 @@ class ProfilePictureInfo(google.protobuf.message.Message):
         Type: builtins.str | None = ...,
         DirectPath: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["DirectPath", b"DirectPath", "ID", b"ID", "Type", b"Type", "URL", b"URL"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["DirectPath", b"DirectPath", "ID", b"ID", "Type", b"Type", "URL", b"URL"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "DirectPath", b"DirectPath", "ID", b"ID", "Type", b"Type", "URL", b"URL"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "DirectPath", b"DirectPath", "ID", b"ID", "Type", b"Type", "URL", b"URL"
+        ],
+    ) -> None: ...
 
 global___ProfilePictureInfo = ProfilePictureInfo
 
@@ -1311,14 +2162,21 @@ class NewsletterReactionSettings(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _NewsletterReactionsModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[NewsletterReactionSettings._NewsletterReactionsMode.ValueType], builtins.type):
+    class _NewsletterReactionsModeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            NewsletterReactionSettings._NewsletterReactionsMode.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         ALL: NewsletterReactionSettings._NewsletterReactionsMode.ValueType  # 1
         BASIC: NewsletterReactionSettings._NewsletterReactionsMode.ValueType  # 2
         NONE: NewsletterReactionSettings._NewsletterReactionsMode.ValueType  # 3
         BLOCKLIST: NewsletterReactionSettings._NewsletterReactionsMode.ValueType  # 4
 
-    class NewsletterReactionsMode(_NewsletterReactionsMode, metaclass=_NewsletterReactionsModeEnumTypeWrapper): ...
+    class NewsletterReactionsMode(
+        _NewsletterReactionsMode, metaclass=_NewsletterReactionsModeEnumTypeWrapper
+    ): ...
     ALL: NewsletterReactionSettings.NewsletterReactionsMode.ValueType  # 1
     BASIC: NewsletterReactionSettings.NewsletterReactionsMode.ValueType  # 2
     NONE: NewsletterReactionSettings.NewsletterReactionsMode.ValueType  # 3
@@ -1329,10 +2187,15 @@ class NewsletterReactionSettings(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        Value: global___NewsletterReactionSettings.NewsletterReactionsMode.ValueType | None = ...,
+        Value: global___NewsletterReactionSettings.NewsletterReactionsMode.ValueType
+        | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Value", b"Value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Value", b"Value"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Value", b"Value"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["Value", b"Value"]
+    ) -> None: ...
 
 global___NewsletterReactionSettings = NewsletterReactionSettings
 
@@ -1348,8 +2211,12 @@ class NewsletterSetting(google.protobuf.message.Message):
         *,
         ReactionCodes: global___NewsletterReactionSettings | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ReactionCodes", b"ReactionCodes"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ReactionCodes", b"ReactionCodes"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["ReactionCodes", b"ReactionCodes"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["ReactionCodes", b"ReactionCodes"]
+    ) -> None: ...
 
 global___NewsletterSetting = NewsletterSetting
 
@@ -1361,12 +2228,20 @@ class NewsletterThreadMetadata(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _NewsletterVerificationStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[NewsletterThreadMetadata._NewsletterVerificationState.ValueType], builtins.type):
+    class _NewsletterVerificationStateEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            NewsletterThreadMetadata._NewsletterVerificationState.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         VERIFIED: NewsletterThreadMetadata._NewsletterVerificationState.ValueType  # 1
         UNVERIFIED: NewsletterThreadMetadata._NewsletterVerificationState.ValueType  # 2
 
-    class NewsletterVerificationState(_NewsletterVerificationState, metaclass=_NewsletterVerificationStateEnumTypeWrapper): ...
+    class NewsletterVerificationState(
+        _NewsletterVerificationState,
+        metaclass=_NewsletterVerificationStateEnumTypeWrapper,
+    ): ...
     VERIFIED: NewsletterThreadMetadata.NewsletterVerificationState.ValueType  # 1
     UNVERIFIED: NewsletterThreadMetadata.NewsletterVerificationState.ValueType  # 2
 
@@ -1401,13 +2276,58 @@ class NewsletterThreadMetadata(google.protobuf.message.Message):
         Name: global___NewsletterText | None = ...,
         Description: global___NewsletterText | None = ...,
         SubscriberCount: builtins.int | None = ...,
-        VerificationState: global___NewsletterThreadMetadata.NewsletterVerificationState.ValueType | None = ...,
+        VerificationState: global___NewsletterThreadMetadata.NewsletterVerificationState.ValueType
+        | None = ...,
         Picture: global___ProfilePictureInfo | None = ...,
         Preview: global___ProfilePictureInfo | None = ...,
         Settings: global___NewsletterSetting | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["CreationTime", b"CreationTime", "Description", b"Description", "InviteCode", b"InviteCode", "Name", b"Name", "Picture", b"Picture", "Preview", b"Preview", "Settings", b"Settings", "SubscriberCount", b"SubscriberCount", "VerificationState", b"VerificationState"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["CreationTime", b"CreationTime", "Description", b"Description", "InviteCode", b"InviteCode", "Name", b"Name", "Picture", b"Picture", "Preview", b"Preview", "Settings", b"Settings", "SubscriberCount", b"SubscriberCount", "VerificationState", b"VerificationState"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "CreationTime",
+            b"CreationTime",
+            "Description",
+            b"Description",
+            "InviteCode",
+            b"InviteCode",
+            "Name",
+            b"Name",
+            "Picture",
+            b"Picture",
+            "Preview",
+            b"Preview",
+            "Settings",
+            b"Settings",
+            "SubscriberCount",
+            b"SubscriberCount",
+            "VerificationState",
+            b"VerificationState",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "CreationTime",
+            b"CreationTime",
+            "Description",
+            b"Description",
+            "InviteCode",
+            b"InviteCode",
+            "Name",
+            b"Name",
+            "Picture",
+            b"Picture",
+            "Preview",
+            b"Preview",
+            "Settings",
+            b"Settings",
+            "SubscriberCount",
+            b"SubscriberCount",
+            "VerificationState",
+            b"VerificationState",
+        ],
+    ) -> None: ...
 
 global___NewsletterThreadMetadata = NewsletterThreadMetadata
 
@@ -1425,8 +2345,12 @@ class NewsletterViewerMetadata(google.protobuf.message.Message):
         Mute: global___NewsletterMuteState.ValueType | None = ...,
         Role: global___NewsletterRole.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Mute", b"Mute", "Role", b"Role"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Mute", b"Mute", "Role", b"Role"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Mute", b"Mute", "Role", b"Role"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["Mute", b"Mute", "Role", b"Role"]
+    ) -> None: ...
 
 global___NewsletterViewerMetadata = NewsletterViewerMetadata
 
@@ -1454,8 +2378,32 @@ class NewsletterMetadata(google.protobuf.message.Message):
         ThreadMeta: global___NewsletterThreadMetadata | None = ...,
         ViewerMeta: global___NewsletterViewerMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ID", b"ID", "State", b"State", "ThreadMeta", b"ThreadMeta", "ViewerMeta", b"ViewerMeta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ID", b"ID", "State", b"State", "ThreadMeta", b"ThreadMeta", "ViewerMeta", b"ViewerMeta"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ID",
+            b"ID",
+            "State",
+            b"State",
+            "ThreadMeta",
+            b"ThreadMeta",
+            "ViewerMeta",
+            b"ViewerMeta",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ID",
+            b"ID",
+            "State",
+            b"State",
+            "ThreadMeta",
+            b"ThreadMeta",
+            "ViewerMeta",
+            b"ViewerMeta",
+        ],
+    ) -> None: ...
 
 global___NewsletterMetadata = NewsletterMetadata
 
@@ -1467,15 +2415,23 @@ class Blocklist(google.protobuf.message.Message):
     JIDS_FIELD_NUMBER: builtins.int
     DHash: builtins.str
     @property
-    def JIDs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def JIDs(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___JID
+    ]: ...
     def __init__(
         self,
         *,
         DHash: builtins.str | None = ...,
         JIDs: collections.abc.Iterable[global___JID] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["DHash", b"DHash"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["DHash", b"DHash", "JIDs", b"JIDs"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["DHash", b"DHash"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["DHash", b"DHash", "JIDs", b"JIDs"]
+    ) -> None: ...
 
 global___Blocklist = Blocklist
 
@@ -1493,8 +2449,12 @@ class Reaction(google.protobuf.message.Message):
         type: builtins.str | None = ...,
         count: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["count", b"count", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["count", b"count", "type", b"type"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["count", b"count", "type", b"type"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["count", b"count", "type", b"type"]
+    ) -> None: ...
 
 global___Reaction = Reaction
 
@@ -1509,7 +2469,11 @@ class NewsletterMessage(google.protobuf.message.Message):
     MessageServerID: builtins.int
     ViewsCount: builtins.int
     @property
-    def ReactionCounts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Reaction]: ...
+    def ReactionCounts(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___Reaction
+    ]: ...
     @property
     def Message(self) -> def_pb2.Message: ...
     def __init__(
@@ -1520,8 +2484,30 @@ class NewsletterMessage(google.protobuf.message.Message):
         ReactionCounts: collections.abc.Iterable[global___Reaction] | None = ...,
         Message: def_pb2.Message | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Message", b"Message", "MessageServerID", b"MessageServerID", "ViewsCount", b"ViewsCount"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Message", b"Message", "MessageServerID", b"MessageServerID", "ReactionCounts", b"ReactionCounts", "ViewsCount", b"ViewsCount"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Message",
+            b"Message",
+            "MessageServerID",
+            b"MessageServerID",
+            "ViewsCount",
+            b"ViewsCount",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Message",
+            b"Message",
+            "MessageServerID",
+            b"MessageServerID",
+            "ReactionCounts",
+            b"ReactionCounts",
+            "ViewsCount",
+            b"ViewsCount",
+        ],
+    ) -> None: ...
 
 global___NewsletterMessage = NewsletterMessage
 
@@ -1532,18 +2518,32 @@ class GetNewsletterMessageUpdateReturnFunction(google.protobuf.message.Message):
     NEWSLETTERMESSAGE_FIELD_NUMBER: builtins.int
     ERROR_FIELD_NUMBER: builtins.int
     @property
-    def NewsletterMessage(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___NewsletterMessage]: ...
+    def NewsletterMessage(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___NewsletterMessage
+    ]: ...
     Error: builtins.str
     def __init__(
         self,
         *,
-        NewsletterMessage: collections.abc.Iterable[global___NewsletterMessage] | None = ...,
+        NewsletterMessage: collections.abc.Iterable[global___NewsletterMessage]
+        | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "NewsletterMessage", b"NewsletterMessage"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "NewsletterMessage", b"NewsletterMessage"
+        ],
+    ) -> None: ...
 
-global___GetNewsletterMessageUpdateReturnFunction = GetNewsletterMessageUpdateReturnFunction
+global___GetNewsletterMessageUpdateReturnFunction = (
+    GetNewsletterMessageUpdateReturnFunction
+)
 
 @typing_extensions.final
 class PrivacySettings(google.protobuf.message.Message):
@@ -1553,7 +2553,12 @@ class PrivacySettings(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _PrivacySettingEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PrivacySettings._PrivacySetting.ValueType], builtins.type):
+    class _PrivacySettingEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            PrivacySettings._PrivacySetting.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNDEFINED: PrivacySettings._PrivacySetting.ValueType  # 1
         ALL: PrivacySettings._PrivacySetting.ValueType  # 2
@@ -1597,8 +2602,44 @@ class PrivacySettings(google.protobuf.message.Message):
         CallAdd: global___PrivacySettings.PrivacySetting.ValueType | None = ...,
         Online: global___PrivacySettings.PrivacySetting.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["CallAdd", b"CallAdd", "GroupAdd", b"GroupAdd", "LastSeen", b"LastSeen", "Online", b"Online", "Profile", b"Profile", "ReadReceipts", b"ReadReceipts", "Status", b"Status"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["CallAdd", b"CallAdd", "GroupAdd", b"GroupAdd", "LastSeen", b"LastSeen", "Online", b"Online", "Profile", b"Profile", "ReadReceipts", b"ReadReceipts", "Status", b"Status"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "CallAdd",
+            b"CallAdd",
+            "GroupAdd",
+            b"GroupAdd",
+            "LastSeen",
+            b"LastSeen",
+            "Online",
+            b"Online",
+            "Profile",
+            b"Profile",
+            "ReadReceipts",
+            b"ReadReceipts",
+            "Status",
+            b"Status",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "CallAdd",
+            b"CallAdd",
+            "GroupAdd",
+            b"GroupAdd",
+            "LastSeen",
+            b"LastSeen",
+            "Online",
+            b"Online",
+            "Profile",
+            b"Profile",
+            "ReadReceipts",
+            b"ReadReceipts",
+            "Status",
+            b"Status",
+        ],
+    ) -> None: ...
 
 global___PrivacySettings = PrivacySettings
 
@@ -1622,9 +2663,39 @@ class NodeAttrs(google.protobuf.message.Message):
         integer: builtins.int | None = ...,
         text: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Value", b"Value", "boolean", b"boolean", "integer", b"integer", "name", b"name", "text", b"text"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Value", b"Value", "boolean", b"boolean", "integer", b"integer", "name", b"name", "text", b"text"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["Value", b"Value"]) -> typing_extensions.Literal["boolean", "integer", "text"] | None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Value",
+            b"Value",
+            "boolean",
+            b"boolean",
+            "integer",
+            b"integer",
+            "name",
+            b"name",
+            "text",
+            b"text",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Value",
+            b"Value",
+            "boolean",
+            b"boolean",
+            "integer",
+            b"integer",
+            "name",
+            b"name",
+            "text",
+            b"text",
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing_extensions.Literal["Value", b"Value"]
+    ) -> typing_extensions.Literal["boolean", "integer", "text"] | None: ...
 
 global___NodeAttrs = NodeAttrs
 
@@ -1639,9 +2710,17 @@ class Node(google.protobuf.message.Message):
     BYTES_FIELD_NUMBER: builtins.int
     Tag: builtins.str
     @property
-    def Attrs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___NodeAttrs]: ...
+    def Attrs(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___NodeAttrs
+    ]: ...
     @property
-    def Nodes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Node]: ...
+    def Nodes(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___Node
+    ]: ...
     Nil: builtins.bool
     Bytes: builtins.bytes
     def __init__(
@@ -1653,8 +2732,27 @@ class Node(google.protobuf.message.Message):
         Nil: builtins.bool | None = ...,
         Bytes: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Bytes", b"Bytes", "Nil", b"Nil", "Tag", b"Tag"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Attrs", b"Attrs", "Bytes", b"Bytes", "Nil", b"Nil", "Nodes", b"Nodes", "Tag", b"Tag"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Bytes", b"Bytes", "Nil", b"Nil", "Tag", b"Tag"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Attrs",
+            b"Attrs",
+            "Bytes",
+            b"Bytes",
+            "Nil",
+            b"Nil",
+            "Nodes",
+            b"Nodes",
+            "Tag",
+            b"Tag",
+        ],
+    ) -> None: ...
 
 global___Node = Node
 
@@ -1670,7 +2768,11 @@ class InfoQuery(google.protobuf.message.Message):
     Type: builtins.str
     To: builtins.str
     @property
-    def Content(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Node]: ...
+    def Content(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___Node
+    ]: ...
     def __init__(
         self,
         *,
@@ -1679,8 +2781,25 @@ class InfoQuery(google.protobuf.message.Message):
         To: builtins.str | None = ...,
         Content: collections.abc.Iterable[global___Node] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Namespace", b"Namespace", "To", b"To", "Type", b"Type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Content", b"Content", "Namespace", b"Namespace", "To", b"To", "Type", b"Type"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Namespace", b"Namespace", "To", b"To", "Type", b"Type"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Content",
+            b"Content",
+            "Namespace",
+            b"Namespace",
+            "To",
+            b"To",
+            "Type",
+            b"Type",
+        ],
+    ) -> None: ...
 
 global___InfoQuery = InfoQuery
 
@@ -1701,8 +2820,28 @@ class GetProfilePictureParams(google.protobuf.message.Message):
         ExistingID: builtins.str | None = ...,
         IsCommunity: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ExistingID", b"ExistingID", "IsCommunity", b"IsCommunity", "Preview", b"Preview"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ExistingID", b"ExistingID", "IsCommunity", b"IsCommunity", "Preview", b"Preview"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ExistingID",
+            b"ExistingID",
+            "IsCommunity",
+            b"IsCommunity",
+            "Preview",
+            b"Preview",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ExistingID",
+            b"ExistingID",
+            "IsCommunity",
+            b"IsCommunity",
+            "Preview",
+            b"Preview",
+        ],
+    ) -> None: ...
 
 global___GetProfilePictureParams = GetProfilePictureParams
 
@@ -1721,8 +2860,14 @@ class GetProfilePictureReturnFunction(google.protobuf.message.Message):
         Picture: global___ProfilePictureInfo | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "Picture", b"Picture"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "Picture", b"Picture"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal["Error", b"Error", "Picture", b"Picture"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal["Error", b"Error", "Picture", b"Picture"],
+    ) -> None: ...
 
 global___GetProfilePictureReturnFunction = GetProfilePictureReturnFunction
 
@@ -1734,13 +2879,20 @@ class StatusPrivacy(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StatusPrivacyTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[StatusPrivacy._StatusPrivacyType.ValueType], builtins.type):
+    class _StatusPrivacyTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            StatusPrivacy._StatusPrivacyType.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         CONTACTS: StatusPrivacy._StatusPrivacyType.ValueType  # 1
         BLACKLIST: StatusPrivacy._StatusPrivacyType.ValueType  # 2
         WHITELIST: StatusPrivacy._StatusPrivacyType.ValueType  # 3
 
-    class StatusPrivacyType(_StatusPrivacyType, metaclass=_StatusPrivacyTypeEnumTypeWrapper): ...
+    class StatusPrivacyType(
+        _StatusPrivacyType, metaclass=_StatusPrivacyTypeEnumTypeWrapper
+    ): ...
     CONTACTS: StatusPrivacy.StatusPrivacyType.ValueType  # 1
     BLACKLIST: StatusPrivacy.StatusPrivacyType.ValueType  # 2
     WHITELIST: StatusPrivacy.StatusPrivacyType.ValueType  # 3
@@ -1750,7 +2902,11 @@ class StatusPrivacy(google.protobuf.message.Message):
     ISDEFAULT_FIELD_NUMBER: builtins.int
     Type: global___StatusPrivacy.StatusPrivacyType.ValueType
     @property
-    def List(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def List(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___JID
+    ]: ...
     IsDefault: builtins.bool
     def __init__(
         self,
@@ -1759,8 +2915,18 @@ class StatusPrivacy(google.protobuf.message.Message):
         List: collections.abc.Iterable[global___JID] | None = ...,
         IsDefault: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["IsDefault", b"IsDefault", "Type", b"Type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["IsDefault", b"IsDefault", "List", b"List", "Type", b"Type"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "IsDefault", b"IsDefault", "Type", b"Type"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "IsDefault", b"IsDefault", "List", b"List", "Type", b"Type"
+        ],
+    ) -> None: ...
 
 global___StatusPrivacy = StatusPrivacy
 
@@ -1771,7 +2937,11 @@ class GetStatusPrivacyReturnFunction(google.protobuf.message.Message):
     STATUSPRIVACY_FIELD_NUMBER: builtins.int
     ERROR_FIELD_NUMBER: builtins.int
     @property
-    def StatusPrivacy(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusPrivacy]: ...
+    def StatusPrivacy(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___StatusPrivacy
+    ]: ...
     Error: builtins.str
     def __init__(
         self,
@@ -1779,8 +2949,15 @@ class GetStatusPrivacyReturnFunction(google.protobuf.message.Message):
         StatusPrivacy: collections.abc.Iterable[global___StatusPrivacy] | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "StatusPrivacy", b"StatusPrivacy"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "StatusPrivacy", b"StatusPrivacy"
+        ],
+    ) -> None: ...
 
 global___GetStatusPrivacyReturnFunction = GetStatusPrivacyReturnFunction
 
@@ -1804,8 +2981,28 @@ class GroupLinkTarget(google.protobuf.message.Message):
         GroupName: global___GroupName | None = ...,
         GroupIsDefaultSub: global___GroupIsDefaultSub | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["GroupIsDefaultSub", b"GroupIsDefaultSub", "GroupName", b"GroupName", "JID", b"JID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["GroupIsDefaultSub", b"GroupIsDefaultSub", "GroupName", b"GroupName", "JID", b"JID"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "GroupIsDefaultSub",
+            b"GroupIsDefaultSub",
+            "GroupName",
+            b"GroupName",
+            "JID",
+            b"JID",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "GroupIsDefaultSub",
+            b"GroupIsDefaultSub",
+            "GroupName",
+            b"GroupName",
+            "JID",
+            b"JID",
+        ],
+    ) -> None: ...
 
 global___GroupLinkTarget = GroupLinkTarget
 
@@ -1817,7 +3014,12 @@ class GroupLinkChange(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ChangeTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GroupLinkChange._ChangeType.ValueType], builtins.type):
+    class _ChangeTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            GroupLinkChange._ChangeType.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         PARENT: GroupLinkChange._ChangeType.ValueType  # 1
         SUB: GroupLinkChange._ChangeType.ValueType  # 2
@@ -1842,8 +3044,18 @@ class GroupLinkChange(google.protobuf.message.Message):
         UnlinkReason: builtins.str | None = ...,
         Group: global___GroupLinkTarget | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Group", b"Group", "Type", b"Type", "UnlinkReason", b"UnlinkReason"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Group", b"Group", "Type", b"Type", "UnlinkReason", b"UnlinkReason"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Group", b"Group", "Type", b"Type", "UnlinkReason", b"UnlinkReason"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Group", b"Group", "Type", b"Type", "UnlinkReason", b"UnlinkReason"
+        ],
+    ) -> None: ...
 
 global___GroupLinkChange = GroupLinkChange
 
@@ -1854,16 +3066,28 @@ class GetSubGroupsReturnFunction(google.protobuf.message.Message):
     GROUPLINKTARGET_FIELD_NUMBER: builtins.int
     ERROR_FIELD_NUMBER: builtins.int
     @property
-    def GroupLinkTarget(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GroupLinkTarget]: ...
+    def GroupLinkTarget(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___GroupLinkTarget
+    ]: ...
     Error: builtins.str
     def __init__(
         self,
         *,
-        GroupLinkTarget: collections.abc.Iterable[global___GroupLinkTarget] | None = ...,
+        GroupLinkTarget: collections.abc.Iterable[global___GroupLinkTarget]
+        | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "GroupLinkTarget", b"GroupLinkTarget"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "GroupLinkTarget", b"GroupLinkTarget"
+        ],
+    ) -> None: ...
 
 global___GetSubGroupsReturnFunction = GetSubGroupsReturnFunction
 
@@ -1874,7 +3098,11 @@ class GetSubscribedNewslettersReturnFunction(google.protobuf.message.Message):
     NEWSLETTER_FIELD_NUMBER: builtins.int
     ERROR_FIELD_NUMBER: builtins.int
     @property
-    def Newsletter(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___NewsletterMetadata]: ...
+    def Newsletter(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___NewsletterMetadata
+    ]: ...
     Error: builtins.str
     def __init__(
         self,
@@ -1882,8 +3110,15 @@ class GetSubscribedNewslettersReturnFunction(google.protobuf.message.Message):
         Newsletter: collections.abc.Iterable[global___NewsletterMetadata] | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "Newsletter", b"Newsletter"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "Newsletter", b"Newsletter"
+        ],
+    ) -> None: ...
 
 global___GetSubscribedNewslettersReturnFunction = GetSubscribedNewslettersReturnFunction
 
@@ -1894,7 +3129,11 @@ class GetUserDevicesreturnFunction(google.protobuf.message.Message):
     JID_FIELD_NUMBER: builtins.int
     ERROR_FIELD_NUMBER: builtins.int
     @property
-    def JID(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def JID(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___JID
+    ]: ...
     Error: builtins.str
     def __init__(
         self,
@@ -1902,8 +3141,12 @@ class GetUserDevicesreturnFunction(google.protobuf.message.Message):
         JID: collections.abc.Iterable[global___JID] | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "JID", b"JID"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["Error", b"Error", "JID", b"JID"]
+    ) -> None: ...
 
 global___GetUserDevicesreturnFunction = GetUserDevicesreturnFunction
 
@@ -1921,10 +3164,22 @@ class NewsletterSubscribeLiveUpdatesReturnFunction(google.protobuf.message.Messa
         Duration: builtins.int | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Duration", b"Duration", "Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Duration", b"Duration", "Error", b"Error"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Duration", b"Duration", "Error", b"Error"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Duration", b"Duration", "Error", b"Error"
+        ],
+    ) -> None: ...
 
-global___NewsletterSubscribeLiveUpdatesReturnFunction = NewsletterSubscribeLiveUpdatesReturnFunction
+global___NewsletterSubscribeLiveUpdatesReturnFunction = (
+    NewsletterSubscribeLiveUpdatesReturnFunction
+)
 
 @typing_extensions.final
 class PairPhoneParams(google.protobuf.message.Message):
@@ -1946,8 +3201,32 @@ class PairPhoneParams(google.protobuf.message.Message):
         clientType: builtins.int | None = ...,
         clientDisplayName: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["clientDisplayName", b"clientDisplayName", "clientType", b"clientType", "phone", b"phone", "showPushNotification", b"showPushNotification"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["clientDisplayName", b"clientDisplayName", "clientType", b"clientType", "phone", b"phone", "showPushNotification", b"showPushNotification"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "clientDisplayName",
+            b"clientDisplayName",
+            "clientType",
+            b"clientType",
+            "phone",
+            b"phone",
+            "showPushNotification",
+            b"showPushNotification",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "clientDisplayName",
+            b"clientDisplayName",
+            "clientType",
+            b"clientType",
+            "phone",
+            b"phone",
+            "showPushNotification",
+            b"showPushNotification",
+        ],
+    ) -> None: ...
 
 global___PairPhoneParams = PairPhoneParams
 
@@ -1969,8 +3248,18 @@ class ContactQRLinkTarget(google.protobuf.message.Message):
         Type: builtins.str | None = ...,
         PushName: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["JID", b"JID", "PushName", b"PushName", "Type", b"Type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["JID", b"JID", "PushName", b"PushName", "Type", b"Type"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "JID", b"JID", "PushName", b"PushName", "Type", b"Type"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "JID", b"JID", "PushName", b"PushName", "Type", b"Type"
+        ],
+    ) -> None: ...
 
 global___ContactQRLinkTarget = ContactQRLinkTarget
 
@@ -1989,8 +3278,18 @@ class ResolveContactQRLinkReturnFunction(google.protobuf.message.Message):
         ContactQrLink: global___ContactQRLinkTarget | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ContactQrLink", b"ContactQrLink", "Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ContactQrLink", b"ContactQrLink", "Error", b"Error"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ContactQrLink", b"ContactQrLink", "Error", b"Error"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ContactQrLink", b"ContactQrLink", "Error", b"Error"
+        ],
+    ) -> None: ...
 
 global___ResolveContactQRLinkReturnFunction = ResolveContactQRLinkReturnFunction
 
@@ -2021,8 +3320,40 @@ class BusinessMessageLinkTarget(google.protobuf.message.Message):
         VerifiedLevel: builtins.str | None = ...,
         Message: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["IsSigned", b"IsSigned", "JID", b"JID", "Message", b"Message", "PushName", b"PushName", "VerifiedLevel", b"VerifiedLevel", "VerifiedName", b"VerifiedName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["IsSigned", b"IsSigned", "JID", b"JID", "Message", b"Message", "PushName", b"PushName", "VerifiedLevel", b"VerifiedLevel", "VerifiedName", b"VerifiedName"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "IsSigned",
+            b"IsSigned",
+            "JID",
+            b"JID",
+            "Message",
+            b"Message",
+            "PushName",
+            b"PushName",
+            "VerifiedLevel",
+            b"VerifiedLevel",
+            "VerifiedName",
+            b"VerifiedName",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "IsSigned",
+            b"IsSigned",
+            "JID",
+            b"JID",
+            "Message",
+            b"Message",
+            "PushName",
+            b"PushName",
+            "VerifiedLevel",
+            b"VerifiedLevel",
+            "VerifiedName",
+            b"VerifiedName",
+        ],
+    ) -> None: ...
 
 global___BusinessMessageLinkTarget = BusinessMessageLinkTarget
 
@@ -2041,10 +3372,22 @@ class ResolveBusinessMessageLinkReturnFunction(google.protobuf.message.Message):
         MessageLinkTarget: global___BusinessMessageLinkTarget | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "MessageLinkTarget", b"MessageLinkTarget"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "MessageLinkTarget", b"MessageLinkTarget"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "MessageLinkTarget", b"MessageLinkTarget"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "MessageLinkTarget", b"MessageLinkTarget"
+        ],
+    ) -> None: ...
 
-global___ResolveBusinessMessageLinkReturnFunction = ResolveBusinessMessageLinkReturnFunction
+global___ResolveBusinessMessageLinkReturnFunction = (
+    ResolveBusinessMessageLinkReturnFunction
+)
 
 @typing_extensions.final
 class MutationInfo(google.protobuf.message.Message):
@@ -2054,7 +3397,11 @@ class MutationInfo(google.protobuf.message.Message):
     VERSION_FIELD_NUMBER: builtins.int
     VALUE_FIELD_NUMBER: builtins.int
     @property
-    def Index(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def Index(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
+        builtins.str
+    ]: ...
     Version: builtins.int
     @property
     def Value(self) -> def_pb2.SyncActionValue: ...
@@ -2065,8 +3412,16 @@ class MutationInfo(google.protobuf.message.Message):
         Version: builtins.int | None = ...,
         Value: def_pb2.SyncActionValue | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Value", b"Value", "Version", b"Version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Index", b"Index", "Value", b"Value", "Version", b"Version"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal["Value", b"Value", "Version", b"Version"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Index", b"Index", "Value", b"Value", "Version", b"Version"
+        ],
+    ) -> None: ...
 
 global___MutationInfo = MutationInfo
 
@@ -2078,7 +3433,12 @@ class PatchInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _WAPatchNameEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PatchInfo._WAPatchName.ValueType], builtins.type):
+    class _WAPatchNameEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            PatchInfo._WAPatchName.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         CRITICAL_BLOCK: PatchInfo._WAPatchName.ValueType  # 1
         CRITICAL_UNBLOCK_LOW: PatchInfo._WAPatchName.ValueType  # 2
@@ -2099,7 +3459,11 @@ class PatchInfo(google.protobuf.message.Message):
     Timestamp: builtins.int
     Type: global___PatchInfo.WAPatchName.ValueType
     @property
-    def Mutations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___MutationInfo]: ...
+    def Mutations(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___MutationInfo
+    ]: ...
     def __init__(
         self,
         *,
@@ -2107,10 +3471,107 @@ class PatchInfo(google.protobuf.message.Message):
         Type: global___PatchInfo.WAPatchName.ValueType | None = ...,
         Mutations: collections.abc.Iterable[global___MutationInfo] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Timestamp", b"Timestamp", "Type", b"Type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Mutations", b"Mutations", "Timestamp", b"Timestamp", "Type", b"Type"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Timestamp", b"Timestamp", "Type", b"Type"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Mutations", b"Mutations", "Timestamp", b"Timestamp", "Type", b"Type"
+        ],
+    ) -> None: ...
 
 global___PatchInfo = PatchInfo
+
+@typing_extensions.final
+class ContactsPutPushNameReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STATUS_FIELD_NUMBER: builtins.int
+    PREVIOUSNAME_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    Status: builtins.bool
+    PreviousName: builtins.str
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        Status: builtins.bool | None = ...,
+        PreviousName: builtins.str | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "PreviousName", b"PreviousName", "Status", b"Status"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "PreviousName", b"PreviousName", "Status", b"Status"
+        ],
+    ) -> None: ...
+
+global___ContactsPutPushNameReturnFunction = ContactsPutPushNameReturnFunction
+
+@typing_extensions.final
+class ContactEntry(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    JID_FIELD_NUMBER: builtins.int
+    FIRSTNAME_FIELD_NUMBER: builtins.int
+    FULLNAME_FIELD_NUMBER: builtins.int
+    @property
+    def JID(self) -> global___JID: ...
+    FirstName: builtins.str
+    FullName: builtins.str
+    def __init__(
+        self,
+        *,
+        JID: global___JID | None = ...,
+        FirstName: builtins.str | None = ...,
+        FullName: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "FirstName", b"FirstName", "FullName", b"FullName", "JID", b"JID"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "FirstName", b"FirstName", "FullName", b"FullName", "JID", b"JID"
+        ],
+    ) -> None: ...
+
+global___ContactEntry = ContactEntry
+
+@typing_extensions.final
+class ContactEntryArray(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONTACTENTRY_FIELD_NUMBER: builtins.int
+    @property
+    def ContactEntry(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___ContactEntry
+    ]: ...
+    def __init__(
+        self,
+        *,
+        ContactEntry: collections.abc.Iterable[global___ContactEntry] | None = ...,
+    ) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["ContactEntry", b"ContactEntry"]
+    ) -> None: ...
+
+global___ContactEntryArray = ContactEntryArray
 
 @typing_extensions.final
 class SetPrivacySettingReturnFunction(google.protobuf.message.Message):
@@ -2127,10 +3588,160 @@ class SetPrivacySettingReturnFunction(google.protobuf.message.Message):
         settings: global___PrivacySettings | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error", "settings", b"settings"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "settings", b"settings"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "settings", b"settings"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "settings", b"settings"
+        ],
+    ) -> None: ...
 
 global___SetPrivacySettingReturnFunction = SetPrivacySettingReturnFunction
+
+@typing_extensions.final
+class ContactsGetContactReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONTACTINFO_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def ContactInfo(self) -> global___ContactInfo: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        ContactInfo: global___ContactInfo | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ContactInfo", b"ContactInfo", "Error", b"Error"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ContactInfo", b"ContactInfo", "Error", b"Error"
+        ],
+    ) -> None: ...
+
+global___ContactsGetContactReturnFunction = ContactsGetContactReturnFunction
+
+@typing_extensions.final
+class ContactInfo(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FOUND_FIELD_NUMBER: builtins.int
+    FIRSTNAME_FIELD_NUMBER: builtins.int
+    FULLNAME_FIELD_NUMBER: builtins.int
+    PUSHNAME_FIELD_NUMBER: builtins.int
+    BUSINESSNAME_FIELD_NUMBER: builtins.int
+    Found: builtins.bool
+    FirstName: builtins.str
+    FullName: builtins.str
+    PushName: builtins.str
+    BusinessName: builtins.str
+    def __init__(
+        self,
+        *,
+        Found: builtins.bool | None = ...,
+        FirstName: builtins.str | None = ...,
+        FullName: builtins.str | None = ...,
+        PushName: builtins.str | None = ...,
+        BusinessName: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "BusinessName",
+            b"BusinessName",
+            "FirstName",
+            b"FirstName",
+            "Found",
+            b"Found",
+            "FullName",
+            b"FullName",
+            "PushName",
+            b"PushName",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "BusinessName",
+            b"BusinessName",
+            "FirstName",
+            b"FirstName",
+            "Found",
+            b"Found",
+            "FullName",
+            b"FullName",
+            "PushName",
+            b"PushName",
+        ],
+    ) -> None: ...
+
+global___ContactInfo = ContactInfo
+
+@typing_extensions.final
+class Contact(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    JID_FIELD_NUMBER: builtins.int
+    INFO_FIELD_NUMBER: builtins.int
+    @property
+    def JID(self) -> global___JID: ...
+    @property
+    def Info(self) -> global___ContactInfo: ...
+    def __init__(
+        self,
+        *,
+        JID: global___JID | None = ...,
+        Info: global___ContactInfo | None = ...,
+    ) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Info", b"Info", "JID", b"JID"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["Info", b"Info", "JID", b"JID"]
+    ) -> None: ...
+
+global___Contact = Contact
+
+@typing_extensions.final
+class ContactsGetAllContactsReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONTACT_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    @property
+    def Contact(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___Contact
+    ]: ...
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        Contact: collections.abc.Iterable[global___Contact] | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal["Contact", b"Contact", "Error", b"Error"],
+    ) -> None: ...
+
+global___ContactsGetAllContactsReturnFunction = ContactsGetAllContactsReturnFunction
 
 @typing_extensions.final
 class QR(google.protobuf.message.Message):
@@ -2142,13 +3753,19 @@ class QR(google.protobuf.message.Message):
 
     CODES_FIELD_NUMBER: builtins.int
     @property
-    def Codes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def Codes(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
+        builtins.str
+    ]: ...
     def __init__(
         self,
         *,
         Codes: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Codes", b"Codes"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["Codes", b"Codes"]
+    ) -> None: ...
 
 global___QR = QR
 
@@ -2162,7 +3779,12 @@ class PairStatus(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _PStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PairStatus._PStatus.ValueType], builtins.type):
+    class _PStatusEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            PairStatus._PStatus.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         ERROR: PairStatus._PStatus.ValueType  # 1
         SUCCESS: PairStatus._PStatus.ValueType  # 2
@@ -2191,8 +3813,36 @@ class PairStatus(google.protobuf.message.Message):
         Status: global___PairStatus.PStatus.ValueType | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["BusinessName", b"BusinessName", "Error", b"Error", "ID", b"ID", "Platform", b"Platform", "Status", b"Status"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["BusinessName", b"BusinessName", "Error", b"Error", "ID", b"ID", "Platform", b"Platform", "Status", b"Status"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "BusinessName",
+            b"BusinessName",
+            "Error",
+            b"Error",
+            "ID",
+            b"ID",
+            "Platform",
+            b"Platform",
+            "Status",
+            b"Status",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "BusinessName",
+            b"BusinessName",
+            "Error",
+            b"Error",
+            "ID",
+            b"ID",
+            "Platform",
+            b"Platform",
+            "Status",
+            b"Status",
+        ],
+    ) -> None: ...
 
 global___PairStatus = PairStatus
 
@@ -2207,8 +3857,12 @@ class Connected(google.protobuf.message.Message):
         *,
         status: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["status", b"status"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["status", b"status"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["status", b"status"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["status", b"status"]
+    ) -> None: ...
 
 global___Connected = Connected
 
@@ -2228,8 +3882,18 @@ class KeepAliveTimeout(google.protobuf.message.Message):
         ErrorCount: builtins.int | None = ...,
         LastSuccess: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ErrorCount", b"ErrorCount", "LastSuccess", b"LastSuccess"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ErrorCount", b"ErrorCount", "LastSuccess", b"LastSuccess"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ErrorCount", b"ErrorCount", "LastSuccess", b"LastSuccess"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ErrorCount", b"ErrorCount", "LastSuccess", b"LastSuccess"
+        ],
+    ) -> None: ...
 
 global___KeepAliveTimeout = KeepAliveTimeout
 
@@ -2259,8 +3923,18 @@ class LoggedOut(google.protobuf.message.Message):
         OnConnect: builtins.bool | None = ...,
         Reason: global___ConnectFailureReason.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["OnConnect", b"OnConnect", "Reason", b"Reason"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["OnConnect", b"OnConnect", "Reason", b"Reason"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "OnConnect", b"OnConnect", "Reason", b"Reason"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "OnConnect", b"OnConnect", "Reason", b"Reason"
+        ],
+    ) -> None: ...
 
 global___LoggedOut = LoggedOut
 
@@ -2284,7 +3958,12 @@ class TemporaryBan(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TempBanReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TemporaryBan._TempBanReason.ValueType], builtins.type):
+    class _TempBanReasonEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            TemporaryBan._TempBanReason.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         SEND_TO_TOO_MANY_PEOPLE: TemporaryBan._TempBanReason.ValueType  # 1
         BLOCKED_BY_USERS: TemporaryBan._TempBanReason.ValueType  # 2
@@ -2309,8 +3988,14 @@ class TemporaryBan(google.protobuf.message.Message):
         Code: global___TemporaryBan.TempBanReason.ValueType | None = ...,
         Expire: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Code", b"Code", "Expire", b"Expire"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Code", b"Code", "Expire", b"Expire"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal["Code", b"Code", "Expire", b"Expire"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal["Code", b"Code", "Expire", b"Expire"],
+    ) -> None: ...
 
 global___TemporaryBan = TemporaryBan
 
@@ -2334,8 +4019,18 @@ class ConnectFailure(google.protobuf.message.Message):
         Message: builtins.str | None = ...,
         Raw: global___Node | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Message", b"Message", "Raw", b"Raw", "Reason", b"Reason"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Message", b"Message", "Raw", b"Raw", "Reason", b"Reason"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Message", b"Message", "Raw", b"Raw", "Reason", b"Reason"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Message", b"Message", "Raw", b"Raw", "Reason", b"Reason"
+        ],
+    ) -> None: ...
 
 global___ConnectFailure = ConnectFailure
 
@@ -2366,8 +4061,12 @@ class StreamError(google.protobuf.message.Message):
         Code: builtins.str | None = ...,
         Raw: global___Node | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Code", b"Code", "Raw", b"Raw"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Code", b"Code", "Raw", b"Raw"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Code", b"Code", "Raw", b"Raw"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["Code", b"Code", "Raw", b"Raw"]
+    ) -> None: ...
 
 global___StreamError = StreamError
 
@@ -2382,8 +4081,12 @@ class Disconnected(google.protobuf.message.Message):
         *,
         status: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["status", b"status"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["status", b"status"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["status", b"status"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["status", b"status"]
+    ) -> None: ...
 
 global___Disconnected = Disconnected
 
@@ -2401,8 +4104,12 @@ class HistorySync(google.protobuf.message.Message):
         *,
         Data: def_pb2.HistorySync | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Data", b"Data"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Data", b"Data"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Data", b"Data"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["Data", b"Data"]
+    ) -> None: ...
 
 global___HistorySync = HistorySync
 
@@ -2421,7 +4128,12 @@ class Receipt(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ReceiptTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Receipt._ReceiptType.ValueType], builtins.type):
+    class _ReceiptTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            Receipt._ReceiptType.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DELIVERED: Receipt._ReceiptType.ValueType  # 1
         SENDER: Receipt._ReceiptType.ValueType  # 2
@@ -2455,7 +4167,11 @@ class Receipt(google.protobuf.message.Message):
     @property
     def MessageSource(self) -> global___MessageSource: ...
     @property
-    def MessageIDs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def MessageIDs(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
+        builtins.str
+    ]: ...
     Timestamp: builtins.int
     Type: global___Receipt.ReceiptType.ValueType
     def __init__(
@@ -2466,8 +4182,30 @@ class Receipt(google.protobuf.message.Message):
         Timestamp: builtins.int | None = ...,
         Type: global___Receipt.ReceiptType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["MessageSource", b"MessageSource", "Timestamp", b"Timestamp", "Type", b"Type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["MessageIDs", b"MessageIDs", "MessageSource", b"MessageSource", "Timestamp", b"Timestamp", "Type", b"Type"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "MessageSource",
+            b"MessageSource",
+            "Timestamp",
+            b"Timestamp",
+            "Type",
+            b"Type",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "MessageIDs",
+            b"MessageIDs",
+            "MessageSource",
+            b"MessageSource",
+            "Timestamp",
+            b"Timestamp",
+            "Type",
+            b"Type",
+        ],
+    ) -> None: ...
 
 global___Receipt = Receipt
 
@@ -2481,7 +4219,12 @@ class ChatPresence(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ChatPresenceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ChatPresence._ChatPresence.ValueType], builtins.type):
+    class _ChatPresenceEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            ChatPresence._ChatPresence.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         COMPOSING: ChatPresence._ChatPresence.ValueType  # 1
         PAUSED: ChatPresence._ChatPresence.ValueType  # 2
@@ -2494,12 +4237,19 @@ class ChatPresence(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ChatPresenceMediaEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ChatPresence._ChatPresenceMedia.ValueType], builtins.type):
+    class _ChatPresenceMediaEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            ChatPresence._ChatPresenceMedia.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         TEXT: ChatPresence._ChatPresenceMedia.ValueType  # 1
         AUDIO: ChatPresence._ChatPresenceMedia.ValueType  # 2
 
-    class ChatPresenceMedia(_ChatPresenceMedia, metaclass=_ChatPresenceMediaEnumTypeWrapper): ...
+    class ChatPresenceMedia(
+        _ChatPresenceMedia, metaclass=_ChatPresenceMediaEnumTypeWrapper
+    ): ...
     TEXT: ChatPresence.ChatPresenceMedia.ValueType  # 1
     AUDIO: ChatPresence.ChatPresenceMedia.ValueType  # 2
 
@@ -2517,8 +4267,18 @@ class ChatPresence(google.protobuf.message.Message):
         State: global___ChatPresence.ChatPresence.ValueType | None = ...,
         Media: global___ChatPresence.ChatPresenceMedia.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Media", b"Media", "MessageSource", b"MessageSource", "State", b"State"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Media", b"Media", "MessageSource", b"MessageSource", "State", b"State"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Media", b"Media", "MessageSource", b"MessageSource", "State", b"State"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Media", b"Media", "MessageSource", b"MessageSource", "State", b"State"
+        ],
+    ) -> None: ...
 
 global___ChatPresence = ChatPresence
 
@@ -2542,8 +4302,18 @@ class Presence(google.protobuf.message.Message):
         Unavailable: builtins.bool | None = ...,
         LastSeen: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["From", b"From", "LastSeen", b"LastSeen", "Unavailable", b"Unavailable"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["From", b"From", "LastSeen", b"LastSeen", "Unavailable", b"Unavailable"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "From", b"From", "LastSeen", b"LastSeen", "Unavailable", b"Unavailable"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "From", b"From", "LastSeen", b"LastSeen", "Unavailable", b"Unavailable"
+        ],
+    ) -> None: ...
 
 global___Presence = Presence
 
@@ -2570,8 +4340,32 @@ class JoinedGroup(google.protobuf.message.Message):
         CreateKey: builtins.str | None = ...,
         GroupInfo: global___GroupInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["CreateKey", b"CreateKey", "GroupInfo", b"GroupInfo", "Reason", b"Reason", "Type", b"Type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["CreateKey", b"CreateKey", "GroupInfo", b"GroupInfo", "Reason", b"Reason", "Type", b"Type"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "CreateKey",
+            b"CreateKey",
+            "GroupInfo",
+            b"GroupInfo",
+            "Reason",
+            b"Reason",
+            "Type",
+            b"Type",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "CreateKey",
+            b"CreateKey",
+            "GroupInfo",
+            b"GroupInfo",
+            "Reason",
+            b"Reason",
+            "Type",
+            b"Type",
+        ],
+    ) -> None: ...
 
 global___JoinedGroup = JoinedGroup
 
@@ -2629,15 +4423,35 @@ class GroupInfoEvent(google.protobuf.message.Message):
     ParticipantVersionID: builtins.str
     JoinReason: builtins.str
     @property
-    def Join(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def Join(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___JID
+    ]: ...
     @property
-    def Leave(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def Leave(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___JID
+    ]: ...
     @property
-    def Promote(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def Promote(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___JID
+    ]: ...
     @property
-    def Demote(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def Demote(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___JID
+    ]: ...
     @property
-    def UnknownChanges(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Node]: ...
+    def UnknownChanges(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___Node
+    ]: ...
     def __init__(
         self,
         *,
@@ -2663,8 +4477,90 @@ class GroupInfoEvent(google.protobuf.message.Message):
         Demote: collections.abc.Iterable[global___JID] | None = ...,
         UnknownChanges: collections.abc.Iterable[global___Node] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Announce", b"Announce", "Delete", b"Delete", "Ephemeral", b"Ephemeral", "JID", b"JID", "JoinReason", b"JoinReason", "Link", b"Link", "Locked", b"Locked", "Name", b"Name", "NewInviteLink", b"NewInviteLink", "Notify", b"Notify", "ParticipantVersionID", b"ParticipantVersionID", "PrevParticipantsVersionID", b"PrevParticipantsVersionID", "Sender", b"Sender", "Timestamp", b"Timestamp", "Topic", b"Topic", "Unlink", b"Unlink"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Announce", b"Announce", "Delete", b"Delete", "Demote", b"Demote", "Ephemeral", b"Ephemeral", "JID", b"JID", "Join", b"Join", "JoinReason", b"JoinReason", "Leave", b"Leave", "Link", b"Link", "Locked", b"Locked", "Name", b"Name", "NewInviteLink", b"NewInviteLink", "Notify", b"Notify", "ParticipantVersionID", b"ParticipantVersionID", "PrevParticipantsVersionID", b"PrevParticipantsVersionID", "Promote", b"Promote", "Sender", b"Sender", "Timestamp", b"Timestamp", "Topic", b"Topic", "UnknownChanges", b"UnknownChanges", "Unlink", b"Unlink"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Announce",
+            b"Announce",
+            "Delete",
+            b"Delete",
+            "Ephemeral",
+            b"Ephemeral",
+            "JID",
+            b"JID",
+            "JoinReason",
+            b"JoinReason",
+            "Link",
+            b"Link",
+            "Locked",
+            b"Locked",
+            "Name",
+            b"Name",
+            "NewInviteLink",
+            b"NewInviteLink",
+            "Notify",
+            b"Notify",
+            "ParticipantVersionID",
+            b"ParticipantVersionID",
+            "PrevParticipantsVersionID",
+            b"PrevParticipantsVersionID",
+            "Sender",
+            b"Sender",
+            "Timestamp",
+            b"Timestamp",
+            "Topic",
+            b"Topic",
+            "Unlink",
+            b"Unlink",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Announce",
+            b"Announce",
+            "Delete",
+            b"Delete",
+            "Demote",
+            b"Demote",
+            "Ephemeral",
+            b"Ephemeral",
+            "JID",
+            b"JID",
+            "Join",
+            b"Join",
+            "JoinReason",
+            b"JoinReason",
+            "Leave",
+            b"Leave",
+            "Link",
+            b"Link",
+            "Locked",
+            b"Locked",
+            "Name",
+            b"Name",
+            "NewInviteLink",
+            b"NewInviteLink",
+            "Notify",
+            b"Notify",
+            "ParticipantVersionID",
+            b"ParticipantVersionID",
+            "PrevParticipantsVersionID",
+            b"PrevParticipantsVersionID",
+            "Promote",
+            b"Promote",
+            "Sender",
+            b"Sender",
+            "Timestamp",
+            b"Timestamp",
+            "Topic",
+            b"Topic",
+            "UnknownChanges",
+            b"UnknownChanges",
+            "Unlink",
+            b"Unlink",
+        ],
+    ) -> None: ...
 
 global___GroupInfoEvent = GroupInfoEvent
 
@@ -2692,8 +4588,32 @@ class Picture(google.protobuf.message.Message):
         Timestamp: builtins.int | None = ...,
         Remove: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Author", b"Author", "JID", b"JID", "Remove", b"Remove", "Timestamp", b"Timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Author", b"Author", "JID", b"JID", "Remove", b"Remove", "Timestamp", b"Timestamp"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Author",
+            b"Author",
+            "JID",
+            b"JID",
+            "Remove",
+            b"Remove",
+            "Timestamp",
+            b"Timestamp",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Author",
+            b"Author",
+            "JID",
+            b"JID",
+            "Remove",
+            b"Remove",
+            "Timestamp",
+            b"Timestamp",
+        ],
+    ) -> None: ...
 
 global___Picture = Picture
 
@@ -2717,8 +4637,18 @@ class IdentityChange(google.protobuf.message.Message):
         Timestamp: builtins.int | None = ...,
         Implicit: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Implicit", b"Implicit", "JID", b"JID", "Timestamp", b"Timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Implicit", b"Implicit", "JID", b"JID", "Timestamp", b"Timestamp"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Implicit", b"Implicit", "JID", b"JID", "Timestamp", b"Timestamp"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Implicit", b"Implicit", "JID", b"JID", "Timestamp", b"Timestamp"
+        ],
+    ) -> None: ...
 
 global___IdentityChange = IdentityChange
 
@@ -2757,8 +4687,48 @@ class privacySettingsEvent(google.protobuf.message.Message):
         OnlineChanged: builtins.bool | None = ...,
         CallAddChanged: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["CallAddChanged", b"CallAddChanged", "GroupAddChanged", b"GroupAddChanged", "LastSeenChanged", b"LastSeenChanged", "NewSettings", b"NewSettings", "OnlineChanged", b"OnlineChanged", "ProfileChanged", b"ProfileChanged", "ReadReceiptsChanged", b"ReadReceiptsChanged", "StatusChanged", b"StatusChanged"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["CallAddChanged", b"CallAddChanged", "GroupAddChanged", b"GroupAddChanged", "LastSeenChanged", b"LastSeenChanged", "NewSettings", b"NewSettings", "OnlineChanged", b"OnlineChanged", "ProfileChanged", b"ProfileChanged", "ReadReceiptsChanged", b"ReadReceiptsChanged", "StatusChanged", b"StatusChanged"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "CallAddChanged",
+            b"CallAddChanged",
+            "GroupAddChanged",
+            b"GroupAddChanged",
+            "LastSeenChanged",
+            b"LastSeenChanged",
+            "NewSettings",
+            b"NewSettings",
+            "OnlineChanged",
+            b"OnlineChanged",
+            "ProfileChanged",
+            b"ProfileChanged",
+            "ReadReceiptsChanged",
+            b"ReadReceiptsChanged",
+            "StatusChanged",
+            b"StatusChanged",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "CallAddChanged",
+            b"CallAddChanged",
+            "GroupAddChanged",
+            b"GroupAddChanged",
+            "LastSeenChanged",
+            b"LastSeenChanged",
+            "NewSettings",
+            b"NewSettings",
+            "OnlineChanged",
+            b"OnlineChanged",
+            "ProfileChanged",
+            b"ProfileChanged",
+            "ReadReceiptsChanged",
+            b"ReadReceiptsChanged",
+            "StatusChanged",
+            b"StatusChanged",
+        ],
+    ) -> None: ...
 
 global___privacySettingsEvent = privacySettingsEvent
 
@@ -2787,8 +4757,36 @@ class OfflineSyncPreview(google.protobuf.message.Message):
         Notifications: builtins.int | None = ...,
         Receipts: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["AppDataChanges", b"AppDataChanges", "Message", b"Message", "Notifications", b"Notifications", "Receipts", b"Receipts", "Total", b"Total"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["AppDataChanges", b"AppDataChanges", "Message", b"Message", "Notifications", b"Notifications", "Receipts", b"Receipts", "Total", b"Total"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "AppDataChanges",
+            b"AppDataChanges",
+            "Message",
+            b"Message",
+            "Notifications",
+            b"Notifications",
+            "Receipts",
+            b"Receipts",
+            "Total",
+            b"Total",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "AppDataChanges",
+            b"AppDataChanges",
+            "Message",
+            b"Message",
+            "Notifications",
+            b"Notifications",
+            "Receipts",
+            b"Receipts",
+            "Total",
+            b"Total",
+        ],
+    ) -> None: ...
 
 global___OfflineSyncPreview = OfflineSyncPreview
 
@@ -2805,8 +4803,12 @@ class OfflineSyncCompleted(google.protobuf.message.Message):
         *,
         Count: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Count", b"Count"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Count", b"Count"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Count", b"Count"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["Count", b"Count"]
+    ) -> None: ...
 
 global___OfflineSyncCompleted = OfflineSyncCompleted
 
@@ -2820,7 +4822,12 @@ class BlocklistEvent(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ActionsEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BlocklistEvent._Actions.ValueType], builtins.type):
+    class _ActionsEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            BlocklistEvent._Actions.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT: BlocklistEvent._Actions.ValueType  # 1
         MODIFY: BlocklistEvent._Actions.ValueType  # 2
@@ -2837,7 +4844,11 @@ class BlocklistEvent(google.protobuf.message.Message):
     DHASH: builtins.str
     PrevDHash: builtins.str
     @property
-    def Changes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BlocklistChange]: ...
+    def Changes(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___BlocklistChange
+    ]: ...
     def __init__(
         self,
         *,
@@ -2846,8 +4857,25 @@ class BlocklistEvent(google.protobuf.message.Message):
         PrevDHash: builtins.str | None = ...,
         Changes: collections.abc.Iterable[global___BlocklistChange] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Action", b"Action", "DHASH", b"DHASH", "PrevDHash", b"PrevDHash"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Action", b"Action", "Changes", b"Changes", "DHASH", b"DHASH", "PrevDHash", b"PrevDHash"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Action", b"Action", "DHASH", b"DHASH", "PrevDHash", b"PrevDHash"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Action",
+            b"Action",
+            "Changes",
+            b"Changes",
+            "DHASH",
+            b"DHASH",
+            "PrevDHash",
+            b"PrevDHash",
+        ],
+    ) -> None: ...
 
 global___BlocklistEvent = BlocklistEvent
 
@@ -2861,7 +4889,12 @@ class BlocklistChange(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ActionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BlocklistChange._Action.ValueType], builtins.type):
+    class _ActionEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            BlocklistChange._Action.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         BLOCK: BlocklistChange._Action.ValueType  # 1
         UNBLOCK: BlocklistChange._Action.ValueType  # 2
@@ -2881,8 +4914,18 @@ class BlocklistChange(google.protobuf.message.Message):
         JID: global___JID | None = ...,
         BlockAction: global___BlocklistChange.Action.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["BlockAction", b"BlockAction", "JID", b"JID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["BlockAction", b"BlockAction", "JID", b"JID"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "BlockAction", b"BlockAction", "JID", b"JID"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "BlockAction", b"BlockAction", "JID", b"JID"
+        ],
+    ) -> None: ...
 
 global___BlocklistChange = BlocklistChange
 
@@ -2900,8 +4943,18 @@ class NewsletterJoin(google.protobuf.message.Message):
         *,
         NewsletterMetadata: global___NewsletterMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["NewsletterMetadata", b"NewsletterMetadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["NewsletterMetadata", b"NewsletterMetadata"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "NewsletterMetadata", b"NewsletterMetadata"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "NewsletterMetadata", b"NewsletterMetadata"
+        ],
+    ) -> None: ...
 
 global___NewsletterJoin = NewsletterJoin
 
@@ -2922,8 +4975,12 @@ class NewsletterLeave(google.protobuf.message.Message):
         ID: global___JID | None = ...,
         Role: global___NewsletterRole.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ID", b"ID", "Role", b"Role"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ID", b"ID", "Role", b"Role"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["ID", b"ID", "Role", b"Role"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["ID", b"ID", "Role", b"Role"]
+    ) -> None: ...
 
 global___NewsletterLeave = NewsletterLeave
 
@@ -2944,8 +5001,12 @@ class NewsletterMuteChange(google.protobuf.message.Message):
         ID: global___JID | None = ...,
         Mute: global___NewsletterMuteState.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ID", b"ID", "Mute", b"Mute"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ID", b"ID", "Mute", b"Mute"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["ID", b"ID", "Mute", b"Mute"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["ID", b"ID", "Mute", b"Mute"]
+    ) -> None: ...
 
 global___NewsletterMuteChange = NewsletterMuteChange
 
@@ -2962,7 +5023,11 @@ class NewsletterLiveUpdate(google.protobuf.message.Message):
     def JID(self) -> global___JID: ...
     TIME: builtins.int
     @property
-    def Messages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___NewsletterMessage]: ...
+    def Messages(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___NewsletterMessage
+    ]: ...
     def __init__(
         self,
         *,
@@ -2970,8 +5035,15 @@ class NewsletterLiveUpdate(google.protobuf.message.Message):
         TIME: builtins.int | None = ...,
         Messages: collections.abc.Iterable[global___NewsletterMessage] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["JID", b"JID", "TIME", b"TIME"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["JID", b"JID", "Messages", b"Messages", "TIME", b"TIME"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["JID", b"JID", "TIME", b"TIME"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "JID", b"JID", "Messages", b"Messages", "TIME", b"TIME"
+        ],
+    ) -> None: ...
 
 global___NewsletterLiveUpdate = NewsletterLiveUpdate
 
@@ -2983,15 +5055,26 @@ class UpdateGroupParticipantsReturnFunction(google.protobuf.message.Message):
     PARTICIPANTS_FIELD_NUMBER: builtins.int
     Error: builtins.str
     @property
-    def participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GroupParticipant]: ...
+    def participants(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___GroupParticipant
+    ]: ...
     def __init__(
         self,
         *,
         Error: builtins.str | None = ...,
         participants: collections.abc.Iterable[global___GroupParticipant] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Error", b"Error", "participants", b"participants"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["Error", b"Error"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Error", b"Error", "participants", b"participants"
+        ],
+    ) -> None: ...
 
 global___UpdateGroupParticipantsReturnFunction = UpdateGroupParticipantsReturnFunction
 
@@ -3010,7 +5093,17 @@ class GetMessageForRetryReturnFunction(google.protobuf.message.Message):
         isEmpty: builtins.bool | None = ...,
         Message: def_pb2.Message | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["Message", b"Message", "isEmpty", b"isEmpty"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["Message", b"Message", "isEmpty", b"isEmpty"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Message", b"Message", "isEmpty", b"isEmpty"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "Message", b"Message", "isEmpty", b"isEmpty"
+        ],
+    ) -> None: ...
 
 global___GetMessageForRetryReturnFunction = GetMessageForRetryReturnFunction

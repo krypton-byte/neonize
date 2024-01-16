@@ -890,3 +890,26 @@ func EncodeNewsletterLiveUpdate(update *events.NewsletterLiveUpdate) neonize.New
 		Messages: messages,
 	}
 }
+
+func EncodeContactInfo(info types.ContactInfo) *neonize.ContactInfo {
+	return &neonize.ContactInfo{
+		Found:        proto.Bool(info.Found),
+		FirstName:    proto.String(info.FirstName),
+		FullName:     proto.String(info.FullName),
+		PushName:     proto.String(info.PushName),
+		BusinessName: proto.String(info.BusinessName),
+	}
+}
+
+func EncodeContacts(info map[types.JID]types.ContactInfo) []*neonize.Contact {
+	var contacts = make([]*neonize.Contact, len(info))
+	i := 0
+	for k, v := range info {
+		contacts[i] = &neonize.Contact{
+			JID:  EncodeJidProto(k),
+			Info: EncodeContactInfo(v),
+		}
+		i++
+	}
+	return contacts
+}

@@ -520,12 +520,42 @@ message PatchInfo {
     required WAPatchName Type = 2;
     repeated MutationInfo Mutations = 3;
 }
+message ContactsPutPushNameReturnFunction{
+    required bool Status = 1;
+    optional string PreviousName = 2;
+    optional string Error = 3;
+}
+message ContactEntry {
+    required JID JID = 1;
+    required string FirstName = 2;
+    required string FullName = 3;
+}
+message ContactEntryArray {
+    repeated ContactEntry ContactEntry = 1;
+}
 message SetPrivacySettingReturnFunction {
     optional PrivacySettings settings = 1;
     optional string Error = 2;
 }
-
-
+message ContactsGetContactReturnFunction{
+    optional ContactInfo ContactInfo = 1;
+    optional string Error = 2;
+}
+message ContactInfo {
+    required bool Found = 1;
+    required string FirstName = 2;
+    required string FullName = 3;
+    required string PushName = 4;
+    required string BusinessName = 5;
+}
+message Contact{
+    required JID JID = 1;
+    required ContactInfo Info = 2;
+}
+message ContactsGetAllContactsReturnFunction{
+    repeated Contact Contact = 1;
+    optional string Error = 2;
+}
 // events
 message QR{ //1
     repeated string Codes = 1;

@@ -8,6 +8,7 @@ import (
 	"go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/appstate"
 	waProto "go.mau.fi/whatsmeow/binary/proto"
+	"go.mau.fi/whatsmeow/store"
 	"go.mau.fi/whatsmeow/types"
 	"google.golang.org/protobuf/proto"
 )
@@ -181,5 +182,13 @@ func DecodePatchInfo(patchInfo *neonize.PatchInfo) *appstate.PatchInfo {
 		Timestamp: time.Unix(0, *patchInfo.Timestamp),
 		Type:      Type,
 		Mutations: mutationInfo,
+	}
+}
+
+func DecodeContactEntry(entry *neonize.ContactEntry) *store.ContactEntry {
+	return &store.ContactEntry{
+		JID:       DecodeJidProto(entry.JID),
+		FirstName: *entry.FirstName,
+		FullName:  *entry.FullName,
 	}
 }

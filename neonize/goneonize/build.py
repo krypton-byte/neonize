@@ -75,7 +75,7 @@ def build_neonize():
     print(f"os: {os_name}, arch: {arch_name}")
     filename = generated_name(os_name, arch_name)
     subprocess.call(
-        shlex.split(f"go build -buildmode=c-shared -ldflags=-s -o {filename} main.go"),
+        shlex.split(f"go build -buildmode=c-shared -ldflags=-s -o {filename} "),
         cwd=cwd,
         env=os.environ.update({"CGO_ENABLED": "1"}),
     )

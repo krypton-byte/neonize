@@ -7,7 +7,7 @@ import time
 import typing
 from datetime import timedelta
 from io import BytesIO
-from typing import Optional, Callable, List
+from typing import Any, Optional, Callable, List
 
 import magic
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
@@ -16,6 +16,7 @@ from ._binder import gocode, func_string, func_callback_bytes, func
 from .builder import build_edit, build_revoke
 from .events import Event
 from .exc import (
+    ContactStoreError,
     DownloadError,
     ResolveContactQRLinkError,
     SendAppStateError,
@@ -71,6 +72,12 @@ from .exc import (
 )
 from .proto import Neonize_pb2 as neonize_proto
 from .proto.Neonize_pb2 import (
+    Contact,
+    ContactEntry,
+    ContactEntryArray,
+    ContactInfo,
+    ContactsGetContactReturnFunction,
+    ContactsPutPushNameReturnFunction,
     GroupParticipant,
     Blocklist,
     GroupLinkTarget,
@@ -133,6 +140,60 @@ from .utils.jid import Jid2String, JIDToNonAD
 from .utils.thumbnail import generate_thumbnail
 
 
+class ContactStore:
+    def __init__(self, uuid: bytes) -> None:
+        self.uuid = uuid
+        self.__client = gocode
+
+    def put_pushname(
+        self, user: JID, pushname: str
+    ) -> ContactsPutPushNameReturnFunction:
+        user_bytes = user.SerializeToString()
+        model = ContactsPutPushNameReturnFunction.FromString(
+            self.__client.PutPushName(
+                user_bytes, len(user_bytes), pushname.encode()
+            ).get_bytes()
+        )
+        if model.Error:
+            raise ContactStoreError(model.Error)
+        return model
+
+    def put_contact_name(self, user: JID, fullname: str, firstname: str):
+        user_bytes = user.SerializeToString()
+        err = self.__client.PutContactName(
+            self.uuid,
+            user_bytes,
+            len(user_bytes),
+            fullname.encode(),
+            firstname.encode(),
+        ).decode()
+        if err:
+            return ContactStoreError(err)
+
+    def put_all_contact_name(self, contact_entry: List[ContactEntry]):
+        entry = ContactEntryArray(ContactEntry=contact_entry).SerializeToString()
+        err = self.__client.PutAllContactNames(self.uuid, entry, len(entry)).decode()
+        if err:
+            raise ContactStoreError(err)
+
+    def get_contact(self, user: JID) -> ContactInfo:
+        jid = user.SerializeToString()
+        model = ContactsGetContactReturnFunction.FromString(
+            self.__client.GetContact(self.uuid, jid, len(jid)).get_bytes()
+        )
+        if model.Error:
+            raise ContactStoreError(model.Error)
+        return model.ContactInfo
+
+    def get_all_contacts(self) -> RepeatedCompositeFieldContainer[Contact]:
+        model = neonize_proto.ContactsGetAllContactsReturnFunction.FromString(
+            self.__client.GetAllContacts(self.uuid).get_bytes()
+        )
+        if model.Error:
+            raise ContactStoreError(model.Error)
+        return model.Contact
+
+
 class NewClient:
     def __init__(
         self,
@@ -158,6 +219,7 @@ class NewClient:
         self.event = Event(self)
         self.blocking = self.event.blocking
         self.qr = self.event.qr
+        self.contact = ContactStore(self.uuid)
         log.debug("🔨 Creating a NewClient instance")
 
     def __onLoginStatus(self, s: str):
@@ -721,10 +783,20 @@ class NewClient:
         else:
             return media.Binary
         return None
-    def download_media_with_path(self, direct_path: str, enc_file_hash: bytes, file_hash: bytes, media_key: bytes, file_length: int, media_type: MediaType, mms_type: str) -> bytes:
+
+    def download_media_with_path(
+        self,
+        direct_path: str,
+        enc_file_hash: bytes,
+        file_hash: bytes,
+        media_key: bytes,
+        file_length: int,
+        media_type: MediaType,
+        mms_type: str,
+    ) -> bytes:
         """
         Downloads media with the given parameters and path. The media is downloaded from the path specified.
-    
+
         :param direct_path: The direct path to the media to be downloaded.
         :type direct_path: str
         :param enc_file_hash: The encrypted hash of the file.
@@ -742,15 +814,26 @@ class NewClient:
         :raises DownloadError: If there is an error in the download process.
         :return: The downloaded media in bytes.
         :rtype: bytes
-        """        
+        """
         model = neonize_proto.DownloadReturnFunction.FromString(
             self.__client.DownloadMediaWithPath(
-                self.uuid, direct_path.encode(), enc_file_hash, len(enc_file_hash), file_hash, len(file_hash), media_key, len(media_key), file_length, media_type.value, mms_type.encode()
+                self.uuid,
+                direct_path.encode(),
+                enc_file_hash,
+                len(enc_file_hash),
+                file_hash,
+                len(file_hash),
+                media_key,
+                len(media_key),
+                file_length,
+                media_type.value,
+                mms_type.encode(),
             ).get_bytes()
         )
         if model.Error:
             raise DownloadError(model.Error)
         return model.Binary
+
     def generate_message_id(self) -> str:
         """Generates a unique identifier for a message.
 

@@ -3,7 +3,8 @@ import logging
 import os
 import subprocess
 from io import BytesIO
-
+from PIL import Image
+from .scaler import sticker
 import magic
 from moviepy.editor import VideoFileClip
 from phonenumbers import parse, PhoneNumberFormat, format_number
@@ -23,7 +24,7 @@ logging.basicConfig(
 )
 
 
-def add_exif(filename: str, name: str = "", author: str = ""):
+def add_exif(name: str = "", author: str = "") -> bytes:
     json_data = {
         "sticker-pack-id": "com.snowcorp.stickerly.android.stickercontentprovider b5e7275f-f1de-4137-961f-57becfad34f2",
         "sticker-pack-name": name,
@@ -39,11 +40,12 @@ def add_exif(filename: str, name: str = "", author: str = ""):
     exif = exif_attr + json_buffer
     exif_length = len(json_buffer)
     exif = exif[:14] + exif_length.to_bytes(4, "little") + exif[18:]
+    return exif
+    # Image.open(filename).save(filename, exif=exif, save_all=True)
+    # exif_out = save_file_to_temp_directory(exif)
 
-    exif_out = save_file_to_temp_directory(exif)
-
-    webpmux_add(filename, filename, exif_out, "exif")
-    os.remove(exif_out)
+    # webpmux_add(filename, filename, exif_out, "exif")
+    # os.remove(exif_out)
 
 
 def get_duration(file: str | bytes) -> float:
@@ -73,7 +75,7 @@ def cv_to_webp(file: str | bytes, is_video: bool = False, **kwargs) -> BytesIO:
         "libwebp",
         "-vf",
         (
-            f"scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, "
+            f"scale='if(gt(iw,ih),320,-1)':'if(gt(iw,ih),-1,320)',fps=15, "
             f"pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] "
             f"palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse"
         ),
@@ -90,7 +92,8 @@ def cv_to_webp(file: str | bytes, is_video: bool = False, **kwargs) -> BytesIO:
         )
     subprocess.call(ffmpeg_command)
     if kwargs.get("name") or kwargs.get("author"):
-        add_exif(output, **kwargs)
+        exif = add_exif(**kwargs)
+        Image.open(output).save(output, format="webp", exif=exif, save_all=True)
     res = BytesIO(get_bytes_from_name_or_url(output))
     os.remove(filename)
     os.remove(output)

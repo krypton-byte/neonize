@@ -158,6 +158,8 @@ def handler(client: NewClient, message: MessageEv):
             client.send_message(
                 chat, client.set_default_disappearing_timer(timedelta(days=7)).__str__()
             )
+        case "test_contacts":
+            client.send_message(chat, client.contact.get_all_contacts().__str__())
 
 
 @client.event(PairStatusEv)
