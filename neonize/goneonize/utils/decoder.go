@@ -113,7 +113,7 @@ func DecodeMessageInfo(messageInfo *neonize.MessageInfo) *types.MessageInfo {
 		ServerID:      int(*messageInfo.ServerID),
 		Type:          *messageInfo.Type,
 		PushName:      *messageInfo.Pushname,
-		Timestamp:     time.Unix(ts, 0),
+		Timestamp:     time.Unix(0, ts),
 		Category:      *messageInfo.Category,
 		Multicast:     *messageInfo.Multicast,
 		MediaType:     *messageInfo.MediaType,
@@ -178,7 +178,7 @@ func DecodePatchInfo(patchInfo *neonize.PatchInfo) *appstate.PatchInfo {
 		mutationInfo = append(mutationInfo, DecodeMutationInfo(mutation))
 	}
 	return &appstate.PatchInfo{
-		Timestamp: time.Unix(*patchInfo.Timestamp, 0),
+		Timestamp: time.Unix(0, *patchInfo.Timestamp),
 		Type:      Type,
 		Mutations: mutationInfo,
 	}
