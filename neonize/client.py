@@ -266,7 +266,7 @@ class NewClient:
             r"/\S+/|(?:v|e(?:mbed)?)/|\S*?[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})",
             re.IGNORECASE
         )
-        links = re.findall(r'https?://\S+', text)
+        links = re.findall(r"https?://\S+", text)
         valid_links = list(filter(validate_link, links))
         if valid_links:
             preview = link_preview(valid_links[0])
