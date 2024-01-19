@@ -3,14 +3,10 @@ import os
 import signal
 import sys
 from datetime import timedelta
-import time
-
-import segno
 
 from neonize.client import NewClient
 from neonize.events import ConnectedEv, MessageEv, PairStatusEv, event, ReceiptEv
 from neonize.types import MessageServerID
-from neonize.utils.enum import MediaType, ReceiptType
 from neonize.utils import log
 from neonize.utils.enum import ReceiptType
 
@@ -34,7 +30,7 @@ def on_connected(_: NewClient, __: ConnectedEv):
 
 
 @client.event(ReceiptEv)
-def on_receipt(client: NewClient, receipt: ReceiptEv):
+def on_receipt(_: NewClient, receipt: ReceiptEv):
     log.debug(receipt)
 
 
@@ -50,6 +46,8 @@ def handler(client: NewClient, message: MessageEv):
     match text:
         case "ping":
             client.reply_message(chat, "pong", message)
+        case "_test_link_preview":
+            client.send_message(chat, "Test https://github.com/krypton-byte/neonize", link_preview=True)
         case "_sticker":
             client.send_sticker(
                 chat,
@@ -60,7 +58,7 @@ def handler(client: NewClient, message: MessageEv):
                 chat,
                 "https://mystickermania.com/cdn/stickers/anime/spy-family-anya-smirk-512x512.png",
                 name="@Neonize",
-                author="2024",
+                pack="2024",
             )
         case "_image":
             client.send_image(

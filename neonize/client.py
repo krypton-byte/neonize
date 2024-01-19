@@ -7,10 +7,12 @@ import time
 import typing
 from datetime import timedelta
 from io import BytesIO
-from typing import Any, Optional, Callable, List
+from typing import Any, Optional, List
 
 import magic
+from PIL import Image
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
+from linkpreview import link_preview
 
 from ._binder import gocode, func_string, func_callback_bytes, func
 from .builder import build_edit, build_revoke
@@ -121,7 +123,7 @@ from .proto.def_pb2 import (
     ContactMessage,
 )
 from .types import MessageServerID
-from .utils import get_duration, gen_vcard, log, cv_to_webp
+from .utils import get_duration, gen_vcard, log, cv_to_webp, validate_link
 from .utils.enum import (
     BlocklistAction,
     MediaType,
@@ -258,6 +260,45 @@ class NewClient:
             for jid in re.finditer(r"@([0-9]{5,16}|0)", text)
         ]
 
+    def _generate_preview(self, text: str) -> ExtendedTextMessage | None:
+        youtube_url_pattern = re.compile(
+            r"(?:https?:)?//(?:www\.)?(?:youtube\.com/(?:[^/\n\s]+"
+            r"/\S+/|(?:v|e(?:mbed)?)/|\S*?[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})",
+            re.IGNORECASE
+        )
+        links = re.findall(r"https?://\S+", text)
+        valid_links = list(filter(validate_link, links))
+        if valid_links:
+            preview = link_preview(valid_links[0])
+            preview_type = 1 if re.match(youtube_url_pattern, valid_links[0]) else 0
+            msg = ExtendedTextMessage(
+                title=preview.title,
+                description=preview.description,
+                matchedText=valid_links[0],
+                canonicalUrl=preview.link.url,
+                previewType=preview_type
+            )
+            if preview.absolute_image:
+                thumbnail = get_bytes_from_name_or_url(preview.absolute_image)
+                mimetype = magic.from_buffer(thumbnail, mime=True)
+                if "jpeg" in mimetype or "png" in mimetype:
+                    image = Image.open(BytesIO(thumbnail))
+                    upload = self.upload(thumbnail, MediaType.MediaLinkThumbnail)
+                    msg.MergeFrom(
+                        ExtendedTextMessage(
+                            jpegThumbnail=thumbnail,
+                            thumbnailDirectPath=upload.DirectPath,
+                            thumbnailSha256=upload.FileSHA256,
+                            thumbnailEncSha256=upload.FileEncSHA256,
+                            mediaKey=upload.MediaKey,
+                            mediaKeyTimestamp=int(time.time()),
+                            thumbnailWidth=image.size[0],
+                            thumbnailHeight=image.size[1],
+                        )
+                    )
+            return msg
+        return None
+
     def _make_quoted_message(self, message: neonize_proto.Message) -> ContextInfo:
         return ContextInfo(
             stanzaId=message.Info.ID,
@@ -266,7 +307,7 @@ class NewClient:
         )
 
     def send_message(
-        self, to: JID, message: typing.Union[Message, str]
+        self, to: JID, message: typing.Union[Message, str], **opts: Any
     ) -> SendResponse:
         """Send a message to the specified JID.
 
@@ -274,6 +315,8 @@ class NewClient:
         :type to: JID
         :param message: The message to send.
         :type message: typing.Union[Message, str]
+        :param opts: Optional keyword arguments.
+        :type opts: Any
         :raises SendMessageError: If there was an error sending the message.
         :return: The response from the server.
         :rtype: SendResponse
@@ -281,6 +324,12 @@ class NewClient:
         to_bytes = to.SerializeToString()
         if isinstance(message, str):
             message_bytes = Message(conversation=message).SerializeToString()
+            if opts.get("link_preview"):
+                msg = ExtendedTextMessage(text=message)
+                preview = self._generate_preview(message)
+                if preview:
+                    msg.MergeFrom(preview)
+                message_bytes = Message(extendedTextMessage=msg).SerializeToString()
         else:
             message_bytes = message.SerializeToString()
         sendresponse = self.__client.SendMessage(
@@ -292,7 +341,7 @@ class NewClient:
         return model.SendResponse
 
     def reply_message(
-        self, to: JID, text: str, quoted: neonize_proto.Message
+        self, to: JID, text: str, quoted: neonize_proto.Message, **opts: Any
     ) -> SendResponse:
         """Send a reply message to a specified JID.
 
@@ -302,6 +351,8 @@ class NewClient:
         :type text: str
         :param quoted: The message to be quoted.
         :type quoted: Message
+        :param opts: Additional options to send with the reply message.
+        :type opts: Any
 
         :return: The response from sending the message.
         :rtype: SendResponse
@@ -317,7 +368,7 @@ class NewClient:
         message.extendedTextMessage.contextInfo.MergeFrom(
             self._make_quoted_message(quoted)
         )
-        return self.send_message(to, message)
+        return self.send_message(to, message, **opts)
 
     def edit_message(
         self, chat: JID, message_id: str, new_message: Message
