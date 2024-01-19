@@ -1,11 +1,12 @@
 import json
 import logging
 import os
+import re
 import subprocess
 from io import BytesIO
-from PIL import Image
-from .scaler import sticker
+
 import magic
+from PIL import Image
 from moviepy.editor import VideoFileClip
 from phonenumbers import parse, PhoneNumberFormat, format_number
 from pydub import AudioSegment
@@ -23,11 +24,11 @@ logging.basicConfig(
 )
 
 
-def add_exif(name: str = "", author: str = "") -> bytes:
+def add_exif(name: str = "", pack: str = "") -> bytes:
     json_data = {
         "sticker-pack-id": "com.snowcorp.stickerly.android.stickercontentprovider b5e7275f-f1de-4137-961f-57becfad34f2",
         "sticker-pack-name": name,
-        "sticker-pack-publisher": author,
+        "sticker-pack-publisher": pack,
         "android-app-store-link": "https://play.google.com/store/apps/details?id=com.marsvard.stickermakerforwhatsapp",
         "ios-app-store-link": "https://itunes.apple.com/app/sticker-maker-studio/id1443326857",
     }
@@ -40,11 +41,6 @@ def add_exif(name: str = "", author: str = "") -> bytes:
     exif_length = len(json_buffer)
     exif = exif[:14] + exif_length.to_bytes(4, "little") + exif[18:]
     return exif
-    # Image.open(filename).save(filename, exif=exif, save_all=True)
-    # exif_out = save_file_to_temp_directory(exif)
-
-    # webpmux_add(filename, filename, exif_out, "exif")
-    # os.remove(exif_out)
 
 
 def get_duration(file: str | bytes) -> float:
@@ -108,3 +104,16 @@ def gen_vcard(name: str, phone_number: str) -> str:
         f"BEGIN:VCARD\nVERSION:3.0\nFN:{name}\nitem1.TEL;waid={phone_number}"
         f":{inter_phone_number}\nitem1.X-ABLabel:Ponsel\nEND:VCARD"
     )
+
+
+def validate_link(link) -> bool:
+    url_pattern = re.compile(
+        r"^(https?|ftp)://"
+        r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|"
+        r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|"
+        r"\[?[A-F0-9]*:[A-F0-9:]+]?)"
+        r"(?::\d+)?"
+        r"(?:/?|[/?]\S+)$", re.IGNORECASE
+    )
+
+    return bool(re.match(url_pattern, link))
