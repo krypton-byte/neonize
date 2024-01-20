@@ -260,7 +260,7 @@ class NewClient:
             for jid in re.finditer(r"@([0-9]{5,16}|0)", text)
         ]
 
-    def _generate_preview(self, text: str) -> ExtendedTextMessage | None:
+    def _generate_link_preview(self, text: str) -> ExtendedTextMessage | None:
         youtube_url_pattern = re.compile(
             r"(?:https?:)?//(?:www\.)?(?:youtube\.com/(?:[^/\n\s]+"
             r"/\S+/|(?:v|e(?:mbed)?)/|\S*?[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})",
@@ -307,7 +307,7 @@ class NewClient:
         )
 
     def send_message(
-        self, to: JID, message: typing.Union[Message, str], **opts: Any
+        self, to: JID, message: typing.Union[Message, str], link_preview: bool = False
     ) -> SendResponse:
         """Send a message to the specified JID.
 
@@ -315,8 +315,8 @@ class NewClient:
         :type to: JID
         :param message: The message to send.
         :type message: typing.Union[Message, str]
-        :param opts: Optional keyword arguments.
-        :type opts: Any
+        :param link_preview: Whether to send a link preview, defaults to False
+        :type link_preview: bool, optional
         :raises SendMessageError: If there was an error sending the message.
         :return: The response from the server.
         :rtype: SendResponse
@@ -324,9 +324,9 @@ class NewClient:
         to_bytes = to.SerializeToString()
         if isinstance(message, str):
             message_bytes = Message(conversation=message).SerializeToString()
-            if opts.get("link_preview"):
+            if link_preview:
                 msg = ExtendedTextMessage(text=message)
-                preview = self._generate_preview(message)
+                preview = self._generate_link_preview(message)
                 if preview:
                     msg.MergeFrom(preview)
                 message_bytes = Message(extendedTextMessage=msg).SerializeToString()
@@ -341,7 +341,7 @@ class NewClient:
         return model.SendResponse
 
     def reply_message(
-        self, to: JID, text: str, quoted: neonize_proto.Message, **opts: Any
+        self, to: JID, text: str, quoted: neonize_proto.Message, link_preview: bool = False
     ) -> SendResponse:
         """Send a reply message to a specified JID.
 
@@ -351,8 +351,8 @@ class NewClient:
         :type text: str
         :param quoted: The message to be quoted.
         :type quoted: Message
-        :param opts: Additional options to send with the reply message.
-        :type opts: Any
+        :param link_preview: Whether to send a link preview, defaults to False
+        :type link_preview: bool, optional
 
         :return: The response from sending the message.
         :rtype: SendResponse
@@ -368,7 +368,7 @@ class NewClient:
         message.extendedTextMessage.contextInfo.MergeFrom(
             self._make_quoted_message(quoted)
         )
-        return self.send_message(to, message, **opts)
+        return self.send_message(to, message, link_preview)
 
     def edit_message(
         self, chat: JID, message_id: str, new_message: Message
@@ -506,7 +506,8 @@ class NewClient:
         to: JID,
         file: typing.Union[str, bytes],
         quoted: Optional[neonize_proto.Message] = None,
-        **kwargs: typing.Any,
+        name: str = "",
+        packname: str = ""
     ) -> SendResponse:
         """Sends a sticker to the specified recipient.
 
@@ -516,15 +517,17 @@ class NewClient:
         :type file: typing.Union[str | bytes]
         :param quoted: Optional. The message to which the sticker is a reply. Defaults to None.
         :type quoted: Optional[Message], optional
-        :param kwargs: Additional keyword arguments.
-        :type kwargs: typing.Any
+        :param name: Optional. The name of the sticker pack. Defaults to "".
+        :type name: str, optional
+        :param packname: Optional. The pack name of the sticker pack. Defaults to "".
+        :type packname: str, optional
         :return: A function for handling the result of the sticker sending process.
         :rtype: SendResponse
         """
         image_buf = get_bytes_from_name_or_url(file)
         mimetype = magic.from_buffer(image_buf, mime=True)
         is_video = "video" in mimetype or "gif" in mimetype
-        io_save = cv_to_webp(image_buf, is_video=is_video, **kwargs)
+        io_save = cv_to_webp(image_buf, is_video, name, packname)
         io_save.seek(0)
         save = io_save.read()
         upload = self.upload(save)

@@ -58,7 +58,7 @@ def handler(client: NewClient, message: MessageEv):
                 chat,
                 "https://mystickermania.com/cdn/stickers/anime/spy-family-anya-smirk-512x512.png",
                 name="@Neonize",
-                pack="2024",
+                packname="2024",
             )
         case "_image":
             client.send_image(
