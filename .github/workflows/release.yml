@@ -169,3 +169,16 @@ jobs:
           sharedlib/*.dll
         generate_release_notes: true
         tag_name: ${{ github.event.inputs.version }}
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    - name: Install Poetry
+      run: |
+        rm -rf sharedlib
+        curl -sSL https://install.python-poetry.org | python - -y
+    - name: Publish
+      run: |
+        poetry version ${{ github.event.inputs.version }}
+        poetry config pypi-token.pypi ${{ secrets.pypi_token }}
+        poetry build && poetry publish
