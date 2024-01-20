@@ -168,6 +168,3 @@ def PairStatusMessage(_: NewClient, message: PairStatusEv):
 
 
 client.connect()
-# print(dir(client))
-# client._NewClient__onQr(b"hahaa")
-# print(log.level)
