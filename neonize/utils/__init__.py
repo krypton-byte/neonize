@@ -24,11 +24,11 @@ logging.basicConfig(
 )
 
 
-def add_exif(name: str = "", pack: str = "") -> bytes:
+def add_exif(name: str = "", packname: str = "") -> bytes:
     json_data = {
         "sticker-pack-id": "com.snowcorp.stickerly.android.stickercontentprovider b5e7275f-f1de-4137-961f-57becfad34f2",
         "sticker-pack-name": name,
-        "sticker-pack-publisher": pack,
+        "sticker-pack-publisher": packname,
         "android-app-store-link": "https://play.google.com/store/apps/details?id=com.marsvard.stickermakerforwhatsapp",
         "ios-app-store-link": "https://itunes.apple.com/app/sticker-maker-studio/id1443326857",
     }
@@ -56,7 +56,7 @@ def get_duration(file: str | bytes) -> float:
     return aud_or_vid.duration if _type == "video" else len(aud_or_vid) / 1000
 
 
-def cv_to_webp(file: str | bytes, is_video: bool = False, **kwargs) -> BytesIO:
+def cv_to_webp(file: str | bytes, is_video: bool = False, name: str = "", packname: str = "") -> BytesIO:
     buff = BytesIO(get_bytes_from_name_or_url(file))
     filename = save_file_to_temp_directory(buff.getvalue())
     output = filename + ".webp"
@@ -86,8 +86,8 @@ def cv_to_webp(file: str | bytes, is_video: bool = False, **kwargs) -> BytesIO:
             ]
         )
     subprocess.call(ffmpeg_command)
-    if kwargs.get("name") or kwargs.get("author"):
-        exif = add_exif(**kwargs)
+    if name or packname:
+        exif = add_exif(name, packname)
         Image.open(output).save(output, format="webp", exif=exif, save_all=True)
     res = BytesIO(get_bytes_from_name_or_url(output))
     os.remove(filename)
