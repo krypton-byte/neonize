@@ -142,6 +142,7 @@ from .utils.jid import Jid2String, JIDToNonAD
 from .utils.thumbnail import generate_thumbnail
 
 
+
 class ContactStore:
     def __init__(self, uuid: bytes) -> None:
         self.uuid = uuid
@@ -150,6 +151,17 @@ class ContactStore:
     def put_pushname(
         self, user: JID, pushname: str
     ) -> ContactsPutPushNameReturnFunction:
+        """
+        Updates the pushname of a specific user.
+    
+        :param user: The JID (Jabber ID) of the user whose pushname needs to be updated.
+        :type user: JID
+        :param pushname: The new pushname for the user.
+        :type pushname: str
+        :raises ContactStoreError: If there is any error updating the pushname.
+        :return: The updated contact model after the pushname has been updated.
+        :rtype: ContactsPutPushNameReturnFunction
+        """    
         user_bytes = user.SerializeToString()
         model = ContactsPutPushNameReturnFunction.FromString(
             self.__client.PutPushName(
@@ -161,6 +173,21 @@ class ContactStore:
         return model
 
     def put_contact_name(self, user: JID, fullname: str, firstname: str):
+        """
+        This method is used to update the contact name in the contact store. It takes the user's JID, 
+        full name and first name as input parameters,
+        then calls the PutContactName method of the client with the user's JID, full name and first name.
+        If there is an error, it returns a ContactStoreError with the error message.
+    
+        :param user: The JID of the user whose contact name is to be updated
+        :type user: JID
+        :param fullname: The full name of the user
+        :type fullname: str
+        :param firstname: The first name of the user
+        :type firstname: str
+        :return: If there is an error, return a ContactStoreError with the error message, else None
+        :rtype: ContactStoreError or None
+        """        
         user_bytes = user.SerializeToString()
         err = self.__client.PutContactName(
             self.uuid,
@@ -173,12 +200,30 @@ class ContactStore:
             return ContactStoreError(err)
 
     def put_all_contact_name(self, contact_entry: List[ContactEntry]):
+        """
+        This method serializes a list of ContactEntry objects and sends them to a 
+        remote service using the client's PutAllContactNames method. If the service 
+        returns an error, it raises a ContactStoreError with the error message.
+    
+        :param contact_entry: List of ContactEntry objects to be serialized and sent
+        :type contact_entry: List[ContactEntry]
+        :raises ContactStoreError: If the remote service returns an error message
+        """        
         entry = ContactEntryArray(ContactEntry=contact_entry).SerializeToString()
         err = self.__client.PutAllContactNames(self.uuid, entry, len(entry)).decode()
         if err:
             raise ContactStoreError(err)
 
     def get_contact(self, user: JID) -> ContactInfo:
+        """
+        This method retrieves a user's contact information based on their JID (Jabber Identifier).
+        
+        :param user: The Jabber Identifier of the user whose contact information is to be retrieved.
+        :type user: JID
+        :raises ContactStoreError: If there is an error while retrieving the contact information.
+        :return: The contact information of the user.
+        :rtype: ContactInfo
+        """        
         jid = user.SerializeToString()
         model = ContactsGetContactReturnFunction.FromString(
             self.__client.GetContact(self.uuid, jid, len(jid)).get_bytes()
@@ -188,12 +233,22 @@ class ContactStore:
         return model.ContactInfo
 
     def get_all_contacts(self) -> RepeatedCompositeFieldContainer[Contact]:
+        """
+        This function retrieves all contacts from the client. It deserializes the response
+        from the client, checks for any errors, and if there are no errors, returns the contacts.
+    
+        :raises ContactStoreError: If there is an error in the response from the client.
+        :return: A list of all contacts.
+        :rtype: RepeatedCompositeFieldContainer[Contact]
+        """
         model = neonize_proto.ContactsGetAllContactsReturnFunction.FromString(
             self.__client.GetAllContacts(self.uuid).get_bytes()
         )
         if model.Error:
             raise ContactStoreError(model.Error)
         return model.Contact
+
+
 
 
 class NewClient:
