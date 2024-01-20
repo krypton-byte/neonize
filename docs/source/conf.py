@@ -20,7 +20,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "sphinx.ext.autosummary",
-    "myst_parser",
+    # "myst_parser",
     "sphinx_autodoc_typehints",
 ]
 
