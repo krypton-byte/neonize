@@ -20,7 +20,6 @@ mypy==1.8.0
 mypy-extensions==1.0.0
 mypy-protobuf==3.5.0
 myst-parser==2.0.0
--e git+ssh://git@github.com/krypton-byte/neonize.git@c3e7e45b1ca2ed5950b5557bf1718fd8f92cbca9#egg=neonize
 numpy==1.26.3
 packaging==23.2
 phonenumbers==8.13.27
