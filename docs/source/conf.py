@@ -7,9 +7,8 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 import os
 import sys
-
-sys.path.insert(0, os.path.abspath(".."))
-sys.path.insert(0, os.path.abspath("../.."))
+from pathlib import Path
+sys.path.insert(0, Path(__file__).parent.parent.parent.__str__())
 import neonize
 
 project = "neonize"
