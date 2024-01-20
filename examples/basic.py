@@ -47,7 +47,9 @@ def handler(client: NewClient, message: MessageEv):
         case "ping":
             client.reply_message(chat, "pong", message)
         case "_test_link_preview":
-            client.send_message(chat, "Test https://github.com/krypton-byte/neonize", link_preview=True)
+            client.send_message(
+                chat, "Test https://github.com/krypton-byte/neonize", link_preview=True
+            )
         case "_sticker":
             client.send_sticker(
                 chat,

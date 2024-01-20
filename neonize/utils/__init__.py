@@ -56,7 +56,9 @@ def get_duration(file: str | bytes) -> float:
     return aud_or_vid.duration if _type == "video" else len(aud_or_vid) / 1000
 
 
-def cv_to_webp(file: str | bytes, is_video: bool = False, name: str = "", packname: str = "") -> BytesIO:
+def cv_to_webp(
+    file: str | bytes, is_video: bool = False, name: str = "", packname: str = ""
+) -> BytesIO:
     buff = BytesIO(get_bytes_from_name_or_url(file))
     filename = save_file_to_temp_directory(buff.getvalue())
     output = filename + ".webp"
@@ -113,7 +115,8 @@ def validate_link(link) -> bool:
         r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|"
         r"\[?[A-F0-9]*:[A-F0-9:]+]?)"
         r"(?::\d+)?"
-        r"(?:/?|[/?]\S+)$", re.IGNORECASE
+        r"(?:/?|[/?]\S+)$",
+        re.IGNORECASE,
     )
 
     return bool(re.match(url_pattern, link))
