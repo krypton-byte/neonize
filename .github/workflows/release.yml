@@ -180,5 +180,5 @@ jobs:
     - name: Publish
       run: |
         poetry version ${{ github.event.inputs.version }}
-        poetry config pypi-token.pypi ${{ secrets.pypi_token }}
+        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
         poetry build && poetry publish
