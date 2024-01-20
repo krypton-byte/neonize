@@ -127,7 +127,7 @@ def handler(client: NewClient, message: MessageEv):
             client.send_message(chat, "error: " + err.__str__())
             resp = client.newsletter_mark_viewed(metadata.ID, [MessageServerID(0)])
             client.send_message(chat, resp.__str__() + "\n" + metadata.__str__())
-        case "keluar#09":
+        case "logout":
             client.logout()
         case "send_react_channel":
             metadata = client.get_newsletter_info_with_invite(
