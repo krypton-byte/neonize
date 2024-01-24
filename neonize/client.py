@@ -289,13 +289,6 @@ class NewClient:
         self.event._qr(self, ctypes.string_at(qr_protoaddr))
 
     def _parse_mention(self, text: Optional[str] = None) -> list[str]:
-        """_summary_
-
-        :param text: _description_, defaults to None
-        :type text: Optional[str], optional
-        :return: _description_
-        :rtype: list[str]
-        """
         """
         This function parses a given text and returns a list of 'mentions' in the format of 'mention@s.whatsapp.net'.
         A 'mention' is defined as a sequence of numbers (5 to 16 digits long) that is prefixed by '@' in the text.
@@ -375,15 +368,25 @@ class NewClient:
         """
         to_bytes = to.SerializeToString()
         if isinstance(message, str):
-            message_bytes = Message(conversation=message).SerializeToString()
+            msg = Message(conversation=message)
+            if x := self._parse_mention(message):
+                msg = ExtendedTextMessage(
+                    text=message,
+                    contextInfo=ContextInfo(
+                        mentionedJid=x
+                    )
+                )
+                if not link_preview:
+                    msg = Message(extendedTextMessage=msg)
             if link_preview:
-                msg = ExtendedTextMessage(text=message)
+                m = ExtendedTextMessage(text=message) if not x else msg
                 preview = self._generate_link_preview(message)
                 if preview:
-                    msg.MergeFrom(preview)
-                message_bytes = Message(extendedTextMessage=msg).SerializeToString()
+                    m.MergeFrom(preview)
+                msg = Message(extendedTextMessage=m)
         else:
-            message_bytes = message.SerializeToString()
+            msg = message
+        message_bytes = msg.SerializeToString()
         sendresponse = self.__client.SendMessage(
             self.uuid, to_bytes, len(to_bytes), message_bytes, len(message_bytes)
         ).get_bytes()
