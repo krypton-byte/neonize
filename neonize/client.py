@@ -344,11 +344,12 @@ class NewClient:
             return msg
         return None
 
-    def _make_quoted_message(self, message: neonize_proto.Message) -> ContextInfo:
+    def _make_quoted_message(self, message: neonize_proto.Message, reply_privately: bool = False) -> ContextInfo:
         return ContextInfo(
             stanzaId=message.Info.ID,
             participant=Jid2String(JIDToNonAD(message.Info.MessageSource.Sender)),
             quotedMessage=message.Message,
+            remoteJid=Jid2String(JIDToNonAD(message.Info.MessageSource.Chat)) if reply_privately else None,
         )
 
     def send_message(
@@ -401,6 +402,7 @@ class NewClient:
         text: str,
         quoted: neonize_proto.Message,
         link_preview: bool = False,
+        reply_privately: bool = False,
     ) -> SendResponse:
         """Send a reply message to a specified JID.
 
@@ -412,6 +414,8 @@ class NewClient:
         :type quoted: Message
         :param link_preview: Whether to send a link preview, defaults to False
         :type link_preview: bool, optional
+        :param reply_privately: Whether to reply privately, defaults to False
+        :type reply_privately: bool, optional
 
         :return: The response from sending the message.
         :rtype: SendResponse
@@ -425,7 +429,7 @@ class NewClient:
             )
         )
         message.extendedTextMessage.contextInfo.MergeFrom(
-            self._make_quoted_message(quoted)
+            self._make_quoted_message(quoted, reply_privately)
         )
         return self.send_message(to, message, link_preview)
 
@@ -599,6 +603,7 @@ class NewClient:
                 fileSha256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
                 mimetype=magic.from_buffer(save, mime=True),
+                isAnimated=is_video
             )
         )
         if quoted:
