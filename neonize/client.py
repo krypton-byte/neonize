@@ -122,7 +122,7 @@ from .proto.def_pb2 import (
     DocumentMessage,
     ContactMessage,
 )
-from .types import MessageServerID
+from .types import MessageServerID, MessageWithContextInfo
 from .utils import get_duration, gen_vcard, log, cv_to_webp, validate_link
 from .utils.enum import (
     BlocklistAction,
@@ -398,40 +398,52 @@ class NewClient:
 
     def reply_message(
         self,
-        to: JID,
-        text: str,
+        message: typing.Union[str, MessageWithContextInfo],
         quoted: neonize_proto.Message,
+        to: Optional[JID] = None,
         link_preview: bool = False,
         reply_privately: bool = False,
     ) -> SendResponse:
         """Send a reply message to a specified JID.
-
-        :param to: The JID of the recipient.
-        :type to: JID
-        :param text: The text of the reply message.
-        :type text: str
-        :param quoted: The message to be quoted.
-        :type quoted: Message
-        :param link_preview: Whether to send a link preview, defaults to False
+        
+        :param message: The message to be sent. Can be a string or a MessageWithContextInfo object.
+        :type message: typing.Union[str, MessageWithContextInfo]
+        :param quoted: The message to be quoted in the message being sent.
+        :type quoted: neonize_proto.Message
+        :param to: The recipient of the message. If not specified, the message is sent to the default recipient.
+        :type to: Optional[JID], optional
+        :param link_preview: If set to True, enables link previews in the message being sent. Defaults to False.
         :type link_preview: bool, optional
-        :param reply_privately: Whether to reply privately, defaults to False
+        :param reply_privately: If set to True, the message is sent as a private reply. Defaults to False.
         :type reply_privately: bool, optional
-
-        :return: The response from sending the message.
+        :param mentioned_jid: List of JIDs to be mentioned in the message. Defaults to an empty list.
+        :type mentioned_jid: List[str], optional
+        :return: Response of the send operation.
         :rtype: SendResponse
         """
-        message = Message(
-            extendedTextMessage=ExtendedTextMessage(
-                text=text,
-                contextInfo=ContextInfo(
-                    mentionedJid=self._parse_mention(text),
-                ),
+        build_message = Message()
+        if to is None:
+            if reply_privately:
+                to = JIDToNonAD(quoted.Info.MessageSource.Sender)
+            else:
+                to = quoted.Info.MessageSource.Chat
+        if isinstance(message, str):
+            partial_message = ExtendedTextMessage(
+                    text=message,
+                    contextInfo=ContextInfo(
+                        mentionedJid=self._parse_mention(message)
+                    )
             )
-        )
-        message.extendedTextMessage.contextInfo.MergeFrom(
-            self._make_quoted_message(quoted, reply_privately)
-        )
-        return self.send_message(to, message, link_preview)
+            if link_preview:
+                preview = self._generate_link_preview(message)
+                if preview is not None:
+                    partial_message.MergeFrom(preview)
+        else:
+            partial_message = message
+        field_name = partial_message.__name__[0].lower() + partial_message.__name__[1:]
+        partial_message.contextInfo.MergeFrom(self._make_quoted_message(quoted, reply_privately))
+        getattr(build_message, field_name).MergeFrom(partial_message)
+        return self.send_message(to, build_message, link_preview)
 
     def edit_message(
         self, chat: JID, message_id: str, new_message: Message

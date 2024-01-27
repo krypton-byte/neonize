@@ -4,11 +4,15 @@ import signal
 import sys
 from datetime import timedelta
 
+import magic
+
 from neonize.client import NewClient
 from neonize.events import ConnectedEv, MessageEv, PairStatusEv, event, ReceiptEv
+from neonize.proto.def_pb2 import ImageMessage
 from neonize.types import MessageServerID
 from neonize.utils import log
 from neonize.utils.enum import ReceiptType
+from neonize.utils.jid import JIDToNonAD
 
 sys.path.insert(0, os.getcwd())
 
@@ -42,10 +46,9 @@ def on_message(client: NewClient, message: MessageEv):
 def handler(client: NewClient, message: MessageEv):
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     chat = message.Info.MessageSource.Chat
-    im = message.Message.imageMessage
     match text:
         case "ping":
-            client.reply_message(chat, "pong", message)
+            client.reply_message("pong", message)
         case "_test_link_preview":
             client.send_message(
                 chat, "Test https://github.com/krypton-byte/neonize", link_preview=True
