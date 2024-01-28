@@ -614,16 +614,18 @@ func EncodeNodeAttrs(attrs waBinary.Attrs) []*neonize.NodeAttrs {
 	for k, v := range attrs {
 		attr := neonize.NodeAttrs{Name: proto.String(k)}
 		switch value := v.(type) {
-		case *int:
-			attr.Value = &neonize.NodeAttrs_Integer{Integer: *proto.Int64(int64(*value))}
-		case *int32:
-			attr.Value = &neonize.NodeAttrs_Integer{Integer: *proto.Int64(int64(*value))}
-		case *int64:
-			attr.Value = &neonize.NodeAttrs_Integer{Integer: *proto.Int64(int64(*value))}
-		case *bool:
-			attr.Value = &neonize.NodeAttrs_Boolean{Boolean: *value}
-		case *string:
-			attr.Value = &neonize.NodeAttrs_Text{Text: *value}
+		case int:
+			attr.Value = &neonize.NodeAttrs_Integer{Integer: *proto.Int64(int64(value))}
+		case int32:
+			attr.Value = &neonize.NodeAttrs_Integer{Integer: *proto.Int64(int64(value))}
+		case int64:
+			attr.Value = &neonize.NodeAttrs_Integer{Integer: *proto.Int64(int64(value))}
+		case bool:
+			attr.Value = &neonize.NodeAttrs_Boolean{Boolean: value}
+		case string:
+			attr.Value = &neonize.NodeAttrs_Text{Text: value}
+		case types.JID:
+			attr.Value = &neonize.NodeAttrs_Jid{Jid: EncodeJidProto(value)}
 		}
 		n_attr = append(n_attr, &attr)
 	}
@@ -646,6 +648,7 @@ func EncodeNode(node *waBinary.Node) *neonize.Node {
 	case []byte:
 		nodes.Bytes = v
 	}
+
 	return &nodes
 
 }
@@ -912,4 +915,20 @@ func EncodeContacts(info map[types.JID]types.ContactInfo) []*neonize.Contact {
 		i++
 	}
 	return contacts
+}
+
+func EncodeBasicCallMeta(basicCallMeta types.BasicCallMeta) *neonize.BasicCallMeta {
+	return &neonize.BasicCallMeta{
+		From:        EncodeJidProto(basicCallMeta.From),
+		Timestamp:   proto.Int64(int64(basicCallMeta.Timestamp.Unix())),
+		CallCreator: EncodeJidProto(basicCallMeta.CallCreator),
+		CallID:      proto.String(basicCallMeta.CallID),
+	}
+}
+
+func EncodeCallRemoteMeta(callRemoteMeta types.CallRemoteMeta) *neonize.CallRemoteMeta {
+	return &neonize.CallRemoteMeta{
+		RemotePlatform: proto.String(callRemoteMeta.RemotePlatform),
+		RemoteVersion:  proto.String(callRemoteMeta.RemoteVersion),
+	}
 }

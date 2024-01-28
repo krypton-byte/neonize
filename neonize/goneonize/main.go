@@ -522,7 +522,118 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 				data, size := getBytesAndSize(update_bytes)
 				go C.call_c_func_callback_bytes(event, data, size, C.int(35))
 			}
+		case *events.CallOffer:
+			if _, ok := subscribers[36]; ok {
+				callOffer := neonize.CallOffer{
+					BasicCallMeta:  utils.EncodeBasicCallMeta(v.BasicCallMeta),
+					CallRemoteMeta: utils.EncodeCallRemoteMeta(v.CallRemoteMeta),
+					Data:           utils.EncodeNode(v.Data),
+				}
+				call_bytes, err := proto.Marshal(&callOffer)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(call_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(36))
+			}
+		case *events.CallAccept:
+			if _, ok := subscribers[37]; ok {
+				callAccept := neonize.CallAccept{
+					BasicCallMeta:  utils.EncodeBasicCallMeta(v.BasicCallMeta),
+					CallRemoteMeta: utils.EncodeCallRemoteMeta(v.CallRemoteMeta),
+					Data:           utils.EncodeNode(v.Data),
+				}
+				call_bytes, err := proto.Marshal(&callAccept)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(call_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(37))
+			}
+		case *events.CallPreAccept:
+			if _, ok := subscribers[38]; ok {
+				callPreAccept := neonize.CallPreAccept{
+					BasicCallMeta:  utils.EncodeBasicCallMeta(v.BasicCallMeta),
+					CallRemoteMeta: utils.EncodeCallRemoteMeta(v.CallRemoteMeta),
+					Data:           utils.EncodeNode(v.Data),
+				}
+				call_bytes, err := proto.Marshal(&callPreAccept)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(call_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(38))
+			}
+		case *events.CallTransport:
+			if _, ok := subscribers[39]; ok {
+				callTransport := neonize.CallTransport{
+					BasicCallMeta:  utils.EncodeBasicCallMeta(v.BasicCallMeta),
+					CallRemoteMeta: utils.EncodeCallRemoteMeta(v.CallRemoteMeta),
+					Data:           utils.EncodeNode(v.Data),
+				}
+				call_bytes, err := proto.Marshal(&callTransport)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(call_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(39))
+			}
+		case *events.CallOfferNotice:
+			if _, ok := subscribers[40]; ok {
+				callOfferNotice := neonize.CallOfferNotice{
+					BasicCallMeta: utils.EncodeBasicCallMeta(v.BasicCallMeta),
+					Media:         proto.String(v.Media),
+					Type:          proto.String(v.Type),
+					Data:          utils.EncodeNode(v.Data),
+				}
+				call_bytes, err := proto.Marshal(&callOfferNotice)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(call_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(40))
+			}
+		case *events.CallRelayLatency:
+			if _, ok := subscribers[41]; ok {
+				callRelayLatency := neonize.CallRelayLatency{
+					BasicCallMeta: utils.EncodeBasicCallMeta(v.BasicCallMeta),
+					Data:          utils.EncodeNode(v.Data),
+				}
+				call_bytes, err := proto.Marshal(&callRelayLatency)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(call_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(41))
+			}
+		case *events.CallTerminate:
+			if _, ok := subscribers[42]; ok {
+				callTerminate := neonize.CallTerminate{
+					BasicCallMeta: utils.EncodeBasicCallMeta(v.BasicCallMeta),
+					Reason:        proto.String(v.Reason),
+					Data:          utils.EncodeNode(v.Data),
+				}
+				call_bytes, err := proto.Marshal(&callTerminate)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(call_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(42))
+			}
+		case *events.UnknownCallEvent:
+			if _, ok := subscribers[43]; ok {
+				unknownCall := neonize.UnknownCallEvent{
+					Node: utils.EncodeNode(v.Node),
+				}
+				call_bytes, err := proto.Marshal(&unknownCall)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(call_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(43))
+			}
 		}
+
 		// C.free(unsafe.Pointer(CData))
 	}
 	client.AddEventHandler(eventHandler)

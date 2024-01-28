@@ -11,6 +11,7 @@ from google.protobuf.message import Message
 from threading import Event as EventThread
 from .proto.Neonize_pb2 import (
     QR as QREv,
+    CallAccept,
     PairStatus as PairStatusEv,
     Connected as ConnectedEv,
     KeepAliveTimeout as KeepAliveTimeoutEv,
@@ -41,6 +42,14 @@ from .proto.Neonize_pb2 import (
     NewsletterLeave as NewsletterLeaveEv,
     NewsletterMuteChange as NewsletterMuteChangeEv,
     NewsletterLiveUpdate as NewsletterLiveUpdateEV,
+    CallOffer as CallOfferEv,
+    CallAccept as CallAcceptEv,
+    CallPreAccept as CallPreAcceptEv,
+    CallTransport as CallTransportEv,
+    CallOfferNotice as CallOfferNoticeEv,
+    CallRelayLatency as CallRelayLatencyEV,
+    CallTerminate as CallTerminateEv,
+    UnknownCallEvent as UnknownCallEventEV
 )
 
 log = logging.getLogger(__name__)
@@ -80,6 +89,15 @@ EVENT_TO_INT: Dict[Type[Message], int] = {
     NewsletterLeaveEv: 33,
     NewsletterMuteChangeEv: 34,
     NewsletterLiveUpdateEV: 35,
+    CallOfferEv: 36,
+    CallAcceptEv: 37,
+    CallPreAcceptEv: 38,
+    CallTransportEv: 39,
+    CallOfferNoticeEv: 40,
+    CallRelayLatencyEV: 41,
+    CallTerminateEv: 42,
+    UnknownCallEventEV: 43
+
 }
 INT_TO_EVENT: Dict[int, Type[Message]] = {code: ev for ev, code in EVENT_TO_INT.items()}
 

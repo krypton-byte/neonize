@@ -400,6 +400,7 @@ message NodeAttrs {
         bool boolean = 2;
         int64 integer = 3;
         string text = 4;
+        JID jid = 5;
     }
 }
 
@@ -782,7 +783,61 @@ message NewsletterLiveUpdate { //35
     required int64 TIME = 2;
     repeated NewsletterMessage Messages = 3;
 }
+// call events
+message BasicCallMeta {
+    required JID from = 1;
+    required int64 timestamp = 2;
+    required JID callCreator = 3;
+    required string callID = 4;
+}
+message CallRemoteMeta {
+    required string remotePlatform = 1;
+    required string remoteVersion = 2;
+}
+//events
+message CallOffer {
+    required BasicCallMeta basicCallMeta = 1;
+    required CallRemoteMeta callRemoteMeta = 2;
+    required Node data = 3;
 
+}
+message CallAccept {
+    required BasicCallMeta basicCallMeta = 1;
+    required CallRemoteMeta callRemoteMeta = 2;
+    required Node data = 3;
+
+}
+message CallPreAccept {
+    required BasicCallMeta basicCallMeta = 1;
+    required CallRemoteMeta callRemoteMeta = 2;
+    required Node data = 3;
+
+}
+message CallTransport {
+    required BasicCallMeta basicCallMeta = 1;
+    required CallRemoteMeta callRemoteMeta = 2;
+    required Node data = 3;
+
+}
+message CallOfferNotice {
+    required BasicCallMeta basicCallMeta = 1;
+    required string media = 2;
+    required string type = 3;
+    required Node data = 4;
+
+}
+message CallRelayLatency {
+    required BasicCallMeta basicCallMeta = 1;
+    required Node data = 2;
+}
+message CallTerminate {
+    required BasicCallMeta basicCallMeta = 1;
+    required string reason = 2;
+    required Node data = 3;
+}
+message UnknownCallEvent {
+    required Node node = 1;
+}
 message UpdateGroupParticipantsReturnFunction {
     optional string Error = 1;
     repeated GroupParticipant participants = 2;
