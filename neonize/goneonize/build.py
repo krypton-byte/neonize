@@ -3,7 +3,7 @@ import platform
 import shlex
 import argparse
 import subprocess
-import sys
+import re
 import shutil
 from pathlib import Path
 from typing import Dict
@@ -82,6 +82,17 @@ def build_neonize():
     if (Path(cwd).parent / filename).exists():
         os.remove(os.path.dirname(cwd) + "/" + filename)
     os.rename(f"{cwd}/{filename}", os.path.dirname(cwd) + "/" + filename)
+
+
+def set_version():
+    args = argparse.ArgumentParser()
+    args.add_argument("version", nargs=1, type=str)
+    parse = args.parse_args()
+    subprocess.call(["poetry", "version", parse.version[0]], cwd=cwd, env=os.environ)
+    with open(cwd + "/version.go", "r") as file:
+        new_code = re.sub(r'"([\d\.]+)"', f'"{parse.version[0]}"', file.read())
+        with open(cwd + "/version.go", "w") as f:
+            f.write(new_code)
 
 
 def build():

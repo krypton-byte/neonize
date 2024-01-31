@@ -292,7 +292,7 @@ class NewClient:
         """
         This function parses a given text and returns a list of 'mentions' in the format of 'mention@s.whatsapp.net'.
         A 'mention' is defined as a sequence of numbers (5 to 16 digits long) that is prefixed by '@' in the text.
-    
+
         :param text: The text to be parsed for mentions, defaults to None
         :type text: Optional[str], optional
         :return: A list of mentions in the format of 'mention@s.whatsapp.net'
@@ -315,16 +315,20 @@ class NewClient:
         valid_links = list(filter(validate_link, links))
         if valid_links:
             preview = link_preview(valid_links[0])
-            preview_type = 1 if re.match(youtube_url_pattern, valid_links[0]) else 0
+            preview_type = (
+                ExtendedTextMessage.PreviewType.VIDEO
+                if re.match(youtube_url_pattern, valid_links[0])
+                else ExtendedTextMessage.PreviewType.NONE
+            )
             msg = ExtendedTextMessage(
-                title=preview.title,
-                description=preview.description,
+                title=str(preview.title),
+                description=str(preview.description),
                 matchedText=valid_links[0],
-                canonicalUrl=preview.link.url,
+                canonicalUrl=str(preview.link.url),
                 previewType=preview_type,
             )
             if preview.absolute_image:
-                thumbnail = get_bytes_from_name_or_url(preview.absolute_image)
+                thumbnail = get_bytes_from_name_or_url(str(preview.absolute_image))
                 mimetype = magic.from_buffer(thumbnail, mime=True)
                 if "jpeg" in mimetype or "png" in mimetype:
                     image = Image.open(BytesIO(thumbnail))
@@ -344,12 +348,16 @@ class NewClient:
             return msg
         return None
 
-    def _make_quoted_message(self, message: neonize_proto.Message, reply_privately: bool = False) -> ContextInfo:
+    def _make_quoted_message(
+        self, message: neonize_proto.Message, reply_privately: bool = False
+    ) -> ContextInfo:
         return ContextInfo(
             stanzaId=message.Info.ID,
             participant=Jid2String(JIDToNonAD(message.Info.MessageSource.Sender)),
             quotedMessage=message.Message,
-            remoteJid=Jid2String(JIDToNonAD(message.Info.MessageSource.Chat)) if reply_privately else None,
+            remoteJid=Jid2String(JIDToNonAD(message.Info.MessageSource.Chat))
+            if reply_privately
+            else None,
         )
 
     def send_message(
@@ -369,22 +377,18 @@ class NewClient:
         """
         to_bytes = to.SerializeToString()
         if isinstance(message, str):
-            msg = Message(conversation=message)
-            if x := self._parse_mention(message):
-                msg = ExtendedTextMessage(
-                    text=message,
-                    contextInfo=ContextInfo(
-                        mentionedJid=x
-                    )
-                )
-                if not link_preview:
-                    msg = Message(extendedTextMessage=msg)
+            mentioned_jid = self._parse_mention(message)
+            partial_msg = ExtendedTextMessage(
+                text=message, contextInfo=ContextInfo(mentionedJid=mentioned_jid)
+            )
             if link_preview:
-                m = ExtendedTextMessage(text=message) if not x else msg
                 preview = self._generate_link_preview(message)
                 if preview:
-                    m.MergeFrom(preview)
-                msg = Message(extendedTextMessage=m)
+                    partial_msg.MergeFrom(preview)
+            if partial_msg.previewType is None and not mentioned_jid:
+                msg = Message(conversation=message)
+            else:
+                msg = Message(extendedTextMessage=partial_msg)
         else:
             msg = message
         message_bytes = msg.SerializeToString()
@@ -405,7 +409,7 @@ class NewClient:
         reply_privately: bool = False,
     ) -> SendResponse:
         """Send a reply message to a specified JID.
-        
+
         :param message: The message to be sent. Can be a string or a MessageWithContextInfo object.
         :type message: typing.Union[str, MessageWithContextInfo]
         :param quoted: The message to be quoted in the message being sent.
@@ -429,10 +433,8 @@ class NewClient:
                 to = quoted.Info.MessageSource.Chat
         if isinstance(message, str):
             partial_message = ExtendedTextMessage(
-                    text=message,
-                    contextInfo=ContextInfo(
-                        mentionedJid=self._parse_mention(message)
-                    )
+                text=message,
+                contextInfo=ContextInfo(mentionedJid=self._parse_mention(message)),
             )
             if link_preview:
                 preview = self._generate_link_preview(message)
@@ -440,8 +442,10 @@ class NewClient:
                     partial_message.MergeFrom(preview)
         else:
             partial_message = message
-        field_name = partial_message.__name__[0].lower() + partial_message.__name__[1:]
-        partial_message.contextInfo.MergeFrom(self._make_quoted_message(quoted, reply_privately))
+        field_name = partial_message.__name__[0].lower() + partial_message.__name__[1:]  # type: ignore
+        partial_message.contextInfo.MergeFrom(
+            self._make_quoted_message(quoted, reply_privately)
+        )
         getattr(build_message, field_name).MergeFrom(partial_message)
         return self.send_message(to, build_message, link_preview)
 
@@ -615,7 +619,7 @@ class NewClient:
                 fileSha256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
                 mimetype=magic.from_buffer(save, mime=True),
-                isAnimated=is_video
+                isAnimated=is_video,
             )
         )
         if quoted:

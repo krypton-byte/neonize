@@ -8,6 +8,7 @@
 import os
 import sys
 from pathlib import Path
+
 sys.path.insert(0, Path(__file__).parent.parent.parent.__str__())
 import neonize
 
@@ -20,7 +21,7 @@ author = "krypton-byte"
 
 extensions = [
     "sphinx.ext.coverage",
-    "sphinx.ext.napoleon", 
+    "sphinx.ext.napoleon",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "sphinx.ext.autosummary",

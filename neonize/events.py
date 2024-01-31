@@ -7,11 +7,10 @@ import ctypes
 import segno
 from typing import TypeVar, Type, Callable, TYPE_CHECKING, Dict
 from google.protobuf.message import Message
-
+from dataclasses import dataclass
 from threading import Event as EventThread
 from .proto.Neonize_pb2 import (
     QR as QREv,
-    CallAccept,
     PairStatus as PairStatusEv,
     Connected as ConnectedEv,
     KeepAliveTimeout as KeepAliveTimeoutEv,
@@ -49,7 +48,7 @@ from .proto.Neonize_pb2 import (
     CallOfferNotice as CallOfferNoticeEv,
     CallRelayLatency as CallRelayLatencyEV,
     CallTerminate as CallTerminateEv,
-    UnknownCallEvent as UnknownCallEventEV
+    UnknownCallEvent as UnknownCallEventEV,
 )
 
 log = logging.getLogger(__name__)
@@ -96,8 +95,7 @@ EVENT_TO_INT: Dict[Type[Message], int] = {
     CallOfferNoticeEv: 40,
     CallRelayLatencyEV: 41,
     CallTerminateEv: 42,
-    UnknownCallEventEV: 43
-
+    UnknownCallEventEV: 43,
 }
 INT_TO_EVENT: Dict[int, Type[Message]] = {code: ev for ev, code in EVENT_TO_INT.items()}
 

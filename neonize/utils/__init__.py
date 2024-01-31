@@ -53,7 +53,11 @@ def get_duration(file: str | bytes) -> float:
         else VideoFileClip(filename)
     )
     os.remove(filename)
-    return aud_or_vid.duration if _type == "video" else len(aud_or_vid) / 1000
+    return (
+        aud_or_vid.duration
+        if isinstance(aud_or_vid, VideoFileClip)
+        else len(aud_or_vid) / 1000
+    )
 
 
 def cv_to_webp(

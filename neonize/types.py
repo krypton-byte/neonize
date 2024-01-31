@@ -1,11 +1,28 @@
 import typing
-from neonize.proto.Neonize_pb2 import Contact
 
-from neonize.proto.def_pb2 import AudioMessage, ButtonsMessage, ContactsArrayMessage, DocumentMessage, EventMessage, ExtendedTextMessage, GroupInviteMessage, ImageMessage, ListMessage, ListResponseMessage, LiveLocationMessage, Message, MessageHistoryBundle, PollCreationMessage, ProductMessage, SendPaymentMessage, StickerMessage, VideoMessage
-
+from neonize.proto.def_pb2 import (
+    AudioMessage,
+    ButtonsMessage,
+    ContactsArrayMessage,
+    DocumentMessage,
+    EventMessage,
+    ExtendedTextMessage,
+    GroupInviteMessage,
+    ImageMessage,
+    ListMessage,
+    ListResponseMessage,
+    LiveLocationMessage,
+    Message,
+    MessageHistoryBundle,
+    PollCreationMessage,
+    ProductMessage,
+    StickerMessage,
+    VideoMessage,
+)
 
 MessageServerID = typing.NewType("MessageServerID", int)
-MessageWithContextInfo = typing.TypeVar("MessageWithContextInfo",
+MessageWithContextInfo = typing.TypeVar(
+    "MessageWithContextInfo",
     ImageMessage,
     ContactsArrayMessage,
     ExtendedTextMessage,
@@ -25,4 +42,5 @@ MessageWithContextInfo = typing.TypeVar("MessageWithContextInfo",
     PollCreationMessage,
     MessageHistoryBundle,
     EventMessage,
+    ContactsArrayMessage,
 )

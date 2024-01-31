@@ -1,7 +1,7 @@
 import ctypes
 import os
 from platform import system
-import platform
+import importlib.metadata
 from typing import Any, Dict
 from pathlib import Path
 
@@ -12,16 +12,28 @@ func_callback_bytes = ctypes.CFUNCTYPE(
     None, ctypes.c_void_p, ctypes.c_int, ctypes.c_int
 )
 from .utils.platform import generated_name
+from .download import download
+
+
+def load_goneonize():
+    while True:
+        try:
+            gocode = ctypes.CDLL(f"{root_dir}/{generated_name()}")
+            gocode.GetVersion.restype = ctypes.c_char_p
+            if gocode.GetVersion().decode() != importlib.metadata.version("neonize"):
+                download()
+                raise Exception("Unmatched version")
+            return gocode
+        except Exception:
+            download()
 
 
 if not os.environ.get("SPHINX"):
     if not (Path(__file__).parent / generated_name()).exists():
-        from .download import download
-
         download()
     file_ext = "dll" if system() == "Windows" else "so"
     root_dir = os.path.abspath(os.path.dirname(__file__))
-    gocode = ctypes.CDLL(f"{root_dir}/{generated_name()}")
+    gocode = load_goneonize()
 
     class Bytes(ctypes.Structure):
         ptr: int
@@ -366,6 +378,7 @@ if not os.environ.get("SPHINX"):
     gocode.UpdateBlocklist.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
+        ctypes.c_int,
         ctypes.c_char_p,
     ]
     gocode.UpdateBlocklist.restype = Bytes

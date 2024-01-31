@@ -7,7 +7,14 @@ from datetime import timedelta
 import magic
 
 from neonize.client import NewClient
-from neonize.events import ConnectedEv, MessageEv, PairStatusEv, event, ReceiptEv, CallOfferEv
+from neonize.events import (
+    ConnectedEv,
+    MessageEv,
+    PairStatusEv,
+    event,
+    ReceiptEv,
+    CallOfferEv,
+)
 from neonize.proto.def_pb2 import ImageMessage
 from neonize.types import MessageServerID
 from neonize.utils import log
