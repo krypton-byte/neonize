@@ -214,3 +214,7 @@ class UnsupportedEvent(Exception):
 
 class ContactStoreError(Exception):
     pass
+
+
+class FFProbeError(Exception):
+    pass

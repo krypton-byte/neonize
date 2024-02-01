@@ -2,7 +2,7 @@ import ctypes
 import os
 from platform import system
 import importlib.metadata
-from typing import Any, Dict
+from typing import Any
 from pathlib import Path
 
 func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p)

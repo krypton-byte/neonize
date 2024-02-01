@@ -23,14 +23,13 @@ protobuf = "^4.25.1"
 python-magic = "0.4.27"
 pillow = "^10.1.0"
 requests = "^2.31.0"
-moviepy = "^1.0.3"
-pydub = "^0.25.1"
 phonenumbers = "^8.13.27"
 linkpreview = "^0.8.3"
 segno = "^1.6.0"
 python-magic-bin = [
-    { version = '*', platform='windows' },
+    { version = '*', markers = "platform_system == 'Windows'" },
 ]
+tqdm = "^4.66.1"
 
 [tool.mypy]
 exclude = [
@@ -54,6 +53,10 @@ sphinx-autodoc-typehints = "^1.25.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+
+
 
 
 

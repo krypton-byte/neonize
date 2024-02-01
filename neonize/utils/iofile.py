@@ -1,6 +1,9 @@
+import re
 import typing
 import io
 import requests
+
+URL_MATCH = re.compile(r"^https?://")
 
 
 def get_bytes_from_name_or_url(args: typing.Union[str, bytes]) -> bytes:
@@ -16,7 +19,7 @@ def get_bytes_from_name_or_url(args: typing.Union[str, bytes]) -> bytes:
         "(KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
     }
     if isinstance(args, str):
-        if args.startswith("http"):
+        if URL_MATCH.match(args):
             return requests.get(args, headers=headers).content
         else:
             with open(args, "rb") as file:

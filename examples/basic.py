@@ -87,7 +87,7 @@ def handler(client: NewClient, message: MessageEv):
         case "_video":
             client.send_video(
                 chat,
-                "https://download.samplelib.com/mp4/sample-5s.mp4",
+                "/home/krypton-byte/Videos/Screenrecorder/Capture_2024-01-28-00-18-32.mp4",
                 caption="Test",
                 quoted=message,
             )

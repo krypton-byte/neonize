@@ -14,6 +14,9 @@ from PIL import Image
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 from linkpreview import link_preview
 
+from .utils.calc import AspectRatioMethod
+
+
 from ._binder import gocode, func_string, func_callback_bytes, func
 from .builder import build_edit, build_revoke
 from .events import Event
@@ -123,7 +126,7 @@ from .proto.def_pb2 import (
     ContactMessage,
 )
 from .types import MessageServerID, MessageWithContextInfo
-from .utils import get_duration, gen_vcard, log, cv_to_webp, validate_link
+from .utils import add_exif, gen_vcard, log, validate_link
 from .utils.enum import (
     BlocklistAction,
     MediaType,
@@ -137,9 +140,9 @@ from .utils.enum import (
     PrivacySetting,
     PrivacySettingType,
 )
+from .utils.ffmpeg import FFmpeg, ImageFormat
 from .utils.iofile import get_bytes_from_name_or_url
 from .utils.jid import Jid2String, JIDToNonAD
-from .utils.thumbnail import generate_thumbnail
 
 
 class ContactStore:
@@ -584,32 +587,39 @@ class NewClient:
         self,
         to: JID,
         file: typing.Union[str, bytes],
+        animated: bool = True,
         quoted: Optional[neonize_proto.Message] = None,
         name: str = "",
         packname: str = "",
     ) -> SendResponse:
-        """Sends a sticker to the specified recipient.
-
-        :param to: The JID (Jabber Identifier) of the recipient.
+        """
+        Send a sticker to a specific JID.
+    
+        :param to: The JID to send the sticker to.
         :type to: JID
-        :param file: Either a file path (str) or URL (str) or binary data (bytes) Image/Video/Gif.
-        :type file: typing.Union[str | bytes]
-        :param quoted: Optional. The message to which the sticker is a reply. Defaults to None.
-        :type quoted: Optional[Message], optional
-        :param name: Optional. The name of the sticker pack. Defaults to "".
+        :param file: The file path of the sticker or the sticker data in bytes.
+        :type file: typing.Union[str, bytes]
+        :param animated: Whether the sticker is animated or not, defaults to True.
+        :type animated: bool, optional
+        :param quoted: The quoted message, if any, defaults to None.
+        :type quoted: Optional[neonize_proto.Message], optional
+        :param name: The name of the sticker, defaults to "".
         :type name: str, optional
-        :param packname: Optional. The pack name of the sticker pack. Defaults to "".
+        :param packname: The name of the sticker pack, defaults to "".
         :type packname: str, optional
-        :return: A function for handling the result of the sticker sending process.
+        :return: The response from the send message function.
         :rtype: SendResponse
         """
-        image_buf = get_bytes_from_name_or_url(file)
-        mimetype = magic.from_buffer(image_buf, mime=True)
-        is_video = "video" in mimetype or "gif" in mimetype
-        io_save = cv_to_webp(image_buf, is_video, name, packname)
-        io_save.seek(0)
-        save = io_save.read()
-        upload = self.upload(save)
+        with FFmpeg(file) as ffmpeg:
+            sticker = ffmpeg.cv_to_webp(animated)
+            thumbnail = ffmpeg.extract_thumbnail(ImageFormat.PNG)
+            io_save = BytesIO(sticker)
+            img = Image.open(io_save)
+            io_save.seek(0)
+            img.save(
+                io_save, format="webp", exif=add_exif(name, packname), save_all=True
+            )
+        upload = self.upload(io_save.getvalue())
         message = Message(
             stickerMessage=StickerMessage(
                 url=upload.url,
@@ -618,8 +628,9 @@ class NewClient:
                 fileLength=upload.FileLength,
                 fileSha256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(save, mime=True),
-                isAnimated=is_video,
+                mimetype=magic.from_buffer(io_save.getvalue(), mime=True),
+                isAnimated=animated,
+                pngThumbnail=thumbnail,
             )
         )
         if quoted:
@@ -657,19 +668,22 @@ class NewClient:
         io = BytesIO(get_bytes_from_name_or_url(file))
         io.seek(0)
         buff = io.read()
+        with FFmpeg(file) as ffmpeg:
+            duration = int(ffmpeg.extract_info().format.duration)
+            thumbnail = ffmpeg.extract_thumbnail()
         upload = self.upload(buff)
         message = Message(
             videoMessage=VideoMessage(
                 url=upload.url,
                 caption=caption,
-                seconds=int(get_duration(buff)),
+                seconds=duration,
                 directPath=upload.DirectPath,
                 fileEncSha256=upload.FileEncSHA256,
                 fileLength=upload.FileLength,
                 fileSha256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
                 mimetype=magic.from_buffer(buff, mime=True),
-                jpegThumbnail=generate_thumbnail(buff),
+                jpegThumbnail=thumbnail,
                 thumbnailDirectPath=upload.DirectPath,
                 thumbnailEncSha256=upload.FileEncSHA256,
                 thumbnailSha256=upload.FileSHA256,
@@ -708,10 +722,12 @@ class NewClient:
         :return: A function for handling the result of the image sending process.
         :rtype: SendResponse
         """
-        io = BytesIO(get_bytes_from_name_or_url(file))
-        io.seek(0)
-        buff = io.read()
-        upload = self.upload(buff)
+        n_file = get_bytes_from_name_or_url(file)
+        img = Image.open(BytesIO(n_file))
+        img.thumbnail(AspectRatioMethod(*img.size, res=200))
+        thumbnail = BytesIO()
+        img.save(thumbnail, format="jpeg")
+        upload = self.upload(n_file)
         message = Message(
             imageMessage=ImageMessage(
                 url=upload.url,
@@ -721,8 +737,8 @@ class NewClient:
                 fileLength=upload.FileLength,
                 fileSha256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(buff, mime=True),
-                jpegThumbnail=generate_thumbnail(buff),
+                mimetype=magic.from_buffer(n_file, mime=True),
+                jpegThumbnail=thumbnail.getvalue(),
                 thumbnailDirectPath=upload.DirectPath,
                 thumbnailEncSha256=upload.FileEncSHA256,
                 thumbnailSha256=upload.FileSHA256,
@@ -762,10 +778,12 @@ class NewClient:
         io.seek(0)
         buff = io.read()
         upload = self.upload(buff)
+        with FFmpeg(io.getvalue()) as ffmpeg:
+            duration = int(ffmpeg.extract_info().format.duration)
         message = Message(
             audioMessage=AudioMessage(
                 url=upload.url,
-                seconds=int(get_duration(buff)),
+                seconds=duration,
                 directPath=upload.DirectPath,
                 fileEncSha256=upload.FileEncSHA256,
                 fileLength=upload.FileLength,
