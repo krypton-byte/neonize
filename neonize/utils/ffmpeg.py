@@ -4,9 +4,7 @@ import os
 import time
 import subprocess
 import tempfile
-import requests
 import logging
-from .calc import AspectRatioMethod
 from typing import List, Optional, Tuple
 from dataclasses import dataclass
 from .iofile import URL_MATCH, TemporaryFile, get_bytes_from_name_or_url
@@ -106,9 +104,6 @@ class FFmpeg:
         """
         if isinstance(data, str):
             if URL_MATCH.match(data):
-                # self.filename = tempfile.NamedTemporaryFile(
-                #     "wb", prefix=prefix, delete=True
-                # ).__enter__()
                 self.filename = TemporaryFile(prefix=prefix, touch=False).__enter__()
                 with open(self.filename.path, "wb") as file:
                     file.write(get_bytes_from_name_or_url(data))
@@ -204,19 +199,19 @@ class FFmpeg:
         :return: The bytes representing the thumbnail image.
         :rtype: bytes
         """
-        video_res: Tuple[int, int] = (200, 200)
+        extra = []
         if size is None or isinstance(size, int):
             for stream in self.extract_info().streams:
                 if stream.codec_type == "video":
-                    width = stream.width or 200
-                    height = stream.height or 200
-                    video_res = (
-                        AspectRatioMethod(width, height, res=size)
-                        if isinstance(size, int)
-                        else (width, height)
+                    extra.extend(
+                        [
+                            "-vf",
+                            "scale='if(gt(iw,ih),%i,-1)':'if(gt(iw,ih),-1,%i)'"
+                            % (size, size),
+                        ]
                     )
         else:
-            video_res = size
+            extra.extend(["-s", "x".join(map(str, size))])
         return self.call(
             [
                 "ffmpeg",
@@ -225,8 +220,7 @@ class FFmpeg:
                 "-vframes",
                 "1",
                 "-an",
-                "-s",
-                "x".join(map(str, video_res)),
+                *extra,
                 "-f",
                 format.value,
                 "-",

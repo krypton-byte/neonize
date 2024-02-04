@@ -3,9 +3,6 @@ import os
 import signal
 import sys
 from datetime import timedelta
-
-import magic
-
 from neonize.client import NewClient
 from neonize.events import (
     ConnectedEv,
@@ -15,11 +12,9 @@ from neonize.events import (
     ReceiptEv,
     CallOfferEv,
 )
-from neonize.proto.def_pb2 import ImageMessage
 from neonize.types import MessageServerID
 from neonize.utils import log
 from neonize.utils.enum import ReceiptType
-from neonize.utils.jid import JIDToNonAD
 
 sys.path.insert(0, os.getcwd())
 

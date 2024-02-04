@@ -24,6 +24,8 @@ def load_goneonize():
                 download()
                 raise Exception("Unmatched version")
             return gocode
+        except OSError as e:
+            raise e
         except Exception:
             download()
 

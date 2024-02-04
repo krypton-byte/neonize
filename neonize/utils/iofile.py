@@ -1,16 +1,13 @@
 import os
-import inspect
 from pathlib import Path
 import re
-from tempfile import NamedTemporaryFile, gettempdir
 import tempfile
 import typing
 import io
 import requests
 from .log import log
-from typing import Generic, Optional, ParamSpec, ParamSpecArgs, Type, TypeVar
+from typing import Optional
 
-T = TypeVar("T")
 URL_MATCH = re.compile(r"^https?://")
 
 
@@ -61,13 +58,26 @@ class TemporaryFile:
         dir: Optional[str] = None,
         touch: bool = True,
     ) -> None:
+        """
+        Initializes a TemporaryFile object. This object represents a temporary file in the system.
+        The file is created upon initialization and removed when the object is deleted.
+
+        :param prefix: The prefix of the temporary file name, defaults to None
+        :type prefix: Optional[str], optional
+        :param suffix: The suffix of the temporary file name, defaults to None
+        :type suffix: Optional[str], optional
+        :param dir: The directory where the temporary file will be created, defaults to None
+        :type dir: Optional[str], optional
+        :param touch: If True, the file is immediately created upon object initialization, defaults to True
+        :type touch: bool, optional
+        """
         params = {}
         if prefix != None:
             params["prefix"] = prefix
         if suffix != None:
             params["suffix"] = suffix
         if dir != None:
-            params["dir"] = None
+            params["dir"] = dir
         self.path = Path(tempfile.mktemp(**params))
         if touch:
             self.path.touch()
