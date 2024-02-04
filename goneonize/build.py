@@ -11,7 +11,7 @@ from typing import Dict
 cwd = os.path.dirname(__file__)
 shell = [
     "protoc --go_out=. Neonize.proto def.proto",
-    "protoc --python_out=../proto --mypy_out=../proto def.proto Neonize.proto",
+    "protoc --python_out=../neonize/proto --mypy_out=../neonize/proto def.proto Neonize.proto",
     "protoc --go_out=. --go-grpc_out=. -I . Neonize.proto def.proto",
 ]
 
@@ -79,9 +79,9 @@ def build_neonize():
         cwd=cwd,
         env=os.environ.update({"CGO_ENABLED": "1"}),
     )
-    if (Path(cwd).parent / filename).exists():
-        os.remove(os.path.dirname(cwd) + "/" + filename)
-    os.rename(f"{cwd}/{filename}", os.path.dirname(cwd) + "/" + filename)
+    if (Path(cwd).parent / f"neonize/{filename}").exists():
+        os.remove(os.path.dirname(cwd) + "/neonize/" + filename)
+    os.rename(f"{cwd}/{filename}", os.path.dirname(cwd) + "/neonize/" + filename)
 
 
 def set_version():

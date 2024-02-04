@@ -5,8 +5,6 @@ from pathlib import Path
 
 project_path = Path(__file__).parent.parent
 
-os.environ["SPHINX"] = "1"
-
 
 def build():
     subprocess.call(
