@@ -1,14 +1,7 @@
 import json
-import logging
 import re
 from phonenumbers import parse, PhoneNumberFormat, format_number
-
-log = logging.getLogger(__name__)
-logging.basicConfig(
-    format="%(asctime)s.%(msecs)03d [%(name)s %(levelname)s] - %(message)s",
-    datefmt="%H:%M:%S",
-    level=logging.INFO,
-)
+from .log import log
 
 
 def add_exif(name: str = "", packname: str = "") -> bytes:

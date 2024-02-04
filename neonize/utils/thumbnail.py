@@ -12,4 +12,3 @@ def save_file_to_temp_directory(data: bytes) -> str:
         temp_file.write(data)
 
     return temp_file_name
-

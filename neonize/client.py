@@ -594,7 +594,7 @@ class NewClient:
     ) -> SendResponse:
         """
         Send a sticker to a specific JID.
-    
+
         :param to: The JID to send the sticker to.
         :type to: JID
         :param file: The file path of the sticker or the sticker data in bytes.

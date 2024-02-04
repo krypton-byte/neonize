@@ -1,8 +1,16 @@
+import os
+import inspect
+from pathlib import Path
 import re
+from tempfile import NamedTemporaryFile, gettempdir
+import tempfile
 import typing
 import io
 import requests
+from .log import log
+from typing import Generic, Optional, ParamSpec, ParamSpecArgs, Type, TypeVar
 
+T = TypeVar("T")
 URL_MATCH = re.compile(r"^https?://")
 
 
@@ -43,3 +51,33 @@ def write_from_bytesio_or_filename(
     else:
         with open(fn_or_bytesio, "wb") as file:
             file.write(data)
+
+
+class TemporaryFile:
+    def __init__(
+        self,
+        prefix: Optional[str] = None,
+        suffix: Optional[str] = None,
+        dir: Optional[str] = None,
+        touch: bool = True,
+    ) -> None:
+        params = {}
+        if prefix != None:
+            params["prefix"] = prefix
+        if suffix != None:
+            params["suffix"] = suffix
+        if dir != None:
+            params["dir"] = None
+        self.path = Path(tempfile.mktemp(**params))
+        if touch:
+            self.path.touch()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        os.remove(self.path)
+        log.debug(
+            "exc_type: %r, exc_value: %r, traceback: %r"
+            % (exc_type, exc_value, traceback)
+        )

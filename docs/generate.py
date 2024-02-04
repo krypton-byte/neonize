@@ -10,7 +10,7 @@ os.environ["SPHINX"] = "1"
 
 def build():
     subprocess.call(
-        shlex.split("sphinx-apidoc -o docs/source neonize neonize.proto"),
+        shlex.split("sphinx-apidoc -o docs/source neonize neonize.proto neonize.utils"),
         cwd=project_path,
         env=os.environ,
     )

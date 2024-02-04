@@ -9,7 +9,7 @@ import logging
 from .calc import AspectRatioMethod
 from typing import List, Optional, Tuple
 from dataclasses import dataclass
-from .iofile import URL_MATCH, get_bytes_from_name_or_url
+from .iofile import URL_MATCH, TemporaryFile, get_bytes_from_name_or_url
 
 log = logging.getLogger(__name__)
 
@@ -106,17 +106,18 @@ class FFmpeg:
         """
         if isinstance(data, str):
             if URL_MATCH.match(data):
-                self.filename = tempfile.NamedTemporaryFile(
-                    "wb", prefix=prefix, delete=True
-                ).__enter__()
-                self.filename.write(get_bytes_from_name_or_url(data))
+                # self.filename = tempfile.NamedTemporaryFile(
+                #     "wb", prefix=prefix, delete=True
+                # ).__enter__()
+                self.filename = TemporaryFile(prefix=prefix, touch=False).__enter__()
+                with open(self.filename.path, "wb") as file:
+                    file.write(get_bytes_from_name_or_url(data))
             else:
                 self.filename = data
         else:
-            self.filename = tempfile.NamedTemporaryFile(
-                "wb", prefix=prefix, delete=True
-            ).__enter__()
-            self.filename.write(data)
+            self.filename = TemporaryFile(prefix=prefix, touch=False).__enter__()
+            with open(self.filename.path, "wb") as file:
+                file.write(data)
 
     def __enter__(self):
         return self
@@ -129,7 +130,7 @@ class FFmpeg:
     def filepath(self):
         if isinstance(self.filename, str):
             return self.filename
-        return self.filename.name
+        return self.filename.path.__str__()
 
     def cv_to_webp(self, animated: bool = True) -> bytes:
         """
