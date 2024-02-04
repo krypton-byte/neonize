@@ -200,7 +200,7 @@ class FFmpeg:
         :rtype: bytes
         """
         extra = []
-        if size is None or isinstance(size, int):
+        if isinstance(size, int):
             for stream in self.extract_info().streams:
                 if stream.codec_type == "video":
                     extra.extend(
@@ -210,7 +210,7 @@ class FFmpeg:
                             % (size, size),
                         ]
                     )
-        else:
+        elif isinstance(size, Tuple):
             extra.extend(["-s", "x".join(map(str, size))])
         return self.call(
             [

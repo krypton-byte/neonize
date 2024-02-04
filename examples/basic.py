@@ -171,7 +171,6 @@ def handler(client: NewClient, message: MessageEv):
         case "test_contacts":
             client.send_message(chat, client.contact.get_all_contacts().__str__())
 
-
 @client.event(PairStatusEv)
 def PairStatusMessage(_: NewClient, message: PairStatusEv):
     log.info(f"logged as {message.ID.User}")
