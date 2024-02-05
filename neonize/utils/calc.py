@@ -1,3 +1,4 @@
+from io import BytesIO
 from typing import Tuple
 from PIL import Image
 
@@ -47,7 +48,7 @@ def AspectRatioMethod(
     return (res, res)
 
 
-def sticker_scaler(fn: str):
+def sticker_scaler(fn: str | BytesIO | Image.Image):
     """
     This function rescales an image to a maximum dimension of 512 pixels while maintaining the aspect ratio.
     The function takes the filename of the image as an input and returns the rescaled image.
@@ -57,12 +58,12 @@ def sticker_scaler(fn: str):
     :return: Rescaled image
     :rtype: PIL.Image.Image
     """
-    img = Image.open(fn)
+    img = fn if isinstance(fn, Image.Image) else Image.open(fn)
     width, height = AspectRatioMethod(*img.size, 512)
     return img.resize((int(width), int(height)))
 
 
-def sticker(fn: str):
+def auto_sticker(fn: str | BytesIO | Image.Image):
     """
     This function creates a new sticker image with a specified size (512 x 512).
     The original image is placed at the center of the new sticker.
@@ -72,7 +73,7 @@ def sticker(fn: str):
     :return: The new sticker image with the original image at the center.
     :rtype: Image object
     """
-    img = sticker_scaler(fn)
+    img = fn if isinstance(fn, Image.Image) else Image.open(fn)
     new_layer = Image.new("RGBA", (512, 512), color=(0, 0, 0, 0))
     new_layer.paste(img, (256 - (int(img.width / 2)), 256 - (int(img.height / 2))))
     return new_layer

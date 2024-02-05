@@ -14,7 +14,7 @@ from PIL import Image
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 from linkpreview import link_preview
 
-from .utils.calc import AspectRatioMethod
+from .utils.calc import AspectRatioMethod, auto_sticker
 
 
 from ._binder import gocode, func_string, func_callback_bytes, func
@@ -587,7 +587,6 @@ class NewClient:
         self,
         to: JID,
         file: typing.Union[str, bytes],
-        animated: bool = True,
         quoted: Optional[neonize_proto.Message] = None,
         name: str = "",
         packname: str = "",
@@ -599,8 +598,6 @@ class NewClient:
         :type to: JID
         :param file: The file path of the sticker or the sticker data in bytes.
         :type file: typing.Union[str, bytes]
-        :param animated: Whether the sticker is animated or not, defaults to True.
-        :type animated: bool, optional
         :param quoted: The quoted message, if any, defaults to None.
         :type quoted: Optional[neonize_proto.Message], optional
         :param name: The name of the sticker, defaults to "".
@@ -610,15 +607,24 @@ class NewClient:
         :return: The response from the send message function.
         :rtype: SendResponse
         """
-        with FFmpeg(file) as ffmpeg:
-            sticker = ffmpeg.cv_to_webp(animated)
-            thumbnail = ffmpeg.extract_thumbnail(ImageFormat.PNG)
+        sticker = get_bytes_from_name_or_url(file)
+        animated = False
+        mime = magic.from_buffer(sticker).split('/')
+        if mime[0] == "image":
             io_save = BytesIO(sticker)
-            img = Image.open(io_save)
+            stk = auto_sticker(io_save)
+            stk.save(io_save, format='webp', exif=add_exif(name, packname), save_all=True, loop=0)
             io_save.seek(0)
-            img.save(
-                io_save, format="webp", exif=add_exif(name, packname), save_all=True
-            )
+        else:
+            with FFmpeg(sticker) as ffmpeg:
+                animated = True
+                sticker = ffmpeg.cv_to_webp()
+                io_save = BytesIO(sticker)
+                img = Image.open(io_save)
+                io_save.seek(0)
+                img.save(
+                    io_save, format="webp", exif=add_exif(name, packname), save_all=True
+                )
         upload = self.upload(io_save.getvalue())
         message = Message(
             stickerMessage=StickerMessage(
@@ -630,7 +636,6 @@ class NewClient:
                 mediaKey=upload.MediaKey,
                 mimetype=magic.from_buffer(io_save.getvalue(), mime=True),
                 isAnimated=animated,
-                pngThumbnail=thumbnail,
             )
         )
         if quoted:
