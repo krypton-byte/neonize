@@ -10,7 +10,7 @@ message JID {
     required uint32 Device = 3;
     required uint32 Integrator= 4;
     required string Server=5;
-    required bool IsEmpty = 6;
+    optional bool IsEmpty = 6 [default = false];
 }
 message MessageInfo{
     required MessageSource MessageSource = 1;

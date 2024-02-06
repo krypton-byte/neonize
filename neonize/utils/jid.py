@@ -31,3 +31,14 @@ def Jid2String(jid: JID) -> str:
     elif len(jid.User) > 0:
         return "%s@%s" % (jid.User, jid.Server)
     return jid.Server
+
+
+def build_jid(phone_number: str) -> JID:
+    return JID(
+        User=phone_number,
+        Device=0,
+        Integrator=0,
+        IsEmpty=False,
+        RawAgent=0,
+        Server="s.whatsapp.net"
+    )
