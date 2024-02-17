@@ -170,6 +170,42 @@ def handler(client: NewClient, message: MessageEv):
             )
         case "test_contacts":
             client.send_message(chat, client.contact.get_all_contacts().__str__())
+        case "build_sticker":
+            client.send_message(
+                chat,
+                client.build_sticker_message(
+                    "https://mystickermania.com/cdn/stickers/anime/spy-family-anya-smirk-512x512.png",
+                    message,
+                    "2024",
+                    "neonize",
+                ),
+            )
+        case "build_video":
+            client.send_message(
+                chat,
+                client.build_video_message(
+                    "https://download.samplelib.com/mp4/sample-5s.mp4",
+                    "Test",
+                    message
+                ),
+            )
+        case "build_image":
+            client.send_message(
+                chat,
+                client.build_image_message("https://download.samplelib.com/png/sample-boat-400x300.png", "Test", message),
+            )
+        case "build_document":
+            client.send_message(
+                chat,
+                client.build_document_message(
+                    "https://download.samplelib.com/xls/sample-heavy-1.xls",
+                    "Test",
+                    "title",
+                    "sample-heavy-1.xls",
+                    message
+                ),
+            )
+
 
 @client.event(PairStatusEv)
 def PairStatusMessage(_: NewClient, message: PairStatusEv):

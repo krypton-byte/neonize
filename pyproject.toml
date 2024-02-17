@@ -53,6 +53,7 @@ build-backend = "poetry.core.masonry.api"
 
 
 
+
 [tool.poetry.scripts]
 docsbuild = "docs.generate:build"
 build = "goneonize.build:build"

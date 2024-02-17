@@ -403,6 +403,47 @@ class NewClient:
             raise SendMessageError(model.Error)
         return model.SendResponse
 
+    def build_reply_message(
+        self,
+        message: typing.Union[str, MessageWithContextInfo],
+        quoted: neonize_proto.Message,
+        link_preview: bool = False,
+        reply_privately: bool = False,
+    ) -> Message:
+        """Send a reply message to a specified JID.
+
+        :param message: The message to be sent. Can be a string or a MessageWithContextInfo object.
+        :type message: typing.Union[str, MessageWithContextInfo]
+        :param quoted: The message to be quoted in the message being sent.
+        :type quoted: neonize_proto.Message
+        :param link_preview: If set to True, enables link previews in the message being sent. Defaults to False.
+        :type link_preview: bool, optional
+        :param reply_privately: If set to True, the message is sent as a private reply. Defaults to False.
+        :type reply_privately: bool, optional
+        :param mentioned_jid: List of JIDs to be mentioned in the message. Defaults to an empty list.
+        :type mentioned_jid: List[str], optional
+        :return: Response of the send operation.
+        :rtype: SendResponse
+        """
+        build_message = Message()
+        if isinstance(message, str):
+            partial_message = ExtendedTextMessage(
+                text=message,
+                contextInfo=ContextInfo(mentionedJid=self._parse_mention(message)),
+            )
+            if link_preview:
+                preview = self._generate_link_preview(message)
+                if preview is not None:
+                    partial_message.MergeFrom(preview)
+        else:
+            partial_message = message
+        field_name = partial_message.__name__[0].lower() + partial_message.__name__[1:]  # type: ignore
+        partial_message.contextInfo.MergeFrom(
+            self._make_quoted_message(quoted, reply_privately)
+        )
+        getattr(build_message, field_name).MergeFrom(partial_message)
+        return build_message
+
     def reply_message(
         self,
         message: typing.Union[str, MessageWithContextInfo],
@@ -428,29 +469,21 @@ class NewClient:
         :return: Response of the send operation.
         :rtype: SendResponse
         """
-        build_message = Message()
         if to is None:
             if reply_privately:
                 to = JIDToNonAD(quoted.Info.MessageSource.Sender)
             else:
                 to = quoted.Info.MessageSource.Chat
-        if isinstance(message, str):
-            partial_message = ExtendedTextMessage(
-                text=message,
-                contextInfo=ContextInfo(mentionedJid=self._parse_mention(message)),
-            )
-            if link_preview:
-                preview = self._generate_link_preview(message)
-                if preview is not None:
-                    partial_message.MergeFrom(preview)
-        else:
-            partial_message = message
-        field_name = partial_message.__name__[0].lower() + partial_message.__name__[1:]  # type: ignore
-        partial_message.contextInfo.MergeFrom(
-            self._make_quoted_message(quoted, reply_privately)
+        return self.send_message(
+            to,
+            self.build_reply_message(
+                message=message,
+                quoted=quoted,
+                link_preview=link_preview,
+                reply_privately=reply_privately,
+            ),
+            link_preview,
         )
-        getattr(build_message, field_name).MergeFrom(partial_message)
-        return self.send_message(to, build_message, link_preview)
 
     def edit_message(
         self, chat: JID, message_id: str, new_message: Message
@@ -539,6 +572,24 @@ class NewClient:
     def build_reaction(
         self, chat: JID, sender: JID, message_id: str, reaction: str
     ) -> Message:
+        """
+        This function builds a reaction message in a chat. It takes the chat and sender IDs,
+        the message ID to which the reaction is being made, and the reaction itself as input.
+        It then serializes the chat and sender IDs to strings, and calls the BuildReaction
+        function of the client with these serialized IDs, the message ID, and the reaction.
+        It finally returns the reaction message.
+
+        :param chat: The ID of the chat in which the reaction is being made
+        :type chat: JID
+        :param sender: The ID of the sender making the reaction
+        :type sender: JID
+        :param message_id: The ID of the message to which the reaction is being made
+        :type message_id: str
+        :param reaction: The reaction being made
+        :type reaction: str
+        :return: The reaction message
+        :rtype: Message
+        """
         sender_proto = sender.SerializeToString()
         chat_proto = chat.SerializeToString()
         return Message.FromString(
@@ -583,37 +634,42 @@ class NewClient:
         else:
             return build_revoke(chat, sender, message_id, self.get_me().JID)
 
-    def send_sticker(
+    def build_sticker_message(
         self,
-        to: JID,
         file: typing.Union[str, bytes],
         quoted: Optional[neonize_proto.Message] = None,
         name: str = "",
         packname: str = "",
-    ) -> SendResponse:
+    ) -> Message:
         """
-        Send a sticker to a specific JID.
+        This function builds a sticker message from a given image or video file.
+        The file is converted to a webp format and uploaded to a server.
+        The resulting URL and other metadata are used to construct the sticker message.
 
-        :param to: The JID to send the sticker to.
-        :type to: JID
-        :param file: The file path of the sticker or the sticker data in bytes.
+        :param file: The path to the image or video file or the file data in bytes
         :type file: typing.Union[str, bytes]
-        :param quoted: The quoted message, if any, defaults to None.
+        :param quoted: A message that the sticker message is a reply to, defaults to None
         :type quoted: Optional[neonize_proto.Message], optional
-        :param name: The name of the sticker, defaults to "".
+        :param name: The name of the sticker, defaults to ""
         :type name: str, optional
-        :param packname: The name of the sticker pack, defaults to "".
+        :param packname: The name of the sticker pack, defaults to ""
         :type packname: str, optional
-        :return: The response from the send message function.
-        :rtype: SendResponse
+        :return: The constructed sticker message
+        :rtype: Message
         """
         sticker = get_bytes_from_name_or_url(file)
         animated = False
-        mime = magic.from_buffer(sticker).split('/')
+        mime = magic.from_buffer(sticker).split("/")
         if mime[0] == "image":
             io_save = BytesIO(sticker)
             stk = auto_sticker(io_save)
-            stk.save(io_save, format='webp', exif=add_exif(name, packname), save_all=True, loop=0)
+            stk.save(
+                io_save,
+                format="webp",
+                exif=add_exif(name, packname),
+                save_all=True,
+                loop=0,
+            )
             io_save.seek(0)
         else:
             with FFmpeg(sticker) as ffmpeg:
@@ -642,33 +698,58 @@ class NewClient:
             message.stickerMessage.contextInfo.MergeFrom(
                 self._make_quoted_message(quoted)
             )
-        return self.send_message(
-            to,
-            message,
-        )
+        return message
 
-    def send_video(
+    def send_sticker(
         self,
         to: JID,
+        file: typing.Union[str, bytes],
+        quoted: Optional[neonize_proto.Message] = None,
+        name: str = "",
+        packname: str = "",
+    ) -> SendResponse:
+        """
+        Send a sticker to a specific JID.
+
+        :param to: The JID to send the sticker to.
+        :type to: JID
+        :param file: The file path of the sticker or the sticker data in bytes.
+        :type file: typing.Union[str, bytes]
+        :param quoted: The quoted message, if any, defaults to None.
+        :type quoted: Optional[neonize_proto.Message], optional
+        :param name: The name of the sticker, defaults to "".
+        :type name: str, optional
+        :param packname: The name of the sticker pack, defaults to "".
+        :type packname: str, optional
+        :return: The response from the send message function.
+        :rtype: SendResponse
+        """
+        return self.send_message(
+            to,
+            self.build_sticker_message(file, quoted, name, packname),
+        )
+
+    def build_video_message(
+        self,
         file: str | bytes,
         caption: Optional[str] = None,
         quoted: Optional[neonize_proto.Message] = None,
         viewonce: bool = False,
-    ) -> SendResponse:
-        """Sends a video to the specified recipient.
+    ) -> Message:
+        """
+        This function is used to build a video message. It uploads a video file, extracts necessary information,
+        and constructs a message with the given parameters.
 
-        :param to: The JID (Jabber Identifier) of the recipient.
-        :type to: JID
-        :param file: Either a file path (str), url (str) or binary data (bytes) representing the video.
-        :type file: typing.Union[str | bytes]
-        :param caption: Optional. The caption of the video. Defaults to None.
+        :param file: The file path or bytes of the video file to be uploaded.
+        :type file: str | bytes
+        :param caption: The caption to be added to the video message, defaults to None
         :type caption: Optional[str], optional
-        :param quoted: Optional. The message to which the video is a reply. Defaults to None.
-        :type quoted: Optional[Message], optional
-        :param viewonce: Optional. Whether the video should be viewonce. Defaults to False.
+        :param quoted: A message that the video message is in response to, defaults to None
+        :type quoted: Optional[neonize_proto.Message], optional
+        :param viewonce: A flag indicating if the video message can be viewed only once, defaults to False
         :type viewonce: bool, optional
-        :return: A function for handling the result of the video sending process.
-        :rtype: SendResponse
+        :return: A video message with the given parameters.
+        :rtype: Message
         """
         io = BytesIO(get_bytes_from_name_or_url(file))
         io.seek(0)
@@ -702,9 +783,9 @@ class NewClient:
             message.videoMessage.contextInfo.MergeFrom(
                 self._make_quoted_message(quoted)
             )
-        return self.send_message(to, message)
+        return message
 
-    def send_image(
+    def send_video(
         self,
         to: JID,
         file: str | bytes,
@@ -712,20 +793,49 @@ class NewClient:
         quoted: Optional[neonize_proto.Message] = None,
         viewonce: bool = False,
     ) -> SendResponse:
-        """Sends an image to the specified recipient.
+        """Sends a video to the specified recipient.
 
         :param to: The JID (Jabber Identifier) of the recipient.
         :type to: JID
-        :param file: Either a file path (str), url (str) or binary data (bytes) representing the image.
+        :param file: Either a file path (str), url (str) or binary data (bytes) representing the video.
         :type file: typing.Union[str | bytes]
-        :param caption: Optional. The caption of the image. Defaults to None.
+        :param caption: Optional. The caption of the video. Defaults to None.
         :type caption: Optional[str], optional
-        :param quoted: Optional. The message to which the image is a reply. Defaults to None.
+        :param quoted: Optional. The message to which the video is a reply. Defaults to None.
         :type quoted: Optional[Message], optional
-        :param viewonce: Optional. Whether the image should be viewonce. Defaults to False.
+        :param viewonce: Optional. Whether the video should be viewonce. Defaults to False.
         :type viewonce: bool, optional
-        :return: A function for handling the result of the image sending process.
+        :return: A function for handling the result of the video sending process.
         :rtype: SendResponse
+        """
+        return self.send_message(
+            to, self.build_video_message(file, caption, quoted, viewonce)
+        )
+
+    def build_image_message(
+        self,
+        file: str | bytes,
+        caption: Optional[str] = None,
+        quoted: Optional[neonize_proto.Message] = None,
+        viewonce: bool = False,
+    ) -> Message:
+        """
+        This function builds an image message. It takes a file (either a string or bytes),
+        an optional caption, an optional quoted message, and a boolean indicating whether
+        the message should be viewed once. It then uploads the image, generates a thumbnail,
+        and constructs the message with the given parameters and the information from the
+        uploaded image.
+
+        :param file: The image file to be uploaded and sent, either as a string URL or bytes.
+        :type file: str | bytes
+        :param caption: The caption for the image message, defaults to None.
+        :type caption: Optional[str], optional
+        :param quoted: The message to be quoted in the image message, defaults to None.
+        :type quoted: Optional[neonize_proto.Message], optional
+        :param viewonce: Whether the image message should be viewable only once, defaults to False.
+        :type viewonce: bool, optional
+        :return: The constructed image message.
+        :rtype: Message
         """
         n_file = get_bytes_from_name_or_url(file)
         img = Image.open(BytesIO(n_file))
@@ -757,27 +867,52 @@ class NewClient:
             message.imageMessage.contextInfo.MergeFrom(
                 self._make_quoted_message(quoted)
             )
-        return self.send_message(to, message)
+        return message
 
-    def send_audio(
+    def send_image(
         self,
         to: JID,
         file: str | bytes,
-        ptt: bool = False,
+        caption: Optional[str] = None,
         quoted: Optional[neonize_proto.Message] = None,
+        viewonce: bool = False,
     ) -> SendResponse:
-        """Sends an audio to the specified recipient.
+        """Sends an image to the specified recipient.
 
         :param to: The JID (Jabber Identifier) of the recipient.
         :type to: JID
-        :param file: Either a file path (str), url (str) or binary data (bytes) representing the audio.
+        :param file: Either a file path (str), url (str) or binary data (bytes) representing the image.
         :type file: typing.Union[str | bytes]
-        :param ptt: Optional. Whether the audio should be ptt. Defaults to False.
-        :type ptt: bool, optional
-        :param quoted: Optional. The message to which the audio is a reply. Defaults to None.
+        :param caption: Optional. The caption of the image. Defaults to None.
+        :type caption: Optional[str], optional
+        :param quoted: Optional. The message to which the image is a reply. Defaults to None.
         :type quoted: Optional[Message], optional
-        :return: A function for handling the result of the audio sending process.
+        :param viewonce: Optional. Whether the image should be viewonce. Defaults to False.
+        :type viewonce: bool, optional
+        :return: A function for handling the result of the image sending process.
         :rtype: SendResponse
+        """
+        return self.send_message(
+            to, self.build_image_message(file, caption, quoted, viewonce=viewonce)
+        )
+
+    def build_audio_message(
+        self,
+        file: str | bytes,
+        ptt: bool = False,
+        quoted: Optional[neonize_proto.Message] = None,
+    ) -> Message:
+        """
+        This method builds an audio message from a given file or bytes.
+
+        :param file: The audio file in string or bytes format to be converted into an audio message
+        :type file: str | bytes
+        :param ptt: A boolean indicating if the audio message is a 'push to talk' message, defaults to False
+        :type ptt: bool, optional
+        :param quoted: A message that the audio message may be replying to, defaults to None
+        :type quoted: Optional[neonize_proto.Message], optional
+        :return: The audio message built from the given parameters
+        :rtype: Message
         """
         io = BytesIO(get_bytes_from_name_or_url(file))
         io.seek(0)
@@ -802,34 +937,39 @@ class NewClient:
             message.audioMessage.contextInfo.MergeFrom(
                 self._make_quoted_message(quoted)
             )
-        return self.send_message(to, message)
+        return message
 
-    def send_document(
+    def send_audio(
         self,
         to: JID,
+        file: str | bytes,
+        ptt: bool = False,
+        quoted: Optional[neonize_proto.Message] = None,
+    ) -> SendResponse:
+        """Sends an audio to the specified recipient.
+
+        :param to: The JID (Jabber Identifier) of the recipient.
+        :type to: JID
+        :param file: Either a file path (str), url (str) or binary data (bytes) representing the audio.
+        :type file: typing.Union[str | bytes]
+        :param ptt: Optional. Whether the audio should be ptt. Defaults to False.
+        :type ptt: bool, optional
+        :param quoted: Optional. The message to which the audio is a reply. Defaults to None.
+        :type quoted: Optional[Message], optional
+        :return: A function for handling the result of the audio sending process.
+        :rtype: SendResponse
+        """
+
+        return self.send_message(to, self.build_audio_message(file, ptt, quoted))
+
+    def build_document_message(
+        self,
         file: str | bytes,
         caption: Optional[str] = None,
         title: Optional[str] = None,
         filename: Optional[str] = None,
         quoted: Optional[neonize_proto.Message] = None,
-    ) -> SendResponse:
-        """Sends a document to the specified recipient.
-
-        :param to: The JID (Jabber Identifier) of the recipient.
-        :type to: JID
-        :param file: Either a file path (str), url (str) or binary data (bytes) representing the document.
-        :type file: typing.Union[str | bytes]
-        :param caption: Optional. The caption of the document. Defaults to None.
-        :type caption: Optional[str], optional
-        :param title: Optional. The title of the document. Defaults to None.
-        :type title: Optional[str], optional
-        :param filename: Optional. The filename of the document. Defaults to None.
-        :type filename: Optional[str], optional
-        :param quoted: Optional. The message to which the document is a reply. Defaults to None.
-        :type quoted: Optional[Message], optional
-        :return: A function for handling the result of the document sending process.
-        :rtype: SendResponse
-        """
+    ):
         io = BytesIO(get_bytes_from_name_or_url(file))
         io.seek(0)
         buff = io.read()
@@ -857,7 +997,37 @@ class NewClient:
             message.documentMessage.contextInfo.MergeFrom(
                 self._make_quoted_message(quoted)
             )
-        return self.send_message(to, message)
+        return message
+
+    def send_document(
+        self,
+        to: JID,
+        file: str | bytes,
+        caption: Optional[str] = None,
+        title: Optional[str] = None,
+        filename: Optional[str] = None,
+        quoted: Optional[neonize_proto.Message] = None,
+    ) -> SendResponse:
+        """Sends a document to the specified recipient.
+
+        :param to: The JID (Jabber Identifier) of the recipient.
+        :type to: JID
+        :param file: Either a file path (str), url (str) or binary data (bytes) representing the document.
+        :type file: typing.Union[str | bytes]
+        :param caption: Optional. The caption of the document. Defaults to None.
+        :type caption: Optional[str], optional
+        :param title: Optional. The title of the document. Defaults to None.
+        :type title: Optional[str], optional
+        :param filename: Optional. The filename of the document. Defaults to None.
+        :type filename: Optional[str], optional
+        :param quoted: Optional. The message to which the document is a reply. Defaults to None.
+        :type quoted: Optional[Message], optional
+        :return: A function for handling the result of the document sending process.
+        :rtype: SendResponse
+        """
+        return self.send_message(
+            to, self.build_document_message(file, caption, title, filename, quoted)
+        )
 
     def send_contact(
         self,

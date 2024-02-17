@@ -40,5 +40,5 @@ def build_jid(phone_number: str) -> JID:
         Integrator=0,
         IsEmpty=False,
         RawAgent=0,
-        Server="s.whatsapp.net"
+        Server="s.whatsapp.net",
     )
