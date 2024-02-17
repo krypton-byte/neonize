@@ -1,4 +1,4 @@
-import typing
+from typing import NewType, TypeVar
 
 from neonize.proto.def_pb2 import (
     AudioMessage,
@@ -20,8 +20,8 @@ from neonize.proto.def_pb2 import (
     VideoMessage,
 )
 
-MessageServerID = typing.NewType("MessageServerID", int)
-MessageWithContextInfo = typing.TypeVar(
+MessageServerID = NewType("MessageServerID", int)
+MessageWithContextInfo = TypeVar(
     "MessageWithContextInfo",
     ImageMessage,
     ContactsArrayMessage,
@@ -43,4 +43,40 @@ MessageWithContextInfo = typing.TypeVar(
     MessageHistoryBundle,
     EventMessage,
     ContactsArrayMessage,
+)
+
+MediaMessageType = TypeVar(
+    "MediaMessageType",
+    ImageMessage,
+    AudioMessage,
+    VideoMessage,
+    StickerMessage,
+    DocumentMessage,
+)
+
+from typing import TypeVar
+from neonize.proto.def_pb2 import (
+    ImageMessage,
+    Conversation,
+    VideoMessage,
+    DocumentMessage,
+    ExtendedTextMessage,
+    AudioMessage,
+    StickerMessage,
+)
+
+MediaMessageType = TypeVar(
+    "MediaMessageType",
+    ImageMessage,
+    AudioMessage,
+    VideoMessage,
+    StickerMessage,
+    DocumentMessage,
+)
+
+TextMessageType = TypeVar(
+    "TextMessageType",
+    Conversation,
+    ExtendedTextMessage,
+    str,
 )

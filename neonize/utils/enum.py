@@ -2,6 +2,42 @@ from __future__ import annotations
 from enum import Enum
 import magic
 import typing
+from ..proto.def_pb2 import (
+    Message,
+    ImageMessage,
+    AudioMessage,
+    VideoMessage,
+    DocumentMessage,
+)
+from .message import get_message_type
+
+
+class MediaTypeToMMS(Enum):
+    MediaImage = "image"
+    MediaAudio = "audio"
+    MediaVideo = "video"
+    MediaDocument = "document"
+    MediaHistory = "md-msg-hist"
+    MediaAppState = "md-app-state"
+    MediaLinkThumbnail = "thumbnail-link"
+
+    @classmethod
+    def from_message(cls, message: Message):
+        return {
+            ImageMessage: cls.MediaImage,
+            AudioMessage: cls.MediaAudio,
+            VideoMessage: cls.MediaVideo,
+            DocumentMessage: cls.MediaDocument,
+        }[type(get_message_type(message))]
+
+    @classmethod
+    def from_mime(cls, mime: str):
+        type_ = mime.split("/")[0]
+        return {
+            "audio": cls.MediaAudio,
+            "video": cls.MediaVideo,
+            "image": cls.MediaImage,
+        }.get(type_, cls.MediaDocument)
 
 
 class MediaType(Enum):

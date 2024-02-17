@@ -184,15 +184,17 @@ def handler(client: NewClient, message: MessageEv):
             client.send_message(
                 chat,
                 client.build_video_message(
-                    "https://download.samplelib.com/mp4/sample-5s.mp4",
-                    "Test",
-                    message
+                    "https://download.samplelib.com/mp4/sample-5s.mp4", "Test", message
                 ),
             )
         case "build_image":
             client.send_message(
                 chat,
-                client.build_image_message("https://download.samplelib.com/png/sample-boat-400x300.png", "Test", message),
+                client.build_image_message(
+                    "https://download.samplelib.com/png/sample-boat-400x300.png",
+                    "Test",
+                    message,
+                ),
             )
         case "build_document":
             client.send_message(
@@ -202,7 +204,7 @@ def handler(client: NewClient, message: MessageEv):
                     "Test",
                     "title",
                     "sample-heavy-1.xls",
-                    message
+                    message,
                 ),
             )
 
