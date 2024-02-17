@@ -182,6 +182,28 @@ class FFmpeg:
             )
         return out
 
+    def to_mp3(self) -> bytes:
+        temp = tempfile.gettempdir() + "/" + time.time().__str__() + ".mp3"
+        self.call(
+            [
+                "ffmpeg",
+                "-i",
+                self.filepath,
+                "-vn",
+                "-ar",
+                "44100",
+                "-ac",
+                "2",
+                "-b:a",
+                "192k",
+                temp,
+            ]
+        )
+        with open(temp, "rb") as file:
+            buf = file.read()
+        os.remove(temp)
+        return buf
+
     def extract_thumbnail(
         self,
         format: ImageFormat = ImageFormat.JPG,
