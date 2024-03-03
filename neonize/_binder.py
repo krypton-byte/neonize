@@ -20,6 +20,7 @@ def load_goneonize():
         try:
             gocode = ctypes.CDLL(f"{root_dir}/{generated_name()}")
             gocode.GetVersion.restype = ctypes.c_char_p
+            print(f"{root_dir}/{generated_name()}")
             if gocode.GetVersion().decode() != importlib.metadata.version("neonize"):
                 download()
                 raise Exception("Unmatched version")
