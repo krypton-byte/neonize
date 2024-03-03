@@ -123,7 +123,7 @@ jobs:
         curl -sSL https://install.python-poetry.org | python - -y
     - name: Installing Dependencies
       run: |
-        sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
+        sudo apt update && sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
         poetry install
         poetry run version ${{ github.event.inputs.version }}
     - name: build
@@ -171,6 +171,7 @@ jobs:
         poetry run version ${{ github.event.inputs.version }}
     - name: build
       run: |
+        export PATH="/Users/runner/.local/bin:$PATH"
         # Set necessary environment variables for building on Darwin
         export CGO_ENABLED=1
         # Build for Darwin (macOS)
