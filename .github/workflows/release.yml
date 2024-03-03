@@ -154,6 +154,47 @@ jobs:
       with: 
         name: Linux
         path: neonize/*.so
+  darwin:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v4
+      with:
+        go-version: '^1.21.5'
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python - -y
+        poetry install
+        poetry run version ${{ github.event.inputs.version }}
+    - name: build
+      run: |
+        # Set necessary environment variables for building on Darwin
+        export CGO_ENABLED=1
+        # Build for Darwin (macOS)
+        
+        # AMD64/X86_64
+        export GOOS=darwin
+        export GOARCH=amd64
+        export CC=$(which clang)
+        export CXX=$(which clang++)
+        poetry run build goneonize
+        
+        #ARM64/AARCH64
+        export GOOS=darwin
+        export GOARCH=arm64
+        export CC=$(which clang)
+        export CXX=$(which clang++)
+        poetry run build goneonize
+        
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with: 
+        name: Darwin
+        path: neonize/*.dylib
+
   release:
     runs-on: ubuntu-latest
     needs: [android, zig, linux]
@@ -170,6 +211,7 @@ jobs:
         files: |
           sharedlib/*.so
           sharedlib/*.dll
+          sharedlib/*.dylib
         generate_release_notes: true
         tag_name: ${{ github.event.inputs.version }}
     - uses: actions/checkout@v4
