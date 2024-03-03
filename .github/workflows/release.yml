@@ -167,6 +167,7 @@ jobs:
     - name: Install Poetry
       run: |
         curl -sSL https://install.python-poetry.org | python - -y
+        export PATH="/Users/runner/.local/bin:$PATH"
         poetry install
         poetry run version ${{ github.event.inputs.version }}
     - name: build
