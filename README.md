@@ -43,7 +43,7 @@ If you want to run this project locally, follow these steps:
 2. Install dependencies: `poetry install --with dev` (customize to the project).
 3. Run the project: `python examples/basic.py` (customize to the project).
 
-## Lisensi
+## License
 
 This project is licensed under Apache-2.0. See the [LICENSE](LICENSE) file for more information.
 
