@@ -24,6 +24,9 @@
 3. **Easy-to-Use:** Neonize provides a simple API and clear documentation to facilitate usage. Users can swiftly write scripts for WhatsApp automation according to their needs.
 
 With neonize as a binding for Whatsmeow, WhatsApp automation becomes more accessible for Python developers, combining the strengths of both libraries and leveraging familiar functionalities from Whatsmeow.
+
+To easily create a bot with minimal setup, you can utilize the <a href="https://github.com/krypton-byte/thundra">Thundra</a> library
+
 ## Contribution Guidelines
 
 If you would like to contribute to this project, please follow these steps:
