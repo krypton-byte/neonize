@@ -1189,15 +1189,16 @@ class NewClient:
         ).decode()
 
     def is_on_whatsapp(
-        self, numbers: List[str] = []
-    ) -> RepeatedCompositeFieldContainer[IsOnWhatsAppResponse] | List:
-        """Check if the provided phone numbers are on WhatsApp.
+        self, *numbers: str
+    ) -> typing.Union[RepeatedCompositeFieldContainer[IsOnWhatsAppResponse], List]:
+        """
+        This function checks if the provided phone numbers are registered with WhatsApp.
 
-        :param numbers: List of phone numbers to check. Defaults to [].
-        :type numbers: List[str], optional
-        :raises IsOnWhatsAppError: Raised if there is an error while checking.
-        :return: A response object containing information about WhatsApp presence.
-        :rtype: IsOnWhatsAppResponse
+        :param numbers: A series of phone numbers to be checked.
+        :type numbers: str
+        :raises IsOnWhatsAppError: If an error occurs while verifying the phone numbers.
+        :return: A list of responses, each indicating whether the corresponding number is registered with WhatsApp.
+        :rtype: Union[RepeatedCompositeFieldContainer[IsOnWhatsAppResponse], List]
         """
         if numbers:
             numbers_buf = " ".join(numbers).encode()
@@ -1229,15 +1230,18 @@ class NewClient:
         return self.__client.IsLoggedIn(self.uuid)
 
     def get_user_info(
-        self, jid: List[JID]
+        self, *jid: JID
     ) -> RepeatedCompositeFieldContainer[GetUserInfoSingleReturnFunction]:
-        """Retrieve information for the provided JIDs.
+        """
+        This function retrieves user information given a set of JID. It serializes the JID into a string,
+        gets the user information from the client, deserializes the returned information, checks for any errors,
+        and finally returns the user information.
 
-        :param jid: List of JIDs (Jabber IDs) for which to retrieve information.
-        :type jid: List[JID]
-        :raises GetUserInfoError: Raised if there is an error while retrieving user information.
-        :return: A function providing information for the specified JIDs.
-        :rtype: GetUserInfoSingleReturnFunction
+        :param jid: JID of the users to retrieve information from
+        :type jid: JID
+        :raises GetUserInfoError: If there is an error in the model returned by the client
+        :return: The user information for each JID
+        :rtype: RepeatedCompositeFieldContainer[GetUserInfoSingleReturnFunction]
         """
         jidbuf = JIDArray(JIDS=jid).SerializeToString()
         getUser = self.__client.GetUserInfo(self.uuid, jidbuf, len(jidbuf)).get_bytes()
@@ -1456,7 +1460,7 @@ class NewClient:
 
     def mark_read(
         self,
-        message_ids: List[str],
+        *message_ids: str,
         chat: JID,
         sender: JID,
         receipt: ReceiptType,
@@ -1464,17 +1468,17 @@ class NewClient:
     ):
         """Marks the specified messages as read.
 
-        :param message_ids: List of IDs of the messages to be marked as read.
-        :type message_ids: List[str]
-        :param chat: The chat where the messages are located.
+        :param message_ids: Identifiers of the messages to mark as read.
+        :type message_ids: str
+        :param chat: The JID of the chat.
         :type chat: JID
-        :param sender: The sender of the messages.
+        :param sender: The JID of the sender.
         :type sender: JID
-        :param receipt: The receipt type of the messages.
+        :param receipt: The type of receipt indicating the message status.
         :type receipt: ReceiptType
-        :param timestamp: The timestamp when the messages were read, defaults to current time if not provided.
+        :param timestamp: The timestamp of the read action, defaults to None.
         :type timestamp: Optional[int], optional
-        :raises MarkReadError: If there is an error while marking the messages as read.
+        :raises MarkReadError: If there is an error marking messages as read.
         """
         chat_proto = chat.SerializeToString()
         sender_proto = sender.SerializeToString()
@@ -2184,18 +2188,19 @@ class NewClient:
             raise GetSubscribedNewslettersError(model.Error)
         return model.Newsletter
 
-    def get_user_devices(self, jids: List[JID]) -> RepeatedCompositeFieldContainer[JID]:
-        """_summary_
+    def get_user_devices(self, *jids: JID) -> RepeatedCompositeFieldContainer[JID]:
+        """
+        Retrieve devices associated with specified user JIDs.
 
-        :param jids: _description_
-        :type jids: List[JID]
-        :raises GetUserDevicesError: _description_
-        :return: _description_
+        :param jids: Variable number of JIDs (Jabber Identifiers) of users.
+        :type jids: JID
+        :raises GetUserDevicesError: If there is an error retrieving user devices.
+        :return: Devices associated with the specified user JIDs.
         :rtype: RepeatedCompositeFieldContainer[JID]
         """
         jids_ = neonize_proto.JIDArray(JIDS=jids).SerializeToString()
         model = neonize_proto.GetUserDevicesreturnFunction.FromString(
-            self.__client.GetIserDevices(self.uuid, jids_, len(jids_)).get_bytes()
+            self.__client.GetUserDevices(self.uuid, jids_, len(jids_)).get_bytes()
         )
         if model.Error:
             raise GetUserDevicesError(model.Error)
