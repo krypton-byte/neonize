@@ -123,10 +123,10 @@ def handler(client: NewClient, message: MessageEv):
             client.send_message(
                 chat,
                 client.mark_read(
-                    [message.Info.ID],
-                    message.Info.MessageSource.Chat,
-                    message.Info.MessageSource.Sender,
-                    ReceiptType.READ,
+                    message.Info.ID,
+                    chat=message.Info.MessageSource.Chat,
+                    sender=message.Info.MessageSource.Sender,
+                    receipt=ReceiptType.READ,
                 ).__str__(),
             )
         case "read_channel":

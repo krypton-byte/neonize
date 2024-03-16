@@ -4,10 +4,11 @@ import ctypes
 import re
 import struct
 import time
+from types import NoneType
 import typing
 from datetime import timedelta
 from io import BytesIO
-from typing import Any, Optional, List
+from typing import Any, Optional, List, Sequence, overload
 
 import magic
 from PIL import Image
@@ -1084,6 +1085,14 @@ class NewClient:
             raise UploadError(upload_model.Error)
         return upload_model.UploadResponse
 
+    @overload
+    def download_any(self, message: Message) -> bytes:
+        ...
+
+    @overload
+    def download_any(self, message: Message, path: str) -> NoneType:
+        ...
+
     def download_any(
         self, message: Message, path: Optional[str] = None
     ) -> typing.Union[None, bytes]:
@@ -1188,9 +1197,7 @@ class NewClient:
             self.uuid, jidbyte, len(jidbyte), state.value, media.value
         ).decode()
 
-    def is_on_whatsapp(
-        self, *numbers: str
-    ) -> typing.Union[RepeatedCompositeFieldContainer[IsOnWhatsAppResponse], List]:
+    def is_on_whatsapp(self, *numbers: str) -> Sequence[IsOnWhatsAppResponse]:
         """
         This function checks if the provided phone numbers are registered with WhatsApp.
 
@@ -1198,7 +1205,7 @@ class NewClient:
         :type numbers: str
         :raises IsOnWhatsAppError: If an error occurs while verifying the phone numbers.
         :return: A list of responses, each indicating whether the corresponding number is registered with WhatsApp.
-        :rtype: Union[RepeatedCompositeFieldContainer[IsOnWhatsAppResponse], List]
+        :rtype: Sequence[IsOnWhatsAppResponse]
         """
         if numbers:
             numbers_buf = " ".join(numbers).encode()
