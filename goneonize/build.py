@@ -31,6 +31,8 @@ def generated_name(os_name="", arch_name=""):
         ext = "dll"
     elif os_name == "linux":
         ext = "so"
+    elif os_name == "darwin":
+        ext = "dylib"
     else:
         ext = "so"
     return f"neonize-{os_name}-{arch_name}.{ext}"
@@ -74,6 +76,7 @@ def build_neonize():
     arch_name = os.environ.get("GOARCH") or platform.machine().lower()
     print(f"os: {os_name}, arch: {arch_name}")
     filename = generated_name(os_name, arch_name)
+    print(filename)
     subprocess.call(
         shlex.split(f"go build -buildmode=c-shared -ldflags=-s -o {filename} "),
         cwd=cwd,

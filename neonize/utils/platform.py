@@ -21,6 +21,8 @@ def generated_name(os_name="", arch_name=""):
         if is_android:
             os_name = "android"
         ext = "so"
+    elif os_name == "darwin":
+        ext = "dylib"
     else:
         ext = "so"
     return f"neonize-{os_name}-{arch_name}.{ext}"
