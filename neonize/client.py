@@ -438,7 +438,10 @@ class NewClient:
                     partial_message.MergeFrom(preview)
         else:
             partial_message = message
-        field_name = partial_message.__class__.__name__[0].lower() + partial_message.__class__.__name__[1:]  # type: ignore
+        field_name = (
+            partial_message.__class__.__name__[0].lower()
+            + partial_message.__class__.__name__[1:]
+        )  # type: ignore
         partial_message.contextInfo.MergeFrom(
             self._make_quoted_message(quoted, reply_privately)
         )
@@ -1086,12 +1089,10 @@ class NewClient:
         return upload_model.UploadResponse
 
     @overload
-    def download_any(self, message: Message) -> bytes:
-        ...
+    def download_any(self, message: Message) -> bytes: ...
 
     @overload
-    def download_any(self, message: Message, path: str) -> NoneType:
-        ...
+    def download_any(self, message: Message, path: str) -> NoneType: ...
 
     def download_any(
         self, message: Message, path: Optional[str] = None
