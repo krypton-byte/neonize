@@ -973,6 +973,7 @@ class NewClient:
         caption: Optional[str] = None,
         title: Optional[str] = None,
         filename: Optional[str] = None,
+        mimetype: Optional[str] = None,
         quoted: Optional[neonize_proto.Message] = None,
     ):
         io = BytesIO(get_bytes_from_name_or_url(file))
@@ -988,9 +989,7 @@ class NewClient:
                 fileLength=upload.FileLength,
                 fileSha256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(buff, mime=True).replace(
-                    "application", "document"
-                ),
+                mimetype=mimetype or magic.from_buffer(buff, mime=True),
                 title=title,
                 fileName=filename,
                 contextInfo=ContextInfo(
@@ -1011,6 +1010,7 @@ class NewClient:
         caption: Optional[str] = None,
         title: Optional[str] = None,
         filename: Optional[str] = None,
+        mimetype: Optional[str] = None,
         quoted: Optional[neonize_proto.Message] = None,
     ) -> SendResponse:
         """Sends a document to the specified recipient.
@@ -1031,7 +1031,7 @@ class NewClient:
         :rtype: SendResponse
         """
         return self.send_message(
-            to, self.build_document_message(file, caption, title, filename, quoted)
+            to, self.build_document_message(file, caption, title, filename, mimetype, quoted)
         )
 
     def send_contact(
