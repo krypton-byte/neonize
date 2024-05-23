@@ -845,7 +845,8 @@ class NewClient:
         img = Image.open(BytesIO(n_file))
         img.thumbnail(AspectRatioMethod(*img.size, res=200))
         thumbnail = BytesIO()
-        img.save(thumbnail, format="jpeg")
+        img_saveable = img if img.mode == "RGB" else img.convert("RGB")
+        img_saveable.save(thumbnail, format="jpeg")
         upload = self.upload(n_file)
         message = Message(
             imageMessage=ImageMessage(
