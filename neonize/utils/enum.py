@@ -2,7 +2,7 @@ from __future__ import annotations
 from enum import Enum
 import magic
 import typing
-from ..proto.def_pb2 import (
+from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
     ImageMessage,
     AudioMessage,

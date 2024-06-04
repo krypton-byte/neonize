@@ -204,7 +204,7 @@ def handler(client: NewClient, message: MessageEv):
                     "Test",
                     "title",
                     "sample-heavy-1.xls",
-                    message,
+                    quoted=message,
                 ),
             )
 

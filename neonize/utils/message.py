@@ -1,4 +1,4 @@
-from ..proto.def_pb2 import (
+from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
     ImageMessage,
     DocumentMessage,
