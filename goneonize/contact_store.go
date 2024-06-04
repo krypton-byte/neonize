@@ -3,7 +3,7 @@ package main
 import (
 	"C"
 
-	"github.com/krypton-byte/neonize/neonize"
+	"github.com/krypton-byte/neonize/defproto"
 	"github.com/krypton-byte/neonize/utils"
 	"google.golang.org/protobuf/proto"
 )
@@ -11,12 +11,12 @@ import "go.mau.fi/whatsmeow/store"
 
 //export PutPushName
 func PutPushName(id *C.char, user *C.uchar, userSize C.int, pushname *C.char) C.struct_BytesReturn {
-	var userJID neonize.JID
+	var userJID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(user, userSize), &userJID)
 	if err != nil {
 		panic(err)
 	}
-	return_ := neonize.ContactsPutPushNameReturnFunction{}
+	return_ := defproto.ContactsPutPushNameReturnFunction{}
 	status, prev_name, err := clients[C.GoString(id)].Store.Contacts.PutPushName(utils.DecodeJidProto(&userJID), C.GoString(pushname))
 	return_.PreviousName = proto.String(prev_name)
 	return_.Status = &status
@@ -32,12 +32,12 @@ func PutPushName(id *C.char, user *C.uchar, userSize C.int, pushname *C.char) C.
 
 //export PutBusinessName
 func PutBusinessName(id *C.char, user *C.uchar, userSize C.int, businessName *C.char) C.struct_BytesReturn {
-	var userJID neonize.JID
+	var userJID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(user, userSize), &userJID)
 	if err != nil {
 		panic(err)
 	}
-	return_ := neonize.ContactsPutPushNameReturnFunction{}
+	return_ := defproto.ContactsPutPushNameReturnFunction{}
 	status, prev_name, err := clients[C.GoString(id)].Store.Contacts.PutBusinessName(utils.DecodeJidProto(&userJID), C.GoString(businessName))
 	return_.PreviousName = proto.String(prev_name)
 	return_.Status = &status
@@ -53,7 +53,7 @@ func PutBusinessName(id *C.char, user *C.uchar, userSize C.int, businessName *C.
 
 //export PutContactName
 func PutContactName(id *C.char, user *C.uchar, userSize C.int, fullName, firstName *C.char) *C.char {
-	var userJID neonize.JID
+	var userJID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(user, userSize), &userJID)
 	if err != nil {
 		panic(err)
@@ -67,7 +67,7 @@ func PutContactName(id *C.char, user *C.uchar, userSize C.int, fullName, firstNa
 
 //export PutAllContactNames
 func PutAllContactNames(id *C.char, contacts *C.uchar, contactsSize C.int) *C.char {
-	var entry neonize.ContactEntryArray
+	var entry defproto.ContactEntryArray
 	err := proto.Unmarshal(getByteByAddr(contacts, contactsSize), &entry)
 	if err != nil {
 		panic(err)
@@ -85,13 +85,13 @@ func PutAllContactNames(id *C.char, contacts *C.uchar, contactsSize C.int) *C.ch
 
 //export GetContact
 func GetContact(id *C.char, user *C.uchar, userSize C.int) C.struct_BytesReturn {
-	var userJID neonize.JID
+	var userJID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(user, userSize), &userJID)
 	if err != nil {
 		panic(err)
 	}
 	contact_info, err_ := clients[C.GoString(id)].Store.Contacts.GetContact(utils.DecodeJidProto(&userJID))
-	return_ := neonize.ContactsGetContactReturnFunction{
+	return_ := defproto.ContactsGetContactReturnFunction{
 		ContactInfo: utils.EncodeContactInfo(contact_info),
 	}
 	if err_ != nil {
@@ -107,7 +107,7 @@ func GetContact(id *C.char, user *C.uchar, userSize C.int) C.struct_BytesReturn 
 //export GetAllContacts
 func GetAllContacts(id *C.char) C.struct_BytesReturn {
 	contacts, err := clients[C.GoString(id)].Store.Contacts.GetAllContacts()
-	return_ := neonize.ContactsGetAllContactsReturnFunction{
+	return_ := defproto.ContactsGetAllContactsReturnFunction{
 		Contact: utils.EncodeContacts(contacts),
 	}
 	if err != nil {

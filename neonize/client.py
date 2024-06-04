@@ -114,8 +114,8 @@ from .proto.Neonize_pb2 import (
     SendResponse,
     Device,
 )
-from .proto.def_pb2 import DeviceProps
-from .proto.def_pb2 import (
+from .proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2 import DeviceProps
+from .proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
     StickerMessage,
     ContextInfo,
@@ -328,7 +328,7 @@ class NewClient:
                 title=str(preview.title),
                 description=str(preview.description),
                 matchedText=valid_links[0],
-                canonicalUrl=str(preview.link.url),
+                canonicalURL=str(preview.link.url),
                 previewType=preview_type,
             )
             if preview.absolute_image:
@@ -339,10 +339,10 @@ class NewClient:
                     upload = self.upload(thumbnail, MediaType.MediaLinkThumbnail)
                     msg.MergeFrom(
                         ExtendedTextMessage(
-                            jpegThumbnail=thumbnail,
+                            JPEGThumbnail=thumbnail,
                             thumbnailDirectPath=upload.DirectPath,
-                            thumbnailSha256=upload.FileSHA256,
-                            thumbnailEncSha256=upload.FileEncSHA256,
+                            thumbnailSHA256=upload.FileSHA256,
+                            thumbnailEncSHA256=upload.FileEncSHA256,
                             mediaKey=upload.MediaKey,
                             mediaKeyTimestamp=int(time.time()),
                             thumbnailWidth=image.size[0],
@@ -356,10 +356,10 @@ class NewClient:
         self, message: neonize_proto.Message, reply_privately: bool = False
     ) -> ContextInfo:
         return ContextInfo(
-            stanzaId=message.Info.ID,
+            stanzaID=message.Info.ID,
             participant=Jid2String(JIDToNonAD(message.Info.MessageSource.Sender)),
             quotedMessage=message.Message,
-            remoteJid=Jid2String(JIDToNonAD(message.Info.MessageSource.Chat))
+            remoteJID=Jid2String(JIDToNonAD(message.Info.MessageSource.Chat))
             if reply_privately
             else None,
         )
@@ -383,7 +383,7 @@ class NewClient:
         if isinstance(message, str):
             mentioned_jid = self._parse_mention(message)
             partial_msg = ExtendedTextMessage(
-                text=message, contextInfo=ContextInfo(mentionedJid=mentioned_jid)
+                text=message, contextInfo=ContextInfo(mentionedJID=mentioned_jid)
             )
             if link_preview:
                 preview = self._generate_link_preview(message)
@@ -430,7 +430,7 @@ class NewClient:
         if isinstance(message, str):
             partial_message = ExtendedTextMessage(
                 text=message,
-                contextInfo=ContextInfo(mentionedJid=self._parse_mention(message)),
+                contextInfo=ContextInfo(mentionedJID=self._parse_mention(message)),
             )
             if link_preview:
                 preview = self._generate_link_preview(message)
@@ -688,11 +688,11 @@ class NewClient:
         upload = self.upload(io_save.getvalue())
         message = Message(
             stickerMessage=StickerMessage(
-                url=upload.url,
+                URL=upload.url,
                 directPath=upload.DirectPath,
-                fileEncSha256=upload.FileEncSHA256,
+                fileEncSHA256=upload.FileEncSHA256,
                 fileLength=upload.FileLength,
-                fileSha256=upload.FileSHA256,
+                fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
                 mimetype=magic.from_buffer(io_save.getvalue(), mime=True),
                 isAnimated=animated,
@@ -764,22 +764,22 @@ class NewClient:
         upload = self.upload(buff)
         message = Message(
             videoMessage=VideoMessage(
-                url=upload.url,
+                URL=upload.url,
                 caption=caption,
                 seconds=duration,
                 directPath=upload.DirectPath,
-                fileEncSha256=upload.FileEncSHA256,
+                fileEncSHA256=upload.FileEncSHA256,
                 fileLength=upload.FileLength,
-                fileSha256=upload.FileSHA256,
+                fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
                 mimetype=magic.from_buffer(buff, mime=True),
-                jpegThumbnail=thumbnail,
+                JPEGThumbnail=thumbnail,
                 thumbnailDirectPath=upload.DirectPath,
-                thumbnailEncSha256=upload.FileEncSHA256,
-                thumbnailSha256=upload.FileSHA256,
+                thumbnailEncSHA256=upload.FileEncSHA256,
+                thumbnailSHA256=upload.FileSHA256,
                 viewOnce=viewonce,
                 contextInfo=ContextInfo(
-                    mentionedJid=self._parse_mention(caption),
+                    mentionedJID=self._parse_mention(caption),
                 ),
             )
         )
@@ -850,21 +850,21 @@ class NewClient:
         upload = self.upload(n_file)
         message = Message(
             imageMessage=ImageMessage(
-                url=upload.url,
+                URL=upload.url,
                 caption=caption,
                 directPath=upload.DirectPath,
-                fileEncSha256=upload.FileEncSHA256,
+                fileEncSHA256=upload.FileEncSHA256,
                 fileLength=upload.FileLength,
-                fileSha256=upload.FileSHA256,
+                fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
                 mimetype=magic.from_buffer(n_file, mime=True),
-                jpegThumbnail=thumbnail.getvalue(),
+                JPEGThumbnail=thumbnail.getvalue(),
                 thumbnailDirectPath=upload.DirectPath,
-                thumbnailEncSha256=upload.FileEncSHA256,
-                thumbnailSha256=upload.FileSHA256,
+                thumbnailEncSHA256=upload.FileEncSHA256,
+                thumbnailSHA256=upload.FileSHA256,
                 viewOnce=viewonce,
                 contextInfo=ContextInfo(
-                    mentionedJid=self._parse_mention(caption),
+                    mentionedJID=self._parse_mention(caption),
                 ),
             )
         )
@@ -927,15 +927,15 @@ class NewClient:
             duration = int(ffmpeg.extract_info().format.duration)
         message = Message(
             audioMessage=AudioMessage(
-                url=upload.url,
+                URL=upload.url,
                 seconds=duration,
                 directPath=upload.DirectPath,
-                fileEncSha256=upload.FileEncSHA256,
+                fileEncSHA256=upload.FileEncSHA256,
                 fileLength=upload.FileLength,
-                fileSha256=upload.FileSHA256,
+                fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
                 mimetype=magic.from_buffer(buff, mime=True),
-                ptt=ptt,
+                PTT=ptt,
             )
         )
         if quoted:
@@ -982,18 +982,18 @@ class NewClient:
         upload = self.upload(buff)
         message = Message(
             documentMessage=DocumentMessage(
-                url=upload.url,
+                URL=upload.url,
                 caption=caption,
                 directPath=upload.DirectPath,
-                fileEncSha256=upload.FileEncSHA256,
+                fileEncSHA256=upload.FileEncSHA256,
                 fileLength=upload.FileLength,
-                fileSha256=upload.FileSHA256,
+                fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
                 mimetype=mimetype or magic.from_buffer(buff, mime=True),
                 title=title,
                 fileName=filename,
                 contextInfo=ContextInfo(
-                    mentionedJid=self._parse_mention(caption),
+                    mentionedJID=self._parse_mention(caption),
                 ),
             )
         )

@@ -1,8 +1,6 @@
-from abc import ABC, abstractmethod
-from types import NoneType
-from typing import NewType, Optional, TypeVar, overload
+from typing import NewType, TypeVar
 
-from neonize.proto.def_pb2 import (
+from .proto.waE2E.WAWebProtobufsE2E_pb2 import (
     AudioMessage,
     ButtonsMessage,
     ContactsArrayMessage,
@@ -14,7 +12,6 @@ from neonize.proto.def_pb2 import (
     ListMessage,
     ListResponseMessage,
     LiveLocationMessage,
-    Message,
     MessageHistoryBundle,
     PollCreationMessage,
     ProductMessage,
@@ -57,15 +54,6 @@ MediaMessageType = TypeVar(
 )
 
 from typing import TypeVar
-from neonize.proto.def_pb2 import (
-    ImageMessage,
-    Conversation,
-    VideoMessage,
-    DocumentMessage,
-    ExtendedTextMessage,
-    AudioMessage,
-    StickerMessage,
-)
 
 MediaMessageType = TypeVar(
     "MediaMessageType",
@@ -78,7 +66,6 @@ MediaMessageType = TypeVar(
 
 TextMessageType = TypeVar(
     "TextMessageType",
-    Conversation,
     ExtendedTextMessage,
     str,
 )
