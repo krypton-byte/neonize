@@ -3,8 +3,8 @@ package utils
 import (
 	"C"
 
+	// defproto "github.com/krypton-byte/neonize/defproto"
 	defproto "github.com/krypton-byte/neonize/defproto"
-	"github.com/krypton-byte/neonize/neonize"
 	"go.mau.fi/whatsmeow"
 	waBinary "go.mau.fi/whatsmeow/binary"
 	waProto "go.mau.fi/whatsmeow/binary/proto"
@@ -16,8 +16,8 @@ import (
 )
 
 // Function
-func EncodeUploadResponse(response whatsmeow.UploadResponse) *neonize.UploadResponse {
-	return &neonize.UploadResponse{
+func EncodeUploadResponse(response whatsmeow.UploadResponse) *defproto.UploadResponse {
+	return &defproto.UploadResponse{
 		Url:           &response.URL,
 		DirectPath:    &response.DirectPath,
 		Handle:        &response.Handle,
@@ -29,9 +29,9 @@ func EncodeUploadResponse(response whatsmeow.UploadResponse) *neonize.UploadResp
 }
 
 // types.go
-func EncodeJidProto(data types.JID) *neonize.JID {
+func EncodeJidProto(data types.JID) *defproto.JID {
 	isempty := data.IsEmpty()
-	return &neonize.JID{
+	return &defproto.JID{
 		User:       &data.User,
 		RawAgent:   proto.Uint32(uint32(data.RawAgent)),
 		Device:     proto.Uint32(uint32(data.Device)),
@@ -40,15 +40,15 @@ func EncodeJidProto(data types.JID) *neonize.JID {
 		IsEmpty:    &isempty,
 	}
 }
-func EncodeGroupName(groupName types.GroupName) *neonize.GroupName {
-	return &neonize.GroupName{
+func EncodeGroupName(groupName types.GroupName) *defproto.GroupName {
+	return &defproto.GroupName{
 		Name:      &groupName.Name,
 		NameSetAt: proto.Int64(groupName.NameSetAt.Unix()),
 		NameSetBy: EncodeJidProto(groupName.NameSetBy),
 	}
 }
-func EncodeGroupTopic(topic types.GroupTopic) *neonize.GroupTopic {
-	return &neonize.GroupTopic{
+func EncodeGroupTopic(topic types.GroupTopic) *defproto.GroupTopic {
+	return &defproto.GroupTopic{
 		Topic:        &topic.Topic,
 		TopicID:      &topic.TopicID,
 		TopicSetAt:   proto.Int64(topic.TopicSetAt.Unix()),
@@ -56,52 +56,52 @@ func EncodeGroupTopic(topic types.GroupTopic) *neonize.GroupTopic {
 		TopicDeleted: &topic.TopicDeleted,
 	}
 }
-func EncodeGroupLocked(locked types.GroupLocked) *neonize.GroupLocked {
-	return &neonize.GroupLocked{
+func EncodeGroupLocked(locked types.GroupLocked) *defproto.GroupLocked {
+	return &defproto.GroupLocked{
 		IsLocked: &locked.IsLocked,
 	}
 }
-func EncodeGroupAnnounce(announce types.GroupAnnounce) *neonize.GroupAnnounce {
-	return &neonize.GroupAnnounce{
+func EncodeGroupAnnounce(announce types.GroupAnnounce) *defproto.GroupAnnounce {
+	return &defproto.GroupAnnounce{
 		IsAnnounce:        &announce.IsAnnounce,
 		AnnounceVersionID: &announce.AnnounceVersionID,
 	}
 }
-func EncodeGroupEphemeral(ephemeral types.GroupEphemeral) *neonize.GroupEphemeral {
-	return &neonize.GroupEphemeral{
+func EncodeGroupEphemeral(ephemeral types.GroupEphemeral) *defproto.GroupEphemeral {
+	return &defproto.GroupEphemeral{
 		IsEphemeral:       &ephemeral.IsEphemeral,
 		DisappearingTimer: &ephemeral.DisappearingTimer,
 	}
 }
-func EncodeGroupIncognito(incognito types.GroupIncognito) *neonize.GroupIncognito {
-	return &neonize.GroupIncognito{
+func EncodeGroupIncognito(incognito types.GroupIncognito) *defproto.GroupIncognito {
+	return &defproto.GroupIncognito{
 		IsIncognito: &incognito.IsIncognito,
 	}
 }
-func EncodeGroupParent(parent types.GroupParent) *neonize.GroupParent {
-	return &neonize.GroupParent{
+func EncodeGroupParent(parent types.GroupParent) *defproto.GroupParent {
+	return &defproto.GroupParent{
 		IsParent:                      &parent.IsParent,
 		DefaultMembershipApprovalMode: &parent.DefaultMembershipApprovalMode,
 	}
 }
-func EncodeGroupLinkedParent(linkedParent types.GroupLinkedParent) *neonize.GroupLinkedParent {
-	return &neonize.GroupLinkedParent{
+func EncodeGroupLinkedParent(linkedParent types.GroupLinkedParent) *defproto.GroupLinkedParent {
+	return &defproto.GroupLinkedParent{
 		LinkedParentJID: EncodeJidProto(linkedParent.LinkedParentJID),
 	}
 }
-func EncodeGroupIsDefaultSub(isDefaultSub types.GroupIsDefaultSub) *neonize.GroupIsDefaultSub {
-	return &neonize.GroupIsDefaultSub{
+func EncodeGroupIsDefaultSub(isDefaultSub types.GroupIsDefaultSub) *defproto.GroupIsDefaultSub {
+	return &defproto.GroupIsDefaultSub{
 		IsDefaultSubGroup: &isDefaultSub.IsDefaultSubGroup,
 	}
 }
-func EncodeGroupParticipantAddRequest(addRequest types.GroupParticipantAddRequest) *neonize.GroupParticipantAddRequest {
-	return &neonize.GroupParticipantAddRequest{
+func EncodeGroupParticipantAddRequest(addRequest types.GroupParticipantAddRequest) *defproto.GroupParticipantAddRequest {
+	return &defproto.GroupParticipantAddRequest{
 		Code:       &addRequest.Code,
 		Expiration: proto.Float32(float32(addRequest.Expiration.Unix())),
 	}
 }
-func EncodeGroupParticipant(participant types.GroupParticipant) *neonize.GroupParticipant {
-	participant_group := neonize.GroupParticipant{
+func EncodeGroupParticipant(participant types.GroupParticipant) *defproto.GroupParticipant {
+	participant_group := defproto.GroupParticipant{
 		LID:          EncodeJidProto(participant.LID),
 		JID:          EncodeJidProto(participant.JID),
 		IsAdmin:      &participant.IsAdmin,
@@ -116,12 +116,12 @@ func EncodeGroupParticipant(participant types.GroupParticipant) *neonize.GroupPa
 }
 
 // send.go
-func EncodeGroupInfo(info *types.GroupInfo) *neonize.GroupInfo {
-	participants := []*neonize.GroupParticipant{}
+func EncodeGroupInfo(info *types.GroupInfo) *defproto.GroupInfo {
+	participants := []*defproto.GroupParticipant{}
 	for _, participant := range info.Participants {
 		participants = append(participants, EncodeGroupParticipant(participant))
 	}
-	return &neonize.GroupInfo{
+	return &defproto.GroupInfo{
 		JID:                  EncodeJidProto(info.JID),
 		OwnerJID:             EncodeJidProto(info.OwnerJID),
 		GroupName:            EncodeGroupName(info.GroupName),
@@ -139,8 +139,8 @@ func EncodeGroupInfo(info *types.GroupInfo) *neonize.GroupInfo {
 	}
 }
 
-func EncodeMessageDebugTimings(debugTimings whatsmeow.MessageDebugTimings) *neonize.MessageDebugTimings {
-	return &neonize.MessageDebugTimings{
+func EncodeMessageDebugTimings(debugTimings whatsmeow.MessageDebugTimings) *defproto.MessageDebugTimings {
+	return &defproto.MessageDebugTimings{
 		Queue:           proto.Int64(debugTimings.Queue.Nanoseconds()),
 		Marshal_:        proto.Int64(debugTimings.Marshal.Nanoseconds()),
 		GetParticipants: proto.Int64(debugTimings.GetParticipants.Nanoseconds()),
@@ -152,53 +152,27 @@ func EncodeMessageDebugTimings(debugTimings whatsmeow.MessageDebugTimings) *neon
 		Retry:           proto.Int64(debugTimings.Retry.Nanoseconds()),
 	}
 }
-func EncodeSendResponse(sendResponse whatsmeow.SendResponse) *neonize.SendResponse {
-	return &neonize.SendResponse{
+func EncodeSendResponse(sendResponse whatsmeow.SendResponse) *defproto.SendResponse {
+	return &defproto.SendResponse{
 		Timestamp:    proto.Int64(sendResponse.Timestamp.Unix()),
 		ID:           proto.String(sendResponse.ID),
 		ServerID:     proto.Int64(int64(sendResponse.ServerID)),
 		DebugTimings: EncodeMessageDebugTimings(sendResponse.DebugTimings),
 	}
 }
-func EncodeVerifiedNameCertificate(verifiedNameCertificate *waProto.VerifiedNameCertificate) *defproto.VerifiedNameCertificate {
-	return &defproto.VerifiedNameCertificate{
-		Details:         verifiedNameCertificate.Details,
-		Signature:       verifiedNameCertificate.Signature,
-		ServerSignature: verifiedNameCertificate.ServerSignature,
-	}
-}
-func EncodeLocalizedName(localizedname *waProto.LocalizedName) *defproto.LocalizedName {
-	return &defproto.LocalizedName{
-		Lg:           localizedname.Lg,
-		Lc:           localizedname.Lc,
-		VerifiedName: localizedname.VerifiedName,
-	}
-}
-func EncodeVerifiedNameCertificate_Details(details *waProto.VerifiedNameCertificate_Details) *defproto.VerifiedNameCertificate_Details {
-	localizedName := []*defproto.LocalizedName{}
-	for _, localized := range details.LocalizedNames {
-		localizedName = append(localizedName, EncodeLocalizedName(localized))
-	}
-	return &defproto.VerifiedNameCertificate_Details{
-		Serial:         details.Serial,
-		Issuer:         details.Issuer,
-		VerifiedName:   details.VerifiedName,
-		LocalizedNames: localizedName,
-		IssueTime:      details.IssueTime,
-	}
-}
-func EncodeVerifiedName(verifiedName *types.VerifiedName) *neonize.VerifiedName {
-	models := &neonize.VerifiedName{}
+
+func EncodeVerifiedName(verifiedName *types.VerifiedName) *defproto.VerifiedName {
+	models := &defproto.VerifiedName{}
 	if verifiedName.Details != nil {
-		models.Details = EncodeVerifiedNameCertificate_Details(verifiedName.Details)
+		models.Details = verifiedName.Details
 	}
 	if verifiedName.Certificate != nil {
-		models.Certificate = EncodeVerifiedNameCertificate(verifiedName.Certificate)
+		models.Certificate = verifiedName.Certificate
 	}
 	return models
 }
-func EncodeIsOnWhatsApp(isOnWhatsApp types.IsOnWhatsAppResponse) *neonize.IsOnWhatsAppResponse {
-	model := &neonize.IsOnWhatsAppResponse{
+func EncodeIsOnWhatsApp(isOnWhatsApp types.IsOnWhatsAppResponse) *defproto.IsOnWhatsAppResponse {
+	model := &defproto.IsOnWhatsAppResponse{
 		Query: &isOnWhatsApp.Query,
 		JID:   EncodeJidProto(isOnWhatsApp.JID),
 		IsIn:  &isOnWhatsApp.IsIn,
@@ -209,12 +183,12 @@ func EncodeIsOnWhatsApp(isOnWhatsApp types.IsOnWhatsAppResponse) *neonize.IsOnWh
 	return model
 }
 
-func EncodeUserInfo(userInfo types.UserInfo) *neonize.UserInfo {
-	devices := []*neonize.JID{}
+func EncodeUserInfo(userInfo types.UserInfo) *defproto.UserInfo {
+	devices := []*defproto.JID{}
 	for _, jid := range userInfo.Devices {
 		devices = append(devices, EncodeJidProto(jid))
 	}
-	models := &neonize.UserInfo{
+	models := &defproto.UserInfo{
 		Status:    &userInfo.Status,
 		PictureID: &userInfo.PictureID,
 		Devices:   devices,
@@ -224,8 +198,8 @@ func EncodeUserInfo(userInfo types.UserInfo) *neonize.UserInfo {
 	}
 	return models
 }
-func EncodeMessageSource(messageSource types.MessageSource) *neonize.MessageSource {
-	return &neonize.MessageSource{
+func EncodeMessageSource(messageSource types.MessageSource) *defproto.MessageSource {
+	return &defproto.MessageSource{
 		Chat:               EncodeJidProto(messageSource.Chat),
 		Sender:             EncodeJidProto(messageSource.Sender),
 		IsFromMe:           &messageSource.IsFromMe,
@@ -233,14 +207,14 @@ func EncodeMessageSource(messageSource types.MessageSource) *neonize.MessageSour
 		BroadcastListOwner: EncodeJidProto(messageSource.BroadcastListOwner),
 	}
 }
-func EncodeDeviceSentMeta(deviceSentMeta *types.DeviceSentMeta) *neonize.DeviceSentMeta {
-	return &neonize.DeviceSentMeta{
+func EncodeDeviceSentMeta(deviceSentMeta *types.DeviceSentMeta) *defproto.DeviceSentMeta {
+	return &defproto.DeviceSentMeta{
 		DestinationJID: &deviceSentMeta.DestinationJID,
 		Phash:          &deviceSentMeta.Phash,
 	}
 }
-func EncodeMessageInfo(messageInfo types.MessageInfo) *neonize.MessageInfo {
-	model := &neonize.MessageInfo{
+func EncodeMessageInfo(messageInfo types.MessageInfo) *defproto.MessageInfo {
+	model := &defproto.MessageInfo{
 		MessageSource: EncodeMessageSource(messageInfo.MessageSource),
 		ID:            &messageInfo.ID,
 		ServerID:      proto.Int64(int64(messageInfo.ServerID)),
@@ -273,28 +247,15 @@ func EncodeMessage(message *waProto.Message) *defproto.Message {
 	}
 	return &neonizeMessage
 }
-func EncodeNewsLetterMessageMeta(newsLetter *events.NewsletterMessageMeta) *neonize.NewsLetterMessageMeta {
-	return &neonize.NewsLetterMessageMeta{
+func EncodeNewsLetterMessageMeta(newsLetter *events.NewsletterMessageMeta) *defproto.NewsLetterMessageMeta {
+	return &defproto.NewsLetterMessageMeta{
 		EditTS:     proto.Int64(int64(newsLetter.EditTS.Unix())),
 		OriginalTS: proto.Int64(int64(newsLetter.OriginalTS.Unix())),
 	}
 }
-func EncodeWebMessageInfo(sourceWebMsg *waProto.WebMessageInfo) *defproto.WebMessageInfo {
-	var sourcewebmsg defproto.WebMessageInfo
-	sourceWebBuf, err := proto.Marshal(sourceWebMsg)
-	if err != nil {
-		panic(err)
-	}
-	err_decoded := proto.Unmarshal(sourceWebBuf, &sourcewebmsg)
-	if err_decoded != nil {
-		panic(err)
-	}
-	return &sourcewebmsg
 
-}
-
-func EncodeEventTypesMessage(message *events.Message) *neonize.Message {
-	model := &neonize.Message{
+func EncodeEventTypesMessage(message *events.Message) *defproto.Message {
+	model := &defproto.Message{
 		Info:                 EncodeMessageInfo(message.Info),
 		IsEphemeral:          &message.IsEphemeral,
 		IsViewOnce:           &message.IsViewOnce,
@@ -307,72 +268,72 @@ func EncodeEventTypesMessage(message *events.Message) *neonize.Message {
 		model.NewsLetterMeta = EncodeNewsLetterMessageMeta(message.NewsletterMeta)
 	}
 	if message.SourceWebMsg != nil {
-		model.SourceWebMsg = EncodeWebMessageInfo(message.SourceWebMsg)
+		model.SourceWebMsg = message.SourceWebMsg
 	}
 	if message.Message != nil {
-		model.Message = EncodeMessage(message.Message)
+		model.Message = message.Message
 	}
 	return model
 }
-func EncodeNewsletterText(newsletterText types.NewsletterText) *neonize.NewsletterText {
-	return &neonize.NewsletterText{
+func EncodeNewsletterText(newsletterText types.NewsletterText) *defproto.NewsletterText {
+	return &defproto.NewsletterText{
 		Text:       &newsletterText.Text,
 		ID:         &newsletterText.ID,
 		UpdateTime: proto.Int64(newsletterText.UpdateTime.Unix()),
 	}
 }
-func EncodeWrappedNewsletterState(state types.WrappedNewsletterState) *neonize.WrappedNewsletterState {
-	var enum neonize.WrappedNewsletterState_NewsletterState
+func EncodeWrappedNewsletterState(state types.WrappedNewsletterState) *defproto.WrappedNewsletterState {
+	var enum defproto.WrappedNewsletterState_NewsletterState
 	switch state.Type {
 	case types.NewsletterStateActive:
-		enum = neonize.WrappedNewsletterState_ACTIVE
+		enum = defproto.WrappedNewsletterState_ACTIVE
 	case types.NewsletterStateSuspended:
-		enum = neonize.WrappedNewsletterState_SUSPENDED
+		enum = defproto.WrappedNewsletterState_SUSPENDED
 	case types.NewsletterStateGeoSuspended:
-		enum = neonize.WrappedNewsletterState_GEOSUSPENDED
+		enum = defproto.WrappedNewsletterState_GEOSUSPENDED
 	}
-	return &neonize.WrappedNewsletterState{
+	return &defproto.WrappedNewsletterState{
 		Type: &enum,
 	}
 }
-func EncodeProfilePictureInfo(profilePictureInfo types.ProfilePictureInfo) *neonize.ProfilePictureInfo {
-	return &neonize.ProfilePictureInfo{
+func EncodeProfilePictureInfo(profilePictureInfo types.ProfilePictureInfo) *defproto.ProfilePictureInfo {
+	return &defproto.ProfilePictureInfo{
 		URL:        &profilePictureInfo.URL,
 		ID:         &profilePictureInfo.ID,
 		Type:       &profilePictureInfo.Type,
 		DirectPath: &profilePictureInfo.DirectPath,
 	}
 }
-func EncodeNewsletterReactionSettings(reactionSettings types.NewsletterReactionSettings) *neonize.NewsletterReactionSettings {
-	var reactionMode neonize.NewsletterReactionSettings_NewsletterReactionsMode
+func EncodeNewsletterReactionSettings(reactionSettings types.NewsletterReactionSettings) *defproto.NewsletterReactionSettings {
+	var reactionMode defproto.NewsletterReactionSettings_NewsletterReactionsMode
 	switch reactionSettings.Value {
 	case types.NewsletterReactionsModeAll:
-		reactionMode = neonize.NewsletterReactionSettings_ALL
+		reactionMode = defproto.NewsletterReactionSettings_ALL
 	case types.NewsletterReactionsModeBasic:
-		reactionMode = neonize.NewsletterReactionSettings_BASIC
+		reactionMode = defproto.NewsletterReactionSettings_BASIC
 	case types.NewsletterReactionsModeNone:
-		reactionMode = neonize.NewsletterReactionSettings_NONE
+		reactionMode = defproto.NewsletterReactionSettings_NONE
 	case types.NewsletterReactionsModeBlocklist:
-		reactionMode = neonize.NewsletterReactionSettings_BLOCKLIST
+		reactionMode = defproto.NewsletterReactionSettings_BLOCKLIST
 	}
-	return &neonize.NewsletterReactionSettings{
+	return &defproto.NewsletterReactionSettings{
 		Value: &reactionMode,
 	}
 }
-func EncodeNewsletterSetting(settings types.NewsletterSettings) *neonize.NewsletterSetting {
-	return &neonize.NewsletterSetting{
+func EncodeNewsletterSetting(settings types.NewsletterSettings) *defproto.NewsletterSetting {
+	return &defproto.NewsletterSetting{
 		ReactionCodes: EncodeNewsletterReactionSettings(settings.ReactionCodes),
 	}
 }
-func EncodeNewsletterThreadMetadata(threadMetadata types.NewsletterThreadMetadata) *neonize.NewsletterThreadMetadata {
-	var state neonize.NewsletterThreadMetadata_NewsletterVerificationState
+func EncodeNewsletterThreadMetadata(threadMetadata types.NewsletterThreadMetadata) *defproto.NewsletterThreadMetadata {
+	var state defproto.NewsletterThreadMetadata_NewsletterVerificationState
 	switch threadMetadata.VerificationState {
 	case types.NewsletterVerificationStateVerified:
-		state = neonize.NewsletterThreadMetadata_VERIFIED
+		state = defproto.NewsletterThreadMetadata_VERIFIED
 	case types.NewsletterVerificationStateUnverified:
-		state = neonize.NewsletterThreadMetadata_UNVERIFIED
+		state = defproto.NewsletterThreadMetadata_UNVERIFIED
 	}
-	metadata := neonize.NewsletterThreadMetadata{
+	metadata := defproto.NewsletterThreadMetadata{
 		CreationTime:      proto.Int64(threadMetadata.CreationTime.Unix()),
 		InviteCode:        &threadMetadata.InviteCode,
 		Name:              EncodeNewsletterText(threadMetadata.Name),
@@ -387,33 +348,33 @@ func EncodeNewsletterThreadMetadata(threadMetadata types.NewsletterThreadMetadat
 	}
 	return &metadata
 }
-func EncodeNewsletterViewerMetadata(viewerMetadata *types.NewsletterViewerMetadata) *neonize.NewsletterViewerMetadata {
-	var mute neonize.NewsletterMuteState
-	var role neonize.NewsletterRole
+func EncodeNewsletterViewerMetadata(viewerMetadata *types.NewsletterViewerMetadata) *defproto.NewsletterViewerMetadata {
+	var mute defproto.NewsletterMuteState
+	var role defproto.NewsletterRole
 	switch viewerMetadata.Mute {
 	case types.NewsletterMuteOff:
-		mute = neonize.NewsletterMuteState_OFF
+		mute = defproto.NewsletterMuteState_OFF
 	case types.NewsletterMuteOn:
-		mute = neonize.NewsletterMuteState_ON
+		mute = defproto.NewsletterMuteState_ON
 	}
 	switch viewerMetadata.Role {
 	case types.NewsletterRoleSubscriber:
-		role = neonize.NewsletterRole_SUBSCRIBER
+		role = defproto.NewsletterRole_SUBSCRIBER
 	case types.NewsletterRoleGuest:
-		role = neonize.NewsletterRole_GUEST
+		role = defproto.NewsletterRole_GUEST
 	case types.NewsletterRoleAdmin:
-		role = neonize.NewsletterRole_ADMIN
+		role = defproto.NewsletterRole_ADMIN
 	case types.NewsletterRoleOwner:
-		role = neonize.NewsletterRole_OWNER
+		role = defproto.NewsletterRole_OWNER
 
 	}
-	return &neonize.NewsletterViewerMetadata{
+	return &defproto.NewsletterViewerMetadata{
 		Mute: &mute,
 		Role: &role,
 	}
 }
-func EncodeNewsLetterMessageMetadata(metadata types.NewsletterMetadata) *neonize.NewsletterMetadata {
-	model := &neonize.NewsletterMetadata{
+func EncodeNewsLetterMessageMetadata(metadata types.NewsletterMetadata) *defproto.NewsletterMetadata {
+	model := &defproto.NewsletterMetadata{
 		ID:         EncodeJidProto(metadata.ID),
 		State:      EncodeWrappedNewsletterState(metadata.State),
 		ThreadMeta: EncodeNewsletterThreadMetadata(metadata.ThreadMeta),
@@ -423,64 +384,55 @@ func EncodeNewsLetterMessageMetadata(metadata types.NewsletterMetadata) *neonize
 	}
 	return model
 }
-func EncodeBlocklist(blocklist *types.Blocklist) *neonize.Blocklist {
-	JIDs := []*neonize.JID{}
+func EncodeBlocklist(blocklist *types.Blocklist) *defproto.Blocklist {
+	JIDs := []*defproto.JID{}
 	for _, jid := range blocklist.JIDs {
 		JIDs = append(JIDs, EncodeJidProto(jid))
 	}
-	return &neonize.Blocklist{
+	return &defproto.Blocklist{
 		DHash: &blocklist.DHash,
 		JIDs:  JIDs,
 	}
 }
-func EncodeNewsletterMessage(message *types.NewsletterMessage) *neonize.NewsletterMessage {
-	var defmessage defproto.Message
-	message_buf, err := proto.Marshal(message.Message)
-	if err != nil {
-		panic(err)
-	}
-	err_unmarshal := proto.Unmarshal(message_buf, &defmessage)
-	if err_unmarshal != nil {
-		panic(err)
-	}
-	reacts := []*neonize.Reaction{}
+func EncodeNewsletterMessage(message *types.NewsletterMessage) *defproto.NewsletterMessage {
+	reacts := []*defproto.Reaction{}
 	for react, count := range message.ReactionCounts {
-		reacts = append(reacts, &neonize.Reaction{
+		reacts = append(reacts, &defproto.Reaction{
 			Type:  proto.String(react),
 			Count: proto.Int64(int64(count)),
 		})
 	}
-	return &neonize.NewsletterMessage{
+	return &defproto.NewsletterMessage{
 		MessageServerID: proto.Int64(int64(message.MessageServerID)),
 		ViewsCount:      proto.Int64(int64(message.ViewsCount)),
-		Message:         &defmessage,
+		Message:         message.Message,
 		ReactionCounts:  reacts,
 	}
 }
 
-func EncodePrivacySetting(privacy types.PrivacySetting) *neonize.PrivacySettings_PrivacySetting {
-	var privacySetting neonize.PrivacySettings_PrivacySetting
+func EncodePrivacySetting(privacy types.PrivacySetting) *defproto.PrivacySettings_PrivacySetting {
+	var privacySetting defproto.PrivacySettings_PrivacySetting
 	switch privacy {
 	case types.PrivacySettingUndefined:
-		privacySetting = neonize.PrivacySettings_UNDEFINED
+		privacySetting = defproto.PrivacySettings_UNDEFINED
 	case types.PrivacySettingAll:
-		privacySetting = neonize.PrivacySettings_ALL
+		privacySetting = defproto.PrivacySettings_ALL
 	case types.PrivacySettingContacts:
-		privacySetting = neonize.PrivacySettings_CONTACTS
+		privacySetting = defproto.PrivacySettings_CONTACTS
 	case types.PrivacySettingContactBlacklist:
-		privacySetting = neonize.PrivacySettings_CONTACT_BLACKLIST
+		privacySetting = defproto.PrivacySettings_CONTACT_BLACKLIST
 	case types.PrivacySettingMatchLastSeen:
-		privacySetting = neonize.PrivacySettings_MATCH_LAST_SEEN
+		privacySetting = defproto.PrivacySettings_MATCH_LAST_SEEN
 	case types.PrivacySettingKnown:
-		privacySetting = neonize.PrivacySettings_KNOWN
+		privacySetting = defproto.PrivacySettings_KNOWN
 	case types.PrivacySettingNone:
-		privacySetting = neonize.PrivacySettings_NONE
+		privacySetting = defproto.PrivacySettings_NONE
 	}
 	return &privacySetting
 }
 
-func EncodePrivacySettings(privacySetting types.PrivacySettings) *neonize.PrivacySettings {
-	return &neonize.PrivacySettings{
+func EncodePrivacySettings(privacySetting types.PrivacySettings) *defproto.PrivacySettings {
+	return &defproto.PrivacySettings{
 		GroupAdd:     EncodePrivacySetting(privacySetting.GroupAdd),
 		LastSeen:     EncodePrivacySetting(privacySetting.LastSeen),
 		Status:       EncodePrivacySetting(privacySetting.Status),
@@ -491,45 +443,45 @@ func EncodePrivacySettings(privacySetting types.PrivacySettings) *neonize.Privac
 	}
 }
 
-func EncodeStatusPrivacy(statusPrivacy types.StatusPrivacy) *neonize.StatusPrivacy {
-	var ptype neonize.StatusPrivacy_StatusPrivacyType
-	JIDS := []*neonize.JID{}
+func EncodeStatusPrivacy(statusPrivacy types.StatusPrivacy) *defproto.StatusPrivacy {
+	var ptype defproto.StatusPrivacy_StatusPrivacyType
+	JIDS := []*defproto.JID{}
 	switch statusPrivacy.Type {
 	case types.StatusPrivacyTypeBlacklist:
-		ptype = neonize.StatusPrivacy_BLACKLIST
+		ptype = defproto.StatusPrivacy_BLACKLIST
 	case types.StatusPrivacyTypeContacts:
-		ptype = neonize.StatusPrivacy_CONTACTS
+		ptype = defproto.StatusPrivacy_CONTACTS
 	case types.StatusPrivacyTypeWhitelist:
-		ptype = neonize.StatusPrivacy_WHITELIST
+		ptype = defproto.StatusPrivacy_WHITELIST
 	}
 	for _, jid := range statusPrivacy.List {
 		JIDS = append(JIDS, EncodeJidProto(jid))
 	}
-	return &neonize.StatusPrivacy{
+	return &defproto.StatusPrivacy{
 		Type:      &ptype,
 		List:      JIDS,
 		IsDefault: &statusPrivacy.IsDefault,
 	}
 }
 
-func EncodeGroupLinkTarget(group types.GroupLinkTarget) *neonize.GroupLinkTarget {
-	return &neonize.GroupLinkTarget{
+func EncodeGroupLinkTarget(group types.GroupLinkTarget) *defproto.GroupLinkTarget {
+	return &defproto.GroupLinkTarget{
 		JID:               EncodeJidProto(group.JID),
 		GroupName:         EncodeGroupName(group.GroupName),
 		GroupIsDefaultSub: EncodeGroupIsDefaultSub(group.GroupIsDefaultSub),
 	}
 }
 
-func EncodeContactQRLinkTarget(contact types.ContactQRLinkTarget) *neonize.ContactQRLinkTarget {
-	return &neonize.ContactQRLinkTarget{
+func EncodeContactQRLinkTarget(contact types.ContactQRLinkTarget) *defproto.ContactQRLinkTarget {
+	return &defproto.ContactQRLinkTarget{
 		JID:      EncodeJidProto(contact.JID),
 		Type:     &contact.Type,
 		PushName: &contact.PushName,
 	}
 }
 
-func EncodeBusinessMessageLinkTarget(message types.BusinessMessageLinkTarget) *neonize.BusinessMessageLinkTarget {
-	return &neonize.BusinessMessageLinkTarget{
+func EncodeBusinessMessageLinkTarget(message types.BusinessMessageLinkTarget) *defproto.BusinessMessageLinkTarget {
+	return &defproto.BusinessMessageLinkTarget{
 		JID:           EncodeJidProto(message.JID),
 		PushName:      proto.String(message.PushName),
 		VerifiedName:  proto.String(message.VerifiedName),
@@ -539,100 +491,100 @@ func EncodeBusinessMessageLinkTarget(message types.BusinessMessageLinkTarget) *n
 	}
 }
 
-func EncodePairSuccess(pair *events.PairSuccess) *neonize.PairStatus {
-	return &neonize.PairStatus{
+func EncodePairSuccess(pair *events.PairSuccess) *defproto.PairStatus {
+	return &defproto.PairStatus{
 		ID:           EncodeJidProto(pair.ID),
 		BusinessName: &pair.BusinessName,
 		Platform:     &pair.Platform,
-		Status:       neonize.PairStatus_SUCCESS.Enum(),
+		Status:       defproto.PairStatus_SUCCESS.Enum(),
 	}
 }
 
-func EncodePairError(pair *events.PairError) *neonize.PairStatus {
-	return &neonize.PairStatus{
+func EncodePairError(pair *events.PairError) *defproto.PairStatus {
+	return &defproto.PairStatus{
 		ID:           EncodeJidProto(pair.ID),
 		BusinessName: &pair.BusinessName,
 		Platform:     &pair.Platform,
-		Status:       neonize.PairStatus_ERROR.Enum(),
+		Status:       defproto.PairStatus_ERROR.Enum(),
 		Error:        proto.String(pair.Error.Error()),
 	}
 }
-func EncodeConnectFailureReason(reason_types events.ConnectFailureReason) *neonize.ConnectFailureReason {
-	var reason *neonize.ConnectFailureReason
+func EncodeConnectFailureReason(reason_types events.ConnectFailureReason) *defproto.ConnectFailureReason {
+	var reason *defproto.ConnectFailureReason
 	switch reason_types {
 	case events.ConnectFailureGeneric:
-		reason = neonize.ConnectFailureReason_GENERIC.Enum()
+		reason = defproto.ConnectFailureReason_GENERIC.Enum()
 	case events.ConnectFailureLoggedOut:
-		reason = neonize.ConnectFailureReason_LOGGED_OUT.Enum()
+		reason = defproto.ConnectFailureReason_LOGGED_OUT.Enum()
 	case events.ConnectFailureTempBanned:
-		reason = neonize.ConnectFailureReason_TEMP_BANNED.Enum()
+		reason = defproto.ConnectFailureReason_TEMP_BANNED.Enum()
 	case events.ConnectFailureMainDeviceGone:
-		reason = neonize.ConnectFailureReason_MAIN_DEVICE_GONE.Enum()
+		reason = defproto.ConnectFailureReason_MAIN_DEVICE_GONE.Enum()
 	case events.ConnectFailureUnknownLogout:
-		reason = neonize.ConnectFailureReason_UNKNOWN_LOGOUT.Enum()
+		reason = defproto.ConnectFailureReason_UNKNOWN_LOGOUT.Enum()
 	case events.ConnectFailureClientOutdated:
-		reason = neonize.ConnectFailureReason_CLIENT_OUTDATED.Enum()
+		reason = defproto.ConnectFailureReason_CLIENT_OUTDATED.Enum()
 	case events.ConnectFailureBadUserAgent:
-		reason = neonize.ConnectFailureReason_BAD_USER_AGENT.Enum()
+		reason = defproto.ConnectFailureReason_BAD_USER_AGENT.Enum()
 	case events.ConnectFailureInternalServerError:
-		reason = neonize.ConnectFailureReason_INTERNAL_SERVER_ERROR.Enum()
+		reason = defproto.ConnectFailureReason_INTERNAL_SERVER_ERROR.Enum()
 	case events.ConnectFailureExperimental:
-		reason = neonize.ConnectFailureReason_EXPERIMENTAL.Enum()
+		reason = defproto.ConnectFailureReason_EXPERIMENTAL.Enum()
 	case events.ConnectFailureServiceUnavailable:
-		reason = neonize.ConnectFailureReason_SERVICE_UNAVAILABLE.Enum()
+		reason = defproto.ConnectFailureReason_SERVICE_UNAVAILABLE.Enum()
 	}
 	return reason
 }
-func EncodeLoggedOut(logout *events.LoggedOut) *neonize.LoggedOut {
-	return &neonize.LoggedOut{
+func EncodeLoggedOut(logout *events.LoggedOut) *defproto.LoggedOut {
+	return &defproto.LoggedOut{
 		OnConnect: &logout.OnConnect,
 		Reason:    EncodeConnectFailureReason(logout.Reason),
 	}
 }
 
-func EncodeTemporaryBan(ban *events.TemporaryBan) *neonize.TemporaryBan {
-	var reason *neonize.TemporaryBan_TempBanReason
+func EncodeTemporaryBan(ban *events.TemporaryBan) *defproto.TemporaryBan {
+	var reason *defproto.TemporaryBan_TempBanReason
 	switch ban.Code {
 	case events.TempBanSentToTooManyPeople:
-		reason = neonize.TemporaryBan_SEND_TO_TOO_MANY_PEOPLE.Enum()
+		reason = defproto.TemporaryBan_SEND_TO_TOO_MANY_PEOPLE.Enum()
 	case events.TempBanBlockedByUsers:
-		reason = neonize.TemporaryBan_BLOCKED_BY_USERS.Enum()
+		reason = defproto.TemporaryBan_BLOCKED_BY_USERS.Enum()
 	case events.TempBanCreatedTooManyGroups:
-		reason = neonize.TemporaryBan_CREATED_TOO_MANY_GROUPS.Enum()
+		reason = defproto.TemporaryBan_CREATED_TOO_MANY_GROUPS.Enum()
 	case events.TempBanSentTooManySameMessage:
-		reason = neonize.TemporaryBan_SENT_TOO_MANY_SAME_MESSAGE.Enum()
+		reason = defproto.TemporaryBan_SENT_TOO_MANY_SAME_MESSAGE.Enum()
 	case events.TempBanBroadcastList:
-		reason = neonize.TemporaryBan_BROADCAST_LIST.Enum()
+		reason = defproto.TemporaryBan_BROADCAST_LIST.Enum()
 	}
-	return &neonize.TemporaryBan{
+	return &defproto.TemporaryBan{
 		Code:   reason,
 		Expire: proto.Int64(int64(ban.Expire.Seconds())),
 	}
 }
-func EncodeNodeAttrs(attrs waBinary.Attrs) []*neonize.NodeAttrs {
-	n_attr := []*neonize.NodeAttrs{}
+func EncodeNodeAttrs(attrs waBinary.Attrs) []*defproto.NodeAttrs {
+	n_attr := []*defproto.NodeAttrs{}
 	for k, v := range attrs {
-		attr := neonize.NodeAttrs{Name: proto.String(k)}
+		attr := defproto.NodeAttrs{Name: proto.String(k)}
 		switch value := v.(type) {
 		case int:
-			attr.Value = &neonize.NodeAttrs_Integer{Integer: *proto.Int64(int64(value))}
+			attr.Value = &defproto.NodeAttrs_Integer{Integer: *proto.Int64(int64(value))}
 		case int32:
-			attr.Value = &neonize.NodeAttrs_Integer{Integer: *proto.Int64(int64(value))}
+			attr.Value = &defproto.NodeAttrs_Integer{Integer: *proto.Int64(int64(value))}
 		case int64:
-			attr.Value = &neonize.NodeAttrs_Integer{Integer: *proto.Int64(int64(value))}
+			attr.Value = &defproto.NodeAttrs_Integer{Integer: *proto.Int64(int64(value))}
 		case bool:
-			attr.Value = &neonize.NodeAttrs_Boolean{Boolean: value}
+			attr.Value = &defproto.NodeAttrs_Boolean{Boolean: value}
 		case string:
-			attr.Value = &neonize.NodeAttrs_Text{Text: value}
+			attr.Value = &defproto.NodeAttrs_Text{Text: value}
 		case types.JID:
-			attr.Value = &neonize.NodeAttrs_Jid{Jid: EncodeJidProto(value)}
+			attr.Value = &defproto.NodeAttrs_Jid{Jid: EncodeJidProto(value)}
 		}
 		n_attr = append(n_attr, &attr)
 	}
 	return n_attr
 }
-func EncodeNode(node *waBinary.Node) *neonize.Node {
-	nodes := neonize.Node{
+func EncodeNode(node *waBinary.Node) *defproto.Node {
+	nodes := defproto.Node{
 		Tag:   &node.Tag,
 		Attrs: EncodeNodeAttrs(node.Attrs),
 	}
@@ -640,7 +592,7 @@ func EncodeNode(node *waBinary.Node) *neonize.Node {
 	case nil:
 		nodes.Nil = proto.Bool(true)
 	case []waBinary.Node:
-		var content = make([]*neonize.Node, len(v))
+		var content = make([]*defproto.Node, len(v))
 		for i, c_node := range v {
 			content[i] = EncodeNode(&c_node)
 		}
@@ -652,39 +604,39 @@ func EncodeNode(node *waBinary.Node) *neonize.Node {
 	return &nodes
 
 }
-func EncodeConnectFailure(connect *events.ConnectFailure) *neonize.ConnectFailure {
-	return &neonize.ConnectFailure{
+func EncodeConnectFailure(connect *events.ConnectFailure) *defproto.ConnectFailure {
+	return &defproto.ConnectFailure{
 		Reason:  EncodeConnectFailureReason(connect.Reason),
 		Message: &connect.Message,
 		Raw:     EncodeNode(connect.Raw),
 	}
 }
 
-func EncodeReceipts(receipt *events.Receipt) neonize.Receipt {
-	var Type *neonize.Receipt_ReceiptType
+func EncodeReceipts(receipt *events.Receipt) defproto.Receipt {
+	var Type *defproto.Receipt_ReceiptType
 	switch receipt.Type {
 	case types.ReceiptTypeDelivered:
-		Type = neonize.Receipt_DELIVERED.Enum()
+		Type = defproto.Receipt_DELIVERED.Enum()
 	case types.ReceiptTypeSender:
-		Type = neonize.Receipt_SENDER.Enum()
+		Type = defproto.Receipt_SENDER.Enum()
 	case types.ReceiptTypeRetry:
-		Type = neonize.Receipt_RETRY.Enum()
+		Type = defproto.Receipt_RETRY.Enum()
 	case types.ReceiptTypeRead:
-		Type = neonize.Receipt_READ.Enum()
+		Type = defproto.Receipt_READ.Enum()
 	case types.ReceiptTypeReadSelf:
-		Type = neonize.Receipt_READ_SELF.Enum()
+		Type = defproto.Receipt_READ_SELF.Enum()
 	case types.ReceiptTypePlayed:
-		Type = neonize.Receipt_PLAYED.Enum()
+		Type = defproto.Receipt_PLAYED.Enum()
 	case types.ReceiptTypePlayedSelf:
-		Type = neonize.Receipt_SERVER_ERROR.Enum()
+		Type = defproto.Receipt_SERVER_ERROR.Enum()
 	case types.ReceiptTypeInactive:
-		Type = neonize.Receipt_INACTIVE.Enum()
+		Type = defproto.Receipt_INACTIVE.Enum()
 	case types.ReceiptTypePeerMsg:
-		Type = neonize.Receipt_PEER_MSG.Enum()
+		Type = defproto.Receipt_PEER_MSG.Enum()
 	case types.ReceiptTypeHistorySync:
-		Type = neonize.Receipt_HISTORY_SYNC.Enum()
+		Type = defproto.Receipt_HISTORY_SYNC.Enum()
 	}
-	return neonize.Receipt{
+	return defproto.Receipt{
 		MessageSource: EncodeMessageSource(receipt.MessageSource),
 		MessageIDs:    receipt.MessageIDs,
 		Timestamp:     proto.Int64(receipt.Timestamp.Unix()),
@@ -692,71 +644,71 @@ func EncodeReceipts(receipt *events.Receipt) neonize.Receipt {
 	}
 }
 
-func EncodeChatPresence(presence *events.ChatPresence) neonize.ChatPresence {
-	var chat_presence *neonize.ChatPresence_ChatPresence
-	var chat_presence_media *neonize.ChatPresence_ChatPresenceMedia
+func EncodeChatPresence(presence *events.ChatPresence) defproto.ChatPresence {
+	var chat_presence *defproto.ChatPresence_ChatPresence
+	var chat_presence_media *defproto.ChatPresence_ChatPresenceMedia
 	switch presence.State {
 	case types.ChatPresenceComposing:
-		chat_presence = neonize.ChatPresence_COMPOSING.Enum()
+		chat_presence = defproto.ChatPresence_COMPOSING.Enum()
 	case types.ChatPresencePaused:
-		chat_presence = neonize.ChatPresence_PAUSED.Enum()
+		chat_presence = defproto.ChatPresence_PAUSED.Enum()
 	}
 	switch presence.Media {
 	case types.ChatPresenceMediaAudio:
-		chat_presence_media = neonize.ChatPresence_AUDIO.Enum()
+		chat_presence_media = defproto.ChatPresence_AUDIO.Enum()
 	case types.ChatPresenceMediaText:
-		chat_presence_media = neonize.ChatPresence_TEXT.Enum()
+		chat_presence_media = defproto.ChatPresence_TEXT.Enum()
 	}
-	return neonize.ChatPresence{
+	return defproto.ChatPresence{
 		MessageSource: EncodeMessageSource(presence.MessageSource),
 		State:         chat_presence,
 		Media:         chat_presence_media,
 	}
 }
-func EncodePresence(presence *events.Presence) neonize.Presence {
-	return neonize.Presence{
+func EncodePresence(presence *events.Presence) defproto.Presence {
+	return defproto.Presence{
 		From:        EncodeJidProto(presence.From),
 		Unavailable: &presence.Unavailable,
 		LastSeen:    proto.Int64(presence.LastSeen.Unix()),
 	}
 }
 
-func EncodeJoinedGroup(joined *events.JoinedGroup) neonize.JoinedGroup {
-	return neonize.JoinedGroup{
+func EncodeJoinedGroup(joined *events.JoinedGroup) defproto.JoinedGroup {
+	return defproto.JoinedGroup{
 		Reason:    &joined.Reason,
 		Type:      &joined.Reason,
 		CreateKey: &joined.CreateKey,
 		GroupInfo: EncodeGroupInfo(&joined.GroupInfo),
 	}
 }
-func EncodeGroupDelete(delete types.GroupDelete) *neonize.GroupDelete {
-	return &neonize.GroupDelete{
+func EncodeGroupDelete(delete types.GroupDelete) *defproto.GroupDelete {
+	return &defproto.GroupDelete{
 		Deleted:       &delete.Deleted,
 		DeletedReason: &delete.DeleteReason,
 	}
 }
-func EncodeGroupLinkChange(group *types.GroupLinkChange) *neonize.GroupLinkChange {
-	var Type *neonize.GroupLinkChange_ChangeType
+func EncodeGroupLinkChange(group *types.GroupLinkChange) *defproto.GroupLinkChange {
+	var Type *defproto.GroupLinkChange_ChangeType
 	switch group.Type {
 	case types.GroupLinkChangeTypeParent:
-		Type = neonize.GroupLinkChange_PARENT.Enum()
+		Type = defproto.GroupLinkChange_PARENT.Enum()
 	case types.GroupLinkChangeTypeSub:
-		Type = neonize.GroupLinkChange_SUB.Enum()
+		Type = defproto.GroupLinkChange_SUB.Enum()
 	case types.GroupLinkChangeTypeSibling:
-		Type = neonize.GroupLinkChange_SIBLING.Enum()
+		Type = defproto.GroupLinkChange_SIBLING.Enum()
 	}
-	return &neonize.GroupLinkChange{
+	return &defproto.GroupLinkChange{
 		Type:         Type,
 		UnlinkReason: (*string)(&group.UnlinkReason),
 		Group:        EncodeGroupLinkTarget(group.Group),
 	}
 }
-func EncodeGroupInfoEvent(groupInfo *events.GroupInfo) *neonize.GroupInfoEvent {
-	var Join = make([]*neonize.JID, len(groupInfo.Join))
-	var Leave = make([]*neonize.JID, len(groupInfo.Leave))
-	var Promote = make([]*neonize.JID, len(groupInfo.Promote))
-	var Demote = make([]*neonize.JID, len(groupInfo.Demote))
-	var UnknownChanges = make([]*neonize.Node, len(groupInfo.UnknownChanges))
+func EncodeGroupInfoEvent(groupInfo *events.GroupInfo) *defproto.GroupInfoEvent {
+	var Join = make([]*defproto.JID, len(groupInfo.Join))
+	var Leave = make([]*defproto.JID, len(groupInfo.Leave))
+	var Promote = make([]*defproto.JID, len(groupInfo.Promote))
+	var Demote = make([]*defproto.JID, len(groupInfo.Demote))
+	var UnknownChanges = make([]*defproto.Node, len(groupInfo.UnknownChanges))
 	for i, jidJoin := range groupInfo.Join {
 		Join[i] = EncodeJidProto(jidJoin)
 	}
@@ -772,7 +724,7 @@ func EncodeGroupInfoEvent(groupInfo *events.GroupInfo) *neonize.GroupInfoEvent {
 	for i, changes := range groupInfo.UnknownChanges {
 		UnknownChanges[i] = EncodeNode(changes)
 	}
-	group_info := neonize.GroupInfoEvent{
+	group_info := defproto.GroupInfoEvent{
 		JID:                       EncodeJidProto(groupInfo.JID),
 		Notify:                    &groupInfo.Notify,
 		Timestamp:                 proto.Int64(groupInfo.Timestamp.Unix()),
@@ -818,33 +770,33 @@ func EncodeGroupInfoEvent(groupInfo *events.GroupInfo) *neonize.GroupInfoEvent {
 	return &group_info
 }
 
-func EncodeBlocklistChange(blocklist *events.BlocklistChange) *neonize.BlocklistChange {
-	var action *neonize.BlocklistChange_Action
+func EncodeBlocklistChange(blocklist *events.BlocklistChange) *defproto.BlocklistChange {
+	var action *defproto.BlocklistChange_Action
 	switch blocklist.Action {
 	case events.BlocklistChangeActionBlock:
-		action = neonize.BlocklistChange_BLOCK.Enum()
+		action = defproto.BlocklistChange_BLOCK.Enum()
 	case events.BlocklistChangeActionUnblock:
-		action = neonize.BlocklistChange_UNBLOCK.Enum()
+		action = defproto.BlocklistChange_UNBLOCK.Enum()
 	}
-	return &neonize.BlocklistChange{
+	return &defproto.BlocklistChange{
 		JID:         EncodeJidProto(blocklist.JID),
 		BlockAction: action,
 	}
 }
 
-func EncodeBlocklistEvent(blocklist *events.Blocklist) neonize.BlocklistEvent {
-	var action *neonize.BlocklistEvent_Actions
-	var blocklistchanges = make([]*neonize.BlocklistChange, len(blocklist.Changes))
+func EncodeBlocklistEvent(blocklist *events.Blocklist) defproto.BlocklistEvent {
+	var action *defproto.BlocklistEvent_Actions
+	var blocklistchanges = make([]*defproto.BlocklistChange, len(blocklist.Changes))
 	for i, changes := range blocklist.Changes {
 		blocklistchanges[i] = EncodeBlocklistChange(&changes)
 	}
 	switch blocklist.Action {
 	case events.BlocklistActionDefault:
-		action = neonize.BlocklistEvent_DEFAULT.Enum()
+		action = defproto.BlocklistEvent_DEFAULT.Enum()
 	case events.BlocklistActionModify:
-		action = neonize.BlocklistEvent_MODIFY.Enum()
+		action = defproto.BlocklistEvent_MODIFY.Enum()
 	}
-	return neonize.BlocklistEvent{
+	return defproto.BlocklistEvent{
 		Action:    action,
 		DHASH:     &blocklist.DHash,
 		PrevDHash: &blocklist.PrevDHash,
@@ -852,50 +804,50 @@ func EncodeBlocklistEvent(blocklist *events.Blocklist) neonize.BlocklistEvent {
 	}
 }
 
-func EncodeNewsletterLeave(leave *events.NewsletterLeave) neonize.NewsletterLeave {
-	var role *neonize.NewsletterRole
+func EncodeNewsletterLeave(leave *events.NewsletterLeave) defproto.NewsletterLeave {
+	var role *defproto.NewsletterRole
 	switch leave.Role {
 	case types.NewsletterRoleAdmin:
-		role = neonize.NewsletterRole_ADMIN.Enum()
+		role = defproto.NewsletterRole_ADMIN.Enum()
 	case types.NewsletterRoleGuest:
-		role = neonize.NewsletterRole_GUEST.Enum()
+		role = defproto.NewsletterRole_GUEST.Enum()
 	case types.NewsletterRoleOwner:
-		role = neonize.NewsletterRole_OWNER.Enum()
+		role = defproto.NewsletterRole_OWNER.Enum()
 	case types.NewsletterRoleSubscriber:
-		role = neonize.NewsletterRole_SUBSCRIBER.Enum()
+		role = defproto.NewsletterRole_SUBSCRIBER.Enum()
 	}
-	return neonize.NewsletterLeave{
+	return defproto.NewsletterLeave{
 		ID:   EncodeJidProto(leave.ID),
 		Role: role,
 	}
 }
-func EncodeNewsletterMuteChange(mute *events.NewsletterMuteChange) neonize.NewsletterMuteChange {
-	var state *neonize.NewsletterMuteState
+func EncodeNewsletterMuteChange(mute *events.NewsletterMuteChange) defproto.NewsletterMuteChange {
+	var state *defproto.NewsletterMuteState
 	switch mute.Mute {
 	case types.NewsletterMuteOff:
-		state = neonize.NewsletterMuteState_OFF.Enum()
+		state = defproto.NewsletterMuteState_OFF.Enum()
 	case types.NewsletterMuteOn:
-		state = neonize.NewsletterMuteState_ON.Enum()
+		state = defproto.NewsletterMuteState_ON.Enum()
 	}
-	return neonize.NewsletterMuteChange{
+	return defproto.NewsletterMuteChange{
 		ID:   EncodeJidProto(mute.ID),
 		Mute: state,
 	}
 }
-func EncodeNewsletterLiveUpdate(update *events.NewsletterLiveUpdate) neonize.NewsletterLiveUpdate {
-	var messages = make([]*neonize.NewsletterMessage, len(update.Messages))
+func EncodeNewsletterLiveUpdate(update *events.NewsletterLiveUpdate) defproto.NewsletterLiveUpdate {
+	var messages = make([]*defproto.NewsletterMessage, len(update.Messages))
 	for i, message := range update.Messages {
 		messages[i] = EncodeNewsletterMessage(message)
 	}
-	return neonize.NewsletterLiveUpdate{
+	return defproto.NewsletterLiveUpdate{
 		JID:      EncodeJidProto(update.JID),
 		TIME:     proto.Int64(int64(update.Time.Unix())),
 		Messages: messages,
 	}
 }
 
-func EncodeContactInfo(info types.ContactInfo) *neonize.ContactInfo {
-	return &neonize.ContactInfo{
+func EncodeContactInfo(info types.ContactInfo) *defproto.ContactInfo {
+	return &defproto.ContactInfo{
 		Found:        proto.Bool(info.Found),
 		FirstName:    proto.String(info.FirstName),
 		FullName:     proto.String(info.FullName),
@@ -904,11 +856,11 @@ func EncodeContactInfo(info types.ContactInfo) *neonize.ContactInfo {
 	}
 }
 
-func EncodeContacts(info map[types.JID]types.ContactInfo) []*neonize.Contact {
-	var contacts = make([]*neonize.Contact, len(info))
+func EncodeContacts(info map[types.JID]types.ContactInfo) []*defproto.Contact {
+	var contacts = make([]*defproto.Contact, len(info))
 	i := 0
 	for k, v := range info {
-		contacts[i] = &neonize.Contact{
+		contacts[i] = &defproto.Contact{
 			JID:  EncodeJidProto(k),
 			Info: EncodeContactInfo(v),
 		}
@@ -917,8 +869,8 @@ func EncodeContacts(info map[types.JID]types.ContactInfo) []*neonize.Contact {
 	return contacts
 }
 
-func EncodeBasicCallMeta(basicCallMeta types.BasicCallMeta) *neonize.BasicCallMeta {
-	return &neonize.BasicCallMeta{
+func EncodeBasicCallMeta(basicCallMeta types.BasicCallMeta) *defproto.BasicCallMeta {
+	return &defproto.BasicCallMeta{
 		From:        EncodeJidProto(basicCallMeta.From),
 		Timestamp:   proto.Int64(int64(basicCallMeta.Timestamp.Unix())),
 		CallCreator: EncodeJidProto(basicCallMeta.CallCreator),
@@ -926,8 +878,8 @@ func EncodeBasicCallMeta(basicCallMeta types.BasicCallMeta) *neonize.BasicCallMe
 	}
 }
 
-func EncodeCallRemoteMeta(callRemoteMeta types.CallRemoteMeta) *neonize.CallRemoteMeta {
-	return &neonize.CallRemoteMeta{
+func EncodeCallRemoteMeta(callRemoteMeta types.CallRemoteMeta) *defproto.CallRemoteMeta {
+	return &defproto.CallRemoteMeta{
 		RemotePlatform: proto.String(callRemoteMeta.RemotePlatform),
 		RemoteVersion:  proto.String(callRemoteMeta.RemoteVersion),
 	}

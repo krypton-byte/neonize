@@ -3,17 +3,15 @@ package utils
 import (
 	"time"
 
-	defproto "github.com/krypton-byte/neonize/defproto"
-	"github.com/krypton-byte/neonize/neonize"
+	"github.com/krypton-byte/neonize/defproto"
 	"go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/appstate"
-	waProto "go.mau.fi/whatsmeow/binary/proto"
+	waVname "go.mau.fi/whatsmeow/proto/waVnameCert"
 	"go.mau.fi/whatsmeow/store"
 	"go.mau.fi/whatsmeow/types"
-	"google.golang.org/protobuf/proto"
 )
 
-func DecodeJidProto(data *neonize.JID) types.JID {
+func DecodeJidProto(data *defproto.JID) types.JID {
 	return types.JID{
 		User:       *data.User,
 		RawAgent:   uint8(*data.RawAgent),
@@ -23,20 +21,20 @@ func DecodeJidProto(data *neonize.JID) types.JID {
 	}
 }
 
-func DecodeGroupParent(groupParent *neonize.GroupParent) types.GroupParent {
+func DecodeGroupParent(groupParent *defproto.GroupParent) types.GroupParent {
 	return types.GroupParent{
 		IsParent:                      *groupParent.IsParent,
 		DefaultMembershipApprovalMode: *groupParent.DefaultMembershipApprovalMode,
 	}
 }
 
-func DecodeGroupLinkedParent(groupLinkedParent *neonize.GroupLinkedParent) types.GroupLinkedParent {
+func DecodeGroupLinkedParent(groupLinkedParent *defproto.GroupLinkedParent) types.GroupLinkedParent {
 	return types.GroupLinkedParent{
 		LinkedParentJID: DecodeJidProto(groupLinkedParent.LinkedParentJID),
 	}
 }
 
-func DecodeReqCreateGroup(reqCreateGroup *neonize.ReqCreateGroup) whatsmeow.ReqCreateGroup {
+func DecodeReqCreateGroup(reqCreateGroup *defproto.ReqCreateGroup) whatsmeow.ReqCreateGroup {
 	participants := []types.JID{}
 	for _, participant := range reqCreateGroup.Participants {
 		participants = append(participants, DecodeJidProto(participant))
@@ -54,7 +52,7 @@ func DecodeReqCreateGroup(reqCreateGroup *neonize.ReqCreateGroup) whatsmeow.ReqC
 	}
 	return new_type
 }
-func DecodeMessageSource(messageSource *neonize.MessageSource) types.MessageSource {
+func DecodeMessageSource(messageSource *defproto.MessageSource) types.MessageSource {
 	return types.MessageSource{
 		Chat:               DecodeJidProto(messageSource.Chat),
 		Sender:             DecodeJidProto(messageSource.Sender),
@@ -63,50 +61,32 @@ func DecodeMessageSource(messageSource *neonize.MessageSource) types.MessageSour
 		BroadcastListOwner: DecodeJidProto(messageSource.BroadcastListOwner),
 	}
 }
-func DecodeVerifiedNameCertificate(verifiedNameCertificate *defproto.VerifiedNameCertificate) *waProto.VerifiedNameCertificate {
+func DecodeVerifiedNameCertificate(verifiedNameCertificate *waVname.VerifiedNameCertificate) *waVname.VerifiedNameCertificate {
 	//passing types through protobuf
-	var Certificate waProto.VerifiedNameCertificate
-	encoded, err := proto.Marshal(verifiedNameCertificate)
-	if err != nil {
-		panic(err)
-	}
-	err_decode := proto.Unmarshal(encoded, &Certificate)
-	if err_decode != nil {
-		panic(err)
-	}
-	return &Certificate
+	return verifiedNameCertificate
 
 }
 
-func DecodeVerifiedNameDetails(verifiedNameDetails *defproto.VerifiedNameCertificate_Details) *waProto.VerifiedNameCertificate_Details {
-	var details waProto.VerifiedNameCertificate_Details
-	encoded, err := proto.Marshal(verifiedNameDetails)
-	if err != nil {
-		panic(err)
-	}
-	err_decode := proto.Unmarshal(encoded, &details)
-	if err_decode != nil {
-		panic(err_decode)
-	}
-	return &details
+func DecodeVerifiedNameDetails(verifiedNameDetails *waVname.VerifiedNameCertificate_Details) *waVname.VerifiedNameCertificate_Details {
+	return verifiedNameDetails
 }
-func DecodeVerifiedName(verifiedName *neonize.VerifiedName) *types.VerifiedName {
+func DecodeVerifiedName(verifiedName *defproto.VerifiedName) *types.VerifiedName {
 	verifiednametypes := types.VerifiedName{}
 	if verifiedName.Certificate != nil {
-		verifiednametypes.Certificate = DecodeVerifiedNameCertificate(verifiedName.Certificate)
+		verifiednametypes.Certificate = verifiednametypes.Certificate
 	}
 	if verifiedName.Details != nil {
-		verifiednametypes.Details = DecodeVerifiedNameDetails(verifiedName.Details)
+		verifiednametypes.Details = verifiednametypes.Details
 	}
 	return &verifiednametypes
 }
-func DecodeDeviceSentMeta(deviceSentMeta *neonize.DeviceSentMeta) *types.DeviceSentMeta {
+func DecodeDeviceSentMeta(deviceSentMeta *defproto.DeviceSentMeta) *types.DeviceSentMeta {
 	return &types.DeviceSentMeta{
 		DestinationJID: *deviceSentMeta.DestinationJID,
 		Phash:          *deviceSentMeta.Phash,
 	}
 }
-func DecodeMessageInfo(messageInfo *neonize.MessageInfo) *types.MessageInfo {
+func DecodeMessageInfo(messageInfo *defproto.MessageInfo) *types.MessageInfo {
 	ts := *messageInfo.Timestamp
 	model := &types.MessageInfo{
 		MessageSource: DecodeMessageSource(messageInfo.MessageSource),
@@ -129,7 +109,7 @@ func DecodeMessageInfo(messageInfo *neonize.MessageInfo) *types.MessageInfo {
 	return model
 }
 
-func DecodeCreateNewsletterParams(createletterNewsParams *neonize.CreateNewsletterParams) whatsmeow.CreateNewsletterParams {
+func DecodeCreateNewsletterParams(createletterNewsParams *defproto.CreateNewsletterParams) whatsmeow.CreateNewsletterParams {
 	return whatsmeow.CreateNewsletterParams{
 		Name:        *createletterNewsParams.Name,
 		Description: *createletterNewsParams.Description,
@@ -137,7 +117,7 @@ func DecodeCreateNewsletterParams(createletterNewsParams *neonize.CreateNewslett
 	}
 }
 
-func DecodeGetProfilePictureParams(params *neonize.GetProfilePictureParams) *whatsmeow.GetProfilePictureParams {
+func DecodeGetProfilePictureParams(params *defproto.GetProfilePictureParams) *whatsmeow.GetProfilePictureParams {
 	if params.Preview == nil || params.ExistingID == nil || params.IsCommunity == nil {
 		return nil
 	}
@@ -147,31 +127,21 @@ func DecodeGetProfilePictureParams(params *neonize.GetProfilePictureParams) *wha
 		IsCommunity: *params.IsCommunity,
 	}
 }
-func DecodeMutationInfo(mutationInfo *neonize.MutationInfo) appstate.MutationInfo {
-	//passing through protobuf
-	var Action waProto.SyncActionValue
-	action_byte, err := proto.Marshal(mutationInfo.Value)
-	if err != nil {
-		panic(err)
-	}
-	err_unmarshal := proto.Unmarshal(action_byte, &Action)
-	if err_unmarshal != nil {
-		panic(err_unmarshal)
-	}
+func DecodeMutationInfo(mutationInfo *defproto.MutationInfo) appstate.MutationInfo {
 	return appstate.MutationInfo{
 		Index:   mutationInfo.Index,
 		Version: *mutationInfo.Version,
-		Value:   &Action,
+		Value:   mutationInfo.Value,
 	}
 }
-func DecodePatchInfo(patchInfo *neonize.PatchInfo) *appstate.PatchInfo {
+func DecodePatchInfo(patchInfo *defproto.PatchInfo) *appstate.PatchInfo {
 	var Type appstate.WAPatchName
 	switch patchInfo.Type {
-	case neonize.PatchInfo_CRITICAL_BLOCK.Enum():
+	case defproto.PatchInfo_CRITICAL_BLOCK.Enum():
 		Type = appstate.WAPatchCriticalBlock
-	case neonize.PatchInfo_CRITICAL_UNBLOCK_LOW.Enum():
+	case defproto.PatchInfo_CRITICAL_UNBLOCK_LOW.Enum():
 		Type = appstate.WAPatchCriticalUnblockLow
-	case neonize.PatchInfo_REGULAR.Enum():
+	case defproto.PatchInfo_REGULAR.Enum():
 		Type = appstate.WAPatchRegular
 	}
 	mutationInfo := []appstate.MutationInfo{}
@@ -185,7 +155,7 @@ func DecodePatchInfo(patchInfo *neonize.PatchInfo) *appstate.PatchInfo {
 	}
 }
 
-func DecodeContactEntry(entry *neonize.ContactEntry) *store.ContactEntry {
+func DecodeContactEntry(entry *defproto.ContactEntry) *store.ContactEntry {
 	return &store.ContactEntry{
 		JID:       DecodeJidProto(entry.JID),
 		FirstName: *entry.FirstName,
