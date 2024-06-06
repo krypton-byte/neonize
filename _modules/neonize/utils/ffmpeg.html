@@ -259,7 +259,7 @@
 
 
 <div class="viewcode-block" id="ImageFormat">
-<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.ffmpeg.ImageFormat">[docs]</a>
+<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.ImageFormat">[docs]</a>
 <span class="k">class</span> <span class="nc">ImageFormat</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration for image formats.</span>
@@ -275,7 +275,7 @@
 
 
 <div class="viewcode-block" id="Stream">
-<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.ffmpeg.Stream">[docs]</a>
+<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.Stream">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">Stream</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -372,7 +372,7 @@
 
 
 <div class="viewcode-block" id="Format">
-<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.ffmpeg.Format">[docs]</a>
+<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.Format">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">Format</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -412,7 +412,7 @@
 
 
 <div class="viewcode-block" id="FFProbeInfo">
-<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.ffmpeg.FFProbeInfo">[docs]</a>
+<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.FFProbeInfo">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">FFProbeInfo</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -429,7 +429,7 @@
 
 
 <div class="viewcode-block" id="FFmpeg">
-<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.ffmpeg.FFmpeg">[docs]</a>
+<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.FFmpeg">[docs]</a>
 <span class="k">class</span> <span class="nc">FFmpeg</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -468,7 +468,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
 
 <div class="viewcode-block" id="FFmpeg.cv_to_webp">
-<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.ffmpeg.FFmpeg.cv_to_webp">[docs]</a>
+<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.FFmpeg.cv_to_webp">[docs]</a>
     <span class="k">def</span> <span class="nf">cv_to_webp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animated</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function converts a given file to webp format using ffmpeg.</span>
@@ -511,7 +511,7 @@
 
 
 <div class="viewcode-block" id="FFmpeg.call">
-<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.ffmpeg.FFmpeg.call">[docs]</a>
+<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.FFmpeg.call">[docs]</a>
     <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
         <span class="n">popen</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
             <span class="n">cmd</span><span class="p">,</span>
@@ -529,7 +529,7 @@
 
 
 <div class="viewcode-block" id="FFmpeg.to_mp3">
-<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.ffmpeg.FFmpeg.to_mp3">[docs]</a>
+<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.FFmpeg.to_mp3">[docs]</a>
     <span class="k">def</span> <span class="nf">to_mp3</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;.mp3&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
@@ -554,7 +554,7 @@
 
 
 <div class="viewcode-block" id="FFmpeg.extract_thumbnail">
-<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.ffmpeg.FFmpeg.extract_thumbnail">[docs]</a>
+<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.FFmpeg.extract_thumbnail">[docs]</a>
     <span class="k">def</span> <span class="nf">extract_thumbnail</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">format</span><span class="p">:</span> <span class="n">ImageFormat</span> <span class="o">=</span> <span class="n">ImageFormat</span><span class="o">.</span><span class="n">JPG</span><span class="p">,</span>
@@ -602,7 +602,7 @@
 
 
 <div class="viewcode-block" id="FFmpeg.extract_info">
-<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.ffmpeg.FFmpeg.extract_info">[docs]</a>
+<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.FFmpeg.extract_info">[docs]</a>
     <span class="k">def</span> <span class="nf">extract_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FFProbeInfo</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts media file information using ffprobe tool.</span>
