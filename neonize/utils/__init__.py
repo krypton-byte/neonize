@@ -51,6 +51,16 @@ __all__ = (
 
 
 def add_exif(name: str = "", packname: str = "") -> bytes:
+    """
+    Adds EXIF metadata to a sticker pack.
+
+    :param name: Name of the sticker pack, defaults to an empty string.
+    :type name: str, optional
+    :param packname: Publisher of the sticker pack, defaults to an empty string.
+    :type packname: str, optional
+    :return: Byte array containing the EXIF metadata.
+    :rtype: bytes
+    """
     json_data = {
         "sticker-pack-id": "com.snowcorp.stickerly.android.stickercontentprovider b5e7275f-f1de-4137-961f-57becfad34f2",
         "sticker-pack-name": name,
@@ -70,6 +80,16 @@ def add_exif(name: str = "", packname: str = "") -> bytes:
 
 
 def gen_vcard(name: str, phone_number: str) -> str:
+    """
+    Generates a vCard string for a contact.
+
+    :param name: Name of the contact.
+    :type name: str
+    :param phone_number: Phone number of the contact.
+    :type phone_number: str
+    :return: vCard string for the contact.
+    :rtype: str
+    """
     inter_phone_number = format_number(
         parse(f"{'+' if phone_number[0] != '+' else ''}{phone_number}"),
         PhoneNumberFormat.INTERNATIONAL,
@@ -81,6 +101,14 @@ def gen_vcard(name: str, phone_number: str) -> str:
 
 
 def validate_link(link) -> bool:
+    """
+    Validates if the provided link is a valid URL.
+
+    :param link: The URL to validate.
+    :type link: str
+    :return: True if the URL is valid, False otherwise.
+    :rtype: bool
+    """
     url_pattern = re.compile(
         r"^(https?|ftp)://"
         r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|"

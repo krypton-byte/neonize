@@ -2,13 +2,14 @@ import copy
 from ..proto.Neonize_pb2 import JID
 
 
-def JIDToNonAD(jid: JID):
-    """_summary_
+def JIDToNonAD(jid: JID) -> JID:
+    """
+    Converts a JID (Jabber ID) to a non-AD (Active Directory) format by setting RawAgent and Device to 0.
 
-    :param jid: _description_
+    :param jid: The JID to be converted.
     :type jid: JID
-    :return: _description_
-    :rtype: _type_
+    :return: A new JID object with RawAgent and Device set to 0.
+    :rtype: JID
     """
     new_jid = copy.deepcopy(jid)
     new_jid.RawAgent = 0
@@ -34,6 +35,14 @@ def Jid2String(jid: JID) -> str:
 
 
 def build_jid(phone_number: str) -> JID:
+    """
+    Builds a JID (Jabber ID) from a phone number.
+
+    :param phone_number: The phone number to be used for building the JID.
+    :type phone_number: str
+    :return: A JID object constructed from the given phone number.
+    :rtype: JID
+    """
     return JID(
         User=phone_number,
         Device=0,

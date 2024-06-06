@@ -8,6 +8,7 @@ import shutil
 from pathlib import Path
 from typing import Dict
 import glob
+
 cwd = os.path.dirname(__file__)
 # shell = [
 #     "protoc --go_out=. Neonize.proto def.proto",
@@ -18,7 +19,10 @@ shell = [
     "echo *.proto",
     "protoc --go_out=. --go_opt=paths=source_relative Neonize.proto",
     "protoc --python_out=../../neonize/proto --mypy_out=../../neonize/proto Neonize.proto",
-    *[f"protoc --python_out=../../neonize/proto --mypy_out=../../neonize/proto {path}" for path in glob.glob("*/*.proto", root_dir=cwd + "/defproto")],
+    *[
+        f"protoc --python_out=../../neonize/proto --mypy_out=../../neonize/proto {path}"
+        for path in glob.glob("*/*.proto", root_dir=cwd + "/defproto")
+    ],
     # "protoc --go_out=. --go-grpc_out=. -I . Neonize.proto def.proto",
 ]
 
@@ -70,7 +74,7 @@ def __build():
 
 def build_proto():
     for sh in shell:
-        subprocess.call(shlex.split(sh), cwd=cwd + '/defproto')
+        subprocess.call(shlex.split(sh), cwd=cwd + "/defproto")
     # if (Path(cwd) / "defproto").exists():
     #     shutil.rmtree(f"{cwd}/defproto")
     # os.mkdir(f"{cwd}/defproto")

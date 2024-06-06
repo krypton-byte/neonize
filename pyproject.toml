@@ -47,10 +47,18 @@ types-requests = "^2.31.0.20240106"
 
 
 [tool.poetry.group.docs.dependencies]
-sphinx = "^7.2.6"
+sphinx = "^7.3.7"
 sphinx-rtd-theme = "^2.0.0"
 myst-parser = "^2.0.0"
-sphinx-autodoc-typehints = "^1.25.2"
+sphinx-autodoc-typehints = "^2.1.1"
+furo = "^2024.5.6"
+
+
+[[tool.poetry.source]]
+name = "neonize"
+url = "https://github.com/krypton-byte/neonize"
+priority = "primary"
+
 
 [build-system]
 requires = ["poetry-core"]
@@ -59,8 +67,7 @@ build-backend = "poetry.core.masonry.api"
 
 
 
-
 [tool.poetry.scripts]
-docsbuild = "docs.generate:build"
+docsbuild = "docs.build:build"
 build = "goneonize.build:build"
 version = "goneonize.build:set_version"

@@ -1,14 +1,18 @@
 from .proto import Neonize_pb2 as neonize
-from .proto.waE2E.WAWebProtobufsE2E_pb2 import Message, FutureProofMessage, ProtocolMessage, PeerDataOperationRequestMessage, PeerDataOperationRequestType
+from .proto.waE2E.WAWebProtobufsE2E_pb2 import (
+    Message,
+    FutureProofMessage,
+    ProtocolMessage,
+    PeerDataOperationRequestMessage,
+    PeerDataOperationRequestType,
+)
 from .proto.waCommon.WACommon_pb2 import MessageKey
 from .const import DEFAULT_USER_SERVER
 from .utils.jid import Jid2String, JIDToNonAD
 import time
 
 
-def build_edit(
-    chat: neonize.JID, message_id: str, new_message: Message
-) -> Message:
+def build_edit(chat: neonize.JID, message_id: str, new_message: Message) -> Message:
     """
     This function builds an edited message in the WhatsApp protocol format.
 
@@ -64,15 +68,23 @@ def build_revoke(
     if not sender.IsEmpty and not msgKey.fromMe and chat.Server != DEFAULT_USER_SERVER:
         msgKey.participant = Jid2String(JIDToNonAD(sender))
     return Message(
-        protocolMessage=ProtocolMessage(
-            type=ProtocolMessage.REVOKE, key=msgKey
-        )
+        protocolMessage=ProtocolMessage(type=ProtocolMessage.REVOKE, key=msgKey)
     )
 
 
 def build_history_sync_request(
     message_info: neonize.MessageInfo, count: int
 ) -> Message:
+    """
+    Builds a history sync request message.
+
+    :param message_info: Information about the message to sync from.
+    :type message_info: neonize.MessageInfo
+    :param count: Number of messages to sync.
+    :type count: int
+    :return: A constructed Message object for history sync.
+    :rtype: Message
+    """
     return Message(
         protocolMessage=ProtocolMessage(
             type=ProtocolMessage.PEER_DATA_OPERATION_REQUEST_MESSAGE,

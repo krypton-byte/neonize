@@ -13,12 +13,68 @@ log = logging.getLogger(__name__)
 
 
 class ImageFormat(Enum):
+    """
+    Enumeration for image formats.
+
+    Attributes:
+        JPG (str): JPEG format identifier.
+        PNG (str): PNG format identifier.
+    """
+
     JPG = "mjpeg"
     PNG = "apng"
 
 
 @dataclass
 class Stream:
+    """
+    Data class representing a stream in multimedia.
+
+    Attributes:
+        index (int): Index of the stream.
+        codec_type (str): Type of codec used in the stream.
+        avg_frame_rate (str): Average frame rate of the stream.
+        codec_tag_string (str): Codec tag string.
+        start_pts (int): Starting presentation timestamp.
+        tags (dict): Tags associated with the stream.
+        extradata_size (int): Size of the extra data.
+        start_time (str): Start time of the stream.
+        disposition (dict): Disposition of the stream.
+        codec_tag (str): Codec tag.
+        time_base (str): Time base.
+        codec_long_name (str): Long name of the codec.
+        codec_name (str): Name of the codec.
+        r_frame_rate (str): Real frame rate.
+        closed_captions (Optional[int]): Closed captions (Video field).
+        color_range (Optional[str]): Color range.
+        display_aspect_ratio (Optional[str]): Display aspect ratio.
+        color_transfer (Optional[str]): Color transfer.
+        is_avc (Optional[str]): AVC flag.
+        color_primaries (Optional[str]): Color primaries.
+        film_grain (Optional[int]): Film grain.
+        color_space (Optional[str]): Color space.
+        refs (Optional[int]): Number of reference frames.
+        level (Optional[int]): Codec level.
+        nal_length_size (Optional[str]): NAL length size.
+        chroma_location (Optional[str]): Chroma location.
+        has_b_frames (Optional[int]): B-frames flag.
+        pix_fmt (Optional[str]): Pixel format.
+        sample_aspect_ratio (Optional[str]): Sample aspect ratio.
+        bits_per_raw_sample (Optional[str]): Bits per raw sample.
+        profile (Optional[str]): Codec profile.
+        field_order (Optional[str]): Field order.
+        width (Optional[int]): Width of the video frame.
+        height (Optional[int]): Height of the video frame.
+        coded_width (Optional[int]): Coded width of the video frame.
+        coded_height (Optional[int]): Coded height of the video frame.
+        bits_per_sample (Optional[int]): Bits per sample (Audio field).
+        sample_fmt (Optional[str]): Sample format.
+        channel_layout (Optional[str]): Channel layout.
+        initial_padding (Optional[int]): Initial padding.
+        channels (Optional[int]): Number of channels.
+        sample_rate (Optional[str]): Sample rate.
+    """
+
     index: int
     codec_type: str
     avg_frame_rate: str
@@ -33,7 +89,7 @@ class Stream:
     codec_long_name: str
     codec_name: str
     r_frame_rate: str
-    closed_captions: Optional[int] = None  # Video Field
+    closed_captions: Optional[int] = None
     color_range: Optional[str] = None
     display_aspect_ratio: Optional[str] = None
     color_transfer: Optional[str] = None
@@ -55,7 +111,7 @@ class Stream:
     height: Optional[int] = None
     coded_width: Optional[int] = None
     coded_height: Optional[int] = None
-    bits_per_sample: Optional[int] = None  # Audio Field
+    bits_per_sample: Optional[int] = None
     sample_fmt: Optional[str] = None
     channel_layout: Optional[str] = None
     initial_padding: Optional[int] = None
@@ -65,6 +121,22 @@ class Stream:
 
 @dataclass
 class Format:
+    """
+    Data class representing the format of multimedia content.
+
+    Attributes:
+        filename (str): Name of the file.
+        nb_streams (int): Number of streams in the file.
+        nb_programs (int): Number of programs in the file.
+        format_name (str): Name of the format.
+        format_long_name (str): Long name of the format.
+        start_time (float): Start time of the format.
+        duration (float): Duration of the content.
+        size (int): Size of the file in bytes.
+        probe_score (int): Probe score of the file.
+        tags (dict): Tags associated with the format.
+    """
+
     filename: str
     nb_streams: int
     nb_programs: int
@@ -86,6 +158,14 @@ class Format:
 
 @dataclass
 class FFProbeInfo:
+    """
+    Data class representing FFProbe information for a media file.
+
+    Attributes:
+        format (Format): The format information of the media file.
+        streams (List[Stream]): List of streams in the media file.
+    """
+
     format: Format
     streams: List[Stream]
 

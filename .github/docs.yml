@@ -1,0 +1,26 @@
+name: Docs Release
+
+on: workflow_dispatch
+
+jobs:
+  pypi:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.11.8"
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python - -y
+        poetry source add pypi
+        poetry lock --no-update
+    - name: build docs
+      run: |
+        poetry install --with docs
+        poetry run docsbuild
+    - name: Deploy docs
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: docs/_build/html

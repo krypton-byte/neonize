@@ -37,6 +37,14 @@ neonize.const module
    :undoc-members:
    :show-inheritance:
 
+neonize.download module
+-----------------------
+
+.. automodule:: neonize.download
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 neonize.events module
 ---------------------
 
@@ -49,6 +57,14 @@ neonize.exc module
 ------------------
 
 .. automodule:: neonize.exc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+neonize.neonize\-linux\-amd64 module
+------------------------------------
+
+.. automodule:: neonize.neonize-linux-amd64
    :members:
    :undoc-members:
    :show-inheritance:

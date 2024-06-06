@@ -1031,7 +1031,10 @@ class NewClient:
         :rtype: SendResponse
         """
         return self.send_message(
-            to, self.build_document_message(file, caption, title, filename, mimetype, quoted)
+            to,
+            self.build_document_message(
+                file, caption, title, filename, mimetype, quoted
+            ),
         )
 
     def send_contact(

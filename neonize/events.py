@@ -151,9 +151,23 @@ class Event:
         return serialization
 
     def __onqr(self, _: NewClient, data_qr: bytes):
+        """
+        Handles QR code generation and display.
+
+        :param _: The client instance (not used in the function).
+        :type _: NewClient
+        :param data_qr: The data to be encoded in the QR code.
+        :type data_qr: bytes
+        """
         segno.make_qr(data_qr).terminal(compact=True)
 
     def qr(self, f: Callable[[NewClient, bytes], None]):
+        """
+        Sets a callback function for handling QR code data.
+
+        :param f: The callback function that takes a NewClient instance and QR code data in bytes.
+        :type f: Callable[[NewClient, bytes], None]
+        """
         self._qr = f
 
     @property
@@ -178,6 +192,15 @@ class Event:
     def __call__(
         self, event: Type[EventType]
     ) -> Callable[[Callable[[NewClient, EventType], None]], None]:
+        """
+        Registers a callback function for a specific event type.
+
+        :param event: The type of event to register the callback for.
+        :type event: Type[EventType]
+        :return: A decorator that registers the callback function.
+        :rtype: Callable[[Callable[[NewClient, EventType], None]], None]
+        """
+
         def callback(func: Callable[[NewClient, EventType], None]) -> None:
             wrapped_func = self.wrap(func, event)
             self.list_func.update({EVENT_TO_INT[event]: wrapped_func})
