@@ -48,10 +48,9 @@ types-requests = "^2.31.0.20240106"
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "^7.3.7"
-sphinx-rtd-theme = "^2.0.0"
 myst-parser = "^2.0.0"
 sphinx-autodoc-typehints = "^2.1.1"
-
+furo = "^2024.5.6"
 
 [build-system]
 requires = ["poetry-core"]
