@@ -14,7 +14,6 @@ jobs:
       run: |
         curl -sSL https://install.python-poetry.org | python - -y
         poetry source add pypi
-        poetry lock --no-update
     - name: build docs
       run: |
         poetry install --with docs
