@@ -1,0 +1,903 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+        <title>neonize package - neonize 8.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" /
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">neonize 8.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">neonize 8.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/source/neonize.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="neonize-package">
+<h1>neonize package<a class="headerlink" href="#neonize-package" title="Link to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="neonize.proto.html">neonize.proto package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="neonize.proto.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neonize.proto.html#module-neonize.proto.Neonize_pb2">neonize.proto.Neonize_pb2 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neonize.proto.html#module-neonize.proto">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="neonize.utils.html">neonize.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="neonize.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neonize.utils.html#module-neonize.utils.calc">neonize.utils.calc module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.calc.AspectRatioMethod"><code class="docutils literal notranslate"><span class="pre">AspectRatioMethod()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.calc.auto_sticker"><code class="docutils literal notranslate"><span class="pre">auto_sticker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.calc.crop_image"><code class="docutils literal notranslate"><span class="pre">crop_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.calc.sticker_scaler"><code class="docutils literal notranslate"><span class="pre">sticker_scaler()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neonize.utils.html#module-neonize.utils.enum">neonize.utils.enum module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.BlocklistAction"><code class="docutils literal notranslate"><span class="pre">BlocklistAction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.BlocklistAction.BLOCK"><code class="docutils literal notranslate"><span class="pre">BlocklistAction.BLOCK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.BlocklistAction.UNBLOCK"><code class="docutils literal notranslate"><span class="pre">BlocklistAction.UNBLOCK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id0"><code class="docutils literal notranslate"><span class="pre">BlocklistAction.BLOCK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id1"><code class="docutils literal notranslate"><span class="pre">BlocklistAction.UNBLOCK</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ChatPresence"><code class="docutils literal notranslate"><span class="pre">ChatPresence</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ChatPresence.CHAT_PRESENCE_COMPOSING"><code class="docutils literal notranslate"><span class="pre">ChatPresence.CHAT_PRESENCE_COMPOSING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ChatPresence.CHAT_PRESENCE_PAUSED"><code class="docutils literal notranslate"><span class="pre">ChatPresence.CHAT_PRESENCE_PAUSED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id2"><code class="docutils literal notranslate"><span class="pre">ChatPresence.CHAT_PRESENCE_COMPOSING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id3"><code class="docutils literal notranslate"><span class="pre">ChatPresence.CHAT_PRESENCE_PAUSED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ChatPresenceMedia"><code class="docutils literal notranslate"><span class="pre">ChatPresenceMedia</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ChatPresenceMedia.CHAT_PRESENCE_MEDIA_TEXT"><code class="docutils literal notranslate"><span class="pre">ChatPresenceMedia.CHAT_PRESENCE_MEDIA_TEXT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ChatPresenceMedia.CHAT_PRESENCE_MEDIA_AUDIO"><code class="docutils literal notranslate"><span class="pre">ChatPresenceMedia.CHAT_PRESENCE_MEDIA_AUDIO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id4"><code class="docutils literal notranslate"><span class="pre">ChatPresenceMedia.CHAT_PRESENCE_MEDIA_AUDIO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id5"><code class="docutils literal notranslate"><span class="pre">ChatPresenceMedia.CHAT_PRESENCE_MEDIA_TEXT</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientName"><code class="docutils literal notranslate"><span class="pre">ClientName</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientName.LINUX"><code class="docutils literal notranslate"><span class="pre">ClientName.LINUX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientName.WINDOWS"><code class="docutils literal notranslate"><span class="pre">ClientName.WINDOWS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientName.ANDROID"><code class="docutils literal notranslate"><span class="pre">ClientName.ANDROID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id6"><code class="docutils literal notranslate"><span class="pre">ClientName.ANDROID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id7"><code class="docutils literal notranslate"><span class="pre">ClientName.LINUX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id8"><code class="docutils literal notranslate"><span class="pre">ClientName.WINDOWS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientName.name"><code class="docutils literal notranslate"><span class="pre">ClientName.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientType"><code class="docutils literal notranslate"><span class="pre">ClientType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientType.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">ClientType.UNKNOWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientType.CHROME"><code class="docutils literal notranslate"><span class="pre">ClientType.CHROME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientType.EDGE"><code class="docutils literal notranslate"><span class="pre">ClientType.EDGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientType.FIREFOX"><code class="docutils literal notranslate"><span class="pre">ClientType.FIREFOX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientType.IE"><code class="docutils literal notranslate"><span class="pre">ClientType.IE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientType.OPERA"><code class="docutils literal notranslate"><span class="pre">ClientType.OPERA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientType.SAFARI"><code class="docutils literal notranslate"><span class="pre">ClientType.SAFARI</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientType.ELECTRON"><code class="docutils literal notranslate"><span class="pre">ClientType.ELECTRON</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientType.UWP"><code class="docutils literal notranslate"><span class="pre">ClientType.UWP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientType.OTHER"><code class="docutils literal notranslate"><span class="pre">ClientType.OTHER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id9"><code class="docutils literal notranslate"><span class="pre">ClientType.CHROME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id10"><code class="docutils literal notranslate"><span class="pre">ClientType.EDGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id11"><code class="docutils literal notranslate"><span class="pre">ClientType.ELECTRON</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id12"><code class="docutils literal notranslate"><span class="pre">ClientType.FIREFOX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id13"><code class="docutils literal notranslate"><span class="pre">ClientType.IE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id14"><code class="docutils literal notranslate"><span class="pre">ClientType.OPERA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id15"><code class="docutils literal notranslate"><span class="pre">ClientType.OTHER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id16"><code class="docutils literal notranslate"><span class="pre">ClientType.SAFARI</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id17"><code class="docutils literal notranslate"><span class="pre">ClientType.UNKNOWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id18"><code class="docutils literal notranslate"><span class="pre">ClientType.UWP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ClientType.name"><code class="docutils literal notranslate"><span class="pre">ClientType.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.LogLevel"><code class="docutils literal notranslate"><span class="pre">LogLevel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.LogLevel.NOTSET"><code class="docutils literal notranslate"><span class="pre">LogLevel.NOTSET</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.LogLevel.DEBUG"><code class="docutils literal notranslate"><span class="pre">LogLevel.DEBUG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.LogLevel.INFO"><code class="docutils literal notranslate"><span class="pre">LogLevel.INFO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.LogLevel.WARN"><code class="docutils literal notranslate"><span class="pre">LogLevel.WARN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.LogLevel.ERROR"><code class="docutils literal notranslate"><span class="pre">LogLevel.ERROR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id19"><code class="docutils literal notranslate"><span class="pre">LogLevel.DEBUG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id20"><code class="docutils literal notranslate"><span class="pre">LogLevel.ERROR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id21"><code class="docutils literal notranslate"><span class="pre">LogLevel.INFO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id22"><code class="docutils literal notranslate"><span class="pre">LogLevel.NOTSET</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id23"><code class="docutils literal notranslate"><span class="pre">LogLevel.WARN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.LogLevel.from_logging"><code class="docutils literal notranslate"><span class="pre">LogLevel.from_logging()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.LogLevel.level"><code class="docutils literal notranslate"><span class="pre">LogLevel.level</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.LogLevel.log_level"><code class="docutils literal notranslate"><span class="pre">LogLevel.log_level()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaType"><code class="docutils literal notranslate"><span class="pre">MediaType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaType.MediaAppState"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaAppState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaType.MediaAudio"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaAudio</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaType.MediaDocument"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaDocument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaType.MediaHistory"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaHistory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaType.MediaImage"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaImage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaType.MediaLinkThumbnail"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaLinkThumbnail</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaType.MediaVideo"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaVideo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaType.from_magic"><code class="docutils literal notranslate"><span class="pre">MediaType.from_magic()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaTypeToMMS"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaTypeToMMS.MediaAppState"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaAppState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaTypeToMMS.MediaAudio"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaAudio</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaTypeToMMS.MediaDocument"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaDocument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaTypeToMMS.MediaHistory"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaHistory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaTypeToMMS.MediaImage"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaImage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaTypeToMMS.MediaLinkThumbnail"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaLinkThumbnail</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaTypeToMMS.MediaVideo"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaVideo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaTypeToMMS.from_message"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.from_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.MediaTypeToMMS.from_mime"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.from_mime()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ParticipantChange"><code class="docutils literal notranslate"><span class="pre">ParticipantChange</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ParticipantChange.ADD"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ParticipantChange.REMOVE"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.REMOVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ParticipantChange.PROMOTE"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.PROMOTE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ParticipantChange.DEMOTE"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.DEMOTE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id24"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id25"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.DEMOTE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id26"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.PROMOTE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id27"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.REMOVE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ParticipantRequestChange"><code class="docutils literal notranslate"><span class="pre">ParticipantRequestChange</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ParticipantRequestChange.APPROVE"><code class="docutils literal notranslate"><span class="pre">ParticipantRequestChange.APPROVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ParticipantRequestChange.REJECT"><code class="docutils literal notranslate"><span class="pre">ParticipantRequestChange.REJECT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id28"><code class="docutils literal notranslate"><span class="pre">ParticipantRequestChange.APPROVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id29"><code class="docutils literal notranslate"><span class="pre">ParticipantRequestChange.REJECT</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySetting"><code class="docutils literal notranslate"><span class="pre">PrivacySetting</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySetting.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.UNDEFINED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySetting.ALL"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.ALL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySetting.CONTACTS"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.CONTACTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySetting.CONTACTS_BLACKLIST"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.CONTACTS_BLACKLIST</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySetting.MATCH_LAST_SEEN"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.MATCH_LAST_SEEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySetting.KNOWN"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.KNOWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySetting.NONE"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.NONE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id30"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.ALL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id31"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.CONTACTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id32"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.CONTACTS_BLACKLIST</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id33"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.KNOWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id34"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.MATCH_LAST_SEEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id35"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.NONE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id36"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySettingType"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySettingType.GROUP_ADD"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.GROUP_ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySettingType.LAST_SEEN"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.LAST_SEEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySettingType.STATUS"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.STATUS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySettingType.PROFILE"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.PROFILE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySettingType.READ_RECEIPTS"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.READ_RECEIPTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySettingType.ONLINE"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.ONLINE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.PrivacySettingType.CALL_ADD"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.CALL_ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id37"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.CALL_ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id38"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.GROUP_ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id39"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.LAST_SEEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id40"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.ONLINE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id41"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.PROFILE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id42"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.READ_RECEIPTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id43"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.STATUS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ReceiptType"><code class="docutils literal notranslate"><span class="pre">ReceiptType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ReceiptType.DELIVERED"><code class="docutils literal notranslate"><span class="pre">ReceiptType.DELIVERED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ReceiptType.SENDER"><code class="docutils literal notranslate"><span class="pre">ReceiptType.SENDER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ReceiptType.RETRY"><code class="docutils literal notranslate"><span class="pre">ReceiptType.RETRY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ReceiptType.READ"><code class="docutils literal notranslate"><span class="pre">ReceiptType.READ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ReceiptType.READ_SELF"><code class="docutils literal notranslate"><span class="pre">ReceiptType.READ_SELF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ReceiptType.PLAYED"><code class="docutils literal notranslate"><span class="pre">ReceiptType.PLAYED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ReceiptType.PLAYED_SELF"><code class="docutils literal notranslate"><span class="pre">ReceiptType.PLAYED_SELF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ReceiptType.SERVER_ERROR"><code class="docutils literal notranslate"><span class="pre">ReceiptType.SERVER_ERROR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ReceiptType.INACTIVE"><code class="docutils literal notranslate"><span class="pre">ReceiptType.INACTIVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ReceiptType.PEER_MSG"><code class="docutils literal notranslate"><span class="pre">ReceiptType.PEER_MSG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.enum.ReceiptType.HISTORY_SYNC"><code class="docutils literal notranslate"><span class="pre">ReceiptType.HISTORY_SYNC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id44"><code class="docutils literal notranslate"><span class="pre">ReceiptType.DELIVERED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id45"><code class="docutils literal notranslate"><span class="pre">ReceiptType.HISTORY_SYNC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id46"><code class="docutils literal notranslate"><span class="pre">ReceiptType.INACTIVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id47"><code class="docutils literal notranslate"><span class="pre">ReceiptType.PEER_MSG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id48"><code class="docutils literal notranslate"><span class="pre">ReceiptType.PLAYED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id49"><code class="docutils literal notranslate"><span class="pre">ReceiptType.PLAYED_SELF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id50"><code class="docutils literal notranslate"><span class="pre">ReceiptType.READ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id51"><code class="docutils literal notranslate"><span class="pre">ReceiptType.READ_SELF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id52"><code class="docutils literal notranslate"><span class="pre">ReceiptType.RETRY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id53"><code class="docutils literal notranslate"><span class="pre">ReceiptType.SENDER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id54"><code class="docutils literal notranslate"><span class="pre">ReceiptType.SERVER_ERROR</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neonize.utils.html#module-neonize.utils.ffmpeg">neonize.utils.ffmpeg module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.FFProbeInfo"><code class="docutils literal notranslate"><span class="pre">FFProbeInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.FFProbeInfo.format"><code class="docutils literal notranslate"><span class="pre">FFProbeInfo.format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.FFProbeInfo.streams"><code class="docutils literal notranslate"><span class="pre">FFProbeInfo.streams</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id55"><code class="docutils literal notranslate"><span class="pre">FFProbeInfo.format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id56"><code class="docutils literal notranslate"><span class="pre">FFProbeInfo.streams</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.FFmpeg"><code class="docutils literal notranslate"><span class="pre">FFmpeg</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.FFmpeg.call"><code class="docutils literal notranslate"><span class="pre">FFmpeg.call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.FFmpeg.cv_to_webp"><code class="docutils literal notranslate"><span class="pre">FFmpeg.cv_to_webp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.FFmpeg.extract_info"><code class="docutils literal notranslate"><span class="pre">FFmpeg.extract_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.FFmpeg.extract_thumbnail"><code class="docutils literal notranslate"><span class="pre">FFmpeg.extract_thumbnail()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.FFmpeg.filepath"><code class="docutils literal notranslate"><span class="pre">FFmpeg.filepath</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.FFmpeg.to_mp3"><code class="docutils literal notranslate"><span class="pre">FFmpeg.to_mp3()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Format"><code class="docutils literal notranslate"><span class="pre">Format</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Format.filename"><code class="docutils literal notranslate"><span class="pre">Format.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Format.nb_streams"><code class="docutils literal notranslate"><span class="pre">Format.nb_streams</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Format.nb_programs"><code class="docutils literal notranslate"><span class="pre">Format.nb_programs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Format.format_name"><code class="docutils literal notranslate"><span class="pre">Format.format_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Format.format_long_name"><code class="docutils literal notranslate"><span class="pre">Format.format_long_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Format.start_time"><code class="docutils literal notranslate"><span class="pre">Format.start_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Format.duration"><code class="docutils literal notranslate"><span class="pre">Format.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Format.size"><code class="docutils literal notranslate"><span class="pre">Format.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Format.probe_score"><code class="docutils literal notranslate"><span class="pre">Format.probe_score</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Format.tags"><code class="docutils literal notranslate"><span class="pre">Format.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id57"><code class="docutils literal notranslate"><span class="pre">Format.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id58"><code class="docutils literal notranslate"><span class="pre">Format.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id59"><code class="docutils literal notranslate"><span class="pre">Format.format_long_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id60"><code class="docutils literal notranslate"><span class="pre">Format.format_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id61"><code class="docutils literal notranslate"><span class="pre">Format.nb_programs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id62"><code class="docutils literal notranslate"><span class="pre">Format.nb_streams</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id63"><code class="docutils literal notranslate"><span class="pre">Format.probe_score</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id64"><code class="docutils literal notranslate"><span class="pre">Format.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id65"><code class="docutils literal notranslate"><span class="pre">Format.start_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id66"><code class="docutils literal notranslate"><span class="pre">Format.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.ImageFormat"><code class="docutils literal notranslate"><span class="pre">ImageFormat</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.ImageFormat.JPG"><code class="docutils literal notranslate"><span class="pre">ImageFormat.JPG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.ImageFormat.PNG"><code class="docutils literal notranslate"><span class="pre">ImageFormat.PNG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id67"><code class="docutils literal notranslate"><span class="pre">ImageFormat.JPG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id68"><code class="docutils literal notranslate"><span class="pre">ImageFormat.PNG</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream"><code class="docutils literal notranslate"><span class="pre">Stream</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.index"><code class="docutils literal notranslate"><span class="pre">Stream.index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.codec_type"><code class="docutils literal notranslate"><span class="pre">Stream.codec_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.avg_frame_rate"><code class="docutils literal notranslate"><span class="pre">Stream.avg_frame_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.codec_tag_string"><code class="docutils literal notranslate"><span class="pre">Stream.codec_tag_string</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.start_pts"><code class="docutils literal notranslate"><span class="pre">Stream.start_pts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.tags"><code class="docutils literal notranslate"><span class="pre">Stream.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.extradata_size"><code class="docutils literal notranslate"><span class="pre">Stream.extradata_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.start_time"><code class="docutils literal notranslate"><span class="pre">Stream.start_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.disposition"><code class="docutils literal notranslate"><span class="pre">Stream.disposition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.codec_tag"><code class="docutils literal notranslate"><span class="pre">Stream.codec_tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.time_base"><code class="docutils literal notranslate"><span class="pre">Stream.time_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.codec_long_name"><code class="docutils literal notranslate"><span class="pre">Stream.codec_long_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.codec_name"><code class="docutils literal notranslate"><span class="pre">Stream.codec_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.r_frame_rate"><code class="docutils literal notranslate"><span class="pre">Stream.r_frame_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.closed_captions"><code class="docutils literal notranslate"><span class="pre">Stream.closed_captions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.color_range"><code class="docutils literal notranslate"><span class="pre">Stream.color_range</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.display_aspect_ratio"><code class="docutils literal notranslate"><span class="pre">Stream.display_aspect_ratio</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.color_transfer"><code class="docutils literal notranslate"><span class="pre">Stream.color_transfer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.is_avc"><code class="docutils literal notranslate"><span class="pre">Stream.is_avc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.color_primaries"><code class="docutils literal notranslate"><span class="pre">Stream.color_primaries</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.film_grain"><code class="docutils literal notranslate"><span class="pre">Stream.film_grain</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.color_space"><code class="docutils literal notranslate"><span class="pre">Stream.color_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.refs"><code class="docutils literal notranslate"><span class="pre">Stream.refs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.level"><code class="docutils literal notranslate"><span class="pre">Stream.level</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.nal_length_size"><code class="docutils literal notranslate"><span class="pre">Stream.nal_length_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.chroma_location"><code class="docutils literal notranslate"><span class="pre">Stream.chroma_location</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.has_b_frames"><code class="docutils literal notranslate"><span class="pre">Stream.has_b_frames</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.pix_fmt"><code class="docutils literal notranslate"><span class="pre">Stream.pix_fmt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.sample_aspect_ratio"><code class="docutils literal notranslate"><span class="pre">Stream.sample_aspect_ratio</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.bits_per_raw_sample"><code class="docutils literal notranslate"><span class="pre">Stream.bits_per_raw_sample</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.profile"><code class="docutils literal notranslate"><span class="pre">Stream.profile</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.field_order"><code class="docutils literal notranslate"><span class="pre">Stream.field_order</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.width"><code class="docutils literal notranslate"><span class="pre">Stream.width</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.height"><code class="docutils literal notranslate"><span class="pre">Stream.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.coded_width"><code class="docutils literal notranslate"><span class="pre">Stream.coded_width</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.coded_height"><code class="docutils literal notranslate"><span class="pre">Stream.coded_height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.bits_per_sample"><code class="docutils literal notranslate"><span class="pre">Stream.bits_per_sample</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.sample_fmt"><code class="docutils literal notranslate"><span class="pre">Stream.sample_fmt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.channel_layout"><code class="docutils literal notranslate"><span class="pre">Stream.channel_layout</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.initial_padding"><code class="docutils literal notranslate"><span class="pre">Stream.initial_padding</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.channels"><code class="docutils literal notranslate"><span class="pre">Stream.channels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ffmpeg.Stream.sample_rate"><code class="docutils literal notranslate"><span class="pre">Stream.sample_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id69"><code class="docutils literal notranslate"><span class="pre">Stream.avg_frame_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id70"><code class="docutils literal notranslate"><span class="pre">Stream.bits_per_raw_sample</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id71"><code class="docutils literal notranslate"><span class="pre">Stream.bits_per_sample</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id72"><code class="docutils literal notranslate"><span class="pre">Stream.channel_layout</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id73"><code class="docutils literal notranslate"><span class="pre">Stream.channels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id74"><code class="docutils literal notranslate"><span class="pre">Stream.chroma_location</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id75"><code class="docutils literal notranslate"><span class="pre">Stream.closed_captions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id76"><code class="docutils literal notranslate"><span class="pre">Stream.codec_long_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id77"><code class="docutils literal notranslate"><span class="pre">Stream.codec_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id78"><code class="docutils literal notranslate"><span class="pre">Stream.codec_tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id79"><code class="docutils literal notranslate"><span class="pre">Stream.codec_tag_string</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id80"><code class="docutils literal notranslate"><span class="pre">Stream.codec_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id81"><code class="docutils literal notranslate"><span class="pre">Stream.coded_height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id82"><code class="docutils literal notranslate"><span class="pre">Stream.coded_width</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id83"><code class="docutils literal notranslate"><span class="pre">Stream.color_primaries</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id84"><code class="docutils literal notranslate"><span class="pre">Stream.color_range</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id85"><code class="docutils literal notranslate"><span class="pre">Stream.color_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id86"><code class="docutils literal notranslate"><span class="pre">Stream.color_transfer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id87"><code class="docutils literal notranslate"><span class="pre">Stream.display_aspect_ratio</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id88"><code class="docutils literal notranslate"><span class="pre">Stream.disposition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id89"><code class="docutils literal notranslate"><span class="pre">Stream.extradata_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id90"><code class="docutils literal notranslate"><span class="pre">Stream.field_order</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id91"><code class="docutils literal notranslate"><span class="pre">Stream.film_grain</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id92"><code class="docutils literal notranslate"><span class="pre">Stream.has_b_frames</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id93"><code class="docutils literal notranslate"><span class="pre">Stream.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id94"><code class="docutils literal notranslate"><span class="pre">Stream.index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id95"><code class="docutils literal notranslate"><span class="pre">Stream.initial_padding</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id96"><code class="docutils literal notranslate"><span class="pre">Stream.is_avc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id97"><code class="docutils literal notranslate"><span class="pre">Stream.level</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id98"><code class="docutils literal notranslate"><span class="pre">Stream.nal_length_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id99"><code class="docutils literal notranslate"><span class="pre">Stream.pix_fmt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id100"><code class="docutils literal notranslate"><span class="pre">Stream.profile</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id101"><code class="docutils literal notranslate"><span class="pre">Stream.r_frame_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id102"><code class="docutils literal notranslate"><span class="pre">Stream.refs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id103"><code class="docutils literal notranslate"><span class="pre">Stream.sample_aspect_ratio</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id104"><code class="docutils literal notranslate"><span class="pre">Stream.sample_fmt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id105"><code class="docutils literal notranslate"><span class="pre">Stream.sample_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id106"><code class="docutils literal notranslate"><span class="pre">Stream.start_pts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id107"><code class="docutils literal notranslate"><span class="pre">Stream.start_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id108"><code class="docutils literal notranslate"><span class="pre">Stream.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id109"><code class="docutils literal notranslate"><span class="pre">Stream.time_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id110"><code class="docutils literal notranslate"><span class="pre">Stream.width</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neonize.utils.html#module-neonize.utils.iofile">neonize.utils.iofile module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.iofile.TemporaryFile"><code class="docutils literal notranslate"><span class="pre">TemporaryFile</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.iofile.get_bytes_from_name_or_url"><code class="docutils literal notranslate"><span class="pre">get_bytes_from_name_or_url()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.iofile.write_from_bytesio_or_filename"><code class="docutils literal notranslate"><span class="pre">write_from_bytesio_or_filename()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neonize.utils.html#module-neonize.utils.jid">neonize.utils.jid module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.jid.JIDToNonAD"><code class="docutils literal notranslate"><span class="pre">JIDToNonAD()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.jid.Jid2String"><code class="docutils literal notranslate"><span class="pre">Jid2String()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.jid.build_jid"><code class="docutils literal notranslate"><span class="pre">build_jid()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neonize.utils.html#module-neonize.utils.log">neonize.utils.log module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neonize.utils.html#module-neonize.utils.message">neonize.utils.message module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.message.extract_text"><code class="docutils literal notranslate"><span class="pre">extract_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.message.get_message_type"><code class="docutils literal notranslate"><span class="pre">get_message_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neonize.utils.html#module-neonize.utils.platform">neonize.utils.platform module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.platform.arch_normalizer"><code class="docutils literal notranslate"><span class="pre">arch_normalizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.platform.generated_name"><code class="docutils literal notranslate"><span class="pre">generated_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neonize.utils.html#module-neonize.utils.thumbnail">neonize.utils.thumbnail module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.thumbnail.save_file_to_temp_directory"><code class="docutils literal notranslate"><span class="pre">save_file_to_temp_directory()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neonize.utils.html#module-neonize.utils">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.AspectRatioMethod"><code class="docutils literal notranslate"><span class="pre">AspectRatioMethod()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.BlocklistAction"><code class="docutils literal notranslate"><span class="pre">BlocklistAction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.BlocklistAction.BLOCK"><code class="docutils literal notranslate"><span class="pre">BlocklistAction.BLOCK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.BlocklistAction.UNBLOCK"><code class="docutils literal notranslate"><span class="pre">BlocklistAction.UNBLOCK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id111"><code class="docutils literal notranslate"><span class="pre">BlocklistAction.BLOCK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id112"><code class="docutils literal notranslate"><span class="pre">BlocklistAction.UNBLOCK</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.ChatPresence"><code class="docutils literal notranslate"><span class="pre">ChatPresence</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ChatPresence.CHAT_PRESENCE_COMPOSING"><code class="docutils literal notranslate"><span class="pre">ChatPresence.CHAT_PRESENCE_COMPOSING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ChatPresence.CHAT_PRESENCE_PAUSED"><code class="docutils literal notranslate"><span class="pre">ChatPresence.CHAT_PRESENCE_PAUSED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id113"><code class="docutils literal notranslate"><span class="pre">ChatPresence.CHAT_PRESENCE_COMPOSING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id114"><code class="docutils literal notranslate"><span class="pre">ChatPresence.CHAT_PRESENCE_PAUSED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.ChatPresenceMedia"><code class="docutils literal notranslate"><span class="pre">ChatPresenceMedia</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ChatPresenceMedia.CHAT_PRESENCE_MEDIA_TEXT"><code class="docutils literal notranslate"><span class="pre">ChatPresenceMedia.CHAT_PRESENCE_MEDIA_TEXT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ChatPresenceMedia.CHAT_PRESENCE_MEDIA_AUDIO"><code class="docutils literal notranslate"><span class="pre">ChatPresenceMedia.CHAT_PRESENCE_MEDIA_AUDIO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id115"><code class="docutils literal notranslate"><span class="pre">ChatPresenceMedia.CHAT_PRESENCE_MEDIA_AUDIO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id116"><code class="docutils literal notranslate"><span class="pre">ChatPresenceMedia.CHAT_PRESENCE_MEDIA_TEXT</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientName"><code class="docutils literal notranslate"><span class="pre">ClientName</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientName.LINUX"><code class="docutils literal notranslate"><span class="pre">ClientName.LINUX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientName.WINDOWS"><code class="docutils literal notranslate"><span class="pre">ClientName.WINDOWS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientName.ANDROID"><code class="docutils literal notranslate"><span class="pre">ClientName.ANDROID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id117"><code class="docutils literal notranslate"><span class="pre">ClientName.ANDROID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id118"><code class="docutils literal notranslate"><span class="pre">ClientName.LINUX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id119"><code class="docutils literal notranslate"><span class="pre">ClientName.WINDOWS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientName.name"><code class="docutils literal notranslate"><span class="pre">ClientName.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientType"><code class="docutils literal notranslate"><span class="pre">ClientType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientType.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">ClientType.UNKNOWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientType.CHROME"><code class="docutils literal notranslate"><span class="pre">ClientType.CHROME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientType.EDGE"><code class="docutils literal notranslate"><span class="pre">ClientType.EDGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientType.FIREFOX"><code class="docutils literal notranslate"><span class="pre">ClientType.FIREFOX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientType.IE"><code class="docutils literal notranslate"><span class="pre">ClientType.IE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientType.OPERA"><code class="docutils literal notranslate"><span class="pre">ClientType.OPERA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientType.SAFARI"><code class="docutils literal notranslate"><span class="pre">ClientType.SAFARI</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientType.ELECTRON"><code class="docutils literal notranslate"><span class="pre">ClientType.ELECTRON</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientType.UWP"><code class="docutils literal notranslate"><span class="pre">ClientType.UWP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientType.OTHER"><code class="docutils literal notranslate"><span class="pre">ClientType.OTHER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id120"><code class="docutils literal notranslate"><span class="pre">ClientType.CHROME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id121"><code class="docutils literal notranslate"><span class="pre">ClientType.EDGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id122"><code class="docutils literal notranslate"><span class="pre">ClientType.ELECTRON</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id123"><code class="docutils literal notranslate"><span class="pre">ClientType.FIREFOX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id124"><code class="docutils literal notranslate"><span class="pre">ClientType.IE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id125"><code class="docutils literal notranslate"><span class="pre">ClientType.OPERA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id126"><code class="docutils literal notranslate"><span class="pre">ClientType.OTHER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id127"><code class="docutils literal notranslate"><span class="pre">ClientType.SAFARI</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id128"><code class="docutils literal notranslate"><span class="pre">ClientType.UNKNOWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id129"><code class="docutils literal notranslate"><span class="pre">ClientType.UWP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ClientType.name"><code class="docutils literal notranslate"><span class="pre">ClientType.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.FFmpeg"><code class="docutils literal notranslate"><span class="pre">FFmpeg</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.FFmpeg.call"><code class="docutils literal notranslate"><span class="pre">FFmpeg.call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.FFmpeg.cv_to_webp"><code class="docutils literal notranslate"><span class="pre">FFmpeg.cv_to_webp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.FFmpeg.extract_info"><code class="docutils literal notranslate"><span class="pre">FFmpeg.extract_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.FFmpeg.extract_thumbnail"><code class="docutils literal notranslate"><span class="pre">FFmpeg.extract_thumbnail()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.FFmpeg.filepath"><code class="docutils literal notranslate"><span class="pre">FFmpeg.filepath</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.FFmpeg.to_mp3"><code class="docutils literal notranslate"><span class="pre">FFmpeg.to_mp3()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.JIDToNonAD"><code class="docutils literal notranslate"><span class="pre">JIDToNonAD()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.Jid2String"><code class="docutils literal notranslate"><span class="pre">Jid2String()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaType"><code class="docutils literal notranslate"><span class="pre">MediaType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaType.MediaAppState"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaAppState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaType.MediaAudio"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaAudio</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaType.MediaDocument"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaDocument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaType.MediaHistory"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaHistory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaType.MediaImage"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaImage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaType.MediaLinkThumbnail"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaLinkThumbnail</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaType.MediaVideo"><code class="docutils literal notranslate"><span class="pre">MediaType.MediaVideo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaType.from_magic"><code class="docutils literal notranslate"><span class="pre">MediaType.from_magic()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaTypeToMMS"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaTypeToMMS.MediaAppState"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaAppState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaTypeToMMS.MediaAudio"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaAudio</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaTypeToMMS.MediaDocument"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaDocument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaTypeToMMS.MediaHistory"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaHistory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaTypeToMMS.MediaImage"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaImage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaTypeToMMS.MediaLinkThumbnail"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaLinkThumbnail</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaTypeToMMS.MediaVideo"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.MediaVideo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaTypeToMMS.from_message"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.from_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.MediaTypeToMMS.from_mime"><code class="docutils literal notranslate"><span class="pre">MediaTypeToMMS.from_mime()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.ParticipantChange"><code class="docutils literal notranslate"><span class="pre">ParticipantChange</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ParticipantChange.ADD"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ParticipantChange.REMOVE"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.REMOVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ParticipantChange.PROMOTE"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.PROMOTE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ParticipantChange.DEMOTE"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.DEMOTE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id130"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id131"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.DEMOTE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id132"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.PROMOTE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id133"><code class="docutils literal notranslate"><span class="pre">ParticipantChange.REMOVE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.ParticipantRequestChange"><code class="docutils literal notranslate"><span class="pre">ParticipantRequestChange</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ParticipantRequestChange.APPROVE"><code class="docutils literal notranslate"><span class="pre">ParticipantRequestChange.APPROVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ParticipantRequestChange.REJECT"><code class="docutils literal notranslate"><span class="pre">ParticipantRequestChange.REJECT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id134"><code class="docutils literal notranslate"><span class="pre">ParticipantRequestChange.APPROVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id135"><code class="docutils literal notranslate"><span class="pre">ParticipantRequestChange.REJECT</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySetting"><code class="docutils literal notranslate"><span class="pre">PrivacySetting</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySetting.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.UNDEFINED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySetting.ALL"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.ALL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySetting.CONTACTS"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.CONTACTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySetting.CONTACTS_BLACKLIST"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.CONTACTS_BLACKLIST</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySetting.MATCH_LAST_SEEN"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.MATCH_LAST_SEEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySetting.KNOWN"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.KNOWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySetting.NONE"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.NONE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id136"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.ALL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id137"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.CONTACTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id138"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.CONTACTS_BLACKLIST</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id139"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.KNOWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id140"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.MATCH_LAST_SEEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id141"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.NONE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id142"><code class="docutils literal notranslate"><span class="pre">PrivacySetting.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySettingType"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySettingType.GROUP_ADD"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.GROUP_ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySettingType.LAST_SEEN"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.LAST_SEEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySettingType.STATUS"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.STATUS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySettingType.PROFILE"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.PROFILE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySettingType.READ_RECEIPTS"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.READ_RECEIPTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySettingType.ONLINE"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.ONLINE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.PrivacySettingType.CALL_ADD"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.CALL_ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id143"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.CALL_ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id144"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.GROUP_ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id145"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.LAST_SEEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id146"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.ONLINE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id147"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.PROFILE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id148"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.READ_RECEIPTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id149"><code class="docutils literal notranslate"><span class="pre">PrivacySettingType.STATUS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.ReceiptType"><code class="docutils literal notranslate"><span class="pre">ReceiptType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ReceiptType.DELIVERED"><code class="docutils literal notranslate"><span class="pre">ReceiptType.DELIVERED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ReceiptType.SENDER"><code class="docutils literal notranslate"><span class="pre">ReceiptType.SENDER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ReceiptType.RETRY"><code class="docutils literal notranslate"><span class="pre">ReceiptType.RETRY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ReceiptType.READ"><code class="docutils literal notranslate"><span class="pre">ReceiptType.READ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ReceiptType.READ_SELF"><code class="docutils literal notranslate"><span class="pre">ReceiptType.READ_SELF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ReceiptType.PLAYED"><code class="docutils literal notranslate"><span class="pre">ReceiptType.PLAYED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ReceiptType.PLAYED_SELF"><code class="docutils literal notranslate"><span class="pre">ReceiptType.PLAYED_SELF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ReceiptType.SERVER_ERROR"><code class="docutils literal notranslate"><span class="pre">ReceiptType.SERVER_ERROR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ReceiptType.INACTIVE"><code class="docutils literal notranslate"><span class="pre">ReceiptType.INACTIVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ReceiptType.PEER_MSG"><code class="docutils literal notranslate"><span class="pre">ReceiptType.PEER_MSG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#neonize.utils.ReceiptType.HISTORY_SYNC"><code class="docutils literal notranslate"><span class="pre">ReceiptType.HISTORY_SYNC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id150"><code class="docutils literal notranslate"><span class="pre">ReceiptType.DELIVERED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id151"><code class="docutils literal notranslate"><span class="pre">ReceiptType.HISTORY_SYNC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id152"><code class="docutils literal notranslate"><span class="pre">ReceiptType.INACTIVE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id153"><code class="docutils literal notranslate"><span class="pre">ReceiptType.PEER_MSG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id154"><code class="docutils literal notranslate"><span class="pre">ReceiptType.PLAYED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id155"><code class="docutils literal notranslate"><span class="pre">ReceiptType.PLAYED_SELF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id156"><code class="docutils literal notranslate"><span class="pre">ReceiptType.READ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id157"><code class="docutils literal notranslate"><span class="pre">ReceiptType.READ_SELF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id158"><code class="docutils literal notranslate"><span class="pre">ReceiptType.RETRY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id159"><code class="docutils literal notranslate"><span class="pre">ReceiptType.SENDER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neonize.utils.html#id160"><code class="docutils literal notranslate"><span class="pre">ReceiptType.SERVER_ERROR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.build_jid"><code class="docutils literal notranslate"><span class="pre">build_jid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.extract_text"><code class="docutils literal notranslate"><span class="pre">extract_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.get_bytes_from_name_or_url"><code class="docutils literal notranslate"><span class="pre">get_bytes_from_name_or_url()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.get_message_type"><code class="docutils literal notranslate"><span class="pre">get_message_type()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neonize.utils.html#neonize.utils.save_file_to_temp_directory"><code class="docutils literal notranslate"><span class="pre">save_file_to_temp_directory()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="neonize-builder-module">
+<h2>neonize.builder module<a class="headerlink" href="#neonize-builder-module" title="Link to this heading">¶</a></h2>
+</section>
+<section id="neonize-client-module">
+<h2>neonize.client module<a class="headerlink" href="#neonize-client-module" title="Link to this heading">¶</a></h2>
+</section>
+<section id="neonize-const-module">
+<h2>neonize.const module<a class="headerlink" href="#neonize-const-module" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-neonize.download">
+<span id="neonize-download-module"></span><h2>neonize.download module<a class="headerlink" href="#module-neonize.download" title="Link to this heading">¶</a></h2>
+<dl class="py exception">
+<dt class="sig sig-object py" id="neonize.download.UnsupportedPlatform">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neonize.download.</span></span><span class="sig-name descname"><span class="pre">UnsupportedPlatform</span></span><a class="reference internal" href="../_modules/neonize/download.html#UnsupportedPlatform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.download.UnsupportedPlatform" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neonize.download.download">
+<span class="sig-prename descclassname"><span class="pre">neonize.download.</span></span><span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neonize/download.html#download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.download.download" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="neonize-events-module">
+<h2>neonize.events module<a class="headerlink" href="#neonize-events-module" title="Link to this heading">¶</a></h2>
+</section>
+<section id="neonize-exc-module">
+<h2>neonize.exc module<a class="headerlink" href="#neonize-exc-module" title="Link to this heading">¶</a></h2>
+</section>
+<section id="neonize-neonize-linux-amd64-module">
+<h2>neonize.neonize-linux-amd64 module<a class="headerlink" href="#neonize-neonize-linux-amd64-module" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-neonize.types">
+<span id="neonize-types-module"></span><h2>neonize.types module<a class="headerlink" href="#module-neonize.types" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, krypton-byte
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">neonize package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#neonize-builder-module">neonize.builder module</a></li>
+<li><a class="reference internal" href="#neonize-client-module">neonize.client module</a></li>
+<li><a class="reference internal" href="#neonize-const-module">neonize.const module</a></li>
+<li><a class="reference internal" href="#module-neonize.download">neonize.download module</a><ul>
+<li><a class="reference internal" href="#neonize.download.UnsupportedPlatform"><code class="docutils literal notranslate"><span class="pre">UnsupportedPlatform</span></code></a></li>
+<li><a class="reference internal" href="#neonize.download.download"><code class="docutils literal notranslate"><span class="pre">download()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#neonize-events-module">neonize.events module</a></li>
+<li><a class="reference internal" href="#neonize-exc-module">neonize.exc module</a></li>
+<li><a class="reference internal" href="#neonize-neonize-linux-amd64-module">neonize.neonize-linux-amd64 module</a></li>
+<li><a class="reference internal" href="#module-neonize.types">neonize.types module</a></li>
+<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=f663eb4a"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
+    </body>
+</html>
