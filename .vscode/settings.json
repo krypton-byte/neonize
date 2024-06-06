@@ -8,4 +8,6 @@
     ],
     "python.testing.pytestEnabled": false,
     "python.testing.unittestEnabled": true,
+    "python.venvPath": "/home/krypton-byte/.cache/pypoetry/virtualenvs/neonize-RIKrwKG1-py3.11/bin/python",
+    "python.pythonPath": "/home/krypton-byte/.cache/pypoetry/virtualenvs/neonize-RIKrwKG1-py3.11/bin/python"
 }
