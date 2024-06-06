@@ -3823,6 +3823,26 @@ as the exact dimensions for the thumbnail, defaults to 200</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="neonize.utils.add_exif">
+<span class="sig-prename descclassname"><span class="pre">neonize.utils.</span></span><span class="sig-name descname"><span class="pre">add_exif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">packname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neonize/utils.html#add_exif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.utils.add_exif" title="Link to this definition">¶</a></dt>
+<dd><p>Adds EXIF metadata to a sticker pack.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the sticker pack, defaults to an empty string.</p></li>
+<li><p><strong>packname</strong> (<em>str</em><em>, </em><em>optional</em>) – Publisher of the sticker pack, defaults to an empty string.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Byte array containing the EXIF metadata.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="neonize.utils.build_jid">
 <span class="sig-prename descclassname"><span class="pre">neonize.utils.</span></span><span class="sig-name descname"><span class="pre">build_jid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phone_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neonize/utils/jid.html#build_jid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.utils.build_jid" title="Link to this definition">¶</a></dt>
 <dd><p>Builds a JID (Jabber ID) from a phone number.</p>
@@ -3849,6 +3869,26 @@ as the exact dimensions for the thumbnail, defaults to 200</p></li>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The extracted text content.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neonize.utils.gen_vcard">
+<span class="sig-prename descclassname"><span class="pre">neonize.utils.</span></span><span class="sig-name descname"><span class="pre">gen_vcard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phone_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neonize/utils.html#gen_vcard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.utils.gen_vcard" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a vCard string for a contact.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the contact.</p></li>
+<li><p><strong>phone_number</strong> (<em>str</em>) – Phone number of the contact.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>vCard string for the contact.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
@@ -3899,6 +3939,23 @@ as the exact dimensions for the thumbnail, defaults to 200</p></li>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neonize.utils.validate_link">
+<span class="sig-prename descclassname"><span class="pre">neonize.utils.</span></span><span class="sig-name descname"><span class="pre">validate_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neonize/utils.html#validate_link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.utils.validate_link" title="Link to this definition">¶</a></dt>
+<dd><p>Validates if the provided link is a valid URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>link</strong> (<em>str</em>) – The URL to validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the URL is valid, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4457,11 +4514,14 @@ as the exact dimensions for the thumbnail, defaults to 200</p></li>
 <li><a class="reference internal" href="#id160"><code class="docutils literal notranslate"><span class="pre">ReceiptType.SERVER_ERROR</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#neonize.utils.add_exif"><code class="docutils literal notranslate"><span class="pre">add_exif()</span></code></a></li>
 <li><a class="reference internal" href="#neonize.utils.build_jid"><code class="docutils literal notranslate"><span class="pre">build_jid()</span></code></a></li>
 <li><a class="reference internal" href="#neonize.utils.extract_text"><code class="docutils literal notranslate"><span class="pre">extract_text()</span></code></a></li>
+<li><a class="reference internal" href="#neonize.utils.gen_vcard"><code class="docutils literal notranslate"><span class="pre">gen_vcard()</span></code></a></li>
 <li><a class="reference internal" href="#neonize.utils.get_bytes_from_name_or_url"><code class="docutils literal notranslate"><span class="pre">get_bytes_from_name_or_url()</span></code></a></li>
 <li><a class="reference internal" href="#neonize.utils.get_message_type"><code class="docutils literal notranslate"><span class="pre">get_message_type()</span></code></a></li>
 <li><a class="reference internal" href="#neonize.utils.save_file_to_temp_directory"><code class="docutils literal notranslate"><span class="pre">save_file_to_temp_directory()</span></code></a></li>
+<li><a class="reference internal" href="#neonize.utils.validate_link"><code class="docutils literal notranslate"><span class="pre">validate_link()</span></code></a></li>
 </ul>
 </li>
 </ul>
