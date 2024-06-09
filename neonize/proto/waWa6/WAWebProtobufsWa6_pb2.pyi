@@ -19,7 +19,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class ClientPayload(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -139,7 +139,7 @@ class ClientPayload(google.protobuf.message.Message):
     SERVICE_EXTENSION: ClientPayload.IOSAppExtension.ValueType  # 1
     INTENTS_EXTENSION: ClientPayload.IOSAppExtension.ValueType  # 2
 
-    @typing_extensions.final
+    @typing.final
     class DNSSource(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -182,18 +182,18 @@ class ClientPayload(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "appCached", b"appCached", "dnsMethod", b"dnsMethod"
             ],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "appCached", b"appCached", "dnsMethod", b"dnsMethod"
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class WebInfo(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -223,7 +223,7 @@ class ClientPayload(google.protobuf.message.Message):
         DARWIN: ClientPayload.WebInfo.WebSubPlatform.ValueType  # 3
         WIN32: ClientPayload.WebInfo.WebSubPlatform.ValueType  # 4
 
-        @typing_extensions.final
+        @typing.final
         class WebdPayload(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -266,7 +266,7 @@ class ClientPayload(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "documentTypes",
                     b"documentTypes",
                     "features",
@@ -293,7 +293,7 @@ class ClientPayload(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "documentTypes",
                     b"documentTypes",
                     "features",
@@ -325,9 +325,9 @@ class ClientPayload(google.protobuf.message.Message):
         WEBSUBPLATFORM_FIELD_NUMBER: builtins.int
         refToken: builtins.str
         version: builtins.str
+        webSubPlatform: global___ClientPayload.WebInfo.WebSubPlatform.ValueType
         @property
         def webdPayload(self) -> global___ClientPayload.WebInfo.WebdPayload: ...
-        webSubPlatform: global___ClientPayload.WebInfo.WebSubPlatform.ValueType
         def __init__(
             self,
             *,
@@ -339,7 +339,7 @@ class ClientPayload(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "refToken",
                 b"refToken",
                 "version",
@@ -352,7 +352,7 @@ class ClientPayload(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "refToken",
                 b"refToken",
                 "version",
@@ -364,7 +364,7 @@ class ClientPayload(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class UserAgent(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -502,7 +502,7 @@ class ClientPayload(google.protobuf.message.Message):
         TEST: ClientPayload.UserAgent.Platform.ValueType  # 34
         SMART_GLASSES: ClientPayload.UserAgent.Platform.ValueType  # 35
 
-        @typing_extensions.final
+        @typing.final
         class AppVersion(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -527,7 +527,7 @@ class ClientPayload(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "primary",
                     b"primary",
                     "quaternary",
@@ -542,7 +542,7 @@ class ClientPayload(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "primary",
                     b"primary",
                     "quaternary",
@@ -573,8 +573,6 @@ class ClientPayload(google.protobuf.message.Message):
         DEVICETYPE_FIELD_NUMBER: builtins.int
         DEVICEMODELTYPE_FIELD_NUMBER: builtins.int
         platform: global___ClientPayload.UserAgent.Platform.ValueType
-        @property
-        def appVersion(self) -> global___ClientPayload.UserAgent.AppVersion: ...
         mcc: builtins.str
         mnc: builtins.str
         osVersion: builtins.str
@@ -589,6 +587,8 @@ class ClientPayload(google.protobuf.message.Message):
         deviceExpID: builtins.str
         deviceType: global___ClientPayload.UserAgent.DeviceType.ValueType
         deviceModelType: builtins.str
+        @property
+        def appVersion(self) -> global___ClientPayload.UserAgent.AppVersion: ...
         def __init__(
             self,
             *,
@@ -613,7 +613,7 @@ class ClientPayload(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "appVersion",
                 b"appVersion",
                 "device",
@@ -650,7 +650,7 @@ class ClientPayload(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "appVersion",
                 b"appVersion",
                 "device",
@@ -686,7 +686,7 @@ class ClientPayload(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class InteropData(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -702,18 +702,14 @@ class ClientPayload(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
-                "accountID", b"accountID", "token", b"token"
-            ],
+            field_name: typing.Literal["accountID", b"accountID", "token", b"token"],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
-                "accountID", b"accountID", "token", b"token"
-            ],
+            field_name: typing.Literal["accountID", b"accountID", "token", b"token"],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class DevicePairingRegistrationData(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -747,7 +743,7 @@ class ClientPayload(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "buildHash",
                 b"buildHash",
                 "deviceProps",
@@ -768,7 +764,7 @@ class ClientPayload(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "buildHash",
                 b"buildHash",
                 "deviceProps",
@@ -818,29 +814,13 @@ class ClientPayload(google.protobuf.message.Message):
     ISPCR_FIELD_NUMBER: builtins.int
     username: builtins.int
     passive: builtins.bool
-    @property
-    def userAgent(self) -> global___ClientPayload.UserAgent: ...
-    @property
-    def webInfo(self) -> global___ClientPayload.WebInfo: ...
     pushName: builtins.str
     sessionID: builtins.int
     shortConnect: builtins.bool
     connectType: global___ClientPayload.ConnectType.ValueType
     connectReason: global___ClientPayload.ConnectReason.ValueType
-    @property
-    def shards(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-        builtins.int
-    ]: ...
-    @property
-    def dnsSource(self) -> global___ClientPayload.DNSSource: ...
     connectAttemptCount: builtins.int
     device: builtins.int
-    @property
-    def devicePairingData(
-        self,
-    ) -> global___ClientPayload.DevicePairingRegistrationData: ...
     product: global___ClientPayload.Product.ValueType
     fbCat: builtins.bytes
     fbUserAgent: builtins.bytes
@@ -853,9 +833,25 @@ class ClientPayload(google.protobuf.message.Message):
     paddingBytes: builtins.bytes
     yearClass: builtins.int
     memClass: builtins.int
+    isPcr: builtins.bool
+    @property
+    def userAgent(self) -> global___ClientPayload.UserAgent: ...
+    @property
+    def webInfo(self) -> global___ClientPayload.WebInfo: ...
+    @property
+    def shards(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
+        builtins.int
+    ]: ...
+    @property
+    def dnsSource(self) -> global___ClientPayload.DNSSource: ...
+    @property
+    def devicePairingData(
+        self,
+    ) -> global___ClientPayload.DevicePairingRegistrationData: ...
     @property
     def interopData(self) -> global___ClientPayload.InteropData: ...
-    isPcr: builtins.bool
     def __init__(
         self,
         *,
@@ -891,7 +887,7 @@ class ClientPayload(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "connectAttemptCount",
             b"connectAttemptCount",
             "connectReason",
@@ -950,7 +946,7 @@ class ClientPayload(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "connectAttemptCount",
             b"connectAttemptCount",
             "connectReason",
@@ -1012,11 +1008,11 @@ class ClientPayload(google.protobuf.message.Message):
 
 global___ClientPayload = ClientPayload
 
-@typing_extensions.final
+@typing.final
 class HandshakeMessage(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class ClientFinish(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1031,19 +1027,13 @@ class HandshakeMessage(google.protobuf.message.Message):
             payload: builtins.bytes | None = ...,
         ) -> None: ...
         def HasField(
-            self,
-            field_name: typing_extensions.Literal[
-                "payload", b"payload", "static", b"static"
-            ],
+            self, field_name: typing.Literal["payload", b"payload", "static", b"static"]
         ) -> builtins.bool: ...
         def ClearField(
-            self,
-            field_name: typing_extensions.Literal[
-                "payload", b"payload", "static", b"static"
-            ],
+            self, field_name: typing.Literal["payload", b"payload", "static", b"static"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class ServerHello(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1062,18 +1052,18 @@ class HandshakeMessage(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "ephemeral", b"ephemeral", "payload", b"payload", "static", b"static"
             ],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "ephemeral", b"ephemeral", "payload", b"payload", "static", b"static"
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class ClientHello(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1092,13 +1082,13 @@ class HandshakeMessage(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "ephemeral", b"ephemeral", "payload", b"payload", "static", b"static"
             ],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "ephemeral", b"ephemeral", "payload", b"payload", "static", b"static"
             ],
         ) -> None: ...
@@ -1121,7 +1111,7 @@ class HandshakeMessage(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "clientFinish",
             b"clientFinish",
             "clientHello",
@@ -1132,7 +1122,7 @@ class HandshakeMessage(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "clientFinish",
             b"clientFinish",
             "clientHello",

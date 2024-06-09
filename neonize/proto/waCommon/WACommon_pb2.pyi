@@ -43,7 +43,7 @@ NO_PLACEHOLDER: FutureProofBehavior.ValueType  # 1
 IGNORE: FutureProofBehavior.ValueType  # 2
 global___FutureProofBehavior = FutureProofBehavior
 
-@typing_extensions.final
+@typing.final
 class MessageKey(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -65,7 +65,7 @@ class MessageKey(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "ID",
             b"ID",
             "fromMe",
@@ -78,7 +78,7 @@ class MessageKey(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "ID",
             b"ID",
             "fromMe",
@@ -92,7 +92,7 @@ class MessageKey(google.protobuf.message.Message):
 
 global___MessageKey = MessageKey
 
-@typing_extensions.final
+@typing.final
 class Command(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -136,7 +136,7 @@ class Command(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "commandType",
             b"commandType",
             "length",
@@ -149,7 +149,7 @@ class Command(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "commandType",
             b"commandType",
             "length",
@@ -163,7 +163,7 @@ class Command(google.protobuf.message.Message):
 
 global___Command = Command
 
-@typing_extensions.final
+@typing.final
 class MessageText(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -191,18 +191,18 @@ class MessageText(google.protobuf.message.Message):
         commands: collections.abc.Iterable[global___Command] | None = ...,
     ) -> None: ...
     def HasField(
-        self, field_name: typing_extensions.Literal["text", b"text"]
+        self, field_name: typing.Literal["text", b"text"]
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "commands", b"commands", "mentionedJID", b"mentionedJID", "text", b"text"
         ],
     ) -> None: ...
 
 global___MessageText = MessageText
 
-@typing_extensions.final
+@typing.final
 class SubProtocol(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -217,16 +217,10 @@ class SubProtocol(google.protobuf.message.Message):
         version: builtins.int | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal[
-            "payload", b"payload", "version", b"version"
-        ],
+        self, field_name: typing.Literal["payload", b"payload", "version", b"version"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "payload", b"payload", "version", b"version"
-        ],
+        self, field_name: typing.Literal["payload", b"payload", "version", b"version"]
     ) -> None: ...
 
 global___SubProtocol = SubProtocol

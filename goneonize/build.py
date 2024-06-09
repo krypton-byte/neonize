@@ -16,7 +16,6 @@ cwd = os.path.dirname(__file__)
 #     "protoc --go_out=. --go-grpc_out=. -I . Neonize.proto def.proto",
 # ]
 shell = [
-    "echo *.proto",
     "protoc --go_out=. --go_opt=paths=source_relative Neonize.proto",
     "protoc --python_out=../../neonize/proto --mypy_out=../../neonize/proto Neonize.proto",
     *[
@@ -73,6 +72,9 @@ def __build():
 
 
 def build_proto():
+    with open(cwd + "/Neonize.proto", "rb") as file:
+        with open(cwd + "/defproto/Neonize.proto", "wb") as wf:
+            wf.write(file.read())
     for sh in shell:
         subprocess.call(shlex.split(sh), cwd=cwd + "/defproto")
     # if (Path(cwd) / "defproto").exists():

@@ -19,7 +19,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class QP(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -84,7 +84,7 @@ class QP(google.protobuf.message.Message):
     OR: QP.ClauseType.ValueType  # 2
     NOR: QP.ClauseType.ValueType  # 3
 
-    @typing_extensions.final
+    @typing.final
     class FilterClause(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -112,11 +112,11 @@ class QP(google.protobuf.message.Message):
             filters: collections.abc.Iterable[global___QP.Filter] | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["clauseType", b"clauseType"]
+            self, field_name: typing.Literal["clauseType", b"clauseType"]
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "clauseType",
                 b"clauseType",
                 "clauses",
@@ -126,7 +126,7 @@ class QP(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Filter(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -135,14 +135,14 @@ class QP(google.protobuf.message.Message):
         FILTERRESULT_FIELD_NUMBER: builtins.int
         CLIENTNOTSUPPORTEDCONFIG_FIELD_NUMBER: builtins.int
         filterName: builtins.str
+        filterResult: global___QP.FilterResult.ValueType
+        clientNotSupportedConfig: global___QP.FilterClientNotSupportedConfig.ValueType
         @property
         def parameters(
             self,
         ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
             global___QP.FilterParameters
         ]: ...
-        filterResult: global___QP.FilterResult.ValueType
-        clientNotSupportedConfig: global___QP.FilterClientNotSupportedConfig.ValueType
         def __init__(
             self,
             *,
@@ -155,7 +155,7 @@ class QP(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "clientNotSupportedConfig",
                 b"clientNotSupportedConfig",
                 "filterName",
@@ -166,7 +166,7 @@ class QP(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "clientNotSupportedConfig",
                 b"clientNotSupportedConfig",
                 "filterName",
@@ -178,7 +178,7 @@ class QP(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class FilterParameters(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -193,12 +193,10 @@ class QP(google.protobuf.message.Message):
             value: builtins.str | None = ...,
         ) -> None: ...
         def HasField(
-            self,
-            field_name: typing_extensions.Literal["key", b"key", "value", b"value"],
+            self, field_name: typing.Literal["key", b"key", "value", b"value"]
         ) -> builtins.bool: ...
         def ClearField(
-            self,
-            field_name: typing_extensions.Literal["key", b"key", "value", b"value"],
+            self, field_name: typing.Literal["key", b"key", "value", b"value"]
         ) -> None: ...
 
     def __init__(

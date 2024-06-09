@@ -69,7 +69,7 @@ NE2EE_SELF: PrivacySystemMessage.ValueType  # 2
 NE2EE_OTHER: PrivacySystemMessage.ValueType  # 3
 global___PrivacySystemMessage = PrivacySystemMessage
 
-@typing_extensions.final
+@typing.final
 class HistorySync(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -138,6 +138,11 @@ class HistorySync(google.protobuf.message.Message):
     AIWAITLISTSTATE_FIELD_NUMBER: builtins.int
     PHONENUMBERTOLIDMAPPINGS_FIELD_NUMBER: builtins.int
     syncType: global___HistorySync.HistorySyncType.ValueType
+    chunkOrder: builtins.int
+    progress: builtins.int
+    threadIDUserSecret: builtins.bytes
+    threadDsTimeframeOffset: builtins.int
+    aiWaitListState: global___HistorySync.BotAIWaitListState.ValueType
     @property
     def conversations(
         self,
@@ -150,8 +155,6 @@ class HistorySync(google.protobuf.message.Message):
     ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
         waWeb.WAWebProtobufsWeb_pb2.WebMessageInfo
     ]: ...
-    chunkOrder: builtins.int
-    progress: builtins.int
     @property
     def pushnames(
         self,
@@ -160,8 +163,6 @@ class HistorySync(google.protobuf.message.Message):
     ]: ...
     @property
     def globalSettings(self) -> global___GlobalSettings: ...
-    threadIDUserSecret: builtins.bytes
-    threadDsTimeframeOffset: builtins.int
     @property
     def recentStickers(
         self,
@@ -180,7 +181,6 @@ class HistorySync(google.protobuf.message.Message):
     ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
         waSyncAction.WASyncAction_pb2.CallLogRecord
     ]: ...
-    aiWaitListState: global___HistorySync.BotAIWaitListState.ValueType
     @property
     def phoneNumberToLidMappings(
         self,
@@ -217,7 +217,7 @@ class HistorySync(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "aiWaitListState",
             b"aiWaitListState",
             "chunkOrder",
@@ -236,7 +236,7 @@ class HistorySync(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "aiWaitListState",
             b"aiWaitListState",
             "callLogRecords",
@@ -270,7 +270,7 @@ class HistorySync(google.protobuf.message.Message):
 
 global___HistorySync = HistorySync
 
-@typing_extensions.final
+@typing.final
 class Conversation(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -356,12 +356,6 @@ class Conversation(google.protobuf.message.Message):
     LOCKED_FIELD_NUMBER: builtins.int
     SYSTEMMESSAGETOINSERT_FIELD_NUMBER: builtins.int
     ID: builtins.str
-    @property
-    def messages(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___HistorySyncMsg
-    ]: ...
     newJID: builtins.str
     oldJID: builtins.str
     lastMsgTimestamp: builtins.int
@@ -376,23 +370,13 @@ class Conversation(google.protobuf.message.Message):
     pHash: builtins.str
     notSpam: builtins.bool
     archived: builtins.bool
-    @property
-    def disappearingMode(self) -> waE2E.WAWebProtobufsE2E_pb2.DisappearingMode: ...
     unreadMentionCount: builtins.int
     markedAsUnread: builtins.bool
-    @property
-    def participant(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___GroupParticipant
-    ]: ...
     tcToken: builtins.bytes
     tcTokenTimestamp: builtins.int
     contactPrimaryIdentityKey: builtins.bytes
     pinned: builtins.int
     muteEndTime: builtins.int
-    @property
-    def wallpaper(self) -> global___WallpaperSettings: ...
     mediaVisibility: global___MediaVisibility.ValueType
     tcTokenSenderTimestamp: builtins.int
     suspended: builtins.bool
@@ -414,6 +398,22 @@ class Conversation(google.protobuf.message.Message):
     commentsCount: builtins.int
     locked: builtins.bool
     systemMessageToInsert: global___PrivacySystemMessage.ValueType
+    @property
+    def messages(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___HistorySyncMsg
+    ]: ...
+    @property
+    def disappearingMode(self) -> waE2E.WAWebProtobufsE2E_pb2.DisappearingMode: ...
+    @property
+    def participant(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___GroupParticipant
+    ]: ...
+    @property
+    def wallpaper(self) -> global___WallpaperSettings: ...
     def __init__(
         self,
         *,
@@ -468,7 +468,7 @@ class Conversation(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "ID",
             b"ID",
             "archived",
@@ -563,7 +563,7 @@ class Conversation(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "ID",
             b"ID",
             "archived",
@@ -663,7 +663,7 @@ class Conversation(google.protobuf.message.Message):
 
 global___Conversation = Conversation
 
-@typing_extensions.final
+@typing.final
 class GroupParticipant(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -698,17 +698,15 @@ class GroupParticipant(google.protobuf.message.Message):
         rank: global___GroupParticipant.Rank.ValueType | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal["rank", b"rank", "userJID", b"userJID"],
+        self, field_name: typing.Literal["rank", b"rank", "userJID", b"userJID"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal["rank", b"rank", "userJID", b"userJID"],
+        self, field_name: typing.Literal["rank", b"rank", "userJID", b"userJID"]
     ) -> None: ...
 
 global___GroupParticipant = GroupParticipant
 
-@typing_extensions.final
+@typing.final
 class PastParticipant(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -745,20 +743,20 @@ class PastParticipant(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "leaveReason", b"leaveReason", "leaveTS", b"leaveTS", "userJID", b"userJID"
         ],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "leaveReason", b"leaveReason", "leaveTS", b"leaveTS", "userJID", b"userJID"
         ],
     ) -> None: ...
 
 global___PastParticipant = PastParticipant
 
-@typing_extensions.final
+@typing.final
 class PhoneNumberToLIDMapping(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -773,25 +771,23 @@ class PhoneNumberToLIDMapping(google.protobuf.message.Message):
         lidJID: builtins.str | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal["lidJID", b"lidJID", "pnJID", b"pnJID"],
+        self, field_name: typing.Literal["lidJID", b"lidJID", "pnJID", b"pnJID"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal["lidJID", b"lidJID", "pnJID", b"pnJID"],
+        self, field_name: typing.Literal["lidJID", b"lidJID", "pnJID", b"pnJID"]
     ) -> None: ...
 
 global___PhoneNumberToLIDMapping = PhoneNumberToLIDMapping
 
-@typing_extensions.final
+@typing.final
 class HistorySyncMsg(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     MESSAGE_FIELD_NUMBER: builtins.int
     MSGORDERID_FIELD_NUMBER: builtins.int
+    msgOrderID: builtins.int
     @property
     def message(self) -> waWeb.WAWebProtobufsWeb_pb2.WebMessageInfo: ...
-    msgOrderID: builtins.int
     def __init__(
         self,
         *,
@@ -800,20 +796,16 @@ class HistorySyncMsg(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "message", b"message", "msgOrderID", b"msgOrderID"
-        ],
+        field_name: typing.Literal["message", b"message", "msgOrderID", b"msgOrderID"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "message", b"message", "msgOrderID", b"msgOrderID"
-        ],
+        field_name: typing.Literal["message", b"message", "msgOrderID", b"msgOrderID"],
     ) -> None: ...
 
 global___HistorySyncMsg = HistorySyncMsg
 
-@typing_extensions.final
+@typing.final
 class Pushname(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -828,17 +820,15 @@ class Pushname(google.protobuf.message.Message):
         pushname: builtins.str | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal["ID", b"ID", "pushname", b"pushname"],
+        self, field_name: typing.Literal["ID", b"ID", "pushname", b"pushname"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal["ID", b"ID", "pushname", b"pushname"],
+        self, field_name: typing.Literal["ID", b"ID", "pushname", b"pushname"]
     ) -> None: ...
 
 global___Pushname = Pushname
 
-@typing_extensions.final
+@typing.final
 class WallpaperSettings(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -853,21 +843,15 @@ class WallpaperSettings(google.protobuf.message.Message):
         opacity: builtins.int | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal[
-            "filename", b"filename", "opacity", b"opacity"
-        ],
+        self, field_name: typing.Literal["filename", b"filename", "opacity", b"opacity"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "filename", b"filename", "opacity", b"opacity"
-        ],
+        self, field_name: typing.Literal["filename", b"filename", "opacity", b"opacity"]
     ) -> None: ...
 
 global___WallpaperSettings = WallpaperSettings
 
-@typing_extensions.final
+@typing.final
 class GlobalSettings(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -890,9 +874,18 @@ class GlobalSettings(google.protobuf.message.Message):
     INDIVIDUALNOTIFICATIONSETTINGS_FIELD_NUMBER: builtins.int
     GROUPNOTIFICATIONSETTINGS_FIELD_NUMBER: builtins.int
     CHATLOCKSETTINGS_FIELD_NUMBER: builtins.int
+    mediaVisibility: global___MediaVisibility.ValueType
+    showIndividualNotificationsPreview: builtins.bool
+    showGroupNotificationsPreview: builtins.bool
+    disappearingModeDuration: builtins.int
+    disappearingModeTimestamp: builtins.int
+    fontSize: builtins.int
+    securityNotifications: builtins.bool
+    autoUnarchiveChats: builtins.bool
+    videoQualityMode: builtins.int
+    photoQualityMode: builtins.int
     @property
     def lightThemeWallpaper(self) -> global___WallpaperSettings: ...
-    mediaVisibility: global___MediaVisibility.ValueType
     @property
     def darkThemeWallpaper(self) -> global___WallpaperSettings: ...
     @property
@@ -901,17 +894,8 @@ class GlobalSettings(google.protobuf.message.Message):
     def autoDownloadCellular(self) -> global___AutoDownloadSettings: ...
     @property
     def autoDownloadRoaming(self) -> global___AutoDownloadSettings: ...
-    showIndividualNotificationsPreview: builtins.bool
-    showGroupNotificationsPreview: builtins.bool
-    disappearingModeDuration: builtins.int
-    disappearingModeTimestamp: builtins.int
     @property
     def avatarUserSettings(self) -> global___AvatarUserSettings: ...
-    fontSize: builtins.int
-    securityNotifications: builtins.bool
-    autoUnarchiveChats: builtins.bool
-    videoQualityMode: builtins.int
-    photoQualityMode: builtins.int
     @property
     def individualNotificationSettings(self) -> global___NotificationSettings: ...
     @property
@@ -946,7 +930,7 @@ class GlobalSettings(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "autoDownloadCellular",
             b"autoDownloadCellular",
             "autoDownloadRoaming",
@@ -989,7 +973,7 @@ class GlobalSettings(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "autoDownloadCellular",
             b"autoDownloadCellular",
             "autoDownloadRoaming",
@@ -1033,7 +1017,7 @@ class GlobalSettings(google.protobuf.message.Message):
 
 global___GlobalSettings = GlobalSettings
 
-@typing_extensions.final
+@typing.final
 class AutoDownloadSettings(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1055,7 +1039,7 @@ class AutoDownloadSettings(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "downloadAudio",
             b"downloadAudio",
             "downloadDocuments",
@@ -1068,7 +1052,7 @@ class AutoDownloadSettings(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "downloadAudio",
             b"downloadAudio",
             "downloadDocuments",
@@ -1082,7 +1066,7 @@ class AutoDownloadSettings(google.protobuf.message.Message):
 
 global___AutoDownloadSettings = AutoDownloadSettings
 
-@typing_extensions.final
+@typing.final
 class StickerMetadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1128,7 +1112,7 @@ class StickerMetadata(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "URL",
             b"URL",
             "directPath",
@@ -1157,7 +1141,7 @@ class StickerMetadata(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "URL",
             b"URL",
             "directPath",
@@ -1187,7 +1171,7 @@ class StickerMetadata(google.protobuf.message.Message):
 
 global___StickerMetadata = StickerMetadata
 
-@typing_extensions.final
+@typing.final
 class PastParticipants(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1208,18 +1192,18 @@ class PastParticipants(google.protobuf.message.Message):
         | None = ...,
     ) -> None: ...
     def HasField(
-        self, field_name: typing_extensions.Literal["groupJID", b"groupJID"]
+        self, field_name: typing.Literal["groupJID", b"groupJID"]
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "groupJID", b"groupJID", "pastParticipants", b"pastParticipants"
         ],
     ) -> None: ...
 
 global___PastParticipants = PastParticipants
 
-@typing_extensions.final
+@typing.final
 class AvatarUserSettings(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1234,17 +1218,15 @@ class AvatarUserSettings(google.protobuf.message.Message):
         password: builtins.str | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal["FBID", b"FBID", "password", b"password"],
+        self, field_name: typing.Literal["FBID", b"FBID", "password", b"password"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal["FBID", b"FBID", "password", b"password"],
+        self, field_name: typing.Literal["FBID", b"FBID", "password", b"password"]
     ) -> None: ...
 
 global___AvatarUserSettings = AvatarUserSettings
 
-@typing_extensions.final
+@typing.final
 class NotificationSettings(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1272,7 +1254,7 @@ class NotificationSettings(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "callVibrate",
             b"callVibrate",
             "lowPriorityNotifications",
@@ -1289,7 +1271,7 @@ class NotificationSettings(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "callVibrate",
             b"callVibrate",
             "lowPriorityNotifications",

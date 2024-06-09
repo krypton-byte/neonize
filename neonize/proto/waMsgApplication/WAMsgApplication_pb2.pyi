@@ -18,11 +18,11 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class MessageApplication(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Metadata(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -48,7 +48,7 @@ class MessageApplication(google.protobuf.message.Message):
         VANISH_MODE: MessageApplication.Metadata.ThreadType.ValueType  # 1
         DISAPPEARING_MESSAGES: MessageApplication.Metadata.ThreadType.ValueType  # 2
 
-        @typing_extensions.final
+        @typing.final
         class QuotedMessage(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -71,7 +71,7 @@ class MessageApplication(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "participant",
                     b"participant",
                     "payload",
@@ -84,7 +84,7 @@ class MessageApplication(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "participant",
                     b"participant",
                     "payload",
@@ -96,7 +96,7 @@ class MessageApplication(google.protobuf.message.Message):
                 ],
             ) -> None: ...
 
-        @typing_extensions.final
+        @typing.final
         class EphemeralSettingMap(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -116,13 +116,13 @@ class MessageApplication(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "chatJID", b"chatJID", "ephemeralSetting", b"ephemeralSetting"
                 ],
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "chatJID", b"chatJID", "ephemeralSetting", b"ephemeralSetting"
                 ],
             ) -> None: ...
@@ -143,6 +143,18 @@ class MessageApplication(google.protobuf.message.Message):
         GROUPINDEX_FIELD_NUMBER: builtins.int
         BOTRESPONSEID_FIELD_NUMBER: builtins.int
         COLLAPSIBLEID_FIELD_NUMBER: builtins.int
+        ephemeralSharedSecret: builtins.bytes
+        forwardingScore: builtins.int
+        isForwarded: builtins.bool
+        frankingKey: builtins.bytes
+        frankingVersion: builtins.int
+        threadType: global___MessageApplication.Metadata.ThreadType.ValueType
+        readonlyMetadataDataclass: builtins.str
+        groupID: builtins.str
+        groupSize: builtins.int
+        groupIndex: builtins.int
+        botResponseID: builtins.str
+        collapsibleID: builtins.str
         @property
         def chatEphemeralSetting(
             self,
@@ -151,24 +163,12 @@ class MessageApplication(google.protobuf.message.Message):
         def ephemeralSettingList(
             self,
         ) -> global___MessageApplication.Metadata.EphemeralSettingMap: ...
-        ephemeralSharedSecret: builtins.bytes
-        forwardingScore: builtins.int
-        isForwarded: builtins.bool
         @property
         def businessMetadata(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-        frankingKey: builtins.bytes
-        frankingVersion: builtins.int
         @property
         def quotedMessage(
             self,
         ) -> global___MessageApplication.Metadata.QuotedMessage: ...
-        threadType: global___MessageApplication.Metadata.ThreadType.ValueType
-        readonlyMetadataDataclass: builtins.str
-        groupID: builtins.str
-        groupSize: builtins.int
-        groupIndex: builtins.int
-        botResponseID: builtins.str
-        collapsibleID: builtins.str
         def __init__(
             self,
             *,
@@ -195,7 +195,7 @@ class MessageApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "botResponseID",
                 b"botResponseID",
                 "businessMetadata",
@@ -234,7 +234,7 @@ class MessageApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "botResponseID",
                 b"botResponseID",
                 "businessMetadata",
@@ -272,15 +272,15 @@ class MessageApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self, oneof_group: typing_extensions.Literal["ephemeral", b"ephemeral"]
+            self, oneof_group: typing.Literal["ephemeral", b"ephemeral"]
         ) -> (
-            typing_extensions.Literal[
+            typing.Literal[
                 "chatEphemeralSetting", "ephemeralSettingList", "ephemeralSharedSecret"
             ]
             | None
         ): ...
 
-    @typing_extensions.final
+    @typing.final
     class Payload(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -306,7 +306,7 @@ class MessageApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "applicationData",
                 b"applicationData",
                 "content",
@@ -321,7 +321,7 @@ class MessageApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "applicationData",
                 b"applicationData",
                 "content",
@@ -335,15 +335,13 @@ class MessageApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self, oneof_group: typing_extensions.Literal["content", b"content"]
+            self, oneof_group: typing.Literal["content", b"content"]
         ) -> (
-            typing_extensions.Literal[
-                "coreContent", "signal", "applicationData", "subProtocol"
-            ]
+            typing.Literal["coreContent", "signal", "applicationData", "subProtocol"]
             | None
         ): ...
 
-    @typing_extensions.final
+    @typing.final
     class SubProtocolPayload(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -354,6 +352,7 @@ class MessageApplication(google.protobuf.message.Message):
         VOIP_FIELD_NUMBER: builtins.int
         ARMADILLO_FIELD_NUMBER: builtins.int
         FUTUREPROOF_FIELD_NUMBER: builtins.int
+        futureProof: waCommon.WACommon_pb2.FutureProofBehavior.ValueType
         @property
         def consumerMessage(self) -> waCommon.WACommon_pb2.SubProtocol: ...
         @property
@@ -366,7 +365,6 @@ class MessageApplication(google.protobuf.message.Message):
         def voip(self) -> waCommon.WACommon_pb2.SubProtocol: ...
         @property
         def armadillo(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-        futureProof: waCommon.WACommon_pb2.FutureProofBehavior.ValueType
         def __init__(
             self,
             *,
@@ -381,7 +379,7 @@ class MessageApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "armadillo",
                 b"armadillo",
                 "businessMessage",
@@ -402,7 +400,7 @@ class MessageApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "armadillo",
                 b"armadillo",
                 "businessMessage",
@@ -422,9 +420,9 @@ class MessageApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self, oneof_group: typing_extensions.Literal["subProtocol", b"subProtocol"]
+            self, oneof_group: typing.Literal["subProtocol", b"subProtocol"]
         ) -> (
-            typing_extensions.Literal[
+            typing.Literal[
                 "consumerMessage",
                 "businessMessage",
                 "paymentMessage",
@@ -435,7 +433,7 @@ class MessageApplication(google.protobuf.message.Message):
             | None
         ): ...
 
-    @typing_extensions.final
+    @typing.final
     class ApplicationData(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -443,7 +441,7 @@ class MessageApplication(google.protobuf.message.Message):
             self,
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Signal(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -451,7 +449,7 @@ class MessageApplication(google.protobuf.message.Message):
             self,
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Content(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -459,7 +457,7 @@ class MessageApplication(google.protobuf.message.Message):
             self,
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class EphemeralSetting(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -478,7 +476,7 @@ class MessageApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "ephemeralExpiration",
                 b"ephemeralExpiration",
                 "ephemeralSettingTimestamp",
@@ -489,7 +487,7 @@ class MessageApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "ephemeralExpiration",
                 b"ephemeralExpiration",
                 "ephemeralSettingTimestamp",
@@ -512,16 +510,10 @@ class MessageApplication(google.protobuf.message.Message):
         metadata: global___MessageApplication.Metadata | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal[
-            "metadata", b"metadata", "payload", b"payload"
-        ],
+        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "metadata", b"metadata", "payload", b"payload"
-        ],
+        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
     ) -> None: ...
 
 global___MessageApplication = MessageApplication

@@ -19,7 +19,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class SyncdMutation(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -53,21 +53,15 @@ class SyncdMutation(google.protobuf.message.Message):
         record: global___SyncdRecord | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal[
-            "operation", b"operation", "record", b"record"
-        ],
+        self, field_name: typing.Literal["operation", b"operation", "record", b"record"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "operation", b"operation", "record", b"record"
-        ],
+        self, field_name: typing.Literal["operation", b"operation", "record", b"record"]
     ) -> None: ...
 
 global___SyncdMutation = SyncdMutation
 
-@typing_extensions.final
+@typing.final
 class SyncdVersion(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -79,15 +73,13 @@ class SyncdVersion(google.protobuf.message.Message):
         version: builtins.int | None = ...,
     ) -> None: ...
     def HasField(
-        self, field_name: typing_extensions.Literal["version", b"version"]
+        self, field_name: typing.Literal["version", b"version"]
     ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing_extensions.Literal["version", b"version"]
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["version", b"version"]) -> None: ...
 
 global___SyncdVersion = SyncdVersion
 
-@typing_extensions.final
+@typing.final
 class ExitCode(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -102,15 +94,15 @@ class ExitCode(google.protobuf.message.Message):
         text: builtins.str | None = ...,
     ) -> None: ...
     def HasField(
-        self, field_name: typing_extensions.Literal["code", b"code", "text", b"text"]
+        self, field_name: typing.Literal["code", b"code", "text", b"text"]
     ) -> builtins.bool: ...
     def ClearField(
-        self, field_name: typing_extensions.Literal["code", b"code", "text", b"text"]
+        self, field_name: typing.Literal["code", b"code", "text", b"text"]
     ) -> None: ...
 
 global___ExitCode = ExitCode
 
-@typing_extensions.final
+@typing.final
 class SyncdIndex(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -122,15 +114,13 @@ class SyncdIndex(google.protobuf.message.Message):
         blob: builtins.bytes | None = ...,
     ) -> None: ...
     def HasField(
-        self, field_name: typing_extensions.Literal["blob", b"blob"]
+        self, field_name: typing.Literal["blob", b"blob"]
     ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing_extensions.Literal["blob", b"blob"]
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["blob", b"blob"]) -> None: ...
 
 global___SyncdIndex = SyncdIndex
 
-@typing_extensions.final
+@typing.final
 class SyncdValue(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -142,15 +132,13 @@ class SyncdValue(google.protobuf.message.Message):
         blob: builtins.bytes | None = ...,
     ) -> None: ...
     def HasField(
-        self, field_name: typing_extensions.Literal["blob", b"blob"]
+        self, field_name: typing.Literal["blob", b"blob"]
     ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing_extensions.Literal["blob", b"blob"]
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["blob", b"blob"]) -> None: ...
 
 global___SyncdValue = SyncdValue
 
-@typing_extensions.final
+@typing.final
 class KeyId(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -161,16 +149,12 @@ class KeyId(google.protobuf.message.Message):
         *,
         ID: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing_extensions.Literal["ID", b"ID"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing_extensions.Literal["ID", b"ID"]
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["ID", b"ID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["ID", b"ID"]) -> None: ...
 
 global___KeyId = KeyId
 
-@typing_extensions.final
+@typing.final
 class SyncdRecord(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -192,20 +176,20 @@ class SyncdRecord(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "index", b"index", "keyID", b"keyID", "value", b"value"
         ],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "index", b"index", "keyID", b"keyID", "value", b"value"
         ],
     ) -> None: ...
 
 global___SyncdRecord = SyncdRecord
 
-@typing_extensions.final
+@typing.final
 class ExternalBlobReference(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -233,7 +217,7 @@ class ExternalBlobReference(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "directPath",
             b"directPath",
             "fileEncSHA256",
@@ -250,7 +234,7 @@ class ExternalBlobReference(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "directPath",
             b"directPath",
             "fileEncSHA256",
@@ -268,7 +252,7 @@ class ExternalBlobReference(google.protobuf.message.Message):
 
 global___ExternalBlobReference = ExternalBlobReference
 
-@typing_extensions.final
+@typing.final
 class SyncdSnapshot(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -276,6 +260,7 @@ class SyncdSnapshot(google.protobuf.message.Message):
     RECORDS_FIELD_NUMBER: builtins.int
     MAC_FIELD_NUMBER: builtins.int
     KEYID_FIELD_NUMBER: builtins.int
+    mac: builtins.bytes
     @property
     def version(self) -> global___SyncdVersion: ...
     @property
@@ -284,7 +269,6 @@ class SyncdSnapshot(google.protobuf.message.Message):
     ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
         global___SyncdRecord
     ]: ...
-    mac: builtins.bytes
     @property
     def keyID(self) -> global___KeyId: ...
     def __init__(
@@ -297,13 +281,13 @@ class SyncdSnapshot(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "keyID", b"keyID", "mac", b"mac", "version", b"version"
         ],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "keyID",
             b"keyID",
             "mac",
@@ -317,7 +301,7 @@ class SyncdSnapshot(google.protobuf.message.Message):
 
 global___SyncdSnapshot = SyncdSnapshot
 
-@typing_extensions.final
+@typing.final
 class SyncdMutations(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -334,12 +318,12 @@ class SyncdMutations(google.protobuf.message.Message):
         mutations: collections.abc.Iterable[global___SyncdMutation] | None = ...,
     ) -> None: ...
     def ClearField(
-        self, field_name: typing_extensions.Literal["mutations", b"mutations"]
+        self, field_name: typing.Literal["mutations", b"mutations"]
     ) -> None: ...
 
 global___SyncdMutations = SyncdMutations
 
-@typing_extensions.final
+@typing.final
 class SyncdPatch(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -352,6 +336,10 @@ class SyncdPatch(google.protobuf.message.Message):
     EXITCODE_FIELD_NUMBER: builtins.int
     DEVICEINDEX_FIELD_NUMBER: builtins.int
     CLIENTDEBUGDATA_FIELD_NUMBER: builtins.int
+    snapshotMAC: builtins.bytes
+    patchMAC: builtins.bytes
+    deviceIndex: builtins.int
+    clientDebugData: builtins.bytes
     @property
     def version(self) -> global___SyncdVersion: ...
     @property
@@ -362,14 +350,10 @@ class SyncdPatch(google.protobuf.message.Message):
     ]: ...
     @property
     def externalMutations(self) -> global___ExternalBlobReference: ...
-    snapshotMAC: builtins.bytes
-    patchMAC: builtins.bytes
     @property
     def keyID(self) -> global___KeyId: ...
     @property
     def exitCode(self) -> global___ExitCode: ...
-    deviceIndex: builtins.int
-    clientDebugData: builtins.bytes
     def __init__(
         self,
         *,
@@ -385,7 +369,7 @@ class SyncdPatch(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "clientDebugData",
             b"clientDebugData",
             "deviceIndex",
@@ -406,7 +390,7 @@ class SyncdPatch(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "clientDebugData",
             b"clientDebugData",
             "deviceIndex",

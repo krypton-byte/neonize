@@ -17,7 +17,7 @@ def get_message_type(message: Message) -> MediaMessageType | TextMessageType:
     :raises IndexError: If the message type cannot be determined.
     :return: The type of the message.
     :rtype: MediaMessageType | TextMessageType
-    """    
+    """
     for field_name, v in message.ListFields():
         if field_name.name.endswith("Message"):
             return v
@@ -34,7 +34,7 @@ def extract_text(message: Message):
     :type message: Message
     :return: The extracted text content.
     :rtype: str
-    """    
+    """
     if message.imageMessage.ListFields():
         imageMessage: ImageMessage = message.imageMessage
         return imageMessage.caption

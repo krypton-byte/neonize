@@ -8,16 +8,11 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-import sys
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
+import typing
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class ICDCIdentityList(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -27,13 +22,13 @@ class ICDCIdentityList(google.protobuf.message.Message):
     SIGNINGDEVICEINDEX_FIELD_NUMBER: builtins.int
     seq: builtins.int
     timestamp: builtins.int
+    signingDeviceIndex: builtins.int
     @property
     def devices(
         self,
     ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
         builtins.bytes
     ]: ...
-    signingDeviceIndex: builtins.int
     def __init__(
         self,
         *,
@@ -44,7 +39,7 @@ class ICDCIdentityList(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "seq",
             b"seq",
             "signingDeviceIndex",
@@ -55,7 +50,7 @@ class ICDCIdentityList(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "devices",
             b"devices",
             "seq",
@@ -69,7 +64,7 @@ class ICDCIdentityList(google.protobuf.message.Message):
 
 global___ICDCIdentityList = ICDCIdentityList
 
-@typing_extensions.final
+@typing.final
 class SignedICDCIdentityList(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -85,15 +80,11 @@ class SignedICDCIdentityList(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "details", b"details", "signature", b"signature"
-        ],
+        field_name: typing.Literal["details", b"details", "signature", b"signature"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "details", b"details", "signature", b"signature"
-        ],
+        field_name: typing.Literal["details", b"details", "signature", b"signature"],
     ) -> None: ...
 
 global___SignedICDCIdentityList = SignedICDCIdentityList

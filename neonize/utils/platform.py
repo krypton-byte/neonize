@@ -2,6 +2,7 @@ import os
 from typing import Dict
 import platform
 
+
 def arch_normalizer(arch_: str) -> str:
     """
     Normalizes architecture names to a standardized format.
@@ -10,7 +11,7 @@ def arch_normalizer(arch_: str) -> str:
     :type arch_: str
     :return: The normalized architecture name.
     :rtype: str
-    """    
+    """
     arch: Dict[str, str] = {
         "aarch64": "arm64",
         "x86_64": "amd64",
@@ -28,7 +29,7 @@ def generated_name(os_name="", arch_name=""):
     :type arch_name: str, optional
     :return: The generated filename.
     :rtype: str
-    """    
+    """
     os_name = os_name or platform.system().lower()
     arch_name = arch_normalizer(arch_name or platform.machine().lower())
     if os_name == "windows":

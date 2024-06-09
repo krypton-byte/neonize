@@ -427,5 +427,23 @@ if not os.environ.get("SPHINX"):
     gocode.GetContact.restype = Bytes
     gocode.GetAllContacts.argtypes = [ctypes.c_char_p]
     gocode.GetAllContacts.restype = Bytes
+    gocode.PutMutedUntil.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_float,
+    ]
+    gocode.PutMutedUntil.restype = ctypes.c_char_p
+    gocode.PutPinned.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_bool,
+    ]
+    gocode.PutPinned.restype = ctypes.c_char_p
+    gocode.PutArchived = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_bool]
+    gocode.PutArchived = ctypes.c_char_p
+    gocode.GetChatSettings = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.GetChatSettings = Bytes
 else:
     gocode: Any = object()

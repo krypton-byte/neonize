@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ctypes
+import datetime
 import re
 import struct
 import time
@@ -24,6 +25,9 @@ from .events import Event
 from .exc import (
     ContactStoreError,
     DownloadError,
+    PutArchivedError,
+    PutMutedUntilError,
+    PutPinnedError,
     ResolveContactQRLinkError,
     SendAppStateError,
     SetDefaultDisappearingTimerError,
@@ -113,6 +117,8 @@ from .proto.Neonize_pb2 import (
     GetUserInfoSingleReturnFunction,
     SendResponse,
     Device,
+    ReturnFunctionWithError,
+    LocalChatSettings,
 )
 from .proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2 import DeviceProps
 from .proto.waE2E.WAWebProtobufsE2E_pb2 import (
@@ -250,6 +256,43 @@ class ContactStore:
         if model.Error:
             raise ContactStoreError(model.Error)
         return model.Contact
+
+
+class ChatSettingsStore:
+    def __init__(self, uuid: bytes) -> None:
+        self.uuid = uuid
+        self.__client = gocode
+
+    def put_muted_until(self, user: JID, until: timedelta):
+        user_buf = user.SerializeToString()
+        return_ = self.__client.PutMutedUntil(
+            self.uuid, user_buf, len(user_buf), until.total_seconds()
+        )
+        if return_:
+            raise PutMutedUntilError(return_.decode())
+
+    def put_pinned(self, user: JID, pinned: bool):
+        user_buf = user.SerializeToString()
+        return_ = self.__client.PutPinned(self.uuid, user_buf, len(user_buf), pinned)
+        if return_:
+            raise PutPinnedError(return_.decode())
+
+    def put_archived(self, user: JID, archived: bool):
+        user_buf = user.SerializeToString()
+        return_ = self.__client.PutArchived(
+            self.uuid, user_buf, len(user_buf), archived
+        )
+        if return_:
+            raise PutArchivedError(return_.decode())
+
+    def get_chat_settings(self, user: JID) -> LocalChatSettings:
+        user_buf = user.SerializeToString()
+        return_ = ReturnFunctionWithError.FromString(
+            self.__client.GetChatSettings(self.uuid, user_buf, len(user_buf))
+        )
+        if return_.Error:
+            raise PutArchivedError(return_.Error)
+        return return_.LocalChatSettings
 
 
 class NewClient:

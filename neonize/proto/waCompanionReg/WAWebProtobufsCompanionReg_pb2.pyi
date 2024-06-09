@@ -17,7 +17,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class DeviceProps(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -83,7 +83,7 @@ class DeviceProps(google.protobuf.message.Message):
     VR: DeviceProps.PlatformType.ValueType  # 22
     CLOUD_API: DeviceProps.PlatformType.ValueType  # 23
 
-    @typing_extensions.final
+    @typing.final
     class HistorySyncConfig(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -123,7 +123,7 @@ class DeviceProps(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "fullSyncDaysLimit",
                 b"fullSyncDaysLimit",
                 "fullSyncSizeMbLimit",
@@ -148,7 +148,7 @@ class DeviceProps(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "fullSyncDaysLimit",
                 b"fullSyncDaysLimit",
                 "fullSyncSizeMbLimit",
@@ -172,7 +172,7 @@ class DeviceProps(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class AppVersion(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -197,7 +197,7 @@ class DeviceProps(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "primary",
                 b"primary",
                 "quaternary",
@@ -212,7 +212,7 @@ class DeviceProps(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "primary",
                 b"primary",
                 "quaternary",
@@ -232,10 +232,10 @@ class DeviceProps(google.protobuf.message.Message):
     REQUIREFULLSYNC_FIELD_NUMBER: builtins.int
     HISTORYSYNCCONFIG_FIELD_NUMBER: builtins.int
     os: builtins.str
-    @property
-    def version(self) -> global___DeviceProps.AppVersion: ...
     platformType: global___DeviceProps.PlatformType.ValueType
     requireFullSync: builtins.bool
+    @property
+    def version(self) -> global___DeviceProps.AppVersion: ...
     @property
     def historySyncConfig(self) -> global___DeviceProps.HistorySyncConfig: ...
     def __init__(
@@ -249,7 +249,7 @@ class DeviceProps(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "historySyncConfig",
             b"historySyncConfig",
             "os",
@@ -264,7 +264,7 @@ class DeviceProps(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "historySyncConfig",
             b"historySyncConfig",
             "os",

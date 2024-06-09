@@ -121,5 +121,5 @@ __all__ = (
     "ReceiptType",
     "add_exif",
     "validate_link",
-    "gen_vcard"
+    "gen_vcard",
 )

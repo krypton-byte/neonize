@@ -12,7 +12,7 @@ import importlib.metadata
 project = "neonize"
 copyright = "2024, krypton-byte"
 author = "krypton-byte"
-release = importlib.metadata.version('neonize')
+release = importlib.metadata.version("neonize")
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

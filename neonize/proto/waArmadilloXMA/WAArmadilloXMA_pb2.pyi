@@ -20,7 +20,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class ExtendedContentMessage(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -330,7 +330,7 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     )  # 3007
     DATACLASS_SENDER_COPY: ExtendedContentMessage.ExtendedContentType.ValueType  # 4000
 
-    @typing_extensions.final
+    @typing.final
     class CTA(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -359,7 +359,7 @@ class ExtendedContentMessage(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "actionContentBlob",
                 b"actionContentBlob",
                 "actionURL",
@@ -376,7 +376,7 @@ class ExtendedContentMessage(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "actionContentBlob",
                 b"actionContentBlob",
                 "actionURL",
@@ -415,13 +415,26 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     HEADERSUBTITLE_FIELD_NUMBER: builtins.int
     XMADATACLASS_FIELD_NUMBER: builtins.int
     CONTENTREF_FIELD_NUMBER: builtins.int
-    @property
-    def associatedMessage(self) -> waCommon.WACommon_pb2.SubProtocol: ...
     targetType: global___ExtendedContentMessage.ExtendedContentType.ValueType
     targetUsername: builtins.str
     targetID: builtins.str
     targetExpiringAtSec: builtins.int
     xmaLayoutType: global___ExtendedContentMessage.XmaLayoutType.ValueType
+    titleText: builtins.str
+    subtitleText: builtins.str
+    maxTitleNumOfLines: builtins.int
+    maxSubtitleNumOfLines: builtins.int
+    headerTitle: builtins.str
+    overlayIconGlyph: global___ExtendedContentMessage.OverlayIconGlyph.ValueType
+    overlayTitle: builtins.str
+    overlayDescription: builtins.str
+    sentWithMessageID: builtins.str
+    messageText: builtins.str
+    headerSubtitle: builtins.str
+    xmaDataclass: builtins.str
+    contentRef: builtins.str
+    @property
+    def associatedMessage(self) -> waCommon.WACommon_pb2.SubProtocol: ...
     @property
     def ctas(
         self,
@@ -434,23 +447,10 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
         waCommon.WACommon_pb2.SubProtocol
     ]: ...
-    titleText: builtins.str
-    subtitleText: builtins.str
-    maxTitleNumOfLines: builtins.int
-    maxSubtitleNumOfLines: builtins.int
     @property
     def favicon(self) -> waCommon.WACommon_pb2.SubProtocol: ...
     @property
     def headerImage(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-    headerTitle: builtins.str
-    overlayIconGlyph: global___ExtendedContentMessage.OverlayIconGlyph.ValueType
-    overlayTitle: builtins.str
-    overlayDescription: builtins.str
-    sentWithMessageID: builtins.str
-    messageText: builtins.str
-    headerSubtitle: builtins.str
-    xmaDataclass: builtins.str
-    contentRef: builtins.str
     def __init__(
         self,
         *,
@@ -485,7 +485,7 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "associatedMessage",
             b"associatedMessage",
             "contentRef",
@@ -532,7 +532,7 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "associatedMessage",
             b"associatedMessage",
             "contentRef",

@@ -8,16 +8,11 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-import sys
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
+import typing
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class RoutingInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -27,6 +22,10 @@ class RoutingInfo(google.protobuf.message.Message):
     DEBUG_FIELD_NUMBER: builtins.int
     TCPBBR_FIELD_NUMBER: builtins.int
     TCPKEEPALIVE_FIELD_NUMBER: builtins.int
+    taskID: builtins.int
+    debug: builtins.bool
+    tcpBbr: builtins.bool
+    tcpKeepalive: builtins.bool
     @property
     def regionID(
         self,
@@ -39,10 +38,6 @@ class RoutingInfo(google.protobuf.message.Message):
     ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
         builtins.int
     ]: ...
-    taskID: builtins.int
-    debug: builtins.bool
-    tcpBbr: builtins.bool
-    tcpKeepalive: builtins.bool
     def __init__(
         self,
         *,
@@ -55,7 +50,7 @@ class RoutingInfo(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "debug",
             b"debug",
             "taskID",
@@ -68,7 +63,7 @@ class RoutingInfo(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "clusterID",
             b"clusterID",
             "debug",

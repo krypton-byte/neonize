@@ -218,3 +218,19 @@ class ContactStoreError(Exception):
 
 class FFProbeError(Exception):
     pass
+
+
+class PutMutedUntilError(Exception):
+    pass
+
+
+class PutPinnedError(Exception):
+    pass
+
+
+class PutArchivedError(Exception):
+    pass
+
+
+class GetChatSettingsError(Exception):
+    pass

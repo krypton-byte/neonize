@@ -8,20 +8,15 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-import sys
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
+import typing
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class MultiDevice(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Metadata(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -29,7 +24,7 @@ class MultiDevice(google.protobuf.message.Message):
             self,
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Payload(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -47,7 +42,7 @@ class MultiDevice(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "applicationData",
                 b"applicationData",
                 "payload",
@@ -58,7 +53,7 @@ class MultiDevice(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "applicationData",
                 b"applicationData",
                 "payload",
@@ -68,14 +63,14 @@ class MultiDevice(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self, oneof_group: typing_extensions.Literal["payload", b"payload"]
-        ) -> typing_extensions.Literal["applicationData", "signal"] | None: ...
+            self, oneof_group: typing.Literal["payload", b"payload"]
+        ) -> typing.Literal["applicationData", "signal"] | None: ...
 
-    @typing_extensions.final
+    @typing.final
     class ApplicationData(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        @typing_extensions.final
+        @typing.final
         class AppStateSyncKeyRequestMessage(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -95,10 +90,10 @@ class MultiDevice(google.protobuf.message.Message):
                 | None = ...,
             ) -> None: ...
             def ClearField(
-                self, field_name: typing_extensions.Literal["keyIDs", b"keyIDs"]
+                self, field_name: typing.Literal["keyIDs", b"keyIDs"]
             ) -> None: ...
 
-        @typing_extensions.final
+        @typing.final
         class AppStateSyncKeyShareMessage(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -118,18 +113,18 @@ class MultiDevice(google.protobuf.message.Message):
                 | None = ...,
             ) -> None: ...
             def ClearField(
-                self, field_name: typing_extensions.Literal["keys", b"keys"]
+                self, field_name: typing.Literal["keys", b"keys"]
             ) -> None: ...
 
-        @typing_extensions.final
+        @typing.final
         class AppStateSyncKey(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-            @typing_extensions.final
+            @typing.final
             class AppStateSyncKeyData(google.protobuf.message.Message):
                 DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-                @typing_extensions.final
+                @typing.final
                 class AppStateSyncKeyFingerprint(google.protobuf.message.Message):
                     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -154,13 +149,13 @@ class MultiDevice(google.protobuf.message.Message):
                     ) -> None: ...
                     def HasField(
                         self,
-                        field_name: typing_extensions.Literal[
+                        field_name: typing.Literal[
                             "currentIndex", b"currentIndex", "rawID", b"rawID"
                         ],
                     ) -> builtins.bool: ...
                     def ClearField(
                         self,
-                        field_name: typing_extensions.Literal[
+                        field_name: typing.Literal[
                             "currentIndex",
                             b"currentIndex",
                             "deviceIndexes",
@@ -174,11 +169,11 @@ class MultiDevice(google.protobuf.message.Message):
                 FINGERPRINT_FIELD_NUMBER: builtins.int
                 TIMESTAMP_FIELD_NUMBER: builtins.int
                 keyData: builtins.bytes
+                timestamp: builtins.int
                 @property
                 def fingerprint(
                     self,
                 ) -> global___MultiDevice.ApplicationData.AppStateSyncKey.AppStateSyncKeyData.AppStateSyncKeyFingerprint: ...
-                timestamp: builtins.int
                 def __init__(
                     self,
                     *,
@@ -189,7 +184,7 @@ class MultiDevice(google.protobuf.message.Message):
                 ) -> None: ...
                 def HasField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "fingerprint",
                         b"fingerprint",
                         "keyData",
@@ -200,7 +195,7 @@ class MultiDevice(google.protobuf.message.Message):
                 ) -> builtins.bool: ...
                 def ClearField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "fingerprint",
                         b"fingerprint",
                         "keyData",
@@ -232,18 +227,14 @@ class MultiDevice(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
-                    "keyData", b"keyData", "keyID", b"keyID"
-                ],
+                field_name: typing.Literal["keyData", b"keyData", "keyID", b"keyID"],
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
-                    "keyData", b"keyData", "keyID", b"keyID"
-                ],
+                field_name: typing.Literal["keyData", b"keyData", "keyID", b"keyID"],
             ) -> None: ...
 
-        @typing_extensions.final
+        @typing.final
         class AppStateSyncKeyId(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -255,10 +246,10 @@ class MultiDevice(google.protobuf.message.Message):
                 keyID: builtins.bytes | None = ...,
             ) -> None: ...
             def HasField(
-                self, field_name: typing_extensions.Literal["keyID", b"keyID"]
+                self, field_name: typing.Literal["keyID", b"keyID"]
             ) -> builtins.bool: ...
             def ClearField(
-                self, field_name: typing_extensions.Literal["keyID", b"keyID"]
+                self, field_name: typing.Literal["keyID", b"keyID"]
             ) -> None: ...
 
         APPSTATESYNCKEYSHARE_FIELD_NUMBER: builtins.int
@@ -281,7 +272,7 @@ class MultiDevice(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "appStateSyncKeyRequest",
                 b"appStateSyncKeyRequest",
                 "appStateSyncKeyShare",
@@ -292,7 +283,7 @@ class MultiDevice(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "appStateSyncKeyRequest",
                 b"appStateSyncKeyRequest",
                 "appStateSyncKeyShare",
@@ -302,16 +293,12 @@ class MultiDevice(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self,
-            oneof_group: typing_extensions.Literal[
-                "applicationData", b"applicationData"
-            ],
+            self, oneof_group: typing.Literal["applicationData", b"applicationData"]
         ) -> (
-            typing_extensions.Literal["appStateSyncKeyShare", "appStateSyncKeyRequest"]
-            | None
+            typing.Literal["appStateSyncKeyShare", "appStateSyncKeyRequest"] | None
         ): ...
 
-    @typing_extensions.final
+    @typing.final
     class Signal(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -332,16 +319,10 @@ class MultiDevice(google.protobuf.message.Message):
         metadata: global___MultiDevice.Metadata | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal[
-            "metadata", b"metadata", "payload", b"payload"
-        ],
+        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "metadata", b"metadata", "payload", b"payload"
-        ],
+        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
     ) -> None: ...
 
 global___MultiDevice = MultiDevice

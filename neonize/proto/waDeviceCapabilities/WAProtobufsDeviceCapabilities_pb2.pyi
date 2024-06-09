@@ -17,7 +17,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class DeviceCapabilities(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -53,15 +53,11 @@ class DeviceCapabilities(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "chatLockSupportLevel", b"chatLockSupportLevel"
-        ],
+        field_name: typing.Literal["chatLockSupportLevel", b"chatLockSupportLevel"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "chatLockSupportLevel", b"chatLockSupportLevel"
-        ],
+        field_name: typing.Literal["chatLockSupportLevel", b"chatLockSupportLevel"],
     ) -> None: ...
 
 global___DeviceCapabilities = DeviceCapabilities

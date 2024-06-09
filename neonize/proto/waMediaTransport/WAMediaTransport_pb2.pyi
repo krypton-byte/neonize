@@ -20,19 +20,19 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class WAMediaTransport(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Ancillary(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        @typing_extensions.final
+        @typing.final
         class Thumbnail(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-            @typing_extensions.final
+            @typing.final
             class DownloadableThumbnail(google.protobuf.message.Message):
                 DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -72,7 +72,7 @@ class WAMediaTransport(google.protobuf.message.Message):
                 ) -> None: ...
                 def HasField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "directPath",
                         b"directPath",
                         "fileEncSHA256",
@@ -91,7 +91,7 @@ class WAMediaTransport(google.protobuf.message.Message):
                 ) -> builtins.bool: ...
                 def ClearField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "directPath",
                         b"directPath",
                         "fileEncSHA256",
@@ -116,14 +116,14 @@ class WAMediaTransport(google.protobuf.message.Message):
             THUMBNAILWIDTH_FIELD_NUMBER: builtins.int
             THUMBNAILHEIGHT_FIELD_NUMBER: builtins.int
             JPEGThumbnail: builtins.bytes
+            thumbnailWidth: builtins.int
+            thumbnailHeight: builtins.int
             @property
             def downloadableThumbnail(
                 self,
             ) -> (
                 global___WAMediaTransport.Ancillary.Thumbnail.DownloadableThumbnail
             ): ...
-            thumbnailWidth: builtins.int
-            thumbnailHeight: builtins.int
             def __init__(
                 self,
                 *,
@@ -135,7 +135,7 @@ class WAMediaTransport(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "JPEGThumbnail",
                     b"JPEGThumbnail",
                     "downloadableThumbnail",
@@ -148,7 +148,7 @@ class WAMediaTransport(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "JPEGThumbnail",
                     b"JPEGThumbnail",
                     "downloadableThumbnail",
@@ -166,9 +166,9 @@ class WAMediaTransport(google.protobuf.message.Message):
         OBJECTID_FIELD_NUMBER: builtins.int
         fileLength: builtins.int
         mimetype: builtins.str
+        objectID: builtins.str
         @property
         def thumbnail(self) -> global___WAMediaTransport.Ancillary.Thumbnail: ...
-        objectID: builtins.str
         def __init__(
             self,
             *,
@@ -179,7 +179,7 @@ class WAMediaTransport(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "fileLength",
                 b"fileLength",
                 "mimetype",
@@ -192,7 +192,7 @@ class WAMediaTransport(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "fileLength",
                 b"fileLength",
                 "mimetype",
@@ -204,7 +204,7 @@ class WAMediaTransport(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Integral(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -229,7 +229,7 @@ class WAMediaTransport(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "directPath",
                 b"directPath",
                 "fileEncSHA256",
@@ -244,7 +244,7 @@ class WAMediaTransport(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "directPath",
                 b"directPath",
                 "fileEncSHA256",
@@ -272,24 +272,20 @@ class WAMediaTransport(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> None: ...
 
 global___WAMediaTransport = WAMediaTransport
 
-@typing_extensions.final
+@typing.final
 class ImageTransport(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Ancillary(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -322,14 +318,14 @@ class ImageTransport(google.protobuf.message.Message):
         height: builtins.int
         width: builtins.int
         scansSidecar: builtins.bytes
+        midQualityFileSHA256: builtins.bytes
+        hdType: global___ImageTransport.Ancillary.HdType.ValueType
         @property
         def scanLengths(
             self,
         ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
             builtins.int
         ]: ...
-        midQualityFileSHA256: builtins.bytes
-        hdType: global___ImageTransport.Ancillary.HdType.ValueType
         def __init__(
             self,
             *,
@@ -342,7 +338,7 @@ class ImageTransport(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "hdType",
                 b"hdType",
                 "height",
@@ -357,7 +353,7 @@ class ImageTransport(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "hdType",
                 b"hdType",
                 "height",
@@ -373,7 +369,7 @@ class ImageTransport(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Integral(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -386,10 +382,10 @@ class ImageTransport(google.protobuf.message.Message):
             transport: global___WAMediaTransport | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["transport", b"transport"]
+            self, field_name: typing.Literal["transport", b"transport"]
         ) -> builtins.bool: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["transport", b"transport"]
+            self, field_name: typing.Literal["transport", b"transport"]
         ) -> None: ...
 
     INTEGRAL_FIELD_NUMBER: builtins.int
@@ -406,24 +402,20 @@ class ImageTransport(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> None: ...
 
 global___ImageTransport = ImageTransport
 
-@typing_extensions.final
+@typing.final
 class VideoTransport(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Ancillary(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -455,13 +447,13 @@ class VideoTransport(google.protobuf.message.Message):
         SIDECAR_FIELD_NUMBER: builtins.int
         GIFATTRIBUTION_FIELD_NUMBER: builtins.int
         seconds: builtins.int
-        @property
-        def caption(self) -> waCommon.WACommon_pb2.MessageText: ...
         gifPlayback: builtins.bool
         height: builtins.int
         width: builtins.int
         sidecar: builtins.bytes
         gifAttribution: global___VideoTransport.Ancillary.Attribution.ValueType
+        @property
+        def caption(self) -> waCommon.WACommon_pb2.MessageText: ...
         def __init__(
             self,
             *,
@@ -476,7 +468,7 @@ class VideoTransport(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "caption",
                 b"caption",
                 "gifAttribution",
@@ -495,7 +487,7 @@ class VideoTransport(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "caption",
                 b"caption",
                 "gifAttribution",
@@ -513,7 +505,7 @@ class VideoTransport(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Integral(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -526,10 +518,10 @@ class VideoTransport(google.protobuf.message.Message):
             transport: global___WAMediaTransport | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["transport", b"transport"]
+            self, field_name: typing.Literal["transport", b"transport"]
         ) -> builtins.bool: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["transport", b"transport"]
+            self, field_name: typing.Literal["transport", b"transport"]
         ) -> None: ...
 
     INTEGRAL_FIELD_NUMBER: builtins.int
@@ -546,28 +538,24 @@ class VideoTransport(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> None: ...
 
 global___VideoTransport = VideoTransport
 
-@typing_extensions.final
+@typing.final
 class AudioTransport(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Ancillary(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        @typing_extensions.final
+        @typing.final
         class AvatarAudio(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -613,7 +601,7 @@ class AudioTransport(google.protobuf.message.Message):
                 AudioTransport.Ancillary.AvatarAudio.AnimationsType.ValueType
             )  # 4
 
-            @typing_extensions.final
+            @typing.final
             class DownloadableAvatarAnimations(google.protobuf.message.Message):
                 DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -645,7 +633,7 @@ class AudioTransport(google.protobuf.message.Message):
                 ) -> None: ...
                 def HasField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "animationsType",
                         b"animationsType",
                         "directPath",
@@ -664,7 +652,7 @@ class AudioTransport(google.protobuf.message.Message):
                 ) -> builtins.bool: ...
                 def ClearField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "animationsType",
                         b"animationsType",
                         "directPath",
@@ -701,11 +689,11 @@ class AudioTransport(google.protobuf.message.Message):
                 | None = ...,
             ) -> None: ...
             def HasField(
-                self, field_name: typing_extensions.Literal["poseID", b"poseID"]
+                self, field_name: typing.Literal["poseID", b"poseID"]
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "avatarAnimations", b"avatarAnimations", "poseID", b"poseID"
                 ],
             ) -> None: ...
@@ -723,18 +711,18 @@ class AudioTransport(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "avatarAudio", b"avatarAudio", "seconds", b"seconds"
             ],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "avatarAudio", b"avatarAudio", "seconds", b"seconds"
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Integral(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -758,9 +746,9 @@ class AudioTransport(google.protobuf.message.Message):
 
         TRANSPORT_FIELD_NUMBER: builtins.int
         AUDIOFORMAT_FIELD_NUMBER: builtins.int
+        audioFormat: global___AudioTransport.Integral.AudioFormat.ValueType
         @property
         def transport(self) -> global___WAMediaTransport: ...
-        audioFormat: global___AudioTransport.Integral.AudioFormat.ValueType
         def __init__(
             self,
             *,
@@ -770,13 +758,13 @@ class AudioTransport(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "audioFormat", b"audioFormat", "transport", b"transport"
             ],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "audioFormat", b"audioFormat", "transport", b"transport"
             ],
         ) -> None: ...
@@ -795,24 +783,20 @@ class AudioTransport(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> None: ...
 
 global___AudioTransport = AudioTransport
 
-@typing_extensions.final
+@typing.final
 class DocumentTransport(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Ancillary(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -824,13 +808,13 @@ class DocumentTransport(google.protobuf.message.Message):
             pageCount: builtins.int | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["pageCount", b"pageCount"]
+            self, field_name: typing.Literal["pageCount", b"pageCount"]
         ) -> builtins.bool: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["pageCount", b"pageCount"]
+            self, field_name: typing.Literal["pageCount", b"pageCount"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Integral(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -843,10 +827,10 @@ class DocumentTransport(google.protobuf.message.Message):
             transport: global___WAMediaTransport | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["transport", b"transport"]
+            self, field_name: typing.Literal["transport", b"transport"]
         ) -> builtins.bool: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["transport", b"transport"]
+            self, field_name: typing.Literal["transport", b"transport"]
         ) -> None: ...
 
     INTEGRAL_FIELD_NUMBER: builtins.int
@@ -863,24 +847,20 @@ class DocumentTransport(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> None: ...
 
 global___DocumentTransport = DocumentTransport
 
-@typing_extensions.final
+@typing.final
 class StickerTransport(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Ancillary(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -914,7 +894,7 @@ class StickerTransport(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "firstFrameLength",
                 b"firstFrameLength",
                 "firstFrameSidecar",
@@ -935,7 +915,7 @@ class StickerTransport(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "firstFrameLength",
                 b"firstFrameLength",
                 "firstFrameSidecar",
@@ -955,17 +935,17 @@ class StickerTransport(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Integral(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         TRANSPORT_FIELD_NUMBER: builtins.int
         ISANIMATED_FIELD_NUMBER: builtins.int
         RECEIVERFETCHID_FIELD_NUMBER: builtins.int
-        @property
-        def transport(self) -> global___WAMediaTransport: ...
         isAnimated: builtins.bool
         receiverFetchID: builtins.str
+        @property
+        def transport(self) -> global___WAMediaTransport: ...
         def __init__(
             self,
             *,
@@ -975,7 +955,7 @@ class StickerTransport(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "isAnimated",
                 b"isAnimated",
                 "receiverFetchID",
@@ -986,7 +966,7 @@ class StickerTransport(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "isAnimated",
                 b"isAnimated",
                 "receiverFetchID",
@@ -1010,24 +990,20 @@ class StickerTransport(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> None: ...
 
 global___StickerTransport = StickerTransport
 
-@typing_extensions.final
+@typing.final
 class ContactTransport(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Ancillary(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1039,13 +1015,13 @@ class ContactTransport(google.protobuf.message.Message):
             displayName: builtins.str | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["displayName", b"displayName"]
+            self, field_name: typing.Literal["displayName", b"displayName"]
         ) -> builtins.bool: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["displayName", b"displayName"]
+            self, field_name: typing.Literal["displayName", b"displayName"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Integral(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1062,7 +1038,7 @@ class ContactTransport(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "contact",
                 b"contact",
                 "downloadableVcard",
@@ -1073,7 +1049,7 @@ class ContactTransport(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "contact",
                 b"contact",
                 "downloadableVcard",
@@ -1083,8 +1059,8 @@ class ContactTransport(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self, oneof_group: typing_extensions.Literal["contact", b"contact"]
-        ) -> typing_extensions.Literal["vcard", "downloadableVcard"] | None: ...
+            self, oneof_group: typing.Literal["contact", b"contact"]
+        ) -> typing.Literal["vcard", "downloadableVcard"] | None: ...
 
     INTEGRAL_FIELD_NUMBER: builtins.int
     ANCILLARY_FIELD_NUMBER: builtins.int
@@ -1100,15 +1076,11 @@ class ContactTransport(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "ancillary", b"ancillary", "integral", b"integral"
-        ],
+        field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"],
     ) -> None: ...
 
 global___ContactTransport = ContactTransport

@@ -1904,6 +1904,30 @@ func GetMessageForRetry(id *C.char, requester *C.uchar, requesterSize C.int, to 
 	return ReturnBytes(return_bytes)
 }
 
+// chat_settings_store.go
+//
+//export PutPinned
+func PutPinned(id *C.char, user *C.uchar, userSize C.int, pinned C.bool) *C.char {
+	var JID defproto.JID
+	proto.Unmarshal(getByteByAddr(user, userSize), &JID)
+	err := clients[C.GoString(id)].Store.ChatSettings.PutPinned(utils.DecodeJidProto(&JID), bool(pinned))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
+//export PutArchived
+func PutArchived(id *C.char, user *C.uchar, userSize C.int, archived C.bool) *C.char {
+	var JID defproto.JID
+	proto.Unmarshal(getByteByAddr(user, userSize), &JID)
+	err := clients[C.GoString(id)].Store.ChatSettings.PutArchived(utils.DecodeJidProto(&JID), bool(archived))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
 func main() {
 
 }

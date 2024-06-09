@@ -851,3 +851,19 @@ message GetMessageForRetryReturnFunction{
     optional bool isEmpty = 1 [default=false];
     optional WAWebProtobufsE2E.Message Message = 2;
 }
+
+//chat_setting_store
+message LocalChatSettings {
+    required bool Found = 1;
+    required double MutedUntil = 2;
+    required bool Pinned = 3;
+    required bool Archived = 4;
+}
+// New Verision for Function
+message ReturnFunctionWithError {
+    optional string Error = 1;
+    oneof Return {
+        LocalChatSettings LocalChatSettings = 2;
+    }
+
+}

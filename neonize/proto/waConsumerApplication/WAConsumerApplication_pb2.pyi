@@ -20,11 +20,11 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class ConsumerApplication(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Payload(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -50,7 +50,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "applicationData",
                 b"applicationData",
                 "content",
@@ -65,7 +65,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "applicationData",
                 b"applicationData",
                 "content",
@@ -79,15 +79,12 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self, oneof_group: typing_extensions.Literal["payload", b"payload"]
+            self, oneof_group: typing.Literal["payload", b"payload"]
         ) -> (
-            typing_extensions.Literal[
-                "content", "applicationData", "signal", "subProtocol"
-            ]
-            | None
+            typing.Literal["content", "applicationData", "signal", "subProtocol"] | None
         ): ...
 
-    @typing_extensions.final
+    @typing.final
     class SubProtocolPayload(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -100,13 +97,13 @@ class ConsumerApplication(google.protobuf.message.Message):
             | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["futureProof", b"futureProof"]
+            self, field_name: typing.Literal["futureProof", b"futureProof"]
         ) -> builtins.bool: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["futureProof", b"futureProof"]
+            self, field_name: typing.Literal["futureProof", b"futureProof"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Metadata(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -141,19 +138,13 @@ class ConsumerApplication(google.protobuf.message.Message):
             | None = ...,
         ) -> None: ...
         def HasField(
-            self,
-            field_name: typing_extensions.Literal[
-                "specialTextSize", b"specialTextSize"
-            ],
+            self, field_name: typing.Literal["specialTextSize", b"specialTextSize"]
         ) -> builtins.bool: ...
         def ClearField(
-            self,
-            field_name: typing_extensions.Literal[
-                "specialTextSize", b"specialTextSize"
-            ],
+            self, field_name: typing.Literal["specialTextSize", b"specialTextSize"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Signal(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -161,7 +152,7 @@ class ConsumerApplication(google.protobuf.message.Message):
             self,
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class ApplicationData(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -175,24 +166,22 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "applicationContent", b"applicationContent", "revoke", b"revoke"
             ],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "applicationContent", b"applicationContent", "revoke", b"revoke"
             ],
         ) -> None: ...
         def WhichOneof(
             self,
-            oneof_group: typing_extensions.Literal[
-                "applicationContent", b"applicationContent"
-            ],
-        ) -> typing_extensions.Literal["revoke"] | None: ...
+            oneof_group: typing.Literal["applicationContent", b"applicationContent"],
+        ) -> typing.Literal["revoke"] | None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Content(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -295,7 +284,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "audioMessage",
                 b"audioMessage",
                 "contactMessage",
@@ -338,7 +327,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "audioMessage",
                 b"audioMessage",
                 "contactMessage",
@@ -380,9 +369,9 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self, oneof_group: typing_extensions.Literal["content", b"content"]
+            self, oneof_group: typing.Literal["content", b"content"]
         ) -> (
-            typing_extensions.Literal[
+            typing.Literal[
                 "messageText",
                 "imageMessage",
                 "contactMessage",
@@ -405,18 +394,18 @@ class ConsumerApplication(google.protobuf.message.Message):
             | None
         ): ...
 
-    @typing_extensions.final
+    @typing.final
     class EditMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         KEY_FIELD_NUMBER: builtins.int
         MESSAGE_FIELD_NUMBER: builtins.int
         TIMESTAMPMS_FIELD_NUMBER: builtins.int
+        timestampMS: builtins.int
         @property
         def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
         @property
         def message(self) -> waCommon.WACommon_pb2.MessageText: ...
-        timestampMS: builtins.int
         def __init__(
             self,
             *,
@@ -426,18 +415,18 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "key", b"key", "message", b"message", "timestampMS", b"timestampMS"
             ],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "key", b"key", "message", b"message", "timestampMS", b"timestampMS"
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class PollAddOptionMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -455,22 +444,22 @@ class ConsumerApplication(google.protobuf.message.Message):
             | None = ...,
         ) -> None: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["pollOption", b"pollOption"]
+            self, field_name: typing.Literal["pollOption", b"pollOption"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class PollVoteMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         SELECTEDOPTIONS_FIELD_NUMBER: builtins.int
         SENDERTIMESTAMPMS_FIELD_NUMBER: builtins.int
+        senderTimestampMS: builtins.int
         @property
         def selectedOptions(
             self,
         ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
             builtins.bytes
         ]: ...
-        senderTimestampMS: builtins.int
         def __init__(
             self,
             *,
@@ -478,14 +467,11 @@ class ConsumerApplication(google.protobuf.message.Message):
             senderTimestampMS: builtins.int | None = ...,
         ) -> None: ...
         def HasField(
-            self,
-            field_name: typing_extensions.Literal[
-                "senderTimestampMS", b"senderTimestampMS"
-            ],
+            self, field_name: typing.Literal["senderTimestampMS", b"senderTimestampMS"]
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "selectedOptions",
                 b"selectedOptions",
                 "senderTimestampMS",
@@ -493,7 +479,7 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class PollEncValue(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -509,18 +495,14 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
-                "encIV", b"encIV", "encPayload", b"encPayload"
-            ],
+            field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
-                "encIV", b"encIV", "encPayload", b"encPayload"
-            ],
+            field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class PollUpdateMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -542,7 +524,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "addOption",
                 b"addOption",
                 "pollCreationMessageKey",
@@ -553,7 +535,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "addOption",
                 b"addOption",
                 "pollCreationMessageKey",
@@ -563,7 +545,7 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class PollCreationMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -573,13 +555,13 @@ class ConsumerApplication(google.protobuf.message.Message):
         SELECTABLEOPTIONSCOUNT_FIELD_NUMBER: builtins.int
         encKey: builtins.bytes
         name: builtins.str
+        selectableOptionsCount: builtins.int
         @property
         def options(
             self,
         ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
             global___ConsumerApplication.Option
         ]: ...
-        selectableOptionsCount: builtins.int
         def __init__(
             self,
             *,
@@ -591,7 +573,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "encKey",
                 b"encKey",
                 "name",
@@ -602,7 +584,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "encKey",
                 b"encKey",
                 "name",
@@ -614,7 +596,7 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Option(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -626,13 +608,13 @@ class ConsumerApplication(google.protobuf.message.Message):
             optionName: builtins.str | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["optionName", b"optionName"]
+            self, field_name: typing.Literal["optionName", b"optionName"]
         ) -> builtins.bool: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["optionName", b"optionName"]
+            self, field_name: typing.Literal["optionName", b"optionName"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class ReactionMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -642,13 +624,13 @@ class ConsumerApplication(google.protobuf.message.Message):
         SENDERTIMESTAMPMS_FIELD_NUMBER: builtins.int
         REACTIONMETADATADATACLASSDATA_FIELD_NUMBER: builtins.int
         STYLE_FIELD_NUMBER: builtins.int
-        @property
-        def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
         text: builtins.str
         groupingKey: builtins.str
         senderTimestampMS: builtins.int
         reactionMetadataDataclassData: builtins.str
         style: builtins.int
+        @property
+        def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
         def __init__(
             self,
             *,
@@ -661,7 +643,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "groupingKey",
                 b"groupingKey",
                 "key",
@@ -678,7 +660,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "groupingKey",
                 b"groupingKey",
                 "key",
@@ -694,7 +676,7 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class RevokeMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -707,13 +689,11 @@ class ConsumerApplication(google.protobuf.message.Message):
             key: waCommon.WACommon_pb2.MessageKey | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["key", b"key"]
+            self, field_name: typing.Literal["key", b"key"]
         ) -> builtins.bool: ...
-        def ClearField(
-            self, field_name: typing_extensions.Literal["key", b"key"]
-        ) -> None: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key"]) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class ViewOnceMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -731,7 +711,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "imageMessage",
                 b"imageMessage",
                 "videoMessage",
@@ -742,7 +722,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "imageMessage",
                 b"imageMessage",
                 "videoMessage",
@@ -752,13 +732,10 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self,
-            oneof_group: typing_extensions.Literal[
-                "viewOnceContent", b"viewOnceContent"
-            ],
-        ) -> typing_extensions.Literal["imageMessage", "videoMessage"] | None: ...
+            self, oneof_group: typing.Literal["viewOnceContent", b"viewOnceContent"]
+        ) -> typing.Literal["imageMessage", "videoMessage"] | None: ...
 
-    @typing_extensions.final
+    @typing.final
     class GroupInviteMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -787,7 +764,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "JPEGThumbnail",
                 b"JPEGThumbnail",
                 "caption",
@@ -804,7 +781,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "JPEGThumbnail",
                 b"JPEGThumbnail",
                 "caption",
@@ -820,7 +797,7 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class LiveLocationMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -831,15 +808,15 @@ class ConsumerApplication(google.protobuf.message.Message):
         CAPTION_FIELD_NUMBER: builtins.int
         SEQUENCENUMBER_FIELD_NUMBER: builtins.int
         TIMEOFFSET_FIELD_NUMBER: builtins.int
-        @property
-        def location(self) -> global___ConsumerApplication.Location: ...
         accuracyInMeters: builtins.int
         speedInMps: builtins.float
         degreesClockwiseFromMagneticNorth: builtins.int
-        @property
-        def caption(self) -> waCommon.WACommon_pb2.MessageText: ...
         sequenceNumber: builtins.int
         timeOffset: builtins.int
+        @property
+        def location(self) -> global___ConsumerApplication.Location: ...
+        @property
+        def caption(self) -> waCommon.WACommon_pb2.MessageText: ...
         def __init__(
             self,
             *,
@@ -853,7 +830,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "accuracyInMeters",
                 b"accuracyInMeters",
                 "caption",
@@ -872,7 +849,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "accuracyInMeters",
                 b"accuracyInMeters",
                 "caption",
@@ -890,7 +867,7 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class ContactsArrayMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -913,16 +890,16 @@ class ConsumerApplication(google.protobuf.message.Message):
             | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["displayName", b"displayName"]
+            self, field_name: typing.Literal["displayName", b"displayName"]
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "contacts", b"contacts", "displayName", b"displayName"
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class ContactMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -935,13 +912,13 @@ class ConsumerApplication(google.protobuf.message.Message):
             contact: waCommon.WACommon_pb2.SubProtocol | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["contact", b"contact"]
+            self, field_name: typing.Literal["contact", b"contact"]
         ) -> builtins.bool: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["contact", b"contact"]
+            self, field_name: typing.Literal["contact", b"contact"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class StatusTextMesage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -979,11 +956,11 @@ class ConsumerApplication(google.protobuf.message.Message):
         TEXTARGB_FIELD_NUMBER: builtins.int
         BACKGROUNDARGB_FIELD_NUMBER: builtins.int
         FONT_FIELD_NUMBER: builtins.int
-        @property
-        def text(self) -> global___ConsumerApplication.ExtendedTextMessage: ...
         textArgb: builtins.int
         backgroundArgb: builtins.int
         font: global___ConsumerApplication.StatusTextMesage.FontType.ValueType
+        @property
+        def text(self) -> global___ConsumerApplication.ExtendedTextMessage: ...
         def __init__(
             self,
             *,
@@ -995,7 +972,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "backgroundArgb",
                 b"backgroundArgb",
                 "font",
@@ -1008,7 +985,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "backgroundArgb",
                 b"backgroundArgb",
                 "font",
@@ -1020,7 +997,7 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class ExtendedTextMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1049,17 +1026,17 @@ class ConsumerApplication(google.protobuf.message.Message):
         TITLE_FIELD_NUMBER: builtins.int
         THUMBNAIL_FIELD_NUMBER: builtins.int
         PREVIEWTYPE_FIELD_NUMBER: builtins.int
-        @property
-        def text(self) -> waCommon.WACommon_pb2.MessageText: ...
         matchedText: builtins.str
         canonicalURL: builtins.str
         description: builtins.str
         title: builtins.str
-        @property
-        def thumbnail(self) -> waCommon.WACommon_pb2.SubProtocol: ...
         previewType: (
             global___ConsumerApplication.ExtendedTextMessage.PreviewType.ValueType
         )
+        @property
+        def text(self) -> waCommon.WACommon_pb2.MessageText: ...
+        @property
+        def thumbnail(self) -> waCommon.WACommon_pb2.SubProtocol: ...
         def __init__(
             self,
             *,
@@ -1074,7 +1051,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "canonicalURL",
                 b"canonicalURL",
                 "description",
@@ -1093,7 +1070,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "canonicalURL",
                 b"canonicalURL",
                 "description",
@@ -1111,15 +1088,15 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class LocationMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         LOCATION_FIELD_NUMBER: builtins.int
         ADDRESS_FIELD_NUMBER: builtins.int
+        address: builtins.str
         @property
         def location(self) -> global___ConsumerApplication.Location: ...
-        address: builtins.str
         def __init__(
             self,
             *,
@@ -1128,18 +1105,14 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
-                "address", b"address", "location", b"location"
-            ],
+            field_name: typing.Literal["address", b"address", "location", b"location"],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
-                "address", b"address", "location", b"location"
-            ],
+            field_name: typing.Literal["address", b"address", "location", b"location"],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class StickerMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1152,21 +1125,21 @@ class ConsumerApplication(google.protobuf.message.Message):
             sticker: waCommon.WACommon_pb2.SubProtocol | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["sticker", b"sticker"]
+            self, field_name: typing.Literal["sticker", b"sticker"]
         ) -> builtins.bool: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["sticker", b"sticker"]
+            self, field_name: typing.Literal["sticker", b"sticker"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class DocumentMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         DOCUMENT_FIELD_NUMBER: builtins.int
         FILENAME_FIELD_NUMBER: builtins.int
+        fileName: builtins.str
         @property
         def document(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-        fileName: builtins.str
         def __init__(
             self,
             *,
@@ -1175,18 +1148,18 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "document", b"document", "fileName", b"fileName"
             ],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "document", b"document", "fileName", b"fileName"
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class VideoMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1203,27 +1176,21 @@ class ConsumerApplication(google.protobuf.message.Message):
             caption: waCommon.WACommon_pb2.MessageText | None = ...,
         ) -> None: ...
         def HasField(
-            self,
-            field_name: typing_extensions.Literal[
-                "caption", b"caption", "video", b"video"
-            ],
+            self, field_name: typing.Literal["caption", b"caption", "video", b"video"]
         ) -> builtins.bool: ...
         def ClearField(
-            self,
-            field_name: typing_extensions.Literal[
-                "caption", b"caption", "video", b"video"
-            ],
+            self, field_name: typing.Literal["caption", b"caption", "video", b"video"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class AudioMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         AUDIO_FIELD_NUMBER: builtins.int
         PTT_FIELD_NUMBER: builtins.int
+        PTT: builtins.bool
         @property
         def audio(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-        PTT: builtins.bool
         def __init__(
             self,
             *,
@@ -1231,15 +1198,13 @@ class ConsumerApplication(google.protobuf.message.Message):
             PTT: builtins.bool | None = ...,
         ) -> None: ...
         def HasField(
-            self,
-            field_name: typing_extensions.Literal["PTT", b"PTT", "audio", b"audio"],
+            self, field_name: typing.Literal["PTT", b"PTT", "audio", b"audio"]
         ) -> builtins.bool: ...
         def ClearField(
-            self,
-            field_name: typing_extensions.Literal["PTT", b"PTT", "audio", b"audio"],
+            self, field_name: typing.Literal["PTT", b"PTT", "audio", b"audio"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class ImageMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1256,19 +1221,13 @@ class ConsumerApplication(google.protobuf.message.Message):
             caption: waCommon.WACommon_pb2.MessageText | None = ...,
         ) -> None: ...
         def HasField(
-            self,
-            field_name: typing_extensions.Literal[
-                "caption", b"caption", "image", b"image"
-            ],
+            self, field_name: typing.Literal["caption", b"caption", "image", b"image"]
         ) -> builtins.bool: ...
         def ClearField(
-            self,
-            field_name: typing_extensions.Literal[
-                "caption", b"caption", "image", b"image"
-            ],
+            self, field_name: typing.Literal["caption", b"caption", "image", b"image"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class InteractiveAnnotation(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1293,13 +1252,11 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
-                "action", b"action", "location", b"location"
-            ],
+            field_name: typing.Literal["action", b"action", "location", b"location"],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "action",
                 b"action",
                 "location",
@@ -1309,10 +1266,10 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self, oneof_group: typing_extensions.Literal["action", b"action"]
-        ) -> typing_extensions.Literal["location"] | None: ...
+            self, oneof_group: typing.Literal["action", b"action"]
+        ) -> typing.Literal["location"] | None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Point(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1327,13 +1284,13 @@ class ConsumerApplication(google.protobuf.message.Message):
             y: builtins.float | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["x", b"x", "y", b"y"]
+            self, field_name: typing.Literal["x", b"x", "y", b"y"]
         ) -> builtins.bool: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["x", b"x", "y", b"y"]
+            self, field_name: typing.Literal["x", b"x", "y", b"y"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Location(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1352,7 +1309,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "degreesLatitude",
                 b"degreesLatitude",
                 "degreesLongitude",
@@ -1363,7 +1320,7 @@ class ConsumerApplication(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "degreesLatitude",
                 b"degreesLatitude",
                 "degreesLongitude",
@@ -1373,7 +1330,7 @@ class ConsumerApplication(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class MediaPayload(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1386,10 +1343,10 @@ class ConsumerApplication(google.protobuf.message.Message):
             protocol: waCommon.WACommon_pb2.SubProtocol | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["protocol", b"protocol"]
+            self, field_name: typing.Literal["protocol", b"protocol"]
         ) -> builtins.bool: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["protocol", b"protocol"]
+            self, field_name: typing.Literal["protocol", b"protocol"]
         ) -> None: ...
 
     PAYLOAD_FIELD_NUMBER: builtins.int
@@ -1405,16 +1362,10 @@ class ConsumerApplication(google.protobuf.message.Message):
         metadata: global___ConsumerApplication.Metadata | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal[
-            "metadata", b"metadata", "payload", b"payload"
-        ],
+        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "metadata", b"metadata", "payload", b"payload"
-        ],
+        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
     ) -> None: ...
 
 global___ConsumerApplication = ConsumerApplication

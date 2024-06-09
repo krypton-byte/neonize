@@ -6,24 +6,19 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
-import sys
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
+import typing
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class BackupMessage(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Metadata(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        @typing_extensions.final
+        @typing.final
         class FrankingMetadata(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -39,13 +34,13 @@ class BackupMessage(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "frankingTag", b"frankingTag", "reportingTag", b"reportingTag"
                 ],
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "frankingTag", b"frankingTag", "reportingTag", b"reportingTag"
                 ],
             ) -> None: ...
@@ -59,12 +54,12 @@ class BackupMessage(google.protobuf.message.Message):
         senderID: builtins.str
         messageID: builtins.str
         timestampMS: builtins.int
+        payloadVersion: builtins.int
+        futureProofBehavior: builtins.int
         @property
         def frankingMetadata(
             self,
         ) -> global___BackupMessage.Metadata.FrankingMetadata: ...
-        payloadVersion: builtins.int
-        futureProofBehavior: builtins.int
         def __init__(
             self,
             *,
@@ -78,7 +73,7 @@ class BackupMessage(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "frankingMetadata",
                 b"frankingMetadata",
                 "futureProofBehavior",
@@ -95,7 +90,7 @@ class BackupMessage(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "frankingMetadata",
                 b"frankingMetadata",
                 "futureProofBehavior",
@@ -113,9 +108,9 @@ class BackupMessage(google.protobuf.message.Message):
 
     METADATA_FIELD_NUMBER: builtins.int
     PAYLOAD_FIELD_NUMBER: builtins.int
+    payload: builtins.bytes
     @property
     def metadata(self) -> global___BackupMessage.Metadata: ...
-    payload: builtins.bytes
     def __init__(
         self,
         *,
@@ -123,16 +118,10 @@ class BackupMessage(google.protobuf.message.Message):
         payload: builtins.bytes | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal[
-            "metadata", b"metadata", "payload", b"payload"
-        ],
+        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "metadata", b"metadata", "payload", b"payload"
-        ],
+        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
     ) -> None: ...
 
 global___BackupMessage = BackupMessage

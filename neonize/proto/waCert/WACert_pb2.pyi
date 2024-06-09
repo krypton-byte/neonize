@@ -6,20 +6,15 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
-import sys
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
+import typing
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class NoiseCertificate(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Details(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -44,7 +39,7 @@ class NoiseCertificate(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "expires",
                 b"expires",
                 "issuer",
@@ -59,7 +54,7 @@ class NoiseCertificate(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "expires",
                 b"expires",
                 "issuer",
@@ -85,28 +80,24 @@ class NoiseCertificate(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "details", b"details", "signature", b"signature"
-        ],
+        field_name: typing.Literal["details", b"details", "signature", b"signature"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "details", b"details", "signature", b"signature"
-        ],
+        field_name: typing.Literal["details", b"details", "signature", b"signature"],
     ) -> None: ...
 
 global___NoiseCertificate = NoiseCertificate
 
-@typing_extensions.final
+@typing.final
 class CertChain(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class NoiseCertificate(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        @typing_extensions.final
+        @typing.final
         class Details(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -131,7 +122,7 @@ class CertChain(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "issuerSerial",
                     b"issuerSerial",
                     "key",
@@ -146,7 +137,7 @@ class CertChain(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "issuerSerial",
                     b"issuerSerial",
                     "key",
@@ -172,13 +163,13 @@ class CertChain(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "details", b"details", "signature", b"signature"
             ],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "details", b"details", "signature", b"signature"
             ],
         ) -> None: ...
@@ -197,15 +188,11 @@ class CertChain(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "intermediate", b"intermediate", "leaf", b"leaf"
-        ],
+        field_name: typing.Literal["intermediate", b"intermediate", "leaf", b"leaf"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "intermediate", b"intermediate", "leaf", b"leaf"
-        ],
+        field_name: typing.Literal["intermediate", b"intermediate", "leaf", b"leaf"],
     ) -> None: ...
 
 global___CertChain = CertChain

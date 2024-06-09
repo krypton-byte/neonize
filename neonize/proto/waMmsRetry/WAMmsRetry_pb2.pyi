@@ -17,7 +17,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class MediaRetryNotification(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -58,20 +58,20 @@ class MediaRetryNotification(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "directPath", b"directPath", "result", b"result", "stanzaID", b"stanzaID"
         ],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "directPath", b"directPath", "result", b"result", "stanzaID", b"stanzaID"
         ],
     ) -> None: ...
 
 global___MediaRetryNotification = MediaRetryNotification
 
-@typing_extensions.final
+@typing.final
 class ServerErrorReceipt(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -83,10 +83,10 @@ class ServerErrorReceipt(google.protobuf.message.Message):
         stanzaID: builtins.str | None = ...,
     ) -> None: ...
     def HasField(
-        self, field_name: typing_extensions.Literal["stanzaID", b"stanzaID"]
+        self, field_name: typing.Literal["stanzaID", b"stanzaID"]
     ) -> builtins.bool: ...
     def ClearField(
-        self, field_name: typing_extensions.Literal["stanzaID", b"stanzaID"]
+        self, field_name: typing.Literal["stanzaID", b"stanzaID"]
     ) -> None: ...
 
 global___ServerErrorReceipt = ServerErrorReceipt

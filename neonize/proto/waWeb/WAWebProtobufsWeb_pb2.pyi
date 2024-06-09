@@ -21,7 +21,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class WebMessageInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -674,10 +674,6 @@ class WebMessageInfo(google.protobuf.message.Message):
     STATUSMENTIONS_FIELD_NUMBER: builtins.int
     TARGETMESSAGEID_FIELD_NUMBER: builtins.int
     MESSAGEADDONS_FIELD_NUMBER: builtins.int
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
-    @property
-    def message(self) -> waE2E.WAWebProtobufsE2E_pb2.Message: ...
     messageTimestamp: builtins.int
     status: global___WebMessageInfo.Status.ValueType
     participant: builtins.str
@@ -692,13 +688,34 @@ class WebMessageInfo(google.protobuf.message.Message):
     urlNumber: builtins.bool
     messageStubType: global___WebMessageInfo.StubType.ValueType
     clearMedia: builtins.bool
+    duration: builtins.int
+    ephemeralStartTimestamp: builtins.int
+    ephemeralDuration: builtins.int
+    ephemeralOffToOn: builtins.bool
+    ephemeralOutOfSync: builtins.bool
+    bizPrivacyStatus: global___WebMessageInfo.BizPrivacyStatus.ValueType
+    verifiedBizName: builtins.str
+    futureproofData: builtins.bytes
+    agentID: builtins.str
+    statusAlreadyViewed: builtins.bool
+    messageSecret: builtins.bytes
+    originalSelfAuthorUserJIDString: builtins.str
+    revokeMessageTimestamp: builtins.int
+    is1PBizBotMessage: builtins.bool
+    isGroupHistoryMessage: builtins.bool
+    botMessageInvokerJID: builtins.str
+    newsletterServerID: builtins.int
+    isMentionedInStatus: builtins.bool
+    @property
+    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    @property
+    def message(self) -> waE2E.WAWebProtobufsE2E_pb2.Message: ...
     @property
     def messageStubParameters(
         self,
     ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
         builtins.str
     ]: ...
-    duration: builtins.int
     @property
     def labels(
         self,
@@ -711,12 +728,6 @@ class WebMessageInfo(google.protobuf.message.Message):
     def finalLiveLocation(self) -> waE2E.WAWebProtobufsE2E_pb2.LiveLocationMessage: ...
     @property
     def quotedPaymentInfo(self) -> global___PaymentInfo: ...
-    ephemeralStartTimestamp: builtins.int
-    ephemeralDuration: builtins.int
-    ephemeralOffToOn: builtins.bool
-    ephemeralOutOfSync: builtins.bool
-    bizPrivacyStatus: global___WebMessageInfo.BizPrivacyStatus.ValueType
-    verifiedBizName: builtins.str
     @property
     def mediaData(self) -> global___MediaData: ...
     @property
@@ -735,7 +746,6 @@ class WebMessageInfo(google.protobuf.message.Message):
     ]: ...
     @property
     def quotedStickerData(self) -> global___MediaData: ...
-    futureproofData: builtins.bytes
     @property
     def statusPsa(self) -> global___StatusPSA: ...
     @property
@@ -746,20 +756,12 @@ class WebMessageInfo(google.protobuf.message.Message):
     ]: ...
     @property
     def pollAdditionalMetadata(self) -> global___PollAdditionalMetadata: ...
-    agentID: builtins.str
-    statusAlreadyViewed: builtins.bool
-    messageSecret: builtins.bytes
     @property
     def keepInChat(self) -> global___KeepInChat: ...
-    originalSelfAuthorUserJIDString: builtins.str
-    revokeMessageTimestamp: builtins.int
     @property
     def pinInChat(self) -> global___PinInChat: ...
     @property
     def premiumMessageInfo(self) -> global___PremiumMessageInfo: ...
-    is1PBizBotMessage: builtins.bool
-    isGroupHistoryMessage: builtins.bool
-    botMessageInvokerJID: builtins.str
     @property
     def commentMetadata(self) -> global___CommentMetadata: ...
     @property
@@ -770,10 +772,8 @@ class WebMessageInfo(google.protobuf.message.Message):
     ]: ...
     @property
     def reportingTokenInfo(self) -> global___ReportingTokenInfo: ...
-    newsletterServerID: builtins.int
     @property
     def eventAdditionalMetadata(self) -> global___EventAdditionalMetadata: ...
-    isMentionedInStatus: builtins.bool
     @property
     def statusMentions(
         self,
@@ -852,7 +852,7 @@ class WebMessageInfo(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "agentID",
             b"agentID",
             "bizPrivacyStatus",
@@ -955,7 +955,7 @@ class WebMessageInfo(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "agentID",
             b"agentID",
             "bizPrivacyStatus",
@@ -1075,7 +1075,7 @@ class WebMessageInfo(google.protobuf.message.Message):
 
 global___WebMessageInfo = WebMessageInfo
 
-@typing_extensions.final
+@typing.final
 class PaymentInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1231,13 +1231,13 @@ class PaymentInfo(google.protobuf.message.Message):
     receiverJID: builtins.str
     status: global___PaymentInfo.Status.ValueType
     transactionTimestamp: builtins.int
-    @property
-    def requestMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
     expiryTimestamp: builtins.int
     futureproofed: builtins.bool
     currency: builtins.str
     txnStatus: global___PaymentInfo.TxnStatus.ValueType
     useNoviFiatFormat: builtins.bool
+    @property
+    def requestMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
     @property
     def primaryAmount(self) -> waE2E.WAWebProtobufsE2E_pb2.Money: ...
     @property
@@ -1261,7 +1261,7 @@ class PaymentInfo(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "amount1000",
             b"amount1000",
             "currency",
@@ -1292,7 +1292,7 @@ class PaymentInfo(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "amount1000",
             b"amount1000",
             "currency",
@@ -1324,7 +1324,7 @@ class PaymentInfo(google.protobuf.message.Message):
 
 global___PaymentInfo = PaymentInfo
 
-@typing_extensions.final
+@typing.final
 class WebFeatures(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1491,7 +1491,7 @@ class WebFeatures(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "archiveV2",
             b"archiveV2",
             "catalog",
@@ -1586,7 +1586,7 @@ class WebFeatures(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "archiveV2",
             b"archiveV2",
             "catalog",
@@ -1682,7 +1682,7 @@ class WebFeatures(google.protobuf.message.Message):
 
 global___WebFeatures = WebFeatures
 
-@typing_extensions.final
+@typing.final
 class PinInChat(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1712,10 +1712,10 @@ class PinInChat(google.protobuf.message.Message):
     SERVERTIMESTAMPMS_FIELD_NUMBER: builtins.int
     MESSAGEADDONCONTEXTINFO_FIELD_NUMBER: builtins.int
     type: global___PinInChat.Type.ValueType
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
     senderTimestampMS: builtins.int
     serverTimestampMS: builtins.int
+    @property
+    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
     @property
     def messageAddOnContextInfo(self) -> global___MessageAddOnContextInfo: ...
     def __init__(
@@ -1729,7 +1729,7 @@ class PinInChat(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "key",
             b"key",
             "messageAddOnContextInfo",
@@ -1744,7 +1744,7 @@ class PinInChat(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "key",
             b"key",
             "messageAddOnContextInfo",
@@ -1760,7 +1760,7 @@ class PinInChat(google.protobuf.message.Message):
 
 global___PinInChat = PinInChat
 
-@typing_extensions.final
+@typing.final
 class MessageAddOn(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1797,11 +1797,11 @@ class MessageAddOn(google.protobuf.message.Message):
     STATUS_FIELD_NUMBER: builtins.int
     ADDONCONTEXTINFO_FIELD_NUMBER: builtins.int
     messageAddOnType: global___MessageAddOn.MessageAddOnType.ValueType
-    @property
-    def messageAddOn(self) -> waE2E.WAWebProtobufsE2E_pb2.Message: ...
     senderTimestampMS: builtins.int
     serverTimestampMS: builtins.int
     status: global___WebMessageInfo.Status.ValueType
+    @property
+    def messageAddOn(self) -> waE2E.WAWebProtobufsE2E_pb2.Message: ...
     @property
     def addOnContextInfo(self) -> global___MessageAddOnContextInfo: ...
     def __init__(
@@ -1816,7 +1816,7 @@ class MessageAddOn(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "addOnContextInfo",
             b"addOnContextInfo",
             "messageAddOn",
@@ -1833,7 +1833,7 @@ class MessageAddOn(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "addOnContextInfo",
             b"addOnContextInfo",
             "messageAddOn",
@@ -1851,15 +1851,15 @@ class MessageAddOn(google.protobuf.message.Message):
 
 global___MessageAddOn = MessageAddOn
 
-@typing_extensions.final
+@typing.final
 class CommentMetadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     COMMENTPARENTKEY_FIELD_NUMBER: builtins.int
     REPLYCOUNT_FIELD_NUMBER: builtins.int
+    replyCount: builtins.int
     @property
     def commentParentKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
-    replyCount: builtins.int
     def __init__(
         self,
         *,
@@ -1868,20 +1868,20 @@ class CommentMetadata(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "commentParentKey", b"commentParentKey", "replyCount", b"replyCount"
         ],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "commentParentKey", b"commentParentKey", "replyCount", b"replyCount"
         ],
     ) -> None: ...
 
 global___CommentMetadata = CommentMetadata
 
-@typing_extensions.final
+@typing.final
 class WebNotificationsInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1908,7 +1908,7 @@ class WebNotificationsInfo(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "notifyMessageCount",
             b"notifyMessageCount",
             "timestamp",
@@ -1919,7 +1919,7 @@ class WebNotificationsInfo(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "notifyMessageCount",
             b"notifyMessageCount",
             "notifyMessages",
@@ -1933,7 +1933,7 @@ class WebNotificationsInfo(google.protobuf.message.Message):
 
 global___WebNotificationsInfo = WebNotificationsInfo
 
-@typing_extensions.final
+@typing.final
 class NotificationMessageInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1941,12 +1941,12 @@ class NotificationMessageInfo(google.protobuf.message.Message):
     MESSAGE_FIELD_NUMBER: builtins.int
     MESSAGETIMESTAMP_FIELD_NUMBER: builtins.int
     PARTICIPANT_FIELD_NUMBER: builtins.int
+    messageTimestamp: builtins.int
+    participant: builtins.str
     @property
     def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
     @property
     def message(self) -> waE2E.WAWebProtobufsE2E_pb2.Message: ...
-    messageTimestamp: builtins.int
-    participant: builtins.str
     def __init__(
         self,
         *,
@@ -1957,7 +1957,7 @@ class NotificationMessageInfo(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "key",
             b"key",
             "message",
@@ -1970,7 +1970,7 @@ class NotificationMessageInfo(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "key",
             b"key",
             "message",
@@ -1984,7 +1984,7 @@ class NotificationMessageInfo(google.protobuf.message.Message):
 
 global___NotificationMessageInfo = NotificationMessageInfo
 
-@typing_extensions.final
+@typing.final
 class ReportingTokenInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1996,15 +1996,15 @@ class ReportingTokenInfo(google.protobuf.message.Message):
         reportingTag: builtins.bytes | None = ...,
     ) -> None: ...
     def HasField(
-        self, field_name: typing_extensions.Literal["reportingTag", b"reportingTag"]
+        self, field_name: typing.Literal["reportingTag", b"reportingTag"]
     ) -> builtins.bool: ...
     def ClearField(
-        self, field_name: typing_extensions.Literal["reportingTag", b"reportingTag"]
+        self, field_name: typing.Literal["reportingTag", b"reportingTag"]
     ) -> None: ...
 
 global___ReportingTokenInfo = ReportingTokenInfo
 
-@typing_extensions.final
+@typing.final
 class MediaData(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2016,15 +2016,15 @@ class MediaData(google.protobuf.message.Message):
         localPath: builtins.str | None = ...,
     ) -> None: ...
     def HasField(
-        self, field_name: typing_extensions.Literal["localPath", b"localPath"]
+        self, field_name: typing.Literal["localPath", b"localPath"]
     ) -> builtins.bool: ...
     def ClearField(
-        self, field_name: typing_extensions.Literal["localPath", b"localPath"]
+        self, field_name: typing.Literal["localPath", b"localPath"]
     ) -> None: ...
 
 global___MediaData = MediaData
 
-@typing_extensions.final
+@typing.final
 class PhotoChange(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2043,7 +2043,7 @@ class PhotoChange(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "newPhoto",
             b"newPhoto",
             "newPhotoID",
@@ -2054,7 +2054,7 @@ class PhotoChange(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "newPhoto",
             b"newPhoto",
             "newPhotoID",
@@ -2066,7 +2066,7 @@ class PhotoChange(google.protobuf.message.Message):
 
 global___PhotoChange = PhotoChange
 
-@typing_extensions.final
+@typing.final
 class StatusPSA(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2082,7 +2082,7 @@ class StatusPSA(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "campaignExpirationTimestamp",
             b"campaignExpirationTimestamp",
             "campaignID",
@@ -2091,7 +2091,7 @@ class StatusPSA(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "campaignExpirationTimestamp",
             b"campaignExpirationTimestamp",
             "campaignID",
@@ -2101,7 +2101,7 @@ class StatusPSA(google.protobuf.message.Message):
 
 global___StatusPSA = StatusPSA
 
-@typing_extensions.final
+@typing.final
 class UserReceipt(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2139,7 +2139,7 @@ class UserReceipt(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "playedTimestamp",
             b"playedTimestamp",
             "readTimestamp",
@@ -2152,7 +2152,7 @@ class UserReceipt(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "deliveredDeviceJID",
             b"deliveredDeviceJID",
             "pendingDeviceJID",
@@ -2170,7 +2170,7 @@ class UserReceipt(google.protobuf.message.Message):
 
 global___UserReceipt = UserReceipt
 
-@typing_extensions.final
+@typing.final
 class Reaction(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2179,12 +2179,12 @@ class Reaction(google.protobuf.message.Message):
     GROUPINGKEY_FIELD_NUMBER: builtins.int
     SENDERTIMESTAMPMS_FIELD_NUMBER: builtins.int
     UNREAD_FIELD_NUMBER: builtins.int
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
     text: builtins.str
     groupingKey: builtins.str
     senderTimestampMS: builtins.int
     unread: builtins.bool
+    @property
+    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
@@ -2196,7 +2196,7 @@ class Reaction(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "groupingKey",
             b"groupingKey",
             "key",
@@ -2211,7 +2211,7 @@ class Reaction(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "groupingKey",
             b"groupingKey",
             "key",
@@ -2227,7 +2227,7 @@ class Reaction(google.protobuf.message.Message):
 
 global___Reaction = Reaction
 
-@typing_extensions.final
+@typing.final
 class PollUpdate(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2236,13 +2236,13 @@ class PollUpdate(google.protobuf.message.Message):
     SENDERTIMESTAMPMS_FIELD_NUMBER: builtins.int
     SERVERTIMESTAMPMS_FIELD_NUMBER: builtins.int
     UNREAD_FIELD_NUMBER: builtins.int
+    senderTimestampMS: builtins.int
+    serverTimestampMS: builtins.int
+    unread: builtins.bool
     @property
     def pollUpdateMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
     @property
     def vote(self) -> waE2E.WAWebProtobufsE2E_pb2.PollVoteMessage: ...
-    senderTimestampMS: builtins.int
-    serverTimestampMS: builtins.int
-    unread: builtins.bool
     def __init__(
         self,
         *,
@@ -2254,7 +2254,7 @@ class PollUpdate(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "pollUpdateMessageKey",
             b"pollUpdateMessageKey",
             "senderTimestampMS",
@@ -2269,7 +2269,7 @@ class PollUpdate(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "pollUpdateMessageKey",
             b"pollUpdateMessageKey",
             "senderTimestampMS",
@@ -2285,7 +2285,7 @@ class PollUpdate(google.protobuf.message.Message):
 
 global___PollUpdate = PollUpdate
 
-@typing_extensions.final
+@typing.final
 class PollAdditionalMetadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2297,17 +2297,15 @@ class PollAdditionalMetadata(google.protobuf.message.Message):
         pollInvalidated: builtins.bool | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal["pollInvalidated", b"pollInvalidated"],
+        self, field_name: typing.Literal["pollInvalidated", b"pollInvalidated"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal["pollInvalidated", b"pollInvalidated"],
+        self, field_name: typing.Literal["pollInvalidated", b"pollInvalidated"]
     ) -> None: ...
 
 global___PollAdditionalMetadata = PollAdditionalMetadata
 
-@typing_extensions.final
+@typing.final
 class EventAdditionalMetadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2319,15 +2317,13 @@ class EventAdditionalMetadata(google.protobuf.message.Message):
         isStale: builtins.bool | None = ...,
     ) -> None: ...
     def HasField(
-        self, field_name: typing_extensions.Literal["isStale", b"isStale"]
+        self, field_name: typing.Literal["isStale", b"isStale"]
     ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing_extensions.Literal["isStale", b"isStale"]
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["isStale", b"isStale"]) -> None: ...
 
 global___EventAdditionalMetadata = EventAdditionalMetadata
 
-@typing_extensions.final
+@typing.final
 class KeepInChat(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2339,11 +2335,11 @@ class KeepInChat(google.protobuf.message.Message):
     SERVERTIMESTAMPMS_FIELD_NUMBER: builtins.int
     keepType: waE2E.WAWebProtobufsE2E_pb2.KeepType.ValueType
     serverTimestamp: builtins.int
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
     deviceJID: builtins.str
     clientTimestampMS: builtins.int
     serverTimestampMS: builtins.int
+    @property
+    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
@@ -2356,7 +2352,7 @@ class KeepInChat(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "clientTimestampMS",
             b"clientTimestampMS",
             "deviceJID",
@@ -2373,7 +2369,7 @@ class KeepInChat(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "clientTimestampMS",
             b"clientTimestampMS",
             "deviceJID",
@@ -2391,7 +2387,7 @@ class KeepInChat(google.protobuf.message.Message):
 
 global___KeepInChat = KeepInChat
 
-@typing_extensions.final
+@typing.final
 class MessageAddOnContextInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2410,7 +2406,7 @@ class MessageAddOnContextInfo(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "messageAddOnDurationInSecs",
             b"messageAddOnDurationInSecs",
             "messageAddOnExpiryType",
@@ -2419,7 +2415,7 @@ class MessageAddOnContextInfo(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "messageAddOnDurationInSecs",
             b"messageAddOnDurationInSecs",
             "messageAddOnExpiryType",
@@ -2429,7 +2425,7 @@ class MessageAddOnContextInfo(google.protobuf.message.Message):
 
 global___MessageAddOnContextInfo = MessageAddOnContextInfo
 
-@typing_extensions.final
+@typing.final
 class PremiumMessageInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2441,17 +2437,15 @@ class PremiumMessageInfo(google.protobuf.message.Message):
         serverCampaignID: builtins.str | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal["serverCampaignID", b"serverCampaignID"],
+        self, field_name: typing.Literal["serverCampaignID", b"serverCampaignID"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal["serverCampaignID", b"serverCampaignID"],
+        self, field_name: typing.Literal["serverCampaignID", b"serverCampaignID"]
     ) -> None: ...
 
 global___PremiumMessageInfo = PremiumMessageInfo
 
-@typing_extensions.final
+@typing.final
 class EventResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2459,14 +2453,14 @@ class EventResponse(google.protobuf.message.Message):
     TIMESTAMPMS_FIELD_NUMBER: builtins.int
     EVENTRESPONSEMESSAGE_FIELD_NUMBER: builtins.int
     UNREAD_FIELD_NUMBER: builtins.int
+    timestampMS: builtins.int
+    unread: builtins.bool
     @property
     def eventResponseMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
-    timestampMS: builtins.int
     @property
     def eventResponseMessage(
         self,
     ) -> waE2E.WAWebProtobufsE2E_pb2.EventResponseMessage: ...
-    unread: builtins.bool
     def __init__(
         self,
         *,
@@ -2478,7 +2472,7 @@ class EventResponse(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "eventResponseMessage",
             b"eventResponseMessage",
             "eventResponseMessageKey",
@@ -2491,7 +2485,7 @@ class EventResponse(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "eventResponseMessage",
             b"eventResponseMessage",
             "eventResponseMessageKey",

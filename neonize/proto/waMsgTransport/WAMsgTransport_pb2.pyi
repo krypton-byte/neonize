@@ -20,19 +20,19 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class MessageTransport(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Payload(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         APPLICATIONPAYLOAD_FIELD_NUMBER: builtins.int
         FUTUREPROOF_FIELD_NUMBER: builtins.int
+        futureProof: waCommon.WACommon_pb2.FutureProofBehavior.ValueType
         @property
         def applicationPayload(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-        futureProof: waCommon.WACommon_pb2.FutureProofBehavior.ValueType
         def __init__(
             self,
             *,
@@ -42,7 +42,7 @@ class MessageTransport(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "applicationPayload",
                 b"applicationPayload",
                 "futureProof",
@@ -51,7 +51,7 @@ class MessageTransport(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "applicationPayload",
                 b"applicationPayload",
                 "futureProof",
@@ -59,15 +59,15 @@ class MessageTransport(google.protobuf.message.Message):
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Protocol(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        @typing_extensions.final
+        @typing.final
         class Ancillary(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-            @typing_extensions.final
+            @typing.final
             class BackupDirective(google.protobuf.message.Message):
                 DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -109,7 +109,7 @@ class MessageTransport(google.protobuf.message.Message):
                 ) -> None: ...
                 def HasField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "actionType",
                         b"actionType",
                         "messageID",
@@ -120,7 +120,7 @@ class MessageTransport(google.protobuf.message.Message):
                 ) -> builtins.bool: ...
                 def ClearField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "actionType",
                         b"actionType",
                         "messageID",
@@ -130,11 +130,11 @@ class MessageTransport(google.protobuf.message.Message):
                     ],
                 ) -> None: ...
 
-            @typing_extensions.final
+            @typing.final
             class ICDCParticipantDevices(google.protobuf.message.Message):
                 DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-                @typing_extensions.final
+                @typing.final
                 class ICDCIdentityListDescription(google.protobuf.message.Message):
                     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -168,13 +168,13 @@ class MessageTransport(google.protobuf.message.Message):
                     ) -> None: ...
                     def HasField(
                         self,
-                        field_name: typing_extensions.Literal[
+                        field_name: typing.Literal[
                             "seq", b"seq", "signingDevice", b"signingDevice"
                         ],
                     ) -> builtins.bool: ...
                     def ClearField(
                         self,
-                        field_name: typing_extensions.Literal[
+                        field_name: typing.Literal[
                             "seq",
                             b"seq",
                             "signingDevice",
@@ -219,13 +219,11 @@ class MessageTransport(google.protobuf.message.Message):
                 ) -> None: ...
                 def HasField(
                     self,
-                    field_name: typing_extensions.Literal[
-                        "senderIdentity", b"senderIdentity"
-                    ],
+                    field_name: typing.Literal["senderIdentity", b"senderIdentity"],
                 ) -> builtins.bool: ...
                 def ClearField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "recipientIdentities",
                         b"recipientIdentities",
                         "recipientUserJIDs",
@@ -235,7 +233,7 @@ class MessageTransport(google.protobuf.message.Message):
                     ],
                 ) -> None: ...
 
-            @typing_extensions.final
+            @typing.final
             class SenderKeyDistributionMessage(google.protobuf.message.Message):
                 DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -251,7 +249,7 @@ class MessageTransport(google.protobuf.message.Message):
                 ) -> None: ...
                 def HasField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "axolotlSenderKeyDistributionMessage",
                         b"axolotlSenderKeyDistributionMessage",
                         "groupID",
@@ -260,7 +258,7 @@ class MessageTransport(google.protobuf.message.Message):
                 ) -> builtins.bool: ...
                 def ClearField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "axolotlSenderKeyDistributionMessage",
                         b"axolotlSenderKeyDistributionMessage",
                         "groupID",
@@ -301,7 +299,7 @@ class MessageTransport(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "backupDirective",
                     b"backupDirective",
                     "deviceListMetadata",
@@ -314,7 +312,7 @@ class MessageTransport(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "backupDirective",
                     b"backupDirective",
                     "deviceListMetadata",
@@ -326,11 +324,11 @@ class MessageTransport(google.protobuf.message.Message):
                 ],
             ) -> None: ...
 
-        @typing_extensions.final
+        @typing.final
         class Integral(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-            @typing_extensions.final
+            @typing.final
             class DeviceSentMessage(google.protobuf.message.Message):
                 DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -346,13 +344,13 @@ class MessageTransport(google.protobuf.message.Message):
                 ) -> None: ...
                 def HasField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "destinationJID", b"destinationJID", "phash", b"phash"
                     ],
                 ) -> builtins.bool: ...
                 def ClearField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "destinationJID", b"destinationJID", "phash", b"phash"
                     ],
                 ) -> None: ...
@@ -372,16 +370,10 @@ class MessageTransport(google.protobuf.message.Message):
                 | None = ...,
             ) -> None: ...
             def HasField(
-                self,
-                field_name: typing_extensions.Literal[
-                    "DSM", b"DSM", "padding", b"padding"
-                ],
+                self, field_name: typing.Literal["DSM", b"DSM", "padding", b"padding"]
             ) -> builtins.bool: ...
             def ClearField(
-                self,
-                field_name: typing_extensions.Literal[
-                    "DSM", b"DSM", "padding", b"padding"
-                ],
+                self, field_name: typing.Literal["DSM", b"DSM", "padding", b"padding"]
             ) -> None: ...
 
         INTEGRAL_FIELD_NUMBER: builtins.int
@@ -398,13 +390,13 @@ class MessageTransport(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "ancillary", b"ancillary", "integral", b"integral"
             ],
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "ancillary", b"ancillary", "integral", b"integral"
             ],
         ) -> None: ...
@@ -422,21 +414,15 @@ class MessageTransport(google.protobuf.message.Message):
         protocol: global___MessageTransport.Protocol | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal[
-            "payload", b"payload", "protocol", b"protocol"
-        ],
+        self, field_name: typing.Literal["payload", b"payload", "protocol", b"protocol"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "payload", b"payload", "protocol", b"protocol"
-        ],
+        self, field_name: typing.Literal["payload", b"payload", "protocol", b"protocol"]
     ) -> None: ...
 
 global___MessageTransport = MessageTransport
 
-@typing_extensions.final
+@typing.final
 class DeviceListMetadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -458,7 +444,7 @@ class DeviceListMetadata(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "recipientKeyHash",
             b"recipientKeyHash",
             "recipientTimestamp",
@@ -471,7 +457,7 @@ class DeviceListMetadata(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "recipientKeyHash",
             b"recipientKeyHash",
             "recipientTimestamp",

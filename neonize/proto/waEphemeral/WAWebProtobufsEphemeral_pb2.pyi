@@ -6,16 +6,11 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
-import sys
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
+import typing
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class EphemeralSetting(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -31,15 +26,11 @@ class EphemeralSetting(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
-            "duration", b"duration", "timestamp", b"timestamp"
-        ],
+        field_name: typing.Literal["duration", b"duration", "timestamp", b"timestamp"],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
-            "duration", b"duration", "timestamp", b"timestamp"
-        ],
+        field_name: typing.Literal["duration", b"duration", "timestamp", b"timestamp"],
     ) -> None: ...
 
 global___EphemeralSetting = EphemeralSetting

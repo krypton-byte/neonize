@@ -19,7 +19,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class BizAccountLinkInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -80,7 +80,7 @@ class BizAccountLinkInfo(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "accountType",
             b"accountType",
             "hostStorage",
@@ -95,7 +95,7 @@ class BizAccountLinkInfo(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "accountType",
             b"accountType",
             "hostStorage",
@@ -111,7 +111,7 @@ class BizAccountLinkInfo(google.protobuf.message.Message):
 
 global___BizAccountLinkInfo = BizAccountLinkInfo
 
-@typing_extensions.final
+@typing.final
 class BizIdentityInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -186,14 +186,14 @@ class BizIdentityInfo(google.protobuf.message.Message):
     PRIVACYMODETS_FIELD_NUMBER: builtins.int
     FEATURECONTROLS_FIELD_NUMBER: builtins.int
     vlevel: global___BizIdentityInfo.VerifiedLevelValue.ValueType
-    @property
-    def vnameCert(self) -> global___VerifiedNameCertificate: ...
     signed: builtins.bool
     revoked: builtins.bool
     hostStorage: global___BizIdentityInfo.HostStorageType.ValueType
     actualActors: global___BizIdentityInfo.ActualActorsType.ValueType
     privacyModeTS: builtins.int
     featureControls: builtins.int
+    @property
+    def vnameCert(self) -> global___VerifiedNameCertificate: ...
     def __init__(
         self,
         *,
@@ -208,7 +208,7 @@ class BizIdentityInfo(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "actualActors",
             b"actualActors",
             "featureControls",
@@ -229,7 +229,7 @@ class BizIdentityInfo(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "actualActors",
             b"actualActors",
             "featureControls",
@@ -251,7 +251,7 @@ class BizIdentityInfo(google.protobuf.message.Message):
 
 global___BizIdentityInfo = BizIdentityInfo
 
-@typing_extensions.final
+@typing.final
 class LocalizedName(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -270,24 +270,24 @@ class LocalizedName(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "lc", b"lc", "lg", b"lg", "verifiedName", b"verifiedName"
         ],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "lc", b"lc", "lg", b"lg", "verifiedName", b"verifiedName"
         ],
     ) -> None: ...
 
 global___LocalizedName = LocalizedName
 
-@typing_extensions.final
+@typing.final
 class VerifiedNameCertificate(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Details(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -299,13 +299,13 @@ class VerifiedNameCertificate(google.protobuf.message.Message):
         serial: builtins.int
         issuer: builtins.str
         verifiedName: builtins.str
+        issueTime: builtins.int
         @property
         def localizedNames(
             self,
         ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
             global___LocalizedName
         ]: ...
-        issueTime: builtins.int
         def __init__(
             self,
             *,
@@ -318,7 +318,7 @@ class VerifiedNameCertificate(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "issueTime",
                 b"issueTime",
                 "issuer",
@@ -331,7 +331,7 @@ class VerifiedNameCertificate(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "issueTime",
                 b"issueTime",
                 "issuer",
@@ -360,7 +360,7 @@ class VerifiedNameCertificate(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "details",
             b"details",
             "serverSignature",
@@ -371,7 +371,7 @@ class VerifiedNameCertificate(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "details",
             b"details",
             "serverSignature",
@@ -383,15 +383,15 @@ class VerifiedNameCertificate(google.protobuf.message.Message):
 
 global___VerifiedNameCertificate = VerifiedNameCertificate
 
-@typing_extensions.final
+@typing.final
 class BizAccountPayload(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     VNAMECERT_FIELD_NUMBER: builtins.int
     BIZACCTLINKINFO_FIELD_NUMBER: builtins.int
+    bizAcctLinkInfo: builtins.bytes
     @property
     def vnameCert(self) -> global___VerifiedNameCertificate: ...
-    bizAcctLinkInfo: builtins.bytes
     def __init__(
         self,
         *,
@@ -400,13 +400,13 @@ class BizAccountPayload(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "bizAcctLinkInfo", b"bizAcctLinkInfo", "vnameCert", b"vnameCert"
         ],
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "bizAcctLinkInfo", b"bizAcctLinkInfo", "vnameCert", b"vnameCert"
         ],
     ) -> None: ...

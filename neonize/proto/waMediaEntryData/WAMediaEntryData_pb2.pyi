@@ -8,32 +8,27 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-import sys
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
+import typing
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class MediaEntry(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class ProgressiveJpegDetails(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         SCANLENGTHS_FIELD_NUMBER: builtins.int
         SIDECAR_FIELD_NUMBER: builtins.int
+        sidecar: builtins.bytes
         @property
         def scanLengths(
             self,
         ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
             builtins.int
         ]: ...
-        sidecar: builtins.bytes
         def __init__(
             self,
             *,
@@ -41,16 +36,16 @@ class MediaEntry(google.protobuf.message.Message):
             sidecar: builtins.bytes | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["sidecar", b"sidecar"]
+            self, field_name: typing.Literal["sidecar", b"sidecar"]
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "scanLengths", b"scanLengths", "sidecar", b"sidecar"
             ],
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class DownloadableThumbnail(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -78,7 +73,7 @@ class MediaEntry(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "directPath",
                 b"directPath",
                 "fileEncSHA256",
@@ -95,7 +90,7 @@ class MediaEntry(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "directPath",
                 b"directPath",
                 "fileEncSHA256",
@@ -137,10 +132,10 @@ class MediaEntry(google.protobuf.message.Message):
     sidecar: builtins.bytes
     objectID: builtins.str
     FBID: builtins.str
-    @property
-    def downloadableThumbnail(self) -> global___MediaEntry.DownloadableThumbnail: ...
     handle: builtins.str
     filename: builtins.str
+    @property
+    def downloadableThumbnail(self) -> global___MediaEntry.DownloadableThumbnail: ...
     @property
     def progressiveJPEGDetails(self) -> global___MediaEntry.ProgressiveJpegDetails: ...
     def __init__(
@@ -164,7 +159,7 @@ class MediaEntry(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "FBID",
             b"FBID",
             "directPath",
@@ -199,7 +194,7 @@ class MediaEntry(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "FBID",
             b"FBID",
             "directPath",

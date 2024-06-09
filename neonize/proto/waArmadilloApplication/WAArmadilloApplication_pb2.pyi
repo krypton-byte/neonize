@@ -21,11 +21,11 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class Armadillo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Metadata(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -33,7 +33,7 @@ class Armadillo(google.protobuf.message.Message):
             self,
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Payload(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -59,7 +59,7 @@ class Armadillo(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "applicationData",
                 b"applicationData",
                 "content",
@@ -74,7 +74,7 @@ class Armadillo(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "applicationData",
                 b"applicationData",
                 "content",
@@ -88,15 +88,12 @@ class Armadillo(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self, oneof_group: typing_extensions.Literal["payload", b"payload"]
+            self, oneof_group: typing.Literal["payload", b"payload"]
         ) -> (
-            typing_extensions.Literal[
-                "content", "applicationData", "signal", "subProtocol"
-            ]
-            | None
+            typing.Literal["content", "applicationData", "signal", "subProtocol"] | None
         ): ...
 
-    @typing_extensions.final
+    @typing.final
     class SubProtocolPayload(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -109,21 +106,21 @@ class Armadillo(google.protobuf.message.Message):
             | None = ...,
         ) -> None: ...
         def HasField(
-            self, field_name: typing_extensions.Literal["futureProof", b"futureProof"]
+            self, field_name: typing.Literal["futureProof", b"futureProof"]
         ) -> builtins.bool: ...
         def ClearField(
-            self, field_name: typing_extensions.Literal["futureProof", b"futureProof"]
+            self, field_name: typing.Literal["futureProof", b"futureProof"]
         ) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Signal(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        @typing_extensions.final
+        @typing.final
         class EncryptedBackupsSecrets(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-            @typing_extensions.final
+            @typing.final
             class Epoch(google.protobuf.message.Message):
                 DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -170,7 +167,7 @@ class Armadillo(google.protobuf.message.Message):
                 ) -> None: ...
                 def HasField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "ID",
                         b"ID",
                         "anonID",
@@ -183,7 +180,7 @@ class Armadillo(google.protobuf.message.Message):
                 ) -> builtins.bool: ...
                 def ClearField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "ID",
                         b"ID",
                         "anonID",
@@ -203,15 +200,15 @@ class Armadillo(google.protobuf.message.Message):
             OBLIVIOUSVALIDATIONTOKEN_FIELD_NUMBER: builtins.int
             backupID: builtins.int
             serverDataID: builtins.int
+            tempOcmfClientState: builtins.bytes
+            mailboxRootKey: builtins.bytes
+            obliviousValidationToken: builtins.bytes
             @property
             def epoch(
                 self,
             ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
                 global___Armadillo.Signal.EncryptedBackupsSecrets.Epoch
             ]: ...
-            tempOcmfClientState: builtins.bytes
-            mailboxRootKey: builtins.bytes
-            obliviousValidationToken: builtins.bytes
             def __init__(
                 self,
                 *,
@@ -227,7 +224,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "backupID",
                     b"backupID",
                     "mailboxRootKey",
@@ -242,7 +239,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "backupID",
                     b"backupID",
                     "epoch",
@@ -271,7 +268,7 @@ class Armadillo(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "encryptedBackupsSecrets",
                 b"encryptedBackupsSecrets",
                 "signal",
@@ -280,7 +277,7 @@ class Armadillo(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "encryptedBackupsSecrets",
                 b"encryptedBackupsSecrets",
                 "signal",
@@ -288,14 +285,14 @@ class Armadillo(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self, oneof_group: typing_extensions.Literal["signal", b"signal"]
-        ) -> typing_extensions.Literal["encryptedBackupsSecrets"] | None: ...
+            self, oneof_group: typing.Literal["signal", b"signal"]
+        ) -> typing.Literal["encryptedBackupsSecrets"] | None: ...
 
-    @typing_extensions.final
+    @typing.final
     class ApplicationData(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        @typing_extensions.final
+        @typing.final
         class AIBotResponseMessage(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -314,7 +311,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "messageText",
                     b"messageText",
                     "serializedExtras",
@@ -325,7 +322,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "messageText",
                     b"messageText",
                     "serializedExtras",
@@ -335,15 +332,15 @@ class Armadillo(google.protobuf.message.Message):
                 ],
             ) -> None: ...
 
-        @typing_extensions.final
+        @typing.final
         class MetadataSyncAction(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-            @typing_extensions.final
+            @typing.final
             class SyncMessageAction(google.protobuf.message.Message):
                 DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-                @typing_extensions.final
+                @typing.final
                 class ActionMessageDelete(google.protobuf.message.Message):
                     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -368,7 +365,7 @@ class Armadillo(google.protobuf.message.Message):
                 ) -> None: ...
                 def HasField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "action",
                         b"action",
                         "key",
@@ -379,7 +376,7 @@ class Armadillo(google.protobuf.message.Message):
                 ) -> builtins.bool: ...
                 def ClearField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "action",
                         b"action",
                         "key",
@@ -389,24 +386,24 @@ class Armadillo(google.protobuf.message.Message):
                     ],
                 ) -> None: ...
                 def WhichOneof(
-                    self, oneof_group: typing_extensions.Literal["action", b"action"]
-                ) -> typing_extensions.Literal["messageDelete"] | None: ...
+                    self, oneof_group: typing.Literal["action", b"action"]
+                ) -> typing.Literal["messageDelete"] | None: ...
 
-            @typing_extensions.final
+            @typing.final
             class SyncChatAction(google.protobuf.message.Message):
                 DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-                @typing_extensions.final
+                @typing.final
                 class ActionChatRead(google.protobuf.message.Message):
                     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
                     MESSAGERANGE_FIELD_NUMBER: builtins.int
                     READ_FIELD_NUMBER: builtins.int
+                    read: builtins.bool
                     @property
                     def messageRange(
                         self,
                     ) -> global___Armadillo.ApplicationData.MetadataSyncAction.SyncActionMessageRange: ...
-                    read: builtins.bool
                     def __init__(
                         self,
                         *,
@@ -416,18 +413,18 @@ class Armadillo(google.protobuf.message.Message):
                     ) -> None: ...
                     def HasField(
                         self,
-                        field_name: typing_extensions.Literal[
+                        field_name: typing.Literal[
                             "messageRange", b"messageRange", "read", b"read"
                         ],
                     ) -> builtins.bool: ...
                     def ClearField(
                         self,
-                        field_name: typing_extensions.Literal[
+                        field_name: typing.Literal[
                             "messageRange", b"messageRange", "read", b"read"
                         ],
                     ) -> None: ...
 
-                @typing_extensions.final
+                @typing.final
                 class ActionChatDelete(google.protobuf.message.Message):
                     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -444,28 +441,24 @@ class Armadillo(google.protobuf.message.Message):
                     ) -> None: ...
                     def HasField(
                         self,
-                        field_name: typing_extensions.Literal[
-                            "messageRange", b"messageRange"
-                        ],
+                        field_name: typing.Literal["messageRange", b"messageRange"],
                     ) -> builtins.bool: ...
                     def ClearField(
                         self,
-                        field_name: typing_extensions.Literal[
-                            "messageRange", b"messageRange"
-                        ],
+                        field_name: typing.Literal["messageRange", b"messageRange"],
                     ) -> None: ...
 
-                @typing_extensions.final
+                @typing.final
                 class ActionChatArchive(google.protobuf.message.Message):
                     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
                     MESSAGERANGE_FIELD_NUMBER: builtins.int
                     ARCHIVED_FIELD_NUMBER: builtins.int
+                    archived: builtins.bool
                     @property
                     def messageRange(
                         self,
                     ) -> global___Armadillo.ApplicationData.MetadataSyncAction.SyncActionMessageRange: ...
-                    archived: builtins.bool
                     def __init__(
                         self,
                         *,
@@ -475,13 +468,13 @@ class Armadillo(google.protobuf.message.Message):
                     ) -> None: ...
                     def HasField(
                         self,
-                        field_name: typing_extensions.Literal[
+                        field_name: typing.Literal[
                             "archived", b"archived", "messageRange", b"messageRange"
                         ],
                     ) -> builtins.bool: ...
                     def ClearField(
                         self,
-                        field_name: typing_extensions.Literal[
+                        field_name: typing.Literal[
                             "archived", b"archived", "messageRange", b"messageRange"
                         ],
                     ) -> None: ...
@@ -490,6 +483,7 @@ class Armadillo(google.protobuf.message.Message):
                 CHATDELETE_FIELD_NUMBER: builtins.int
                 CHATREAD_FIELD_NUMBER: builtins.int
                 CHATID_FIELD_NUMBER: builtins.int
+                chatID: builtins.str
                 @property
                 def chatArchive(
                     self,
@@ -502,7 +496,6 @@ class Armadillo(google.protobuf.message.Message):
                 def chatRead(
                     self,
                 ) -> global___Armadillo.ApplicationData.MetadataSyncAction.SyncChatAction.ActionChatRead: ...
-                chatID: builtins.str
                 def __init__(
                     self,
                     *,
@@ -516,7 +509,7 @@ class Armadillo(google.protobuf.message.Message):
                 ) -> None: ...
                 def HasField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "action",
                         b"action",
                         "chatArchive",
@@ -531,7 +524,7 @@ class Armadillo(google.protobuf.message.Message):
                 ) -> builtins.bool: ...
                 def ClearField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "action",
                         b"action",
                         "chatArchive",
@@ -545,21 +538,18 @@ class Armadillo(google.protobuf.message.Message):
                     ],
                 ) -> None: ...
                 def WhichOneof(
-                    self, oneof_group: typing_extensions.Literal["action", b"action"]
-                ) -> (
-                    typing_extensions.Literal["chatArchive", "chatDelete", "chatRead"]
-                    | None
-                ): ...
+                    self, oneof_group: typing.Literal["action", b"action"]
+                ) -> typing.Literal["chatArchive", "chatDelete", "chatRead"] | None: ...
 
-            @typing_extensions.final
+            @typing.final
             class SyncActionMessage(google.protobuf.message.Message):
                 DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
                 KEY_FIELD_NUMBER: builtins.int
                 TIMESTAMP_FIELD_NUMBER: builtins.int
+                timestamp: builtins.int
                 @property
                 def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
-                timestamp: builtins.int
                 def __init__(
                     self,
                     *,
@@ -568,18 +558,18 @@ class Armadillo(google.protobuf.message.Message):
                 ) -> None: ...
                 def HasField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "key", b"key", "timestamp", b"timestamp"
                     ],
                 ) -> builtins.bool: ...
                 def ClearField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "key", b"key", "timestamp", b"timestamp"
                     ],
                 ) -> None: ...
 
-            @typing_extensions.final
+            @typing.final
             class SyncActionMessageRange(google.protobuf.message.Message):
                 DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -606,7 +596,7 @@ class Armadillo(google.protobuf.message.Message):
                 ) -> None: ...
                 def HasField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "lastMessageTimestamp",
                         b"lastMessageTimestamp",
                         "lastSystemMessageTimestamp",
@@ -615,7 +605,7 @@ class Armadillo(google.protobuf.message.Message):
                 ) -> builtins.bool: ...
                 def ClearField(
                     self,
-                    field_name: typing_extensions.Literal[
+                    field_name: typing.Literal[
                         "lastMessageTimestamp",
                         b"lastMessageTimestamp",
                         "lastSystemMessageTimestamp",
@@ -628,6 +618,7 @@ class Armadillo(google.protobuf.message.Message):
             CHATACTION_FIELD_NUMBER: builtins.int
             MESSAGEACTION_FIELD_NUMBER: builtins.int
             ACTIONTIMESTAMP_FIELD_NUMBER: builtins.int
+            actionTimestamp: builtins.int
             @property
             def chatAction(
                 self,
@@ -640,7 +631,6 @@ class Armadillo(google.protobuf.message.Message):
             ) -> (
                 global___Armadillo.ApplicationData.MetadataSyncAction.SyncMessageAction
             ): ...
-            actionTimestamp: builtins.int
             def __init__(
                 self,
                 *,
@@ -652,7 +642,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "actionTimestamp",
                     b"actionTimestamp",
                     "actionType",
@@ -665,7 +655,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "actionTimestamp",
                     b"actionTimestamp",
                     "actionType",
@@ -677,11 +667,10 @@ class Armadillo(google.protobuf.message.Message):
                 ],
             ) -> None: ...
             def WhichOneof(
-                self,
-                oneof_group: typing_extensions.Literal["actionType", b"actionType"],
-            ) -> typing_extensions.Literal["chatAction", "messageAction"] | None: ...
+                self, oneof_group: typing.Literal["actionType", b"actionType"]
+            ) -> typing.Literal["chatAction", "messageAction"] | None: ...
 
-        @typing_extensions.final
+        @typing.final
         class MetadataSyncNotification(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -701,7 +690,7 @@ class Armadillo(google.protobuf.message.Message):
                 | None = ...,
             ) -> None: ...
             def ClearField(
-                self, field_name: typing_extensions.Literal["actions", b"actions"]
+                self, field_name: typing.Literal["actions", b"actions"]
             ) -> None: ...
 
         METADATASYNC_FIELD_NUMBER: builtins.int
@@ -724,7 +713,7 @@ class Armadillo(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "aiBotResponse",
                 b"aiBotResponse",
                 "applicationData",
@@ -735,7 +724,7 @@ class Armadillo(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "aiBotResponse",
                 b"aiBotResponse",
                 "applicationData",
@@ -745,17 +734,14 @@ class Armadillo(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self,
-            oneof_group: typing_extensions.Literal[
-                "applicationData", b"applicationData"
-            ],
-        ) -> typing_extensions.Literal["metadataSync", "aiBotResponse"] | None: ...
+            self, oneof_group: typing.Literal["applicationData", b"applicationData"]
+        ) -> typing.Literal["metadataSync", "aiBotResponse"] | None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Content(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        @typing_extensions.final
+        @typing.final
         class PaymentsTransactionMessage(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -885,7 +871,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "amount",
                     b"amount",
                     "currency",
@@ -900,7 +886,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "amount",
                     b"amount",
                     "currency",
@@ -914,7 +900,7 @@ class Armadillo(google.protobuf.message.Message):
                 ],
             ) -> None: ...
 
-        @typing_extensions.final
+        @typing.final
         class NoteReplyMessage(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -924,16 +910,16 @@ class Armadillo(google.protobuf.message.Message):
             NOTEID_FIELD_NUMBER: builtins.int
             NOTETEXT_FIELD_NUMBER: builtins.int
             NOTETIMESTAMPMS_FIELD_NUMBER: builtins.int
+            noteID: builtins.str
+            noteTimestampMS: builtins.int
             @property
             def textContent(self) -> waCommon.WACommon_pb2.MessageText: ...
             @property
             def stickerContent(self) -> waCommon.WACommon_pb2.SubProtocol: ...
             @property
             def videoContent(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-            noteID: builtins.str
             @property
             def noteText(self) -> waCommon.WACommon_pb2.MessageText: ...
-            noteTimestampMS: builtins.int
             def __init__(
                 self,
                 *,
@@ -946,7 +932,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "noteID",
                     b"noteID",
                     "noteReplyContent",
@@ -965,7 +951,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "noteID",
                     b"noteID",
                     "noteReplyContent",
@@ -984,17 +970,12 @@ class Armadillo(google.protobuf.message.Message):
             ) -> None: ...
             def WhichOneof(
                 self,
-                oneof_group: typing_extensions.Literal[
-                    "noteReplyContent", b"noteReplyContent"
-                ],
+                oneof_group: typing.Literal["noteReplyContent", b"noteReplyContent"],
             ) -> (
-                typing_extensions.Literal[
-                    "textContent", "stickerContent", "videoContent"
-                ]
-                | None
+                typing.Literal["textContent", "stickerContent", "videoContent"] | None
             ): ...
 
-        @typing_extensions.final
+        @typing.final
         class BumpExistingMessage(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1007,13 +988,11 @@ class Armadillo(google.protobuf.message.Message):
                 key: waCommon.WACommon_pb2.MessageKey | None = ...,
             ) -> None: ...
             def HasField(
-                self, field_name: typing_extensions.Literal["key", b"key"]
+                self, field_name: typing.Literal["key", b"key"]
             ) -> builtins.bool: ...
-            def ClearField(
-                self, field_name: typing_extensions.Literal["key", b"key"]
-            ) -> None: ...
+            def ClearField(self, field_name: typing.Literal["key", b"key"]) -> None: ...
 
-        @typing_extensions.final
+        @typing.final
         class ImageGalleryMessage(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1031,10 +1010,10 @@ class Armadillo(google.protobuf.message.Message):
                 | None = ...,
             ) -> None: ...
             def ClearField(
-                self, field_name: typing_extensions.Literal["images", b"images"]
+                self, field_name: typing.Literal["images", b"images"]
             ) -> None: ...
 
-        @typing_extensions.final
+        @typing.final
         class ScreenshotAction(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1077,19 +1056,13 @@ class Armadillo(google.protobuf.message.Message):
                 | None = ...,
             ) -> None: ...
             def HasField(
-                self,
-                field_name: typing_extensions.Literal[
-                    "screenshotType", b"screenshotType"
-                ],
+                self, field_name: typing.Literal["screenshotType", b"screenshotType"]
             ) -> builtins.bool: ...
             def ClearField(
-                self,
-                field_name: typing_extensions.Literal[
-                    "screenshotType", b"screenshotType"
-                ],
+                self, field_name: typing.Literal["screenshotType", b"screenshotType"]
             ) -> None: ...
 
-        @typing_extensions.final
+        @typing.final
         class ExtendedContentMessageWithSear(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1101,9 +1074,9 @@ class Armadillo(google.protobuf.message.Message):
             searID: builtins.str
             payload: builtins.bytes
             nativeURL: builtins.str
+            searSentWithMessageID: builtins.str
             @property
             def searAssociatedMessage(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-            searSentWithMessageID: builtins.str
             def __init__(
                 self,
                 *,
@@ -1115,7 +1088,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "nativeURL",
                     b"nativeURL",
                     "payload",
@@ -1130,7 +1103,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "nativeURL",
                     b"nativeURL",
                     "payload",
@@ -1144,7 +1117,7 @@ class Armadillo(google.protobuf.message.Message):
                 ],
             ) -> None: ...
 
-        @typing_extensions.final
+        @typing.final
         class RavenActionNotifMessage(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1181,12 +1154,12 @@ class Armadillo(google.protobuf.message.Message):
             KEY_FIELD_NUMBER: builtins.int
             ACTIONTIMESTAMP_FIELD_NUMBER: builtins.int
             ACTIONTYPE_FIELD_NUMBER: builtins.int
-            @property
-            def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
             actionTimestamp: builtins.int
             actionType: (
                 global___Armadillo.Content.RavenActionNotifMessage.ActionType.ValueType
             )
+            @property
+            def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
             def __init__(
                 self,
                 *,
@@ -1197,7 +1170,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "actionTimestamp",
                     b"actionTimestamp",
                     "actionType",
@@ -1208,7 +1181,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "actionTimestamp",
                     b"actionTimestamp",
                     "actionType",
@@ -1218,7 +1191,7 @@ class Armadillo(google.protobuf.message.Message):
                 ],
             ) -> None: ...
 
-        @typing_extensions.final
+        @typing.final
         class RavenMessage(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1251,13 +1224,13 @@ class Armadillo(google.protobuf.message.Message):
             IMAGEMESSAGE_FIELD_NUMBER: builtins.int
             VIDEOMESSAGE_FIELD_NUMBER: builtins.int
             EPHEMERALTYPE_FIELD_NUMBER: builtins.int
+            ephemeralType: (
+                global___Armadillo.Content.RavenMessage.EphemeralType.ValueType
+            )
             @property
             def imageMessage(self) -> waCommon.WACommon_pb2.SubProtocol: ...
             @property
             def videoMessage(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-            ephemeralType: (
-                global___Armadillo.Content.RavenMessage.EphemeralType.ValueType
-            )
             def __init__(
                 self,
                 *,
@@ -1268,7 +1241,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> None: ...
             def HasField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "ephemeralType",
                     b"ephemeralType",
                     "imageMessage",
@@ -1281,7 +1254,7 @@ class Armadillo(google.protobuf.message.Message):
             ) -> builtins.bool: ...
             def ClearField(
                 self,
-                field_name: typing_extensions.Literal[
+                field_name: typing.Literal[
                     "ephemeralType",
                     b"ephemeralType",
                     "imageMessage",
@@ -1293,11 +1266,10 @@ class Armadillo(google.protobuf.message.Message):
                 ],
             ) -> None: ...
             def WhichOneof(
-                self,
-                oneof_group: typing_extensions.Literal["mediaContent", b"mediaContent"],
-            ) -> typing_extensions.Literal["imageMessage", "videoMessage"] | None: ...
+                self, oneof_group: typing.Literal["mediaContent", b"mediaContent"]
+            ) -> typing.Literal["imageMessage", "videoMessage"] | None: ...
 
-        @typing_extensions.final
+        @typing.final
         class CommonSticker(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1330,12 +1302,10 @@ class Armadillo(google.protobuf.message.Message):
                 | None = ...,
             ) -> None: ...
             def HasField(
-                self,
-                field_name: typing_extensions.Literal["stickerType", b"stickerType"],
+                self, field_name: typing.Literal["stickerType", b"stickerType"]
             ) -> builtins.bool: ...
             def ClearField(
-                self,
-                field_name: typing_extensions.Literal["stickerType", b"stickerType"],
+                self, field_name: typing.Literal["stickerType", b"stickerType"]
             ) -> None: ...
 
         COMMONSTICKER_FIELD_NUMBER: builtins.int
@@ -1406,7 +1376,7 @@ class Armadillo(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "bumpExistingMessage",
                 b"bumpExistingMessage",
                 "commonSticker",
@@ -1435,7 +1405,7 @@ class Armadillo(google.protobuf.message.Message):
         ) -> builtins.bool: ...
         def ClearField(
             self,
-            field_name: typing_extensions.Literal[
+            field_name: typing.Literal[
                 "bumpExistingMessage",
                 b"bumpExistingMessage",
                 "commonSticker",
@@ -1463,9 +1433,9 @@ class Armadillo(google.protobuf.message.Message):
             ],
         ) -> None: ...
         def WhichOneof(
-            self, oneof_group: typing_extensions.Literal["content", b"content"]
+            self, oneof_group: typing.Literal["content", b"content"]
         ) -> (
-            typing_extensions.Literal[
+            typing.Literal[
                 "commonSticker",
                 "screenshotAction",
                 "extendedContentMessage",
@@ -1494,16 +1464,10 @@ class Armadillo(google.protobuf.message.Message):
         metadata: global___Armadillo.Metadata | None = ...,
     ) -> None: ...
     def HasField(
-        self,
-        field_name: typing_extensions.Literal[
-            "metadata", b"metadata", "payload", b"payload"
-        ],
+        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
     ) -> builtins.bool: ...
     def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "metadata", b"metadata", "payload", b"payload"
-        ],
+        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
     ) -> None: ...
 
 global___Armadillo = Armadillo

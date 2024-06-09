@@ -35,7 +35,7 @@ E2EE: HostedState.ValueType  # 0
 HOSTED: HostedState.ValueType  # 1
 global___HostedState = HostedState
 
-@typing_extensions.final
+@typing.final
 class FingerprintData(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -60,7 +60,7 @@ class FingerprintData(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "hostedState",
             b"hostedState",
             "lidIdentifier",
@@ -75,7 +75,7 @@ class FingerprintData(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "hostedState",
             b"hostedState",
             "lidIdentifier",
@@ -91,7 +91,7 @@ class FingerprintData(google.protobuf.message.Message):
 
 global___FingerprintData = FingerprintData
 
-@typing_extensions.final
+@typing.final
 class CombinedFingerprint(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -112,7 +112,7 @@ class CombinedFingerprint(google.protobuf.message.Message):
     ) -> None: ...
     def HasField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "localFingerprint",
             b"localFingerprint",
             "remoteFingerprint",
@@ -123,7 +123,7 @@ class CombinedFingerprint(google.protobuf.message.Message):
     ) -> builtins.bool: ...
     def ClearField(
         self,
-        field_name: typing_extensions.Literal[
+        field_name: typing.Literal[
             "localFingerprint",
             b"localFingerprint",
             "remoteFingerprint",
