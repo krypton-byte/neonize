@@ -152,118 +152,27 @@ from .utils.iofile import get_bytes_from_name_or_url
 from .utils.jid import Jid2String, JIDToNonAD
 
 
-class ContactStore:
-    def __init__(self, uuid: bytes) -> None:
-        self.uuid = uuid
-        self.__client = gocode
-
-    def put_pushname(
-        self, user: JID, pushname: str
-    ) -> ContactsPutPushNameReturnFunction:
-        """
-        Updates the pushname of a specific user.
-
-        :param user: The JID (Jabber ID) of the user whose pushname needs to be updated.
-        :type user: JID
-        :param pushname: The new pushname for the user.
-        :type pushname: str
-        :raises ContactStoreError: If there is any error updating the pushname.
-        :return: The updated contact model after the pushname has been updated.
-        :rtype: ContactsPutPushNameReturnFunction
-        """
-        user_bytes = user.SerializeToString()
-        model = ContactsPutPushNameReturnFunction.FromString(
-            self.__client.PutPushName(
-                user_bytes, len(user_bytes), pushname.encode()
-            ).get_bytes()
-        )
-        if model.Error:
-            raise ContactStoreError(model.Error)
-        return model
-
-    def put_contact_name(self, user: JID, fullname: str, firstname: str):
-        """
-        This method is used to update the contact name in the contact store. It takes the user's JID,
-        full name and first name as input parameters,
-        then calls the PutContactName method of the client with the user's JID, full name and first name.
-        If there is an error, it returns a ContactStoreError with the error message.
-
-        :param user: The JID of the user whose contact name is to be updated
-        :type user: JID
-        :param fullname: The full name of the user
-        :type fullname: str
-        :param firstname: The first name of the user
-        :type firstname: str
-        :return: If there is an error, return a ContactStoreError with the error message, else None
-        :rtype: ContactStoreError or None
-        """
-        user_bytes = user.SerializeToString()
-        err = self.__client.PutContactName(
-            self.uuid,
-            user_bytes,
-            len(user_bytes),
-            fullname.encode(),
-            firstname.encode(),
-        ).decode()
-        if err:
-            return ContactStoreError(err)
-
-    def put_all_contact_name(self, contact_entry: List[ContactEntry]):
-        """
-        This method serializes a list of ContactEntry objects and sends them to a
-        remote service using the client's PutAllContactNames method. If the service
-        returns an error, it raises a ContactStoreError with the error message.
-
-        :param contact_entry: List of ContactEntry objects to be serialized and sent
-        :type contact_entry: List[ContactEntry]
-        :raises ContactStoreError: If the remote service returns an error message
-        """
-        entry = ContactEntryArray(ContactEntry=contact_entry).SerializeToString()
-        err = self.__client.PutAllContactNames(self.uuid, entry, len(entry)).decode()
-        if err:
-            raise ContactStoreError(err)
-
-    def get_contact(self, user: JID) -> ContactInfo:
-        """
-        This method retrieves a user's contact information based on their JID (Jabber Identifier).
-
-        :param user: The Jabber Identifier of the user whose contact information is to be retrieved.
-        :type user: JID
-        :raises ContactStoreError: If there is an error while retrieving the contact information.
-        :return: The contact information of the user.
-        :rtype: ContactInfo
-        """
-        jid = user.SerializeToString()
-        model = ContactsGetContactReturnFunction.FromString(
-            self.__client.GetContact(self.uuid, jid, len(jid)).get_bytes()
-        )
-        if model.Error:
-            raise ContactStoreError(model.Error)
-        return model.ContactInfo
-
-    def get_all_contacts(self) -> RepeatedCompositeFieldContainer[Contact]:
-        """
-        This function retrieves all contacts from the client. It deserializes the response
-        from the client, checks for any errors, and if there are no errors, returns the contacts.
-
-        :raises ContactStoreError: If there is an error in the response from the client.
-        :return: A list of all contacts.
-        :rtype: RepeatedCompositeFieldContainer[Contact]
-        """
-        model = neonize_proto.ContactsGetAllContactsReturnFunction.FromString(
-            self.__client.GetAllContacts(self.uuid).get_bytes()
-        )
-        if model.Error:
-            raise ContactStoreError(model.Error)
-        return model.Contact
-
-
 class ChatSettingsStore:
     def __init__(self, uuid: bytes) -> None:
+        """
+        Initialize the ChatSettingsStore with a unique identifier.
+
+        :param uuid: Unique identifier for the chat settings store.
+        :type uuid: bytes
+        """
         self.uuid = uuid
         self.__client = gocode
 
     def put_muted_until(self, user: JID, until: timedelta):
+        """
+        Mute a user until a specified time.
+
+        :param user: The user to be muted.
+        :type user: JID
+        :param until: The duration until when the user will be muted.
+        :type until: timedelta
+        :raises PutMutedUntilError: If there is an error while muting the user.
+        """
         user_buf = user.SerializeToString()
         return_ = self.__client.PutMutedUntil(
             self.uuid, user_buf, len(user_buf), until.total_seconds()
@@ -272,12 +181,30 @@ class ChatSettingsStore:
             raise PutMutedUntilError(return_.decode())
 
     def put_pinned(self, user: JID, pinned: bool):
+        """
+        Pin or unpin a user.
+
+        :param user: The user to be pinned or unpinned.
+        :type user: JID
+        :param pinned: True if the user should be pinned, False otherwise.
+        :type pinned: bool
+        :raises PutPinnedError: If there is an error while pinning the user.
+        """
         user_buf = user.SerializeToString()
         return_ = self.__client.PutPinned(self.uuid, user_buf, len(user_buf), pinned)
         if return_:
             raise PutPinnedError(return_.decode())
 
     def put_archived(self, user: JID, archived: bool):
+        """
+        Archive or unarchive a user.
+
+        :param user: The user to be archived or unarchived.
+        :type user: JID
+        :param archived: True if the user should be archived, False otherwise.
+        :type archived: bool
+        :raises PutArchivedError: If there is an error while archiving the user.
+        """
         user_buf = user.SerializeToString()
         return_ = self.__client.PutArchived(
             self.uuid, user_buf, len(user_buf), archived
@@ -286,6 +213,89 @@ class ChatSettingsStore:
             raise PutArchivedError(return_.decode())
 
     def get_chat_settings(self, user: JID) -> LocalChatSettings:
+        """
+        Retrieve the chat settings for a user.
+
+        :param user: The user whose chat settings are to be retrieved.
+        :type user: JID
+        :raises GetChatSettingsError: If there is an error while retrieving the chat settings.
+        :return: The chat settings for the specified user.
+        :rtype: LocalChatSettings
+        """
+        user_buf = user.SerializeToString()
+        return_ = ReturnFunctionWithError.FromString(
+            self.__client.GetChatSettings(self.uuid, user_buf, len(user_buf))
+        )
+        if return_.Error:
+            raise GetChatSettingsError(return_.Error)
+        return return_.LocalChatSettings
+
+
+class ChatSettingsStore:
+    def __init__(self, uuid: bytes) -> None:
+        """_summary_
+
+        :param uuid: _description_
+        :type uuid: bytes
+        """
+        self.uuid = uuid
+        self.__client = gocode
+
+    def put_muted_until(self, user: JID, until: timedelta):
+        """_summary_
+
+        :param user: _description_
+        :type user: JID
+        :param until: _description_
+        :type until: timedelta
+        :raises PutMutedUntilError: _description_
+        """
+        user_buf = user.SerializeToString()
+        return_ = self.__client.PutMutedUntil(
+            self.uuid, user_buf, len(user_buf), until.total_seconds()
+        )
+        if return_:
+            raise PutMutedUntilError(return_.decode())
+
+    def put_pinned(self, user: JID, pinned: bool):
+        """_summary_
+
+        :param user: _description_
+        :type user: JID
+        :param pinned: _description_
+        :type pinned: bool
+        :raises PutPinnedError: _description_
+        """
+        user_buf = user.SerializeToString()
+        return_ = self.__client.PutPinned(self.uuid, user_buf, len(user_buf), pinned)
+        if return_:
+            raise PutPinnedError(return_.decode())
+
+    def put_archived(self, user: JID, archived: bool):
+        """_summary_
+
+        :param user: _description_
+        :type user: JID
+        :param archived: _description_
+        :type archived: bool
+        :raises PutArchivedError: _description_
+        """
+        user_buf = user.SerializeToString()
+        return_ = self.__client.PutArchived(
+            self.uuid, user_buf, len(user_buf), archived
+        )
+        if return_:
+            raise PutArchivedError(return_.decode())
+
+    def get_chat_settings(self, user: JID) -> LocalChatSettings:
+        """_summary_
+
+        :param user: _description_
+        :type user: JID
+        :raises PutArchivedError: _description_
+        :return: _description_
+        :rtype: LocalChatSettings
+        """
         user_buf = user.SerializeToString()
         return_ = ReturnFunctionWithError.FromString(
             self.__client.GetChatSettings(self.uuid, user_buf, len(user_buf))
