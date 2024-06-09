@@ -321,6 +321,7 @@ class NewClient:
         self.blocking = self.event.blocking
         self.qr = self.event.qr
         self.contact = ContactStore(self.uuid)
+        self.chat_settings = ChatSettingsStore(self.uuid)
         log.debug("🔨 Creating a NewClient instance")
 
     def __onLoginStatus(self, s: str):
