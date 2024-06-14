@@ -459,6 +459,8 @@
           <li><a href="source/neonize.utils.html#neonize.utils.enum.ChatPresenceMedia">(class in neonize.utils.enum)</a>
 </li>
         </ul></li>
+        <li><a href="source/neonize.html#neonize.client.ChatSettingsStore">ChatSettingsStore (class in neonize.client)</a>
+</li>
         <li><a href="source/neonize.utils.html#id74">chroma_location (neonize.utils.ffmpeg.Stream attribute)</a>, <a href="source/neonize.utils.html#neonize.utils.ffmpeg.Stream.chroma_location">[1]</a>
 </li>
         <li><a href="source/neonize.utils.html#id120">CHROME (neonize.utils.ClientType attribute)</a>, <a href="source/neonize.utils.html#neonize.utils.ClientType.CHROME">[1]</a>
@@ -481,10 +483,10 @@
         </ul></li>
         <li><a href="source/neonize.utils.html#id75">closed_captions (neonize.utils.ffmpeg.Stream attribute)</a>, <a href="source/neonize.utils.html#neonize.utils.ffmpeg.Stream.closed_captions">[1]</a>
 </li>
-        <li><a href="source/neonize.utils.html#id76">codec_long_name (neonize.utils.ffmpeg.Stream attribute)</a>, <a href="source/neonize.utils.html#neonize.utils.ffmpeg.Stream.codec_long_name">[1]</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="source/neonize.utils.html#id76">codec_long_name (neonize.utils.ffmpeg.Stream attribute)</a>, <a href="source/neonize.utils.html#neonize.utils.ffmpeg.Stream.codec_long_name">[1]</a>
+</li>
         <li><a href="source/neonize.utils.html#id77">codec_name (neonize.utils.ffmpeg.Stream attribute)</a>, <a href="source/neonize.utils.html#neonize.utils.ffmpeg.Stream.codec_name">[1]</a>
 </li>
         <li><a href="source/neonize.utils.html#id78">codec_tag (neonize.utils.ffmpeg.Stream attribute)</a>, <a href="source/neonize.utils.html#neonize.utils.ffmpeg.Stream.codec_tag">[1]</a>
@@ -787,6 +789,8 @@
           <li><a href="source/neonize.utils.html#neonize.utils.iofile.get_bytes_from_name_or_url">(in module neonize.utils.iofile)</a>
 </li>
         </ul></li>
+        <li><a href="source/neonize.html#neonize.client.ChatSettingsStore.get_chat_settings">get_chat_settings() (neonize.client.ChatSettingsStore method)</a>
+</li>
         <li><a href="source/neonize.html#neonize.client.ContactStore.get_contact">get_contact() (neonize.client.ContactStore method)</a>
 </li>
         <li><a href="source/neonize.html#neonize.client.NewClient.get_contact_qr_link">get_contact_qr_link() (neonize.client.NewClient method)</a>
@@ -924,6 +928,8 @@
 </li>
         </ul></li>
         <li><a href="source/neonize.html#neonize.exc.GetBlocklistError">GetBlocklistError</a>
+</li>
+        <li><a href="source/neonize.html#neonize.exc.GetChatSettingsError">GetChatSettingsError</a>
 </li>
         <li><a href="source/neonize.html#neonize.exc.GetContactQrLinkError">GetContactQrLinkError</a>
 </li>
@@ -1580,8 +1586,6 @@
           <li><a href="source/neonize.utils.html#id155">(neonize.utils.ReceiptType attribute)</a>, <a href="source/neonize.utils.html#neonize.utils.ReceiptType.PLAYED_SELF">[1]</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="source/neonize.utils.html#id68">PNG (neonize.utils.ffmpeg.ImageFormat attribute)</a>, <a href="source/neonize.utils.html#neonize.utils.ffmpeg.ImageFormat.PNG">[1]</a>
 </li>
         <li><a href="source/neonize.utils.html#neonize.utils.PrivacySetting">PrivacySetting (class in neonize.utils)</a>
@@ -1590,6 +1594,8 @@
           <li><a href="source/neonize.utils.html#neonize.utils.enum.PrivacySetting">(class in neonize.utils.enum)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="source/neonize.utils.html#neonize.utils.PrivacySettingType">PrivacySettingType (class in neonize.utils)</a>
 
         <ul>
@@ -1612,9 +1618,21 @@
         </ul></li>
         <li><a href="source/neonize.html#neonize.client.ContactStore.put_all_contact_name">put_all_contact_name() (neonize.client.ContactStore method)</a>
 </li>
+        <li><a href="source/neonize.html#neonize.client.ChatSettingsStore.put_archived">put_archived() (neonize.client.ChatSettingsStore method)</a>
+</li>
         <li><a href="source/neonize.html#neonize.client.ContactStore.put_contact_name">put_contact_name() (neonize.client.ContactStore method)</a>
 </li>
+        <li><a href="source/neonize.html#neonize.client.ChatSettingsStore.put_muted_until">put_muted_until() (neonize.client.ChatSettingsStore method)</a>
+</li>
+        <li><a href="source/neonize.html#neonize.client.ChatSettingsStore.put_pinned">put_pinned() (neonize.client.ChatSettingsStore method)</a>
+</li>
         <li><a href="source/neonize.html#neonize.client.ContactStore.put_pushname">put_pushname() (neonize.client.ContactStore method)</a>
+</li>
+        <li><a href="source/neonize.html#neonize.exc.PutArchivedError">PutArchivedError</a>
+</li>
+        <li><a href="source/neonize.html#neonize.exc.PutMutedUntilError">PutMutedUntilError</a>
+</li>
+        <li><a href="source/neonize.html#neonize.exc.PutPinnedError">PutPinnedError</a>
 </li>
     </ul></td>
   </tr></table>

@@ -265,7 +265,7 @@
 <span class="sd">    :raises IndexError: If the message type cannot be determined.</span>
 <span class="sd">    :return: The type of the message.</span>
 <span class="sd">    :rtype: MediaMessageType | TextMessageType</span>
-<span class="sd">    &quot;&quot;&quot;</span>    
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">ListFields</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">field_name</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;Message&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">v</span>
@@ -285,7 +285,7 @@
 <span class="sd">    :type message: Message</span>
 <span class="sd">    :return: The extracted text content.</span>
 <span class="sd">    :rtype: str</span>
-<span class="sd">    &quot;&quot;&quot;</span>    
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">message</span><span class="o">.</span><span class="n">imageMessage</span><span class="o">.</span><span class="n">ListFields</span><span class="p">():</span>
         <span class="n">imageMessage</span><span class="p">:</span> <span class="n">ImageMessage</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">imageMessage</span>
         <span class="k">return</span> <span class="n">imageMessage</span><span class="o">.</span><span class="n">caption</span>

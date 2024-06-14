@@ -248,6 +248,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 
+
 <div class="viewcode-block" id="arch_normalizer">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.platform.arch_normalizer">[docs]</a>
 <span class="k">def</span> <span class="nf">arch_normalizer</span><span class="p">(</span><span class="n">arch_</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -258,7 +259,7 @@
 <span class="sd">    :type arch_: str</span>
 <span class="sd">    :return: The normalized architecture name.</span>
 <span class="sd">    :rtype: str</span>
-<span class="sd">    &quot;&quot;&quot;</span>    
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">arch</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;aarch64&quot;</span><span class="p">:</span> <span class="s2">&quot;arm64&quot;</span><span class="p">,</span>
         <span class="s2">&quot;x86_64&quot;</span><span class="p">:</span> <span class="s2">&quot;amd64&quot;</span><span class="p">,</span>
@@ -279,7 +280,7 @@
 <span class="sd">    :type arch_name: str, optional</span>
 <span class="sd">    :return: The generated filename.</span>
 <span class="sd">    :rtype: str</span>
-<span class="sd">    &quot;&quot;&quot;</span>    
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">os_name</span> <span class="o">=</span> <span class="n">os_name</span> <span class="ow">or</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
     <span class="n">arch_name</span> <span class="o">=</span> <span class="n">arch_normalizer</span><span class="p">(</span><span class="n">arch_name</span> <span class="ow">or</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
     <span class="k">if</span> <span class="n">os_name</span> <span class="o">==</span> <span class="s2">&quot;windows&quot;</span><span class="p">:</span>

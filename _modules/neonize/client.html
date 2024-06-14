@@ -247,6 +247,7 @@
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">struct</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -270,6 +271,10 @@
 <span class="kn">from</span> <span class="nn">.exc</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ContactStoreError</span><span class="p">,</span>
     <span class="n">DownloadError</span><span class="p">,</span>
+    <span class="n">GetChatSettingsError</span><span class="p">,</span>
+    <span class="n">PutArchivedError</span><span class="p">,</span>
+    <span class="n">PutMutedUntilError</span><span class="p">,</span>
+    <span class="n">PutPinnedError</span><span class="p">,</span>
     <span class="n">ResolveContactQRLinkError</span><span class="p">,</span>
     <span class="n">SendAppStateError</span><span class="p">,</span>
     <span class="n">SetDefaultDisappearingTimerError</span><span class="p">,</span>
@@ -359,6 +364,8 @@
     <span class="n">GetUserInfoSingleReturnFunction</span><span class="p">,</span>
     <span class="n">SendResponse</span><span class="p">,</span>
     <span class="n">Device</span><span class="p">,</span>
+    <span class="n">ReturnFunctionWithError</span><span class="p">,</span>
+    <span class="n">LocalChatSettings</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2</span> <span class="kn">import</span> <span class="n">DeviceProps</span>
 <span class="kn">from</span> <span class="nn">.proto.waE2E.WAWebProtobufsE2E_pb2</span> <span class="kn">import</span> <span class="p">(</span>
@@ -516,6 +523,100 @@
 
 
 
+<div class="viewcode-block" id="ChatSettingsStore">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.client.ChatSettingsStore">[docs]</a>
+<span class="k">class</span> <span class="nc">ChatSettingsStore</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the ChatSettingsStore with a unique identifier.</span>
+
+<span class="sd">        :param uuid: Unique identifier for the chat settings store.</span>
+<span class="sd">        :type uuid: bytes</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">uuid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__client</span> <span class="o">=</span> <span class="n">gocode</span>
+
+<div class="viewcode-block" id="ChatSettingsStore.put_muted_until">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.client.ChatSettingsStore.put_muted_until">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_muted_until</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">until</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mute a user until a specified time.</span>
+
+<span class="sd">        :param user: The user to be muted.</span>
+<span class="sd">        :type user: JID</span>
+<span class="sd">        :param until: The duration until when the user will be muted.</span>
+<span class="sd">        :type until: timedelta</span>
+<span class="sd">        :raises PutMutedUntilError: If there is an error while muting the user.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">user_buf</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+        <span class="n">return_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">PutMutedUntil</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">user_buf</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_buf</span><span class="p">),</span> <span class="n">until</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">return_</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PutMutedUntilError</span><span class="p">(</span><span class="n">return_</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="ChatSettingsStore.put_pinned">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.client.ChatSettingsStore.put_pinned">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_pinned</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">pinned</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pin or unpin a user.</span>
+
+<span class="sd">        :param user: The user to be pinned or unpinned.</span>
+<span class="sd">        :type user: JID</span>
+<span class="sd">        :param pinned: True if the user should be pinned, False otherwise.</span>
+<span class="sd">        :type pinned: bool</span>
+<span class="sd">        :raises PutPinnedError: If there is an error while pinning the user.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">user_buf</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+        <span class="n">return_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">PutPinned</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">user_buf</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_buf</span><span class="p">),</span> <span class="n">pinned</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">return_</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PutPinnedError</span><span class="p">(</span><span class="n">return_</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="ChatSettingsStore.put_archived">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.client.ChatSettingsStore.put_archived">[docs]</a>
+    <span class="k">def</span> <span class="nf">put_archived</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">archived</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Archive or unarchive a user.</span>
+
+<span class="sd">        :param user: The user to be archived or unarchived.</span>
+<span class="sd">        :type user: JID</span>
+<span class="sd">        :param archived: True if the user should be archived, False otherwise.</span>
+<span class="sd">        :type archived: bool</span>
+<span class="sd">        :raises PutArchivedError: If there is an error while archiving the user.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">user_buf</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+        <span class="n">return_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">PutArchived</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">user_buf</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_buf</span><span class="p">),</span> <span class="n">archived</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">return_</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PutArchivedError</span><span class="p">(</span><span class="n">return_</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="ChatSettingsStore.get_chat_settings">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.client.ChatSettingsStore.get_chat_settings">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_chat_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LocalChatSettings</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the chat settings for a user.</span>
+
+<span class="sd">        :param user: The user whose chat settings are to be retrieved.</span>
+<span class="sd">        :type user: JID</span>
+<span class="sd">        :raises GetChatSettingsError: If there is an error while retrieving the chat settings.</span>
+<span class="sd">        :return: The chat settings for the specified user.</span>
+<span class="sd">        :rtype: LocalChatSettings</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">user_buf</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+        <span class="n">return_</span> <span class="o">=</span> <span class="n">ReturnFunctionWithError</span><span class="o">.</span><span class="n">FromString</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">GetChatSettings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">user_buf</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_buf</span><span class="p">))</span><span class="o">.</span><span class="n">get_bytes</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">return_</span><span class="o">.</span><span class="n">Error</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GetChatSettingsError</span><span class="p">(</span><span class="n">return_</span><span class="o">.</span><span class="n">Error</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">return_</span><span class="o">.</span><span class="n">LocalChatSettings</span></div>
+</div>
+
+
+
 <div class="viewcode-block" id="NewClient">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient">[docs]</a>
 <span class="k">class</span> <span class="nc">NewClient</span><span class="p">:</span>
@@ -544,6 +645,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">blocking</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">blocking</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">qr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">qr</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">contact</span> <span class="o">=</span> <span class="n">ContactStore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chat_settings</span> <span class="o">=</span> <span class="n">ChatSettingsStore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;🔨 Creating a NewClient instance&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__onLoginStatus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>

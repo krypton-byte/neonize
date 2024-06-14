@@ -863,6 +863,83 @@
 <section id="module-neonize.client">
 <span id="neonize-client-module"></span><h2>neonize.client module<a class="headerlink" href="#module-neonize.client" title="Link to this heading">¶</a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="neonize.client.ChatSettingsStore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neonize.client.</span></span><span class="sig-name descname"><span class="pre">ChatSettingsStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neonize/client.html#ChatSettingsStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.client.ChatSettingsStore" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neonize.client.ChatSettingsStore.get_chat_settings">
+<span class="sig-name descname"><span class="pre">get_chat_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neonize/client.html#ChatSettingsStore.get_chat_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.client.ChatSettingsStore.get_chat_settings" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the chat settings for a user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user</strong> (<em>JID</em>) – The user whose chat settings are to be retrieved.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#neonize.exc.GetChatSettingsError" title="neonize.exc.GetChatSettingsError"><strong>GetChatSettingsError</strong></a> – If there is an error while retrieving the chat settings.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The chat settings for the specified user.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>LocalChatSettings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neonize.client.ChatSettingsStore.put_archived">
+<span class="sig-name descname"><span class="pre">put_archived</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">archived</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neonize/client.html#ChatSettingsStore.put_archived"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.client.ChatSettingsStore.put_archived" title="Link to this definition">¶</a></dt>
+<dd><p>Archive or unarchive a user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<em>JID</em>) – The user to be archived or unarchived.</p></li>
+<li><p><strong>archived</strong> (<em>bool</em>) – True if the user should be archived, False otherwise.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#neonize.exc.PutArchivedError" title="neonize.exc.PutArchivedError"><strong>PutArchivedError</strong></a> – If there is an error while archiving the user.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neonize.client.ChatSettingsStore.put_muted_until">
+<span class="sig-name descname"><span class="pre">put_muted_until</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">until</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neonize/client.html#ChatSettingsStore.put_muted_until"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.client.ChatSettingsStore.put_muted_until" title="Link to this definition">¶</a></dt>
+<dd><p>Mute a user until a specified time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<em>JID</em>) – The user to be muted.</p></li>
+<li><p><strong>until</strong> (<em>timedelta</em>) – The duration until when the user will be muted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#neonize.exc.PutMutedUntilError" title="neonize.exc.PutMutedUntilError"><strong>PutMutedUntilError</strong></a> – If there is an error while muting the user.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neonize.client.ChatSettingsStore.put_pinned">
+<span class="sig-name descname"><span class="pre">put_pinned</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pinned</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neonize/client.html#ChatSettingsStore.put_pinned"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.client.ChatSettingsStore.put_pinned" title="Link to this definition">¶</a></dt>
+<dd><p>Pin or unpin a user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<em>JID</em>) – The user to be pinned or unpinned.</p></li>
+<li><p><strong>pinned</strong> (<em>bool</em>) – True if the user should be pinned, False otherwise.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#neonize.exc.PutPinnedError" title="neonize.exc.PutPinnedError"><strong>PutPinnedError</strong></a> – If there is an error while pinning the user.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="neonize.client.ContactStore">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neonize.client.</span></span><span class="sig-name descname"><span class="pre">ContactStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neonize/client.html#ContactStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.client.ContactStore" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -2774,6 +2851,12 @@ the client and an event deserialized from a string.</p>
 </dd></dl>
 
 <dl class="py exception">
+<dt class="sig sig-object py" id="neonize.exc.GetChatSettingsError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neonize.exc.</span></span><span class="sig-name descname"><span class="pre">GetChatSettingsError</span></span><a class="reference internal" href="../_modules/neonize/exc.html#GetChatSettingsError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.exc.GetChatSettingsError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
 <dt class="sig sig-object py" id="neonize.exc.GetContactQrLinkError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neonize.exc.</span></span><span class="sig-name descname"><span class="pre">GetContactQrLinkError</span></span><a class="reference internal" href="../_modules/neonize/exc.html#GetContactQrLinkError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.exc.GetContactQrLinkError" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
@@ -2926,6 +3009,24 @@ the client and an event deserialized from a string.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="neonize.exc.NewsletterToggleMuteError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neonize.exc.</span></span><span class="sig-name descname"><span class="pre">NewsletterToggleMuteError</span></span><a class="reference internal" href="../_modules/neonize/exc.html#NewsletterToggleMuteError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.exc.NewsletterToggleMuteError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="neonize.exc.PutArchivedError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neonize.exc.</span></span><span class="sig-name descname"><span class="pre">PutArchivedError</span></span><a class="reference internal" href="../_modules/neonize/exc.html#PutArchivedError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.exc.PutArchivedError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="neonize.exc.PutMutedUntilError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neonize.exc.</span></span><span class="sig-name descname"><span class="pre">PutMutedUntilError</span></span><a class="reference internal" href="../_modules/neonize/exc.html#PutMutedUntilError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.exc.PutMutedUntilError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="neonize.exc.PutPinnedError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neonize.exc.</span></span><span class="sig-name descname"><span class="pre">PutPinnedError</span></span><a class="reference internal" href="../_modules/neonize/exc.html#PutPinnedError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neonize.exc.PutPinnedError" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 </dd></dl>
 
@@ -4933,6 +5034,13 @@ It takes in the group’s JID, a list of participant changes, and an action to p
 </ul>
 </li>
 <li><a class="reference internal" href="#module-neonize.client">neonize.client module</a><ul>
+<li><a class="reference internal" href="#neonize.client.ChatSettingsStore"><code class="docutils literal notranslate"><span class="pre">ChatSettingsStore</span></code></a><ul>
+<li><a class="reference internal" href="#neonize.client.ChatSettingsStore.get_chat_settings"><code class="docutils literal notranslate"><span class="pre">ChatSettingsStore.get_chat_settings()</span></code></a></li>
+<li><a class="reference internal" href="#neonize.client.ChatSettingsStore.put_archived"><code class="docutils literal notranslate"><span class="pre">ChatSettingsStore.put_archived()</span></code></a></li>
+<li><a class="reference internal" href="#neonize.client.ChatSettingsStore.put_muted_until"><code class="docutils literal notranslate"><span class="pre">ChatSettingsStore.put_muted_until()</span></code></a></li>
+<li><a class="reference internal" href="#neonize.client.ChatSettingsStore.put_pinned"><code class="docutils literal notranslate"><span class="pre">ChatSettingsStore.put_pinned()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#neonize.client.ContactStore"><code class="docutils literal notranslate"><span class="pre">ContactStore</span></code></a><ul>
 <li><a class="reference internal" href="#neonize.client.ContactStore.get_all_contacts"><code class="docutils literal notranslate"><span class="pre">ContactStore.get_all_contacts()</span></code></a></li>
 <li><a class="reference internal" href="#neonize.client.ContactStore.get_contact"><code class="docutils literal notranslate"><span class="pre">ContactStore.get_contact()</span></code></a></li>
@@ -5058,6 +5166,7 @@ It takes in the group’s JID, a list of participant changes, and an action to p
 <li><a class="reference internal" href="#neonize.exc.FFProbeError"><code class="docutils literal notranslate"><span class="pre">FFProbeError</span></code></a></li>
 <li><a class="reference internal" href="#neonize.exc.FollowNewsletterError"><code class="docutils literal notranslate"><span class="pre">FollowNewsletterError</span></code></a></li>
 <li><a class="reference internal" href="#neonize.exc.GetBlocklistError"><code class="docutils literal notranslate"><span class="pre">GetBlocklistError</span></code></a></li>
+<li><a class="reference internal" href="#neonize.exc.GetChatSettingsError"><code class="docutils literal notranslate"><span class="pre">GetChatSettingsError</span></code></a></li>
 <li><a class="reference internal" href="#neonize.exc.GetContactQrLinkError"><code class="docutils literal notranslate"><span class="pre">GetContactQrLinkError</span></code></a></li>
 <li><a class="reference internal" href="#neonize.exc.GetGroupInfoError"><code class="docutils literal notranslate"><span class="pre">GetGroupInfoError</span></code></a></li>
 <li><a class="reference internal" href="#neonize.exc.GetGroupInviteLinkError"><code class="docutils literal notranslate"><span class="pre">GetGroupInviteLinkError</span></code></a></li>
@@ -5084,6 +5193,9 @@ It takes in the group’s JID, a list of participant changes, and an action to p
 <li><a class="reference internal" href="#neonize.exc.NewsletterSendReactionError"><code class="docutils literal notranslate"><span class="pre">NewsletterSendReactionError</span></code></a></li>
 <li><a class="reference internal" href="#neonize.exc.NewsletterSubscribeLiveUpdatesError"><code class="docutils literal notranslate"><span class="pre">NewsletterSubscribeLiveUpdatesError</span></code></a></li>
 <li><a class="reference internal" href="#neonize.exc.NewsletterToggleMuteError"><code class="docutils literal notranslate"><span class="pre">NewsletterToggleMuteError</span></code></a></li>
+<li><a class="reference internal" href="#neonize.exc.PutArchivedError"><code class="docutils literal notranslate"><span class="pre">PutArchivedError</span></code></a></li>
+<li><a class="reference internal" href="#neonize.exc.PutMutedUntilError"><code class="docutils literal notranslate"><span class="pre">PutMutedUntilError</span></code></a></li>
+<li><a class="reference internal" href="#neonize.exc.PutPinnedError"><code class="docutils literal notranslate"><span class="pre">PutPinnedError</span></code></a></li>
 <li><a class="reference internal" href="#neonize.exc.ResolveBusinessMessageLinkError"><code class="docutils literal notranslate"><span class="pre">ResolveBusinessMessageLinkError</span></code></a></li>
 <li><a class="reference internal" href="#neonize.exc.ResolveContactQRLinkError"><code class="docutils literal notranslate"><span class="pre">ResolveContactQRLinkError</span></code></a></li>
 <li><a class="reference internal" href="#neonize.exc.SendAppStateError"><code class="docutils literal notranslate"><span class="pre">SendAppStateError</span></code></a></li>
