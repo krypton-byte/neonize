@@ -27,12 +27,7 @@ class BizAccountLinkInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _AccountTypeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            BizAccountLinkInfo._AccountType.ValueType
-        ],
-        builtins.type,
-    ):
+    class _AccountTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BizAccountLinkInfo._AccountType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         ENTERPRISE: BizAccountLinkInfo._AccountType.ValueType  # 0
 
@@ -43,19 +38,12 @@ class BizAccountLinkInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _HostStorageTypeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            BizAccountLinkInfo._HostStorageType.ValueType
-        ],
-        builtins.type,
-    ):
+    class _HostStorageTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BizAccountLinkInfo._HostStorageType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         ON_PREMISE: BizAccountLinkInfo._HostStorageType.ValueType  # 0
         FACEBOOK: BizAccountLinkInfo._HostStorageType.ValueType  # 1
 
-    class HostStorageType(
-        _HostStorageType, metaclass=_HostStorageTypeEnumTypeWrapper
-    ): ...
+    class HostStorageType(_HostStorageType, metaclass=_HostStorageTypeEnumTypeWrapper): ...
     ON_PREMISE: BizAccountLinkInfo.HostStorageType.ValueType  # 0
     FACEBOOK: BizAccountLinkInfo.HostStorageType.ValueType  # 1
 
@@ -78,36 +66,8 @@ class BizAccountLinkInfo(google.protobuf.message.Message):
         hostStorage: global___BizAccountLinkInfo.HostStorageType.ValueType | None = ...,
         accountType: global___BizAccountLinkInfo.AccountType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "accountType",
-            b"accountType",
-            "hostStorage",
-            b"hostStorage",
-            "issueTime",
-            b"issueTime",
-            "whatsappAcctNumber",
-            b"whatsappAcctNumber",
-            "whatsappBizAcctFbid",
-            b"whatsappBizAcctFbid",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "accountType",
-            b"accountType",
-            "hostStorage",
-            b"hostStorage",
-            "issueTime",
-            b"issueTime",
-            "whatsappAcctNumber",
-            b"whatsappAcctNumber",
-            "whatsappBizAcctFbid",
-            b"whatsappBizAcctFbid",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["accountType", b"accountType", "hostStorage", b"hostStorage", "issueTime", b"issueTime", "whatsappAcctNumber", b"whatsappAcctNumber", "whatsappBizAcctFbid", b"whatsappBizAcctFbid"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["accountType", b"accountType", "hostStorage", b"hostStorage", "issueTime", b"issueTime", "whatsappAcctNumber", b"whatsappAcctNumber", "whatsappBizAcctFbid", b"whatsappBizAcctFbid"]) -> None: ...
 
 global___BizAccountLinkInfo = BizAccountLinkInfo
 
@@ -119,19 +79,12 @@ class BizIdentityInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ActualActorsTypeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            BizIdentityInfo._ActualActorsType.ValueType
-        ],
-        builtins.type,
-    ):
+    class _ActualActorsTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BizIdentityInfo._ActualActorsType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         SELF: BizIdentityInfo._ActualActorsType.ValueType  # 0
         BSP: BizIdentityInfo._ActualActorsType.ValueType  # 1
 
-    class ActualActorsType(
-        _ActualActorsType, metaclass=_ActualActorsTypeEnumTypeWrapper
-    ): ...
+    class ActualActorsType(_ActualActorsType, metaclass=_ActualActorsTypeEnumTypeWrapper): ...
     SELF: BizIdentityInfo.ActualActorsType.ValueType  # 0
     BSP: BizIdentityInfo.ActualActorsType.ValueType  # 1
 
@@ -139,19 +92,12 @@ class BizIdentityInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _HostStorageTypeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            BizIdentityInfo._HostStorageType.ValueType
-        ],
-        builtins.type,
-    ):
+    class _HostStorageTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BizIdentityInfo._HostStorageType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         ON_PREMISE: BizIdentityInfo._HostStorageType.ValueType  # 0
         FACEBOOK: BizIdentityInfo._HostStorageType.ValueType  # 1
 
-    class HostStorageType(
-        _HostStorageType, metaclass=_HostStorageTypeEnumTypeWrapper
-    ): ...
+    class HostStorageType(_HostStorageType, metaclass=_HostStorageTypeEnumTypeWrapper): ...
     ON_PREMISE: BizIdentityInfo.HostStorageType.ValueType  # 0
     FACEBOOK: BizIdentityInfo.HostStorageType.ValueType  # 1
 
@@ -159,20 +105,13 @@ class BizIdentityInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _VerifiedLevelValueEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            BizIdentityInfo._VerifiedLevelValue.ValueType
-        ],
-        builtins.type,
-    ):
+    class _VerifiedLevelValueEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BizIdentityInfo._VerifiedLevelValue.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: BizIdentityInfo._VerifiedLevelValue.ValueType  # 0
         LOW: BizIdentityInfo._VerifiedLevelValue.ValueType  # 1
         HIGH: BizIdentityInfo._VerifiedLevelValue.ValueType  # 2
 
-    class VerifiedLevelValue(
-        _VerifiedLevelValue, metaclass=_VerifiedLevelValueEnumTypeWrapper
-    ): ...
+    class VerifiedLevelValue(_VerifiedLevelValue, metaclass=_VerifiedLevelValueEnumTypeWrapper): ...
     UNKNOWN: BizIdentityInfo.VerifiedLevelValue.ValueType  # 0
     LOW: BizIdentityInfo.VerifiedLevelValue.ValueType  # 1
     HIGH: BizIdentityInfo.VerifiedLevelValue.ValueType  # 2
@@ -206,48 +145,8 @@ class BizIdentityInfo(google.protobuf.message.Message):
         privacyModeTS: builtins.int | None = ...,
         featureControls: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "actualActors",
-            b"actualActors",
-            "featureControls",
-            b"featureControls",
-            "hostStorage",
-            b"hostStorage",
-            "privacyModeTS",
-            b"privacyModeTS",
-            "revoked",
-            b"revoked",
-            "signed",
-            b"signed",
-            "vlevel",
-            b"vlevel",
-            "vnameCert",
-            b"vnameCert",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "actualActors",
-            b"actualActors",
-            "featureControls",
-            b"featureControls",
-            "hostStorage",
-            b"hostStorage",
-            "privacyModeTS",
-            b"privacyModeTS",
-            "revoked",
-            b"revoked",
-            "signed",
-            b"signed",
-            "vlevel",
-            b"vlevel",
-            "vnameCert",
-            b"vnameCert",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["actualActors", b"actualActors", "featureControls", b"featureControls", "hostStorage", b"hostStorage", "privacyModeTS", b"privacyModeTS", "revoked", b"revoked", "signed", b"signed", "vlevel", b"vlevel", "vnameCert", b"vnameCert"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["actualActors", b"actualActors", "featureControls", b"featureControls", "hostStorage", b"hostStorage", "privacyModeTS", b"privacyModeTS", "revoked", b"revoked", "signed", b"signed", "vlevel", b"vlevel", "vnameCert", b"vnameCert"]) -> None: ...
 
 global___BizIdentityInfo = BizIdentityInfo
 
@@ -268,18 +167,8 @@ class LocalizedName(google.protobuf.message.Message):
         lc: builtins.str | None = ...,
         verifiedName: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "lc", b"lc", "lg", b"lg", "verifiedName", b"verifiedName"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "lc", b"lc", "lg", b"lg", "verifiedName", b"verifiedName"
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["lc", b"lc", "lg", b"lg", "verifiedName", b"verifiedName"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["lc", b"lc", "lg", b"lg", "verifiedName", b"verifiedName"]) -> None: ...
 
 global___LocalizedName = LocalizedName
 
@@ -301,49 +190,18 @@ class VerifiedNameCertificate(google.protobuf.message.Message):
         verifiedName: builtins.str
         issueTime: builtins.int
         @property
-        def localizedNames(
-            self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-            global___LocalizedName
-        ]: ...
+        def localizedNames(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___LocalizedName]: ...
         def __init__(
             self,
             *,
             serial: builtins.int | None = ...,
             issuer: builtins.str | None = ...,
             verifiedName: builtins.str | None = ...,
-            localizedNames: collections.abc.Iterable[global___LocalizedName]
-            | None = ...,
+            localizedNames: collections.abc.Iterable[global___LocalizedName] | None = ...,
             issueTime: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(
-            self,
-            field_name: typing.Literal[
-                "issueTime",
-                b"issueTime",
-                "issuer",
-                b"issuer",
-                "serial",
-                b"serial",
-                "verifiedName",
-                b"verifiedName",
-            ],
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "issueTime",
-                b"issueTime",
-                "issuer",
-                b"issuer",
-                "localizedNames",
-                b"localizedNames",
-                "serial",
-                b"serial",
-                "verifiedName",
-                b"verifiedName",
-            ],
-        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["issueTime", b"issueTime", "issuer", b"issuer", "serial", b"serial", "verifiedName", b"verifiedName"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["issueTime", b"issueTime", "issuer", b"issuer", "localizedNames", b"localizedNames", "serial", b"serial", "verifiedName", b"verifiedName"]) -> None: ...
 
     DETAILS_FIELD_NUMBER: builtins.int
     SIGNATURE_FIELD_NUMBER: builtins.int
@@ -358,28 +216,8 @@ class VerifiedNameCertificate(google.protobuf.message.Message):
         signature: builtins.bytes | None = ...,
         serverSignature: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "details",
-            b"details",
-            "serverSignature",
-            b"serverSignature",
-            "signature",
-            b"signature",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "details",
-            b"details",
-            "serverSignature",
-            b"serverSignature",
-            "signature",
-            b"signature",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["details", b"details", "serverSignature", b"serverSignature", "signature", b"signature"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["details", b"details", "serverSignature", b"serverSignature", "signature", b"signature"]) -> None: ...
 
 global___VerifiedNameCertificate = VerifiedNameCertificate
 
@@ -398,17 +236,7 @@ class BizAccountPayload(google.protobuf.message.Message):
         vnameCert: global___VerifiedNameCertificate | None = ...,
         bizAcctLinkInfo: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "bizAcctLinkInfo", b"bizAcctLinkInfo", "vnameCert", b"vnameCert"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "bizAcctLinkInfo", b"bizAcctLinkInfo", "vnameCert", b"vnameCert"
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["bizAcctLinkInfo", b"bizAcctLinkInfo", "vnameCert", b"vnameCert"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["bizAcctLinkInfo", b"bizAcctLinkInfo", "vnameCert", b"vnameCert"]) -> None: ...
 
 global___BizAccountPayload = BizAccountPayload

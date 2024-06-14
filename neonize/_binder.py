@@ -441,9 +441,9 @@ if not os.environ.get("SPHINX"):
         ctypes.c_bool,
     ]
     gocode.PutPinned.restype = ctypes.c_char_p
-    gocode.PutArchived = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_bool]
-    gocode.PutArchived = ctypes.c_char_p
-    gocode.GetChatSettings = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.GetChatSettings = Bytes
+    gocode.PutArchived.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_bool]
+    gocode.PutArchived.restype = ctypes.c_char_p
+    gocode.GetChatSettings.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.GetChatSettings.restype = Bytes
 else:
     gocode: Any = object()

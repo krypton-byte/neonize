@@ -25,20 +25,13 @@ class DeviceCapabilities(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ChatLockSupportLevelEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            DeviceCapabilities._ChatLockSupportLevel.ValueType
-        ],
-        builtins.type,
-    ):
+    class _ChatLockSupportLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DeviceCapabilities._ChatLockSupportLevel.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         NONE: DeviceCapabilities._ChatLockSupportLevel.ValueType  # 0
         MINIMAL: DeviceCapabilities._ChatLockSupportLevel.ValueType  # 1
         FULL: DeviceCapabilities._ChatLockSupportLevel.ValueType  # 2
 
-    class ChatLockSupportLevel(
-        _ChatLockSupportLevel, metaclass=_ChatLockSupportLevelEnumTypeWrapper
-    ): ...
+    class ChatLockSupportLevel(_ChatLockSupportLevel, metaclass=_ChatLockSupportLevelEnumTypeWrapper): ...
     NONE: DeviceCapabilities.ChatLockSupportLevel.ValueType  # 0
     MINIMAL: DeviceCapabilities.ChatLockSupportLevel.ValueType  # 1
     FULL: DeviceCapabilities.ChatLockSupportLevel.ValueType  # 2
@@ -48,16 +41,9 @@ class DeviceCapabilities(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        chatLockSupportLevel: global___DeviceCapabilities.ChatLockSupportLevel.ValueType
-        | None = ...,
+        chatLockSupportLevel: global___DeviceCapabilities.ChatLockSupportLevel.ValueType | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal["chatLockSupportLevel", b"chatLockSupportLevel"],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal["chatLockSupportLevel", b"chatLockSupportLevel"],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["chatLockSupportLevel", b"chatLockSupportLevel"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["chatLockSupportLevel", b"chatLockSupportLevel"]) -> None: ...
 
 global___DeviceCapabilities = DeviceCapabilities

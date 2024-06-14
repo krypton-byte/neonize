@@ -207,6 +207,19 @@ def handler(client: NewClient, message: MessageEv):
                     quoted=message,
                 ),
             )
+        #ChatSettingsStore
+        case "put_muted_until":
+            client.chat_settings.put_muted_until(chat, timedelta(seconds=5))
+        case "put_pinned_enable":
+            client.chat_settings.put_pinned(chat, True)
+        case "put_pinned_disable":
+            client.chat_settings.put_pinned(chat, False)
+        case "put_archived_enable":
+            client.chat_settings.put_archived(chat, True)
+        case "put_archived_disable":
+            client.chat_settings.put_archived(chat, False)
+        case "get_chat_settings":
+            client.send_message(chat, client.chat_settings.get_chat_settings(chat).__str__())
 
 
 @client.event(PairStatusEv)

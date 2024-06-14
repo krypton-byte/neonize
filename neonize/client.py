@@ -331,7 +331,7 @@ class ChatSettingsStore:
         """        
         user_buf = user.SerializeToString()
         return_ = ReturnFunctionWithError.FromString(
-            self.__client.GetChatSettings(self.uuid, user_buf, len(user_buf))
+            self.__client.GetChatSettings(self.uuid, user_buf, len(user_buf)).get_bytes()
         )
         if return_.Error:
             raise GetChatSettingsError(return_.Error)

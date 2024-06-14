@@ -23,19 +23,12 @@ class _ADVEncryptionType:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _ADVEncryptionTypeEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-        _ADVEncryptionType.ValueType
-    ],
-    builtins.type,
-):
+class _ADVEncryptionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ADVEncryptionType.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     E2EE: _ADVEncryptionType.ValueType  # 0
     HOSTED: _ADVEncryptionType.ValueType  # 1
 
-class ADVEncryptionType(
-    _ADVEncryptionType, metaclass=_ADVEncryptionTypeEnumTypeWrapper
-): ...
+class ADVEncryptionType(_ADVEncryptionType, metaclass=_ADVEncryptionTypeEnumTypeWrapper): ...
 
 E2EE: ADVEncryptionType.ValueType  # 0
 HOSTED: ADVEncryptionType.ValueType  # 1
@@ -55,11 +48,7 @@ class ADVKeyIndexList(google.protobuf.message.Message):
     currentIndex: builtins.int
     accountType: global___ADVEncryptionType.ValueType
     @property
-    def validIndexes(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-        builtins.int
-    ]: ...
+    def validIndexes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     def __init__(
         self,
         *,
@@ -69,34 +58,8 @@ class ADVKeyIndexList(google.protobuf.message.Message):
         validIndexes: collections.abc.Iterable[builtins.int] | None = ...,
         accountType: global___ADVEncryptionType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "accountType",
-            b"accountType",
-            "currentIndex",
-            b"currentIndex",
-            "rawID",
-            b"rawID",
-            "timestamp",
-            b"timestamp",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "accountType",
-            b"accountType",
-            "currentIndex",
-            b"currentIndex",
-            "rawID",
-            b"rawID",
-            "timestamp",
-            b"timestamp",
-            "validIndexes",
-            b"validIndexes",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["accountType", b"accountType", "currentIndex", b"currentIndex", "rawID", b"rawID", "timestamp", b"timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["accountType", b"accountType", "currentIndex", b"currentIndex", "rawID", b"rawID", "timestamp", b"timestamp", "validIndexes", b"validIndexes"]) -> None: ...
 
 global___ADVKeyIndexList = ADVKeyIndexList
 
@@ -117,28 +80,8 @@ class ADVSignedKeyIndexList(google.protobuf.message.Message):
         accountSignature: builtins.bytes | None = ...,
         accountSignatureKey: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "accountSignature",
-            b"accountSignature",
-            "accountSignatureKey",
-            b"accountSignatureKey",
-            "details",
-            b"details",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "accountSignature",
-            b"accountSignature",
-            "accountSignatureKey",
-            b"accountSignatureKey",
-            "details",
-            b"details",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["accountSignature", b"accountSignature", "accountSignatureKey", b"accountSignatureKey", "details", b"details"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["accountSignature", b"accountSignature", "accountSignatureKey", b"accountSignatureKey", "details", b"details"]) -> None: ...
 
 global___ADVSignedKeyIndexList = ADVSignedKeyIndexList
 
@@ -165,36 +108,8 @@ class ADVDeviceIdentity(google.protobuf.message.Message):
         accountType: global___ADVEncryptionType.ValueType | None = ...,
         deviceType: global___ADVEncryptionType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "accountType",
-            b"accountType",
-            "deviceType",
-            b"deviceType",
-            "keyIndex",
-            b"keyIndex",
-            "rawID",
-            b"rawID",
-            "timestamp",
-            b"timestamp",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "accountType",
-            b"accountType",
-            "deviceType",
-            b"deviceType",
-            "keyIndex",
-            b"keyIndex",
-            "rawID",
-            b"rawID",
-            "timestamp",
-            b"timestamp",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["accountType", b"accountType", "deviceType", b"deviceType", "keyIndex", b"keyIndex", "rawID", b"rawID", "timestamp", b"timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["accountType", b"accountType", "deviceType", b"deviceType", "keyIndex", b"keyIndex", "rawID", b"rawID", "timestamp", b"timestamp"]) -> None: ...
 
 global___ADVDeviceIdentity = ADVDeviceIdentity
 
@@ -218,32 +133,8 @@ class ADVSignedDeviceIdentity(google.protobuf.message.Message):
         accountSignature: builtins.bytes | None = ...,
         deviceSignature: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "accountSignature",
-            b"accountSignature",
-            "accountSignatureKey",
-            b"accountSignatureKey",
-            "details",
-            b"details",
-            "deviceSignature",
-            b"deviceSignature",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "accountSignature",
-            b"accountSignature",
-            "accountSignatureKey",
-            b"accountSignatureKey",
-            "details",
-            b"details",
-            "deviceSignature",
-            b"deviceSignature",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["accountSignature", b"accountSignature", "accountSignatureKey", b"accountSignatureKey", "details", b"details", "deviceSignature", b"deviceSignature"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["accountSignature", b"accountSignature", "accountSignatureKey", b"accountSignatureKey", "details", b"details", "deviceSignature", b"deviceSignature"]) -> None: ...
 
 global___ADVSignedDeviceIdentity = ADVSignedDeviceIdentity
 
@@ -264,17 +155,7 @@ class ADVSignedDeviceIdentityHMAC(google.protobuf.message.Message):
         HMAC: builtins.bytes | None = ...,
         accountType: global___ADVEncryptionType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "HMAC", b"HMAC", "accountType", b"accountType", "details", b"details"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "HMAC", b"HMAC", "accountType", b"accountType", "details", b"details"
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["HMAC", b"HMAC", "accountType", b"accountType", "details", b"details"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["HMAC", b"HMAC", "accountType", b"accountType", "details", b"details"]) -> None: ...
 
 global___ADVSignedDeviceIdentityHMAC = ADVSignedDeviceIdentityHMAC
