@@ -1170,6 +1170,9 @@ class Message(google.protobuf.message.Message):
     ISEPHEMERAL_FIELD_NUMBER: builtins.int
     ISVIEWONCE_FIELD_NUMBER: builtins.int
     ISVIEWONCEV2_FIELD_NUMBER: builtins.int
+    ISVIEWONCEV2EXTENSION_FIELD_NUMBER: builtins.int
+    ISDOCUMENTWITHCAPTION_FIELD_NUMBER: builtins.int
+    ISLOTTIESTICKER_FIELD_NUMBER: builtins.int
     ISEDIT_FIELD_NUMBER: builtins.int
     SOURCEWEBMSG_FIELD_NUMBER: builtins.int
     UNAVAILABLEREQUESTID_FIELD_NUMBER: builtins.int
@@ -1178,6 +1181,9 @@ class Message(google.protobuf.message.Message):
     IsEphemeral: builtins.bool
     IsViewOnce: builtins.bool
     IsViewOnceV2: builtins.bool
+    IsViewOnceV2Extension: builtins.bool
+    IsDocumentWithCaption: builtins.bool
+    IsLottieSticker: builtins.bool
     IsEdit: builtins.bool
     UnavailableRequestID: builtins.str
     RetryCount: builtins.int
@@ -1197,14 +1203,17 @@ class Message(google.protobuf.message.Message):
         IsEphemeral: builtins.bool | None = ...,
         IsViewOnce: builtins.bool | None = ...,
         IsViewOnceV2: builtins.bool | None = ...,
+        IsViewOnceV2Extension: builtins.bool | None = ...,
+        IsDocumentWithCaption: builtins.bool | None = ...,
+        IsLottieSticker: builtins.bool | None = ...,
         IsEdit: builtins.bool | None = ...,
         SourceWebMsg: waWeb.WAWebProtobufsWeb_pb2.WebMessageInfo | None = ...,
         UnavailableRequestID: builtins.str | None = ...,
         RetryCount: builtins.int | None = ...,
         NewsLetterMeta: global___NewsLetterMessageMeta | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["Info", b"Info", "IsEdit", b"IsEdit", "IsEphemeral", b"IsEphemeral", "IsViewOnce", b"IsViewOnce", "IsViewOnceV2", b"IsViewOnceV2", "Message", b"Message", "NewsLetterMeta", b"NewsLetterMeta", "RetryCount", b"RetryCount", "SourceWebMsg", b"SourceWebMsg", "UnavailableRequestID", b"UnavailableRequestID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["Info", b"Info", "IsEdit", b"IsEdit", "IsEphemeral", b"IsEphemeral", "IsViewOnce", b"IsViewOnce", "IsViewOnceV2", b"IsViewOnceV2", "Message", b"Message", "NewsLetterMeta", b"NewsLetterMeta", "RetryCount", b"RetryCount", "SourceWebMsg", b"SourceWebMsg", "UnavailableRequestID", b"UnavailableRequestID"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["Info", b"Info", "IsDocumentWithCaption", b"IsDocumentWithCaption", "IsEdit", b"IsEdit", "IsEphemeral", b"IsEphemeral", "IsLottieSticker", b"IsLottieSticker", "IsViewOnce", b"IsViewOnce", "IsViewOnceV2", b"IsViewOnceV2", "IsViewOnceV2Extension", b"IsViewOnceV2Extension", "Message", b"Message", "NewsLetterMeta", b"NewsLetterMeta", "RetryCount", b"RetryCount", "SourceWebMsg", b"SourceWebMsg", "UnavailableRequestID", b"UnavailableRequestID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["Info", b"Info", "IsDocumentWithCaption", b"IsDocumentWithCaption", "IsEdit", b"IsEdit", "IsEphemeral", b"IsEphemeral", "IsLottieSticker", b"IsLottieSticker", "IsViewOnce", b"IsViewOnce", "IsViewOnceV2", b"IsViewOnceV2", "IsViewOnceV2Extension", b"IsViewOnceV2Extension", "Message", b"Message", "NewsLetterMeta", b"NewsLetterMeta", "RetryCount", b"RetryCount", "SourceWebMsg", b"SourceWebMsg", "UnavailableRequestID", b"UnavailableRequestID"]) -> None: ...
 
 global___Message = Message
 

@@ -279,11 +279,14 @@ message Message {
     required bool IsEphemeral = 3;
     required bool IsViewOnce = 4;
     required bool IsViewOnceV2 = 5;
-    required bool IsEdit = 6;
-    optional WAWebProtobufsWeb.WebMessageInfo SourceWebMsg = 7;
-    required string UnavailableRequestID = 8;
-    required int64 RetryCount = 9;
-    optional NewsLetterMessageMeta NewsLetterMeta = 10;
+    required bool IsViewOnceV2Extension = 6;
+    required bool IsDocumentWithCaption = 7;
+    required bool IsLottieSticker = 8;
+    required bool IsEdit = 9;
+    optional WAWebProtobufsWeb.WebMessageInfo SourceWebMsg = 10;
+    required string UnavailableRequestID = 11;
+    required int64 RetryCount = 12;
+    optional NewsLetterMessageMeta NewsLetterMeta = 13;
 }
 message CreateNewsletterParams {
     required string Name = 1;

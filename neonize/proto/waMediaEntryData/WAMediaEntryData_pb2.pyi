@@ -78,6 +78,7 @@ class MediaEntry(google.protobuf.message.Message):
     HANDLE_FIELD_NUMBER: builtins.int
     FILENAME_FIELD_NUMBER: builtins.int
     PROGRESSIVEJPEGDETAILS_FIELD_NUMBER: builtins.int
+    SIZE_FIELD_NUMBER: builtins.int
     fileSHA256: builtins.bytes
     mediaKey: builtins.bytes
     fileEncSHA256: builtins.bytes
@@ -91,6 +92,7 @@ class MediaEntry(google.protobuf.message.Message):
     FBID: builtins.str
     handle: builtins.str
     filename: builtins.str
+    size: builtins.int
     @property
     def downloadableThumbnail(self) -> global___MediaEntry.DownloadableThumbnail: ...
     @property
@@ -113,8 +115,9 @@ class MediaEntry(google.protobuf.message.Message):
         handle: builtins.str | None = ...,
         filename: builtins.str | None = ...,
         progressiveJPEGDetails: global___MediaEntry.ProgressiveJpegDetails | None = ...,
+        size: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["FBID", b"FBID", "directPath", b"directPath", "downloadableThumbnail", b"downloadableThumbnail", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "filename", b"filename", "handle", b"handle", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "objectID", b"objectID", "progressiveJPEGDetails", b"progressiveJPEGDetails", "serverMediaType", b"serverMediaType", "sidecar", b"sidecar", "uploadToken", b"uploadToken", "validatedTimestamp", b"validatedTimestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["FBID", b"FBID", "directPath", b"directPath", "downloadableThumbnail", b"downloadableThumbnail", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "filename", b"filename", "handle", b"handle", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "objectID", b"objectID", "progressiveJPEGDetails", b"progressiveJPEGDetails", "serverMediaType", b"serverMediaType", "sidecar", b"sidecar", "uploadToken", b"uploadToken", "validatedTimestamp", b"validatedTimestamp"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["FBID", b"FBID", "directPath", b"directPath", "downloadableThumbnail", b"downloadableThumbnail", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "filename", b"filename", "handle", b"handle", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "objectID", b"objectID", "progressiveJPEGDetails", b"progressiveJPEGDetails", "serverMediaType", b"serverMediaType", "sidecar", b"sidecar", "size", b"size", "uploadToken", b"uploadToken", "validatedTimestamp", b"validatedTimestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["FBID", b"FBID", "directPath", b"directPath", "downloadableThumbnail", b"downloadableThumbnail", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "filename", b"filename", "handle", b"handle", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "objectID", b"objectID", "progressiveJPEGDetails", b"progressiveJPEGDetails", "serverMediaType", b"serverMediaType", "sidecar", b"sidecar", "size", b"size", "uploadToken", b"uploadToken", "validatedTimestamp", b"validatedTimestamp"]) -> None: ...
 
 global___MediaEntry = MediaEntry

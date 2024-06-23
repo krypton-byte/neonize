@@ -73,10 +73,10 @@ func DecodeVerifiedNameDetails(verifiedNameDetails *waVname.VerifiedNameCertific
 func DecodeVerifiedName(verifiedName *defproto.VerifiedName) *types.VerifiedName {
 	verifiednametypes := types.VerifiedName{}
 	if verifiedName.Certificate != nil {
-		verifiednametypes.Certificate = verifiednametypes.Certificate
+		verifiednametypes.Certificate = verifiedName.Certificate
 	}
 	if verifiedName.Details != nil {
-		verifiednametypes.Details = verifiednametypes.Details
+		verifiednametypes.Details = verifiedName.Details
 	}
 	return &verifiednametypes
 }

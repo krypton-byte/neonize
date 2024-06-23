@@ -256,13 +256,16 @@ func EncodeNewsLetterMessageMeta(newsLetter *events.NewsletterMessageMeta) *defp
 
 func EncodeEventTypesMessage(message *events.Message) *defproto.Message {
 	model := &defproto.Message{
-		Info:                 EncodeMessageInfo(message.Info),
-		IsEphemeral:          &message.IsEphemeral,
-		IsViewOnce:           &message.IsViewOnce,
-		IsViewOnceV2:         &message.IsViewOnceV2,
-		IsEdit:               &message.IsEdit,
-		UnavailableRequestID: &message.UnavailableRequestID,
-		RetryCount:           proto.Int64(int64(message.RetryCount)),
+		Info:                  EncodeMessageInfo(message.Info),
+		IsEphemeral:           &message.IsEphemeral,
+		IsViewOnce:            &message.IsViewOnce,
+		IsViewOnceV2:          &message.IsViewOnceV2,
+		IsEdit:                &message.IsEdit,
+		IsViewOnceV2Extension: proto.Bool(message.IsViewOnceV2Extension),
+		IsDocumentWithCaption: proto.Bool(message.IsDocumentWithCaption),
+		IsLottieSticker:       proto.Bool(message.IsLottieSticker),
+		UnavailableRequestID:  &message.UnavailableRequestID,
+		RetryCount:            proto.Int64(int64(message.RetryCount)),
 	}
 	if message.NewsletterMeta != nil {
 		model.NewsLetterMeta = EncodeNewsLetterMessageMeta(message.NewsletterMeta)
