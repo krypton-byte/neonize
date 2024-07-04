@@ -266,7 +266,7 @@ class ChatSettingsStore:
 
         :param uuid: Unique identifier for the chat settings store.
         :type uuid: bytes
-        """        
+        """
         self.uuid = uuid
         self.__client = gocode
 
@@ -279,7 +279,7 @@ class ChatSettingsStore:
         :param until: The duration until when the user will be muted.
         :type until: timedelta
         :raises PutMutedUntilError: If there is an error while muting the user.
-        """        
+        """
         user_buf = user.SerializeToString()
         return_ = self.__client.PutMutedUntil(
             self.uuid, user_buf, len(user_buf), until.total_seconds()
@@ -296,7 +296,7 @@ class ChatSettingsStore:
         :param pinned: True if the user should be pinned, False otherwise.
         :type pinned: bool
         :raises PutPinnedError: If there is an error while pinning the user.
-        """        
+        """
         user_buf = user.SerializeToString()
         return_ = self.__client.PutPinned(self.uuid, user_buf, len(user_buf), pinned)
         if return_:
@@ -311,7 +311,7 @@ class ChatSettingsStore:
         :param archived: True if the user should be archived, False otherwise.
         :type archived: bool
         :raises PutArchivedError: If there is an error while archiving the user.
-        """        
+        """
         user_buf = user.SerializeToString()
         return_ = self.__client.PutArchived(
             self.uuid, user_buf, len(user_buf), archived
@@ -328,10 +328,12 @@ class ChatSettingsStore:
         :raises GetChatSettingsError: If there is an error while retrieving the chat settings.
         :return: The chat settings for the specified user.
         :rtype: LocalChatSettings
-        """        
+        """
         user_buf = user.SerializeToString()
         return_ = ReturnFunctionWithError.FromString(
-            self.__client.GetChatSettings(self.uuid, user_buf, len(user_buf)).get_bytes()
+            self.__client.GetChatSettings(
+                self.uuid, user_buf, len(user_buf)
+            ).get_bytes()
         )
         if return_.Error:
             raise GetChatSettingsError(return_.Error)

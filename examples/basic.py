@@ -12,6 +12,13 @@ from neonize.events import (
     ReceiptEv,
     CallOfferEv,
 )
+from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
+    Message,
+    FutureProofMessage,
+    InteractiveMessage,
+    MessageContextInfo,
+    DeviceListMetadata,
+)
 from neonize.types import MessageServerID
 from neonize.utils import log
 from neonize.utils.enum import ReceiptType
@@ -207,7 +214,7 @@ def handler(client: NewClient, message: MessageEv):
                     quoted=message,
                 ),
             )
-        #ChatSettingsStore
+        # ChatSettingsStore
         case "put_muted_until":
             client.chat_settings.put_muted_until(chat, timedelta(seconds=5))
         case "put_pinned_enable":
@@ -219,7 +226,67 @@ def handler(client: NewClient, message: MessageEv):
         case "put_archived_disable":
             client.chat_settings.put_archived(chat, False)
         case "get_chat_settings":
-            client.send_message(chat, client.chat_settings.get_chat_settings(chat).__str__())
+            client.send_message(
+                chat, client.chat_settings.get_chat_settings(chat).__str__()
+            )
+        case "button":
+            client.send_message(
+                message.Info.MessageSource.Chat,
+                Message(
+                    viewOnceMessage=FutureProofMessage(
+                        message=Message(
+                            messageContextInfo=MessageContextInfo(
+                                deviceListMetadata=DeviceListMetadata(),
+                                deviceListMetadataVersion=2,
+                            ),
+                            interactiveMessage=InteractiveMessage(
+                                body=InteractiveMessage.Body(text="Body Message"),
+                                footer=InteractiveMessage.Footer(text="@krypton-byte"),
+                                header=InteractiveMessage.Header(
+                                    title="Title Message",
+                                    subtitle="Subtitle Message",
+                                    hasMediaAttachment=False,
+                                ),
+                                nativeFlowMessage=InteractiveMessage.NativeFlowMessage(
+                                    buttons=[
+                                        InteractiveMessage.NativeFlowMessage.NativeFlowButton(
+                                            name="single_select",
+                                            buttonParamsJSON='{"title":"List Buttons","sections":[{"title":"title","highlight_label":"label","rows":[{"header":"header","title":"title","description":"description","id":"select 1"},{"header":"header","title":"title","description":"description","id":"select 2"}]}]}',
+                                        ),
+                                        InteractiveMessage.NativeFlowMessage.NativeFlowButton(
+                                            name="quick_reply",
+                                            buttonParamsJSON='{"display_text":"Quick URL","url":"https://www.google.com","merchant_url":"https://www.google.com"}',
+                                        ),
+                                        InteractiveMessage.NativeFlowMessage.NativeFlowButton(
+                                            name="cta_call",
+                                            buttonParamsJSON='{"display_text":"Quick Call","id":"message"}',
+                                        ),
+                                        InteractiveMessage.NativeFlowMessage.NativeFlowButton(
+                                            name="cta_copy",
+                                            buttonParamsJSON='{"display_text":"Quick Copy","id":"123456789","copy_code":"message"}',
+                                        ),
+                                        InteractiveMessage.NativeFlowMessage.NativeFlowButton(
+                                            name="cta_remainder",
+                                            buttonParamsJSON='{"display_text":"Reminder","id":"message"}',
+                                        ),
+                                        InteractiveMessage.NativeFlowMessage.NativeFlowButton(
+                                            name="cta_cancel_remainder",
+                                            buttonParamsJSON='{"display_text":"Cancel Reminder","id":"message"}',
+                                        ),
+                                        InteractiveMessage.NativeFlowMessage.NativeFlowButton(
+                                            name="address_message",
+                                            buttonParamsJSON='{"display_text":"Address","id":"message"}',
+                                        ),
+                                        InteractiveMessage.NativeFlowMessage.NativeFlowButton(
+                                            name="send_location", buttonParamsJSON=""
+                                        ),
+                                    ]
+                                ),
+                            ),
+                        )
+                    )
+                ),
+            )
 
 
 @client.event(PairStatusEv)
