@@ -130,7 +130,7 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 }
 
 //export Neonize
-func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, subscribes *C.uchar, lenSubscriber C.int, blocking C.ptr_to_python_function, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int) { // ,
+func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, subscribes *C.uchar, lenSubscriber C.int, blocking C.ptr_to_python_function, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int) { // ,
 	subscribers := map[int]bool{}
 	var deviceProps waProto.DeviceProps
 	var loginStateChan = make(chan bool)
@@ -148,8 +148,21 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 		panic(err)
 	}
 	// If you want multiple sessions, remember their JIDs and use .GetDevice(jid) or .GetAllDevices() instead.
-	deviceStore, err := container.GetFirstDevice()
-	if err != nil {
+	var deviceStore *store.Device
+	var err_device error
+	var neoJIDProto defproto.JID
+
+	if int(JIDSize) > 0 {
+		jidbyte := getByteByAddr(JIDByte, JIDSize)
+		jidbyte_err := proto.Unmarshal(jidbyte, &neoJIDProto)
+		if jidbyte_err != nil {
+			panic(jidbyte_err)
+		}
+		deviceStore, err_device = container.GetDevice(utils.DecodeJidProto(&neoJIDProto))
+	} else {
+		deviceStore, err_device = container.GetFirstDevice()
+	}
+	if err_device != nil {
 		panic(err)
 	}
 	proto.Merge(store.DeviceProps, &deviceProps)

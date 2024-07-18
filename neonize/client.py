@@ -344,6 +344,7 @@ class NewClient:
     def __init__(
         self,
         name: str,
+        jid: Optional[JID] = None,
         props: Optional[DeviceProps] = None,
         uuid: Optional[str] = None,
     ):
@@ -351,6 +352,7 @@ class NewClient:
 
         :param name: The name or identifier for the new client.
         :type name: str
+        :param jid: Optional. The JID (Jabber Identifier) for the client. If not provided, first client is used.
         :param qrCallback: Optional. A callback function for handling QR code updates, defaults to None.
         :type qrCallback: Optional[Callable[[NewClient, bytes], None]], optional
         :param messageCallback: Optional. A callback function for handling incoming messages, defaults to None.
@@ -360,6 +362,7 @@ class NewClient:
         """
         self.name = name
         self.device_props = props
+        self.jid = jid
         self.uuid = (uuid or name).encode()
         self.__client = gocode
         self.event = Event(self)
@@ -2435,9 +2438,17 @@ class NewClient:
             else self.device_props
         ).SerializeToString()
 
+        jidbuf_size = 0
+        jidbuf = b""
+        if self.jid:
+            jidbuf = self.jid.SerializeToString()
+            jidbuf_size = len(jidbuf)
+
         self.__client.Neonize(
             self.name.encode(),
             self.uuid,
+            jidbuf,
+            jidbuf_size,
             LogLevel.from_logging(log.level).level,
             func_string(self.__onQr),
             func_string(self.__onLoginStatus),
@@ -2494,10 +2505,18 @@ class NewClient:
             else self.device_props
         ).SerializeToString()
 
+        jidbuf_size = 0
+        jidbuf = b""
+        if self.jid:
+            jidbuf = self.jid.SerializeToString()
+            jidbuf_size = len(jidbuf)
+
         # Initiate connection to the server
         self.__client.Neonize(
             self.name.encode(),
             self.uuid,
+            jidbuf,
+            jidbuf_size,
             LogLevel.from_logging(log.level).level,
             func_string(self.__onQr),
             func_string(self.__onLoginStatus),

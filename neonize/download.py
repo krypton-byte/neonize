@@ -33,7 +33,7 @@ def __download(url: str, fname: str, chunk_size=1024):
 def download():
     version = importlib.metadata.version("neonize")
     __download(
-        f"https://github.com/krypton-byte/neonize/releases/download/{version}/{generated_name()}",
+        f"https://github.com/aqasemi/neonize/releases/download/{version}/{generated_name()}",
         f"{os.path.dirname(__file__)}/{generated_name()}",
     )
 
