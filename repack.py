@@ -51,7 +51,7 @@ class ARCH(Enum):
     @classmethod
     def auto(cls, os: OS):
         if arch_name == "arm64":
-            if os == OS.MAC:
+            if os in [OS.MAC, OS.WINDOWS]:
                 return cls.ARM64
             return cls.AARCH64
         elif arch_name == "amd64":
