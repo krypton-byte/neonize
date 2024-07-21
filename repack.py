@@ -47,6 +47,8 @@ class ARCH(Enum):
             return cls.ARM64
         elif arch_name == "x86_64":
             return cls.X86_64
+        elif arch_name == "amd64":
+            return cls.X86_64
         elif arch_name == "386":
             return cls.I386
         elif arch_name == "arm":
