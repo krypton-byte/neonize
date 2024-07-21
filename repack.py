@@ -22,7 +22,7 @@ print(os_name, arch_name)
 class OS(Enum):
     MAC = "macosx"
     LINUX = "manylinux2014"
-    WINDOWS = "windows"
+    WINDOWS = "win"
 
     # ANDROID = "android"
     @classmethod
