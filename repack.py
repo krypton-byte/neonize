@@ -35,22 +35,23 @@ class OS(Enum):
 
 class ARCH(Enum):
     X86_64 = "x86_64"
-    ARM64 = "aarch64"
+    AMD64 = "amd64"
+    AARCH64 = "aarch64"
     I386 = "i686"
     S390X = "s390x"
     ARM = "armv7l"
-    ARM64_MAC = "arm64"
+    ARM64 = "arm64"
     RISCV64 = "riscv64"
 
     @classmethod
     def auto(cls, os: OS):
         if arch_name == "arm64":
             if os == OS.MAC:
-                return cls.ARM64_MAC
+                return cls.AARCH64
             return cls.ARM64
-        elif arch_name == "x86_64":
-            return cls.X86_64
         elif arch_name == "amd64":
+            if os == OS.WINDOWS:
+                return cls.AMD64
             return cls.X86_64
         elif arch_name == "386":
             return cls.I386
