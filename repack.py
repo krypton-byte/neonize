@@ -11,6 +11,11 @@ fname = "-".join(os.popen("poetry version").read().strip().split(" "))
 wheel_name = fname + "-py3-none-any.whl"
 os_name = os.environ.get("GOOS") or platform.system().lower()
 arch_name = os.environ.get("GOARCH") or platform.machine().lower()
+arch_name = {
+        "aarch64": "arm64",
+        "x86_64": "amd64",
+    }.get(arch_name, arch_name)
+
 print(os_name, arch_name)
 
 
