@@ -47,8 +47,8 @@ class ARCH(Enum):
     def auto(cls, os: OS):
         if arch_name == "arm64":
             if os == OS.MAC:
-                return cls.AARCH64
-            return cls.ARM64
+                return cls.ARM64
+            return cls.AARCH64
         elif arch_name == "amd64":
             if os == OS.WINDOWS:
                 return cls.AMD64
