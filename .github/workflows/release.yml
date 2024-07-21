@@ -108,7 +108,7 @@ jobs:
         poetry run build goneonize
         poetry build
         python3 repack.py
-        mv neonize/*.so LIBS
+        mv neonize/*.dll LIBS
         #LINUX x86/386
         export GOOS=linux
         export GOARCH=386

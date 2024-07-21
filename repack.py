@@ -39,11 +39,14 @@ class ARCH(Enum):
     I386 = "i686"
     S390X = "s390x"
     ARM = "armv7l"
+    ARM64_MAC = "arm64"
     RISCV64 = "riscv64"
 
     @classmethod
-    def auto(cls):
+    def auto(cls, os: OS):
         if arch_name == "arm64":
+            if os == OS.MAC:
+                return cls.ARM64_MAC
             return cls.ARM64
         elif arch_name == "x86_64":
             return cls.X86_64
@@ -64,11 +67,14 @@ def repack(_os: OS, arch: ARCH):
     )
     wheel_path = WORKDIR / "dist" / fname / (fname + ".dist-info") / "WHEEL"
     wheel = open(wheel_path, "r").read()
+    arch_value = arch.value
+    if _os == OS.MAC:
+        arch_value = f"12_0_{arch_value}"
     with open(wheel_path, "w") as file:
         file.write(
-            wheel.replace("py3-none-any", f"py310-none-{_os.value}_{arch.value}")
+            wheel.replace("py3-none-any", f"py310-none-{_os.value}_{arch_value}")
         )
-    print(wheel.replace("py3-none-any", f"py310-none-{_os.value}-{arch.value}"))
+    print(wheel.replace("py3-none-any", f"py310-none-{_os.value}_{arch_value}"))
     subprocess.call(["wheel", "pack", WORKDIR / "dist" / fname], cwd=WORKDIR / "dist")
     os.remove(WORKDIR / "dist" / wheel_name)
     os.remove(WORKDIR / "dist" / (fname + ".tar.gz"))
@@ -76,4 +82,5 @@ def repack(_os: OS, arch: ARCH):
 
 
 if __name__ == "__main__":
-    repack(OS.auto(), ARCH.auto())
+    _os = OS.auto()
+    repack(_os, ARCH.auto(_os.auto()))

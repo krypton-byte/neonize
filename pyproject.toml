@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "neonize"
-version = "8.0.0"
+version = "0.1.7"
 description = "whatsmeow binder for python"
 authors = ["krypton-byte <rosid6434@gmail.com>"]
 license = "Apache-2.0"
