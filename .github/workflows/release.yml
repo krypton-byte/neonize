@@ -78,6 +78,7 @@ jobs:
         pip install wheel
     - name: build
       run: |
+        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
         mkdir LIBS
         wget https://ziglang.org/builds/zig-linux-x86_64-0.14.0-dev.32+4aa15440c.tar.xz
         xz -d zig-linux-x86_64-0.14.0-dev.32+4aa15440c.tar.xz
@@ -145,6 +146,7 @@ jobs:
         pip install wheel
     - name: build
       run: |
+        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
         mkdir LIBS
         #AMD64/X86_64
         export CGO_ENABLED=1
@@ -203,6 +205,7 @@ jobs:
         pip install wheel
     - name: build
       run: |
+        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
         mkdir LIBS
         export PATH="/Users/runner/.local/bin:$PATH"
         # Set necessary environment variables for building on Darwin
