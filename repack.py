@@ -40,6 +40,7 @@ class OS(Enum):
 
 class ARCH(Enum):
     X86_64 = "x86_64"
+    X86 = "x86"
     AMD64 = "amd64"
     AARCH64 = "aarch64"
     I386 = "i686"
@@ -59,6 +60,8 @@ class ARCH(Enum):
                 return cls.AMD64
             return cls.X86_64
         elif arch_name == "386":
+            if os == OS.WINDOWS:
+                return cls.X86
             return cls.I386
         elif arch_name == "arm":
             return cls.ARM
@@ -77,10 +80,16 @@ def repack(_os: OS, arch: ARCH):
     if _os == OS.MAC:
         arch_value = f"12_0_{arch_value}"
     with open(wheel_path, "w") as file:
-        file.write(
-            wheel.replace("py3-none-any", f"py310-none-{_os.value}_{arch_value}")
-        )
-    print(wheel.replace("py3-none-any", f"py310-none-{_os.value}_{arch_value}"))
+        if _os == OS.WINDOWS and arch == ARCH.X86:
+            file.write(
+                wheel.replace("py3-none-any", "py310-none-win32")
+            )
+            print(wheel.replace("py3-none-any", "py310-none-win32"))
+        else:
+            file.write(
+                wheel.replace("py3-none-any", f"py310-none-{_os.value}_{arch_value}")
+            )
+            print(wheel.replace("py3-none-any", f"py310-none-{_os.value}_{arch_value}"))
     subprocess.call(["wheel", "pack", WORKDIR / "dist" / fname], cwd=WORKDIR / "dist")
     os.remove(WORKDIR / "dist" / wheel_name)
     os.remove(WORKDIR / "dist" / (fname + ".tar.gz"))
