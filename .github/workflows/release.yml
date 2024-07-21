@@ -23,6 +23,7 @@ jobs:
         curl -sSL https://install.python-poetry.org | python - -y
         poetry install
         poetry run version ${{ github.event.inputs.version }}
+        pip install wheel
     - name: build
       run: |
         export CGO_ENABLED=1
@@ -74,6 +75,7 @@ jobs:
         curl -sSL https://install.python-poetry.org | python - -y
         poetry install
         poetry run version ${{ github.event.inputs.version }}
+        pip install wheel
     - name: build
       run: |
         mkdir LIBS
@@ -140,6 +142,7 @@ jobs:
         sudo apt update && sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
         poetry install
         poetry run version ${{ github.event.inputs.version }}
+        pip install wheel
     - name: build
       run: |
         mkdir LIBS
@@ -197,6 +200,7 @@ jobs:
         export PATH="/Users/runner/.local/bin:$PATH"
         poetry install
         poetry run version ${{ github.event.inputs.version }}
+        pip install wheel
     - name: build
       run: |
         mkdir LIBS
