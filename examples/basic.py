@@ -12,6 +12,7 @@ from neonize.events import (
     ReceiptEv,
     CallOfferEv,
 )
+from neonize.proto.Neonize_pb2 import JID
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
     FutureProofMessage,
@@ -60,6 +61,7 @@ def on_message(client: NewClient, message: MessageEv):
 def handler(client: NewClient, message: MessageEv):
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     chat = message.Info.MessageSource.Chat
+    print(message.Message)
     match text:
         case "ping":
             client.reply_message("pong", message)
@@ -294,4 +296,5 @@ def PairStatusMessage(_: NewClient, message: PairStatusEv):
     log.info(f"logged as {message.ID.User}")
 
 
-client.connect()
+if __name__ == "__main__":
+    client.connect()

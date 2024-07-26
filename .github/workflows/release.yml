@@ -9,7 +9,7 @@ on:
 
 jobs:
   android:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-go@v4
@@ -23,6 +23,7 @@ jobs:
         curl -sSL https://install.python-poetry.org | python - -y
         poetry install
         poetry run version ${{ github.event.inputs.version }}
+        pip install wheel
     - name: build
       run: |
         export CGO_ENABLED=1
@@ -60,7 +61,7 @@ jobs:
         name: Android
         path: neonize/*.so
   zig:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-go@v4
@@ -74,8 +75,11 @@ jobs:
         curl -sSL https://install.python-poetry.org | python - -y
         poetry install
         poetry run version ${{ github.event.inputs.version }}
+        pip install wheel
     - name: build
       run: |
+        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+        mkdir LIBS
         wget https://ziglang.org/builds/zig-linux-x86_64-0.14.0-dev.32+4aa15440c.tar.xz
         xz -d zig-linux-x86_64-0.14.0-dev.32+4aa15440c.tar.xz
         tar -xf zig-linux-x86_64-0.14.0-dev.32+4aa15440c.tar
@@ -86,30 +90,43 @@ jobs:
         export GOARCH=amd64
         export CC="zig cc -target x86_64-windows"
         poetry run build goneonize
+        poetry build
+        python3 repack.py
+        mv neonize/*.dll LIBS
         #ARM64
         export GOOS=windows
         export GOARCH=arm64
         export CC="zig cc -target aarch64-windows"
         poetry run build goneonize
+        poetry build
+        python3 repack.py
+        mv neonize/*.dll LIBS
         #X86 / 386
         export GOOS=windows
         export GOARCH=386
         export CC="zig cc -target x86-windows"
         poetry run build goneonize
+        poetry build
+        python3 repack.py
+        mv neonize/*.dll LIBS
         #LINUX x86/386
         export GOOS=linux
         export GOARCH=386
         export CC="zig cc -target x86-linux"
         poetry run build goneonize
+        poetry build
+        python3 repack.py
+        mv neonize/*.so LIBS
+        poetry publish
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with: 
         name: Zig
         path: |
-          neonize/*.so
-          neonize/*.dll
+          LIBS/*.so
+          LIBS/*.dll
   linux:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-go@v4
@@ -126,34 +143,49 @@ jobs:
         sudo apt update && sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
         poetry install
         poetry run version ${{ github.event.inputs.version }}
+        pip install wheel
     - name: build
       run: |
+        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+        mkdir LIBS
         #AMD64/X86_64
         export CGO_ENABLED=1
         poetry run build goneonize
+        poetry build
+        python3 repack.py
+        mv neonize/*.so LIBS
         #ARM64/AARCH64
         export GOOS=linux
         export GOARCH=arm64
         export CC=$(which aarch64-linux-gnu-gcc)
         export CXX=$(which aarch64-linux-gnu-cpp)
         poetry run build goneonize
+        poetry build
+        python3 repack.py
+        mv neonize/*.so LIBS
         #RISCV64
         export GOOS=linux
         export GOARCH=riscv64
         export CC=$(which riscv64-linux-gnu-gcc)
         export CXX=$(which riscv64-linux-gnu-cpp)
         poetry run build goneonize
+        mv neonize/*.so LIBS
         #S390X
         export GOOS=linux
         export GOARCH=s390x
         export CC=$(which s390x-linux-gnu-gcc)
         export CXX=$(which s390x-linux-gnu-cpp)
         poetry run build goneonize
+        poetry build
+        python3 repack.py
+        mv neonize/*.so LIBS
+        poetry publish
+
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with: 
         name: Linux
-        path: neonize/*.so
+        path: LIBS/*.so
   darwin:
     runs-on: macos-latest
     steps:
@@ -170,8 +202,11 @@ jobs:
         export PATH="/Users/runner/.local/bin:$PATH"
         poetry install
         poetry run version ${{ github.event.inputs.version }}
+        pip install wheel
     - name: build
       run: |
+        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+        mkdir LIBS
         export PATH="/Users/runner/.local/bin:$PATH"
         # Set necessary environment variables for building on Darwin
         export CGO_ENABLED=1
@@ -183,6 +218,9 @@ jobs:
         export CC=$(which clang)
         export CXX=$(which clang++)
         poetry run build goneonize
+        poetry build
+        python3 repack.py
+        mv neonize/*.dylib LIBS/
         
         #ARM64/AARCH64
         export GOOS=darwin
@@ -190,12 +228,15 @@ jobs:
         export CC=$(which clang)
         export CXX=$(which clang++)
         poetry run build goneonize
-        
+        poetry build
+        python3 repack.py
+        mv neonize/*.dylib LIBS/
+        poetry publish
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with: 
         name: Darwin
-        path: neonize/*.dylib
+        path: LIBS/*.dylib
 
   release:
     runs-on: ubuntu-latest
