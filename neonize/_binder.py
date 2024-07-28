@@ -49,6 +49,8 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_char_p,
         ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
         func_string,
         func_string,
         func_callback_bytes,
@@ -450,5 +452,7 @@ if not os.environ.get("SPHINX"):
     gocode.PutArchived.restype = ctypes.c_char_p
     gocode.GetChatSettings.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.GetChatSettings.restype = Bytes
+    gocode.GetAllDevices.argtypes = [ctypes.c_char_p]
+    gocode.GetAllDevices.restype = ctypes.c_char_p
 else:
     gocode: Any = object()

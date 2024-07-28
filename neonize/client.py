@@ -2391,6 +2391,46 @@ class NewClient:
             raise GetNewsletterInfoError(model.Error)
         return model.NewsletterMetadata
 
+    @staticmethod
+    def get_all_devices(db: str) -> List["Device"]:
+        """
+        Retrieves all devices associated with the current account.
+
+        :return: A list of Device-like objects representing all associated devices.
+        :rtype: List[neonize_proto.Device]
+        """
+        c_string = gocode.GetAllDevices(db.encode()).decode()
+        if not c_string:
+            return []
+        
+        class Device:
+            def __init__(self, JID: JID, PushName: str, BussinessName: str, Initialized: bool):
+                self.JID = JID
+                self.PushName = PushName
+                self.BusinessName = BussinessName
+                self.Initialized = Initialized
+
+        devices: list[Device] = []
+
+        for device_str in c_string.split('|'):
+            id, push_name, business_name, initialized = device_str.split(',')
+            server = id.split('@')[1] if '@' in id else "s.whatsapp.net"
+            jid = JID(
+                User=id.split('@')[0],
+                Device=0,
+                Integrator=0,
+                IsEmpty=False,
+                RawAgent=0,
+                Server=server,
+            )
+
+            device = Device(jid, push_name, business_name, initialized.lower() == 'true')
+            devices.append(device)
+        
+        return devices
+
+
+
     def PairPhone(
         self,
         phone: str,
