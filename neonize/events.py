@@ -53,7 +53,7 @@ from .proto.Neonize_pb2 import (
 
 log = logging.getLogger(__name__)
 if TYPE_CHECKING:
-    from .client import NewClient
+    from .client import NewClient, ClientFactory
 EventType = TypeVar("EventType", bound=Message)
 
 EVENT_TO_INT: Dict[Type[Message], int] = {
@@ -101,9 +101,31 @@ INT_TO_EVENT: Dict[int, Type[Message]] = {code: ev for ev, code in EVENT_TO_INT.
 
 event = EventThread()
 
+class EventsManager:
+    def __init__(self, client_factory: ClientFactory):
+        self.client_factory = client_factory
+
+    def __call__(
+        self, event: Type[EventType]
+    ) -> Callable[[Callable[[NewClient, EventType], None]], None]:
+        """
+        Registers a callback function for a specific event type.
+
+        :param event: The type of event to register the callback for.
+        :type event: Type[EventType]
+        :return: A decorator that registers the callback function.
+        :rtype: Callable[[Callable[[NewClient, EventType], None]], None]
+        """
+        def callback(func: Callable[[NewClient, EventType], None]) -> None:
+            for client in self.client_factory.clients:
+                wrapped_func = client.event.wrap(func, event)
+                client.event.list_func.update({EVENT_TO_INT[event]: wrapped_func})
+
+        return callback
+
 
 class Event:
-    def __init__(self, client):
+    def __init__(self, client: NewClient):
         """
         Initializes the Event class with a client of type NewClient.
         Also sets up a default blocking function and an empty dictionary for list functions.
@@ -189,20 +211,3 @@ class Event:
         event.wait()
         log.debug("🚦 The function has been unblocked.")
 
-    def __call__(
-        self, event: Type[EventType]
-    ) -> Callable[[Callable[[NewClient, EventType], None]], None]:
-        """
-        Registers a callback function for a specific event type.
-
-        :param event: The type of event to register the callback for.
-        :type event: Type[EventType]
-        :return: A decorator that registers the callback function.
-        :rtype: Callable[[Callable[[NewClient, EventType], None]], None]
-        """
-
-        def callback(func: Callable[[NewClient, EventType], None]) -> None:
-            wrapped_func = self.wrap(func, event)
-            self.list_func.update({EVENT_TO_INT[event]: wrapped_func})
-
-        return callback
