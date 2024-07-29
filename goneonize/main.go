@@ -159,7 +159,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 		}
 		deviceStore, err_device = container.GetDevice(utils.DecodeJidProto(&JID))
 	} else {
-		deviceStore, err_device = container.GetFirstDevice()
+		deviceStore, err_device = container.NewDevice(), nil
 	}
 	if err_device != nil {
 		panic(err)
@@ -1956,7 +1956,8 @@ func GetAllDevices(db *C.char) *C.char {
 	var result strings.Builder
 	for i, device := range deviceStore {
 		if i > 0 {
-			result.WriteString("|")
+			// an arbitrary delimiter (a unicode to make sure pushname doesn't collide with it)
+			result.WriteString("|\u0001|")
 		}
 		result.WriteString(fmt.Sprintf("%s,%s,%s,%t",
 			device.ID.String(),
