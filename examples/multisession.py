@@ -37,11 +37,18 @@ signal.signal(signal.SIGINT, interrupted)
 
 
 client_factory = ClientFactory("db.sqlite3")
-for device in client_factory.get_all_devices("mdtest.db"):
+
+# create clients from preconfigured sessions
+sessions = client_factory.get_all_devices("db.sqlite3")
+for device in sessions:
     client_factory.new_client(
         device.JID
     )
 # if new_client jid parameter is not passed, it will create a new client
+
+# create a new client
+# from uuid import uuid4
+# client_factory.new_client(uuid=uuid4().hex[:5])
 
 
 @client_factory.event(ConnectedEv)
@@ -303,4 +310,5 @@ def PairStatusMessage(_: NewClient, message: PairStatusEv):
 
 
 if __name__ == "__main__":
+    # all created clients will be automatically logged in and receive all events
     client_factory.run()
