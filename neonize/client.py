@@ -15,13 +15,14 @@ import magic
 from PIL import Image
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 from linkpreview import link_preview
+from threading import Thread
 
 from .utils.calc import AspectRatioMethod, auto_sticker
 
 
 from ._binder import gocode, func_string, func_callback_bytes, func
 from .builder import build_edit, build_revoke
-from .events import Event
+from .events import Event, EventsManager
 from .exc import (
     ContactStoreError,
     DownloadError,
@@ -150,7 +151,7 @@ from .utils.enum import (
 )
 from .utils.ffmpeg import FFmpeg, ImageFormat
 from .utils.iofile import get_bytes_from_name_or_url
-from .utils.jid import Jid2String, JIDToNonAD
+from .utils.jid import Jid2String, JIDToNonAD, build_jid
 
 
 class ContactStore:
@@ -363,7 +364,7 @@ class NewClient:
         self.name = name
         self.device_props = props
         self.jid = jid
-        self.uuid = (uuid or name).encode()
+        self.uuid = ((jid.User if jid else None) or uuid or name).encode()
         self.__client = gocode
         self.event = Event(self)
         self.blocking = self.event.blocking
@@ -2391,46 +2392,6 @@ class NewClient:
             raise GetNewsletterInfoError(model.Error)
         return model.NewsletterMetadata
 
-    @staticmethod
-    def get_all_devices(db: str) -> List["Device"]:
-        """
-        Retrieves all devices associated with the current account.
-
-        :return: A list of Device-like objects representing all associated devices.
-        :rtype: List[neonize_proto.Device]
-        """
-        c_string = gocode.GetAllDevices(db.encode()).decode()
-        if not c_string:
-            return []
-        
-        class Device:
-            def __init__(self, JID: JID, PushName: str, BussinessName: str, Initialized: bool):
-                self.JID = JID
-                self.PushName = PushName
-                self.BusinessName = BussinessName
-                self.Initialized = Initialized
-
-        devices: list[Device] = []
-
-        for device_str in c_string.split('|'):
-            id, push_name, business_name, initialized = device_str.split(',')
-            server = id.split('@')[1] if '@' in id else "s.whatsapp.net"
-            jid = JID(
-                User=id.split('@')[0],
-                Device=0,
-                Integrator=0,
-                IsEmpty=False,
-                RawAgent=0,
-                Server=server,
-            )
-
-            device = Device(jid, push_name, business_name, initialized.lower() == 'true')
-            devices.append(device)
-        
-        return devices
-
-
-
     def PairPhone(
         self,
         phone: str,
@@ -2575,3 +2536,76 @@ class NewClient:
         Disconnect the client
         """
         self.__client.Disconnect(self.uuid)
+
+
+
+class ClientFactory:
+    def __init__(self, database_name: str = 'neonize.db') -> None:
+        """
+        This class is used to create new instances of the client.
+        """
+        self.database_name = database_name
+        self.clients: list[NewClient] = []
+        self.event = EventsManager(self)
+
+    @staticmethod
+    def get_all_devices(db: str) -> List["Device"]:
+        """
+        Retrieves all devices associated with the current account.
+
+        :return: A list of Device-like objects representing all associated devices.
+        :rtype: List[neonize_proto.Device]
+        """
+        c_string = gocode.GetAllDevices(db.encode()).decode()
+        if not c_string:
+            return []
+        
+        class Device:
+            def __init__(self, JID: JID, PushName: str, BussinessName: str = None, Initialized: bool = None):
+                self.JID = JID
+                self.PushName = PushName
+                self.BusinessName = BussinessName
+                self.Initialized = Initialized
+
+        devices: list[Device] = []
+
+        for device_str in c_string.split('|\u0001|'):
+            id, push_name, bussniess_name, initialized = device_str.split(',')
+            id, server = id.split('@')
+            jid = build_jid(id, server)
+
+            device = Device(jid, push_name, bussniess_name, initialized == 'true')
+            devices.append(device)
+        
+        return devices
+
+    def new_client(self, jid: JID = None, uuid: str = None, props: Optional[DeviceProps] = None) -> NewClient:
+        """
+        This function creates a new instance of the client. If the jid parameter is not provided, a new client will be created.
+        :param name: The name of the client.
+        :type name: str
+        :param uuid: The unique identifier of the client.
+        :type uuid: str
+        :param jid: The JID of the client.
+        :type jid: JID
+        :param props: The device properties of the client.
+        :type props: Optional[DeviceProps]
+        """
+
+        if not jid and not uuid:
+            # you must at least provide a uuid to make sure the client is unique
+            raise Exception("JID and UUID cannot be none")
+
+        client = NewClient(self.database_name, jid, props, uuid)
+        self.clients.append(client)    
+        return client
+
+    def run(self):
+        for client in self.clients:
+            Thread(
+                target=client.connect,
+                daemon=True,
+                name=client.uuid,
+            ).start()
+
+        Event.default_blocking(None)
