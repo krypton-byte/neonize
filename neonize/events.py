@@ -211,3 +211,20 @@ class Event:
         event.wait()
         log.debug("🚦 The function has been unblocked.")
 
+    def __call__(
+        self, event: Type[EventType]
+    ) -> Callable[[Callable[[NewClient, EventType], None]], None]:
+        """
+        Registers a callback function for a specific event type.
+
+        :param event: The type of event to register the callback for.
+        :type event: Type[EventType]
+        :return: A decorator that registers the callback function.
+        :rtype: Callable[[Callable[[NewClient, EventType], None]], None]
+        """
+
+        def callback(func: Callable[[NewClient, EventType], None]) -> None:
+            wrapped_func = self.wrap(func, event)
+            self.list_func.update({EVENT_TO_INT[event]: wrapped_func})
+
+        return callback
