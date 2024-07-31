@@ -2549,10 +2549,10 @@ class ClientFactory:
         self.event = EventsManager(self)
 
     @staticmethod
-    def get_all_devices(db: str) -> List["Device"]:
+    def get_all_devices_from_db(db: str) -> List["Device"]:
         """
         Retrieves all devices associated with the current account.
-
+        :param db: The name of the database to retrieve the devices from.
         :return: A list of Device-like objects representing all associated devices.
         :rtype: List[neonize_proto.Device]
         """
@@ -2578,6 +2578,10 @@ class ClientFactory:
             devices.append(device)
         
         return devices
+
+    def get_all_devices(self) -> List["Device"]:
+        """Retrieves all devices associated with the current account from the database."""
+        return self.get_all_devices_from_db(self.database_name)
 
     def new_client(self, jid: JID = None, uuid: str = None, props: Optional[DeviceProps] = None) -> NewClient:
         """
