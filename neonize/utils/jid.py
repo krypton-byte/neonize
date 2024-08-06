@@ -34,7 +34,7 @@ def Jid2String(jid: JID) -> str:
     return jid.Server
 
 
-def build_jid(phone_number: str) -> JID:
+def build_jid(phone_number: str, server: str = "s.whatsapp.net") -> JID:
     """
     Builds a JID (Jabber ID) from a phone number.
 
@@ -49,5 +49,5 @@ def build_jid(phone_number: str) -> JID:
         Integrator=0,
         IsEmpty=False,
         RawAgent=0,
-        Server="s.whatsapp.net",
+        Server=server,
     )

@@ -130,7 +130,7 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 }
 
 //export Neonize
-func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, subscribes *C.uchar, lenSubscriber C.int, blocking C.ptr_to_python_function, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int) { // ,
+func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, subscribes *C.uchar, lenSubscriber C.int, blocking C.ptr_to_python_function, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int) { // ,
 	subscribers := map[int]bool{}
 	var deviceProps waProto.DeviceProps
 	var loginStateChan = make(chan bool)
@@ -148,8 +148,20 @@ func Neonize(db *C.char, id *C.char, logLevel *C.char, qrCb C.ptr_to_python_func
 		panic(err)
 	}
 	// If you want multiple sessions, remember their JIDs and use .GetDevice(jid) or .GetAllDevices() instead.
-	deviceStore, err := container.GetFirstDevice()
-	if err != nil {
+	var deviceStore *store.Device
+	var err_device error
+	var JID defproto.JID
+
+	if int(JIDSize) > 0 {
+		jidbyte_err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+		if jidbyte_err != nil {
+			panic(jidbyte_err)
+		}
+		deviceStore, err_device = container.GetDevice(utils.DecodeJidProto(&JID))
+	} else {
+		deviceStore, err_device = container.NewDevice(), nil
+	}
+	if err_device != nil {
 		panic(err)
 	}
 	proto.Merge(store.DeviceProps, &deviceProps)
@@ -1926,6 +1938,35 @@ func PutArchived(id *C.char, user *C.uchar, userSize C.int, archived C.bool) *C.
 		return C.CString(err.Error())
 	}
 	return C.CString("")
+}
+
+//export GetAllDevices
+func GetAllDevices(db *C.char) *C.char {
+	dbLog := waLog.Stdout("Database", "ERROR", true)
+	container, err := sqlstore.New("sqlite3", fmt.Sprintf("file:%s?_foreign_keys=on", C.GoString(db)), dbLog)
+	if err != nil {
+		panic(err)
+	}
+
+	deviceStore, err := container.GetAllDevices()
+	if err != nil {
+		panic(err)
+	}
+
+	var result strings.Builder
+	for i, device := range deviceStore {
+		if i > 0 {
+			// an arbitrary delimiter (a unicode to make sure pushname doesn't collide with it)
+			result.WriteString("|\u0001|")
+		}
+		result.WriteString(fmt.Sprintf("%s,%s,%s,%t",
+			device.ID.String(),
+			device.PushName,
+			device.BusinessName,
+			device.Initialized))
+	}
+
+	return C.CString(result.String())
 }
 
 func main() {
