@@ -32,18 +32,8 @@ class BackupMessage(google.protobuf.message.Message):
                 frankingTag: builtins.bytes | None = ...,
                 reportingTag: builtins.bytes | None = ...,
             ) -> None: ...
-            def HasField(
-                self,
-                field_name: typing.Literal[
-                    "frankingTag", b"frankingTag", "reportingTag", b"reportingTag"
-                ],
-            ) -> builtins.bool: ...
-            def ClearField(
-                self,
-                field_name: typing.Literal[
-                    "frankingTag", b"frankingTag", "reportingTag", b"reportingTag"
-                ],
-            ) -> None: ...
+            def HasField(self, field_name: typing.Literal["frankingTag", b"frankingTag", "reportingTag", b"reportingTag"]) -> builtins.bool: ...
+            def ClearField(self, field_name: typing.Literal["frankingTag", b"frankingTag", "reportingTag", b"reportingTag"]) -> None: ...
 
         SENDERID_FIELD_NUMBER: builtins.int
         MESSAGEID_FIELD_NUMBER: builtins.int
@@ -57,54 +47,19 @@ class BackupMessage(google.protobuf.message.Message):
         payloadVersion: builtins.int
         futureProofBehavior: builtins.int
         @property
-        def frankingMetadata(
-            self,
-        ) -> global___BackupMessage.Metadata.FrankingMetadata: ...
+        def frankingMetadata(self) -> global___BackupMessage.Metadata.FrankingMetadata: ...
         def __init__(
             self,
             *,
             senderID: builtins.str | None = ...,
             messageID: builtins.str | None = ...,
             timestampMS: builtins.int | None = ...,
-            frankingMetadata: global___BackupMessage.Metadata.FrankingMetadata
-            | None = ...,
+            frankingMetadata: global___BackupMessage.Metadata.FrankingMetadata | None = ...,
             payloadVersion: builtins.int | None = ...,
             futureProofBehavior: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(
-            self,
-            field_name: typing.Literal[
-                "frankingMetadata",
-                b"frankingMetadata",
-                "futureProofBehavior",
-                b"futureProofBehavior",
-                "messageID",
-                b"messageID",
-                "payloadVersion",
-                b"payloadVersion",
-                "senderID",
-                b"senderID",
-                "timestampMS",
-                b"timestampMS",
-            ],
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "frankingMetadata",
-                b"frankingMetadata",
-                "futureProofBehavior",
-                b"futureProofBehavior",
-                "messageID",
-                b"messageID",
-                "payloadVersion",
-                b"payloadVersion",
-                "senderID",
-                b"senderID",
-                "timestampMS",
-                b"timestampMS",
-            ],
-        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["frankingMetadata", b"frankingMetadata", "futureProofBehavior", b"futureProofBehavior", "messageID", b"messageID", "payloadVersion", b"payloadVersion", "senderID", b"senderID", "timestampMS", b"timestampMS"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["frankingMetadata", b"frankingMetadata", "futureProofBehavior", b"futureProofBehavior", "messageID", b"messageID", "payloadVersion", b"payloadVersion", "senderID", b"senderID", "timestampMS", b"timestampMS"]) -> None: ...
 
     METADATA_FIELD_NUMBER: builtins.int
     PAYLOAD_FIELD_NUMBER: builtins.int
@@ -117,11 +72,7 @@ class BackupMessage(google.protobuf.message.Message):
         metadata: global___BackupMessage.Metadata | None = ...,
         payload: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]) -> None: ...
 
 global___BackupMessage = BackupMessage
