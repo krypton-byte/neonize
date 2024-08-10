@@ -4,11 +4,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
         <title>neonize.client - neonize 8.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=387cc868" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     
     
 
@@ -87,19 +87,6 @@
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
   </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
-    </svg>
-  </symbol>
   <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
     <title>Auto light/dark, in light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -140,7 +127,7 @@
       <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
       <path d="M13.5 6.5l4 4" />
       <path d="M20 21l2 -2l-2 -2" />
-      <path d="M17 17l-2 2l2 2" /
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
   <symbol id="svg-eye" viewBox="0 0 24 24">
@@ -261,13 +248,14 @@
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 <span class="kn">from</span> <span class="nn">google.protobuf.internal.containers</span> <span class="kn">import</span> <span class="n">RepeatedCompositeFieldContainer</span>
 <span class="kn">from</span> <span class="nn">linkpreview</span> <span class="kn">import</span> <span class="n">link_preview</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
 
 <span class="kn">from</span> <span class="nn">.utils.calc</span> <span class="kn">import</span> <span class="n">AspectRatioMethod</span><span class="p">,</span> <span class="n">auto_sticker</span>
 
 
 <span class="kn">from</span> <span class="nn">._binder</span> <span class="kn">import</span> <span class="n">gocode</span><span class="p">,</span> <span class="n">func_string</span><span class="p">,</span> <span class="n">func_callback_bytes</span><span class="p">,</span> <span class="n">func</span>
 <span class="kn">from</span> <span class="nn">.builder</span> <span class="kn">import</span> <span class="n">build_edit</span><span class="p">,</span> <span class="n">build_revoke</span>
-<span class="kn">from</span> <span class="nn">.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">.events</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventsManager</span>
 <span class="kn">from</span> <span class="nn">.exc</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ContactStoreError</span><span class="p">,</span>
     <span class="n">DownloadError</span><span class="p">,</span>
@@ -396,7 +384,7 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.utils.ffmpeg</span> <span class="kn">import</span> <span class="n">FFmpeg</span><span class="p">,</span> <span class="n">ImageFormat</span>
 <span class="kn">from</span> <span class="nn">.utils.iofile</span> <span class="kn">import</span> <span class="n">get_bytes_from_name_or_url</span>
-<span class="kn">from</span> <span class="nn">.utils.jid</span> <span class="kn">import</span> <span class="n">Jid2String</span><span class="p">,</span> <span class="n">JIDToNonAD</span>
+<span class="kn">from</span> <span class="nn">.utils.jid</span> <span class="kn">import</span> <span class="n">Jid2String</span><span class="p">,</span> <span class="n">JIDToNonAD</span><span class="p">,</span> <span class="n">build_jid</span>
 
 
 <div class="viewcode-block" id="ContactStore">
@@ -532,7 +520,7 @@
 
 <span class="sd">        :param uuid: Unique identifier for the chat settings store.</span>
 <span class="sd">        :type uuid: bytes</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">uuid</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__client</span> <span class="o">=</span> <span class="n">gocode</span>
 
@@ -547,7 +535,7 @@
 <span class="sd">        :param until: The duration until when the user will be muted.</span>
 <span class="sd">        :type until: timedelta</span>
 <span class="sd">        :raises PutMutedUntilError: If there is an error while muting the user.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">user_buf</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
         <span class="n">return_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">PutMutedUntil</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">user_buf</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_buf</span><span class="p">),</span> <span class="n">until</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
@@ -567,7 +555,7 @@
 <span class="sd">        :param pinned: True if the user should be pinned, False otherwise.</span>
 <span class="sd">        :type pinned: bool</span>
 <span class="sd">        :raises PutPinnedError: If there is an error while pinning the user.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">user_buf</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
         <span class="n">return_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">PutPinned</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">user_buf</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_buf</span><span class="p">),</span> <span class="n">pinned</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">return_</span><span class="p">:</span>
@@ -585,7 +573,7 @@
 <span class="sd">        :param archived: True if the user should be archived, False otherwise.</span>
 <span class="sd">        :type archived: bool</span>
 <span class="sd">        :raises PutArchivedError: If there is an error while archiving the user.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">user_buf</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
         <span class="n">return_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">PutArchived</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">user_buf</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_buf</span><span class="p">),</span> <span class="n">archived</span>
@@ -605,10 +593,12 @@
 <span class="sd">        :raises GetChatSettingsError: If there is an error while retrieving the chat settings.</span>
 <span class="sd">        :return: The chat settings for the specified user.</span>
 <span class="sd">        :rtype: LocalChatSettings</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">user_buf</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
         <span class="n">return_</span> <span class="o">=</span> <span class="n">ReturnFunctionWithError</span><span class="o">.</span><span class="n">FromString</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">GetChatSettings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">user_buf</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_buf</span><span class="p">))</span><span class="o">.</span><span class="n">get_bytes</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">GetChatSettings</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">user_buf</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_buf</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">get_bytes</span><span class="p">()</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">return_</span><span class="o">.</span><span class="n">Error</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GetChatSettingsError</span><span class="p">(</span><span class="n">return_</span><span class="o">.</span><span class="n">Error</span><span class="p">)</span>
@@ -623,6 +613,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">jid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">JID</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">props</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceProps</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">uuid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
@@ -630,6 +621,7 @@
 
 <span class="sd">        :param name: The name or identifier for the new client.</span>
 <span class="sd">        :type name: str</span>
+<span class="sd">        :param jid: Optional. The JID (Jabber Identifier) for the client. If not provided, first client is used.</span>
 <span class="sd">        :param qrCallback: Optional. A callback function for handling QR code updates, defaults to None.</span>
 <span class="sd">        :type qrCallback: Optional[Callable[[NewClient, bytes], None]], optional</span>
 <span class="sd">        :param messageCallback: Optional. A callback function for handling incoming messages, defaults to None.</span>
@@ -639,7 +631,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">device_props</span> <span class="o">=</span> <span class="n">props</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="p">(</span><span class="n">uuid</span> <span class="ow">or</span> <span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jid</span> <span class="o">=</span> <span class="n">jid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="p">((</span><span class="n">jid</span><span class="o">.</span><span class="n">User</span> <span class="k">if</span> <span class="n">jid</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">uuid</span> <span class="ow">or</span> <span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__client</span> <span class="o">=</span> <span class="n">gocode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocking</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">blocking</span>
@@ -2956,9 +2949,17 @@
             <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_props</span>
         <span class="p">)</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
 
+        <span class="n">jidbuf_size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">jidbuf</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">jid</span><span class="p">:</span>
+            <span class="n">jidbuf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">jid</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+            <span class="n">jidbuf_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">jidbuf</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">Neonize</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span>
+            <span class="n">jidbuf</span><span class="p">,</span>
+            <span class="n">jidbuf_size</span><span class="p">,</span>
             <span class="n">LogLevel</span><span class="o">.</span><span class="n">from_logging</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">level</span><span class="p">)</span><span class="o">.</span><span class="n">level</span><span class="p">,</span>
             <span class="n">func_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__onQr</span><span class="p">),</span>
             <span class="n">func_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__onLoginStatus</span><span class="p">),</span>
@@ -3021,10 +3022,18 @@
             <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_props</span>
         <span class="p">)</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
 
+        <span class="n">jidbuf_size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">jidbuf</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">jid</span><span class="p">:</span>
+            <span class="n">jidbuf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">jid</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+            <span class="n">jidbuf_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">jidbuf</span><span class="p">)</span>
+
         <span class="c1"># Initiate connection to the server</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">Neonize</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span>
+            <span class="n">jidbuf</span><span class="p">,</span>
+            <span class="n">jidbuf_size</span><span class="p">,</span>
             <span class="n">LogLevel</span><span class="o">.</span><span class="n">from_logging</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">level</span><span class="p">)</span><span class="o">.</span><span class="n">level</span><span class="p">,</span>
             <span class="n">func_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__onQr</span><span class="p">),</span>
             <span class="n">func_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__onLoginStatus</span><span class="p">),</span>
@@ -3046,6 +3055,98 @@
 <span class="sd">        Disconnect the client</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">Disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span></div>
+</div>
+
+
+
+
+<div class="viewcode-block" id="ClientFactory">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.client.ClientFactory">[docs]</a>
+<span class="k">class</span> <span class="nc">ClientFactory</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;neonize.db&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This class is used to create new instances of the client.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">database_name</span> <span class="o">=</span> <span class="n">database_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">NewClient</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">event</span> <span class="o">=</span> <span class="n">EventsManager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ClientFactory.get_all_devices_from_db">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.client.ClientFactory.get_all_devices_from_db">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_all_devices_from_db</span><span class="p">(</span><span class="n">db</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;Device&quot;</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves all devices associated with the current account.</span>
+<span class="sd">        :param db: The name of the database to retrieve the devices from.</span>
+<span class="sd">        :return: A list of Device-like objects representing all associated devices.</span>
+<span class="sd">        :rtype: List[neonize_proto.Device]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">c_string</span> <span class="o">=</span> <span class="n">gocode</span><span class="o">.</span><span class="n">GetAllDevices</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c_string</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        
+        <span class="k">class</span> <span class="nc">Device</span><span class="p">:</span>
+            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">JID</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">PushName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">BussinessName</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Initialized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">JID</span> <span class="o">=</span> <span class="n">JID</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">PushName</span> <span class="o">=</span> <span class="n">PushName</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">BusinessName</span> <span class="o">=</span> <span class="n">BussinessName</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Initialized</span> <span class="o">=</span> <span class="n">Initialized</span>
+
+        <span class="n">devices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Device</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">device_str</span> <span class="ow">in</span> <span class="n">c_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|</span><span class="se">\u0001</span><span class="s1">|&#39;</span><span class="p">):</span>
+            <span class="nb">id</span><span class="p">,</span> <span class="n">push_name</span><span class="p">,</span> <span class="n">bussniess_name</span><span class="p">,</span> <span class="n">initialized</span> <span class="o">=</span> <span class="n">device_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="nb">id</span><span class="p">,</span> <span class="n">server</span> <span class="o">=</span> <span class="nb">id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">)</span>
+            <span class="n">jid</span> <span class="o">=</span> <span class="n">build_jid</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
+
+            <span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">push_name</span><span class="p">,</span> <span class="n">bussniess_name</span><span class="p">,</span> <span class="n">initialized</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span>
+            <span class="n">devices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">devices</span></div>
+
+
+<div class="viewcode-block" id="ClientFactory.get_all_devices">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.client.ClientFactory.get_all_devices">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_all_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;Device&quot;</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieves all devices associated with the current account from the database.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_devices_from_db</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database_name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ClientFactory.new_client">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.client.ClientFactory.new_client">[docs]</a>
+    <span class="k">def</span> <span class="nf">new_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">props</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceProps</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NewClient</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function creates a new instance of the client. If the jid parameter is not provided, a new client will be created.</span>
+<span class="sd">        :param name: The name of the client.</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :param uuid: The unique identifier of the client.</span>
+<span class="sd">        :type uuid: str</span>
+<span class="sd">        :param jid: The JID of the client.</span>
+<span class="sd">        :type jid: JID</span>
+<span class="sd">        :param props: The device properties of the client.</span>
+<span class="sd">        :type props: Optional[DeviceProps]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">jid</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">uuid</span><span class="p">:</span>
+            <span class="c1"># you must at least provide a uuid to make sure the client is unique</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;JID and UUID cannot be none&quot;</span><span class="p">)</span>
+
+        <span class="n">client</span> <span class="o">=</span> <span class="n">NewClient</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database_name</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">props</span><span class="p">,</span> <span class="n">uuid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>    
+        <span class="k">return</span> <span class="n">client</span></div>
+
+
+<div class="viewcode-block" id="ClientFactory.run">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.client.ClientFactory.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="p">:</span>
+            <span class="n">Thread</span><span class="p">(</span>
+                <span class="n">target</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">,</span>
+                <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="n">Event</span><span class="o">.</span><span class="n">default_blocking</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
 </div>
 
 </pre></div>
@@ -3083,6 +3184,6 @@
 </div><script src="../../_static/documentation_options.js?v=f663eb4a"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/scripts/furo.js?v=4e2eecee"></script>
+    <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
     </body>
 </html>
