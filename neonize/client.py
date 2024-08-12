@@ -769,15 +769,15 @@ class NewClient:
             )
             io_save.seek(0)
         else:
-            with FFmpeg(sticker) as ffmpeg:
+            with BytesIO(sticker) as img_io:
                 animated = True
-                sticker = ffmpeg.cv_to_webp()
-                io_save = BytesIO(sticker)
-                img = Image.open(io_save)
-                io_save.seek(0)
+                img = Image.open(img_io)
+                io_save = BytesIO()
                 img.save(
                     io_save, format="webp", exif=add_exif(name, packname), save_all=True
                 )
+                io_save.seek(0)
+                io_save.read()
         upload = self.upload(io_save.getvalue())
         message = Message(
             stickerMessage=StickerMessage(
