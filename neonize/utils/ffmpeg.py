@@ -253,9 +253,16 @@ class FFmpeg:
             stderr=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stdin=subprocess.DEVNULL,
+            shell=True if os.name == 'nt' else False # Set Shell=True on Windows Platform
         )
-        out = popen.stdout.read()  # type: ignore
-        popen.wait(10)
+        
+        try:
+             out, err = popen.communicate(timeout=10)
+        except subprocess.TimeoutExpired:
+             popen.kill()
+             out, err = popen.communicate()
+             raise RuntimeError("Process timed out")
+
         if popen.returncode != 0:
             raise RuntimeError(
                 f"stderr: {popen.stderr.read().decode()} Return code: {popen.returncode}"  # type: ignore
