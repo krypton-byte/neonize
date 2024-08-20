@@ -48,9 +48,41 @@ class ConsumerApplication(google.protobuf.message.Message):
             signal: global___ConsumerApplication.Signal | None = ...,
             subProtocol: global___ConsumerApplication.SubProtocolPayload | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["applicationData", b"applicationData", "content", b"content", "payload", b"payload", "signal", b"signal", "subProtocol", b"subProtocol"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["applicationData", b"applicationData", "content", b"content", "payload", b"payload", "signal", b"signal", "subProtocol", b"subProtocol"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["payload", b"payload"]) -> typing.Literal["content", "applicationData", "signal", "subProtocol"] | None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "applicationData",
+                b"applicationData",
+                "content",
+                b"content",
+                "payload",
+                b"payload",
+                "signal",
+                b"signal",
+                "subProtocol",
+                b"subProtocol",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "applicationData",
+                b"applicationData",
+                "content",
+                b"content",
+                "payload",
+                b"payload",
+                "signal",
+                b"signal",
+                "subProtocol",
+                b"subProtocol",
+            ],
+        ) -> None: ...
+        def WhichOneof(
+            self, oneof_group: typing.Literal["payload", b"payload"]
+        ) -> (
+            typing.Literal["content", "applicationData", "signal", "subProtocol"] | None
+        ): ...
 
     @typing.final
     class SubProtocolPayload(google.protobuf.message.Message):
@@ -61,10 +93,15 @@ class ConsumerApplication(google.protobuf.message.Message):
         def __init__(
             self,
             *,
-            futureProof: waCommon.WACommon_pb2.FutureProofBehavior.ValueType | None = ...,
+            futureProof: waCommon.WACommon_pb2.FutureProofBehavior.ValueType
+            | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["futureProof", b"futureProof"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["futureProof", b"futureProof"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["futureProof", b"futureProof"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing.Literal["futureProof", b"futureProof"]
+        ) -> None: ...
 
     @typing.final
     class Metadata(google.protobuf.message.Message):
@@ -74,13 +111,20 @@ class ConsumerApplication(google.protobuf.message.Message):
             ValueType = typing.NewType("ValueType", builtins.int)
             V: typing_extensions.TypeAlias = ValueType
 
-        class _SpecialTextSizeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConsumerApplication.Metadata._SpecialTextSize.ValueType], builtins.type):
+        class _SpecialTextSizeEnumTypeWrapper(
+            google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+                ConsumerApplication.Metadata._SpecialTextSize.ValueType
+            ],
+            builtins.type,
+        ):
             DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
             SMALL: ConsumerApplication.Metadata._SpecialTextSize.ValueType  # 1
             MEDIUM: ConsumerApplication.Metadata._SpecialTextSize.ValueType  # 2
             LARGE: ConsumerApplication.Metadata._SpecialTextSize.ValueType  # 3
 
-        class SpecialTextSize(_SpecialTextSize, metaclass=_SpecialTextSizeEnumTypeWrapper): ...
+        class SpecialTextSize(
+            _SpecialTextSize, metaclass=_SpecialTextSizeEnumTypeWrapper
+        ): ...
         SMALL: ConsumerApplication.Metadata.SpecialTextSize.ValueType  # 1
         MEDIUM: ConsumerApplication.Metadata.SpecialTextSize.ValueType  # 2
         LARGE: ConsumerApplication.Metadata.SpecialTextSize.ValueType  # 3
@@ -90,10 +134,15 @@ class ConsumerApplication(google.protobuf.message.Message):
         def __init__(
             self,
             *,
-            specialTextSize: global___ConsumerApplication.Metadata.SpecialTextSize.ValueType | None = ...,
+            specialTextSize: global___ConsumerApplication.Metadata.SpecialTextSize.ValueType
+            | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["specialTextSize", b"specialTextSize"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["specialTextSize", b"specialTextSize"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["specialTextSize", b"specialTextSize"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing.Literal["specialTextSize", b"specialTextSize"]
+        ) -> None: ...
 
     @typing.final
     class Signal(google.protobuf.message.Message):
@@ -115,9 +164,22 @@ class ConsumerApplication(google.protobuf.message.Message):
             *,
             revoke: global___ConsumerApplication.RevokeMessage | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["applicationContent", b"applicationContent", "revoke", b"revoke"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["applicationContent", b"applicationContent", "revoke", b"revoke"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["applicationContent", b"applicationContent"]) -> typing.Literal["revoke"] | None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "applicationContent", b"applicationContent", "revoke", b"revoke"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "applicationContent", b"applicationContent", "revoke", b"revoke"
+            ],
+        ) -> None: ...
+        def WhichOneof(
+            self,
+            oneof_group: typing.Literal["applicationContent", b"applicationContent"],
+        ) -> typing.Literal["revoke"] | None: ...
 
     @typing.final
     class Content(google.protobuf.message.Message):
@@ -150,9 +212,13 @@ class ConsumerApplication(google.protobuf.message.Message):
         @property
         def locationMessage(self) -> global___ConsumerApplication.LocationMessage: ...
         @property
-        def extendedTextMessage(self) -> global___ConsumerApplication.ExtendedTextMessage: ...
+        def extendedTextMessage(
+            self,
+        ) -> global___ConsumerApplication.ExtendedTextMessage: ...
         @property
-        def statusTextMessage(self) -> global___ConsumerApplication.StatusTextMesage: ...
+        def statusTextMessage(
+            self,
+        ) -> global___ConsumerApplication.StatusTextMesage: ...
         @property
         def documentMessage(self) -> global___ConsumerApplication.DocumentMessage: ...
         @property
@@ -160,21 +226,31 @@ class ConsumerApplication(google.protobuf.message.Message):
         @property
         def videoMessage(self) -> global___ConsumerApplication.VideoMessage: ...
         @property
-        def contactsArrayMessage(self) -> global___ConsumerApplication.ContactsArrayMessage: ...
+        def contactsArrayMessage(
+            self,
+        ) -> global___ConsumerApplication.ContactsArrayMessage: ...
         @property
-        def liveLocationMessage(self) -> global___ConsumerApplication.LiveLocationMessage: ...
+        def liveLocationMessage(
+            self,
+        ) -> global___ConsumerApplication.LiveLocationMessage: ...
         @property
         def stickerMessage(self) -> global___ConsumerApplication.StickerMessage: ...
         @property
-        def groupInviteMessage(self) -> global___ConsumerApplication.GroupInviteMessage: ...
+        def groupInviteMessage(
+            self,
+        ) -> global___ConsumerApplication.GroupInviteMessage: ...
         @property
         def viewOnceMessage(self) -> global___ConsumerApplication.ViewOnceMessage: ...
         @property
         def reactionMessage(self) -> global___ConsumerApplication.ReactionMessage: ...
         @property
-        def pollCreationMessage(self) -> global___ConsumerApplication.PollCreationMessage: ...
+        def pollCreationMessage(
+            self,
+        ) -> global___ConsumerApplication.PollCreationMessage: ...
         @property
-        def pollUpdateMessage(self) -> global___ConsumerApplication.PollUpdateMessage: ...
+        def pollUpdateMessage(
+            self,
+        ) -> global___ConsumerApplication.PollUpdateMessage: ...
         @property
         def editMessage(self) -> global___ConsumerApplication.EditMessage: ...
         def __init__(
@@ -184,24 +260,139 @@ class ConsumerApplication(google.protobuf.message.Message):
             imageMessage: global___ConsumerApplication.ImageMessage | None = ...,
             contactMessage: global___ConsumerApplication.ContactMessage | None = ...,
             locationMessage: global___ConsumerApplication.LocationMessage | None = ...,
-            extendedTextMessage: global___ConsumerApplication.ExtendedTextMessage | None = ...,
-            statusTextMessage: global___ConsumerApplication.StatusTextMesage | None = ...,
+            extendedTextMessage: global___ConsumerApplication.ExtendedTextMessage
+            | None = ...,
+            statusTextMessage: global___ConsumerApplication.StatusTextMesage
+            | None = ...,
             documentMessage: global___ConsumerApplication.DocumentMessage | None = ...,
             audioMessage: global___ConsumerApplication.AudioMessage | None = ...,
             videoMessage: global___ConsumerApplication.VideoMessage | None = ...,
-            contactsArrayMessage: global___ConsumerApplication.ContactsArrayMessage | None = ...,
-            liveLocationMessage: global___ConsumerApplication.LiveLocationMessage | None = ...,
+            contactsArrayMessage: global___ConsumerApplication.ContactsArrayMessage
+            | None = ...,
+            liveLocationMessage: global___ConsumerApplication.LiveLocationMessage
+            | None = ...,
             stickerMessage: global___ConsumerApplication.StickerMessage | None = ...,
-            groupInviteMessage: global___ConsumerApplication.GroupInviteMessage | None = ...,
+            groupInviteMessage: global___ConsumerApplication.GroupInviteMessage
+            | None = ...,
             viewOnceMessage: global___ConsumerApplication.ViewOnceMessage | None = ...,
             reactionMessage: global___ConsumerApplication.ReactionMessage | None = ...,
-            pollCreationMessage: global___ConsumerApplication.PollCreationMessage | None = ...,
-            pollUpdateMessage: global___ConsumerApplication.PollUpdateMessage | None = ...,
+            pollCreationMessage: global___ConsumerApplication.PollCreationMessage
+            | None = ...,
+            pollUpdateMessage: global___ConsumerApplication.PollUpdateMessage
+            | None = ...,
             editMessage: global___ConsumerApplication.EditMessage | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["audioMessage", b"audioMessage", "contactMessage", b"contactMessage", "contactsArrayMessage", b"contactsArrayMessage", "content", b"content", "documentMessage", b"documentMessage", "editMessage", b"editMessage", "extendedTextMessage", b"extendedTextMessage", "groupInviteMessage", b"groupInviteMessage", "imageMessage", b"imageMessage", "liveLocationMessage", b"liveLocationMessage", "locationMessage", b"locationMessage", "messageText", b"messageText", "pollCreationMessage", b"pollCreationMessage", "pollUpdateMessage", b"pollUpdateMessage", "reactionMessage", b"reactionMessage", "statusTextMessage", b"statusTextMessage", "stickerMessage", b"stickerMessage", "videoMessage", b"videoMessage", "viewOnceMessage", b"viewOnceMessage"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["audioMessage", b"audioMessage", "contactMessage", b"contactMessage", "contactsArrayMessage", b"contactsArrayMessage", "content", b"content", "documentMessage", b"documentMessage", "editMessage", b"editMessage", "extendedTextMessage", b"extendedTextMessage", "groupInviteMessage", b"groupInviteMessage", "imageMessage", b"imageMessage", "liveLocationMessage", b"liveLocationMessage", "locationMessage", b"locationMessage", "messageText", b"messageText", "pollCreationMessage", b"pollCreationMessage", "pollUpdateMessage", b"pollUpdateMessage", "reactionMessage", b"reactionMessage", "statusTextMessage", b"statusTextMessage", "stickerMessage", b"stickerMessage", "videoMessage", b"videoMessage", "viewOnceMessage", b"viewOnceMessage"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["messageText", "imageMessage", "contactMessage", "locationMessage", "extendedTextMessage", "statusTextMessage", "documentMessage", "audioMessage", "videoMessage", "contactsArrayMessage", "liveLocationMessage", "stickerMessage", "groupInviteMessage", "viewOnceMessage", "reactionMessage", "pollCreationMessage", "pollUpdateMessage", "editMessage"] | None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "audioMessage",
+                b"audioMessage",
+                "contactMessage",
+                b"contactMessage",
+                "contactsArrayMessage",
+                b"contactsArrayMessage",
+                "content",
+                b"content",
+                "documentMessage",
+                b"documentMessage",
+                "editMessage",
+                b"editMessage",
+                "extendedTextMessage",
+                b"extendedTextMessage",
+                "groupInviteMessage",
+                b"groupInviteMessage",
+                "imageMessage",
+                b"imageMessage",
+                "liveLocationMessage",
+                b"liveLocationMessage",
+                "locationMessage",
+                b"locationMessage",
+                "messageText",
+                b"messageText",
+                "pollCreationMessage",
+                b"pollCreationMessage",
+                "pollUpdateMessage",
+                b"pollUpdateMessage",
+                "reactionMessage",
+                b"reactionMessage",
+                "statusTextMessage",
+                b"statusTextMessage",
+                "stickerMessage",
+                b"stickerMessage",
+                "videoMessage",
+                b"videoMessage",
+                "viewOnceMessage",
+                b"viewOnceMessage",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "audioMessage",
+                b"audioMessage",
+                "contactMessage",
+                b"contactMessage",
+                "contactsArrayMessage",
+                b"contactsArrayMessage",
+                "content",
+                b"content",
+                "documentMessage",
+                b"documentMessage",
+                "editMessage",
+                b"editMessage",
+                "extendedTextMessage",
+                b"extendedTextMessage",
+                "groupInviteMessage",
+                b"groupInviteMessage",
+                "imageMessage",
+                b"imageMessage",
+                "liveLocationMessage",
+                b"liveLocationMessage",
+                "locationMessage",
+                b"locationMessage",
+                "messageText",
+                b"messageText",
+                "pollCreationMessage",
+                b"pollCreationMessage",
+                "pollUpdateMessage",
+                b"pollUpdateMessage",
+                "reactionMessage",
+                b"reactionMessage",
+                "statusTextMessage",
+                b"statusTextMessage",
+                "stickerMessage",
+                b"stickerMessage",
+                "videoMessage",
+                b"videoMessage",
+                "viewOnceMessage",
+                b"viewOnceMessage",
+            ],
+        ) -> None: ...
+        def WhichOneof(
+            self, oneof_group: typing.Literal["content", b"content"]
+        ) -> (
+            typing.Literal[
+                "messageText",
+                "imageMessage",
+                "contactMessage",
+                "locationMessage",
+                "extendedTextMessage",
+                "statusTextMessage",
+                "documentMessage",
+                "audioMessage",
+                "videoMessage",
+                "contactsArrayMessage",
+                "liveLocationMessage",
+                "stickerMessage",
+                "groupInviteMessage",
+                "viewOnceMessage",
+                "reactionMessage",
+                "pollCreationMessage",
+                "pollUpdateMessage",
+                "editMessage",
+            ]
+            | None
+        ): ...
 
     @typing.final
     class EditMessage(google.protobuf.message.Message):
@@ -222,8 +413,18 @@ class ConsumerApplication(google.protobuf.message.Message):
             message: waCommon.WACommon_pb2.MessageText | None = ...,
             timestampMS: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["key", b"key", "message", b"message", "timestampMS", b"timestampMS"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "message", b"message", "timestampMS", b"timestampMS"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "key", b"key", "message", b"message", "timestampMS", b"timestampMS"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "key", b"key", "message", b"message", "timestampMS", b"timestampMS"
+            ],
+        ) -> None: ...
 
     @typing.final
     class PollAddOptionMessage(google.protobuf.message.Message):
@@ -231,13 +432,20 @@ class ConsumerApplication(google.protobuf.message.Message):
 
         POLLOPTION_FIELD_NUMBER: builtins.int
         @property
-        def pollOption(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConsumerApplication.Option]: ...
+        def pollOption(
+            self,
+        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+            global___ConsumerApplication.Option
+        ]: ...
         def __init__(
             self,
             *,
-            pollOption: collections.abc.Iterable[global___ConsumerApplication.Option] | None = ...,
+            pollOption: collections.abc.Iterable[global___ConsumerApplication.Option]
+            | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["pollOption", b"pollOption"]) -> None: ...
+        def ClearField(
+            self, field_name: typing.Literal["pollOption", b"pollOption"]
+        ) -> None: ...
 
     @typing.final
     class PollVoteMessage(google.protobuf.message.Message):
@@ -247,15 +455,29 @@ class ConsumerApplication(google.protobuf.message.Message):
         SENDERTIMESTAMPMS_FIELD_NUMBER: builtins.int
         senderTimestampMS: builtins.int
         @property
-        def selectedOptions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bytes]: ...
+        def selectedOptions(
+            self,
+        ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
+            builtins.bytes
+        ]: ...
         def __init__(
             self,
             *,
             selectedOptions: collections.abc.Iterable[builtins.bytes] | None = ...,
             senderTimestampMS: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["senderTimestampMS", b"senderTimestampMS"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["selectedOptions", b"selectedOptions", "senderTimestampMS", b"senderTimestampMS"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["senderTimestampMS", b"senderTimestampMS"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "selectedOptions",
+                b"selectedOptions",
+                "senderTimestampMS",
+                b"senderTimestampMS",
+            ],
+        ) -> None: ...
 
     @typing.final
     class PollEncValue(google.protobuf.message.Message):
@@ -271,8 +493,14 @@ class ConsumerApplication(google.protobuf.message.Message):
             encPayload: builtins.bytes | None = ...,
             encIV: builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"],
+        ) -> None: ...
 
     @typing.final
     class PollUpdateMessage(google.protobuf.message.Message):
@@ -294,8 +522,28 @@ class ConsumerApplication(google.protobuf.message.Message):
             vote: global___ConsumerApplication.PollEncValue | None = ...,
             addOption: global___ConsumerApplication.PollEncValue | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["addOption", b"addOption", "pollCreationMessageKey", b"pollCreationMessageKey", "vote", b"vote"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["addOption", b"addOption", "pollCreationMessageKey", b"pollCreationMessageKey", "vote", b"vote"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "addOption",
+                b"addOption",
+                "pollCreationMessageKey",
+                b"pollCreationMessageKey",
+                "vote",
+                b"vote",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "addOption",
+                b"addOption",
+                "pollCreationMessageKey",
+                b"pollCreationMessageKey",
+                "vote",
+                b"vote",
+            ],
+        ) -> None: ...
 
     @typing.final
     class PollCreationMessage(google.protobuf.message.Message):
@@ -309,17 +557,44 @@ class ConsumerApplication(google.protobuf.message.Message):
         name: builtins.str
         selectableOptionsCount: builtins.int
         @property
-        def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConsumerApplication.Option]: ...
+        def options(
+            self,
+        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+            global___ConsumerApplication.Option
+        ]: ...
         def __init__(
             self,
             *,
             encKey: builtins.bytes | None = ...,
             name: builtins.str | None = ...,
-            options: collections.abc.Iterable[global___ConsumerApplication.Option] | None = ...,
+            options: collections.abc.Iterable[global___ConsumerApplication.Option]
+            | None = ...,
             selectableOptionsCount: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["encKey", b"encKey", "name", b"name", "selectableOptionsCount", b"selectableOptionsCount"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["encKey", b"encKey", "name", b"name", "options", b"options", "selectableOptionsCount", b"selectableOptionsCount"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "encKey",
+                b"encKey",
+                "name",
+                b"name",
+                "selectableOptionsCount",
+                b"selectableOptionsCount",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "encKey",
+                b"encKey",
+                "name",
+                b"name",
+                "options",
+                b"options",
+                "selectableOptionsCount",
+                b"selectableOptionsCount",
+            ],
+        ) -> None: ...
 
     @typing.final
     class Option(google.protobuf.message.Message):
@@ -332,8 +607,12 @@ class ConsumerApplication(google.protobuf.message.Message):
             *,
             optionName: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["optionName", b"optionName"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["optionName", b"optionName"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["optionName", b"optionName"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing.Literal["optionName", b"optionName"]
+        ) -> None: ...
 
     @typing.final
     class ReactionMessage(google.protobuf.message.Message):
@@ -362,8 +641,40 @@ class ConsumerApplication(google.protobuf.message.Message):
             reactionMetadataDataclassData: builtins.str | None = ...,
             style: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["groupingKey", b"groupingKey", "key", b"key", "reactionMetadataDataclassData", b"reactionMetadataDataclassData", "senderTimestampMS", b"senderTimestampMS", "style", b"style", "text", b"text"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["groupingKey", b"groupingKey", "key", b"key", "reactionMetadataDataclassData", b"reactionMetadataDataclassData", "senderTimestampMS", b"senderTimestampMS", "style", b"style", "text", b"text"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "groupingKey",
+                b"groupingKey",
+                "key",
+                b"key",
+                "reactionMetadataDataclassData",
+                b"reactionMetadataDataclassData",
+                "senderTimestampMS",
+                b"senderTimestampMS",
+                "style",
+                b"style",
+                "text",
+                b"text",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "groupingKey",
+                b"groupingKey",
+                "key",
+                b"key",
+                "reactionMetadataDataclassData",
+                b"reactionMetadataDataclassData",
+                "senderTimestampMS",
+                b"senderTimestampMS",
+                "style",
+                b"style",
+                "text",
+                b"text",
+            ],
+        ) -> None: ...
 
     @typing.final
     class RevokeMessage(google.protobuf.message.Message):
@@ -377,7 +688,9 @@ class ConsumerApplication(google.protobuf.message.Message):
             *,
             key: waCommon.WACommon_pb2.MessageKey | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["key", b"key"]) -> builtins.bool: ...
+        def HasField(
+            self, field_name: typing.Literal["key", b"key"]
+        ) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["key", b"key"]) -> None: ...
 
     @typing.final
@@ -396,9 +709,31 @@ class ConsumerApplication(google.protobuf.message.Message):
             imageMessage: global___ConsumerApplication.ImageMessage | None = ...,
             videoMessage: global___ConsumerApplication.VideoMessage | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["imageMessage", b"imageMessage", "videoMessage", b"videoMessage", "viewOnceContent", b"viewOnceContent"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["imageMessage", b"imageMessage", "videoMessage", b"videoMessage", "viewOnceContent", b"viewOnceContent"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["viewOnceContent", b"viewOnceContent"]) -> typing.Literal["imageMessage", "videoMessage"] | None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "imageMessage",
+                b"imageMessage",
+                "videoMessage",
+                b"videoMessage",
+                "viewOnceContent",
+                b"viewOnceContent",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "imageMessage",
+                b"imageMessage",
+                "videoMessage",
+                b"videoMessage",
+                "viewOnceContent",
+                b"viewOnceContent",
+            ],
+        ) -> None: ...
+        def WhichOneof(
+            self, oneof_group: typing.Literal["viewOnceContent", b"viewOnceContent"]
+        ) -> typing.Literal["imageMessage", "videoMessage"] | None: ...
 
     @typing.final
     class GroupInviteMessage(google.protobuf.message.Message):
@@ -427,8 +762,40 @@ class ConsumerApplication(google.protobuf.message.Message):
             JPEGThumbnail: builtins.bytes | None = ...,
             caption: waCommon.WACommon_pb2.MessageText | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "groupJID", b"groupJID", "groupName", b"groupName", "inviteCode", b"inviteCode", "inviteExpiration", b"inviteExpiration"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "groupJID", b"groupJID", "groupName", b"groupName", "inviteCode", b"inviteCode", "inviteExpiration", b"inviteExpiration"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "JPEGThumbnail",
+                b"JPEGThumbnail",
+                "caption",
+                b"caption",
+                "groupJID",
+                b"groupJID",
+                "groupName",
+                b"groupName",
+                "inviteCode",
+                b"inviteCode",
+                "inviteExpiration",
+                b"inviteExpiration",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "JPEGThumbnail",
+                b"JPEGThumbnail",
+                "caption",
+                b"caption",
+                "groupJID",
+                b"groupJID",
+                "groupName",
+                b"groupName",
+                "inviteCode",
+                b"inviteCode",
+                "inviteExpiration",
+                b"inviteExpiration",
+            ],
+        ) -> None: ...
 
     @typing.final
     class LiveLocationMessage(google.protobuf.message.Message):
@@ -461,8 +828,44 @@ class ConsumerApplication(google.protobuf.message.Message):
             sequenceNumber: builtins.int | None = ...,
             timeOffset: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["accuracyInMeters", b"accuracyInMeters", "caption", b"caption", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "location", b"location", "sequenceNumber", b"sequenceNumber", "speedInMps", b"speedInMps", "timeOffset", b"timeOffset"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["accuracyInMeters", b"accuracyInMeters", "caption", b"caption", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "location", b"location", "sequenceNumber", b"sequenceNumber", "speedInMps", b"speedInMps", "timeOffset", b"timeOffset"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "accuracyInMeters",
+                b"accuracyInMeters",
+                "caption",
+                b"caption",
+                "degreesClockwiseFromMagneticNorth",
+                b"degreesClockwiseFromMagneticNorth",
+                "location",
+                b"location",
+                "sequenceNumber",
+                b"sequenceNumber",
+                "speedInMps",
+                b"speedInMps",
+                "timeOffset",
+                b"timeOffset",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "accuracyInMeters",
+                b"accuracyInMeters",
+                "caption",
+                b"caption",
+                "degreesClockwiseFromMagneticNorth",
+                b"degreesClockwiseFromMagneticNorth",
+                "location",
+                b"location",
+                "sequenceNumber",
+                b"sequenceNumber",
+                "speedInMps",
+                b"speedInMps",
+                "timeOffset",
+                b"timeOffset",
+            ],
+        ) -> None: ...
 
     @typing.final
     class ContactsArrayMessage(google.protobuf.message.Message):
@@ -472,15 +875,29 @@ class ConsumerApplication(google.protobuf.message.Message):
         CONTACTS_FIELD_NUMBER: builtins.int
         displayName: builtins.str
         @property
-        def contacts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConsumerApplication.ContactMessage]: ...
+        def contacts(
+            self,
+        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+            global___ConsumerApplication.ContactMessage
+        ]: ...
         def __init__(
             self,
             *,
             displayName: builtins.str | None = ...,
-            contacts: collections.abc.Iterable[global___ConsumerApplication.ContactMessage] | None = ...,
+            contacts: collections.abc.Iterable[
+                global___ConsumerApplication.ContactMessage
+            ]
+            | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["displayName", b"displayName"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["contacts", b"contacts", "displayName", b"displayName"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["displayName", b"displayName"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "contacts", b"contacts", "displayName", b"displayName"
+            ],
+        ) -> None: ...
 
     @typing.final
     class ContactMessage(google.protobuf.message.Message):
@@ -494,8 +911,12 @@ class ConsumerApplication(google.protobuf.message.Message):
             *,
             contact: waCommon.WACommon_pb2.SubProtocol | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["contact", b"contact"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["contact", b"contact"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["contact", b"contact"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing.Literal["contact", b"contact"]
+        ) -> None: ...
 
     @typing.final
     class StatusTextMesage(google.protobuf.message.Message):
@@ -505,13 +926,22 @@ class ConsumerApplication(google.protobuf.message.Message):
             ValueType = typing.NewType("ValueType", builtins.int)
             V: typing_extensions.TypeAlias = ValueType
 
-        class _FontTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConsumerApplication.StatusTextMesage._FontType.ValueType], builtins.type):
+        class _FontTypeEnumTypeWrapper(
+            google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+                ConsumerApplication.StatusTextMesage._FontType.ValueType
+            ],
+            builtins.type,
+        ):
             DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
             SANS_SERIF: ConsumerApplication.StatusTextMesage._FontType.ValueType  # 0
             SERIF: ConsumerApplication.StatusTextMesage._FontType.ValueType  # 1
-            NORICAN_REGULAR: ConsumerApplication.StatusTextMesage._FontType.ValueType  # 2
+            NORICAN_REGULAR: (
+                ConsumerApplication.StatusTextMesage._FontType.ValueType
+            )  # 2
             BRYNDAN_WRITE: ConsumerApplication.StatusTextMesage._FontType.ValueType  # 3
-            BEBASNEUE_REGULAR: ConsumerApplication.StatusTextMesage._FontType.ValueType  # 4
+            BEBASNEUE_REGULAR: (
+                ConsumerApplication.StatusTextMesage._FontType.ValueType
+            )  # 4
             OSWALD_HEAVY: ConsumerApplication.StatusTextMesage._FontType.ValueType  # 5
 
         class FontType(_FontType, metaclass=_FontTypeEnumTypeWrapper): ...
@@ -537,10 +967,35 @@ class ConsumerApplication(google.protobuf.message.Message):
             text: global___ConsumerApplication.ExtendedTextMessage | None = ...,
             textArgb: builtins.int | None = ...,
             backgroundArgb: builtins.int | None = ...,
-            font: global___ConsumerApplication.StatusTextMesage.FontType.ValueType | None = ...,
+            font: global___ConsumerApplication.StatusTextMesage.FontType.ValueType
+            | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["backgroundArgb", b"backgroundArgb", "font", b"font", "text", b"text", "textArgb", b"textArgb"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["backgroundArgb", b"backgroundArgb", "font", b"font", "text", b"text", "textArgb", b"textArgb"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "backgroundArgb",
+                b"backgroundArgb",
+                "font",
+                b"font",
+                "text",
+                b"text",
+                "textArgb",
+                b"textArgb",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "backgroundArgb",
+                b"backgroundArgb",
+                "font",
+                b"font",
+                "text",
+                b"text",
+                "textArgb",
+                b"textArgb",
+            ],
+        ) -> None: ...
 
     @typing.final
     class ExtendedTextMessage(google.protobuf.message.Message):
@@ -550,7 +1005,12 @@ class ConsumerApplication(google.protobuf.message.Message):
             ValueType = typing.NewType("ValueType", builtins.int)
             V: typing_extensions.TypeAlias = ValueType
 
-        class _PreviewTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConsumerApplication.ExtendedTextMessage._PreviewType.ValueType], builtins.type):
+        class _PreviewTypeEnumTypeWrapper(
+            google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+                ConsumerApplication.ExtendedTextMessage._PreviewType.ValueType
+            ],
+            builtins.type,
+        ):
             DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
             NONE: ConsumerApplication.ExtendedTextMessage._PreviewType.ValueType  # 0
             VIDEO: ConsumerApplication.ExtendedTextMessage._PreviewType.ValueType  # 1
@@ -570,7 +1030,9 @@ class ConsumerApplication(google.protobuf.message.Message):
         canonicalURL: builtins.str
         description: builtins.str
         title: builtins.str
-        previewType: global___ConsumerApplication.ExtendedTextMessage.PreviewType.ValueType
+        previewType: (
+            global___ConsumerApplication.ExtendedTextMessage.PreviewType.ValueType
+        )
         @property
         def text(self) -> waCommon.WACommon_pb2.MessageText: ...
         @property
@@ -584,10 +1046,47 @@ class ConsumerApplication(google.protobuf.message.Message):
             description: builtins.str | None = ...,
             title: builtins.str | None = ...,
             thumbnail: waCommon.WACommon_pb2.SubProtocol | None = ...,
-            previewType: global___ConsumerApplication.ExtendedTextMessage.PreviewType.ValueType | None = ...,
+            previewType: global___ConsumerApplication.ExtendedTextMessage.PreviewType.ValueType
+            | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["canonicalURL", b"canonicalURL", "description", b"description", "matchedText", b"matchedText", "previewType", b"previewType", "text", b"text", "thumbnail", b"thumbnail", "title", b"title"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["canonicalURL", b"canonicalURL", "description", b"description", "matchedText", b"matchedText", "previewType", b"previewType", "text", b"text", "thumbnail", b"thumbnail", "title", b"title"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "canonicalURL",
+                b"canonicalURL",
+                "description",
+                b"description",
+                "matchedText",
+                b"matchedText",
+                "previewType",
+                b"previewType",
+                "text",
+                b"text",
+                "thumbnail",
+                b"thumbnail",
+                "title",
+                b"title",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "canonicalURL",
+                b"canonicalURL",
+                "description",
+                b"description",
+                "matchedText",
+                b"matchedText",
+                "previewType",
+                b"previewType",
+                "text",
+                b"text",
+                "thumbnail",
+                b"thumbnail",
+                "title",
+                b"title",
+            ],
+        ) -> None: ...
 
     @typing.final
     class LocationMessage(google.protobuf.message.Message):
@@ -604,8 +1103,14 @@ class ConsumerApplication(google.protobuf.message.Message):
             location: global___ConsumerApplication.Location | None = ...,
             address: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["address", b"address", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["address", b"address", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal["address", b"address", "location", b"location"],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal["address", b"address", "location", b"location"],
+        ) -> None: ...
 
     @typing.final
     class StickerMessage(google.protobuf.message.Message):
@@ -619,8 +1124,12 @@ class ConsumerApplication(google.protobuf.message.Message):
             *,
             sticker: waCommon.WACommon_pb2.SubProtocol | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["sticker", b"sticker"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["sticker", b"sticker"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["sticker", b"sticker"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing.Literal["sticker", b"sticker"]
+        ) -> None: ...
 
     @typing.final
     class DocumentMessage(google.protobuf.message.Message):
@@ -637,8 +1146,18 @@ class ConsumerApplication(google.protobuf.message.Message):
             document: waCommon.WACommon_pb2.SubProtocol | None = ...,
             fileName: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["document", b"document", "fileName", b"fileName"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["document", b"document", "fileName", b"fileName"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "document", b"document", "fileName", b"fileName"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "document", b"document", "fileName", b"fileName"
+            ],
+        ) -> None: ...
 
     @typing.final
     class VideoMessage(google.protobuf.message.Message):
@@ -656,8 +1175,12 @@ class ConsumerApplication(google.protobuf.message.Message):
             video: waCommon.WACommon_pb2.SubProtocol | None = ...,
             caption: waCommon.WACommon_pb2.MessageText | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["caption", b"caption", "video", b"video"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["caption", b"caption", "video", b"video"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["caption", b"caption", "video", b"video"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing.Literal["caption", b"caption", "video", b"video"]
+        ) -> None: ...
 
     @typing.final
     class AudioMessage(google.protobuf.message.Message):
@@ -674,8 +1197,12 @@ class ConsumerApplication(google.protobuf.message.Message):
             audio: waCommon.WACommon_pb2.SubProtocol | None = ...,
             PTT: builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["PTT", b"PTT", "audio", b"audio"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["PTT", b"PTT", "audio", b"audio"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["PTT", b"PTT", "audio", b"audio"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing.Literal["PTT", b"PTT", "audio", b"audio"]
+        ) -> None: ...
 
     @typing.final
     class ImageMessage(google.protobuf.message.Message):
@@ -693,8 +1220,12 @@ class ConsumerApplication(google.protobuf.message.Message):
             image: waCommon.WACommon_pb2.SubProtocol | None = ...,
             caption: waCommon.WACommon_pb2.MessageText | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["caption", b"caption", "image", b"image"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["caption", b"caption", "image", b"image"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["caption", b"caption", "image", b"image"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing.Literal["caption", b"caption", "image", b"image"]
+        ) -> None: ...
 
     @typing.final
     class InteractiveAnnotation(google.protobuf.message.Message):
@@ -705,16 +1236,38 @@ class ConsumerApplication(google.protobuf.message.Message):
         @property
         def location(self) -> global___ConsumerApplication.Location: ...
         @property
-        def polygonVertices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ConsumerApplication.Point]: ...
+        def polygonVertices(
+            self,
+        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+            global___ConsumerApplication.Point
+        ]: ...
         def __init__(
             self,
             *,
             location: global___ConsumerApplication.Location | None = ...,
-            polygonVertices: collections.abc.Iterable[global___ConsumerApplication.Point] | None = ...,
+            polygonVertices: collections.abc.Iterable[
+                global___ConsumerApplication.Point
+            ]
+            | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["action", b"action", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["action", b"action", "location", b"location", "polygonVertices", b"polygonVertices"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["action", b"action"]) -> typing.Literal["location"] | None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal["action", b"action", "location", b"location"],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "action",
+                b"action",
+                "location",
+                b"location",
+                "polygonVertices",
+                b"polygonVertices",
+            ],
+        ) -> None: ...
+        def WhichOneof(
+            self, oneof_group: typing.Literal["action", b"action"]
+        ) -> typing.Literal["location"] | None: ...
 
     @typing.final
     class Point(google.protobuf.message.Message):
@@ -730,8 +1283,12 @@ class ConsumerApplication(google.protobuf.message.Message):
             x: builtins.float | None = ...,
             y: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["x", b"x", "y", b"y"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["x", b"x", "y", b"y"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["x", b"x", "y", b"y"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing.Literal["x", b"x", "y", b"y"]
+        ) -> None: ...
 
     @typing.final
     class Location(google.protobuf.message.Message):
@@ -750,8 +1307,28 @@ class ConsumerApplication(google.protobuf.message.Message):
             degreesLongitude: builtins.float | None = ...,
             name: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "name", b"name"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "name", b"name"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "degreesLatitude",
+                b"degreesLatitude",
+                "degreesLongitude",
+                b"degreesLongitude",
+                "name",
+                b"name",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "degreesLatitude",
+                b"degreesLatitude",
+                "degreesLongitude",
+                b"degreesLongitude",
+                "name",
+                b"name",
+            ],
+        ) -> None: ...
 
     @typing.final
     class MediaPayload(google.protobuf.message.Message):
@@ -765,8 +1342,12 @@ class ConsumerApplication(google.protobuf.message.Message):
             *,
             protocol: waCommon.WACommon_pb2.SubProtocol | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["protocol", b"protocol"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["protocol", b"protocol"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["protocol", b"protocol"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing.Literal["protocol", b"protocol"]
+        ) -> None: ...
 
     PAYLOAD_FIELD_NUMBER: builtins.int
     METADATA_FIELD_NUMBER: builtins.int
@@ -780,7 +1361,11 @@ class ConsumerApplication(google.protobuf.message.Message):
         payload: global___ConsumerApplication.Payload | None = ...,
         metadata: global___ConsumerApplication.Metadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
+    ) -> None: ...
 
 global___ConsumerApplication = ConsumerApplication

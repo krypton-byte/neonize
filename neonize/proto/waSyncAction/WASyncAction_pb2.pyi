@@ -30,7 +30,12 @@ class CallLogRecord(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _CallTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CallLogRecord._CallType.ValueType], builtins.type):
+    class _CallTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            CallLogRecord._CallType.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         REGULAR: CallLogRecord._CallType.ValueType  # 0
         SCHEDULED_CALL: CallLogRecord._CallType.ValueType  # 1
@@ -45,7 +50,12 @@ class CallLogRecord(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _SilenceReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CallLogRecord._SilenceReason.ValueType], builtins.type):
+    class _SilenceReasonEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            CallLogRecord._SilenceReason.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         NONE: CallLogRecord._SilenceReason.ValueType  # 0
         SCHEDULED: CallLogRecord._SilenceReason.ValueType  # 1
@@ -62,7 +72,12 @@ class CallLogRecord(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _CallResultEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CallLogRecord._CallResult.ValueType], builtins.type):
+    class _CallResultEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            CallLogRecord._CallResult.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         CONNECTED: CallLogRecord._CallResult.ValueType  # 0
         REJECTED: CallLogRecord._CallResult.ValueType  # 1
@@ -103,8 +118,18 @@ class CallLogRecord(google.protobuf.message.Message):
             userJID: builtins.str | None = ...,
             callResult: global___CallLogRecord.CallResult.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["callResult", b"callResult", "userJID", b"userJID"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["callResult", b"callResult", "userJID", b"userJID"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "callResult", b"callResult", "userJID", b"userJID"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "callResult", b"callResult", "userJID", b"userJID"
+            ],
+        ) -> None: ...
 
     CALLRESULT_FIELD_NUMBER: builtins.int
     ISDNDMODE_FIELD_NUMBER: builtins.int
@@ -136,7 +161,11 @@ class CallLogRecord(google.protobuf.message.Message):
     groupJID: builtins.str
     callType: global___CallLogRecord.CallType.ValueType
     @property
-    def participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CallLogRecord.ParticipantInfo]: ...
+    def participants(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___CallLogRecord.ParticipantInfo
+    ]: ...
     def __init__(
         self,
         *,
@@ -153,11 +182,78 @@ class CallLogRecord(google.protobuf.message.Message):
         callID: builtins.str | None = ...,
         callCreatorJID: builtins.str | None = ...,
         groupJID: builtins.str | None = ...,
-        participants: collections.abc.Iterable[global___CallLogRecord.ParticipantInfo] | None = ...,
+        participants: collections.abc.Iterable[global___CallLogRecord.ParticipantInfo]
+        | None = ...,
         callType: global___CallLogRecord.CallType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["callCreatorJID", b"callCreatorJID", "callID", b"callID", "callLinkToken", b"callLinkToken", "callResult", b"callResult", "callType", b"callType", "duration", b"duration", "groupJID", b"groupJID", "isCallLink", b"isCallLink", "isDndMode", b"isDndMode", "isIncoming", b"isIncoming", "isVideo", b"isVideo", "scheduledCallID", b"scheduledCallID", "silenceReason", b"silenceReason", "startTime", b"startTime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["callCreatorJID", b"callCreatorJID", "callID", b"callID", "callLinkToken", b"callLinkToken", "callResult", b"callResult", "callType", b"callType", "duration", b"duration", "groupJID", b"groupJID", "isCallLink", b"isCallLink", "isDndMode", b"isDndMode", "isIncoming", b"isIncoming", "isVideo", b"isVideo", "participants", b"participants", "scheduledCallID", b"scheduledCallID", "silenceReason", b"silenceReason", "startTime", b"startTime"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "callCreatorJID",
+            b"callCreatorJID",
+            "callID",
+            b"callID",
+            "callLinkToken",
+            b"callLinkToken",
+            "callResult",
+            b"callResult",
+            "callType",
+            b"callType",
+            "duration",
+            b"duration",
+            "groupJID",
+            b"groupJID",
+            "isCallLink",
+            b"isCallLink",
+            "isDndMode",
+            b"isDndMode",
+            "isIncoming",
+            b"isIncoming",
+            "isVideo",
+            b"isVideo",
+            "scheduledCallID",
+            b"scheduledCallID",
+            "silenceReason",
+            b"silenceReason",
+            "startTime",
+            b"startTime",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "callCreatorJID",
+            b"callCreatorJID",
+            "callID",
+            b"callID",
+            "callLinkToken",
+            b"callLinkToken",
+            "callResult",
+            b"callResult",
+            "callType",
+            b"callType",
+            "duration",
+            b"duration",
+            "groupJID",
+            b"groupJID",
+            "isCallLink",
+            b"isCallLink",
+            "isDndMode",
+            b"isDndMode",
+            "isIncoming",
+            b"isIncoming",
+            "isVideo",
+            b"isVideo",
+            "participants",
+            b"participants",
+            "scheduledCallID",
+            b"scheduledCallID",
+            "silenceReason",
+            b"silenceReason",
+            "startTime",
+            b"startTime",
+        ],
+    ) -> None: ...
 
 global___CallLogRecord = CallLogRecord
 
@@ -169,11 +265,18 @@ class WaffleAccountLinkStateAction(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _AccountLinkStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[WaffleAccountLinkStateAction._AccountLinkState.ValueType], builtins.type):
+    class _AccountLinkStateEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            WaffleAccountLinkStateAction._AccountLinkState.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         ACTIVE: WaffleAccountLinkStateAction._AccountLinkState.ValueType  # 0
 
-    class AccountLinkState(_AccountLinkState, metaclass=_AccountLinkStateEnumTypeWrapper): ...
+    class AccountLinkState(
+        _AccountLinkState, metaclass=_AccountLinkStateEnumTypeWrapper
+    ): ...
     ACTIVE: WaffleAccountLinkStateAction.AccountLinkState.ValueType  # 0
 
     LINKSTATE_FIELD_NUMBER: builtins.int
@@ -181,10 +284,15 @@ class WaffleAccountLinkStateAction(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        linkState: global___WaffleAccountLinkStateAction.AccountLinkState.ValueType | None = ...,
+        linkState: global___WaffleAccountLinkStateAction.AccountLinkState.ValueType
+        | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["linkState", b"linkState"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["linkState", b"linkState"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["linkState", b"linkState"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["linkState", b"linkState"]
+    ) -> None: ...
 
 global___WaffleAccountLinkStateAction = WaffleAccountLinkStateAction
 
@@ -196,7 +304,12 @@ class MerchantPaymentPartnerAction(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[MerchantPaymentPartnerAction._Status.ValueType], builtins.type):
+    class _StatusEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            MerchantPaymentPartnerAction._Status.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         ACTIVE: MerchantPaymentPartnerAction._Status.ValueType  # 0
         INACTIVE: MerchantPaymentPartnerAction._Status.ValueType  # 1
@@ -221,8 +334,32 @@ class MerchantPaymentPartnerAction(google.protobuf.message.Message):
         gatewayName: builtins.str | None = ...,
         credentialID: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["country", b"country", "credentialID", b"credentialID", "gatewayName", b"gatewayName", "status", b"status"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["country", b"country", "credentialID", b"credentialID", "gatewayName", b"gatewayName", "status", b"status"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "country",
+            b"country",
+            "credentialID",
+            b"credentialID",
+            "gatewayName",
+            b"gatewayName",
+            "status",
+            b"status",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "country",
+            b"country",
+            "credentialID",
+            b"credentialID",
+            "gatewayName",
+            b"gatewayName",
+            "status",
+            b"status",
+        ],
+    ) -> None: ...
 
 global___MerchantPaymentPartnerAction = MerchantPaymentPartnerAction
 
@@ -234,7 +371,12 @@ class NoteEditAction(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _NoteTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[NoteEditAction._NoteType.ValueType], builtins.type):
+    class _NoteTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            NoteEditAction._NoteType.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNSTRUCTURED: NoteEditAction._NoteType.ValueType  # 1
         STRUCTURED: NoteEditAction._NoteType.ValueType  # 2
@@ -262,8 +404,36 @@ class NoteEditAction(google.protobuf.message.Message):
         deleted: builtins.bool | None = ...,
         unstructuredContent: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["chatJID", b"chatJID", "createdAt", b"createdAt", "deleted", b"deleted", "type", b"type", "unstructuredContent", b"unstructuredContent"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["chatJID", b"chatJID", "createdAt", b"createdAt", "deleted", b"deleted", "type", b"type", "unstructuredContent", b"unstructuredContent"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "chatJID",
+            b"chatJID",
+            "createdAt",
+            b"createdAt",
+            "deleted",
+            b"deleted",
+            "type",
+            b"type",
+            "unstructuredContent",
+            b"unstructuredContent",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "chatJID",
+            b"chatJID",
+            "createdAt",
+            b"createdAt",
+            "deleted",
+            b"deleted",
+            "type",
+            b"type",
+            "unstructuredContent",
+            b"unstructuredContent",
+        ],
+    ) -> None: ...
 
 global___NoteEditAction = NoteEditAction
 
@@ -275,13 +445,20 @@ class StatusPrivacyAction(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StatusDistributionModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[StatusPrivacyAction._StatusDistributionMode.ValueType], builtins.type):
+    class _StatusDistributionModeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            StatusPrivacyAction._StatusDistributionMode.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         ALLOW_LIST: StatusPrivacyAction._StatusDistributionMode.ValueType  # 0
         DENY_LIST: StatusPrivacyAction._StatusDistributionMode.ValueType  # 1
         CONTACTS: StatusPrivacyAction._StatusDistributionMode.ValueType  # 2
 
-    class StatusDistributionMode(_StatusDistributionMode, metaclass=_StatusDistributionModeEnumTypeWrapper): ...
+    class StatusDistributionMode(
+        _StatusDistributionMode, metaclass=_StatusDistributionModeEnumTypeWrapper
+    ): ...
     ALLOW_LIST: StatusPrivacyAction.StatusDistributionMode.ValueType  # 0
     DENY_LIST: StatusPrivacyAction.StatusDistributionMode.ValueType  # 1
     CONTACTS: StatusPrivacyAction.StatusDistributionMode.ValueType  # 2
@@ -290,15 +467,24 @@ class StatusPrivacyAction(google.protobuf.message.Message):
     USERJID_FIELD_NUMBER: builtins.int
     mode: global___StatusPrivacyAction.StatusDistributionMode.ValueType
     @property
-    def userJID(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def userJID(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
+        builtins.str
+    ]: ...
     def __init__(
         self,
         *,
-        mode: global___StatusPrivacyAction.StatusDistributionMode.ValueType | None = ...,
+        mode: global___StatusPrivacyAction.StatusDistributionMode.ValueType
+        | None = ...,
         userJID: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["mode", b"mode"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["mode", b"mode", "userJID", b"userJID"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["mode", b"mode"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["mode", b"mode", "userJID", b"userJID"]
+    ) -> None: ...
 
 global___StatusPrivacyAction = StatusPrivacyAction
 
@@ -310,11 +496,21 @@ class MarketingMessageAction(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _MarketingMessagePrototypeTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[MarketingMessageAction._MarketingMessagePrototypeType.ValueType], builtins.type):
+    class _MarketingMessagePrototypeTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            MarketingMessageAction._MarketingMessagePrototypeType.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        PERSONALIZED: MarketingMessageAction._MarketingMessagePrototypeType.ValueType  # 0
+        PERSONALIZED: (
+            MarketingMessageAction._MarketingMessagePrototypeType.ValueType
+        )  # 0
 
-    class MarketingMessagePrototypeType(_MarketingMessagePrototypeType, metaclass=_MarketingMessagePrototypeTypeEnumTypeWrapper): ...
+    class MarketingMessagePrototypeType(
+        _MarketingMessagePrototypeType,
+        metaclass=_MarketingMessagePrototypeTypeEnumTypeWrapper,
+    ): ...
     PERSONALIZED: MarketingMessageAction.MarketingMessagePrototypeType.ValueType  # 0
 
     NAME_FIELD_NUMBER: builtins.int
@@ -336,14 +532,51 @@ class MarketingMessageAction(google.protobuf.message.Message):
         *,
         name: builtins.str | None = ...,
         message: builtins.str | None = ...,
-        type: global___MarketingMessageAction.MarketingMessagePrototypeType.ValueType | None = ...,
+        type: global___MarketingMessageAction.MarketingMessagePrototypeType.ValueType
+        | None = ...,
         createdAt: builtins.int | None = ...,
         lastSentAt: builtins.int | None = ...,
         isDeleted: builtins.bool | None = ...,
         mediaID: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["createdAt", b"createdAt", "isDeleted", b"isDeleted", "lastSentAt", b"lastSentAt", "mediaID", b"mediaID", "message", b"message", "name", b"name", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["createdAt", b"createdAt", "isDeleted", b"isDeleted", "lastSentAt", b"lastSentAt", "mediaID", b"mediaID", "message", b"message", "name", b"name", "type", b"type"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "createdAt",
+            b"createdAt",
+            "isDeleted",
+            b"isDeleted",
+            "lastSentAt",
+            b"lastSentAt",
+            "mediaID",
+            b"mediaID",
+            "message",
+            b"message",
+            "name",
+            b"name",
+            "type",
+            b"type",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "createdAt",
+            b"createdAt",
+            "isDeleted",
+            b"isDeleted",
+            "lastSentAt",
+            b"lastSentAt",
+            "mediaID",
+            b"mediaID",
+            "message",
+            b"message",
+            "name",
+            b"name",
+            "type",
+            b"type",
+        ],
+    ) -> None: ...
 
 global___MarketingMessageAction = MarketingMessageAction
 
@@ -355,7 +588,12 @@ class PatchDebugData(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _PlatformEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PatchDebugData._Platform.ValueType], builtins.type):
+    class _PlatformEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            PatchDebugData._Platform.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         ANDROID: PatchDebugData._Platform.ValueType  # 0
         SMBA: PatchDebugData._Platform.ValueType  # 1
@@ -411,8 +649,60 @@ class PatchDebugData(google.protobuf.message.Message):
         senderPlatform: global___PatchDebugData.Platform.ValueType | None = ...,
         isSenderPrimary: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["collectionName", b"collectionName", "currentLthash", b"currentLthash", "firstFourBytesFromAHashOfSnapshotMACKey", b"firstFourBytesFromAHashOfSnapshotMACKey", "isSenderPrimary", b"isSenderPrimary", "newLthash", b"newLthash", "newLthashSubtract", b"newLthashSubtract", "numberAdd", b"numberAdd", "numberOverride", b"numberOverride", "numberRemove", b"numberRemove", "patchVersion", b"patchVersion", "senderPlatform", b"senderPlatform"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["collectionName", b"collectionName", "currentLthash", b"currentLthash", "firstFourBytesFromAHashOfSnapshotMACKey", b"firstFourBytesFromAHashOfSnapshotMACKey", "isSenderPrimary", b"isSenderPrimary", "newLthash", b"newLthash", "newLthashSubtract", b"newLthashSubtract", "numberAdd", b"numberAdd", "numberOverride", b"numberOverride", "numberRemove", b"numberRemove", "patchVersion", b"patchVersion", "senderPlatform", b"senderPlatform"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "collectionName",
+            b"collectionName",
+            "currentLthash",
+            b"currentLthash",
+            "firstFourBytesFromAHashOfSnapshotMACKey",
+            b"firstFourBytesFromAHashOfSnapshotMACKey",
+            "isSenderPrimary",
+            b"isSenderPrimary",
+            "newLthash",
+            b"newLthash",
+            "newLthashSubtract",
+            b"newLthashSubtract",
+            "numberAdd",
+            b"numberAdd",
+            "numberOverride",
+            b"numberOverride",
+            "numberRemove",
+            b"numberRemove",
+            "patchVersion",
+            b"patchVersion",
+            "senderPlatform",
+            b"senderPlatform",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "collectionName",
+            b"collectionName",
+            "currentLthash",
+            b"currentLthash",
+            "firstFourBytesFromAHashOfSnapshotMACKey",
+            b"firstFourBytesFromAHashOfSnapshotMACKey",
+            "isSenderPrimary",
+            b"isSenderPrimary",
+            "newLthash",
+            b"newLthash",
+            "newLthashSubtract",
+            b"newLthashSubtract",
+            "numberAdd",
+            b"numberAdd",
+            "numberOverride",
+            b"numberOverride",
+            "numberRemove",
+            b"numberRemove",
+            "patchVersion",
+            b"patchVersion",
+            "senderPlatform",
+            b"senderPlatform",
+        ],
+    ) -> None: ...
 
 global___PatchDebugData = PatchDebugData
 
@@ -430,8 +720,12 @@ class RecentEmojiWeight(google.protobuf.message.Message):
         emoji: builtins.str | None = ...,
         weight: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["emoji", b"emoji", "weight", b"weight"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["emoji", b"emoji", "weight", b"weight"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["emoji", b"emoji", "weight", b"weight"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["emoji", b"emoji", "weight", b"weight"]
+    ) -> None: ...
 
 global___RecentEmojiWeight = RecentEmojiWeight
 
@@ -551,13 +845,17 @@ class SyncActionValue(google.protobuf.message.Message):
     @property
     def chatAssignment(self) -> global___ChatAssignmentAction: ...
     @property
-    def chatAssignmentOpenedStatus(self) -> global___ChatAssignmentOpenedStatusAction: ...
+    def chatAssignmentOpenedStatus(
+        self,
+    ) -> global___ChatAssignmentOpenedStatusAction: ...
     @property
     def pnForLidChatAction(self) -> global___PnForLidChatAction: ...
     @property
     def marketingMessageAction(self) -> global___MarketingMessageAction: ...
     @property
-    def marketingMessageBroadcastAction(self) -> global___MarketingMessageBroadcastAction: ...
+    def marketingMessageBroadcastAction(
+        self,
+    ) -> global___MarketingMessageBroadcastAction: ...
     @property
     def externalWebBetaAction(self) -> global___ExternalWebBetaAction: ...
     @property
@@ -579,13 +877,19 @@ class SyncActionValue(google.protobuf.message.Message):
     @property
     def lockChatAction(self) -> global___LockChatAction: ...
     @property
-    def chatLockSettings(self) -> waChatLockSettings.WAProtobufsChatLockSettings_pb2.ChatLockSettings: ...
+    def chatLockSettings(
+        self,
+    ) -> waChatLockSettings.WAProtobufsChatLockSettings_pb2.ChatLockSettings: ...
     @property
     def wamoUserIdentifierAction(self) -> global___WamoUserIdentifierAction: ...
     @property
-    def privacySettingDisableLinkPreviewsAction(self) -> global___PrivacySettingDisableLinkPreviewsAction: ...
+    def privacySettingDisableLinkPreviewsAction(
+        self,
+    ) -> global___PrivacySettingDisableLinkPreviewsAction: ...
     @property
-    def deviceCapabilities(self) -> waDeviceCapabilities.WAProtobufsDeviceCapabilities_pb2.DeviceCapabilities: ...
+    def deviceCapabilities(
+        self,
+    ) -> waDeviceCapabilities.WAProtobufsDeviceCapabilities_pb2.DeviceCapabilities: ...
     @property
     def noteEditAction(self) -> global___NoteEditAction: ...
     @property
@@ -627,10 +931,12 @@ class SyncActionValue(google.protobuf.message.Message):
         stickerAction: global___StickerAction | None = ...,
         removeRecentStickerAction: global___RemoveRecentStickerAction | None = ...,
         chatAssignment: global___ChatAssignmentAction | None = ...,
-        chatAssignmentOpenedStatus: global___ChatAssignmentOpenedStatusAction | None = ...,
+        chatAssignmentOpenedStatus: global___ChatAssignmentOpenedStatusAction
+        | None = ...,
         pnForLidChatAction: global___PnForLidChatAction | None = ...,
         marketingMessageAction: global___MarketingMessageAction | None = ...,
-        marketingMessageBroadcastAction: global___MarketingMessageBroadcastAction | None = ...,
+        marketingMessageBroadcastAction: global___MarketingMessageBroadcastAction
+        | None = ...,
         externalWebBetaAction: global___ExternalWebBetaAction | None = ...,
         privacySettingRelayAllCalls: global___PrivacySettingRelayAllCalls | None = ...,
         callLogAction: global___CallLogAction | None = ...,
@@ -641,17 +947,238 @@ class SyncActionValue(google.protobuf.message.Message):
         paymentInfoAction: global___PaymentInfoAction | None = ...,
         customPaymentMethodsAction: global___CustomPaymentMethodsAction | None = ...,
         lockChatAction: global___LockChatAction | None = ...,
-        chatLockSettings: waChatLockSettings.WAProtobufsChatLockSettings_pb2.ChatLockSettings | None = ...,
+        chatLockSettings: waChatLockSettings.WAProtobufsChatLockSettings_pb2.ChatLockSettings
+        | None = ...,
         wamoUserIdentifierAction: global___WamoUserIdentifierAction | None = ...,
-        privacySettingDisableLinkPreviewsAction: global___PrivacySettingDisableLinkPreviewsAction | None = ...,
-        deviceCapabilities: waDeviceCapabilities.WAProtobufsDeviceCapabilities_pb2.DeviceCapabilities | None = ...,
+        privacySettingDisableLinkPreviewsAction: global___PrivacySettingDisableLinkPreviewsAction
+        | None = ...,
+        deviceCapabilities: waDeviceCapabilities.WAProtobufsDeviceCapabilities_pb2.DeviceCapabilities
+        | None = ...,
         noteEditAction: global___NoteEditAction | None = ...,
         favoritesAction: global___FavoritesAction | None = ...,
-        merchantPaymentPartnerAction: global___MerchantPaymentPartnerAction | None = ...,
-        waffleAccountLinkStateAction: global___WaffleAccountLinkStateAction | None = ...,
+        merchantPaymentPartnerAction: global___MerchantPaymentPartnerAction
+        | None = ...,
+        waffleAccountLinkStateAction: global___WaffleAccountLinkStateAction
+        | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["agentAction", b"agentAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "muteAction", b"muteAction", "noteEditAction", b"noteEditAction", "nuxAction", b"nuxAction", "paymentInfoAction", b"paymentInfoAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "securityNotificationSetting", b"securityNotificationSetting", "starAction", b"starAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["agentAction", b"agentAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "muteAction", b"muteAction", "noteEditAction", b"noteEditAction", "nuxAction", b"nuxAction", "paymentInfoAction", b"paymentInfoAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "securityNotificationSetting", b"securityNotificationSetting", "starAction", b"starAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "agentAction",
+            b"agentAction",
+            "androidUnsupportedActions",
+            b"androidUnsupportedActions",
+            "archiveChatAction",
+            b"archiveChatAction",
+            "botWelcomeRequestAction",
+            b"botWelcomeRequestAction",
+            "callLogAction",
+            b"callLogAction",
+            "chatAssignment",
+            b"chatAssignment",
+            "chatAssignmentOpenedStatus",
+            b"chatAssignmentOpenedStatus",
+            "chatLockSettings",
+            b"chatLockSettings",
+            "clearChatAction",
+            b"clearChatAction",
+            "contactAction",
+            b"contactAction",
+            "customPaymentMethodsAction",
+            b"customPaymentMethodsAction",
+            "deleteChatAction",
+            b"deleteChatAction",
+            "deleteIndividualCallLog",
+            b"deleteIndividualCallLog",
+            "deleteMessageForMeAction",
+            b"deleteMessageForMeAction",
+            "deviceCapabilities",
+            b"deviceCapabilities",
+            "externalWebBetaAction",
+            b"externalWebBetaAction",
+            "favoritesAction",
+            b"favoritesAction",
+            "keyExpiration",
+            b"keyExpiration",
+            "labelAssociationAction",
+            b"labelAssociationAction",
+            "labelEditAction",
+            b"labelEditAction",
+            "labelReorderingAction",
+            b"labelReorderingAction",
+            "localeSetting",
+            b"localeSetting",
+            "lockChatAction",
+            b"lockChatAction",
+            "markChatAsReadAction",
+            b"markChatAsReadAction",
+            "marketingMessageAction",
+            b"marketingMessageAction",
+            "marketingMessageBroadcastAction",
+            b"marketingMessageBroadcastAction",
+            "merchantPaymentPartnerAction",
+            b"merchantPaymentPartnerAction",
+            "muteAction",
+            b"muteAction",
+            "noteEditAction",
+            b"noteEditAction",
+            "nuxAction",
+            b"nuxAction",
+            "paymentInfoAction",
+            b"paymentInfoAction",
+            "pinAction",
+            b"pinAction",
+            "pnForLidChatAction",
+            b"pnForLidChatAction",
+            "primaryFeature",
+            b"primaryFeature",
+            "primaryVersionAction",
+            b"primaryVersionAction",
+            "privacySettingDisableLinkPreviewsAction",
+            b"privacySettingDisableLinkPreviewsAction",
+            "privacySettingRelayAllCalls",
+            b"privacySettingRelayAllCalls",
+            "pushNameSetting",
+            b"pushNameSetting",
+            "quickReplyAction",
+            b"quickReplyAction",
+            "recentEmojiWeightsAction",
+            b"recentEmojiWeightsAction",
+            "removeRecentStickerAction",
+            b"removeRecentStickerAction",
+            "securityNotificationSetting",
+            b"securityNotificationSetting",
+            "starAction",
+            b"starAction",
+            "statusPrivacy",
+            b"statusPrivacy",
+            "stickerAction",
+            b"stickerAction",
+            "subscriptionAction",
+            b"subscriptionAction",
+            "timeFormatAction",
+            b"timeFormatAction",
+            "timestamp",
+            b"timestamp",
+            "unarchiveChatsSetting",
+            b"unarchiveChatsSetting",
+            "userStatusMuteAction",
+            b"userStatusMuteAction",
+            "waffleAccountLinkStateAction",
+            b"waffleAccountLinkStateAction",
+            "wamoUserIdentifierAction",
+            b"wamoUserIdentifierAction",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "agentAction",
+            b"agentAction",
+            "androidUnsupportedActions",
+            b"androidUnsupportedActions",
+            "archiveChatAction",
+            b"archiveChatAction",
+            "botWelcomeRequestAction",
+            b"botWelcomeRequestAction",
+            "callLogAction",
+            b"callLogAction",
+            "chatAssignment",
+            b"chatAssignment",
+            "chatAssignmentOpenedStatus",
+            b"chatAssignmentOpenedStatus",
+            "chatLockSettings",
+            b"chatLockSettings",
+            "clearChatAction",
+            b"clearChatAction",
+            "contactAction",
+            b"contactAction",
+            "customPaymentMethodsAction",
+            b"customPaymentMethodsAction",
+            "deleteChatAction",
+            b"deleteChatAction",
+            "deleteIndividualCallLog",
+            b"deleteIndividualCallLog",
+            "deleteMessageForMeAction",
+            b"deleteMessageForMeAction",
+            "deviceCapabilities",
+            b"deviceCapabilities",
+            "externalWebBetaAction",
+            b"externalWebBetaAction",
+            "favoritesAction",
+            b"favoritesAction",
+            "keyExpiration",
+            b"keyExpiration",
+            "labelAssociationAction",
+            b"labelAssociationAction",
+            "labelEditAction",
+            b"labelEditAction",
+            "labelReorderingAction",
+            b"labelReorderingAction",
+            "localeSetting",
+            b"localeSetting",
+            "lockChatAction",
+            b"lockChatAction",
+            "markChatAsReadAction",
+            b"markChatAsReadAction",
+            "marketingMessageAction",
+            b"marketingMessageAction",
+            "marketingMessageBroadcastAction",
+            b"marketingMessageBroadcastAction",
+            "merchantPaymentPartnerAction",
+            b"merchantPaymentPartnerAction",
+            "muteAction",
+            b"muteAction",
+            "noteEditAction",
+            b"noteEditAction",
+            "nuxAction",
+            b"nuxAction",
+            "paymentInfoAction",
+            b"paymentInfoAction",
+            "pinAction",
+            b"pinAction",
+            "pnForLidChatAction",
+            b"pnForLidChatAction",
+            "primaryFeature",
+            b"primaryFeature",
+            "primaryVersionAction",
+            b"primaryVersionAction",
+            "privacySettingDisableLinkPreviewsAction",
+            b"privacySettingDisableLinkPreviewsAction",
+            "privacySettingRelayAllCalls",
+            b"privacySettingRelayAllCalls",
+            "pushNameSetting",
+            b"pushNameSetting",
+            "quickReplyAction",
+            b"quickReplyAction",
+            "recentEmojiWeightsAction",
+            b"recentEmojiWeightsAction",
+            "removeRecentStickerAction",
+            b"removeRecentStickerAction",
+            "securityNotificationSetting",
+            b"securityNotificationSetting",
+            "starAction",
+            b"starAction",
+            "statusPrivacy",
+            b"statusPrivacy",
+            "stickerAction",
+            b"stickerAction",
+            "subscriptionAction",
+            b"subscriptionAction",
+            "timeFormatAction",
+            b"timeFormatAction",
+            "timestamp",
+            b"timestamp",
+            "unarchiveChatsSetting",
+            b"unarchiveChatsSetting",
+            "userStatusMuteAction",
+            b"userStatusMuteAction",
+            "waffleAccountLinkStateAction",
+            b"waffleAccountLinkStateAction",
+            "wamoUserIdentifierAction",
+            b"wamoUserIdentifierAction",
+        ],
+    ) -> None: ...
 
 global___SyncActionValue = SyncActionValue
 
@@ -670,18 +1197,27 @@ class FavoritesAction(google.protobuf.message.Message):
             *,
             ID: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["ID", b"ID"]) -> builtins.bool: ...
+        def HasField(
+            self, field_name: typing.Literal["ID", b"ID"]
+        ) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["ID", b"ID"]) -> None: ...
 
     FAVORITES_FIELD_NUMBER: builtins.int
     @property
-    def favorites(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FavoritesAction.Favorite]: ...
+    def favorites(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___FavoritesAction.Favorite
+    ]: ...
     def __init__(
         self,
         *,
-        favorites: collections.abc.Iterable[global___FavoritesAction.Favorite] | None = ...,
+        favorites: collections.abc.Iterable[global___FavoritesAction.Favorite]
+        | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["favorites", b"favorites"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["favorites", b"favorites"]
+    ) -> None: ...
 
 global___FavoritesAction = FavoritesAction
 
@@ -696,10 +1232,16 @@ class PrivacySettingDisableLinkPreviewsAction(google.protobuf.message.Message):
         *,
         isPreviewsDisabled: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["isPreviewsDisabled", b"isPreviewsDisabled"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["isPreviewsDisabled", b"isPreviewsDisabled"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["isPreviewsDisabled", b"isPreviewsDisabled"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["isPreviewsDisabled", b"isPreviewsDisabled"]
+    ) -> None: ...
 
-global___PrivacySettingDisableLinkPreviewsAction = PrivacySettingDisableLinkPreviewsAction
+global___PrivacySettingDisableLinkPreviewsAction = (
+    PrivacySettingDisableLinkPreviewsAction
+)
 
 @typing.final
 class WamoUserIdentifierAction(google.protobuf.message.Message):
@@ -712,8 +1254,12 @@ class WamoUserIdentifierAction(google.protobuf.message.Message):
         *,
         identifier: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["identifier", b"identifier"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["identifier", b"identifier"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["identifier", b"identifier"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["identifier", b"identifier"]
+    ) -> None: ...
 
 global___WamoUserIdentifierAction = WamoUserIdentifierAction
 
@@ -728,7 +1274,9 @@ class LockChatAction(google.protobuf.message.Message):
         *,
         locked: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["locked", b"locked"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["locked", b"locked"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["locked", b"locked"]) -> None: ...
 
 global___LockChatAction = LockChatAction
@@ -739,13 +1287,21 @@ class CustomPaymentMethodsAction(google.protobuf.message.Message):
 
     CUSTOMPAYMENTMETHODS_FIELD_NUMBER: builtins.int
     @property
-    def customPaymentMethods(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CustomPaymentMethod]: ...
+    def customPaymentMethods(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___CustomPaymentMethod
+    ]: ...
     def __init__(
         self,
         *,
-        customPaymentMethods: collections.abc.Iterable[global___CustomPaymentMethod] | None = ...,
+        customPaymentMethods: collections.abc.Iterable[global___CustomPaymentMethod]
+        | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["customPaymentMethods", b"customPaymentMethods"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal["customPaymentMethods", b"customPaymentMethods"],
+    ) -> None: ...
 
 global___CustomPaymentMethodsAction = CustomPaymentMethodsAction
 
@@ -761,17 +1317,39 @@ class CustomPaymentMethod(google.protobuf.message.Message):
     country: builtins.str
     type: builtins.str
     @property
-    def metadata(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CustomPaymentMethodMetadata]: ...
+    def metadata(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___CustomPaymentMethodMetadata
+    ]: ...
     def __init__(
         self,
         *,
         credentialID: builtins.str | None = ...,
         country: builtins.str | None = ...,
         type: builtins.str | None = ...,
-        metadata: collections.abc.Iterable[global___CustomPaymentMethodMetadata] | None = ...,
+        metadata: collections.abc.Iterable[global___CustomPaymentMethodMetadata]
+        | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["country", b"country", "credentialID", b"credentialID", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["country", b"country", "credentialID", b"credentialID", "metadata", b"metadata", "type", b"type"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "country", b"country", "credentialID", b"credentialID", "type", b"type"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "country",
+            b"country",
+            "credentialID",
+            b"credentialID",
+            "metadata",
+            b"metadata",
+            "type",
+            b"type",
+        ],
+    ) -> None: ...
 
 global___CustomPaymentMethod = CustomPaymentMethod
 
@@ -789,8 +1367,12 @@ class CustomPaymentMethodMetadata(google.protobuf.message.Message):
         key: builtins.str | None = ...,
         value: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["key", b"key", "value", b"value"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["key", b"key", "value", b"value"]
+    ) -> None: ...
 
 global___CustomPaymentMethodMetadata = CustomPaymentMethodMetadata
 
@@ -816,13 +1398,19 @@ class LabelReorderingAction(google.protobuf.message.Message):
 
     SORTEDLABELIDS_FIELD_NUMBER: builtins.int
     @property
-    def sortedLabelIDs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def sortedLabelIDs(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
+        builtins.int
+    ]: ...
     def __init__(
         self,
         *,
         sortedLabelIDs: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["sortedLabelIDs", b"sortedLabelIDs"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["sortedLabelIDs", b"sortedLabelIDs"]
+    ) -> None: ...
 
 global___LabelReorderingAction = LabelReorderingAction
 
@@ -840,8 +1428,14 @@ class DeleteIndividualCallLogAction(google.protobuf.message.Message):
         peerJID: builtins.str | None = ...,
         isIncoming: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["isIncoming", b"isIncoming", "peerJID", b"peerJID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["isIncoming", b"isIncoming", "peerJID", b"peerJID"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal["isIncoming", b"isIncoming", "peerJID", b"peerJID"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal["isIncoming", b"isIncoming", "peerJID", b"peerJID"],
+    ) -> None: ...
 
 global___DeleteIndividualCallLogAction = DeleteIndividualCallLogAction
 
@@ -856,7 +1450,9 @@ class BotWelcomeRequestAction(google.protobuf.message.Message):
         *,
         isSent: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["isSent", b"isSent"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["isSent", b"isSent"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["isSent", b"isSent"]) -> None: ...
 
 global___BotWelcomeRequestAction = BotWelcomeRequestAction
@@ -873,8 +1469,12 @@ class CallLogAction(google.protobuf.message.Message):
         *,
         callLogRecord: global___CallLogRecord | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["callLogRecord", b"callLogRecord"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["callLogRecord", b"callLogRecord"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["callLogRecord", b"callLogRecord"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["callLogRecord", b"callLogRecord"]
+    ) -> None: ...
 
 global___CallLogAction = CallLogAction
 
@@ -889,8 +1489,12 @@ class PrivacySettingRelayAllCalls(google.protobuf.message.Message):
         *,
         isEnabled: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["isEnabled", b"isEnabled"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["isEnabled", b"isEnabled"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["isEnabled", b"isEnabled"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["isEnabled", b"isEnabled"]
+    ) -> None: ...
 
 global___PrivacySettingRelayAllCalls = PrivacySettingRelayAllCalls
 
@@ -905,7 +1509,9 @@ class ExternalWebBetaAction(google.protobuf.message.Message):
         *,
         isOptIn: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["isOptIn", b"isOptIn"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["isOptIn", b"isOptIn"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["isOptIn", b"isOptIn"]) -> None: ...
 
 global___ExternalWebBetaAction = ExternalWebBetaAction
@@ -921,8 +1527,12 @@ class MarketingMessageBroadcastAction(google.protobuf.message.Message):
         *,
         repliedCount: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["repliedCount", b"repliedCount"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["repliedCount", b"repliedCount"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["repliedCount", b"repliedCount"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["repliedCount", b"repliedCount"]
+    ) -> None: ...
 
 global___MarketingMessageBroadcastAction = MarketingMessageBroadcastAction
 
@@ -937,7 +1547,9 @@ class PnForLidChatAction(google.protobuf.message.Message):
         *,
         pnJID: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["pnJID", b"pnJID"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["pnJID", b"pnJID"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["pnJID", b"pnJID"]) -> None: ...
 
 global___PnForLidChatAction = PnForLidChatAction
@@ -953,8 +1565,12 @@ class ChatAssignmentOpenedStatusAction(google.protobuf.message.Message):
         *,
         chatOpened: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["chatOpened", b"chatOpened"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["chatOpened", b"chatOpened"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["chatOpened", b"chatOpened"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["chatOpened", b"chatOpened"]
+    ) -> None: ...
 
 global___ChatAssignmentOpenedStatusAction = ChatAssignmentOpenedStatusAction
 
@@ -969,8 +1585,12 @@ class ChatAssignmentAction(google.protobuf.message.Message):
         *,
         deviceAgentID: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["deviceAgentID", b"deviceAgentID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["deviceAgentID", b"deviceAgentID"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["deviceAgentID", b"deviceAgentID"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["deviceAgentID", b"deviceAgentID"]
+    ) -> None: ...
 
 global___ChatAssignmentAction = ChatAssignmentAction
 
@@ -1015,8 +1635,60 @@ class StickerAction(google.protobuf.message.Message):
         deviceIDHint: builtins.int | None = ...,
         isLottie: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["URL", b"URL", "deviceIDHint", b"deviceIDHint", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "height", b"height", "isFavorite", b"isFavorite", "isLottie", b"isLottie", "mediaKey", b"mediaKey", "mimetype", b"mimetype", "width", b"width"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["URL", b"URL", "deviceIDHint", b"deviceIDHint", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "height", b"height", "isFavorite", b"isFavorite", "isLottie", b"isLottie", "mediaKey", b"mediaKey", "mimetype", b"mimetype", "width", b"width"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "URL",
+            b"URL",
+            "deviceIDHint",
+            b"deviceIDHint",
+            "directPath",
+            b"directPath",
+            "fileEncSHA256",
+            b"fileEncSHA256",
+            "fileLength",
+            b"fileLength",
+            "height",
+            b"height",
+            "isFavorite",
+            b"isFavorite",
+            "isLottie",
+            b"isLottie",
+            "mediaKey",
+            b"mediaKey",
+            "mimetype",
+            b"mimetype",
+            "width",
+            b"width",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "URL",
+            b"URL",
+            "deviceIDHint",
+            b"deviceIDHint",
+            "directPath",
+            b"directPath",
+            "fileEncSHA256",
+            b"fileEncSHA256",
+            "fileLength",
+            b"fileLength",
+            "height",
+            b"height",
+            "isFavorite",
+            b"isFavorite",
+            "isLottie",
+            b"isLottie",
+            "mediaKey",
+            b"mediaKey",
+            "mimetype",
+            b"mimetype",
+            "width",
+            b"width",
+        ],
+    ) -> None: ...
 
 global___StickerAction = StickerAction
 
@@ -1031,8 +1703,12 @@ class RemoveRecentStickerAction(google.protobuf.message.Message):
         *,
         lastStickerSentTS: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["lastStickerSentTS", b"lastStickerSentTS"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["lastStickerSentTS", b"lastStickerSentTS"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["lastStickerSentTS", b"lastStickerSentTS"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["lastStickerSentTS", b"lastStickerSentTS"]
+    ) -> None: ...
 
 global___RemoveRecentStickerAction = RemoveRecentStickerAction
 
@@ -1047,7 +1723,9 @@ class PrimaryVersionAction(google.protobuf.message.Message):
         *,
         version: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["version", b"version"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["version", b"version"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["version", b"version"]) -> None: ...
 
 global___PrimaryVersionAction = PrimaryVersionAction
@@ -1063,8 +1741,12 @@ class NuxAction(google.protobuf.message.Message):
         *,
         acknowledged: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["acknowledged", b"acknowledged"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["acknowledged", b"acknowledged"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["acknowledged", b"acknowledged"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["acknowledged", b"acknowledged"]
+    ) -> None: ...
 
 global___NuxAction = NuxAction
 
@@ -1079,8 +1761,18 @@ class TimeFormatAction(google.protobuf.message.Message):
         *,
         isTwentyFourHourFormatEnabled: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["isTwentyFourHourFormatEnabled", b"isTwentyFourHourFormatEnabled"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["isTwentyFourHourFormatEnabled", b"isTwentyFourHourFormatEnabled"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "isTwentyFourHourFormatEnabled", b"isTwentyFourHourFormatEnabled"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "isTwentyFourHourFormatEnabled", b"isTwentyFourHourFormatEnabled"
+        ],
+    ) -> None: ...
 
 global___TimeFormatAction = TimeFormatAction
 
@@ -1095,7 +1787,9 @@ class UserStatusMuteAction(google.protobuf.message.Message):
         *,
         muted: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["muted", b"muted"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["muted", b"muted"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["muted", b"muted"]) -> None: ...
 
 global___UserStatusMuteAction = UserStatusMuteAction
@@ -1117,8 +1811,28 @@ class SubscriptionAction(google.protobuf.message.Message):
         isAutoRenewing: builtins.bool | None = ...,
         expirationDate: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["expirationDate", b"expirationDate", "isAutoRenewing", b"isAutoRenewing", "isDeactivated", b"isDeactivated"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["expirationDate", b"expirationDate", "isAutoRenewing", b"isAutoRenewing", "isDeactivated", b"isDeactivated"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "expirationDate",
+            b"expirationDate",
+            "isAutoRenewing",
+            b"isAutoRenewing",
+            "isDeactivated",
+            b"isDeactivated",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "expirationDate",
+            b"expirationDate",
+            "isAutoRenewing",
+            b"isAutoRenewing",
+            "isDeactivated",
+            b"isDeactivated",
+        ],
+    ) -> None: ...
 
 global___SubscriptionAction = SubscriptionAction
 
@@ -1139,8 +1853,18 @@ class AgentAction(google.protobuf.message.Message):
         deviceID: builtins.int | None = ...,
         isDeleted: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["deviceID", b"deviceID", "isDeleted", b"isDeleted", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["deviceID", b"deviceID", "isDeleted", b"isDeleted", "name", b"name"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "deviceID", b"deviceID", "isDeleted", b"isDeleted", "name", b"name"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "deviceID", b"deviceID", "isDeleted", b"isDeleted", "name", b"name"
+        ],
+    ) -> None: ...
 
 global___AgentAction = AgentAction
 
@@ -1155,7 +1879,9 @@ class AndroidUnsupportedActions(google.protobuf.message.Message):
         *,
         allowed: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["allowed", b"allowed"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["allowed", b"allowed"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["allowed", b"allowed"]) -> None: ...
 
 global___AndroidUnsupportedActions = AndroidUnsupportedActions
@@ -1166,7 +1892,11 @@ class PrimaryFeature(google.protobuf.message.Message):
 
     FLAGS_FIELD_NUMBER: builtins.int
     @property
-    def flags(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def flags(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
+        builtins.str
+    ]: ...
     def __init__(
         self,
         *,
@@ -1187,8 +1917,12 @@ class KeyExpiration(google.protobuf.message.Message):
         *,
         expiredKeyEpoch: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["expiredKeyEpoch", b"expiredKeyEpoch"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["expiredKeyEpoch", b"expiredKeyEpoch"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["expiredKeyEpoch", b"expiredKeyEpoch"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["expiredKeyEpoch", b"expiredKeyEpoch"]
+    ) -> None: ...
 
 global___KeyExpiration = KeyExpiration
 
@@ -1207,8 +1941,12 @@ class SyncActionMessage(google.protobuf.message.Message):
         key: waCommon.WACommon_pb2.MessageKey | None = ...,
         timestamp: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["key", b"key", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["key", b"key", "timestamp", b"timestamp"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["key", b"key", "timestamp", b"timestamp"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["key", b"key", "timestamp", b"timestamp"]
+    ) -> None: ...
 
 global___SyncActionMessage = SyncActionMessage
 
@@ -1222,7 +1960,11 @@ class SyncActionMessageRange(google.protobuf.message.Message):
     lastMessageTimestamp: builtins.int
     lastSystemMessageTimestamp: builtins.int
     @property
-    def messages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SyncActionMessage]: ...
+    def messages(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___SyncActionMessage
+    ]: ...
     def __init__(
         self,
         *,
@@ -1230,8 +1972,26 @@ class SyncActionMessageRange(google.protobuf.message.Message):
         lastSystemMessageTimestamp: builtins.int | None = ...,
         messages: collections.abc.Iterable[global___SyncActionMessage] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["lastMessageTimestamp", b"lastMessageTimestamp", "lastSystemMessageTimestamp", b"lastSystemMessageTimestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["lastMessageTimestamp", b"lastMessageTimestamp", "lastSystemMessageTimestamp", b"lastSystemMessageTimestamp", "messages", b"messages"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "lastMessageTimestamp",
+            b"lastMessageTimestamp",
+            "lastSystemMessageTimestamp",
+            b"lastSystemMessageTimestamp",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "lastMessageTimestamp",
+            b"lastMessageTimestamp",
+            "lastSystemMessageTimestamp",
+            b"lastSystemMessageTimestamp",
+            "messages",
+            b"messages",
+        ],
+    ) -> None: ...
 
 global___SyncActionMessageRange = SyncActionMessageRange
 
@@ -1246,8 +2006,12 @@ class UnarchiveChatsSetting(google.protobuf.message.Message):
         *,
         unarchiveChats: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["unarchiveChats", b"unarchiveChats"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["unarchiveChats", b"unarchiveChats"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["unarchiveChats", b"unarchiveChats"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["unarchiveChats", b"unarchiveChats"]
+    ) -> None: ...
 
 global___UnarchiveChatsSetting = UnarchiveChatsSetting
 
@@ -1263,8 +2027,12 @@ class DeleteChatAction(google.protobuf.message.Message):
         *,
         messageRange: global___SyncActionMessageRange | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["messageRange", b"messageRange"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["messageRange", b"messageRange"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["messageRange", b"messageRange"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["messageRange", b"messageRange"]
+    ) -> None: ...
 
 global___DeleteChatAction = DeleteChatAction
 
@@ -1280,8 +2048,12 @@ class ClearChatAction(google.protobuf.message.Message):
         *,
         messageRange: global___SyncActionMessageRange | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["messageRange", b"messageRange"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["messageRange", b"messageRange"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["messageRange", b"messageRange"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["messageRange", b"messageRange"]
+    ) -> None: ...
 
 global___ClearChatAction = ClearChatAction
 
@@ -1300,8 +2072,14 @@ class MarkChatAsReadAction(google.protobuf.message.Message):
         read: builtins.bool | None = ...,
         messageRange: global___SyncActionMessageRange | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["messageRange", b"messageRange", "read", b"read"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["messageRange", b"messageRange", "read", b"read"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal["messageRange", b"messageRange", "read", b"read"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal["messageRange", b"messageRange", "read", b"read"],
+    ) -> None: ...
 
 global___MarkChatAsReadAction = MarkChatAsReadAction
 
@@ -1319,8 +2097,18 @@ class DeleteMessageForMeAction(google.protobuf.message.Message):
         deleteMedia: builtins.bool | None = ...,
         messageTimestamp: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["deleteMedia", b"deleteMedia", "messageTimestamp", b"messageTimestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["deleteMedia", b"deleteMedia", "messageTimestamp", b"messageTimestamp"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "deleteMedia", b"deleteMedia", "messageTimestamp", b"messageTimestamp"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "deleteMedia", b"deleteMedia", "messageTimestamp", b"messageTimestamp"
+        ],
+    ) -> None: ...
 
 global___DeleteMessageForMeAction = DeleteMessageForMeAction
 
@@ -1339,8 +2127,18 @@ class ArchiveChatAction(google.protobuf.message.Message):
         archived: builtins.bool | None = ...,
         messageRange: global___SyncActionMessageRange | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["archived", b"archived", "messageRange", b"messageRange"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["archived", b"archived", "messageRange", b"messageRange"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "archived", b"archived", "messageRange", b"messageRange"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "archived", b"archived", "messageRange", b"messageRange"
+        ],
+    ) -> None: ...
 
 global___ArchiveChatAction = ArchiveChatAction
 
@@ -1350,7 +2148,11 @@ class RecentEmojiWeightsAction(google.protobuf.message.Message):
 
     WEIGHTS_FIELD_NUMBER: builtins.int
     @property
-    def weights(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RecentEmojiWeight]: ...
+    def weights(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___RecentEmojiWeight
+    ]: ...
     def __init__(
         self,
         *,
@@ -1383,8 +2185,36 @@ class LabelEditAction(google.protobuf.message.Message):
         deleted: builtins.bool | None = ...,
         orderIndex: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["color", b"color", "deleted", b"deleted", "name", b"name", "orderIndex", b"orderIndex", "predefinedID", b"predefinedID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["color", b"color", "deleted", b"deleted", "name", b"name", "orderIndex", b"orderIndex", "predefinedID", b"predefinedID"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "color",
+            b"color",
+            "deleted",
+            b"deleted",
+            "name",
+            b"name",
+            "orderIndex",
+            b"orderIndex",
+            "predefinedID",
+            b"predefinedID",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "color",
+            b"color",
+            "deleted",
+            b"deleted",
+            "name",
+            b"name",
+            "orderIndex",
+            b"orderIndex",
+            "predefinedID",
+            b"predefinedID",
+        ],
+    ) -> None: ...
 
 global___LabelEditAction = LabelEditAction
 
@@ -1399,7 +2229,9 @@ class LabelAssociationAction(google.protobuf.message.Message):
         *,
         labeled: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["labeled", b"labeled"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["labeled", b"labeled"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["labeled", b"labeled"]) -> None: ...
 
 global___LabelAssociationAction = LabelAssociationAction
@@ -1418,7 +2250,11 @@ class QuickReplyAction(google.protobuf.message.Message):
     count: builtins.int
     deleted: builtins.bool
     @property
-    def keywords(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def keywords(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
+        builtins.str
+    ]: ...
     def __init__(
         self,
         *,
@@ -1428,8 +2264,34 @@ class QuickReplyAction(google.protobuf.message.Message):
         count: builtins.int | None = ...,
         deleted: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["count", b"count", "deleted", b"deleted", "message", b"message", "shortcut", b"shortcut"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["count", b"count", "deleted", b"deleted", "keywords", b"keywords", "message", b"message", "shortcut", b"shortcut"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "count",
+            b"count",
+            "deleted",
+            b"deleted",
+            "message",
+            b"message",
+            "shortcut",
+            b"shortcut",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "count",
+            b"count",
+            "deleted",
+            b"deleted",
+            "keywords",
+            b"keywords",
+            "message",
+            b"message",
+            "shortcut",
+            b"shortcut",
+        ],
+    ) -> None: ...
 
 global___QuickReplyAction = QuickReplyAction
 
@@ -1444,7 +2306,9 @@ class LocaleSetting(google.protobuf.message.Message):
         *,
         locale: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["locale", b"locale"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["locale", b"locale"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["locale", b"locale"]) -> None: ...
 
 global___LocaleSetting = LocaleSetting
@@ -1460,7 +2324,9 @@ class PushNameSetting(google.protobuf.message.Message):
         *,
         name: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["name", b"name"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["name", b"name"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
 
 global___PushNameSetting = PushNameSetting
@@ -1476,8 +2342,12 @@ class SecurityNotificationSetting(google.protobuf.message.Message):
         *,
         showNotification: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["showNotification", b"showNotification"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["showNotification", b"showNotification"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["showNotification", b"showNotification"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["showNotification", b"showNotification"]
+    ) -> None: ...
 
 global___SecurityNotificationSetting = SecurityNotificationSetting
 
@@ -1492,7 +2362,9 @@ class PinAction(google.protobuf.message.Message):
         *,
         pinned: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["pinned", b"pinned"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["pinned", b"pinned"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["pinned", b"pinned"]) -> None: ...
 
 global___PinAction = PinAction
@@ -1514,8 +2386,28 @@ class MuteAction(google.protobuf.message.Message):
         muteEndTimestamp: builtins.int | None = ...,
         autoMuted: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["autoMuted", b"autoMuted", "muteEndTimestamp", b"muteEndTimestamp", "muted", b"muted"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["autoMuted", b"autoMuted", "muteEndTimestamp", b"muteEndTimestamp", "muted", b"muted"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "autoMuted",
+            b"autoMuted",
+            "muteEndTimestamp",
+            b"muteEndTimestamp",
+            "muted",
+            b"muted",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "autoMuted",
+            b"autoMuted",
+            "muteEndTimestamp",
+            b"muteEndTimestamp",
+            "muted",
+            b"muted",
+        ],
+    ) -> None: ...
 
 global___MuteAction = MuteAction
 
@@ -1539,8 +2431,32 @@ class ContactAction(google.protobuf.message.Message):
         lidJID: builtins.str | None = ...,
         saveOnPrimaryAddressbook: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["firstName", b"firstName", "fullName", b"fullName", "lidJID", b"lidJID", "saveOnPrimaryAddressbook", b"saveOnPrimaryAddressbook"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["firstName", b"firstName", "fullName", b"fullName", "lidJID", b"lidJID", "saveOnPrimaryAddressbook", b"saveOnPrimaryAddressbook"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "firstName",
+            b"firstName",
+            "fullName",
+            b"fullName",
+            "lidJID",
+            b"lidJID",
+            "saveOnPrimaryAddressbook",
+            b"saveOnPrimaryAddressbook",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "firstName",
+            b"firstName",
+            "fullName",
+            b"fullName",
+            "lidJID",
+            b"lidJID",
+            "saveOnPrimaryAddressbook",
+            b"saveOnPrimaryAddressbook",
+        ],
+    ) -> None: ...
 
 global___ContactAction = ContactAction
 
@@ -1555,7 +2471,9 @@ class StarAction(google.protobuf.message.Message):
         *,
         starred: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["starred", b"starred"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["starred", b"starred"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["starred", b"starred"]) -> None: ...
 
 global___StarAction = StarAction
@@ -1581,7 +2499,31 @@ class SyncActionData(google.protobuf.message.Message):
         padding: builtins.bytes | None = ...,
         version: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["index", b"index", "padding", b"padding", "value", b"value", "version", b"version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["index", b"index", "padding", b"padding", "value", b"value", "version", b"version"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "index",
+            b"index",
+            "padding",
+            b"padding",
+            "value",
+            b"value",
+            "version",
+            b"version",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "index",
+            b"index",
+            "padding",
+            b"padding",
+            "value",
+            b"value",
+            "version",
+            b"version",
+        ],
+    ) -> None: ...
 
 global___SyncActionData = SyncActionData

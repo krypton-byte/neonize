@@ -454,5 +454,17 @@ if not os.environ.get("SPHINX"):
     gocode.GetChatSettings.restype = Bytes
     gocode.GetAllDevices.argtypes = [ctypes.c_char_p]
     gocode.GetAllDevices.restype = ctypes.c_char_p
+    gocode.SendFBMessage.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
+    gocode.SendFBMessage.restype = Bytes
 else:
     gocode: Any = object()

@@ -35,15 +35,12 @@ log.setLevel(logging.DEBUG)
 signal.signal(signal.SIGINT, interrupted)
 
 
-
 client_factory = ClientFactory("db.sqlite3")
 
 # create clients from preconfigured sessions
 sessions = client_factory.get_all_devices()
 for device in sessions:
-    client_factory.new_client(
-        device.JID
-    )
+    client_factory.new_client(device.JID)
 # if new_client jid parameter is not passed, it will create a new client
 
 # or create a new client
@@ -69,7 +66,6 @@ def on_call(_: NewClient, call: CallOfferEv):
 @client_factory.event(MessageEv)
 def on_message(client: NewClient, message: MessageEv):
     handler(client, message)
-
 
 
 def handler(client: NewClient, message: MessageEv):

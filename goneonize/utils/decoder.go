@@ -162,3 +162,12 @@ func DecodeContactEntry(entry *defproto.ContactEntry) *store.ContactEntry {
 		FullName:  *entry.FullName,
 	}
 }
+
+func DecodeSendRequestExtra(extra *defproto.SendRequestExtra) whatsmeow.SendRequestExtra {
+	return whatsmeow.SendRequestExtra{
+		ID:           *extra.ID,
+		InlineBotJID: DecodeJidProto(extra.InlineBotJID),
+		Peer:         *extra.Peer,
+		Timeout:      time.Duration(*extra.Timeout),
+	}
+}

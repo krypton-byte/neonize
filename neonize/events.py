@@ -101,6 +101,7 @@ INT_TO_EVENT: Dict[int, Type[Message]] = {code: ev for ev, code in EVENT_TO_INT.
 
 event = EventThread()
 
+
 class EventsManager:
     def __init__(self, client_factory: ClientFactory):
         self.client_factory = client_factory
@@ -116,6 +117,7 @@ class EventsManager:
         :return: A decorator that registers the callback function.
         :rtype: Callable[[Callable[[NewClient, EventType], None]], None]
         """
+
         def callback(func: Callable[[NewClient, EventType], None]) -> None:
             for client in self.client_factory.clients:
                 wrapped_func = client.event.wrap(func, event)

@@ -99,6 +99,7 @@ from .proto.Neonize_pb2 import (
     NewsletterMetadata,
     PrivacySettings,
     ProfilePictureInfo,
+    SendRequestExtra,
     StatusPrivacy,
     UploadReturnFunction,
     GroupInfo,
@@ -134,6 +135,8 @@ from .proto.waE2E.WAWebProtobufsE2E_pb2 import (
     DocumentMessage,
     ContactMessage,
 )
+from .proto.waConsumerApplication.WAConsumerApplication_pb2 import ConsumerApplication
+from .proto.waMsgApplication.WAMsgApplication_pb2 import MessageApplication
 from .types import MessageServerID, MessageWithContextInfo
 from .utils import add_exif, gen_vcard, log, validate_link
 from .utils.enum import (
@@ -2494,6 +2497,30 @@ class NewClient:
         if not model.isEmpty:
             return model.Message
 
+    def send_fb_message(
+        self,
+        to: JID,
+        message: ConsumerApplication,
+        metadata: MessageApplication.Metadata,
+        extra: SendRequestExtra,
+    ):
+        to_buff = to.SerializeToString()
+        message_buff = message.SerializeToString()
+        metadata_buff = metadata.SerializeToString()
+        extra_buff = extra.SerializeToString()
+        response = self.__client.SendFBMessage(
+            self.uuid,
+            to_buff,
+            len(to_buff),
+            message_buff,
+            len(message_buff),
+            metadata_buff,
+            len(metadata_buff),
+            extra_buff,
+            len(extra_buff),
+        )
+        return SendResponse.FromString(response.get_bytes())
+
     def connect(self):
         """Establishes a connection to the WhatsApp servers."""
         # Convert the list of functions to a bytearray
@@ -2538,9 +2565,8 @@ class NewClient:
         self.__client.Disconnect(self.uuid)
 
 
-
 class ClientFactory:
-    def __init__(self, database_name: str = 'neonize.db') -> None:
+    def __init__(self, database_name: str = "neonize.db") -> None:
         """
         This class is used to create new instances of the client.
         """
@@ -2559,9 +2585,15 @@ class ClientFactory:
         c_string = gocode.GetAllDevices(db.encode()).decode()
         if not c_string:
             return []
-        
+
         class Device:
-            def __init__(self, JID: JID, PushName: str, BussinessName: str = None, Initialized: bool = None):
+            def __init__(
+                self,
+                JID: JID,
+                PushName: str,
+                BussinessName: str = None,
+                Initialized: bool = None,
+            ):
                 self.JID = JID
                 self.PushName = PushName
                 self.BusinessName = BussinessName
@@ -2569,21 +2601,23 @@ class ClientFactory:
 
         devices: list[Device] = []
 
-        for device_str in c_string.split('|\u0001|'):
-            id, push_name, bussniess_name, initialized = device_str.split(',')
-            id, server = id.split('@')
+        for device_str in c_string.split("|\u0001|"):
+            id, push_name, bussniess_name, initialized = device_str.split(",")
+            id, server = id.split("@")
             jid = build_jid(id, server)
 
-            device = Device(jid, push_name, bussniess_name, initialized == 'true')
+            device = Device(jid, push_name, bussniess_name, initialized == "true")
             devices.append(device)
-        
+
         return devices
 
     def get_all_devices(self) -> List["Device"]:
         """Retrieves all devices associated with the current account from the database."""
         return self.get_all_devices_from_db(self.database_name)
 
-    def new_client(self, jid: JID = None, uuid: str = None, props: Optional[DeviceProps] = None) -> NewClient:
+    def new_client(
+        self, jid: JID = None, uuid: str = None, props: Optional[DeviceProps] = None
+    ) -> NewClient:
         """
         This function creates a new instance of the client. If the jid parameter is not provided, a new client will be created.
         :param name: The name of the client.
@@ -2601,7 +2635,7 @@ class ClientFactory:
             raise Exception("JID and UUID cannot be none")
 
         client = NewClient(self.database_name, jid, props, uuid)
-        self.clients.append(client)    
+        self.clients.append(client)
         return client
 
     def run(self):

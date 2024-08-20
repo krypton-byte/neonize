@@ -24,7 +24,11 @@ class ICDCIdentityList(google.protobuf.message.Message):
     timestamp: builtins.int
     signingDeviceIndex: builtins.int
     @property
-    def devices(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bytes]: ...
+    def devices(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
+        builtins.bytes
+    ]: ...
     def __init__(
         self,
         *,
@@ -33,8 +37,30 @@ class ICDCIdentityList(google.protobuf.message.Message):
         devices: collections.abc.Iterable[builtins.bytes] | None = ...,
         signingDeviceIndex: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["seq", b"seq", "signingDeviceIndex", b"signingDeviceIndex", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["devices", b"devices", "seq", b"seq", "signingDeviceIndex", b"signingDeviceIndex", "timestamp", b"timestamp"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "seq",
+            b"seq",
+            "signingDeviceIndex",
+            b"signingDeviceIndex",
+            "timestamp",
+            b"timestamp",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "devices",
+            b"devices",
+            "seq",
+            b"seq",
+            "signingDeviceIndex",
+            b"signingDeviceIndex",
+            "timestamp",
+            b"timestamp",
+        ],
+    ) -> None: ...
 
 global___ICDCIdentityList = ICDCIdentityList
 
@@ -52,7 +78,13 @@ class SignedICDCIdentityList(google.protobuf.message.Message):
         details: builtins.bytes | None = ...,
         signature: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["details", b"details", "signature", b"signature"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["details", b"details", "signature", b"signature"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal["details", b"details", "signature", b"signature"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal["details", b"details", "signature", b"signature"],
+    ) -> None: ...
 
 global___SignedICDCIdentityList = SignedICDCIdentityList

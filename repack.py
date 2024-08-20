@@ -12,9 +12,9 @@ wheel_name = fname + "-py3-none-any.whl"
 os_name = os.environ.get("GOOS") or platform.system().lower()
 arch_name = os.environ.get("GOARCH") or platform.machine().lower()
 arch_name = {
-        "aarch64": "arm64",
-        "x86_64": "amd64",
-    }.get(arch_name, arch_name)
+    "aarch64": "arm64",
+    "x86_64": "amd64",
+}.get(arch_name, arch_name)
 
 print(os_name, arch_name)
 
@@ -81,9 +81,7 @@ def repack(_os: OS, arch: ARCH):
         arch_value = f"12_0_{arch_value}"
     with open(wheel_path, "w") as file:
         if _os == OS.WINDOWS and arch == ARCH.X86:
-            file.write(
-                wheel.replace("py3-none-any", "py310-none-win32")
-            )
+            file.write(wheel.replace("py3-none-any", "py310-none-win32"))
             print(wheel.replace("py3-none-any", "py310-none-win32"))
         else:
             file.write(

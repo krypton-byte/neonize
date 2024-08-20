@@ -20,6 +20,8 @@ import (
 	"github.com/krypton-byte/neonize/utils"
 	_ "github.com/mattn/go-sqlite3"
 	"go.mau.fi/whatsmeow"
+	"go.mau.fi/whatsmeow/proto/waConsumerApplication"
+	"go.mau.fi/whatsmeow/proto/waMsgApplication"
 	"go.mau.fi/whatsmeow/store"
 	"go.mau.fi/whatsmeow/store/sqlstore"
 	"go.mau.fi/whatsmeow/types"
@@ -159,7 +161,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 		}
 		deviceStore, err_device = container.GetDevice(utils.DecodeJidProto(&JID))
 	} else {
-		deviceStore, err_device = container.GetFirstDevice(), nil
+		deviceStore, err_device = container.GetFirstDevice()
 	}
 	if err_device != nil {
 		panic(err)
@@ -1969,6 +1971,70 @@ func GetAllDevices(db *C.char) *C.char {
 	return C.CString(result.String())
 }
 
+//export SendFBMessage
+func SendFBMessage(id *C.char, to *C.uchar, toSize C.int, message *C.uchar, messageSize C.int, metadata *C.uchar, metadataSize C.int, extra *C.uchar, extraSize C.int) C.struct_BytesReturn {
+	var toJID defproto.JID
+	var waConsumerApp waConsumerApplication.ConsumerApplication
+	var waConsumerAppMetadata waMsgApplication.MessageApplication_Metadata
+	var SendRequestExtra defproto.SendRequestExtra
+	err := proto.Unmarshal(
+		getByteByAddr(
+			to,
+			toSize,
+		),
+		&toJID,
+	)
+	if err != nil {
+		panic(err)
+	}
+	err_1 := proto.Unmarshal(
+		getByteByAddr(
+			message,
+			messageSize,
+		),
+		&waConsumerApp,
+	)
+	if err_1 != nil {
+		panic(err_1)
+	}
+	err_2 := proto.Unmarshal(
+		getByteByAddr(metadata, metadataSize),
+		&waConsumerAppMetadata,
+	)
+	if err != nil {
+		panic(err_2)
+	}
+	err_3 := proto.Unmarshal(
+		getByteByAddr(extra, extraSize),
+		&SendRequestExtra,
+	)
+	if err_3 != nil {
+		panic(err_3)
+	}
+	resp, err_fbmessage := clients[C.GoString(id)].SendFBMessage(
+		context.Background(),
+		utils.DecodeJidProto(&toJID),
+		&waConsumerApp,
+		&waConsumerAppMetadata,
+		utils.DecodeSendRequestExtra(
+			&SendRequestExtra,
+		),
+	)
+	if err_fbmessage != nil {
+		panic(err_fbmessage)
+	}
+	response := defproto.SendResponse{
+		Timestamp:    proto.Int64(resp.Timestamp.UnixNano()),
+		ID:           proto.String(resp.ID),
+		ServerID:     proto.Int64(int64(resp.ServerID)),
+		DebugTimings: utils.EncodeMessageDebugTimings(resp.DebugTimings),
+	}
+	response_bytes, err_marshal := proto.Marshal(&response)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(response_bytes)
+}
 func main() {
 
 }

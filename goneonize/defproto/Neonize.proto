@@ -870,3 +870,11 @@ message ReturnFunctionWithError {
     }
 
 }
+
+message SendRequestExtra {
+    required string ID = 1;
+    required JID InlineBotJID = 2;
+    required bool Peer = 3;
+    required int64 Timeout = 4;
+    required string MediaHandle = 5;
+}
