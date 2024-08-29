@@ -759,7 +759,7 @@ class NewClient:
         """
         sticker = get_bytes_from_name_or_url(file)
         animated = False
-        mime = magic.from_buffer(sticker).split("/")
+        mime = magic.from_buffer(sticker, True).split("/")
         if mime[0] == "image":
             io_save = BytesIO(sticker)
             stk = auto_sticker(io_save)
@@ -772,7 +772,7 @@ class NewClient:
             )
             io_save.seek(0)
         else:
-            with FFmpeg(sticker) as ffmpeg:
+           with FFmpeg(sticker) as ffmpeg:
                 animated = True
                 sticker = ffmpeg.cv_to_webp()
                 io_save = BytesIO(sticker)
