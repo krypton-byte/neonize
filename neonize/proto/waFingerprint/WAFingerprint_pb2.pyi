@@ -21,10 +21,7 @@ class _HostedState:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _HostedStateEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_HostedState.ValueType],
-    builtins.type,
-):
+class _HostedStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_HostedState.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     E2EE: _HostedState.ValueType  # 0
     HOSTED: _HostedState.ValueType  # 1
@@ -58,36 +55,8 @@ class FingerprintData(google.protobuf.message.Message):
         usernameIdentifier: builtins.bytes | None = ...,
         hostedState: global___HostedState.ValueType | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "hostedState",
-            b"hostedState",
-            "lidIdentifier",
-            b"lidIdentifier",
-            "pnIdentifier",
-            b"pnIdentifier",
-            "publicKey",
-            b"publicKey",
-            "usernameIdentifier",
-            b"usernameIdentifier",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "hostedState",
-            b"hostedState",
-            "lidIdentifier",
-            b"lidIdentifier",
-            "pnIdentifier",
-            b"pnIdentifier",
-            "publicKey",
-            b"publicKey",
-            "usernameIdentifier",
-            b"usernameIdentifier",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["hostedState", b"hostedState", "lidIdentifier", b"lidIdentifier", "pnIdentifier", b"pnIdentifier", "publicKey", b"publicKey", "usernameIdentifier", b"usernameIdentifier"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["hostedState", b"hostedState", "lidIdentifier", b"lidIdentifier", "pnIdentifier", b"pnIdentifier", "publicKey", b"publicKey", "usernameIdentifier", b"usernameIdentifier"]) -> None: ...
 
 global___FingerprintData = FingerprintData
 
@@ -110,27 +79,7 @@ class CombinedFingerprint(google.protobuf.message.Message):
         localFingerprint: global___FingerprintData | None = ...,
         remoteFingerprint: global___FingerprintData | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "localFingerprint",
-            b"localFingerprint",
-            "remoteFingerprint",
-            b"remoteFingerprint",
-            "version",
-            b"version",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "localFingerprint",
-            b"localFingerprint",
-            "remoteFingerprint",
-            b"remoteFingerprint",
-            "version",
-            b"version",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["localFingerprint", b"localFingerprint", "remoteFingerprint", b"remoteFingerprint", "version", b"version"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["localFingerprint", b"localFingerprint", "remoteFingerprint", b"remoteFingerprint", "version", b"version"]) -> None: ...
 
 global___CombinedFingerprint = CombinedFingerprint

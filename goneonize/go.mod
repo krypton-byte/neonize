@@ -1,11 +1,13 @@
 module github.com/krypton-byte/neonize
 
-go 1.21.5
+go 1.22.0
+
+toolchain go1.22.1
 
 require (
-	github.com/mattn/go-sqlite3 v1.14.22
-	go.mau.fi/whatsmeow v0.0.0-20240808172654-730b20cc1cfc
-	google.golang.org/protobuf v1.34.2
+	github.com/mattn/go-sqlite3 v1.14.24
+	go.mau.fi/whatsmeow v0.0.0-20241019130619-e66372b56ef1
+	google.golang.org/protobuf v1.35.1
 )
 
 require (
@@ -16,8 +18,8 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/rs/zerolog v1.33.0 // indirect
 	go.mau.fi/libsignal v0.1.1 // indirect
-	go.mau.fi/util v0.6.0 // indirect
-	golang.org/x/crypto v0.26.0 // indirect
-	golang.org/x/net v0.28.0 // indirect
-	golang.org/x/sys v0.24.0 // indirect
+	go.mau.fi/util v0.8.1 // indirect
+	golang.org/x/crypto v0.28.0 // indirect
+	golang.org/x/net v0.30.0 // indirect
+	golang.org/x/sys v0.26.0 // indirect
 )
