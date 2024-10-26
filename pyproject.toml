@@ -63,4 +63,4 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 docsbuild = "docs.build:build"
 build = "goneonize.__main__:build"
-version = "goneonize.build:set_version"
+version = "goneonize.__main__:set_version"
