@@ -115,6 +115,7 @@ def build():
     args = argparse.ArgumentParser()
     sub = args.add_subparsers(dest="build", required=True)
     sub.add_parser("goneonize")
+    # arg.add_argument("--out", type=str, default=os.path.dirname(cwd) + "/neonize/")
     sub.add_parser("proto")
     sub.add_parser("all")
     parse = args.parse_args()
@@ -159,3 +160,6 @@ def build_android():
     #     env=os.environ.update({"build_neonize": "1"}),
     #     shell=os.name == "nt",
     # )
+
+if __name__ == '__main__':
+    build()

@@ -35,6 +35,7 @@ tqdm = "^4.66.1"
 
 httpx = "^0.27.2"
 aiomonitor = "^0.7.0"
+setuptools = "^75.2.0"
 [tool.mypy]
 exclude = [
     "_pb2.py"
@@ -61,5 +62,5 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 docsbuild = "docs.build:build"
-build = "goneonize.build:build"
+build = "goneonize.__main__:build"
 version = "goneonize.build:set_version"
