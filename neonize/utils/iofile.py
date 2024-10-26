@@ -5,6 +5,7 @@ import tempfile
 import typing
 import io
 import requests
+import httpx
 from .log import log
 from typing import Optional
 
@@ -26,6 +27,29 @@ def get_bytes_from_name_or_url(args: typing.Union[str, bytes]) -> bytes:
     if isinstance(args, str):
         if URL_MATCH.match(args):
             return requests.get(args, headers=headers).content
+        else:
+            with open(args, "rb") as file:
+                return file.read()
+    else:
+        return args
+
+
+async def get_bytes_from_name_or_url_async(args: typing.Union[str, bytes]) -> bytes:
+    """Gets bytes from either a file name or a URL.
+
+    :param args: Either a file name (str) or binary data (bytes).
+    :type args: typing.Union[str, bytes]
+    :return: The bytes extracted from the specified file name or URL.
+    :rtype: bytes
+    """
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+    }
+    if isinstance(args, str):
+        if URL_MATCH.match(args):
+            async with httpx.AsyncClient(timeout=None) as client:
+                return (await client.get(args, headers=headers)).content
         else:
             with open(args, "rb") as file:
                 return file.read()

@@ -27,7 +27,12 @@ class SyncdMutation(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _SyncdOperationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SyncdMutation._SyncdOperation.ValueType], builtins.type):
+    class _SyncdOperationEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            SyncdMutation._SyncdOperation.ValueType
+        ],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         SET: SyncdMutation._SyncdOperation.ValueType  # 0
         REMOVE: SyncdMutation._SyncdOperation.ValueType  # 1
@@ -47,8 +52,12 @@ class SyncdMutation(google.protobuf.message.Message):
         operation: global___SyncdMutation.SyncdOperation.ValueType | None = ...,
         record: global___SyncdRecord | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["operation", b"operation", "record", b"record"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["operation", b"operation", "record", b"record"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["operation", b"operation", "record", b"record"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["operation", b"operation", "record", b"record"]
+    ) -> None: ...
 
 global___SyncdMutation = SyncdMutation
 
@@ -63,7 +72,9 @@ class SyncdVersion(google.protobuf.message.Message):
         *,
         version: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["version", b"version"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["version", b"version"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["version", b"version"]) -> None: ...
 
 global___SyncdVersion = SyncdVersion
@@ -82,8 +93,12 @@ class ExitCode(google.protobuf.message.Message):
         code: builtins.int | None = ...,
         text: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["code", b"code", "text", b"text"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["code", b"code", "text", b"text"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["code", b"code", "text", b"text"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["code", b"code", "text", b"text"]
+    ) -> None: ...
 
 global___ExitCode = ExitCode
 
@@ -98,7 +113,9 @@ class SyncdIndex(google.protobuf.message.Message):
         *,
         blob: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["blob", b"blob"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["blob", b"blob"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["blob", b"blob"]) -> None: ...
 
 global___SyncdIndex = SyncdIndex
@@ -114,7 +131,9 @@ class SyncdValue(google.protobuf.message.Message):
         *,
         blob: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["blob", b"blob"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["blob", b"blob"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["blob", b"blob"]) -> None: ...
 
 global___SyncdValue = SyncdValue
@@ -155,8 +174,18 @@ class SyncdRecord(google.protobuf.message.Message):
         value: global___SyncdValue | None = ...,
         keyID: global___KeyId | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["index", b"index", "keyID", b"keyID", "value", b"value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["index", b"index", "keyID", b"keyID", "value", b"value"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "index", b"index", "keyID", b"keyID", "value", b"value"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "index", b"index", "keyID", b"keyID", "value", b"value"
+        ],
+    ) -> None: ...
 
 global___SyncdRecord = SyncdRecord
 
@@ -186,8 +215,40 @@ class ExternalBlobReference(google.protobuf.message.Message):
         fileSHA256: builtins.bytes | None = ...,
         fileEncSHA256: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "fileSizeBytes", b"fileSizeBytes", "handle", b"handle", "mediaKey", b"mediaKey"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "fileSizeBytes", b"fileSizeBytes", "handle", b"handle", "mediaKey", b"mediaKey"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "directPath",
+            b"directPath",
+            "fileEncSHA256",
+            b"fileEncSHA256",
+            "fileSHA256",
+            b"fileSHA256",
+            "fileSizeBytes",
+            b"fileSizeBytes",
+            "handle",
+            b"handle",
+            "mediaKey",
+            b"mediaKey",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "directPath",
+            b"directPath",
+            "fileEncSHA256",
+            b"fileEncSHA256",
+            "fileSHA256",
+            b"fileSHA256",
+            "fileSizeBytes",
+            b"fileSizeBytes",
+            "handle",
+            b"handle",
+            "mediaKey",
+            b"mediaKey",
+        ],
+    ) -> None: ...
 
 global___ExternalBlobReference = ExternalBlobReference
 
@@ -203,7 +264,11 @@ class SyncdSnapshot(google.protobuf.message.Message):
     @property
     def version(self) -> global___SyncdVersion: ...
     @property
-    def records(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SyncdRecord]: ...
+    def records(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___SyncdRecord
+    ]: ...
     @property
     def keyID(self) -> global___KeyId: ...
     def __init__(
@@ -214,8 +279,25 @@ class SyncdSnapshot(google.protobuf.message.Message):
         mac: builtins.bytes | None = ...,
         keyID: global___KeyId | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["keyID", b"keyID", "mac", b"mac", "version", b"version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["keyID", b"keyID", "mac", b"mac", "records", b"records", "version", b"version"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "keyID", b"keyID", "mac", b"mac", "version", b"version"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "keyID",
+            b"keyID",
+            "mac",
+            b"mac",
+            "records",
+            b"records",
+            "version",
+            b"version",
+        ],
+    ) -> None: ...
 
 global___SyncdSnapshot = SyncdSnapshot
 
@@ -225,13 +307,19 @@ class SyncdMutations(google.protobuf.message.Message):
 
     MUTATIONS_FIELD_NUMBER: builtins.int
     @property
-    def mutations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SyncdMutation]: ...
+    def mutations(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___SyncdMutation
+    ]: ...
     def __init__(
         self,
         *,
         mutations: collections.abc.Iterable[global___SyncdMutation] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["mutations", b"mutations"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["mutations", b"mutations"]
+    ) -> None: ...
 
 global___SyncdMutations = SyncdMutations
 
@@ -255,7 +343,11 @@ class SyncdPatch(google.protobuf.message.Message):
     @property
     def version(self) -> global___SyncdVersion: ...
     @property
-    def mutations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SyncdMutation]: ...
+    def mutations(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___SyncdMutation
+    ]: ...
     @property
     def externalMutations(self) -> global___ExternalBlobReference: ...
     @property
@@ -275,7 +367,49 @@ class SyncdPatch(google.protobuf.message.Message):
         deviceIndex: builtins.int | None = ...,
         clientDebugData: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["clientDebugData", b"clientDebugData", "deviceIndex", b"deviceIndex", "exitCode", b"exitCode", "externalMutations", b"externalMutations", "keyID", b"keyID", "patchMAC", b"patchMAC", "snapshotMAC", b"snapshotMAC", "version", b"version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["clientDebugData", b"clientDebugData", "deviceIndex", b"deviceIndex", "exitCode", b"exitCode", "externalMutations", b"externalMutations", "keyID", b"keyID", "mutations", b"mutations", "patchMAC", b"patchMAC", "snapshotMAC", b"snapshotMAC", "version", b"version"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "clientDebugData",
+            b"clientDebugData",
+            "deviceIndex",
+            b"deviceIndex",
+            "exitCode",
+            b"exitCode",
+            "externalMutations",
+            b"externalMutations",
+            "keyID",
+            b"keyID",
+            "patchMAC",
+            b"patchMAC",
+            "snapshotMAC",
+            b"snapshotMAC",
+            "version",
+            b"version",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "clientDebugData",
+            b"clientDebugData",
+            "deviceIndex",
+            b"deviceIndex",
+            "exitCode",
+            b"exitCode",
+            "externalMutations",
+            b"externalMutations",
+            "keyID",
+            b"keyID",
+            "mutations",
+            b"mutations",
+            "patchMAC",
+            b"patchMAC",
+            "snapshotMAC",
+            b"snapshotMAC",
+            "version",
+            b"version",
+        ],
+    ) -> None: ...
 
 global___SyncdPatch = SyncdPatch

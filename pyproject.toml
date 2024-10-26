@@ -33,6 +33,8 @@ python-magic-bin = [
 ]
 tqdm = "^4.66.1"
 
+httpx = "^0.27.2"
+aiomonitor = "^0.7.0"
 [tool.mypy]
 exclude = [
     "_pb2.py"

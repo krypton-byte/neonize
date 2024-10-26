@@ -1,6 +1,9 @@
+import asyncio
 from enum import Enum
 import json
 import os
+import shlex
+from sys import stderr
 import time
 import subprocess
 import tempfile
@@ -168,6 +171,209 @@ class FFProbeInfo:
 
     format: Format
     streams: List[Stream]
+
+
+class AFFmpeg:
+    def __init__(self, data: bytes | str, prefix: Optional[str] = None) -> None:
+        """
+        Initializes the FFmpeg class. If the data is a URL, it retrieves the data from the URL
+        and writes it to a temporary file. If the data is a string that is not a URL, it treats
+        the string as a filename. If the data is bytes, it writes the bytes to a temporary file.
+
+        :param data: The input data. This can be a URL, a filename, or bytes.
+        :type data: bytes | str
+        :param prefix: The prefix for the temporary file, if one is created. If None, no prefix is used.
+        :type prefix: Optional[str], optional
+        """
+        if isinstance(data, str):
+            if URL_MATCH.match(data):
+                self.filename = TemporaryFile(prefix=prefix, touch=False).__enter__()
+                with open(self.filename.path, "wb") as file:
+                    file.write(get_bytes_from_name_or_url(data))
+            else:
+                self.filename = data
+        else:
+            self.filename = TemporaryFile(prefix=prefix, touch=False).__enter__()
+            with open(self.filename.path, "wb") as file:
+                file.write(data)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *ex):
+        if not isinstance(self.filename, str):
+            self.filename.__exit__(None, None, None)
+
+    @property
+    def filepath(self):
+        if isinstance(self.filename, str):
+            return self.filename
+        return self.filename.path.__str__()
+
+    async def cv_to_webp(self, animated: bool = True) -> bytes:
+        """
+        This function converts a given file to webp format using ffmpeg.
+        If the animated flag is set to True, it will only convert the first 6 seconds of the file.
+
+        :param animated: If True, only the first 6 seconds of the file will be converted, defaults to True
+        :type animated: bool, optional
+        :return: The converted file in bytes
+        :rtype: bytes
+        """
+        temp = tempfile.gettempdir() + "/" + time.time().__str__() + ".webp"
+        ffmpeg_command = [
+            "ffmpeg",
+            "-i",
+            self.filepath,
+            "-vcodec",
+            "libwebp",
+            "-vf",
+            (
+                f"scale='if(gt(iw,ih),512,-1)':'if(gt(iw,ih),-1,512)',fps=15, "
+                f"pad=512:512:-1:-1:color=white@0.0, split [a][b]; [a] "
+                f"palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse"
+            ),
+            temp,
+        ]
+        if animated:
+            ffmpeg_command.extend(
+                [
+                    "-ss",
+                    "00:00:00.0",
+                    "-t",
+                    "00:00:06.0",
+                ]
+            )
+        await self.call(ffmpeg_command)
+        with open(temp, "rb") as file:
+            buf = file.read()
+        os.remove(temp)
+        return buf
+
+    async def call(self, cmd: List[str]):
+        popen = await asyncio.create_subprocess_shell(
+            shlex.join(cmd),
+            stderr=asyncio.subprocess.PIPE,
+            stdout=asyncio.subprocess.PIPE,
+            stdin=subprocess.DEVNULL,
+        )
+        stdout, stderr = await popen.communicate()  # type: ignore
+        if popen.returncode != 0:
+            raise RuntimeError(
+                f"stderr: {stderr} Return code: {popen.returncode}"  # type: ignore
+            )
+        return stdout
+
+    async def to_mp3(self) -> bytes:
+        temp = tempfile.gettempdir() + "/" + time.time().__str__() + ".mp3"
+        await self.call(
+            [
+                "ffmpeg",
+                "-i",
+                self.filepath,
+                "-vn",
+                "-ar",
+                "44100",
+                "-ac",
+                "2",
+                "-b:a",
+                "192k",
+                temp,
+            ]
+        )
+        with open(temp, "rb") as file:
+            buf = file.read()
+        os.remove(temp)
+        return buf
+
+    async def extract_thumbnail(
+        self,
+        format: ImageFormat = ImageFormat.JPG,
+        size: Optional[Tuple[int, int] | int] = 200,
+    ) -> bytes:
+        """
+        Extracts a thumbnail from a video file.
+
+        :param format: The format of the output thumbnail, defaults to ImageFormat.JPG
+        :type format: ImageFormat, optional
+        :param size: The size of the output thumbnail. If an integer is provided, the thumbnail will be scaled
+                     while maintaining the aspect ratio. If a tuple of two integers is provided, it will be used
+                     as the exact dimensions for the thumbnail, defaults to 200
+        :type size: Optional[Tuple[int, int]  |  int], optional
+        :return: The bytes representing the thumbnail image.
+        :rtype: bytes
+        """
+        extra = []
+        if isinstance(size, int):
+            for stream in (await self.extract_info()).streams:
+                if stream.codec_type == "video":
+                    extra.extend(
+                        [
+                            "-vf",
+                            "scale='if(gt(iw,ih),%i,-1)':'if(gt(iw,ih),-1,%i)'"
+                            % (size, size),
+                        ]
+                    )
+        elif isinstance(size, Tuple):
+            extra.extend(["-s", "x".join(map(str, size))])
+        return await self.call(
+            [
+                "ffmpeg",
+                "-i",
+                self.filepath,
+                "-vframes",
+                "1",
+                "-an",
+                *extra,
+                "-f",
+                format.value,
+                "-",
+            ]
+        )
+
+    async def extract_info(self) -> FFProbeInfo:
+        """
+        Extracts media file information using ffprobe tool.
+
+        This method uses ffprobe, a tool from the FFmpeg package, to extract
+        information about a media file. It returns the information in the form of
+        an FFProbeInfo object, which contains the format and streams of the media file.
+
+        :return: An FFProbeInfo object containing the format and streams of the media file.
+        :rtype: FFProbeInfo
+        """
+        data = json.loads(
+            await self.call(
+                [
+                    "ffprobe",
+                    "-i",
+                    self.filepath,
+                    "-print_format",
+                    "json",
+                    "-show_format",
+                    "-show_streams",
+                ]
+            )
+        )
+        streams: List[dict] = data["streams"]
+        format: dict = data["format"]
+        return FFProbeInfo(
+            format=Format(
+                **{
+                    i: format.get(i, None)
+                    for i, _ in Format.__dataclass_fields__.items()
+                }
+            ),
+            streams=[
+                Stream(
+                    **{
+                        field: data.get(field, None)
+                        for field, _ in Stream.__dataclass_fields__.items()
+                    }
+                )
+                for data in streams
+            ],
+        )
 
 
 class FFmpeg:

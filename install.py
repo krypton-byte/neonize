@@ -7,17 +7,18 @@ import os, requests
 import zipfile
 
 
-
-
 def go_build():
-    temp = os.mkdir('tmp')
+    temp = os.mkdir("tmp")
     version = importlib.metadata.version("neonize")
-    content = requests.get(f"https://codeload.github.com/krypton-byte/neonize/zip/refs/tags/{version}").content
+    content = requests.get(
+        f"https://codeload.github.com/krypton-byte/neonize/zip/refs/tags/{version}"
+    ).content
     zip_obj = zipfile.ZipFile(BytesIO(content))
     for file in zip_obj.namelist():
-        if file.startswith(f'neonize-{version}/goneonize'):
-            zip_obj.extractall('tmp')
-    
+        if file.startswith(f"neonize-{version}/goneonize"):
+            zip_obj.extractall("tmp")
+
+
 def __download(url: str, fname: str, chunk_size=1024):
     resp = requests.get(url, stream=True)
     if resp.status_code != 200:

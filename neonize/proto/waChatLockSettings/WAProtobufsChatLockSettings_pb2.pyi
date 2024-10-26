@@ -24,9 +24,20 @@ class ChatLockSettings(google.protobuf.message.Message):
         self,
         *,
         hideLockedChats: builtins.bool | None = ...,
-        secretCode: waUserPassword.WAProtobufsUserPassword_pb2.UserPassword | None = ...,
+        secretCode: waUserPassword.WAProtobufsUserPassword_pb2.UserPassword
+        | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["hideLockedChats", b"hideLockedChats", "secretCode", b"secretCode"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["hideLockedChats", b"hideLockedChats", "secretCode", b"secretCode"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "hideLockedChats", b"hideLockedChats", "secretCode", b"secretCode"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "hideLockedChats", b"hideLockedChats", "secretCode", b"secretCode"
+        ],
+    ) -> None: ...
 
 global___ChatLockSettings = ChatLockSettings
