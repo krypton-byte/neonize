@@ -2,7 +2,7 @@ from __future__ import annotations
 import time
 import struct
 import re
-from asyncio import new_event_loop, get_event_loop, to_thread
+from asyncio import get_event_loop
 import asyncio
 import ctypes
 from datetime import timedelta
@@ -21,20 +21,22 @@ import typing
 import magic
 from io import BytesIO
 
-from neonize.utils.ffmpeg import AFFmpeg
+from .preview.compose import link_preview
+from .events import EventsManager
+from ..utils.ffmpeg import AFFmpeg
 from ..utils.calc import AspectRatioMethod, auto_sticker
 from ..utils import add_exif, gen_vcard
 from PIL import Image
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 from ..proto.waConsumerApplication.WAConsumerApplication_pb2 import ConsumerApplication
 from ..proto.waMsgApplication.WAMsgApplication_pb2 import MessageApplication
-from neonize.builder import build_edit, build_revoke
-from neonize.types import MessageServerID, MessageWithContextInfo
-from neonize.utils.iofile import (
+from ..builder import build_edit, build_revoke
+from ..types import MessageServerID, MessageWithContextInfo
+from ..utils.iofile import (
     get_bytes_from_name_or_url,
     get_bytes_from_name_or_url_async,
 )
-from neonize.utils.jid import JIDToNonAD, Jid2String
+from ..utils.jid import JIDToNonAD, Jid2String, build_jid
 from .._binder import func, func_string, func_callback_bytes
 from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
@@ -456,48 +458,50 @@ class NewAClient:
             for jid in re.finditer(r"@([0-9]{5,16}|0)", text)
         ]
 
-    # def _generate_link_preview(self, text: str) -> ExtendedTextMessage | None:
-    #     youtube_url_pattern = re.compile(
-    #         r"(?:https?:)?//(?:www\.)?(?:youtube\.com/(?:[^/\n\s]+"
-    #         r"/\S+/|(?:v|e(?:mbed)?)/|\S*?[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})",
-    #         re.IGNORECASE,
-    #     )
-    #     links = re.findall(r"https?://\S+", text)
-    #     valid_links = list(filter(validate_link, links))
-    #     if valid_links:
-    #         preview = link_preview(valid_links[0])
-    #         preview_type = (
-    #             ExtendedTextMessage.PreviewType.VIDEO
-    #             if re.match(youtube_url_pattern, valid_links[0])
-    #             else ExtendedTextMessage.PreviewType.NONE
-    #         )
-    #         msg = ExtendedTextMessage(
-    #             title=str(preview.title),
-    #             description=str(preview.description),
-    #             matchedText=valid_links[0],
-    #             canonicalURL=str(preview.link.url),
-    #             previewType=preview_type,
-    #         )
-    #         if preview.absolute_image:
-    #             thumbnail = get_bytes_from_name_or_url(str(preview.absolute_image))
-    #             mimetype = magic.from_buffer(thumbnail, mime=True)
-    #             if "jpeg" in mimetype or "png" in mimetype:
-    #                 image = Image.open(BytesIO(thumbnail))
-    #                 upload = self.upload(thumbnail, MediaType.MediaLinkThumbnail)
-    #                 msg.MergeFrom(
-    #                     ExtendedTextMessage(
-    #                         JPEGThumbnail=thumbnail,
-    #                         thumbnailDirectPath=upload.DirectPath,
-    #                         thumbnailSHA256=upload.FileSHA256,
-    #                         thumbnailEncSHA256=upload.FileEncSHA256,
-    #                         mediaKey=upload.MediaKey,
-    #                         mediaKeyTimestamp=int(time.time()),
-    #                         thumbnailWidth=image.size[0],
-    #                         thumbnailHeight=image.size[1],
-    #                     )
-    #                 )
-    #         return msg
-    #     return None
+    async def _generate_link_preview(self, text: str) -> ExtendedTextMessage | None:
+        youtube_url_pattern = re.compile(
+            r"(?:https?:)?//(?:www\.)?(?:youtube\.com/(?:[^/\n\s]+"
+            r"/\S+/|(?:v|e(?:mbed)?)/|\S*?[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})",
+            re.IGNORECASE,
+        )
+        links = re.findall(r"https?://\S+", text)
+        valid_links = list(filter(validate_link, links))
+        if valid_links:
+            preview = await link_preview(valid_links[0])
+            preview_type = (
+                ExtendedTextMessage.PreviewType.VIDEO
+                if re.match(youtube_url_pattern, valid_links[0])
+                else ExtendedTextMessage.PreviewType.NONE
+            )
+            msg = ExtendedTextMessage(
+                title=str(preview.title),
+                description=str(preview.description),
+                matchedText=valid_links[0],
+                canonicalURL=str(preview.link.url),
+                previewType=preview_type,
+            )
+            if preview.absolute_image:
+                thumbnail = await get_bytes_from_name_or_url_async(
+                    str(preview.absolute_image)
+                )
+                mimetype = magic.from_buffer(thumbnail, mime=True)
+                if "jpeg" in mimetype or "png" in mimetype:
+                    image = Image.open(BytesIO(thumbnail))
+                    upload = await self.upload(thumbnail, MediaType.MediaLinkThumbnail)
+                    msg.MergeFrom(
+                        ExtendedTextMessage(
+                            JPEGThumbnail=thumbnail,
+                            thumbnailDirectPath=upload.DirectPath,
+                            thumbnailSHA256=upload.FileSHA256,
+                            thumbnailEncSHA256=upload.FileEncSHA256,
+                            mediaKey=upload.MediaKey,
+                            mediaKeyTimestamp=int(time.time()),
+                            thumbnailWidth=image.size[0],
+                            thumbnailHeight=image.size[1],
+                        )
+                    )
+            return msg
+        return None
 
     def _make_quoted_message(
         self, message: neonize_proto.Message, reply_privately: bool = False
@@ -532,10 +536,10 @@ class NewAClient:
             partial_msg = ExtendedTextMessage(
                 text=message, contextInfo=ContextInfo(mentionedJID=mentioned_jid)
             )
-            # if link_preview:
-            #     preview = self._generate_link_preview(message)
-            #     if preview:
-            #         partial_msg.MergeFrom(preview)
+            if link_preview:
+                preview = await self._generate_link_preview(message)
+                if preview:
+                    partial_msg.MergeFrom(preview)
             if partial_msg.previewType is None and not mentioned_jid:
                 msg = Message(conversation=message)
             else:
@@ -581,10 +585,10 @@ class NewAClient:
                 text=message,
                 contextInfo=ContextInfo(mentionedJID=self._parse_mention(message)),
             )
-            # if link_preview:
-            #     preview = self._generate_link_preview(message)
-            #     if preview is not None:
-            #         partial_message.MergeFrom(preview)
+            if link_preview:
+                preview = await self._generate_link_preview(message)
+                if preview is not None:
+                    partial_message.MergeFrom(preview)
         else:
             partial_message = message
         field_name = (
@@ -2709,3 +2713,70 @@ class NewAClient:
         Disconnect the client
         """
         self.__client.Disconnect(self.uuid)
+
+
+
+
+class ClientFactory:
+    def __init__(self, database_name: str = "neonize.db") -> None:
+        """
+        This class is used to create new instances of the client.
+        """
+        self.database_name = database_name
+        self.clients: list[NewAClient] = []
+        self.event = EventsManager(self)
+
+    @staticmethod
+    def get_all_devices_from_db(db: str) -> List[Device]:
+        """
+        Retrieves all devices associated with the current account.
+        :param db: The name of the database to retrieve the devices from.
+        :return: A list of Device-like objects representing all associated devices.
+        :rtype: List[neonize_proto.Device]
+        """
+        c_string = gocode.GetAllDevices(db.encode()).decode()
+        if not c_string:
+            return []
+
+        devices: list[Device] = []
+
+        for device_str in c_string.split("|\u0001|"):
+            id, push_name, bussniess_name, initialized = device_str.split(",")
+            id, server = id.split("@")
+            jid = build_jid(id, server)
+
+            device = Device(JID=jid, PushName=push_name, BussinessName=bussniess_name, Initialized=initialized == "true")
+            devices.append(device)
+
+        return devices
+
+    def get_all_devices(self) -> List["Device"]:
+        """Retrieves all devices associated with the current account from the database."""
+        return self.get_all_devices_from_db(self.database_name)
+
+    def new_client(
+        self, jid: JID = None, uuid: str = None, props: Optional[DeviceProps] = None
+    ) -> NewAClient:
+        """
+        This function creates a new instance of the client. If the jid parameter is not provided, a new client will be created.
+        :param name: The name of the client.
+        :type name: str
+        :param uuid: The unique identifier of the client.
+        :type uuid: str
+        :param jid: The JID of the client.
+        :type jid: JID
+        :param props: The device properties of the client.
+        :type props: Optional[DeviceProps]
+        """
+
+        if not jid and not uuid:
+            # you must at least provide a uuid to make sure the client is unique
+            raise Exception("JID and UUID cannot be none")
+
+        client = NewAClient(self.database_name, jid, props, uuid)
+        client.event.list_func = self.event.list_func
+        self.clients.append(client)
+        return client
+
+    async def run(self):
+        return await asyncio.gather(*[client.connect() for client in self.clients])

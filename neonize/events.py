@@ -55,7 +55,6 @@ log = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from .client import NewClient, ClientFactory
 EventType = TypeVar("EventType", bound=Message)
-
 EVENT_TO_INT: Dict[Type[Message], int] = {
     QREv: 1,
     PairStatusEv: 2,
@@ -105,7 +104,7 @@ event = EventThread()
 class EventsManager:
     def __init__(self, client_factory: ClientFactory):
         self.client_factory = client_factory
-
+        self.list_func: Dict[int, Callable[[NewClient, Message], None]] = {}
     def __call__(
         self, event: Type[EventType]
     ) -> Callable[[Callable[[NewClient, EventType], None]], None]:
@@ -115,13 +114,11 @@ class EventsManager:
         :param event: The type of event to register the callback for.
         :type event: Type[EventType]
         :return: A decorator that registers the callback function.
-        :rtype: Callable[[Callable[[NewClient, EventType], None]], None]
+        :rtype: Callablae[[Callable[[NewClient, EventType], None]], None]
         """
 
         def callback(func: Callable[[NewClient, EventType], None]) -> None:
-            for client in self.client_factory.clients:
-                wrapped_func = client.event.wrap(func, event)
-                client.event.list_func.update({EVENT_TO_INT[event]: wrapped_func})
+            self.list_func.update({EVENT_TO_INT[event]: func})
 
         return callback
 
@@ -137,7 +134,7 @@ class Event:
         """
         self.client = client
         self.blocking_func = self.blocking(self.default_blocking)
-        self.list_func: Dict[int, Callable[[int, int], None]] = {}
+        self.list_func: Dict[int, Callable[[NewClient, Message], None]] = {}
         self._qr = self.__onqr
 
     def execute(self, binary: int, size: int, code: int):
@@ -150,29 +147,10 @@ class Event:
         :param code: The index of the function to be executed from the list of functions.
         :type code: int
         """
-        self.list_func[code](binary, size)
-
-    def wrap(self, f: Callable[[NewClient, EventType], None], event: Type[EventType]):
-        """
-        This method wraps the function 'f' and returns a new function 'serialization' that
-        takes two parameters - binary and size. The 'serialization' function calls 'f' with
-        the client and an event deserialized from a string.
-
-        :param f: Function to be wrapped. It should accept two parameters - a NewClient object and an EventType object.
-        :type f: Callable[[NewClient, EventType], None]
-        :param event: Type of the event.
-        :type event: Type[EventType]
-        :raises UnsupportedEvent: If the provided event is not supported.
-        :return: Returns a function 'serialization' that accepts two parameters - binary and size.
-        :rtype: Callable[[int, int], None]
-        """
-        if event not in EVENT_TO_INT:
+        if code not in INT_TO_EVENT:
             raise UnsupportedEvent()
-
-        def serialization(binary: int, size: int):
-            f(self.client, event.FromString(ctypes.string_at(binary, size)))
-
-        return serialization
+        message = INT_TO_EVENT[code].FromString(ctypes.string_at(binary, size))
+        self.list_func[code](self.client, message)
 
     def __onqr(self, _: NewClient, data_qr: bytes):
         """
@@ -226,7 +204,6 @@ class Event:
         """
 
         def callback(func: Callable[[NewClient, EventType], None]) -> None:
-            wrapped_func = self.wrap(func, event)
-            self.list_func.update({EVENT_TO_INT[event]: wrapped_func})
+            self.list_func.update({EVENT_TO_INT[event]: func})
 
         return callback

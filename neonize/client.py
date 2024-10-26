@@ -2575,7 +2575,7 @@ class ClientFactory:
         self.event = EventsManager(self)
 
     @staticmethod
-    def get_all_devices_from_db(db: str) -> List["Device"]:
+    def get_all_devices_from_db(db: str) -> List[Device]:
         """
         Retrieves all devices associated with the current account.
         :param db: The name of the database to retrieve the devices from.
@@ -2586,19 +2586,6 @@ class ClientFactory:
         if not c_string:
             return []
 
-        class Device:
-            def __init__(
-                self,
-                JID: JID,
-                PushName: str,
-                BussinessName: str = None,
-                Initialized: bool = None,
-            ):
-                self.JID = JID
-                self.PushName = PushName
-                self.BusinessName = BussinessName
-                self.Initialized = Initialized
-
         devices: list[Device] = []
 
         for device_str in c_string.split("|\u0001|"):
@@ -2606,7 +2593,7 @@ class ClientFactory:
             id, server = id.split("@")
             jid = build_jid(id, server)
 
-            device = Device(jid, push_name, bussniess_name, initialized == "true")
+            device = Device(JID=jid, PushName=push_name, BussinessName=bussniess_name, Initialized=initialized == "true")
             devices.append(device)
 
         return devices
@@ -2635,6 +2622,7 @@ class ClientFactory:
             raise Exception("JID and UUID cannot be none")
 
         client = NewClient(self.database_name, jid, props, uuid)
+        client.event.list_func = self.event
         self.clients.append(client)
         return client
 

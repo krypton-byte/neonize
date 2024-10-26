@@ -10,7 +10,12 @@ import tempfile
 import logging
 from typing import List, Optional, Tuple
 from dataclasses import dataclass
-from .iofile import URL_MATCH, TemporaryFile, get_bytes_from_name_or_url
+from .iofile import (
+    URL_MATCH,
+    TemporaryFile,
+    get_bytes_from_name_or_url,
+    get_bytes_from_name_or_url_async,
+)
 
 log = logging.getLogger(__name__)
 
@@ -185,22 +190,26 @@ class AFFmpeg:
         :param prefix: The prefix for the temporary file, if one is created. If None, no prefix is used.
         :type prefix: Optional[str], optional
         """
-        if isinstance(data, str):
-            if URL_MATCH.match(data):
-                self.filename = TemporaryFile(prefix=prefix, touch=False).__enter__()
-                with open(self.filename.path, "wb") as file:
-                    file.write(get_bytes_from_name_or_url(data))
-            else:
-                self.filename = data
-        else:
-            self.filename = TemporaryFile(prefix=prefix, touch=False).__enter__()
-            with open(self.filename.path, "wb") as file:
-                file.write(data)
+        self.__file_data = data
+        self.prefix = prefix
 
-    def __enter__(self):
+    async def __aenter__(self):
+        if isinstance(self.__file_data, str):
+            if URL_MATCH.match(self.__file_data):
+                self.filename = TemporaryFile(
+                    prefix=self.prefix, touch=False
+                ).__enter__()
+                with open(self.filename.path, "wb") as file:
+                    file.write(await get_bytes_from_name_or_url_async(self.__file_data))
+            else:
+                self.filename = self.__file_data
+        else:
+            self.filename = TemporaryFile(prefix=self.prefix, touch=False).__enter__()
+            with open(self.filename.path, "wb") as file:
+                file.write(self.__file_data)
         return self
 
-    def __exit__(self, *ex):
+    def __aexit__(self, *ex):
         if not isinstance(self.filename, str):
             self.filename.__exit__(None, None, None)
 
