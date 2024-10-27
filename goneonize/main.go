@@ -1971,6 +1971,15 @@ func GetAllDevices(db *C.char) *C.char {
 	return C.CString(result.String())
 }
 
+//export SendPresence
+func SendPresence(id *C.char, presence *C.char) *C.char {
+	err := clients[C.GoString(id)].SendPresence(types.Presence(C.GoString(presence)))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
 //export SendFBMessage
 func SendFBMessage(id *C.char, to *C.uchar, toSize C.int, message *C.uchar, messageSize C.int, metadata *C.uchar, metadataSize C.int, extra *C.uchar, extraSize C.int) C.struct_BytesReturn {
 	var toJID defproto.JID

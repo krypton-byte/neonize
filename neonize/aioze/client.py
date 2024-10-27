@@ -56,6 +56,7 @@ from ..utils.enum import (
     ChatPresenceMedia,
     LogLevel,
     ParticipantChange,
+    Presence,
     ReceiptType,
     ClientType,
     ClientName,
@@ -105,6 +106,7 @@ from ..exc import (
     ResolveContactQRLinkError,
     SendAppStateError,
     SendMessageError,
+    SendPresenceError,
     SetDefaultDisappearingTimerError,
     SetDisappearingTimerError,
     SetGroupAnnounceError,
@@ -2670,7 +2672,13 @@ class NewAClient:
             len(extra_buff),
         )
         return SendResponse.FromString(response.get_bytes())
-
+    async def send_presence(self, presence: Presence):
+            response = await self.__client.SendPresence(
+                self.uuid,
+                presence.value
+            )
+            if response:
+                raise SendPresenceError(response)
     async def connect(self):
         """Establishes a connection to the WhatsApp servers."""
         # Convert the list of functions to a bytearray

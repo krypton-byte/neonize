@@ -347,3 +347,7 @@ class ParticipantRequestChange(Enum):
 
     APPROVE = "approve"
     REJECT = "reject"
+
+class Presence(Enum):
+    AVAILABLE = b"available"
+    UNAVAILABLE = b"unavailable"
