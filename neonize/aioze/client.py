@@ -823,7 +823,7 @@ class NewAClient:
             )
             io_save.seek(0)
         else:
-            with AFFmpeg(sticker) as ffmpeg:
+            async with AFFmpeg(sticker) as ffmpeg:
                 animated = True
                 sticker = await ffmpeg.cv_to_webp()
                 io_save = BytesIO(sticker)
@@ -905,7 +905,7 @@ class NewAClient:
         io = BytesIO(await get_bytes_from_name_or_url_async(file))
         io.seek(0)
         buff = io.read()
-        with AFFmpeg(file) as ffmpeg:
+        async with AFFmpeg(file) as ffmpeg:
             duration = int((await ffmpeg.extract_info()).format.duration)
             thumbnail = await ffmpeg.extract_thumbnail()
         upload = await self.upload(buff)
@@ -1070,7 +1070,7 @@ class NewAClient:
         io.seek(0)
         buff = io.read()
         upload = await self.upload(buff)
-        with AFFmpeg(io.getvalue()) as ffmpeg:
+        async with AFFmpeg(io.getvalue()) as ffmpeg:
             duration = int((await ffmpeg.extract_info()).format.duration)
         message = Message(
             audioMessage=AudioMessage(
@@ -2755,7 +2755,7 @@ class ClientFactory:
         return self.get_all_devices_from_db(self.database_name)
 
     def new_client(
-        self, jid: JID = None, uuid: str = None, props: Optional[DeviceProps] = None
+        self, jid: Optional[JID] = None, uuid: Optional[str] = None, props: Optional[DeviceProps] = None
     ) -> NewAClient:
         """
         This function creates a new instance of the client. If the jid parameter is not provided, a new client will be created.
@@ -2769,7 +2769,7 @@ class ClientFactory:
         :type props: Optional[DeviceProps]
         """
 
-        if not jid and not uuid:
+        if jid is None and uuid is None:
             # you must at least provide a uuid to make sure the client is unique
             raise Exception("JID and UUID cannot be none")
 
