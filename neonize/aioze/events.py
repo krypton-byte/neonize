@@ -149,6 +149,7 @@ class Event:
 
         return callback
 
+
 class EventsManager:
     def __init__(self, client_factory: ClientFactory):
         self.client_factory = client_factory
@@ -165,6 +166,8 @@ class EventsManager:
         :return: A decorator that registers the callback function.
         :rtype: Callable[[Callable[[NewClient, EventType], None]], None]
         """
+
         def callback(func: Callable[[NewAClient, EventType], Awaitable[None]]) -> None:
             self.list_func.update({EVENT_TO_INT[event]: func})
+
         return callback

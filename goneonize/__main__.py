@@ -161,5 +161,6 @@ def build_android():
     #     shell=os.name == "nt",
     # )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     build()

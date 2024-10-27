@@ -182,8 +182,9 @@ ReturnType = TypeVar("ReturnType")
 
 
 class GoCode:
+    @staticmethod
     def execute_sync_function(
-        self, func: Callable[SyncFunctionParams, ReturnType]
+        func: Callable[SyncFunctionParams, ReturnType],
     ) -> Callable[SyncFunctionParams, Awaitable[ReturnType]]:
         def call(
             *args: SyncFunctionParams.args, **kwargs: SyncFunctionParams.kwargs
@@ -2672,13 +2673,12 @@ class NewAClient:
             len(extra_buff),
         )
         return SendResponse.FromString(response.get_bytes())
+
     async def send_presence(self, presence: Presence):
-            response = await self.__client.SendPresence(
-                self.uuid,
-                presence.value
-            )
-            if response:
-                raise SendPresenceError(response)
+        response = await self.__client.SendPresence(self.uuid, presence.value)
+        if response:
+            raise SendPresenceError(response)
+
     async def connect(self):
         """Establishes a connection to the WhatsApp servers."""
         # Convert the list of functions to a bytearray
@@ -2723,8 +2723,6 @@ class NewAClient:
         self.__client.Disconnect(self.uuid)
 
 
-
-
 class ClientFactory:
     def __init__(self, database_name: str = "neonize.db") -> None:
         """
@@ -2753,7 +2751,12 @@ class ClientFactory:
             id, server = id.split("@")
             jid = build_jid(id, server)
 
-            device = Device(JID=jid, PushName=push_name, BussinessName=bussniess_name, Initialized=initialized == "true")
+            device = Device(
+                JID=jid,
+                PushName=push_name,
+                BussinessName=bussniess_name,
+                Initialized=initialized == "true",
+            )
             devices.append(device)
 
         return devices
@@ -2763,7 +2766,10 @@ class ClientFactory:
         return self.get_all_devices_from_db(self.database_name)
 
     def new_client(
-        self, jid: Optional[JID] = None, uuid: Optional[str] = None, props: Optional[DeviceProps] = None
+        self,
+        jid: Optional[JID] = None,
+        uuid: Optional[str] = None,
+        props: Optional[DeviceProps] = None,
     ) -> NewAClient:
         """
         This function creates a new instance of the client. If the jid parameter is not provided, a new client will be created.

@@ -2522,13 +2522,12 @@ class NewClient:
             len(extra_buff),
         )
         return SendResponse.FromString(response.get_bytes())
+
     def send_presence(self, presence: Presence):
-        response = self.__client.SendPresence(
-            self.uuid,
-            presence.value
-        )
+        response = self.__client.SendPresence(self.uuid, presence.value)
         if response:
             raise SendPresenceError(response)
+
     def connect(self):
         """Establishes a connection to the WhatsApp servers."""
         # Convert the list of functions to a bytearray
@@ -2601,7 +2600,12 @@ class ClientFactory:
             id, server = id.split("@")
             jid = build_jid(id, server)
 
-            device = Device(JID=jid, PushName=push_name, BussinessName=bussniess_name, Initialized=initialized == "true")
+            device = Device(
+                JID=jid,
+                PushName=push_name,
+                BussinessName=bussniess_name,
+                Initialized=initialized == "true",
+            )
             devices.append(device)
 
         return devices

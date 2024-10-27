@@ -312,6 +312,7 @@ async def handler(client: NewAClient, message: MessageEv):
                 ),
             )
 
+
 @client_factory.event(PairStatusEv)
 async def PairStatusMessage(_: NewAClient, message: PairStatusEv):
     log.info(f"logged as {message.ID.User}")

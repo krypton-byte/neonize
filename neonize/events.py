@@ -105,6 +105,7 @@ class EventsManager:
     def __init__(self, client_factory: ClientFactory):
         self.client_factory = client_factory
         self.list_func: Dict[int, Callable[[NewClient, Message], None]] = {}
+
     def __call__(
         self, event: Type[EventType]
     ) -> Callable[[Callable[[NewClient, EventType], None]], None]:
