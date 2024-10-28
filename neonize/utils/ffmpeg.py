@@ -209,7 +209,7 @@ class AFFmpeg:
                 file.write(self.__file_data)
         return self
 
-    async def __aexit__(self, *ex):
+    async def __aexit__(self, *args, **kwargs):
         if not isinstance(self.filename, str):
             self.filename.__exit__(None, None, None)
 
