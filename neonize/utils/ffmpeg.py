@@ -260,16 +260,13 @@ class AFFmpeg:
         return buf
 
     async def call(self, cmd: List[str]):
-        if any(" " in part for part in cmd):
-            cmd_str = shlex.join(cmd)
-        else:
-            cmd_str = " ".join(cmd)
+        cmd_str = shlex.join(cmd) if any(" " in part for part in cmd) else " ".join(cmd)
         popen = await asyncio.create_subprocess_shell(
-            cmd_str,
+            cmd_str if os.name == "nt" else shlex.join(cmd) ,
             stderr=asyncio.subprocess.PIPE,
             stdout=asyncio.subprocess.PIPE,
             stdin=subprocess.DEVNULL,
-            shell=True if os.name == "nt" else False,
+            # shell=True if os.name == "nt" else False,
         )
         stdout, stderr = await popen.communicate()  # type: ignore
         if popen.returncode != 0:
