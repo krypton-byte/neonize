@@ -845,6 +845,15 @@ message CallTerminate {
 message UnknownCallEvent {
     required Node node = 1;
 }
+message UndecryptableMessage {
+    required MessageInfo Info = 1;
+    required bool IsUnavailable = 2;
+    enum DecryptFailModeT {
+        DECRYPT_FAIL_SHOW = 1;
+        DECRYPT_FAIL_HIDE = 2;
+    }
+    required DecryptFailModeT DecryptFailMode = 3;
+}
 message UpdateGroupParticipantsReturnFunction {
     optional string Error = 1;
     repeated GroupParticipant participants = 2;

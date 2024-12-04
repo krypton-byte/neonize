@@ -887,3 +887,18 @@ func EncodeCallRemoteMeta(callRemoteMeta types.CallRemoteMeta) *defproto.CallRem
 		RemoteVersion:  proto.String(callRemoteMeta.RemoteVersion),
 	}
 }
+
+func EncodeUndecryptableMessageEvent(undecryptableMessage events.UndecryptableMessage) *defproto.UndecryptableMessage {
+	var failMode defproto.UndecryptableMessage_DecryptFailModeT
+	switch undecryptableMessage.DecryptFailMode {
+	case "":
+		failMode = defproto.UndecryptableMessage_DECRYPT_FAIL_SHOW
+	case "hide":
+		failMode = defproto.UndecryptableMessage_DECRYPT_FAIL_HIDE
+	}
+	return &defproto.UndecryptableMessage{
+		Info:            EncodeMessageInfo(undecryptableMessage.Info),
+		IsUnavailable:   &undecryptableMessage.IsUnavailable,
+		DecryptFailMode: &failMode,
+	}
+}

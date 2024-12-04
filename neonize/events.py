@@ -49,6 +49,7 @@ from .proto.Neonize_pb2 import (
     CallRelayLatency as CallRelayLatencyEV,
     CallTerminate as CallTerminateEv,
     UnknownCallEvent as UnknownCallEventEV,
+    UndecryptableMessage as UndecryptableMessageEv
 )
 
 log = logging.getLogger(__name__)
@@ -95,6 +96,7 @@ EVENT_TO_INT: Dict[Type[Message], int] = {
     CallRelayLatencyEV: 41,
     CallTerminateEv: 42,
     UnknownCallEventEV: 43,
+    UndecryptableMessageEv: 44,
 }
 INT_TO_EVENT: Dict[int, Type[Message]] = {code: ev for ev, code in EVENT_TO_INT.items()}
 

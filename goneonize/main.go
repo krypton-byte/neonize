@@ -636,6 +636,16 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 				data, size := getBytesAndSize(call_bytes)
 				go C.call_c_func_callback_bytes(event, data, size, C.int(43))
 			}
+		case *events.UndecryptableMessage:
+			if _, ok := subscribers[44]; ok {
+				undecryptableMessage := utils.EncodeUndecryptableMessageEvent(*v)
+				call_bytes, err := proto.Marshal(undecryptableMessage)
+				if err != nil {
+					panic(err)
+				}
+				data, size := getBytesAndSize(call_bytes)
+				go C.call_c_func_callback_bytes(event, data, size, C.int(44))
+			}
 		}
 
 		// C.free(unsafe.Pointer(CData))

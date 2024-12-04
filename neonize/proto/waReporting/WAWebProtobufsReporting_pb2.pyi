@@ -32,19 +32,7 @@ class Reportable(google.protobuf.message.Message):
         notReportableMinVersion: builtins.int = ...,
         never: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "maxVersion",
-            b"maxVersion",
-            "minVersion",
-            b"minVersion",
-            "never",
-            b"never",
-            "notReportableMinVersion",
-            b"notReportableMinVersion",
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["maxVersion", b"maxVersion", "minVersion", b"minVersion", "never", b"never", "notReportableMinVersion", b"notReportableMinVersion"]) -> None: ...
 
 global___Reportable = Reportable
 
@@ -67,31 +55,21 @@ class Config(google.protobuf.message.Message):
             key: builtins.int = ...,
             value: global___Field | None = ...,
         ) -> None: ...
-        def HasField(
-            self, field_name: typing.Literal["value", b"value"]
-        ) -> builtins.bool: ...
-        def ClearField(
-            self, field_name: typing.Literal["key", b"key", "value", b"value"]
-        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
     FIELD_FIELD_NUMBER: builtins.int
     VERSION_FIELD_NUMBER: builtins.int
     version: builtins.int
     @property
-    def field(
-        self,
-    ) -> google.protobuf.internal.containers.MessageMap[
-        builtins.int, global___Field
-    ]: ...
+    def field(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___Field]: ...
     def __init__(
         self,
         *,
         field: collections.abc.Mapping[builtins.int, global___Field] | None = ...,
         version: builtins.int = ...,
     ) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["field", b"field", "version", b"version"]
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["field", b"field", "version", b"version"]) -> None: ...
 
 global___Config = Config
 
@@ -114,12 +92,8 @@ class Field(google.protobuf.message.Message):
             key: builtins.int = ...,
             value: global___Field | None = ...,
         ) -> None: ...
-        def HasField(
-            self, field_name: typing.Literal["value", b"value"]
-        ) -> builtins.bool: ...
-        def ClearField(
-            self, field_name: typing.Literal["key", b"key", "value", b"value"]
-        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
     MINVERSION_FIELD_NUMBER: builtins.int
     MAXVERSION_FIELD_NUMBER: builtins.int
@@ -131,11 +105,7 @@ class Field(google.protobuf.message.Message):
     notReportableMinVersion: builtins.int
     isMessage: builtins.bool
     @property
-    def subfield(
-        self,
-    ) -> google.protobuf.internal.containers.MessageMap[
-        builtins.int, global___Field
-    ]: ...
+    def subfield(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___Field]: ...
     def __init__(
         self,
         *,
@@ -145,20 +115,6 @@ class Field(google.protobuf.message.Message):
         isMessage: builtins.bool = ...,
         subfield: collections.abc.Mapping[builtins.int, global___Field] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "isMessage",
-            b"isMessage",
-            "maxVersion",
-            b"maxVersion",
-            "minVersion",
-            b"minVersion",
-            "notReportableMinVersion",
-            b"notReportableMinVersion",
-            "subfield",
-            b"subfield",
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["isMessage", b"isMessage", "maxVersion", b"maxVersion", "minVersion", b"minVersion", "notReportableMinVersion", b"notReportableMinVersion", "subfield", b"subfield"]) -> None: ...
 
 global___Field = Field

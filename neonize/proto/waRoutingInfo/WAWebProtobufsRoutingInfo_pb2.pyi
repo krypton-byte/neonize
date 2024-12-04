@@ -27,17 +27,9 @@ class RoutingInfo(google.protobuf.message.Message):
     tcpBbr: builtins.bool
     tcpKeepalive: builtins.bool
     @property
-    def regionID(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-        builtins.int
-    ]: ...
+    def regionID(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
-    def clusterID(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-        builtins.int
-    ]: ...
+    def clusterID(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     def __init__(
         self,
         *,
@@ -48,35 +40,7 @@ class RoutingInfo(google.protobuf.message.Message):
         tcpBbr: builtins.bool | None = ...,
         tcpKeepalive: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "debug",
-            b"debug",
-            "taskID",
-            b"taskID",
-            "tcpBbr",
-            b"tcpBbr",
-            "tcpKeepalive",
-            b"tcpKeepalive",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "clusterID",
-            b"clusterID",
-            "debug",
-            b"debug",
-            "regionID",
-            b"regionID",
-            "taskID",
-            b"taskID",
-            "tcpBbr",
-            b"tcpBbr",
-            "tcpKeepalive",
-            b"tcpKeepalive",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["debug", b"debug", "taskID", b"taskID", "tcpBbr", b"tcpBbr", "tcpKeepalive", b"tcpKeepalive"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["clusterID", b"clusterID", "debug", b"debug", "regionID", b"regionID", "taskID", b"taskID", "tcpBbr", b"tcpBbr", "tcpKeepalive", b"tcpKeepalive"]) -> None: ...
 
 global___RoutingInfo = RoutingInfo
