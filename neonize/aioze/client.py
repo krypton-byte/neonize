@@ -2716,11 +2716,11 @@ class NewAClient:
             0,
         )
 
-    def disconnect(self) -> None:
+    async def disconnect(self) -> None:
         """
         Disconnect the client
         """
-        self.__client.Disconnect(self.uuid)
+        await self.__client.Disconnect(self.uuid)
 
 
 class ClientFactory:
