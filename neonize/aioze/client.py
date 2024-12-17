@@ -174,6 +174,7 @@ from .._binder import gocode
 from .events import Event
 from ..utils.log import log
 from concurrent.futures import ThreadPoolExecutor
+from linkpreview import link_preview as fallback_link_preview
 
 loop = get_event_loop()
 
@@ -471,6 +472,8 @@ class NewAClient:
         valid_links = list(filter(validate_link, links))
         if valid_links:
             preview = await link_preview(valid_links[0])
+            if not preview:
+                preview = fallback_link_preview(valid_links[0])
             preview_type = (
                 ExtendedTextMessage.PreviewType.VIDEO
                 if re.match(youtube_url_pattern, valid_links[0])
