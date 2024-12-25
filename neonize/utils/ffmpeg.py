@@ -275,6 +275,32 @@ class AFFmpeg:
             )
         return stdout
 
+    async def gif_to_mp4(self) -> bytes:
+        """
+        This function convertes a gif to mp4 format.
+        """
+        temp = tempfile.gettempdir() + "/" + time.time().__str__() + ".mp4"
+        await self.call(
+            [
+                "ffmpeg",
+                "-i",
+                self.filepath,
+                "-movflags",
+                "faststart",
+                "-pix_fmt",
+                "yuv420p",
+                "-vf",
+                "scale=trunc(iw/2)*2:trunc(ih/2)*2",
+                "-crf",
+                "17",
+                temp,
+            ]
+        )
+        with open(temp, "rb") as file:
+            buf = file.read()
+        os.remove(temp)
+        return buf
+
     async def to_mp3(self) -> bytes:
         temp = tempfile.gettempdir() + "/" + time.time().__str__() + ".mp3"
         await self.call(
