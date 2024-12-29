@@ -892,6 +892,8 @@ class NewAClient:
         caption: Optional[str] = None,
         quoted: Optional[neonize_proto.Message] = None,
         viewonce: bool = False,
+        gifplayback: bool = False,
+        is_gif:bool = False,
     ) -> Message:
         """
         This function is used to build a video message. It uploads a video file, extracts necessary information,
@@ -905,12 +907,19 @@ class NewAClient:
         :type quoted: Optional[neonize_proto.Message], optional
         :param viewonce: A flag indicating if the video message can be viewed only once, defaults to False
         :type viewonce: bool, optional
+        :param gifplayback: Optional. Whether the video should be sent as gif. Defaults to False.
+        :type gifplayback: bool, optional
+        :param is_gif: Optional. Whether the video to be sent is a gif. Defaults to False.
+        :type is_gif: bool, optional
         :return: A video message with the given parameters.
         :rtype: Message
         """
         io = BytesIO(await get_bytes_from_name_or_url_async(file))
         io.seek(0)
         buff = io.read()
+        if is_gif:
+            async with AFFmpeg(file) as ffmpeg:
+                buff = file = await ffmpeg.gif_to_mp4()
         async with AFFmpeg(file) as ffmpeg:
             duration = int((await ffmpeg.extract_info()).format.duration)
             thumbnail = await ffmpeg.extract_thumbnail()
@@ -919,6 +928,7 @@ class NewAClient:
             videoMessage=VideoMessage(
                 URL=upload.url,
                 caption=caption,
+                gifPlayback=gifplayback,
                 seconds=duration,
                 directPath=upload.DirectPath,
                 fileEncSHA256=upload.FileEncSHA256,
@@ -949,6 +959,8 @@ class NewAClient:
         caption: Optional[str] = None,
         quoted: Optional[neonize_proto.Message] = None,
         viewonce: bool = False,
+        gifplayback: bool = False,
+        is_gif:bool = False,
     ) -> SendResponse:
         """Sends a video to the specified recipient.
 
@@ -962,11 +974,15 @@ class NewAClient:
         :type quoted: Optional[Message], optional
         :param viewonce: Optional. Whether the video should be viewonce. Defaults to False.
         :type viewonce: bool, optional
+        :param gifplayback: Optional. Whether the video should be sent as gif. Defaults to False.
+        :type gifplayback: bool, optional
+        :param is_gif: Optional. Whether the video to be sent is a gif. Defaults to False.
+        :type is_gif: bool, optional
         :return: A function for handling the result of the video sending process.
         :rtype: SendResponse
         """
         return await self.send_message(
-            to, await self.build_video_message(file, caption, quoted, viewonce)
+            to, await self.build_video_message(file, caption, quoted, viewonce, gifplayback, is_gif)
         )
 
     async def build_image_message(
