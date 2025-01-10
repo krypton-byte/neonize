@@ -1,9 +1,10 @@
 package utils
 
 import (
+	"C"
 	"time"
 
-	"github.com/krypton-byte/neonize/defproto"
+	defproto "github.com/krypton-byte/neonize/defproto"
 	"go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/appstate"
 	waVname "go.mau.fi/whatsmeow/proto/waVnameCert"
