@@ -981,7 +981,7 @@ func SetGroupPhoto(id *C.char, JIDByte *C.uchar, JIDSize C.int, Photo *C.uchar, 
 		return_.Error = proto.String(err_status.Error())
 	}
 	return_buf, err_marshal := proto.Marshal(&return_)
-	if err != nil {
+	if err_marshal != nil {
 		panic(err_marshal)
 	}
 	return ReturnBytes(return_buf)
