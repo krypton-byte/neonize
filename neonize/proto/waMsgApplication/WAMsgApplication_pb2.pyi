@@ -30,18 +30,11 @@ class MessageApplication(google.protobuf.message.Message):
             ValueType = typing.NewType("ValueType", builtins.int)
             V: typing_extensions.TypeAlias = ValueType
 
-        class _ThreadTypeEnumTypeWrapper(
-            google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-                MessageApplication.Metadata._ThreadType.ValueType
-            ],
-            builtins.type,
-        ):
+        class _ThreadTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[MessageApplication.Metadata._ThreadType.ValueType], builtins.type):
             DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
             DEFAULT: MessageApplication.Metadata._ThreadType.ValueType  # 0
             VANISH_MODE: MessageApplication.Metadata._ThreadType.ValueType  # 1
-            DISAPPEARING_MESSAGES: (
-                MessageApplication.Metadata._ThreadType.ValueType
-            )  # 2
+            DISAPPEARING_MESSAGES: MessageApplication.Metadata._ThreadType.ValueType  # 2
 
         class ThreadType(_ThreadType, metaclass=_ThreadTypeEnumTypeWrapper): ...
         DEFAULT: MessageApplication.Metadata.ThreadType.ValueType  # 0
@@ -69,32 +62,8 @@ class MessageApplication(google.protobuf.message.Message):
                 participant: builtins.str | None = ...,
                 payload: global___MessageApplication.Payload | None = ...,
             ) -> None: ...
-            def HasField(
-                self,
-                field_name: typing.Literal[
-                    "participant",
-                    b"participant",
-                    "payload",
-                    b"payload",
-                    "remoteJID",
-                    b"remoteJID",
-                    "stanzaID",
-                    b"stanzaID",
-                ],
-            ) -> builtins.bool: ...
-            def ClearField(
-                self,
-                field_name: typing.Literal[
-                    "participant",
-                    b"participant",
-                    "payload",
-                    b"payload",
-                    "remoteJID",
-                    b"remoteJID",
-                    "stanzaID",
-                    b"stanzaID",
-                ],
-            ) -> None: ...
+            def HasField(self, field_name: typing.Literal["participant", b"participant", "payload", b"payload", "remoteJID", b"remoteJID", "stanzaID", b"stanzaID"]) -> builtins.bool: ...
+            def ClearField(self, field_name: typing.Literal["participant", b"participant", "payload", b"payload", "remoteJID", b"remoteJID", "stanzaID", b"stanzaID"]) -> None: ...
 
         @typing.final
         class EphemeralSettingMap(google.protobuf.message.Message):
@@ -104,28 +73,15 @@ class MessageApplication(google.protobuf.message.Message):
             EPHEMERALSETTING_FIELD_NUMBER: builtins.int
             chatJID: builtins.str
             @property
-            def ephemeralSetting(
-                self,
-            ) -> global___MessageApplication.EphemeralSetting: ...
+            def ephemeralSetting(self) -> global___MessageApplication.EphemeralSetting: ...
             def __init__(
                 self,
                 *,
                 chatJID: builtins.str | None = ...,
-                ephemeralSetting: global___MessageApplication.EphemeralSetting
-                | None = ...,
+                ephemeralSetting: global___MessageApplication.EphemeralSetting | None = ...,
             ) -> None: ...
-            def HasField(
-                self,
-                field_name: typing.Literal[
-                    "chatJID", b"chatJID", "ephemeralSetting", b"ephemeralSetting"
-                ],
-            ) -> builtins.bool: ...
-            def ClearField(
-                self,
-                field_name: typing.Literal[
-                    "chatJID", b"chatJID", "ephemeralSetting", b"ephemeralSetting"
-                ],
-            ) -> None: ...
+            def HasField(self, field_name: typing.Literal["chatJID", b"chatJID", "ephemeralSetting", b"ephemeralSetting"]) -> builtins.bool: ...
+            def ClearField(self, field_name: typing.Literal["chatJID", b"chatJID", "ephemeralSetting", b"ephemeralSetting"]) -> None: ...
 
         CHATEPHEMERALSETTING_FIELD_NUMBER: builtins.int
         EPHEMERALSETTINGLIST_FIELD_NUMBER: builtins.int
@@ -158,36 +114,26 @@ class MessageApplication(google.protobuf.message.Message):
         collapsibleID: builtins.str
         secondaryOtid: builtins.str
         @property
-        def chatEphemeralSetting(
-            self,
-        ) -> global___MessageApplication.EphemeralSetting: ...
+        def chatEphemeralSetting(self) -> global___MessageApplication.EphemeralSetting: ...
         @property
-        def ephemeralSettingList(
-            self,
-        ) -> global___MessageApplication.Metadata.EphemeralSettingMap: ...
+        def ephemeralSettingList(self) -> global___MessageApplication.Metadata.EphemeralSettingMap: ...
         @property
         def businessMetadata(self) -> waCommon.WACommon_pb2.SubProtocol: ...
         @property
-        def quotedMessage(
-            self,
-        ) -> global___MessageApplication.Metadata.QuotedMessage: ...
+        def quotedMessage(self) -> global___MessageApplication.Metadata.QuotedMessage: ...
         def __init__(
             self,
             *,
-            chatEphemeralSetting: global___MessageApplication.EphemeralSetting
-            | None = ...,
-            ephemeralSettingList: global___MessageApplication.Metadata.EphemeralSettingMap
-            | None = ...,
+            chatEphemeralSetting: global___MessageApplication.EphemeralSetting | None = ...,
+            ephemeralSettingList: global___MessageApplication.Metadata.EphemeralSettingMap | None = ...,
             ephemeralSharedSecret: builtins.bytes | None = ...,
             forwardingScore: builtins.int | None = ...,
             isForwarded: builtins.bool | None = ...,
             businessMetadata: waCommon.WACommon_pb2.SubProtocol | None = ...,
             frankingKey: builtins.bytes | None = ...,
             frankingVersion: builtins.int | None = ...,
-            quotedMessage: global___MessageApplication.Metadata.QuotedMessage
-            | None = ...,
-            threadType: global___MessageApplication.Metadata.ThreadType.ValueType
-            | None = ...,
+            quotedMessage: global___MessageApplication.Metadata.QuotedMessage | None = ...,
+            threadType: global___MessageApplication.Metadata.ThreadType.ValueType | None = ...,
             readonlyMetadataDataclass: builtins.str | None = ...,
             groupID: builtins.str | None = ...,
             groupSize: builtins.int | None = ...,
@@ -196,96 +142,9 @@ class MessageApplication(google.protobuf.message.Message):
             collapsibleID: builtins.str | None = ...,
             secondaryOtid: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(
-            self,
-            field_name: typing.Literal[
-                "botResponseID",
-                b"botResponseID",
-                "businessMetadata",
-                b"businessMetadata",
-                "chatEphemeralSetting",
-                b"chatEphemeralSetting",
-                "collapsibleID",
-                b"collapsibleID",
-                "ephemeral",
-                b"ephemeral",
-                "ephemeralSettingList",
-                b"ephemeralSettingList",
-                "ephemeralSharedSecret",
-                b"ephemeralSharedSecret",
-                "forwardingScore",
-                b"forwardingScore",
-                "frankingKey",
-                b"frankingKey",
-                "frankingVersion",
-                b"frankingVersion",
-                "groupID",
-                b"groupID",
-                "groupIndex",
-                b"groupIndex",
-                "groupSize",
-                b"groupSize",
-                "isForwarded",
-                b"isForwarded",
-                "quotedMessage",
-                b"quotedMessage",
-                "readonlyMetadataDataclass",
-                b"readonlyMetadataDataclass",
-                "secondaryOtid",
-                b"secondaryOtid",
-                "threadType",
-                b"threadType",
-            ],
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "botResponseID",
-                b"botResponseID",
-                "businessMetadata",
-                b"businessMetadata",
-                "chatEphemeralSetting",
-                b"chatEphemeralSetting",
-                "collapsibleID",
-                b"collapsibleID",
-                "ephemeral",
-                b"ephemeral",
-                "ephemeralSettingList",
-                b"ephemeralSettingList",
-                "ephemeralSharedSecret",
-                b"ephemeralSharedSecret",
-                "forwardingScore",
-                b"forwardingScore",
-                "frankingKey",
-                b"frankingKey",
-                "frankingVersion",
-                b"frankingVersion",
-                "groupID",
-                b"groupID",
-                "groupIndex",
-                b"groupIndex",
-                "groupSize",
-                b"groupSize",
-                "isForwarded",
-                b"isForwarded",
-                "quotedMessage",
-                b"quotedMessage",
-                "readonlyMetadataDataclass",
-                b"readonlyMetadataDataclass",
-                "secondaryOtid",
-                b"secondaryOtid",
-                "threadType",
-                b"threadType",
-            ],
-        ) -> None: ...
-        def WhichOneof(
-            self, oneof_group: typing.Literal["ephemeral", b"ephemeral"]
-        ) -> (
-            typing.Literal[
-                "chatEphemeralSetting", "ephemeralSettingList", "ephemeralSharedSecret"
-            ]
-            | None
-        ): ...
+        def HasField(self, field_name: typing.Literal["botResponseID", b"botResponseID", "businessMetadata", b"businessMetadata", "chatEphemeralSetting", b"chatEphemeralSetting", "collapsibleID", b"collapsibleID", "ephemeral", b"ephemeral", "ephemeralSettingList", b"ephemeralSettingList", "ephemeralSharedSecret", b"ephemeralSharedSecret", "forwardingScore", b"forwardingScore", "frankingKey", b"frankingKey", "frankingVersion", b"frankingVersion", "groupID", b"groupID", "groupIndex", b"groupIndex", "groupSize", b"groupSize", "isForwarded", b"isForwarded", "quotedMessage", b"quotedMessage", "readonlyMetadataDataclass", b"readonlyMetadataDataclass", "secondaryOtid", b"secondaryOtid", "threadType", b"threadType"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["botResponseID", b"botResponseID", "businessMetadata", b"businessMetadata", "chatEphemeralSetting", b"chatEphemeralSetting", "collapsibleID", b"collapsibleID", "ephemeral", b"ephemeral", "ephemeralSettingList", b"ephemeralSettingList", "ephemeralSharedSecret", b"ephemeralSharedSecret", "forwardingScore", b"forwardingScore", "frankingKey", b"frankingKey", "frankingVersion", b"frankingVersion", "groupID", b"groupID", "groupIndex", b"groupIndex", "groupSize", b"groupSize", "isForwarded", b"isForwarded", "quotedMessage", b"quotedMessage", "readonlyMetadataDataclass", b"readonlyMetadataDataclass", "secondaryOtid", b"secondaryOtid", "threadType", b"threadType"]) -> None: ...
+        def WhichOneof(self, oneof_group: typing.Literal["ephemeral", b"ephemeral"]) -> typing.Literal["chatEphemeralSetting", "ephemeralSettingList", "ephemeralSharedSecret"] | None: ...
 
     @typing.final
     class Payload(google.protobuf.message.Message):
@@ -311,42 +170,9 @@ class MessageApplication(google.protobuf.message.Message):
             applicationData: global___MessageApplication.ApplicationData | None = ...,
             subProtocol: global___MessageApplication.SubProtocolPayload | None = ...,
         ) -> None: ...
-        def HasField(
-            self,
-            field_name: typing.Literal[
-                "applicationData",
-                b"applicationData",
-                "content",
-                b"content",
-                "coreContent",
-                b"coreContent",
-                "signal",
-                b"signal",
-                "subProtocol",
-                b"subProtocol",
-            ],
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "applicationData",
-                b"applicationData",
-                "content",
-                b"content",
-                "coreContent",
-                b"coreContent",
-                "signal",
-                b"signal",
-                "subProtocol",
-                b"subProtocol",
-            ],
-        ) -> None: ...
-        def WhichOneof(
-            self, oneof_group: typing.Literal["content", b"content"]
-        ) -> (
-            typing.Literal["coreContent", "signal", "applicationData", "subProtocol"]
-            | None
-        ): ...
+        def HasField(self, field_name: typing.Literal["applicationData", b"applicationData", "content", b"content", "coreContent", b"coreContent", "signal", b"signal", "subProtocol", b"subProtocol"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["applicationData", b"applicationData", "content", b"content", "coreContent", b"coreContent", "signal", b"signal", "subProtocol", b"subProtocol"]) -> None: ...
+        def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["coreContent", "signal", "applicationData", "subProtocol"] | None: ...
 
     @typing.final
     class SubProtocolPayload(google.protobuf.message.Message):
@@ -381,64 +207,11 @@ class MessageApplication(google.protobuf.message.Message):
             multiDevice: waCommon.WACommon_pb2.SubProtocol | None = ...,
             voip: waCommon.WACommon_pb2.SubProtocol | None = ...,
             armadillo: waCommon.WACommon_pb2.SubProtocol | None = ...,
-            futureProof: waCommon.WACommon_pb2.FutureProofBehavior.ValueType
-            | None = ...,
+            futureProof: waCommon.WACommon_pb2.FutureProofBehavior.ValueType | None = ...,
         ) -> None: ...
-        def HasField(
-            self,
-            field_name: typing.Literal[
-                "armadillo",
-                b"armadillo",
-                "businessMessage",
-                b"businessMessage",
-                "consumerMessage",
-                b"consumerMessage",
-                "futureProof",
-                b"futureProof",
-                "multiDevice",
-                b"multiDevice",
-                "paymentMessage",
-                b"paymentMessage",
-                "subProtocol",
-                b"subProtocol",
-                "voip",
-                b"voip",
-            ],
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "armadillo",
-                b"armadillo",
-                "businessMessage",
-                b"businessMessage",
-                "consumerMessage",
-                b"consumerMessage",
-                "futureProof",
-                b"futureProof",
-                "multiDevice",
-                b"multiDevice",
-                "paymentMessage",
-                b"paymentMessage",
-                "subProtocol",
-                b"subProtocol",
-                "voip",
-                b"voip",
-            ],
-        ) -> None: ...
-        def WhichOneof(
-            self, oneof_group: typing.Literal["subProtocol", b"subProtocol"]
-        ) -> (
-            typing.Literal[
-                "consumerMessage",
-                "businessMessage",
-                "paymentMessage",
-                "multiDevice",
-                "voip",
-                "armadillo",
-            ]
-            | None
-        ): ...
+        def HasField(self, field_name: typing.Literal["armadillo", b"armadillo", "businessMessage", b"businessMessage", "consumerMessage", b"consumerMessage", "futureProof", b"futureProof", "multiDevice", b"multiDevice", "paymentMessage", b"paymentMessage", "subProtocol", b"subProtocol", "voip", b"voip"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["armadillo", b"armadillo", "businessMessage", b"businessMessage", "consumerMessage", b"consumerMessage", "futureProof", b"futureProof", "multiDevice", b"multiDevice", "paymentMessage", b"paymentMessage", "subProtocol", b"subProtocol", "voip", b"voip"]) -> None: ...
+        def WhichOneof(self, oneof_group: typing.Literal["subProtocol", b"subProtocol"]) -> typing.Literal["consumerMessage", "businessMessage", "paymentMessage", "multiDevice", "voip", "armadillo"] | None: ...
 
     @typing.final
     class ApplicationData(google.protobuf.message.Message):
@@ -481,28 +254,8 @@ class MessageApplication(google.protobuf.message.Message):
             ephemeralSettingTimestamp: builtins.int | None = ...,
             isEphemeralSettingReset: builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(
-            self,
-            field_name: typing.Literal[
-                "ephemeralExpiration",
-                b"ephemeralExpiration",
-                "ephemeralSettingTimestamp",
-                b"ephemeralSettingTimestamp",
-                "isEphemeralSettingReset",
-                b"isEphemeralSettingReset",
-            ],
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "ephemeralExpiration",
-                b"ephemeralExpiration",
-                "ephemeralSettingTimestamp",
-                b"ephemeralSettingTimestamp",
-                "isEphemeralSettingReset",
-                b"isEphemeralSettingReset",
-            ],
-        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isEphemeralSettingReset", b"isEphemeralSettingReset"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isEphemeralSettingReset", b"isEphemeralSettingReset"]) -> None: ...
 
     PAYLOAD_FIELD_NUMBER: builtins.int
     METADATA_FIELD_NUMBER: builtins.int
@@ -516,11 +269,7 @@ class MessageApplication(google.protobuf.message.Message):
         payload: global___MessageApplication.Payload | None = ...,
         metadata: global___MessageApplication.Metadata | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]) -> None: ...
 
 global___MessageApplication = MessageApplication

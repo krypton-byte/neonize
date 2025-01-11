@@ -4,44 +4,36 @@
 # source: waLidMigrationSyncPayload/WAWebProtobufLidMigrationSyncPayload.proto
 # Protobuf Python Version: 5.28.2
 """Generated protocol buffer code."""
-
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import runtime_version as _runtime_version
 from google.protobuf import symbol_database as _symbol_database
 from google.protobuf.internal import builder as _builder
-
 _runtime_version.ValidateProtobufRuntimeVersion(
     _runtime_version.Domain.PUBLIC,
     5,
     28,
     2,
-    "",
-    "waLidMigrationSyncPayload/WAWebProtobufLidMigrationSyncPayload.proto",
+    '',
+    'waLidMigrationSyncPayload/WAWebProtobufLidMigrationSyncPayload.proto'
 )
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(
-    b'\nDwaLidMigrationSyncPayload/WAWebProtobufLidMigrationSyncPayload.proto\x12$WAWebProtobufLidMigrationSyncPayload"I\n\x13LIDMigrationMapping\x12\n\n\x02pn\x18\x01 \x02(\x04\x12\x13\n\x0b\x61ssignedLid\x18\x02 \x02(\x04\x12\x11\n\tlatestLid\x18\x03 \x01(\x04"t\n\x1eLIDMigrationMappingSyncPayload\x12R\n\x0fpnToLidMappings\x18\x01 \x03(\x0b\x32\x39.WAWebProtobufLidMigrationSyncPayload.LIDMigrationMappingB5Z3go.mau.fi/whatsmeow/proto/waLidMigrationSyncPayload'
-)
+
+
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\nDwaLidMigrationSyncPayload/WAWebProtobufLidMigrationSyncPayload.proto\x12$WAWebProtobufLidMigrationSyncPayload\"I\n\x13LIDMigrationMapping\x12\n\n\x02pn\x18\x01 \x02(\x04\x12\x13\n\x0b\x61ssignedLid\x18\x02 \x02(\x04\x12\x11\n\tlatestLid\x18\x03 \x01(\x04\"t\n\x1eLIDMigrationMappingSyncPayload\x12R\n\x0fpnToLidMappings\x18\x01 \x03(\x0b\x32\x39.WAWebProtobufLidMigrationSyncPayload.LIDMigrationMappingB5Z3go.mau.fi/whatsmeow/proto/waLidMigrationSyncPayload')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
-_builder.BuildTopDescriptorsAndMessages(
-    DESCRIPTOR,
-    "waLidMigrationSyncPayload.WAWebProtobufLidMigrationSyncPayload_pb2",
-    _globals,
-)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'waLidMigrationSyncPayload.WAWebProtobufLidMigrationSyncPayload_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-    _globals["DESCRIPTOR"]._loaded_options = None
-    _globals[
-        "DESCRIPTOR"
-    ]._serialized_options = b"Z3go.mau.fi/whatsmeow/proto/waLidMigrationSyncPayload"
-    _globals["_LIDMIGRATIONMAPPING"]._serialized_start = 110
-    _globals["_LIDMIGRATIONMAPPING"]._serialized_end = 183
-    _globals["_LIDMIGRATIONMAPPINGSYNCPAYLOAD"]._serialized_start = 185
-    _globals["_LIDMIGRATIONMAPPINGSYNCPAYLOAD"]._serialized_end = 301
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z3go.mau.fi/whatsmeow/proto/waLidMigrationSyncPayload'
+  _globals['_LIDMIGRATIONMAPPING']._serialized_start=110
+  _globals['_LIDMIGRATIONMAPPING']._serialized_end=183
+  _globals['_LIDMIGRATIONMAPPINGSYNCPAYLOAD']._serialized_start=185
+  _globals['_LIDMIGRATIONMAPPINGSYNCPAYLOAD']._serialized_end=301
 # @@protoc_insertion_point(module_scope)

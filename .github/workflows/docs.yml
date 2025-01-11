@@ -10,15 +10,13 @@ jobs:
     - uses: actions/setup-python@v4
       with:
         python-version: "3.11.8"
-    - name: Install Poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python - -y
-        poetry source add pypi
-        poetry lock --no-update
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+    - name: install deps
     - name: build docs
       run: |
-        poetry install --with docs
-        poetry run docsbuild
+        poetry sync --docs
+        uv run task docsbuild
     - name: Deploy docs
       uses: JamesIves/github-pages-deploy-action@v4
       with:
