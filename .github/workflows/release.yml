@@ -249,13 +249,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: [android, zig, linux, darwin]
     steps:
-    - if: github.event.inputs.goneonize
+    - if: ${{ github.event.inputs.goneonize }}
       name: Download Artifact
       uses: actions/download-artifact@v4
       with:
         merge-multiple: true
         path: sharedlib
-    - if: github.event.inputs.goneonize
+    - if: ${{ github.event.inputs.goneonize }}
       name: Upload shared library to draft release
       uses: softprops/action-gh-release@v1
       with:
@@ -276,7 +276,7 @@ jobs:
       run: |
         uv sync --dev
         uv run task version neonize --set-version ${{ github.event.inputs.version }}
-    - if: github.event.inputs.goneonize
+    - if: ${{ github.event.inputs.goneonize }}
       name: set target goneonize to ${{ github.event.inputs.version }}
       run: uv run task version goneonize --set-version ${{ github.event.inputs.version }}
     - if: ${{ !github.event.inputs.goneonize }}
