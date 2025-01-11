@@ -8,6 +8,7 @@ on:
         required: true
       goneonize:
         description: build binaries
+        type: boolean
         required: true
         default: true
 env:
