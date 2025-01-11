@@ -262,7 +262,7 @@ class AFFmpeg:
     async def call(self, cmd: List[str]):
         cmd_str = shlex.join(cmd) if any(" " in part for part in cmd) else " ".join(cmd)
         popen = await asyncio.create_subprocess_shell(
-            cmd_str if os.name == "nt" else shlex.join(cmd) ,
+            cmd_str if os.name == "nt" else shlex.join(cmd),
             stderr=asyncio.subprocess.PIPE,
             stdout=asyncio.subprocess.PIPE,
             stdin=subprocess.DEVNULL,

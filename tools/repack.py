@@ -6,8 +6,8 @@ import os
 from typing import Optional
 import platform
 
-WORKDIR = Path(__file__).parent
-fname = "-".join(os.popen("poetry version").read().strip().split(" "))
+WORKDIR = Path(__file__).parent.parent
+fname = "-".join(["neonize", os.popen("uv run task version neonize").read().strip()])
 wheel_name = fname + "-py3-none-any.whl"
 os_name = os.environ.get("GOOS") or platform.system().lower()
 arch_name = os.environ.get("GOARCH") or platform.machine().lower()
@@ -15,8 +15,6 @@ arch_name = {
     "aarch64": "arm64",
     "x86_64": "amd64",
 }.get(arch_name, arch_name)
-
-print(os_name, arch_name)
 
 
 class OS(Enum):
@@ -71,27 +69,38 @@ class ARCH(Enum):
 
 
 def repack(_os: OS, arch: ARCH):
-    subprocess.call(
-        ["wheel", "unpack", WORKDIR / "dist" / wheel_name], cwd=WORKDIR / "dist"
-    )
-    wheel_path = WORKDIR / "dist" / fname / (fname + ".dist-info") / "WHEEL"
-    wheel = open(wheel_path, "r").read()
-    arch_value = arch.value
-    if _os == OS.MAC:
-        arch_value = f"12_0_{arch_value}"
-    with open(wheel_path, "w") as file:
-        if _os == OS.WINDOWS and arch == ARCH.X86:
-            file.write(wheel.replace("py3-none-any", "py310-none-win32"))
-            print(wheel.replace("py3-none-any", "py310-none-win32"))
-        else:
-            file.write(
-                wheel.replace("py3-none-any", f"py310-none-{_os.value}_{arch_value}")
-            )
-            print(wheel.replace("py3-none-any", f"py310-none-{_os.value}_{arch_value}"))
-    subprocess.call(["wheel", "pack", WORKDIR / "dist" / fname], cwd=WORKDIR / "dist")
-    os.remove(WORKDIR / "dist" / wheel_name)
-    os.remove(WORKDIR / "dist" / (fname + ".tar.gz"))
-    shutil.rmtree(WORKDIR / "dist" / fname)
+    try:
+        subprocess.call(
+            ["wheel", "unpack", WORKDIR / "dist" / wheel_name], cwd=WORKDIR / "dist"
+        )
+        wheel_path = WORKDIR / "dist" / fname / (fname + ".dist-info") / "WHEEL"
+        wheel = open(wheel_path, "r").read()
+        arch_value = arch.value
+        if _os == OS.MAC:
+            arch_value = f"12_0_{arch_value}"
+        with open(wheel_path, "w") as file:
+            if _os == OS.WINDOWS and arch == ARCH.X86:
+                file.write(wheel.replace("py3-none-any", "py310-none-win32"))
+                print(wheel.replace("py3-none-any", "py310-none-win32"))
+            else:
+                file.write(
+                    wheel.replace(
+                        "py3-none-any", f"py310-none-{_os.value}_{arch_value}"
+                    )
+                )
+                print(
+                    wheel.replace(
+                        "py3-none-any", f"py310-none-{_os.value}_{arch_value}"
+                    )
+                )
+        subprocess.call(
+            ["wheel", "pack", WORKDIR / "dist" / fname], cwd=WORKDIR / "dist"
+        )
+        os.remove(WORKDIR / "dist" / wheel_name)
+        os.remove(WORKDIR / "dist" / (fname + ".tar.gz"))
+        shutil.rmtree(WORKDIR / "dist" / fname)
+    except FileNotFoundError:
+        print("general wheel file not found\nhint: uv build")
 
 
 if __name__ == "__main__":

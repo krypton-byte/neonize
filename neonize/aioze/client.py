@@ -893,7 +893,7 @@ class NewAClient:
         quoted: Optional[neonize_proto.Message] = None,
         viewonce: bool = False,
         gifplayback: bool = False,
-        is_gif:bool = False,
+        is_gif: bool = False,
     ) -> Message:
         """
         This function is used to build a video message. It uploads a video file, extracts necessary information,
@@ -960,7 +960,7 @@ class NewAClient:
         quoted: Optional[neonize_proto.Message] = None,
         viewonce: bool = False,
         gifplayback: bool = False,
-        is_gif:bool = False,
+        is_gif: bool = False,
     ) -> SendResponse:
         """Sends a video to the specified recipient.
 
@@ -982,7 +982,10 @@ class NewAClient:
         :rtype: SendResponse
         """
         return await self.send_message(
-            to, await self.build_video_message(file, caption, quoted, viewonce, gifplayback, is_gif)
+            to,
+            await self.build_video_message(
+                file, caption, quoted, viewonce, gifplayback, is_gif
+            ),
         )
 
     async def build_image_message(

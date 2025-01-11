@@ -5,6 +5,8 @@ import requests
 from pathlib import Path
 from tqdm import tqdm
 
+__GONEONIZE_VERSION__ = "0.3.8"
+
 
 class UnsupportedPlatform(Exception):
     pass
@@ -16,13 +18,16 @@ def __download(url: str, fname: str, chunk_size=1024):
         resp.close()
         raise UnsupportedPlatform(generated_name())
     total = int(resp.headers.get("content-length", 0))
-    with open(fname, "wb") as file, tqdm(
-        desc=Path(fname).name,
-        total=total,
-        unit="iB",
-        unit_scale=True,
-        unit_divisor=1024,
-    ) as bar:
+    with (
+        open(fname, "wb") as file,
+        tqdm(
+            desc=Path(fname).name,
+            total=total,
+            unit="iB",
+            unit_scale=True,
+            unit_divisor=1024,
+        ) as bar,
+    ):
         for data in resp.iter_content(chunk_size=chunk_size):
             size = file.write(data)
             bar.update(size)
@@ -31,9 +36,8 @@ def __download(url: str, fname: str, chunk_size=1024):
 
 
 def download():
-    version = importlib.metadata.version("neonize")
     __download(
-        f"https://github.com/krypton-byte/neonize/releases/download/{version}/{generated_name()}",
+        f"https://github.com/krypton-byte/neonize/releases/download/{__GONEONIZE_VERSION__}/{generated_name()}",
         f"{os.path.dirname(__file__)}/{generated_name()}",
     )
 

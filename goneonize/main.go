@@ -116,7 +116,7 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 	var message waProto.Message
 	err_message := proto.Unmarshal(message_bytes, &message)
 	if err_message != nil {
-		panic(err)
+		panic(err_message)
 	}
 	sendresponse, err := client.SendMessage(context.Background(), utils.DecodeJidProto(&neonize_jid), &message)
 	return_ := defproto.SendMessageReturnFunction{}
@@ -164,7 +164,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 		deviceStore, err_device = container.GetFirstDevice()
 	}
 	if err_device != nil {
-		panic(err)
+		panic(err_device)
 	}
 	proto.Merge(store.DeviceProps, &deviceProps)
 	clientLog := waLog.Stdout("Client", C.GoString(logLevel), true)
@@ -918,7 +918,7 @@ func GetGroupRequestParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.
 	}
 	return_buf, err_marshal := proto.Marshal(&return_)
 	if err_marshal != nil {
-		panic(err)
+		panic(err_marshal)
 	}
 	return ReturnBytes(return_buf)
 }
@@ -942,7 +942,7 @@ func GetLinkedGroupsParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.
 	return_.Participants = neonizeJID
 	return_buf, err_marshal := proto.Marshal(&return_)
 	if err_marshal != nil {
-		panic(err)
+		panic(err_marshal)
 	}
 	return ReturnBytes(return_buf)
 }
@@ -1054,10 +1054,10 @@ func JoinGroupWithInvite(id *C.char, JIDByte *C.uchar, JIDSize C.int, inviterByt
 	}
 	err_unmarshal := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
 	if err_unmarshal != nil {
-		panic(err)
+		panic(err_unmarshal)
 	}
 	err_join := clients[C.GoString(id)].JoinGroupWithInvite(utils.DecodeJidProto(&JID), utils.DecodeJidProto(&Inviter), C.GoString(code), int64(expiration))
-	if err != nil {
+	if err_join != nil {
 		return C.CString(err_join.Error())
 	}
 	return C.CString("")
@@ -1095,7 +1095,7 @@ func SendChatPresence(id *C.char, JIDByte *C.uchar, JIDSize C.int, state C.int, 
 		utils.ChatPresence[int(state)],
 		utils.ChatPresenceMedia[int(media)],
 	)
-	if err != nil {
+	if err_status != nil {
 		return C.CString(err_status.Error())
 	}
 	return C.CString("")
@@ -1199,7 +1199,7 @@ func GetNewsletterInfo(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.struct_Byt
 	}
 	return_, err_marshal := proto.Marshal(&metadata_proto)
 	if err_marshal != nil {
-		panic(err)
+		panic(err_marshal)
 	}
 	return ReturnBytes(return_)
 }
@@ -1338,7 +1338,7 @@ func NewsletterSendReaction(id *C.char, JIDByte *C.uchar, JIDSize, messageServer
 	if err_react != nil {
 		return C.CString(err_react.Error())
 	}
-	return C.CString(err_react.Error())
+	return C.CString("")
 }
 
 //export NewsletterSubscribeLiveUpdates
@@ -1475,7 +1475,7 @@ func SetGroupLocked(id *C.char, JIDByte *C.uchar, JIDSize C.int, locked C.bool) 
 	}
 	err_locked := clients[C.GoString(id)].SetGroupLocked(utils.DecodeJidProto(&JID), bool(locked))
 	if err_locked != nil {
-		return C.CString(err.Error())
+		return C.CString(err_locked.Error())
 	}
 	return C.CString("")
 }
@@ -1489,7 +1489,7 @@ func SetGroupTopic(id *C.char, JIDByte *C.uchar, JIDSize C.int, previousID, newI
 	}
 	err_topic := clients[C.GoString(id)].SetGroupTopic(utils.DecodeJidProto(&JID), C.GoString(previousID), C.GoString(newID), C.GoString(topic))
 	if err_topic != nil {
-		return C.CString(err.Error())
+		return C.CString(err_topic.Error())
 	}
 	return C.CString("")
 }
@@ -1653,7 +1653,7 @@ func GetProfilePicture(id *C.char, JIDByte *C.uchar, JIDSize C.int, paramsByte *
 	}
 	return_ := defproto.GetProfilePictureReturnFunction{}
 	picture, err_pict := clients[C.GoString(id)].GetProfilePictureInfo(utils.DecodeJidProto(&neonizeJID), utils.DecodeGetProfilePictureParams(&neonizeParams))
-	if err_params != nil {
+	if err_pict != nil {
 		return_.Error = proto.String(err_pict.Error())
 	}
 	if picture != nil {
@@ -1787,7 +1787,7 @@ func BuildPollVote(id *C.char, pollInfo *C.uchar, pollInfoSize C.int, optionName
 	}
 	pollInfo_, err_poll := clients[C.GoString(id)].BuildPollVote(utils.DecodeMessageInfo(&msgInfo), optionNames.Data)
 	return_ := defproto.BuildPollVoteReturnFunction{}
-	if err != nil {
+	if err_poll != nil {
 		return_.Error = proto.String(err_poll.Error())
 	}
 	if pollInfo_ != nil {
@@ -1839,7 +1839,7 @@ func CreateGroup(id *C.char, createGroupByte *C.uchar, createGroupSize C.int) C.
 		return_.GroupInfo = utils.EncodeGroupInfo(group_info)
 	}
 	if err_ != nil {
-		return_.Error = proto.String(err.Error())
+		return_.Error = proto.String(err_.Error())
 	}
 	return_buf, err_marshal := proto.Marshal(&return_)
 	if err_marshal != nil {
@@ -2020,7 +2020,7 @@ func SendFBMessage(id *C.char, to *C.uchar, toSize C.int, message *C.uchar, mess
 		getByteByAddr(metadata, metadataSize),
 		&waConsumerAppMetadata,
 	)
-	if err != nil {
+	if err_2 != nil {
 		panic(err_2)
 	}
 	err_3 := proto.Unmarshal(

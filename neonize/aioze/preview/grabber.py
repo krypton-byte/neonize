@@ -17,9 +17,7 @@ class LinkGrabber:
             " Firefox/95.0"
         ),
         "accept-language": "en-US,en;q=0.5",
-        "accept": (
-            "text/html" ",application/xhtml+xml" ",application/xml;q=0.9" ",*/*;q=0.8"
-        ),
+        "accept": ("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"),
     }
 
     def __init__(

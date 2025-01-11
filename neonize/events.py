@@ -49,7 +49,7 @@ from .proto.Neonize_pb2 import (
     CallRelayLatency as CallRelayLatencyEV,
     CallTerminate as CallTerminateEv,
     UnknownCallEvent as UnknownCallEventEV,
-    UndecryptableMessage as UndecryptableMessageEv
+    UndecryptableMessage as UndecryptableMessageEv,
 )
 
 log = logging.getLogger(__name__)
