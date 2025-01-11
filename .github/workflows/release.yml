@@ -193,7 +193,7 @@ jobs:
         name: Linux
         path: LIBS/*.so
   darwin:
-  if: github.event.inputs.goneonize
+    if: github.event.inputs.goneonize
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
