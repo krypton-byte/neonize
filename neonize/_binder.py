@@ -18,7 +18,6 @@ from .download import download, __GONEONIZE_VERSION__
 def load_goneonize():
     while True:
         try:
-            print("GET DOWNLOAD")
             gocode = ctypes.CDLL(f"{root_dir}/{generated_name()}")
             gocode.GetVersion.restype = ctypes.c_char_p
             if gocode.GetVersion().decode() != __GONEONIZE_VERSION__:
@@ -28,7 +27,6 @@ def load_goneonize():
             print("e", e)
             raise e
         except Exception:
-            print("DOWN ERR")
             download()
 
 
