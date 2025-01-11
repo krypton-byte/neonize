@@ -10,9 +10,11 @@ on:
         description: build binaries
         required: true
         default: true
-
+env:
+ UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
 jobs:
   android:
+    if: github.event.inputs.goneonize
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
@@ -67,6 +69,7 @@ jobs:
         name: Android
         path: neonize/*.so
   zig:
+    if: github.event.inputs.goneonize
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
@@ -86,7 +89,6 @@ jobs:
         uv run task version goneonize --set-version ${{ github.event.inputs.version }}
     - name: build
       run: |
-        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
         mkdir LIBS
         export CGO_ENABLED=1
         #AMD64
@@ -130,6 +132,7 @@ jobs:
           LIBS/*.so
           LIBS/*.dll
   linux:
+    if: github.event.inputs.goneonize
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
@@ -150,7 +153,6 @@ jobs:
       run: sudo apt update && sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
     - name: build
       run: |
-        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
         mkdir LIBS
         #AMD64/X86_64
         export CGO_ENABLED=1
@@ -191,6 +193,7 @@ jobs:
         name: Linux
         path: LIBS/*.so
   darwin:
+  if: github.event.inputs.goneonize
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
@@ -209,7 +212,6 @@ jobs:
         uv run task version goneonize --set-version ${{ github.event.inputs.version }}
     - name: build
       run: |
-        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
         mkdir LIBS
         export PATH="/Users/runner/.local/bin:$PATH"
         # Set necessary environment variables for building on Darwin
@@ -246,12 +248,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: [android, zig, linux, darwin]
     steps:
-    - name: Download Artifact
+    - if: github.event.inputs.goneonize
+      name: Download Artifact
       uses: actions/download-artifact@v4
       with:
         merge-multiple: true
         path: sharedlib
-    - name: Upload shared library to draft release
+    - if: github.event.inputs.goneonize
+      name: Upload shared library to draft release
       uses: softprops/action-gh-release@v1
       with:
         draft: false
@@ -271,9 +275,11 @@ jobs:
       run: |
         uv sync --dev
         uv run task version neonize --set-version ${{ github.event.inputs.version }}
-        uv run task version goneonize --set-version ${{ github.event.inputs.version }}
+    - if: github.event.inputs.goneonize
+      name: set target goneonize to ${{ github.event.inputs.version }}
+      run: uv run task version goneonize --set-version ${{ github.event.inputs.version }}
+    - if: ${{ !github.event.inputs.goneonize }}
+      name: set target goneonize to last release
+      run: uv run task version goneonize --last
     - name: Publish
-      run: |
-        poetry version ${{ github.event.inputs.version }}
-        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
-        uv build && uv publish
+      run: uv build && uv publish

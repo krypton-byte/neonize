@@ -25,12 +25,7 @@ class MediaRetryNotification(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ResultTypeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            MediaRetryNotification._ResultType.ValueType
-        ],
-        builtins.type,
-    ):
+    class _ResultTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[MediaRetryNotification._ResultType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         GENERAL_ERROR: MediaRetryNotification._ResultType.ValueType  # 0
         SUCCESS: MediaRetryNotification._ResultType.ValueType  # 1
@@ -56,18 +51,8 @@ class MediaRetryNotification(google.protobuf.message.Message):
         directPath: builtins.str | None = ...,
         result: global___MediaRetryNotification.ResultType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "directPath", b"directPath", "result", b"result", "stanzaID", b"stanzaID"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "directPath", b"directPath", "result", b"result", "stanzaID", b"stanzaID"
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["directPath", b"directPath", "result", b"result", "stanzaID", b"stanzaID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["directPath", b"directPath", "result", b"result", "stanzaID", b"stanzaID"]) -> None: ...
 
 global___MediaRetryNotification = MediaRetryNotification
 
@@ -82,11 +67,7 @@ class ServerErrorReceipt(google.protobuf.message.Message):
         *,
         stanzaID: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["stanzaID", b"stanzaID"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["stanzaID", b"stanzaID"]
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["stanzaID", b"stanzaID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["stanzaID", b"stanzaID"]) -> None: ...
 
 global___ServerErrorReceipt = ServerErrorReceipt

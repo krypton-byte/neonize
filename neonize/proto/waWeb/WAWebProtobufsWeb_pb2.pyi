@@ -29,21 +29,14 @@ class WebMessageInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _BizPrivacyStatusEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            WebMessageInfo._BizPrivacyStatus.ValueType
-        ],
-        builtins.type,
-    ):
+    class _BizPrivacyStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[WebMessageInfo._BizPrivacyStatus.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         E2EE: WebMessageInfo._BizPrivacyStatus.ValueType  # 0
         FB: WebMessageInfo._BizPrivacyStatus.ValueType  # 2
         BSP: WebMessageInfo._BizPrivacyStatus.ValueType  # 1
         BSP_AND_FB: WebMessageInfo._BizPrivacyStatus.ValueType  # 3
 
-    class BizPrivacyStatus(
-        _BizPrivacyStatus, metaclass=_BizPrivacyStatusEnumTypeWrapper
-    ): ...
+    class BizPrivacyStatus(_BizPrivacyStatus, metaclass=_BizPrivacyStatusEnumTypeWrapper): ...
     E2EE: WebMessageInfo.BizPrivacyStatus.ValueType  # 0
     FB: WebMessageInfo.BizPrivacyStatus.ValueType  # 2
     BSP: WebMessageInfo.BizPrivacyStatus.ValueType  # 1
@@ -53,12 +46,7 @@ class WebMessageInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StubTypeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            WebMessageInfo._StubType.ValueType
-        ],
-        builtins.type,
-    ):
+    class _StubTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[WebMessageInfo._StubType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: WebMessageInfo._StubType.ValueType  # 0
         REVOKE: WebMessageInfo._StubType.ValueType  # 1
@@ -109,21 +97,11 @@ class WebMessageInfo(google.protobuf.message.Message):
         CALL_MISSED_GROUP_VIDEO: WebMessageInfo._StubType.ValueType  # 46
         PAYMENT_CIPHERTEXT: WebMessageInfo._StubType.ValueType  # 47
         PAYMENT_FUTUREPROOF: WebMessageInfo._StubType.ValueType  # 48
-        PAYMENT_TRANSACTION_STATUS_UPDATE_FAILED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 49
-        PAYMENT_TRANSACTION_STATUS_UPDATE_REFUNDED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 50
-        PAYMENT_TRANSACTION_STATUS_UPDATE_REFUND_FAILED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 51
-        PAYMENT_TRANSACTION_STATUS_RECEIVER_PENDING_SETUP: (
-            WebMessageInfo._StubType.ValueType
-        )  # 52
-        PAYMENT_TRANSACTION_STATUS_RECEIVER_SUCCESS_AFTER_HICCUP: (
-            WebMessageInfo._StubType.ValueType
-        )  # 53
+        PAYMENT_TRANSACTION_STATUS_UPDATE_FAILED: WebMessageInfo._StubType.ValueType  # 49
+        PAYMENT_TRANSACTION_STATUS_UPDATE_REFUNDED: WebMessageInfo._StubType.ValueType  # 50
+        PAYMENT_TRANSACTION_STATUS_UPDATE_REFUND_FAILED: WebMessageInfo._StubType.ValueType  # 51
+        PAYMENT_TRANSACTION_STATUS_RECEIVER_PENDING_SETUP: WebMessageInfo._StubType.ValueType  # 52
+        PAYMENT_TRANSACTION_STATUS_RECEIVER_SUCCESS_AFTER_HICCUP: WebMessageInfo._StubType.ValueType  # 53
         PAYMENT_ACTION_ACCOUNT_SETUP_REMINDER: WebMessageInfo._StubType.ValueType  # 54
         PAYMENT_ACTION_SEND_PAYMENT_REMINDER: WebMessageInfo._StubType.ValueType  # 55
         PAYMENT_ACTION_SEND_PAYMENT_INVITATION: WebMessageInfo._StubType.ValueType  # 56
@@ -150,86 +128,44 @@ class WebMessageInfo(google.protobuf.message.Message):
         BLUE_MSG_BSP_FB_TO_SELF_FB: WebMessageInfo._StubType.ValueType  # 77
         BLUE_MSG_BSP_FB_TO_SELF_PREMISE: WebMessageInfo._StubType.ValueType  # 78
         BLUE_MSG_BSP_FB_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 79
-        BLUE_MSG_BSP_FB_UNVERIFIED_TO_SELF_PREMISE_VERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 80
+        BLUE_MSG_BSP_FB_UNVERIFIED_TO_SELF_PREMISE_VERIFIED: WebMessageInfo._StubType.ValueType  # 80
         BLUE_MSG_BSP_FB_VERIFIED: WebMessageInfo._StubType.ValueType  # 81
-        BLUE_MSG_BSP_FB_VERIFIED_TO_SELF_PREMISE_UNVERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 82
+        BLUE_MSG_BSP_FB_VERIFIED_TO_SELF_PREMISE_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 82
         BLUE_MSG_BSP_PREMISE_TO_SELF_PREMISE: WebMessageInfo._StubType.ValueType  # 83
         BLUE_MSG_BSP_PREMISE_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 84
-        BLUE_MSG_BSP_PREMISE_UNVERIFIED_TO_SELF_PREMISE_VERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 85
+        BLUE_MSG_BSP_PREMISE_UNVERIFIED_TO_SELF_PREMISE_VERIFIED: WebMessageInfo._StubType.ValueType  # 85
         BLUE_MSG_BSP_PREMISE_VERIFIED: WebMessageInfo._StubType.ValueType  # 86
-        BLUE_MSG_BSP_PREMISE_VERIFIED_TO_SELF_PREMISE_UNVERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 87
+        BLUE_MSG_BSP_PREMISE_VERIFIED_TO_SELF_PREMISE_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 87
         BLUE_MSG_CONSUMER_TO_BSP_FB_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 88
-        BLUE_MSG_CONSUMER_TO_BSP_PREMISE_UNVERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 89
-        BLUE_MSG_CONSUMER_TO_SELF_FB_UNVERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 90
-        BLUE_MSG_CONSUMER_TO_SELF_PREMISE_UNVERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 91
+        BLUE_MSG_CONSUMER_TO_BSP_PREMISE_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 89
+        BLUE_MSG_CONSUMER_TO_SELF_FB_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 90
+        BLUE_MSG_CONSUMER_TO_SELF_PREMISE_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 91
         BLUE_MSG_SELF_FB_TO_BSP_PREMISE: WebMessageInfo._StubType.ValueType  # 92
         BLUE_MSG_SELF_FB_TO_SELF_PREMISE: WebMessageInfo._StubType.ValueType  # 93
         BLUE_MSG_SELF_FB_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 94
-        BLUE_MSG_SELF_FB_UNVERIFIED_TO_SELF_PREMISE_VERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 95
+        BLUE_MSG_SELF_FB_UNVERIFIED_TO_SELF_PREMISE_VERIFIED: WebMessageInfo._StubType.ValueType  # 95
         BLUE_MSG_SELF_FB_VERIFIED: WebMessageInfo._StubType.ValueType  # 96
-        BLUE_MSG_SELF_FB_VERIFIED_TO_SELF_PREMISE_UNVERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 97
+        BLUE_MSG_SELF_FB_VERIFIED_TO_SELF_PREMISE_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 97
         BLUE_MSG_SELF_PREMISE_TO_BSP_PREMISE: WebMessageInfo._StubType.ValueType  # 98
         BLUE_MSG_SELF_PREMISE_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 99
         BLUE_MSG_SELF_PREMISE_VERIFIED: WebMessageInfo._StubType.ValueType  # 100
         BLUE_MSG_TO_BSP_FB: WebMessageInfo._StubType.ValueType  # 101
         BLUE_MSG_TO_CONSUMER: WebMessageInfo._StubType.ValueType  # 102
         BLUE_MSG_TO_SELF_FB: WebMessageInfo._StubType.ValueType  # 103
-        BLUE_MSG_UNVERIFIED_TO_BSP_FB_VERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 104
-        BLUE_MSG_UNVERIFIED_TO_BSP_PREMISE_VERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 105
-        BLUE_MSG_UNVERIFIED_TO_SELF_FB_VERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 106
+        BLUE_MSG_UNVERIFIED_TO_BSP_FB_VERIFIED: WebMessageInfo._StubType.ValueType  # 104
+        BLUE_MSG_UNVERIFIED_TO_BSP_PREMISE_VERIFIED: WebMessageInfo._StubType.ValueType  # 105
+        BLUE_MSG_UNVERIFIED_TO_SELF_FB_VERIFIED: WebMessageInfo._StubType.ValueType  # 106
         BLUE_MSG_UNVERIFIED_TO_VERIFIED: WebMessageInfo._StubType.ValueType  # 107
-        BLUE_MSG_VERIFIED_TO_BSP_FB_UNVERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 108
-        BLUE_MSG_VERIFIED_TO_BSP_PREMISE_UNVERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 109
-        BLUE_MSG_VERIFIED_TO_SELF_FB_UNVERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 110
+        BLUE_MSG_VERIFIED_TO_BSP_FB_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 108
+        BLUE_MSG_VERIFIED_TO_BSP_PREMISE_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 109
+        BLUE_MSG_VERIFIED_TO_SELF_FB_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 110
         BLUE_MSG_VERIFIED_TO_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 111
-        BLUE_MSG_BSP_FB_UNVERIFIED_TO_BSP_PREMISE_VERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 112
-        BLUE_MSG_BSP_FB_UNVERIFIED_TO_SELF_FB_VERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 113
-        BLUE_MSG_BSP_FB_VERIFIED_TO_BSP_PREMISE_UNVERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 114
-        BLUE_MSG_BSP_FB_VERIFIED_TO_SELF_FB_UNVERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 115
-        BLUE_MSG_SELF_FB_UNVERIFIED_TO_BSP_PREMISE_VERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 116
-        BLUE_MSG_SELF_FB_VERIFIED_TO_BSP_PREMISE_UNVERIFIED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 117
+        BLUE_MSG_BSP_FB_UNVERIFIED_TO_BSP_PREMISE_VERIFIED: WebMessageInfo._StubType.ValueType  # 112
+        BLUE_MSG_BSP_FB_UNVERIFIED_TO_SELF_FB_VERIFIED: WebMessageInfo._StubType.ValueType  # 113
+        BLUE_MSG_BSP_FB_VERIFIED_TO_BSP_PREMISE_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 114
+        BLUE_MSG_BSP_FB_VERIFIED_TO_SELF_FB_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 115
+        BLUE_MSG_SELF_FB_UNVERIFIED_TO_BSP_PREMISE_VERIFIED: WebMessageInfo._StubType.ValueType  # 116
+        BLUE_MSG_SELF_FB_VERIFIED_TO_BSP_PREMISE_UNVERIFIED: WebMessageInfo._StubType.ValueType  # 117
         E2E_IDENTITY_UNAVAILABLE: WebMessageInfo._StubType.ValueType  # 118
         GROUP_CREATING: WebMessageInfo._StubType.ValueType  # 119
         GROUP_CREATE_FAILED: WebMessageInfo._StubType.ValueType  # 120
@@ -256,29 +192,21 @@ class WebMessageInfo(google.protobuf.message.Message):
         GROUP_PARTICIPANT_LINKED_GROUP_JOIN: WebMessageInfo._StubType.ValueType  # 141
         COMMUNITY_CREATE: WebMessageInfo._StubType.ValueType  # 142
         EPHEMERAL_KEEP_IN_CHAT: WebMessageInfo._StubType.ValueType  # 143
-        GROUP_MEMBERSHIP_JOIN_APPROVAL_REQUEST: (
-            WebMessageInfo._StubType.ValueType
-        )  # 144
+        GROUP_MEMBERSHIP_JOIN_APPROVAL_REQUEST: WebMessageInfo._StubType.ValueType  # 144
         GROUP_MEMBERSHIP_JOIN_APPROVAL_MODE: WebMessageInfo._StubType.ValueType  # 145
         INTEGRITY_UNLINK_PARENT_GROUP: WebMessageInfo._StubType.ValueType  # 146
         COMMUNITY_PARTICIPANT_PROMOTE: WebMessageInfo._StubType.ValueType  # 147
         COMMUNITY_PARTICIPANT_DEMOTE: WebMessageInfo._StubType.ValueType  # 148
         COMMUNITY_PARENT_GROUP_DELETED: WebMessageInfo._StubType.ValueType  # 149
-        COMMUNITY_LINK_PARENT_GROUP_MEMBERSHIP_APPROVAL: (
-            WebMessageInfo._StubType.ValueType
-        )  # 150
-        GROUP_PARTICIPANT_JOINED_GROUP_AND_PARENT_GROUP: (
-            WebMessageInfo._StubType.ValueType
-        )  # 151
+        COMMUNITY_LINK_PARENT_GROUP_MEMBERSHIP_APPROVAL: WebMessageInfo._StubType.ValueType  # 150
+        GROUP_PARTICIPANT_JOINED_GROUP_AND_PARENT_GROUP: WebMessageInfo._StubType.ValueType  # 151
         MASKED_THREAD_CREATED: WebMessageInfo._StubType.ValueType  # 152
         MASKED_THREAD_UNMASKED: WebMessageInfo._StubType.ValueType  # 153
         BIZ_CHAT_ASSIGNMENT: WebMessageInfo._StubType.ValueType  # 154
         CHAT_PSA: WebMessageInfo._StubType.ValueType  # 155
         CHAT_POLL_CREATION_MESSAGE: WebMessageInfo._StubType.ValueType  # 156
         CAG_MASKED_THREAD_CREATED: WebMessageInfo._StubType.ValueType  # 157
-        COMMUNITY_PARENT_GROUP_SUBJECT_CHANGED: (
-            WebMessageInfo._StubType.ValueType
-        )  # 158
+        COMMUNITY_PARENT_GROUP_SUBJECT_CHANGED: WebMessageInfo._StubType.ValueType  # 158
         CAG_INVITE_AUTO_ADD: WebMessageInfo._StubType.ValueType  # 159
         BIZ_CHAT_ASSIGNMENT_UNASSIGN: WebMessageInfo._StubType.ValueType  # 160
         CAG_INVITE_AUTO_JOINED: WebMessageInfo._StubType.ValueType  # 161
@@ -292,28 +220,20 @@ class WebMessageInfo(google.protobuf.message.Message):
         SILENCED_UNKNOWN_CALLER_AUDIO: WebMessageInfo._StubType.ValueType  # 169
         SILENCED_UNKNOWN_CALLER_VIDEO: WebMessageInfo._StubType.ValueType  # 170
         GROUP_MEMBER_ADD_MODE: WebMessageInfo._StubType.ValueType  # 171
-        GROUP_MEMBERSHIP_JOIN_APPROVAL_REQUEST_NON_ADMIN_ADD: (
-            WebMessageInfo._StubType.ValueType
-        )  # 172
+        GROUP_MEMBERSHIP_JOIN_APPROVAL_REQUEST_NON_ADMIN_ADD: WebMessageInfo._StubType.ValueType  # 172
         COMMUNITY_CHANGE_DESCRIPTION: WebMessageInfo._StubType.ValueType  # 173
         SENDER_INVITE: WebMessageInfo._StubType.ValueType  # 174
         RECEIVER_INVITE: WebMessageInfo._StubType.ValueType  # 175
         COMMUNITY_ALLOW_MEMBER_ADDED_GROUPS: WebMessageInfo._StubType.ValueType  # 176
         PINNED_MESSAGE_IN_CHAT: WebMessageInfo._StubType.ValueType  # 177
         PAYMENT_INVITE_SETUP_INVITER: WebMessageInfo._StubType.ValueType  # 178
-        PAYMENT_INVITE_SETUP_INVITEE_RECEIVE_ONLY: (
-            WebMessageInfo._StubType.ValueType
-        )  # 179
-        PAYMENT_INVITE_SETUP_INVITEE_SEND_AND_RECEIVE: (
-            WebMessageInfo._StubType.ValueType
-        )  # 180
+        PAYMENT_INVITE_SETUP_INVITEE_RECEIVE_ONLY: WebMessageInfo._StubType.ValueType  # 179
+        PAYMENT_INVITE_SETUP_INVITEE_SEND_AND_RECEIVE: WebMessageInfo._StubType.ValueType  # 180
         LINKED_GROUP_CALL_START: WebMessageInfo._StubType.ValueType  # 181
         REPORT_TO_ADMIN_ENABLED_STATUS: WebMessageInfo._StubType.ValueType  # 182
         EMPTY_SUBGROUP_CREATE: WebMessageInfo._StubType.ValueType  # 183
         SCHEDULED_CALL_CANCEL: WebMessageInfo._StubType.ValueType  # 184
-        SUBGROUP_ADMIN_TRIGGERED_AUTO_ADD_RICH: (
-            WebMessageInfo._StubType.ValueType
-        )  # 185
+        SUBGROUP_ADMIN_TRIGGERED_AUTO_ADD_RICH: WebMessageInfo._StubType.ValueType  # 185
         GROUP_CHANGE_RECENT_HISTORY_SHARING: WebMessageInfo._StubType.ValueType  # 186
         PAID_MESSAGE_SERVER_CAMPAIGN_ID: WebMessageInfo._StubType.ValueType  # 187
         GENERAL_CHAT_CREATE: WebMessageInfo._StubType.ValueType  # 188
@@ -393,15 +313,9 @@ class WebMessageInfo(google.protobuf.message.Message):
     PAYMENT_FUTUREPROOF: WebMessageInfo.StubType.ValueType  # 48
     PAYMENT_TRANSACTION_STATUS_UPDATE_FAILED: WebMessageInfo.StubType.ValueType  # 49
     PAYMENT_TRANSACTION_STATUS_UPDATE_REFUNDED: WebMessageInfo.StubType.ValueType  # 50
-    PAYMENT_TRANSACTION_STATUS_UPDATE_REFUND_FAILED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 51
-    PAYMENT_TRANSACTION_STATUS_RECEIVER_PENDING_SETUP: (
-        WebMessageInfo.StubType.ValueType
-    )  # 52
-    PAYMENT_TRANSACTION_STATUS_RECEIVER_SUCCESS_AFTER_HICCUP: (
-        WebMessageInfo.StubType.ValueType
-    )  # 53
+    PAYMENT_TRANSACTION_STATUS_UPDATE_REFUND_FAILED: WebMessageInfo.StubType.ValueType  # 51
+    PAYMENT_TRANSACTION_STATUS_RECEIVER_PENDING_SETUP: WebMessageInfo.StubType.ValueType  # 52
+    PAYMENT_TRANSACTION_STATUS_RECEIVER_SUCCESS_AFTER_HICCUP: WebMessageInfo.StubType.ValueType  # 53
     PAYMENT_ACTION_ACCOUNT_SETUP_REMINDER: WebMessageInfo.StubType.ValueType  # 54
     PAYMENT_ACTION_SEND_PAYMENT_REMINDER: WebMessageInfo.StubType.ValueType  # 55
     PAYMENT_ACTION_SEND_PAYMENT_INVITATION: WebMessageInfo.StubType.ValueType  # 56
@@ -428,38 +342,24 @@ class WebMessageInfo(google.protobuf.message.Message):
     BLUE_MSG_BSP_FB_TO_SELF_FB: WebMessageInfo.StubType.ValueType  # 77
     BLUE_MSG_BSP_FB_TO_SELF_PREMISE: WebMessageInfo.StubType.ValueType  # 78
     BLUE_MSG_BSP_FB_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 79
-    BLUE_MSG_BSP_FB_UNVERIFIED_TO_SELF_PREMISE_VERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 80
+    BLUE_MSG_BSP_FB_UNVERIFIED_TO_SELF_PREMISE_VERIFIED: WebMessageInfo.StubType.ValueType  # 80
     BLUE_MSG_BSP_FB_VERIFIED: WebMessageInfo.StubType.ValueType  # 81
-    BLUE_MSG_BSP_FB_VERIFIED_TO_SELF_PREMISE_UNVERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 82
+    BLUE_MSG_BSP_FB_VERIFIED_TO_SELF_PREMISE_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 82
     BLUE_MSG_BSP_PREMISE_TO_SELF_PREMISE: WebMessageInfo.StubType.ValueType  # 83
     BLUE_MSG_BSP_PREMISE_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 84
-    BLUE_MSG_BSP_PREMISE_UNVERIFIED_TO_SELF_PREMISE_VERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 85
+    BLUE_MSG_BSP_PREMISE_UNVERIFIED_TO_SELF_PREMISE_VERIFIED: WebMessageInfo.StubType.ValueType  # 85
     BLUE_MSG_BSP_PREMISE_VERIFIED: WebMessageInfo.StubType.ValueType  # 86
-    BLUE_MSG_BSP_PREMISE_VERIFIED_TO_SELF_PREMISE_UNVERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 87
+    BLUE_MSG_BSP_PREMISE_VERIFIED_TO_SELF_PREMISE_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 87
     BLUE_MSG_CONSUMER_TO_BSP_FB_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 88
     BLUE_MSG_CONSUMER_TO_BSP_PREMISE_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 89
     BLUE_MSG_CONSUMER_TO_SELF_FB_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 90
-    BLUE_MSG_CONSUMER_TO_SELF_PREMISE_UNVERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 91
+    BLUE_MSG_CONSUMER_TO_SELF_PREMISE_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 91
     BLUE_MSG_SELF_FB_TO_BSP_PREMISE: WebMessageInfo.StubType.ValueType  # 92
     BLUE_MSG_SELF_FB_TO_SELF_PREMISE: WebMessageInfo.StubType.ValueType  # 93
     BLUE_MSG_SELF_FB_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 94
-    BLUE_MSG_SELF_FB_UNVERIFIED_TO_SELF_PREMISE_VERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 95
+    BLUE_MSG_SELF_FB_UNVERIFIED_TO_SELF_PREMISE_VERIFIED: WebMessageInfo.StubType.ValueType  # 95
     BLUE_MSG_SELF_FB_VERIFIED: WebMessageInfo.StubType.ValueType  # 96
-    BLUE_MSG_SELF_FB_VERIFIED_TO_SELF_PREMISE_UNVERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 97
+    BLUE_MSG_SELF_FB_VERIFIED_TO_SELF_PREMISE_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 97
     BLUE_MSG_SELF_PREMISE_TO_BSP_PREMISE: WebMessageInfo.StubType.ValueType  # 98
     BLUE_MSG_SELF_PREMISE_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 99
     BLUE_MSG_SELF_PREMISE_VERIFIED: WebMessageInfo.StubType.ValueType  # 100
@@ -467,35 +367,19 @@ class WebMessageInfo(google.protobuf.message.Message):
     BLUE_MSG_TO_CONSUMER: WebMessageInfo.StubType.ValueType  # 102
     BLUE_MSG_TO_SELF_FB: WebMessageInfo.StubType.ValueType  # 103
     BLUE_MSG_UNVERIFIED_TO_BSP_FB_VERIFIED: WebMessageInfo.StubType.ValueType  # 104
-    BLUE_MSG_UNVERIFIED_TO_BSP_PREMISE_VERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 105
+    BLUE_MSG_UNVERIFIED_TO_BSP_PREMISE_VERIFIED: WebMessageInfo.StubType.ValueType  # 105
     BLUE_MSG_UNVERIFIED_TO_SELF_FB_VERIFIED: WebMessageInfo.StubType.ValueType  # 106
     BLUE_MSG_UNVERIFIED_TO_VERIFIED: WebMessageInfo.StubType.ValueType  # 107
     BLUE_MSG_VERIFIED_TO_BSP_FB_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 108
-    BLUE_MSG_VERIFIED_TO_BSP_PREMISE_UNVERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 109
+    BLUE_MSG_VERIFIED_TO_BSP_PREMISE_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 109
     BLUE_MSG_VERIFIED_TO_SELF_FB_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 110
     BLUE_MSG_VERIFIED_TO_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 111
-    BLUE_MSG_BSP_FB_UNVERIFIED_TO_BSP_PREMISE_VERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 112
-    BLUE_MSG_BSP_FB_UNVERIFIED_TO_SELF_FB_VERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 113
-    BLUE_MSG_BSP_FB_VERIFIED_TO_BSP_PREMISE_UNVERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 114
-    BLUE_MSG_BSP_FB_VERIFIED_TO_SELF_FB_UNVERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 115
-    BLUE_MSG_SELF_FB_UNVERIFIED_TO_BSP_PREMISE_VERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 116
-    BLUE_MSG_SELF_FB_VERIFIED_TO_BSP_PREMISE_UNVERIFIED: (
-        WebMessageInfo.StubType.ValueType
-    )  # 117
+    BLUE_MSG_BSP_FB_UNVERIFIED_TO_BSP_PREMISE_VERIFIED: WebMessageInfo.StubType.ValueType  # 112
+    BLUE_MSG_BSP_FB_UNVERIFIED_TO_SELF_FB_VERIFIED: WebMessageInfo.StubType.ValueType  # 113
+    BLUE_MSG_BSP_FB_VERIFIED_TO_BSP_PREMISE_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 114
+    BLUE_MSG_BSP_FB_VERIFIED_TO_SELF_FB_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 115
+    BLUE_MSG_SELF_FB_UNVERIFIED_TO_BSP_PREMISE_VERIFIED: WebMessageInfo.StubType.ValueType  # 116
+    BLUE_MSG_SELF_FB_VERIFIED_TO_BSP_PREMISE_UNVERIFIED: WebMessageInfo.StubType.ValueType  # 117
     E2E_IDENTITY_UNAVAILABLE: WebMessageInfo.StubType.ValueType  # 118
     GROUP_CREATING: WebMessageInfo.StubType.ValueType  # 119
     GROUP_CREATE_FAILED: WebMessageInfo.StubType.ValueType  # 120
@@ -528,12 +412,8 @@ class WebMessageInfo(google.protobuf.message.Message):
     COMMUNITY_PARTICIPANT_PROMOTE: WebMessageInfo.StubType.ValueType  # 147
     COMMUNITY_PARTICIPANT_DEMOTE: WebMessageInfo.StubType.ValueType  # 148
     COMMUNITY_PARENT_GROUP_DELETED: WebMessageInfo.StubType.ValueType  # 149
-    COMMUNITY_LINK_PARENT_GROUP_MEMBERSHIP_APPROVAL: (
-        WebMessageInfo.StubType.ValueType
-    )  # 150
-    GROUP_PARTICIPANT_JOINED_GROUP_AND_PARENT_GROUP: (
-        WebMessageInfo.StubType.ValueType
-    )  # 151
+    COMMUNITY_LINK_PARENT_GROUP_MEMBERSHIP_APPROVAL: WebMessageInfo.StubType.ValueType  # 150
+    GROUP_PARTICIPANT_JOINED_GROUP_AND_PARENT_GROUP: WebMessageInfo.StubType.ValueType  # 151
     MASKED_THREAD_CREATED: WebMessageInfo.StubType.ValueType  # 152
     MASKED_THREAD_UNMASKED: WebMessageInfo.StubType.ValueType  # 153
     BIZ_CHAT_ASSIGNMENT: WebMessageInfo.StubType.ValueType  # 154
@@ -554,9 +434,7 @@ class WebMessageInfo(google.protobuf.message.Message):
     SILENCED_UNKNOWN_CALLER_AUDIO: WebMessageInfo.StubType.ValueType  # 169
     SILENCED_UNKNOWN_CALLER_VIDEO: WebMessageInfo.StubType.ValueType  # 170
     GROUP_MEMBER_ADD_MODE: WebMessageInfo.StubType.ValueType  # 171
-    GROUP_MEMBERSHIP_JOIN_APPROVAL_REQUEST_NON_ADMIN_ADD: (
-        WebMessageInfo.StubType.ValueType
-    )  # 172
+    GROUP_MEMBERSHIP_JOIN_APPROVAL_REQUEST_NON_ADMIN_ADD: WebMessageInfo.StubType.ValueType  # 172
     COMMUNITY_CHANGE_DESCRIPTION: WebMessageInfo.StubType.ValueType  # 173
     SENDER_INVITE: WebMessageInfo.StubType.ValueType  # 174
     RECEIVER_INVITE: WebMessageInfo.StubType.ValueType  # 175
@@ -564,9 +442,7 @@ class WebMessageInfo(google.protobuf.message.Message):
     PINNED_MESSAGE_IN_CHAT: WebMessageInfo.StubType.ValueType  # 177
     PAYMENT_INVITE_SETUP_INVITER: WebMessageInfo.StubType.ValueType  # 178
     PAYMENT_INVITE_SETUP_INVITEE_RECEIVE_ONLY: WebMessageInfo.StubType.ValueType  # 179
-    PAYMENT_INVITE_SETUP_INVITEE_SEND_AND_RECEIVE: (
-        WebMessageInfo.StubType.ValueType
-    )  # 180
+    PAYMENT_INVITE_SETUP_INVITEE_SEND_AND_RECEIVE: WebMessageInfo.StubType.ValueType  # 180
     LINKED_GROUP_CALL_START: WebMessageInfo.StubType.ValueType  # 181
     REPORT_TO_ADMIN_ENABLED_STATUS: WebMessageInfo.StubType.ValueType  # 182
     EMPTY_SUBGROUP_CREATE: WebMessageInfo.StubType.ValueType  # 183
@@ -603,12 +479,7 @@ class WebMessageInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StatusEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            WebMessageInfo._Status.ValueType
-        ],
-        builtins.type,
-    ):
+    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[WebMessageInfo._Status.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         ERROR: WebMessageInfo._Status.ValueType  # 0
         PENDING: WebMessageInfo._Status.ValueType  # 1
@@ -723,17 +594,9 @@ class WebMessageInfo(google.protobuf.message.Message):
     @property
     def message(self) -> waE2E.WAWebProtobufsE2E_pb2.Message: ...
     @property
-    def messageStubParameters(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-        builtins.str
-    ]: ...
+    def messageStubParameters(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     @property
-    def labels(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-        builtins.str
-    ]: ...
+    def labels(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     @property
     def paymentInfo(self) -> global___PaymentInfo: ...
     @property
@@ -745,27 +608,15 @@ class WebMessageInfo(google.protobuf.message.Message):
     @property
     def photoChange(self) -> global___PhotoChange: ...
     @property
-    def userReceipt(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___UserReceipt
-    ]: ...
+    def userReceipt(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UserReceipt]: ...
     @property
-    def reactions(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___Reaction
-    ]: ...
+    def reactions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Reaction]: ...
     @property
     def quotedStickerData(self) -> global___MediaData: ...
     @property
     def statusPsa(self) -> global___StatusPSA: ...
     @property
-    def pollUpdates(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___PollUpdate
-    ]: ...
+    def pollUpdates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PollUpdate]: ...
     @property
     def pollAdditionalMetadata(self) -> global___PollAdditionalMetadata: ...
     @property
@@ -777,37 +628,21 @@ class WebMessageInfo(google.protobuf.message.Message):
     @property
     def commentMetadata(self) -> global___CommentMetadata: ...
     @property
-    def eventResponses(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___EventResponse
-    ]: ...
+    def eventResponses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EventResponse]: ...
     @property
     def reportingTokenInfo(self) -> global___ReportingTokenInfo: ...
     @property
     def eventAdditionalMetadata(self) -> global___EventAdditionalMetadata: ...
     @property
-    def statusMentions(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-        builtins.str
-    ]: ...
+    def statusMentions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     @property
     def targetMessageID(self) -> waCommon.WACommon_pb2.MessageKey: ...
     @property
-    def messageAddOns(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___MessageAddOn
-    ]: ...
+    def messageAddOns(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___MessageAddOn]: ...
     @property
     def statusMentionMessageInfo(self) -> global___StatusMentionMessage: ...
     @property
-    def statusMentionSources(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-        builtins.str
-    ]: ...
+    def statusMentionSources(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     def __init__(
         self,
         *,
@@ -837,8 +672,7 @@ class WebMessageInfo(google.protobuf.message.Message):
         ephemeralDuration: builtins.int | None = ...,
         ephemeralOffToOn: builtins.bool | None = ...,
         ephemeralOutOfSync: builtins.bool | None = ...,
-        bizPrivacyStatus: global___WebMessageInfo.BizPrivacyStatus.ValueType
-        | None = ...,
+        bizPrivacyStatus: global___WebMessageInfo.BizPrivacyStatus.ValueType | None = ...,
         verifiedBizName: builtins.str | None = ...,
         mediaData: global___MediaData | None = ...,
         photoChange: global___PhotoChange | None = ...,
@@ -873,238 +707,8 @@ class WebMessageInfo(google.protobuf.message.Message):
         isSupportAiMessage: builtins.bool | None = ...,
         statusMentionSources: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "agentID",
-            b"agentID",
-            "bizPrivacyStatus",
-            b"bizPrivacyStatus",
-            "botMessageInvokerJID",
-            b"botMessageInvokerJID",
-            "broadcast",
-            b"broadcast",
-            "clearMedia",
-            b"clearMedia",
-            "commentMetadata",
-            b"commentMetadata",
-            "duration",
-            b"duration",
-            "ephemeralDuration",
-            b"ephemeralDuration",
-            "ephemeralOffToOn",
-            b"ephemeralOffToOn",
-            "ephemeralOutOfSync",
-            b"ephemeralOutOfSync",
-            "ephemeralStartTimestamp",
-            b"ephemeralStartTimestamp",
-            "eventAdditionalMetadata",
-            b"eventAdditionalMetadata",
-            "finalLiveLocation",
-            b"finalLiveLocation",
-            "futureproofData",
-            b"futureproofData",
-            "ignore",
-            b"ignore",
-            "is1PBizBotMessage",
-            b"is1PBizBotMessage",
-            "isGroupHistoryMessage",
-            b"isGroupHistoryMessage",
-            "isMentionedInStatus",
-            b"isMentionedInStatus",
-            "isSupportAiMessage",
-            b"isSupportAiMessage",
-            "keepInChat",
-            b"keepInChat",
-            "key",
-            b"key",
-            "mediaCiphertextSHA256",
-            b"mediaCiphertextSHA256",
-            "mediaData",
-            b"mediaData",
-            "message",
-            b"message",
-            "messageC2STimestamp",
-            b"messageC2STimestamp",
-            "messageSecret",
-            b"messageSecret",
-            "messageStubType",
-            b"messageStubType",
-            "messageTimestamp",
-            b"messageTimestamp",
-            "multicast",
-            b"multicast",
-            "newsletterServerID",
-            b"newsletterServerID",
-            "originalSelfAuthorUserJIDString",
-            b"originalSelfAuthorUserJIDString",
-            "participant",
-            b"participant",
-            "paymentInfo",
-            b"paymentInfo",
-            "photoChange",
-            b"photoChange",
-            "pinInChat",
-            b"pinInChat",
-            "pollAdditionalMetadata",
-            b"pollAdditionalMetadata",
-            "premiumMessageInfo",
-            b"premiumMessageInfo",
-            "pushName",
-            b"pushName",
-            "quotedPaymentInfo",
-            b"quotedPaymentInfo",
-            "quotedStickerData",
-            b"quotedStickerData",
-            "reportingTokenInfo",
-            b"reportingTokenInfo",
-            "revokeMessageTimestamp",
-            b"revokeMessageTimestamp",
-            "starred",
-            b"starred",
-            "status",
-            b"status",
-            "statusAlreadyViewed",
-            b"statusAlreadyViewed",
-            "statusMentionMessageInfo",
-            b"statusMentionMessageInfo",
-            "statusPsa",
-            b"statusPsa",
-            "targetMessageID",
-            b"targetMessageID",
-            "urlNumber",
-            b"urlNumber",
-            "urlText",
-            b"urlText",
-            "verifiedBizName",
-            b"verifiedBizName",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "agentID",
-            b"agentID",
-            "bizPrivacyStatus",
-            b"bizPrivacyStatus",
-            "botMessageInvokerJID",
-            b"botMessageInvokerJID",
-            "broadcast",
-            b"broadcast",
-            "clearMedia",
-            b"clearMedia",
-            "commentMetadata",
-            b"commentMetadata",
-            "duration",
-            b"duration",
-            "ephemeralDuration",
-            b"ephemeralDuration",
-            "ephemeralOffToOn",
-            b"ephemeralOffToOn",
-            "ephemeralOutOfSync",
-            b"ephemeralOutOfSync",
-            "ephemeralStartTimestamp",
-            b"ephemeralStartTimestamp",
-            "eventAdditionalMetadata",
-            b"eventAdditionalMetadata",
-            "eventResponses",
-            b"eventResponses",
-            "finalLiveLocation",
-            b"finalLiveLocation",
-            "futureproofData",
-            b"futureproofData",
-            "ignore",
-            b"ignore",
-            "is1PBizBotMessage",
-            b"is1PBizBotMessage",
-            "isGroupHistoryMessage",
-            b"isGroupHistoryMessage",
-            "isMentionedInStatus",
-            b"isMentionedInStatus",
-            "isSupportAiMessage",
-            b"isSupportAiMessage",
-            "keepInChat",
-            b"keepInChat",
-            "key",
-            b"key",
-            "labels",
-            b"labels",
-            "mediaCiphertextSHA256",
-            b"mediaCiphertextSHA256",
-            "mediaData",
-            b"mediaData",
-            "message",
-            b"message",
-            "messageAddOns",
-            b"messageAddOns",
-            "messageC2STimestamp",
-            b"messageC2STimestamp",
-            "messageSecret",
-            b"messageSecret",
-            "messageStubParameters",
-            b"messageStubParameters",
-            "messageStubType",
-            b"messageStubType",
-            "messageTimestamp",
-            b"messageTimestamp",
-            "multicast",
-            b"multicast",
-            "newsletterServerID",
-            b"newsletterServerID",
-            "originalSelfAuthorUserJIDString",
-            b"originalSelfAuthorUserJIDString",
-            "participant",
-            b"participant",
-            "paymentInfo",
-            b"paymentInfo",
-            "photoChange",
-            b"photoChange",
-            "pinInChat",
-            b"pinInChat",
-            "pollAdditionalMetadata",
-            b"pollAdditionalMetadata",
-            "pollUpdates",
-            b"pollUpdates",
-            "premiumMessageInfo",
-            b"premiumMessageInfo",
-            "pushName",
-            b"pushName",
-            "quotedPaymentInfo",
-            b"quotedPaymentInfo",
-            "quotedStickerData",
-            b"quotedStickerData",
-            "reactions",
-            b"reactions",
-            "reportingTokenInfo",
-            b"reportingTokenInfo",
-            "revokeMessageTimestamp",
-            b"revokeMessageTimestamp",
-            "starred",
-            b"starred",
-            "status",
-            b"status",
-            "statusAlreadyViewed",
-            b"statusAlreadyViewed",
-            "statusMentionMessageInfo",
-            b"statusMentionMessageInfo",
-            "statusMentionSources",
-            b"statusMentionSources",
-            "statusMentions",
-            b"statusMentions",
-            "statusPsa",
-            b"statusPsa",
-            "targetMessageID",
-            b"targetMessageID",
-            "urlNumber",
-            b"urlNumber",
-            "urlText",
-            b"urlText",
-            "userReceipt",
-            b"userReceipt",
-            "verifiedBizName",
-            b"verifiedBizName",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "ignore", b"ignore", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusPsa", b"statusPsa", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "verifiedBizName", b"verifiedBizName"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "eventResponses", b"eventResponses", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "ignore", b"ignore", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "labels", b"labels", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageAddOns", b"messageAddOns", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubParameters", b"messageStubParameters", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "pollUpdates", b"pollUpdates", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reactions", b"reactions", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusMentionSources", b"statusMentionSources", "statusMentions", b"statusMentions", "statusPsa", b"statusPsa", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "userReceipt", b"userReceipt", "verifiedBizName", b"verifiedBizName"]) -> None: ...
 
 global___WebMessageInfo = WebMessageInfo
 
@@ -1116,12 +720,7 @@ class PaymentInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TxnStatusEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            PaymentInfo._TxnStatus.ValueType
-        ],
-        builtins.type,
-    ):
+    class _TxnStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PaymentInfo._TxnStatus.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: PaymentInfo._TxnStatus.ValueType  # 0
         PENDING_SETUP: PaymentInfo._TxnStatus.ValueType  # 1
@@ -1194,12 +793,7 @@ class PaymentInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StatusEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            PaymentInfo._Status.ValueType
-        ],
-        builtins.type,
-    ):
+    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PaymentInfo._Status.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN_STATUS: PaymentInfo._Status.ValueType  # 0
         PROCESSING: PaymentInfo._Status.ValueType  # 1
@@ -1232,12 +826,7 @@ class PaymentInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _CurrencyEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            PaymentInfo._Currency.ValueType
-        ],
-        builtins.type,
-    ):
+    class _CurrencyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PaymentInfo._Currency.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN_CURRENCY: PaymentInfo._Currency.ValueType  # 0
         INR: PaymentInfo._Currency.ValueType  # 1
@@ -1292,68 +881,8 @@ class PaymentInfo(google.protobuf.message.Message):
         primaryAmount: waE2E.WAWebProtobufsE2E_pb2.Money | None = ...,
         exchangeAmount: waE2E.WAWebProtobufsE2E_pb2.Money | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "amount1000",
-            b"amount1000",
-            "currency",
-            b"currency",
-            "currencyDeprecated",
-            b"currencyDeprecated",
-            "exchangeAmount",
-            b"exchangeAmount",
-            "expiryTimestamp",
-            b"expiryTimestamp",
-            "futureproofed",
-            b"futureproofed",
-            "primaryAmount",
-            b"primaryAmount",
-            "receiverJID",
-            b"receiverJID",
-            "requestMessageKey",
-            b"requestMessageKey",
-            "status",
-            b"status",
-            "transactionTimestamp",
-            b"transactionTimestamp",
-            "txnStatus",
-            b"txnStatus",
-            "useNoviFiatFormat",
-            b"useNoviFiatFormat",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "amount1000",
-            b"amount1000",
-            "currency",
-            b"currency",
-            "currencyDeprecated",
-            b"currencyDeprecated",
-            "exchangeAmount",
-            b"exchangeAmount",
-            "expiryTimestamp",
-            b"expiryTimestamp",
-            "futureproofed",
-            b"futureproofed",
-            "primaryAmount",
-            b"primaryAmount",
-            "receiverJID",
-            b"receiverJID",
-            "requestMessageKey",
-            b"requestMessageKey",
-            "status",
-            b"status",
-            "transactionTimestamp",
-            b"transactionTimestamp",
-            "txnStatus",
-            b"txnStatus",
-            "useNoviFiatFormat",
-            b"useNoviFiatFormat",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["amount1000", b"amount1000", "currency", b"currency", "currencyDeprecated", b"currencyDeprecated", "exchangeAmount", b"exchangeAmount", "expiryTimestamp", b"expiryTimestamp", "futureproofed", b"futureproofed", "primaryAmount", b"primaryAmount", "receiverJID", b"receiverJID", "requestMessageKey", b"requestMessageKey", "status", b"status", "transactionTimestamp", b"transactionTimestamp", "txnStatus", b"txnStatus", "useNoviFiatFormat", b"useNoviFiatFormat"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["amount1000", b"amount1000", "currency", b"currency", "currencyDeprecated", b"currencyDeprecated", "exchangeAmount", b"exchangeAmount", "expiryTimestamp", b"expiryTimestamp", "futureproofed", b"futureproofed", "primaryAmount", b"primaryAmount", "receiverJID", b"receiverJID", "requestMessageKey", b"requestMessageKey", "status", b"status", "transactionTimestamp", b"transactionTimestamp", "txnStatus", b"txnStatus", "useNoviFiatFormat", b"useNoviFiatFormat"]) -> None: ...
 
 global___PaymentInfo = PaymentInfo
 
@@ -1365,12 +894,7 @@ class WebFeatures(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _FlagEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            WebFeatures._Flag.ValueType
-        ],
-        builtins.type,
-    ):
+    class _FlagEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[WebFeatures._Flag.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         NOT_STARTED: WebFeatures._Flag.ValueType  # 0
         FORCE_UPGRADE: WebFeatures._Flag.ValueType  # 1
@@ -1522,196 +1046,8 @@ class WebFeatures(google.protobuf.message.Message):
         externalMdOptInAvailable: global___WebFeatures.Flag.ValueType | None = ...,
         noDeleteMessageTimeLimit: global___WebFeatures.Flag.ValueType | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "archiveV2",
-            b"archiveV2",
-            "catalog",
-            b"catalog",
-            "changeNumberV2",
-            b"changeNumberV2",
-            "disappearingMode",
-            b"disappearingMode",
-            "e2ENotificationSync",
-            b"e2ENotificationSync",
-            "ephemeral24HDuration",
-            b"ephemeral24HDuration",
-            "ephemeralAllowGroupMembers",
-            b"ephemeralAllowGroupMembers",
-            "ephemeralMessages",
-            b"ephemeralMessages",
-            "externalMdOptInAvailable",
-            b"externalMdOptInAvailable",
-            "frequentlyForwardedSetting",
-            b"frequentlyForwardedSetting",
-            "groupDogfoodingInternalOnly",
-            b"groupDogfoodingInternalOnly",
-            "groupUiiCleanup",
-            b"groupUiiCleanup",
-            "groupsV3",
-            b"groupsV3",
-            "groupsV3Create",
-            b"groupsV3Create",
-            "groupsV4JoinPermission",
-            b"groupsV4JoinPermission",
-            "labelsDisplay",
-            b"labelsDisplay",
-            "labelsEdit",
-            b"labelsEdit",
-            "liveLocations",
-            b"liveLocations",
-            "liveLocationsFinal",
-            b"liveLocationsFinal",
-            "mdForceUpgrade",
-            b"mdForceUpgrade",
-            "mediaUpload",
-            b"mediaUpload",
-            "mediaUploadRichQuickReplies",
-            b"mediaUploadRichQuickReplies",
-            "noDeleteMessageTimeLimit",
-            b"noDeleteMessageTimeLimit",
-            "payments",
-            b"payments",
-            "queryStatusV3Thumbnail",
-            b"queryStatusV3Thumbnail",
-            "queryVname",
-            b"queryVname",
-            "quickRepliesQuery",
-            b"quickRepliesQuery",
-            "recentStickers",
-            b"recentStickers",
-            "recentStickersV2",
-            b"recentStickersV2",
-            "recentStickersV3",
-            b"recentStickersV3",
-            "settingsSync",
-            b"settingsSync",
-            "starredStickers",
-            b"starredStickers",
-            "statusRanking",
-            b"statusRanking",
-            "stickerPackQuery",
-            b"stickerPackQuery",
-            "support",
-            b"support",
-            "templateMessage",
-            b"templateMessage",
-            "templateMessageInteractivity",
-            b"templateMessageInteractivity",
-            "thirdPartyStickers",
-            b"thirdPartyStickers",
-            "userNotice",
-            b"userNotice",
-            "videoPlaybackURL",
-            b"videoPlaybackURL",
-            "vnameV2",
-            b"vnameV2",
-            "voipGroupCall",
-            b"voipGroupCall",
-            "voipIndividualIncoming",
-            b"voipIndividualIncoming",
-            "voipIndividualOutgoing",
-            b"voipIndividualOutgoing",
-            "voipIndividualVideo",
-            b"voipIndividualVideo",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "archiveV2",
-            b"archiveV2",
-            "catalog",
-            b"catalog",
-            "changeNumberV2",
-            b"changeNumberV2",
-            "disappearingMode",
-            b"disappearingMode",
-            "e2ENotificationSync",
-            b"e2ENotificationSync",
-            "ephemeral24HDuration",
-            b"ephemeral24HDuration",
-            "ephemeralAllowGroupMembers",
-            b"ephemeralAllowGroupMembers",
-            "ephemeralMessages",
-            b"ephemeralMessages",
-            "externalMdOptInAvailable",
-            b"externalMdOptInAvailable",
-            "frequentlyForwardedSetting",
-            b"frequentlyForwardedSetting",
-            "groupDogfoodingInternalOnly",
-            b"groupDogfoodingInternalOnly",
-            "groupUiiCleanup",
-            b"groupUiiCleanup",
-            "groupsV3",
-            b"groupsV3",
-            "groupsV3Create",
-            b"groupsV3Create",
-            "groupsV4JoinPermission",
-            b"groupsV4JoinPermission",
-            "labelsDisplay",
-            b"labelsDisplay",
-            "labelsEdit",
-            b"labelsEdit",
-            "liveLocations",
-            b"liveLocations",
-            "liveLocationsFinal",
-            b"liveLocationsFinal",
-            "mdForceUpgrade",
-            b"mdForceUpgrade",
-            "mediaUpload",
-            b"mediaUpload",
-            "mediaUploadRichQuickReplies",
-            b"mediaUploadRichQuickReplies",
-            "noDeleteMessageTimeLimit",
-            b"noDeleteMessageTimeLimit",
-            "payments",
-            b"payments",
-            "queryStatusV3Thumbnail",
-            b"queryStatusV3Thumbnail",
-            "queryVname",
-            b"queryVname",
-            "quickRepliesQuery",
-            b"quickRepliesQuery",
-            "recentStickers",
-            b"recentStickers",
-            "recentStickersV2",
-            b"recentStickersV2",
-            "recentStickersV3",
-            b"recentStickersV3",
-            "settingsSync",
-            b"settingsSync",
-            "starredStickers",
-            b"starredStickers",
-            "statusRanking",
-            b"statusRanking",
-            "stickerPackQuery",
-            b"stickerPackQuery",
-            "support",
-            b"support",
-            "templateMessage",
-            b"templateMessage",
-            "templateMessageInteractivity",
-            b"templateMessageInteractivity",
-            "thirdPartyStickers",
-            b"thirdPartyStickers",
-            "userNotice",
-            b"userNotice",
-            "videoPlaybackURL",
-            b"videoPlaybackURL",
-            "vnameV2",
-            b"vnameV2",
-            "voipGroupCall",
-            b"voipGroupCall",
-            "voipIndividualIncoming",
-            b"voipIndividualIncoming",
-            "voipIndividualOutgoing",
-            b"voipIndividualOutgoing",
-            "voipIndividualVideo",
-            b"voipIndividualVideo",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["archiveV2", b"archiveV2", "catalog", b"catalog", "changeNumberV2", b"changeNumberV2", "disappearingMode", b"disappearingMode", "e2ENotificationSync", b"e2ENotificationSync", "ephemeral24HDuration", b"ephemeral24HDuration", "ephemeralAllowGroupMembers", b"ephemeralAllowGroupMembers", "ephemeralMessages", b"ephemeralMessages", "externalMdOptInAvailable", b"externalMdOptInAvailable", "frequentlyForwardedSetting", b"frequentlyForwardedSetting", "groupDogfoodingInternalOnly", b"groupDogfoodingInternalOnly", "groupUiiCleanup", b"groupUiiCleanup", "groupsV3", b"groupsV3", "groupsV3Create", b"groupsV3Create", "groupsV4JoinPermission", b"groupsV4JoinPermission", "labelsDisplay", b"labelsDisplay", "labelsEdit", b"labelsEdit", "liveLocations", b"liveLocations", "liveLocationsFinal", b"liveLocationsFinal", "mdForceUpgrade", b"mdForceUpgrade", "mediaUpload", b"mediaUpload", "mediaUploadRichQuickReplies", b"mediaUploadRichQuickReplies", "noDeleteMessageTimeLimit", b"noDeleteMessageTimeLimit", "payments", b"payments", "queryStatusV3Thumbnail", b"queryStatusV3Thumbnail", "queryVname", b"queryVname", "quickRepliesQuery", b"quickRepliesQuery", "recentStickers", b"recentStickers", "recentStickersV2", b"recentStickersV2", "recentStickersV3", b"recentStickersV3", "settingsSync", b"settingsSync", "starredStickers", b"starredStickers", "statusRanking", b"statusRanking", "stickerPackQuery", b"stickerPackQuery", "support", b"support", "templateMessage", b"templateMessage", "templateMessageInteractivity", b"templateMessageInteractivity", "thirdPartyStickers", b"thirdPartyStickers", "userNotice", b"userNotice", "videoPlaybackURL", b"videoPlaybackURL", "vnameV2", b"vnameV2", "voipGroupCall", b"voipGroupCall", "voipIndividualIncoming", b"voipIndividualIncoming", "voipIndividualOutgoing", b"voipIndividualOutgoing", "voipIndividualVideo", b"voipIndividualVideo"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["archiveV2", b"archiveV2", "catalog", b"catalog", "changeNumberV2", b"changeNumberV2", "disappearingMode", b"disappearingMode", "e2ENotificationSync", b"e2ENotificationSync", "ephemeral24HDuration", b"ephemeral24HDuration", "ephemeralAllowGroupMembers", b"ephemeralAllowGroupMembers", "ephemeralMessages", b"ephemeralMessages", "externalMdOptInAvailable", b"externalMdOptInAvailable", "frequentlyForwardedSetting", b"frequentlyForwardedSetting", "groupDogfoodingInternalOnly", b"groupDogfoodingInternalOnly", "groupUiiCleanup", b"groupUiiCleanup", "groupsV3", b"groupsV3", "groupsV3Create", b"groupsV3Create", "groupsV4JoinPermission", b"groupsV4JoinPermission", "labelsDisplay", b"labelsDisplay", "labelsEdit", b"labelsEdit", "liveLocations", b"liveLocations", "liveLocationsFinal", b"liveLocationsFinal", "mdForceUpgrade", b"mdForceUpgrade", "mediaUpload", b"mediaUpload", "mediaUploadRichQuickReplies", b"mediaUploadRichQuickReplies", "noDeleteMessageTimeLimit", b"noDeleteMessageTimeLimit", "payments", b"payments", "queryStatusV3Thumbnail", b"queryStatusV3Thumbnail", "queryVname", b"queryVname", "quickRepliesQuery", b"quickRepliesQuery", "recentStickers", b"recentStickers", "recentStickersV2", b"recentStickersV2", "recentStickersV3", b"recentStickersV3", "settingsSync", b"settingsSync", "starredStickers", b"starredStickers", "statusRanking", b"statusRanking", "stickerPackQuery", b"stickerPackQuery", "support", b"support", "templateMessage", b"templateMessage", "templateMessageInteractivity", b"templateMessageInteractivity", "thirdPartyStickers", b"thirdPartyStickers", "userNotice", b"userNotice", "videoPlaybackURL", b"videoPlaybackURL", "vnameV2", b"vnameV2", "voipGroupCall", b"voipGroupCall", "voipIndividualIncoming", b"voipIndividualIncoming", "voipIndividualOutgoing", b"voipIndividualOutgoing", "voipIndividualVideo", b"voipIndividualVideo"]) -> None: ...
 
 global___WebFeatures = WebFeatures
 
@@ -1723,12 +1059,7 @@ class PinInChat(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TypeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            PinInChat._Type.ValueType
-        ],
-        builtins.type,
-    ):
+    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PinInChat._Type.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN_TYPE: PinInChat._Type.ValueType  # 0
         PIN_FOR_ALL: PinInChat._Type.ValueType  # 1
@@ -1760,36 +1091,8 @@ class PinInChat(google.protobuf.message.Message):
         serverTimestampMS: builtins.int | None = ...,
         messageAddOnContextInfo: global___MessageAddOnContextInfo | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "key",
-            b"key",
-            "messageAddOnContextInfo",
-            b"messageAddOnContextInfo",
-            "senderTimestampMS",
-            b"senderTimestampMS",
-            "serverTimestampMS",
-            b"serverTimestampMS",
-            "type",
-            b"type",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "key",
-            b"key",
-            "messageAddOnContextInfo",
-            b"messageAddOnContextInfo",
-            "senderTimestampMS",
-            b"senderTimestampMS",
-            "serverTimestampMS",
-            b"serverTimestampMS",
-            "type",
-            b"type",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["key", b"key", "messageAddOnContextInfo", b"messageAddOnContextInfo", "senderTimestampMS", b"senderTimestampMS", "serverTimestampMS", b"serverTimestampMS", "type", b"type"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["key", b"key", "messageAddOnContextInfo", b"messageAddOnContextInfo", "senderTimestampMS", b"senderTimestampMS", "serverTimestampMS", b"serverTimestampMS", "type", b"type"]) -> None: ...
 
 global___PinInChat = PinInChat
 
@@ -1801,12 +1104,7 @@ class MessageAddOn(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _MessageAddOnTypeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
-            MessageAddOn._MessageAddOnType.ValueType
-        ],
-        builtins.type,
-    ):
+    class _MessageAddOnTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[MessageAddOn._MessageAddOnType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNDEFINED: MessageAddOn._MessageAddOnType.ValueType  # 0
         REACTION: MessageAddOn._MessageAddOnType.ValueType  # 1
@@ -1814,9 +1112,7 @@ class MessageAddOn(google.protobuf.message.Message):
         POLL_UPDATE: MessageAddOn._MessageAddOnType.ValueType  # 3
         PIN_IN_CHAT: MessageAddOn._MessageAddOnType.ValueType  # 4
 
-    class MessageAddOnType(
-        _MessageAddOnType, metaclass=_MessageAddOnTypeEnumTypeWrapper
-    ): ...
+    class MessageAddOnType(_MessageAddOnType, metaclass=_MessageAddOnTypeEnumTypeWrapper): ...
     UNDEFINED: MessageAddOn.MessageAddOnType.ValueType  # 0
     REACTION: MessageAddOn.MessageAddOnType.ValueType  # 1
     EVENT_RESPONSE: MessageAddOn.MessageAddOnType.ValueType  # 2
@@ -1855,48 +1151,8 @@ class MessageAddOn(google.protobuf.message.Message):
         messageAddOnKey: waCommon.WACommon_pb2.MessageKey | None = ...,
         legacyMessage: global___LegacyMessage | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "addOnContextInfo",
-            b"addOnContextInfo",
-            "legacyMessage",
-            b"legacyMessage",
-            "messageAddOn",
-            b"messageAddOn",
-            "messageAddOnKey",
-            b"messageAddOnKey",
-            "messageAddOnType",
-            b"messageAddOnType",
-            "senderTimestampMS",
-            b"senderTimestampMS",
-            "serverTimestampMS",
-            b"serverTimestampMS",
-            "status",
-            b"status",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "addOnContextInfo",
-            b"addOnContextInfo",
-            "legacyMessage",
-            b"legacyMessage",
-            "messageAddOn",
-            b"messageAddOn",
-            "messageAddOnKey",
-            b"messageAddOnKey",
-            "messageAddOnType",
-            b"messageAddOnType",
-            "senderTimestampMS",
-            b"senderTimestampMS",
-            "serverTimestampMS",
-            b"serverTimestampMS",
-            "status",
-            b"status",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["addOnContextInfo", b"addOnContextInfo", "legacyMessage", b"legacyMessage", "messageAddOn", b"messageAddOn", "messageAddOnKey", b"messageAddOnKey", "messageAddOnType", b"messageAddOnType", "senderTimestampMS", b"senderTimestampMS", "serverTimestampMS", b"serverTimestampMS", "status", b"status"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["addOnContextInfo", b"addOnContextInfo", "legacyMessage", b"legacyMessage", "messageAddOn", b"messageAddOn", "messageAddOnKey", b"messageAddOnKey", "messageAddOnType", b"messageAddOnType", "senderTimestampMS", b"senderTimestampMS", "serverTimestampMS", b"serverTimestampMS", "status", b"status"]) -> None: ...
 
 global___MessageAddOn = MessageAddOn
 
@@ -1915,18 +1171,8 @@ class CommentMetadata(google.protobuf.message.Message):
         commentParentKey: waCommon.WACommon_pb2.MessageKey | None = ...,
         replyCount: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "commentParentKey", b"commentParentKey", "replyCount", b"replyCount"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "commentParentKey", b"commentParentKey", "replyCount", b"replyCount"
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["commentParentKey", b"commentParentKey", "replyCount", b"replyCount"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["commentParentKey", b"commentParentKey", "replyCount", b"replyCount"]) -> None: ...
 
 global___CommentMetadata = CommentMetadata
 
@@ -1942,11 +1188,7 @@ class WebNotificationsInfo(google.protobuf.message.Message):
     unreadChats: builtins.int
     notifyMessageCount: builtins.int
     @property
-    def notifyMessages(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___WebMessageInfo
-    ]: ...
+    def notifyMessages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___WebMessageInfo]: ...
     def __init__(
         self,
         *,
@@ -1955,30 +1197,8 @@ class WebNotificationsInfo(google.protobuf.message.Message):
         notifyMessageCount: builtins.int | None = ...,
         notifyMessages: collections.abc.Iterable[global___WebMessageInfo] | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "notifyMessageCount",
-            b"notifyMessageCount",
-            "timestamp",
-            b"timestamp",
-            "unreadChats",
-            b"unreadChats",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "notifyMessageCount",
-            b"notifyMessageCount",
-            "notifyMessages",
-            b"notifyMessages",
-            "timestamp",
-            b"timestamp",
-            "unreadChats",
-            b"unreadChats",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["notifyMessageCount", b"notifyMessageCount", "timestamp", b"timestamp", "unreadChats", b"unreadChats"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["notifyMessageCount", b"notifyMessageCount", "notifyMessages", b"notifyMessages", "timestamp", b"timestamp", "unreadChats", b"unreadChats"]) -> None: ...
 
 global___WebNotificationsInfo = WebNotificationsInfo
 
@@ -2004,32 +1224,8 @@ class NotificationMessageInfo(google.protobuf.message.Message):
         messageTimestamp: builtins.int | None = ...,
         participant: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "key",
-            b"key",
-            "message",
-            b"message",
-            "messageTimestamp",
-            b"messageTimestamp",
-            "participant",
-            b"participant",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "key",
-            b"key",
-            "message",
-            b"message",
-            "messageTimestamp",
-            b"messageTimestamp",
-            "participant",
-            b"participant",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["key", b"key", "message", b"message", "messageTimestamp", b"messageTimestamp", "participant", b"participant"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["key", b"key", "message", b"message", "messageTimestamp", b"messageTimestamp", "participant", b"participant"]) -> None: ...
 
 global___NotificationMessageInfo = NotificationMessageInfo
 
@@ -2044,12 +1240,8 @@ class ReportingTokenInfo(google.protobuf.message.Message):
         *,
         reportingTag: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["reportingTag", b"reportingTag"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["reportingTag", b"reportingTag"]
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["reportingTag", b"reportingTag"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["reportingTag", b"reportingTag"]) -> None: ...
 
 global___ReportingTokenInfo = ReportingTokenInfo
 
@@ -2064,12 +1256,8 @@ class MediaData(google.protobuf.message.Message):
         *,
         localPath: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["localPath", b"localPath"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["localPath", b"localPath"]
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["localPath", b"localPath"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["localPath", b"localPath"]) -> None: ...
 
 global___MediaData = MediaData
 
@@ -2090,28 +1278,8 @@ class PhotoChange(google.protobuf.message.Message):
         newPhoto: builtins.bytes | None = ...,
         newPhotoID: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "newPhoto",
-            b"newPhoto",
-            "newPhotoID",
-            b"newPhotoID",
-            "oldPhoto",
-            b"oldPhoto",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "newPhoto",
-            b"newPhoto",
-            "newPhotoID",
-            b"newPhotoID",
-            "oldPhoto",
-            b"oldPhoto",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["newPhoto", b"newPhoto", "newPhotoID", b"newPhotoID", "oldPhoto", b"oldPhoto"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["newPhoto", b"newPhoto", "newPhotoID", b"newPhotoID", "oldPhoto", b"oldPhoto"]) -> None: ...
 
 global___PhotoChange = PhotoChange
 
@@ -2129,24 +1297,8 @@ class StatusPSA(google.protobuf.message.Message):
         campaignID: builtins.int | None = ...,
         campaignExpirationTimestamp: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "campaignExpirationTimestamp",
-            b"campaignExpirationTimestamp",
-            "campaignID",
-            b"campaignID",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "campaignExpirationTimestamp",
-            b"campaignExpirationTimestamp",
-            "campaignID",
-            b"campaignID",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["campaignExpirationTimestamp", b"campaignExpirationTimestamp", "campaignID", b"campaignID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["campaignExpirationTimestamp", b"campaignExpirationTimestamp", "campaignID", b"campaignID"]) -> None: ...
 
 global___StatusPSA = StatusPSA
 
@@ -2165,17 +1317,9 @@ class UserReceipt(google.protobuf.message.Message):
     readTimestamp: builtins.int
     playedTimestamp: builtins.int
     @property
-    def pendingDeviceJID(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-        builtins.str
-    ]: ...
+    def pendingDeviceJID(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     @property
-    def deliveredDeviceJID(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-        builtins.str
-    ]: ...
+    def deliveredDeviceJID(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     def __init__(
         self,
         *,
@@ -2186,36 +1330,8 @@ class UserReceipt(google.protobuf.message.Message):
         pendingDeviceJID: collections.abc.Iterable[builtins.str] | None = ...,
         deliveredDeviceJID: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "playedTimestamp",
-            b"playedTimestamp",
-            "readTimestamp",
-            b"readTimestamp",
-            "receiptTimestamp",
-            b"receiptTimestamp",
-            "userJID",
-            b"userJID",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "deliveredDeviceJID",
-            b"deliveredDeviceJID",
-            "pendingDeviceJID",
-            b"pendingDeviceJID",
-            "playedTimestamp",
-            b"playedTimestamp",
-            "readTimestamp",
-            b"readTimestamp",
-            "receiptTimestamp",
-            b"receiptTimestamp",
-            "userJID",
-            b"userJID",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["playedTimestamp", b"playedTimestamp", "readTimestamp", b"readTimestamp", "receiptTimestamp", b"receiptTimestamp", "userJID", b"userJID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["deliveredDeviceJID", b"deliveredDeviceJID", "pendingDeviceJID", b"pendingDeviceJID", "playedTimestamp", b"playedTimestamp", "readTimestamp", b"readTimestamp", "receiptTimestamp", b"receiptTimestamp", "userJID", b"userJID"]) -> None: ...
 
 global___UserReceipt = UserReceipt
 
@@ -2243,36 +1359,8 @@ class Reaction(google.protobuf.message.Message):
         senderTimestampMS: builtins.int | None = ...,
         unread: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "groupingKey",
-            b"groupingKey",
-            "key",
-            b"key",
-            "senderTimestampMS",
-            b"senderTimestampMS",
-            "text",
-            b"text",
-            "unread",
-            b"unread",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "groupingKey",
-            b"groupingKey",
-            "key",
-            b"key",
-            "senderTimestampMS",
-            b"senderTimestampMS",
-            "text",
-            b"text",
-            "unread",
-            b"unread",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["groupingKey", b"groupingKey", "key", b"key", "senderTimestampMS", b"senderTimestampMS", "text", b"text", "unread", b"unread"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["groupingKey", b"groupingKey", "key", b"key", "senderTimestampMS", b"senderTimestampMS", "text", b"text", "unread", b"unread"]) -> None: ...
 
 global___Reaction = Reaction
 
@@ -2301,36 +1389,8 @@ class PollUpdate(google.protobuf.message.Message):
         serverTimestampMS: builtins.int | None = ...,
         unread: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "pollUpdateMessageKey",
-            b"pollUpdateMessageKey",
-            "senderTimestampMS",
-            b"senderTimestampMS",
-            "serverTimestampMS",
-            b"serverTimestampMS",
-            "unread",
-            b"unread",
-            "vote",
-            b"vote",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "pollUpdateMessageKey",
-            b"pollUpdateMessageKey",
-            "senderTimestampMS",
-            b"senderTimestampMS",
-            "serverTimestampMS",
-            b"serverTimestampMS",
-            "unread",
-            b"unread",
-            "vote",
-            b"vote",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["pollUpdateMessageKey", b"pollUpdateMessageKey", "senderTimestampMS", b"senderTimestampMS", "serverTimestampMS", b"serverTimestampMS", "unread", b"unread", "vote", b"vote"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["pollUpdateMessageKey", b"pollUpdateMessageKey", "senderTimestampMS", b"senderTimestampMS", "serverTimestampMS", b"serverTimestampMS", "unread", b"unread", "vote", b"vote"]) -> None: ...
 
 global___PollUpdate = PollUpdate
 
@@ -2345,12 +1405,8 @@ class PollAdditionalMetadata(google.protobuf.message.Message):
         *,
         pollInvalidated: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["pollInvalidated", b"pollInvalidated"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["pollInvalidated", b"pollInvalidated"]
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["pollInvalidated", b"pollInvalidated"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["pollInvalidated", b"pollInvalidated"]) -> None: ...
 
 global___PollAdditionalMetadata = PollAdditionalMetadata
 
@@ -2365,9 +1421,7 @@ class EventAdditionalMetadata(google.protobuf.message.Message):
         *,
         isStale: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["isStale", b"isStale"]
-    ) -> builtins.bool: ...
+    def HasField(self, field_name: typing.Literal["isStale", b"isStale"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["isStale", b"isStale"]) -> None: ...
 
 global___EventAdditionalMetadata = EventAdditionalMetadata
@@ -2399,40 +1453,8 @@ class KeepInChat(google.protobuf.message.Message):
         clientTimestampMS: builtins.int | None = ...,
         serverTimestampMS: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "clientTimestampMS",
-            b"clientTimestampMS",
-            "deviceJID",
-            b"deviceJID",
-            "keepType",
-            b"keepType",
-            "key",
-            b"key",
-            "serverTimestamp",
-            b"serverTimestamp",
-            "serverTimestampMS",
-            b"serverTimestampMS",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "clientTimestampMS",
-            b"clientTimestampMS",
-            "deviceJID",
-            b"deviceJID",
-            "keepType",
-            b"keepType",
-            "key",
-            b"key",
-            "serverTimestamp",
-            b"serverTimestamp",
-            "serverTimestampMS",
-            b"serverTimestampMS",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["clientTimestampMS", b"clientTimestampMS", "deviceJID", b"deviceJID", "keepType", b"keepType", "key", b"key", "serverTimestamp", b"serverTimestamp", "serverTimestampMS", b"serverTimestampMS"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["clientTimestampMS", b"clientTimestampMS", "deviceJID", b"deviceJID", "keepType", b"keepType", "key", b"key", "serverTimestamp", b"serverTimestamp", "serverTimestampMS", b"serverTimestampMS"]) -> None: ...
 
 global___KeepInChat = KeepInChat
 
@@ -2443,34 +1465,15 @@ class MessageAddOnContextInfo(google.protobuf.message.Message):
     MESSAGEADDONDURATIONINSECS_FIELD_NUMBER: builtins.int
     MESSAGEADDONEXPIRYTYPE_FIELD_NUMBER: builtins.int
     messageAddOnDurationInSecs: builtins.int
-    messageAddOnExpiryType: (
-        waE2E.WAWebProtobufsE2E_pb2.MessageContextInfo.MessageAddonExpiryType.ValueType
-    )
+    messageAddOnExpiryType: waE2E.WAWebProtobufsE2E_pb2.MessageContextInfo.MessageAddonExpiryType.ValueType
     def __init__(
         self,
         *,
         messageAddOnDurationInSecs: builtins.int | None = ...,
-        messageAddOnExpiryType: waE2E.WAWebProtobufsE2E_pb2.MessageContextInfo.MessageAddonExpiryType.ValueType
-        | None = ...,
+        messageAddOnExpiryType: waE2E.WAWebProtobufsE2E_pb2.MessageContextInfo.MessageAddonExpiryType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "messageAddOnDurationInSecs",
-            b"messageAddOnDurationInSecs",
-            "messageAddOnExpiryType",
-            b"messageAddOnExpiryType",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "messageAddOnDurationInSecs",
-            b"messageAddOnDurationInSecs",
-            "messageAddOnExpiryType",
-            b"messageAddOnExpiryType",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["messageAddOnDurationInSecs", b"messageAddOnDurationInSecs", "messageAddOnExpiryType", b"messageAddOnExpiryType"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["messageAddOnDurationInSecs", b"messageAddOnDurationInSecs", "messageAddOnExpiryType", b"messageAddOnExpiryType"]) -> None: ...
 
 global___MessageAddOnContextInfo = MessageAddOnContextInfo
 
@@ -2485,12 +1488,8 @@ class PremiumMessageInfo(google.protobuf.message.Message):
         *,
         serverCampaignID: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["serverCampaignID", b"serverCampaignID"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["serverCampaignID", b"serverCampaignID"]
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["serverCampaignID", b"serverCampaignID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["serverCampaignID", b"serverCampaignID"]) -> None: ...
 
 global___PremiumMessageInfo = PremiumMessageInfo
 
@@ -2507,44 +1506,17 @@ class EventResponse(google.protobuf.message.Message):
     @property
     def eventResponseMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
     @property
-    def eventResponseMessage(
-        self,
-    ) -> waE2E.WAWebProtobufsE2E_pb2.EventResponseMessage: ...
+    def eventResponseMessage(self) -> waE2E.WAWebProtobufsE2E_pb2.EventResponseMessage: ...
     def __init__(
         self,
         *,
         eventResponseMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
         timestampMS: builtins.int | None = ...,
-        eventResponseMessage: waE2E.WAWebProtobufsE2E_pb2.EventResponseMessage
-        | None = ...,
+        eventResponseMessage: waE2E.WAWebProtobufsE2E_pb2.EventResponseMessage | None = ...,
         unread: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "eventResponseMessage",
-            b"eventResponseMessage",
-            "eventResponseMessageKey",
-            b"eventResponseMessageKey",
-            "timestampMS",
-            b"timestampMS",
-            "unread",
-            b"unread",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "eventResponseMessage",
-            b"eventResponseMessage",
-            "eventResponseMessageKey",
-            b"eventResponseMessageKey",
-            "timestampMS",
-            b"timestampMS",
-            "unread",
-            b"unread",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["eventResponseMessage", b"eventResponseMessage", "eventResponseMessageKey", b"eventResponseMessageKey", "timestampMS", b"timestampMS", "unread", b"unread"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["eventResponseMessage", b"eventResponseMessage", "eventResponseMessageKey", b"eventResponseMessageKey", "timestampMS", b"timestampMS", "unread", b"unread"]) -> None: ...
 
 global___EventResponse = EventResponse
 
@@ -2555,30 +1527,17 @@ class LegacyMessage(google.protobuf.message.Message):
     EVENTRESPONSEMESSAGE_FIELD_NUMBER: builtins.int
     POLLVOTE_FIELD_NUMBER: builtins.int
     @property
-    def eventResponseMessage(
-        self,
-    ) -> waE2E.WAWebProtobufsE2E_pb2.EventResponseMessage: ...
+    def eventResponseMessage(self) -> waE2E.WAWebProtobufsE2E_pb2.EventResponseMessage: ...
     @property
     def pollVote(self) -> waE2E.WAWebProtobufsE2E_pb2.PollVoteMessage: ...
     def __init__(
         self,
         *,
-        eventResponseMessage: waE2E.WAWebProtobufsE2E_pb2.EventResponseMessage
-        | None = ...,
+        eventResponseMessage: waE2E.WAWebProtobufsE2E_pb2.EventResponseMessage | None = ...,
         pollVote: waE2E.WAWebProtobufsE2E_pb2.PollVoteMessage | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "eventResponseMessage", b"eventResponseMessage", "pollVote", b"pollVote"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "eventResponseMessage", b"eventResponseMessage", "pollVote", b"pollVote"
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["eventResponseMessage", b"eventResponseMessage", "pollVote", b"pollVote"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["eventResponseMessage", b"eventResponseMessage", "pollVote", b"pollVote"]) -> None: ...
 
 global___LegacyMessage = LegacyMessage
 
@@ -2594,11 +1553,7 @@ class StatusMentionMessage(google.protobuf.message.Message):
         *,
         quotedStatus: waE2E.WAWebProtobufsE2E_pb2.Message | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["quotedStatus", b"quotedStatus"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["quotedStatus", b"quotedStatus"]
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["quotedStatus", b"quotedStatus"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["quotedStatus", b"quotedStatus"]) -> None: ...
 
 global___StatusMentionMessage = StatusMentionMessage

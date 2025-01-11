@@ -37,36 +37,8 @@ class NoiseCertificate(google.protobuf.message.Message):
             subject: builtins.str | None = ...,
             key: builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(
-            self,
-            field_name: typing.Literal[
-                "expires",
-                b"expires",
-                "issuer",
-                b"issuer",
-                "key",
-                b"key",
-                "serial",
-                b"serial",
-                "subject",
-                b"subject",
-            ],
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "expires",
-                b"expires",
-                "issuer",
-                b"issuer",
-                "key",
-                b"key",
-                "serial",
-                b"serial",
-                "subject",
-                b"subject",
-            ],
-        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["expires", b"expires", "issuer", b"issuer", "key", b"key", "serial", b"serial", "subject", b"subject"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["expires", b"expires", "issuer", b"issuer", "key", b"key", "serial", b"serial", "subject", b"subject"]) -> None: ...
 
     DETAILS_FIELD_NUMBER: builtins.int
     SIGNATURE_FIELD_NUMBER: builtins.int
@@ -78,14 +50,8 @@ class NoiseCertificate(google.protobuf.message.Message):
         details: builtins.bytes | None = ...,
         signature: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal["details", b"details", "signature", b"signature"],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal["details", b"details", "signature", b"signature"],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["details", b"details", "signature", b"signature"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["details", b"details", "signature", b"signature"]) -> None: ...
 
 global___NoiseCertificate = NoiseCertificate
 
@@ -120,36 +86,8 @@ class CertChain(google.protobuf.message.Message):
                 notBefore: builtins.int | None = ...,
                 notAfter: builtins.int | None = ...,
             ) -> None: ...
-            def HasField(
-                self,
-                field_name: typing.Literal[
-                    "issuerSerial",
-                    b"issuerSerial",
-                    "key",
-                    b"key",
-                    "notAfter",
-                    b"notAfter",
-                    "notBefore",
-                    b"notBefore",
-                    "serial",
-                    b"serial",
-                ],
-            ) -> builtins.bool: ...
-            def ClearField(
-                self,
-                field_name: typing.Literal[
-                    "issuerSerial",
-                    b"issuerSerial",
-                    "key",
-                    b"key",
-                    "notAfter",
-                    b"notAfter",
-                    "notBefore",
-                    b"notBefore",
-                    "serial",
-                    b"serial",
-                ],
-            ) -> None: ...
+            def HasField(self, field_name: typing.Literal["issuerSerial", b"issuerSerial", "key", b"key", "notAfter", b"notAfter", "notBefore", b"notBefore", "serial", b"serial"]) -> builtins.bool: ...
+            def ClearField(self, field_name: typing.Literal["issuerSerial", b"issuerSerial", "key", b"key", "notAfter", b"notAfter", "notBefore", b"notBefore", "serial", b"serial"]) -> None: ...
 
         DETAILS_FIELD_NUMBER: builtins.int
         SIGNATURE_FIELD_NUMBER: builtins.int
@@ -161,18 +99,8 @@ class CertChain(google.protobuf.message.Message):
             details: builtins.bytes | None = ...,
             signature: builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(
-            self,
-            field_name: typing.Literal[
-                "details", b"details", "signature", b"signature"
-            ],
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "details", b"details", "signature", b"signature"
-            ],
-        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["details", b"details", "signature", b"signature"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["details", b"details", "signature", b"signature"]) -> None: ...
 
     LEAF_FIELD_NUMBER: builtins.int
     INTERMEDIATE_FIELD_NUMBER: builtins.int
@@ -186,13 +114,7 @@ class CertChain(google.protobuf.message.Message):
         leaf: global___CertChain.NoiseCertificate | None = ...,
         intermediate: global___CertChain.NoiseCertificate | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal["intermediate", b"intermediate", "leaf", b"leaf"],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal["intermediate", b"intermediate", "leaf", b"leaf"],
-    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["intermediate", b"intermediate", "leaf", b"leaf"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["intermediate", b"intermediate", "leaf", b"leaf"]) -> None: ...
 
 global___CertChain = CertChain
