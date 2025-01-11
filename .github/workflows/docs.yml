@@ -15,7 +15,7 @@ jobs:
     - name: install deps
     - name: build docs
       run: |
-        poetry sync --docs
+        poetry sync --group docs
         uv run task docsbuild
     - name: Deploy docs
       uses: JamesIves/github-pages-deploy-action@v4
