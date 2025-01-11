@@ -15,7 +15,7 @@ env:
  UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
 jobs:
   android:
-    if: github.event.inputs.goneonize
+    if: ${{ github.event.inputs.goneonize }}
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
@@ -70,7 +70,7 @@ jobs:
         name: Android
         path: neonize/*.so
   zig:
-    if: github.event.inputs.goneonize
+    if: ${{ github.event.inputs.goneonize }}
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
@@ -133,7 +133,7 @@ jobs:
           LIBS/*.so
           LIBS/*.dll
   linux:
-    if: github.event.inputs.goneonize
+    if: ${{ github.event.inputs.goneonize }}
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
@@ -194,7 +194,7 @@ jobs:
         name: Linux
         path: LIBS/*.so
   darwin:
-    if: github.event.inputs.goneonize
+    if: ${{ github.event.inputs.goneonize }}
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
