@@ -61,6 +61,14 @@ neonize.exc module
    :undoc-members:
    :show-inheritance:
 
+neonize.neonize\-linux\-amd64 module
+------------------------------------
+
+.. automodule:: neonize.neonize-linux-amd64
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 neonize.types module
 --------------------
 

@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>neonize.exc - neonize 8.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>neonize.exc - neonize 1.2.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">neonize 8.0.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">neonize 1.2.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +189,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">neonize 8.0.0 documentation</span>
+  <span class="sidebar-brand-text">neonize 1.2.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -233,415 +233,425 @@
           <h1>Source code for neonize.exc</h1><div class="highlight"><pre>
 <span></span><span class="c1"># class InvalidInviteLink(Exception):</span>
 <span class="c1">#     pass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">re</span><span class="w"> </span><span class="kn">import</span> <span class="n">L</span>
+
+
 <div class="viewcode-block" id="UploadError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.UploadError">[docs]</a>
-<span class="k">class</span> <span class="nc">UploadError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UploadError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="DownloadError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.DownloadError">[docs]</a>
-<span class="k">class</span> <span class="nc">DownloadError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DownloadError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="InviteLinkError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.InviteLinkError">[docs]</a>
-<span class="k">class</span> <span class="nc">InviteLinkError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">InviteLinkError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetGroupInfoError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetGroupInfoError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetGroupInfoError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetGroupInfoError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="SetGroupPhotoError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SetGroupPhotoError">[docs]</a>
-<span class="k">class</span> <span class="nc">SetGroupPhotoError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SetGroupPhotoError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetGroupInviteLinkError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetGroupInviteLinkError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetGroupInviteLinkError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetGroupInviteLinkError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="CreateGroupError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.CreateGroupError">[docs]</a>
-<span class="k">class</span> <span class="nc">CreateGroupError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CreateGroupError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="IsOnWhatsAppError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.IsOnWhatsAppError">[docs]</a>
-<span class="k">class</span> <span class="nc">IsOnWhatsAppError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IsOnWhatsAppError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetUserInfoError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetUserInfoError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetUserInfoError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetUserInfoError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="SendMessageError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SendMessageError">[docs]</a>
-<span class="k">class</span> <span class="nc">SendMessageError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SendMessageError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="BuildPollVoteError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.BuildPollVoteError">[docs]</a>
-<span class="k">class</span> <span class="nc">BuildPollVoteError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BuildPollVoteError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="CreateNewsletterError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.CreateNewsletterError">[docs]</a>
-<span class="k">class</span> <span class="nc">CreateNewsletterError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CreateNewsletterError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="FollowNewsletterError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.FollowNewsletterError">[docs]</a>
-<span class="k">class</span> <span class="nc">FollowNewsletterError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FollowNewsletterError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetBlocklistError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetBlocklistError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetBlocklistError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetBlocklistError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetContactQrLinkError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetContactQrLinkError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetContactQrLinkError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetContactQrLinkError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetGroupRequestParticipantsError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetGroupRequestParticipantsError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetGroupRequestParticipantsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetGroupRequestParticipantsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetJoinedGroupsError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetJoinedGroupsError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetJoinedGroupsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetJoinedGroupsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetLinkedGroupParticipantsError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetLinkedGroupParticipantsError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetLinkedGroupParticipantsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetLinkedGroupParticipantsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetNewsletterInfoError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetNewsletterInfoError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetNewsletterInfoError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetNewsletterInfoError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetNewsletterInfoWithInviteError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetNewsletterInfoWithInviteError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetNewsletterInfoWithInviteError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetNewsletterInfoWithInviteError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetNewsletterMessageUpdateError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetNewsletterMessageUpdateError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetNewsletterMessageUpdateError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetNewsletterMessageUpdateError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetNewsletterMessagesError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetNewsletterMessagesError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetNewsletterMessagesError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetNewsletterMessagesError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetProfilePictureError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetProfilePictureError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetProfilePictureError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetProfilePictureError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetStatusPrivacyError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetStatusPrivacyError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetStatusPrivacyError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetStatusPrivacyError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetSubGroupsError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetSubGroupsError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetSubGroupsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetSubGroupsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetSubscribedNewslettersError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetSubscribedNewslettersError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetSubscribedNewslettersError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetSubscribedNewslettersError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetUserDevicesError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetUserDevicesError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetUserDevicesError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetUserDevicesError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="JoinGroupWithInviteError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.JoinGroupWithInviteError">[docs]</a>
-<span class="k">class</span> <span class="nc">JoinGroupWithInviteError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">JoinGroupWithInviteError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="LinkGroupError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.LinkGroupError">[docs]</a>
-<span class="k">class</span> <span class="nc">LinkGroupError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LinkGroupError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="LogoutError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.LogoutError">[docs]</a>
-<span class="k">class</span> <span class="nc">LogoutError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LogoutError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="MarkReadError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.MarkReadError">[docs]</a>
-<span class="k">class</span> <span class="nc">MarkReadError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MarkReadError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="NewsletterMarkViewedError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.NewsletterMarkViewedError">[docs]</a>
-<span class="k">class</span> <span class="nc">NewsletterMarkViewedError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NewsletterMarkViewedError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="NewsletterSendReactionError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.NewsletterSendReactionError">[docs]</a>
-<span class="k">class</span> <span class="nc">NewsletterSendReactionError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NewsletterSendReactionError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="NewsletterSubscribeLiveUpdatesError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.NewsletterSubscribeLiveUpdatesError">[docs]</a>
-<span class="k">class</span> <span class="nc">NewsletterSubscribeLiveUpdatesError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NewsletterSubscribeLiveUpdatesError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="NewsletterToggleMuteError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.NewsletterToggleMuteError">[docs]</a>
-<span class="k">class</span> <span class="nc">NewsletterToggleMuteError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NewsletterToggleMuteError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="ResolveContactQRLinkError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.ResolveContactQRLinkError">[docs]</a>
-<span class="k">class</span> <span class="nc">ResolveContactQRLinkError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ResolveContactQRLinkError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="ResolveBusinessMessageLinkError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.ResolveBusinessMessageLinkError">[docs]</a>
-<span class="k">class</span> <span class="nc">ResolveBusinessMessageLinkError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ResolveBusinessMessageLinkError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="SendAppStateError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SendAppStateError">[docs]</a>
-<span class="k">class</span> <span class="nc">SendAppStateError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SendAppStateError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="SetDefaultDisappearingTimerError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SetDefaultDisappearingTimerError">[docs]</a>
-<span class="k">class</span> <span class="nc">SetDefaultDisappearingTimerError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SetDefaultDisappearingTimerError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="SetDisappearingTimerError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SetDisappearingTimerError">[docs]</a>
-<span class="k">class</span> <span class="nc">SetDisappearingTimerError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SetDisappearingTimerError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="SetGroupAnnounceError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SetGroupAnnounceError">[docs]</a>
-<span class="k">class</span> <span class="nc">SetGroupAnnounceError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SetGroupAnnounceError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="SetGroupLockedError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SetGroupLockedError">[docs]</a>
-<span class="k">class</span> <span class="nc">SetGroupLockedError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SetGroupLockedError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="SetGroupTopicError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SetGroupTopicError">[docs]</a>
-<span class="k">class</span> <span class="nc">SetGroupTopicError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SetGroupTopicError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="SetPrivacySettingError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SetPrivacySettingError">[docs]</a>
-<span class="k">class</span> <span class="nc">SetPrivacySettingError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SetPrivacySettingError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="SetPassiveError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SetPassiveError">[docs]</a>
-<span class="k">class</span> <span class="nc">SetPassiveError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SetPassiveError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="SetStatusMessageError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SetStatusMessageError">[docs]</a>
-<span class="k">class</span> <span class="nc">SetStatusMessageError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SetStatusMessageError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="SubscribePresenceError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SubscribePresenceError">[docs]</a>
-<span class="k">class</span> <span class="nc">SubscribePresenceError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SubscribePresenceError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="UnfollowNewsletterError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.UnfollowNewsletterError">[docs]</a>
-<span class="k">class</span> <span class="nc">UnfollowNewsletterError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UnfollowNewsletterError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="UnlinkGroupErro">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.UnlinkGroupErro">[docs]</a>
-<span class="k">class</span> <span class="nc">UnlinkGroupErro</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UnlinkGroupErro</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="UnlinkGroupError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.UnlinkGroupError">[docs]</a>
-<span class="k">class</span> <span class="nc">UnlinkGroupError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UnlinkGroupError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="UpdateBlocklistError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.UpdateBlocklistError">[docs]</a>
-<span class="k">class</span> <span class="nc">UpdateBlocklistError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UpdateBlocklistError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="UpdateGroupParticipantsError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.UpdateGroupParticipantsError">[docs]</a>
-<span class="k">class</span> <span class="nc">UpdateGroupParticipantsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UpdateGroupParticipantsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="UnsupportedEvent">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.UnsupportedEvent">[docs]</a>
-<span class="k">class</span> <span class="nc">UnsupportedEvent</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UnsupportedEvent</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="ContactStoreError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.ContactStoreError">[docs]</a>
-<span class="k">class</span> <span class="nc">ContactStoreError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ContactStoreError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="FFProbeError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.FFProbeError">[docs]</a>
-<span class="k">class</span> <span class="nc">FFProbeError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FFProbeError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="PutMutedUntilError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.PutMutedUntilError">[docs]</a>
-<span class="k">class</span> <span class="nc">PutMutedUntilError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PutMutedUntilError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="PutPinnedError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.PutPinnedError">[docs]</a>
-<span class="k">class</span> <span class="nc">PutPinnedError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PutPinnedError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="PutArchivedError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.PutArchivedError">[docs]</a>
-<span class="k">class</span> <span class="nc">PutArchivedError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PutArchivedError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 
 <div class="viewcode-block" id="GetChatSettingsError">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.exc.GetChatSettingsError">[docs]</a>
-<span class="k">class</span> <span class="nc">GetChatSettingsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GetChatSettingsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="SendPresenceError">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.exc.SendPresenceError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SendPresenceError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 </pre></div>
@@ -676,8 +686,8 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=f663eb4a"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+</div><script src="../../_static/documentation_options.js?v=590429e0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
     </body>

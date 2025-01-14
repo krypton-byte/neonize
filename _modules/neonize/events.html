@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>neonize.events - neonize 8.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>neonize.events - neonize 1.2.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">neonize 8.0.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">neonize 1.2.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +189,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">neonize 8.0.0 documentation</span>
+  <span class="sidebar-brand-text">neonize 1.2.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -231,18 +231,18 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for neonize.events</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
-<span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">neonize.exc</span> <span class="kn">import</span> <span class="n">UnsupportedEvent</span>
-<span class="kn">from</span> <span class="nn">.proto</span> <span class="kn">import</span> <span class="n">Neonize_pb2</span> <span class="k">as</span> <span class="n">neonize</span>
-<span class="kn">import</span> <span class="nn">ctypes</span>
-<span class="kn">import</span> <span class="nn">segno</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Dict</span>
-<span class="kn">from</span> <span class="nn">google.protobuf.message</span> <span class="kn">import</span> <span class="n">Message</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Event</span> <span class="k">as</span> <span class="n">EventThread</span>
-<span class="kn">from</span> <span class="nn">.proto.Neonize_pb2</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neonize.exc</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnsupportedEvent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.proto</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neonize_pb2</span> <span class="k">as</span> <span class="n">neonize</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ctypes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">segno</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">google.protobuf.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">threading</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span> <span class="k">as</span> <span class="n">EventThread</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.proto.Neonize_pb2</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">QR</span> <span class="k">as</span> <span class="n">QREv</span><span class="p">,</span>
     <span class="n">PairStatus</span> <span class="k">as</span> <span class="n">PairStatusEv</span><span class="p">,</span>
     <span class="n">Connected</span> <span class="k">as</span> <span class="n">ConnectedEv</span><span class="p">,</span>
@@ -282,13 +282,13 @@
     <span class="n">CallRelayLatency</span> <span class="k">as</span> <span class="n">CallRelayLatencyEV</span><span class="p">,</span>
     <span class="n">CallTerminate</span> <span class="k">as</span> <span class="n">CallTerminateEv</span><span class="p">,</span>
     <span class="n">UnknownCallEvent</span> <span class="k">as</span> <span class="n">UnknownCallEventEV</span><span class="p">,</span>
+    <span class="n">UndecryptableMessage</span> <span class="k">as</span> <span class="n">UndecryptableMessageEv</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">.client</span> <span class="kn">import</span> <span class="n">NewClient</span><span class="p">,</span> <span class="n">ClientFactory</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewClient</span><span class="p">,</span> <span class="n">ClientFactory</span>
 <span class="n">EventType</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;EventType&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Message</span><span class="p">)</span>
-
 <span class="n">EVENT_TO_INT</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">Message</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">QREv</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">PairStatusEv</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
@@ -329,18 +329,21 @@
     <span class="n">CallRelayLatencyEV</span><span class="p">:</span> <span class="mi">41</span><span class="p">,</span>
     <span class="n">CallTerminateEv</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
     <span class="n">UnknownCallEventEV</span><span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
+    <span class="n">UndecryptableMessageEv</span><span class="p">:</span> <span class="mi">44</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">INT_TO_EVENT</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">Message</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">code</span><span class="p">:</span> <span class="n">ev</span> <span class="k">for</span> <span class="n">ev</span><span class="p">,</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">EVENT_TO_INT</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 
 <span class="n">event</span> <span class="o">=</span> <span class="n">EventThread</span><span class="p">()</span>
 
+
 <div class="viewcode-block" id="EventsManager">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.events.EventsManager">[docs]</a>
-<span class="k">class</span> <span class="nc">EventsManager</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_factory</span><span class="p">:</span> <span class="n">ClientFactory</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EventsManager</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_factory</span><span class="p">:</span> <span class="n">ClientFactory</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client_factory</span> <span class="o">=</span> <span class="n">client_factory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_func</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">EventType</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">EventType</span><span class="p">],</span> <span class="kc">None</span><span class="p">]],</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -349,12 +352,11 @@
 <span class="sd">        :param event: The type of event to register the callback for.</span>
 <span class="sd">        :type event: Type[EventType]</span>
 <span class="sd">        :return: A decorator that registers the callback function.</span>
-<span class="sd">        :rtype: Callable[[Callable[[NewClient, EventType], None]], None]</span>
+<span class="sd">        :rtype: Callablae[[Callable[[NewClient, EventType], None]], None]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">EventType</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_factory</span><span class="o">.</span><span class="n">clients</span><span class="p">:</span>
-                <span class="n">wrapped_func</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
-                <span class="n">client</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">list_func</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">EVENT_TO_INT</span><span class="p">[</span><span class="n">event</span><span class="p">]:</span> <span class="n">wrapped_func</span><span class="p">})</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">callback</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">EventType</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">list_func</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">EVENT_TO_INT</span><span class="p">[</span><span class="n">event</span><span class="p">]:</span> <span class="n">func</span><span class="p">})</span>
 
         <span class="k">return</span> <span class="n">callback</span></div>
 
@@ -362,8 +364,8 @@
 
 <div class="viewcode-block" id="Event">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.events.Event">[docs]</a>
-<span class="k">class</span> <span class="nc">Event</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">NewClient</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Event</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">NewClient</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the Event class with a client of type NewClient.</span>
 <span class="sd">        Also sets up a default blocking function and an empty dictionary for list functions.</span>
@@ -373,12 +375,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">client</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blocking_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocking</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_blocking</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">list_func</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_func</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__onqr</span>
 
 <div class="viewcode-block" id="Event.execute">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.events.Event.execute">[docs]</a>
-    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">binary</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">binary</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes a function from the list of functions based on the given code.</span>
 
 <span class="sd">        :param binary: The binary data to be processed by the function.</span>
@@ -388,35 +390,13 @@
 <span class="sd">        :param code: The index of the function to be executed from the list of functions.</span>
 <span class="sd">        :type code: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">list_func</span><span class="p">[</span><span class="n">code</span><span class="p">](</span><span class="n">binary</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Event.wrap">
-<a class="viewcode-back" href="../../source/neonize.html#neonize.events.Event.wrap">[docs]</a>
-    <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">EventType</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span> <span class="n">event</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">EventType</span><span class="p">]):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This method wraps the function &#39;f&#39; and returns a new function &#39;serialization&#39; that</span>
-<span class="sd">        takes two parameters - binary and size. The &#39;serialization&#39; function calls &#39;f&#39; with</span>
-<span class="sd">        the client and an event deserialized from a string.</span>
-
-<span class="sd">        :param f: Function to be wrapped. It should accept two parameters - a NewClient object and an EventType object.</span>
-<span class="sd">        :type f: Callable[[NewClient, EventType], None]</span>
-<span class="sd">        :param event: Type of the event.</span>
-<span class="sd">        :type event: Type[EventType]</span>
-<span class="sd">        :raises UnsupportedEvent: If the provided event is not supported.</span>
-<span class="sd">        :return: Returns a function &#39;serialization&#39; that accepts two parameters - binary and size.</span>
-<span class="sd">        :rtype: Callable[[int, int], None]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">event</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">EVENT_TO_INT</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">INT_TO_EVENT</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">UnsupportedEvent</span><span class="p">()</span>
-
-        <span class="k">def</span> <span class="nf">serialization</span><span class="p">(</span><span class="n">binary</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">FromString</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">string_at</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">size</span><span class="p">)))</span>
-
-        <span class="k">return</span> <span class="n">serialization</span></div>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">INT_TO_EVENT</span><span class="p">[</span><span class="n">code</span><span class="p">]</span><span class="o">.</span><span class="n">FromString</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">string_at</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">size</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_func</span><span class="p">[</span><span class="n">code</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">__onqr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="n">NewClient</span><span class="p">,</span> <span class="n">data_qr</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__onqr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="n">NewClient</span><span class="p">,</span> <span class="n">data_qr</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Handles QR code generation and display.</span>
 
@@ -429,7 +409,7 @@
 
 <div class="viewcode-block" id="Event.qr">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.events.Event.qr">[docs]</a>
-    <span class="k">def</span> <span class="nf">qr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">],</span> <span class="kc">None</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">qr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">],</span> <span class="kc">None</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets a callback function for handling QR code data.</span>
 
@@ -440,8 +420,8 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">blocking</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">block</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">],</span> <span class="kc">None</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">blocking</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">block</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">],</span> <span class="kc">None</span><span class="p">]):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;This method assigns a blocking function to process a new client and prevents the process from ending.</span>
 
 <span class="sd">            :param f: A function that takes a new client as an argument and returns nothing.</span>
@@ -455,13 +435,13 @@
 <div class="viewcode-block" id="Event.default_blocking">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.events.Event.default_blocking">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">default_blocking</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default_blocking</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;🚧 The blocking function has been called.&quot;</span><span class="p">)</span>
         <span class="n">event</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;🚦 The function has been unblocked.&quot;</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">EventType</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">EventType</span><span class="p">],</span> <span class="kc">None</span><span class="p">]],</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -473,9 +453,8 @@
 <span class="sd">        :rtype: Callable[[Callable[[NewClient, EventType], None]], None]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">EventType</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">wrapped_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">list_func</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">EVENT_TO_INT</span><span class="p">[</span><span class="n">event</span><span class="p">]:</span> <span class="n">wrapped_func</span><span class="p">})</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">callback</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">EventType</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">list_func</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">EVENT_TO_INT</span><span class="p">[</span><span class="n">event</span><span class="p">]:</span> <span class="n">func</span><span class="p">})</span>
 
         <span class="k">return</span> <span class="n">callback</span></div>
 
@@ -511,8 +490,8 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=f663eb4a"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+</div><script src="../../_static/documentation_options.js?v=590429e0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
     </body>

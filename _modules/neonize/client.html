@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>neonize.client - neonize 8.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>neonize.client - neonize 1.2.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">neonize 8.0.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">neonize 1.2.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +189,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">neonize 8.0.0 documentation</span>
+  <span class="sidebar-brand-text">neonize 1.2.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -231,32 +231,32 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for neonize.client</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">ctypes</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">struct</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">NoneType</span>
-<span class="kn">import</span> <span class="nn">typing</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">overload</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ctypes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">struct</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">NoneType</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">overload</span>
 
-<span class="kn">import</span> <span class="nn">magic</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">google.protobuf.internal.containers</span> <span class="kn">import</span> <span class="n">RepeatedCompositeFieldContainer</span>
-<span class="kn">from</span> <span class="nn">linkpreview</span> <span class="kn">import</span> <span class="n">link_preview</span>
-<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">magic</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">google.protobuf.internal.containers</span><span class="w"> </span><span class="kn">import</span> <span class="n">RepeatedCompositeFieldContainer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">linkpreview</span><span class="w"> </span><span class="kn">import</span> <span class="n">link_preview</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">threading</span><span class="w"> </span><span class="kn">import</span> <span class="n">Thread</span>
 
-<span class="kn">from</span> <span class="nn">.utils.calc</span> <span class="kn">import</span> <span class="n">AspectRatioMethod</span><span class="p">,</span> <span class="n">auto_sticker</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils.calc</span><span class="w"> </span><span class="kn">import</span> <span class="n">AspectRatioMethod</span><span class="p">,</span> <span class="n">auto_sticker</span>
 
 
-<span class="kn">from</span> <span class="nn">._binder</span> <span class="kn">import</span> <span class="n">gocode</span><span class="p">,</span> <span class="n">func_string</span><span class="p">,</span> <span class="n">func_callback_bytes</span><span class="p">,</span> <span class="n">func</span>
-<span class="kn">from</span> <span class="nn">.builder</span> <span class="kn">import</span> <span class="n">build_edit</span><span class="p">,</span> <span class="n">build_revoke</span>
-<span class="kn">from</span> <span class="nn">.events</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventsManager</span>
-<span class="kn">from</span> <span class="nn">.exc</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">._binder</span><span class="w"> </span><span class="kn">import</span> <span class="n">gocode</span><span class="p">,</span> <span class="n">func_string</span><span class="p">,</span> <span class="n">func_callback_bytes</span><span class="p">,</span> <span class="n">func</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_edit</span><span class="p">,</span> <span class="n">build_revoke</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventsManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.exc</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">ContactStoreError</span><span class="p">,</span>
     <span class="n">DownloadError</span><span class="p">,</span>
     <span class="n">GetChatSettingsError</span><span class="p">,</span>
@@ -265,6 +265,7 @@
     <span class="n">PutPinnedError</span><span class="p">,</span>
     <span class="n">ResolveContactQRLinkError</span><span class="p">,</span>
     <span class="n">SendAppStateError</span><span class="p">,</span>
+    <span class="n">SendPresenceError</span><span class="p">,</span>
     <span class="n">SetDefaultDisappearingTimerError</span><span class="p">,</span>
     <span class="n">SetDisappearingTimerError</span><span class="p">,</span>
     <span class="n">SetGroupAnnounceError</span><span class="p">,</span>
@@ -300,7 +301,7 @@
     <span class="n">NewsletterMarkViewedError</span><span class="p">,</span>
     <span class="n">NewsletterSendReactionError</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.exc</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.exc</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">GetContactQrLinkError</span><span class="p">,</span>
     <span class="n">GetGroupRequestParticipantsError</span><span class="p">,</span>
     <span class="n">GetJoinedGroupsError</span><span class="p">,</span>
@@ -315,8 +316,8 @@
     <span class="n">NewsletterSubscribeLiveUpdatesError</span><span class="p">,</span>
     <span class="n">NewsletterToggleMuteError</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.proto</span> <span class="kn">import</span> <span class="n">Neonize_pb2</span> <span class="k">as</span> <span class="n">neonize_proto</span>
-<span class="kn">from</span> <span class="nn">.proto.Neonize_pb2</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.proto</span><span class="w"> </span><span class="kn">import</span> <span class="n">Neonize_pb2</span> <span class="k">as</span> <span class="n">neonize_proto</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.proto.Neonize_pb2</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">Contact</span><span class="p">,</span>
     <span class="n">ContactEntry</span><span class="p">,</span>
     <span class="n">ContactEntryArray</span><span class="p">,</span>
@@ -332,6 +333,7 @@
     <span class="n">NewsletterMetadata</span><span class="p">,</span>
     <span class="n">PrivacySettings</span><span class="p">,</span>
     <span class="n">ProfilePictureInfo</span><span class="p">,</span>
+    <span class="n">SendRequestExtra</span><span class="p">,</span>
     <span class="n">StatusPrivacy</span><span class="p">,</span>
     <span class="n">UploadReturnFunction</span><span class="p">,</span>
     <span class="n">GroupInfo</span><span class="p">,</span>
@@ -355,8 +357,8 @@
     <span class="n">ReturnFunctionWithError</span><span class="p">,</span>
     <span class="n">LocalChatSettings</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2</span> <span class="kn">import</span> <span class="n">DeviceProps</span>
-<span class="kn">from</span> <span class="nn">.proto.waE2E.WAWebProtobufsE2E_pb2</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeviceProps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.proto.waE2E.WAWebProtobufsE2E_pb2</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">Message</span><span class="p">,</span>
     <span class="n">StickerMessage</span><span class="p">,</span>
     <span class="n">ContextInfo</span><span class="p">,</span>
@@ -367,36 +369,39 @@
     <span class="n">DocumentMessage</span><span class="p">,</span>
     <span class="n">ContactMessage</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.types</span> <span class="kn">import</span> <span class="n">MessageServerID</span><span class="p">,</span> <span class="n">MessageWithContextInfo</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">add_exif</span><span class="p">,</span> <span class="n">gen_vcard</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">validate_link</span>
-<span class="kn">from</span> <span class="nn">.utils.enum</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.proto.waConsumerApplication.WAConsumerApplication_pb2</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConsumerApplication</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.proto.waMsgApplication.WAMsgApplication_pb2</span><span class="w"> </span><span class="kn">import</span> <span class="n">MessageApplication</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">MessageServerID</span><span class="p">,</span> <span class="n">MessageWithContextInfo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_exif</span><span class="p">,</span> <span class="n">gen_vcard</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">validate_link</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils.enum</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">BlocklistAction</span><span class="p">,</span>
     <span class="n">MediaType</span><span class="p">,</span>
     <span class="n">ChatPresence</span><span class="p">,</span>
     <span class="n">ChatPresenceMedia</span><span class="p">,</span>
     <span class="n">LogLevel</span><span class="p">,</span>
     <span class="n">ParticipantChange</span><span class="p">,</span>
+    <span class="n">Presence</span><span class="p">,</span>
     <span class="n">ReceiptType</span><span class="p">,</span>
     <span class="n">ClientType</span><span class="p">,</span>
     <span class="n">ClientName</span><span class="p">,</span>
     <span class="n">PrivacySetting</span><span class="p">,</span>
     <span class="n">PrivacySettingType</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.utils.ffmpeg</span> <span class="kn">import</span> <span class="n">FFmpeg</span><span class="p">,</span> <span class="n">ImageFormat</span>
-<span class="kn">from</span> <span class="nn">.utils.iofile</span> <span class="kn">import</span> <span class="n">get_bytes_from_name_or_url</span>
-<span class="kn">from</span> <span class="nn">.utils.jid</span> <span class="kn">import</span> <span class="n">Jid2String</span><span class="p">,</span> <span class="n">JIDToNonAD</span><span class="p">,</span> <span class="n">build_jid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils.ffmpeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">FFmpeg</span><span class="p">,</span> <span class="n">ImageFormat</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils.iofile</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_bytes_from_name_or_url</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils.jid</span><span class="w"> </span><span class="kn">import</span> <span class="n">Jid2String</span><span class="p">,</span> <span class="n">JIDToNonAD</span><span class="p">,</span> <span class="n">build_jid</span>
 
 
 <div class="viewcode-block" id="ContactStore">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ContactStore">[docs]</a>
-<span class="k">class</span> <span class="nc">ContactStore</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ContactStore</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">uuid</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__client</span> <span class="o">=</span> <span class="n">gocode</span>
 
 <div class="viewcode-block" id="ContactStore.put_pushname">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ContactStore.put_pushname">[docs]</a>
-    <span class="k">def</span> <span class="nf">put_pushname</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_pushname</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">pushname</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContactsPutPushNameReturnFunction</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -423,7 +428,7 @@
 
 <div class="viewcode-block" id="ContactStore.put_contact_name">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ContactStore.put_contact_name">[docs]</a>
-    <span class="k">def</span> <span class="nf">put_contact_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">fullname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">firstname</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_contact_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">fullname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">firstname</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is used to update the contact name in the contact store. It takes the user&#39;s JID,</span>
 <span class="sd">        full name and first name as input parameters,</span>
@@ -453,7 +458,7 @@
 
 <div class="viewcode-block" id="ContactStore.put_all_contact_name">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ContactStore.put_all_contact_name">[docs]</a>
-    <span class="k">def</span> <span class="nf">put_all_contact_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contact_entry</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ContactEntry</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_all_contact_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contact_entry</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ContactEntry</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method serializes a list of ContactEntry objects and sends them to a</span>
 <span class="sd">        remote service using the client&#39;s PutAllContactNames method. If the service</span>
@@ -471,7 +476,7 @@
 
 <div class="viewcode-block" id="ContactStore.get_contact">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ContactStore.get_contact">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_contact</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContactInfo</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_contact</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContactInfo</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method retrieves a user&#39;s contact information based on their JID (Jabber Identifier).</span>
 
@@ -492,7 +497,7 @@
 
 <div class="viewcode-block" id="ContactStore.get_all_contacts">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ContactStore.get_all_contacts">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_all_contacts</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">Contact</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_all_contacts</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">Contact</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function retrieves all contacts from the client. It deserializes the response</span>
 <span class="sd">        from the client, checks for any errors, and if there are no errors, returns the contacts.</span>
@@ -513,8 +518,8 @@
 
 <div class="viewcode-block" id="ChatSettingsStore">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ChatSettingsStore">[docs]</a>
-<span class="k">class</span> <span class="nc">ChatSettingsStore</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ChatSettingsStore</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the ChatSettingsStore with a unique identifier.</span>
 
@@ -526,7 +531,7 @@
 
 <div class="viewcode-block" id="ChatSettingsStore.put_muted_until">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ChatSettingsStore.put_muted_until">[docs]</a>
-    <span class="k">def</span> <span class="nf">put_muted_until</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">until</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_muted_until</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">until</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mute a user until a specified time.</span>
 
@@ -546,7 +551,7 @@
 
 <div class="viewcode-block" id="ChatSettingsStore.put_pinned">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ChatSettingsStore.put_pinned">[docs]</a>
-    <span class="k">def</span> <span class="nf">put_pinned</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">pinned</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_pinned</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">pinned</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Pin or unpin a user.</span>
 
@@ -564,7 +569,7 @@
 
 <div class="viewcode-block" id="ChatSettingsStore.put_archived">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ChatSettingsStore.put_archived">[docs]</a>
-    <span class="k">def</span> <span class="nf">put_archived</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">archived</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_archived</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">archived</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Archive or unarchive a user.</span>
 
@@ -584,7 +589,7 @@
 
 <div class="viewcode-block" id="ChatSettingsStore.get_chat_settings">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ChatSettingsStore.get_chat_settings">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_chat_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LocalChatSettings</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_chat_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LocalChatSettings</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the chat settings for a user.</span>
 
@@ -609,8 +614,8 @@
 
 <div class="viewcode-block" id="NewClient">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient">[docs]</a>
-<span class="k">class</span> <span class="nc">NewClient</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NewClient</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">jid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">JID</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -641,10 +646,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">chat_settings</span> <span class="o">=</span> <span class="n">ChatSettingsStore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;🔨 Creating a NewClient instance&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__onLoginStatus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__onLoginStatus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__onQr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qr_protoaddr</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__onQr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qr_protoaddr</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method triggers an event when a QR code is detected.</span>
 
@@ -653,7 +658,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">_qr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">string_at</span><span class="p">(</span><span class="n">qr_protoaddr</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">_parse_mention</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_mention</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function parses a given text and returns a list of &#39;mentions&#39; in the format of &#39;mention@s.whatsapp.net&#39;.</span>
 <span class="sd">        A &#39;mention&#39; is defined as a sequence of numbers (5 to 16 digits long) that is prefixed by &#39;@&#39; in the text.</span>
@@ -670,7 +675,7 @@
             <span class="k">for</span> <span class="n">jid</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;@([0-9]{5,16}|0)&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
         <span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_generate_link_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExtendedTextMessage</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_link_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExtendedTextMessage</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">youtube_url_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
             <span class="sa">r</span><span class="s2">&quot;(?:https?:)?//(?:www\.)?(?:youtube\.com/(?:[^/\n\s]+&quot;</span>
             <span class="sa">r</span><span class="s2">&quot;/\S+/|(?:v|e(?:mbed)?)/|\S*?[?&amp;]v=)|youtu\.be/)([a-zA-Z0-9_-]</span><span class="si">{11}</span><span class="s2">)&quot;</span><span class="p">,</span>
@@ -713,7 +718,7 @@
             <span class="k">return</span> <span class="n">msg</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">_make_quoted_message</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_make_quoted_message</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">neonize_proto</span><span class="o">.</span><span class="n">Message</span><span class="p">,</span> <span class="n">reply_privately</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextInfo</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">ContextInfo</span><span class="p">(</span>
@@ -727,7 +732,7 @@
 
 <div class="viewcode-block" id="NewClient.send_message">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.send_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">send_message</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_message</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">to</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">link_preview</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SendResponse</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a message to the specified JID.</span>
@@ -770,7 +775,7 @@
 
 <div class="viewcode-block" id="NewClient.build_reply_message">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.build_reply_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">build_reply_message</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_reply_message</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">message</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MessageWithContextInfo</span><span class="p">],</span>
         <span class="n">quoted</span><span class="p">:</span> <span class="n">neonize_proto</span><span class="o">.</span><span class="n">Message</span><span class="p">,</span>
@@ -817,7 +822,7 @@
 
 <div class="viewcode-block" id="NewClient.reply_message">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.reply_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">reply_message</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reply_message</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">message</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MessageWithContextInfo</span><span class="p">],</span>
         <span class="n">quoted</span><span class="p">:</span> <span class="n">neonize_proto</span><span class="o">.</span><span class="n">Message</span><span class="p">,</span>
@@ -861,7 +866,7 @@
 
 <div class="viewcode-block" id="NewClient.edit_message">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.edit_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">edit_message</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">edit_message</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">chat</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">message_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">new_message</span><span class="p">:</span> <span class="n">Message</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SendResponse</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Edit a message.</span>
@@ -880,7 +885,7 @@
 
 <div class="viewcode-block" id="NewClient.revoke_message">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.revoke_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">revoke_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chat</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">message_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SendResponse</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">revoke_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chat</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">message_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SendResponse</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Revoke a message.</span>
 
 <span class="sd">        :param chat: Chat ID</span>
@@ -897,7 +902,7 @@
 
 <div class="viewcode-block" id="NewClient.build_poll_vote_creation">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.build_poll_vote_creation">[docs]</a>
-    <span class="k">def</span> <span class="nf">build_poll_vote_creation</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_poll_vote_creation</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">selectable_count</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Build a poll vote creation message.</span>
@@ -925,7 +930,7 @@
 
 <div class="viewcode-block" id="NewClient.build_poll_vote">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.build_poll_vote">[docs]</a>
-    <span class="k">def</span> <span class="nf">build_poll_vote</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_poll_vote</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">poll_info</span><span class="p">:</span> <span class="n">MessageInfo</span><span class="p">,</span> <span class="n">option_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Builds a poll vote.</span>
@@ -957,7 +962,7 @@
 
 <div class="viewcode-block" id="NewClient.build_reaction">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.build_reaction">[docs]</a>
-    <span class="k">def</span> <span class="nf">build_reaction</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_reaction</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">chat</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">message_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">reaction</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -995,7 +1000,7 @@
 
 <div class="viewcode-block" id="NewClient.build_revoke">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.build_revoke">[docs]</a>
-    <span class="k">def</span> <span class="nf">build_revoke</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_revoke</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">chat</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">message_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">with_go</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Builds a message to revoke a previous message.</span>
@@ -1028,7 +1033,7 @@
 
 <div class="viewcode-block" id="NewClient.build_sticker_message">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.build_sticker_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">build_sticker_message</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_sticker_message</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">],</span>
         <span class="n">quoted</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">neonize_proto</span><span class="o">.</span><span class="n">Message</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1097,7 +1102,7 @@
 
 <div class="viewcode-block" id="NewClient.send_sticker">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.send_sticker">[docs]</a>
-    <span class="k">def</span> <span class="nf">send_sticker</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_sticker</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">to</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">],</span>
@@ -1129,7 +1134,7 @@
 
 <div class="viewcode-block" id="NewClient.build_video_message">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.build_video_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">build_video_message</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_video_message</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span><span class="p">,</span>
         <span class="n">caption</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1188,7 +1193,7 @@
 
 <div class="viewcode-block" id="NewClient.send_video">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.send_video">[docs]</a>
-    <span class="k">def</span> <span class="nf">send_video</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_video</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">to</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span><span class="p">,</span>
@@ -1218,7 +1223,7 @@
 
 <div class="viewcode-block" id="NewClient.build_image_message">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.build_image_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">build_image_message</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_image_message</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span><span class="p">,</span>
         <span class="n">caption</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1279,7 +1284,7 @@
 
 <div class="viewcode-block" id="NewClient.send_image">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.send_image">[docs]</a>
-    <span class="k">def</span> <span class="nf">send_image</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_image</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">to</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span><span class="p">,</span>
@@ -1309,7 +1314,7 @@
 
 <div class="viewcode-block" id="NewClient.build_audio_message">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.build_audio_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">build_audio_message</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_audio_message</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span><span class="p">,</span>
         <span class="n">ptt</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -1355,7 +1360,7 @@
 
 <div class="viewcode-block" id="NewClient.send_audio">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.send_audio">[docs]</a>
-    <span class="k">def</span> <span class="nf">send_audio</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_audio</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">to</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span><span class="p">,</span>
@@ -1381,7 +1386,7 @@
 
 <div class="viewcode-block" id="NewClient.build_document_message">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.build_document_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">build_document_message</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_document_message</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span><span class="p">,</span>
         <span class="n">caption</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1420,7 +1425,7 @@
 
 <div class="viewcode-block" id="NewClient.send_document">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.send_document">[docs]</a>
-    <span class="k">def</span> <span class="nf">send_document</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_document</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">to</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span><span class="p">,</span>
@@ -1457,7 +1462,7 @@
 
 <div class="viewcode-block" id="NewClient.send_contact">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.send_contact">[docs]</a>
-    <span class="k">def</span> <span class="nf">send_contact</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_contact</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">to</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span>
         <span class="n">contact_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1492,7 +1497,7 @@
 
 <div class="viewcode-block" id="NewClient.upload">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.upload">[docs]</a>
-    <span class="k">def</span> <span class="nf">upload</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">upload</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">binary</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">media_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">MediaType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UploadResponse</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Uploads media content.</span>
@@ -1517,14 +1522,14 @@
 
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="nf">download_any</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">download_any</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span> <span class="o">...</span>
 
     <span class="nd">@overload</span>
-    <span class="k">def</span> <span class="nf">download_any</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoneType</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">download_any</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoneType</span><span class="p">:</span> <span class="o">...</span>
 
 <div class="viewcode-block" id="NewClient.download_any">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.download_any">[docs]</a>
-    <span class="k">def</span> <span class="nf">download_any</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">download_any</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Downloads content from a message.</span>
@@ -1554,7 +1559,7 @@
 
 <div class="viewcode-block" id="NewClient.download_media_with_path">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.download_media_with_path">[docs]</a>
-    <span class="k">def</span> <span class="nf">download_media_with_path</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">download_media_with_path</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">direct_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">enc_file_hash</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
@@ -1607,7 +1612,7 @@
 
 <div class="viewcode-block" id="NewClient.generate_message_id">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.generate_message_id">[docs]</a>
-    <span class="k">def</span> <span class="nf">generate_message_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_message_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates a unique identifier for a message.</span>
 
 <span class="sd">        :return: A string representing the unique identifier for the message.</span>
@@ -1618,7 +1623,7 @@
 
 <div class="viewcode-block" id="NewClient.send_chat_presence">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.send_chat_presence">[docs]</a>
-    <span class="k">def</span> <span class="nf">send_chat_presence</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_chat_presence</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">ChatPresence</span><span class="p">,</span> <span class="n">media</span><span class="p">:</span> <span class="n">ChatPresenceMedia</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sends chat presence information.</span>
@@ -1640,7 +1645,7 @@
 
 <div class="viewcode-block" id="NewClient.is_on_whatsapp">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.is_on_whatsapp">[docs]</a>
-    <span class="k">def</span> <span class="nf">is_on_whatsapp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">numbers</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">IsOnWhatsAppResponse</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_on_whatsapp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">numbers</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">IsOnWhatsAppResponse</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function checks if the provided phone numbers are registered with WhatsApp.</span>
 
@@ -1663,7 +1668,7 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the object is currently connected.</span>
 
 <span class="sd">        :return: True if the object is connected, False otherwise.</span>
@@ -1672,7 +1677,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">IsConnected</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_logged_in</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_logged_in</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the user is currently logged in.</span>
 
 <span class="sd">        :return: True if the user is logged in, False otherwise.</span>
@@ -1682,7 +1687,7 @@
 
 <div class="viewcode-block" id="NewClient.get_user_info">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_user_info">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_user_info</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user_info</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">jid</span><span class="p">:</span> <span class="n">JID</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">GetUserInfoSingleReturnFunction</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1706,7 +1711,7 @@
 
 <div class="viewcode-block" id="NewClient.get_group_info">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_group_info">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_group_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GroupInfo</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_group_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GroupInfo</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieves information about a group.</span>
 
 <span class="sd">        :param jid: The JID (Jabber Identifier) of the group.</span>
@@ -1729,7 +1734,7 @@
 
 <div class="viewcode-block" id="NewClient.get_group_info_from_link">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_group_info_from_link">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_group_info_from_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GroupInfo</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_group_info_from_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GroupInfo</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieves group information from a given link.</span>
 
 <span class="sd">        :param code: The link code.</span>
@@ -1748,7 +1753,7 @@
 
 <div class="viewcode-block" id="NewClient.get_group_info_from_invite">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_group_info_from_invite">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_group_info_from_invite</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_group_info_from_invite</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">inviter</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">expiration</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GroupInfo</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieves group information from an invite.</span>
@@ -1787,7 +1792,7 @@
 
 <div class="viewcode-block" id="NewClient.set_group_name">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.set_group_name">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the name of a group.</span>
 
 <span class="sd">        :param jid: The JID (Jabber Identifier) of the group.</span>
@@ -1805,7 +1810,7 @@
 
 <div class="viewcode-block" id="NewClient.set_group_photo">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.set_group_photo">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_group_photo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">file_or_bytes</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_group_photo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">file_or_bytes</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the photo of a group.</span>
 
 <span class="sd">        :param jid: The JID (Jabber Identifier) of the group.</span>
@@ -1829,7 +1834,7 @@
 
 <div class="viewcode-block" id="NewClient.leave_group">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.leave_group">[docs]</a>
-    <span class="k">def</span> <span class="nf">leave_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">leave_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Leaves a group.</span>
 
 <span class="sd">        :param jid: The JID (Jabber Identifier) of the target group.</span>
@@ -1843,7 +1848,7 @@
 
 <div class="viewcode-block" id="NewClient.get_group_invite_link">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_group_invite_link">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_group_invite_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">revoke</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_group_invite_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">revoke</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets or revokes the invite link for a group.</span>
 
 <span class="sd">        :param jid: The JID (Jabber Identifier) of the group.</span>
@@ -1866,7 +1871,7 @@
 
 <div class="viewcode-block" id="NewClient.join_group_with_link">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.join_group_with_link">[docs]</a>
-    <span class="k">def</span> <span class="nf">join_group_with_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JID</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">join_group_with_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JID</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Join a group using an invite link.</span>
 
 <span class="sd">        :param code: The invite code or link for joining the group.</span>
@@ -1884,7 +1889,7 @@
 
 <div class="viewcode-block" id="NewClient.join_group_with_invite">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.join_group_with_invite">[docs]</a>
-    <span class="k">def</span> <span class="nf">join_group_with_invite</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">join_group_with_invite</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">inviter</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">expiration</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1918,7 +1923,7 @@
 
 <div class="viewcode-block" id="NewClient.link_group">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.link_group">[docs]</a>
-    <span class="k">def</span> <span class="nf">link_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">child</span><span class="p">:</span> <span class="n">JID</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">link_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">child</span><span class="p">:</span> <span class="n">JID</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Links a child group to a parent group.</span>
 
@@ -1939,7 +1944,7 @@
 
 <div class="viewcode-block" id="NewClient.logout">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.logout">[docs]</a>
-    <span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">logout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">Logout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">err</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">LogoutError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span></div>
@@ -1947,7 +1952,7 @@
 
 <div class="viewcode-block" id="NewClient.mark_read">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.mark_read">[docs]</a>
-    <span class="k">def</span> <span class="nf">mark_read</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mark_read</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="n">message_ids</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">chat</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span>
@@ -1988,7 +1993,7 @@
 
 <div class="viewcode-block" id="NewClient.newsletter_mark_viewed">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.newsletter_mark_viewed">[docs]</a>
-    <span class="k">def</span> <span class="nf">newsletter_mark_viewed</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">newsletter_mark_viewed</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">message_server_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">MessageServerID</span><span class="p">]</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2011,7 +2016,7 @@
 
 <div class="viewcode-block" id="NewClient.newsletter_send_reaction">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.newsletter_send_reaction">[docs]</a>
-    <span class="k">def</span> <span class="nf">newsletter_send_reaction</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">newsletter_send_reaction</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span>
         <span class="n">message_server_id</span><span class="p">:</span> <span class="n">MessageServerID</span><span class="p">,</span>
@@ -2047,7 +2052,7 @@
 
 <div class="viewcode-block" id="NewClient.newsletter_subscribe_live_updates">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.newsletter_subscribe_live_updates">[docs]</a>
-    <span class="k">def</span> <span class="nf">newsletter_subscribe_live_updates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">newsletter_subscribe_live_updates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Subscribes a user to live updates of a newsletter.</span>
 
 <span class="sd">        :param jid: The unique identifier of the user subscribing to the newsletter.</span>
@@ -2069,7 +2074,7 @@
 
 <div class="viewcode-block" id="NewClient.newsletter_toggle_mute">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.newsletter_toggle_mute">[docs]</a>
-    <span class="k">def</span> <span class="nf">newsletter_toggle_mute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">mute</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">newsletter_toggle_mute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">mute</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Toggle the mute status of a given JID.</span>
 
 <span class="sd">        :param jid: The JID (Jabber Identifier) of the user.</span>
@@ -2088,7 +2093,7 @@
 
 <div class="viewcode-block" id="NewClient.resolve_business_message_link">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.resolve_business_message_link">[docs]</a>
-    <span class="k">def</span> <span class="nf">resolve_business_message_link</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resolve_business_message_link</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">neonize_proto</span><span class="o">.</span><span class="n">BusinessMessageLinkTarget</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolves the target of a business message link.</span>
@@ -2111,7 +2116,7 @@
 
 <div class="viewcode-block" id="NewClient.resolve_contact_qr_link">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.resolve_contact_qr_link">[docs]</a>
-    <span class="k">def</span> <span class="nf">resolve_contact_qr_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">neonize_proto</span><span class="o">.</span><span class="n">ContactQRLinkTarget</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resolve_contact_qr_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">neonize_proto</span><span class="o">.</span><span class="n">ContactQRLinkTarget</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolves a QR link for a specific contact.</span>
 
 <span class="sd">        :param code: The QR code to be resolved.</span>
@@ -2130,7 +2135,7 @@
 
 <div class="viewcode-block" id="NewClient.send_app_state">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.send_app_state">[docs]</a>
-    <span class="k">def</span> <span class="nf">send_app_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patch_info</span><span class="p">:</span> <span class="n">neonize_proto</span><span class="o">.</span><span class="n">PatchInfo</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_app_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patch_info</span><span class="p">:</span> <span class="n">neonize_proto</span><span class="o">.</span><span class="n">PatchInfo</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function serializes the application state and sends it to the client. If there&#39;s an error during this process,</span>
 <span class="sd">        it raises a SendAppStateError exception.</span>
@@ -2147,7 +2152,7 @@
 
 <div class="viewcode-block" id="NewClient.set_default_disappearing_timer">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.set_default_disappearing_timer">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_default_disappearing_timer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timer</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">timedelta</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_default_disappearing_timer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timer</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">timedelta</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets a default disappearing timer for messages. The timer can be specified as a timedelta or an integer.</span>
 <span class="sd">        If a timedelta is provided, it is converted to nanoseconds. If an integer is provided, it is used directly as the timer.</span>
@@ -2168,7 +2173,7 @@
 
 <div class="viewcode-block" id="NewClient.set_disappearing_timer">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.set_disappearing_timer">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_disappearing_timer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">timer</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">timedelta</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_disappearing_timer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">timer</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">timedelta</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set a disappearing timer for a specific JID. The timer can be set as either a timedelta object or an integer.</span>
 <span class="sd">        If a timedelta object is provided, it&#39;s converted into nanoseconds. If an integer is provided, it&#39;s interpreted as nanoseconds.</span>
@@ -2194,7 +2199,7 @@
 
 <div class="viewcode-block" id="NewClient.set_force_activate_delivery_receipts">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.set_force_activate_delivery_receipts">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_force_activate_delivery_receipts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">active</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_force_activate_delivery_receipts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">active</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is used to forcibly activate or deactivate the delivery receipts for a client.</span>
 
@@ -2206,7 +2211,7 @@
 
 <div class="viewcode-block" id="NewClient.set_group_announce">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.set_group_announce">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_group_announce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">announce</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_group_announce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">announce</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the announcement status of a group.</span>
 
@@ -2226,7 +2231,7 @@
 
 <div class="viewcode-block" id="NewClient.set_group_locked">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.set_group_locked">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_group_locked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_group_locked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the locked status of a group identified by the given JID.</span>
 
@@ -2246,7 +2251,7 @@
 
 <div class="viewcode-block" id="NewClient.set_group_topic">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.set_group_topic">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_group_topic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">previous_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">new_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_group_topic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">previous_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">new_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the topic of a group in a chat application.</span>
 
@@ -2275,7 +2280,7 @@
 
 <div class="viewcode-block" id="NewClient.set_privacy_setting">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.set_privacy_setting">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_privacy_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">PrivacySettingType</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">PrivacySetting</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_privacy_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">PrivacySettingType</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">PrivacySetting</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is used to set the privacy settings of a user.</span>
 
@@ -2294,7 +2299,7 @@
 
 <div class="viewcode-block" id="NewClient.set_passive">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.set_passive">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_passive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">passive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_passive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">passive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the passive mode of the client.</span>
 
@@ -2309,7 +2314,7 @@
 
 <div class="viewcode-block" id="NewClient.set_status_message">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.set_status_message">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_status_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_status_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets a status message for a client using the client&#39;s UUID.</span>
 
@@ -2324,7 +2329,7 @@
 
 <div class="viewcode-block" id="NewClient.subscribe_presence">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.subscribe_presence">[docs]</a>
-    <span class="k">def</span> <span class="nf">subscribe_presence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">subscribe_presence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is used to subscribe to the presence of a certain JID (Jabber ID).</span>
 
@@ -2342,7 +2347,7 @@
 
 <div class="viewcode-block" id="NewClient.unfollow_newsletter">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.unfollow_newsletter">[docs]</a>
-    <span class="k">def</span> <span class="nf">unfollow_newsletter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unfollow_newsletter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Unfollows a newsletter by providing the JID (Jabber ID) of the newsletter.</span>
 
@@ -2360,7 +2365,7 @@
 
 <div class="viewcode-block" id="NewClient.unlink_group">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.unlink_group">[docs]</a>
-    <span class="k">def</span> <span class="nf">unlink_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">child</span><span class="p">:</span> <span class="n">JID</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unlink_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">child</span><span class="p">:</span> <span class="n">JID</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is used to unlink a child group from a parent group.</span>
 
@@ -2381,7 +2386,7 @@
 
 <div class="viewcode-block" id="NewClient.update_blocklist">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.update_blocklist">[docs]</a>
-    <span class="k">def</span> <span class="nf">update_blocklist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">BlocklistAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Blocklist</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_blocklist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">BlocklistAction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Blocklist</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to update the blocklist with a given action on a specific JID.</span>
 
@@ -2406,7 +2411,7 @@
 
 <div class="viewcode-block" id="NewClient.update_group_participants">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.update_group_participants">[docs]</a>
-    <span class="k">def</span> <span class="nf">update_group_participants</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_group_participants</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">participants_changes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">JID</span><span class="p">],</span> <span class="n">action</span><span class="p">:</span> <span class="n">ParticipantChange</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">GroupParticipant</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2444,7 +2449,7 @@
 
 <div class="viewcode-block" id="NewClient.upload_newsletter">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.upload_newsletter">[docs]</a>
-    <span class="k">def</span> <span class="nf">upload_newsletter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">media_type</span><span class="p">:</span> <span class="n">MediaType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UploadResponse</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">upload_newsletter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">media_type</span><span class="p">:</span> <span class="n">MediaType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UploadResponse</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Uploads the newsletter to the server.</span>
 
 <span class="sd">        :param data: The newsletter content in bytes.</span>
@@ -2467,7 +2472,7 @@
 
 <div class="viewcode-block" id="NewClient.create_group">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.create_group">[docs]</a>
-    <span class="k">def</span> <span class="nf">create_group</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_group</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">participants</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">JID</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
@@ -2504,7 +2509,7 @@
 
 <div class="viewcode-block" id="NewClient.get_group_request_participants">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_group_request_participants">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_group_request_participants</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_group_request_participants</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">JID</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the participants of a group request.</span>
@@ -2527,7 +2532,7 @@
 
 <div class="viewcode-block" id="NewClient.get_joined_groups">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_joined_groups">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_joined_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">GroupInfo</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_joined_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">GroupInfo</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the joined groups for the current user.</span>
 
 <span class="sd">        :return: A list of :class:`GroupInfo` objects representing the joined groups.</span>
@@ -2545,7 +2550,7 @@
 
 <div class="viewcode-block" id="NewClient.create_newsletter">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.create_newsletter">[docs]</a>
-    <span class="k">def</span> <span class="nf">create_newsletter</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_newsletter</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">picture</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NewsletterMetadata</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a newsletter with the given name, description, and picture.</span>
@@ -2577,7 +2582,7 @@
 
 <div class="viewcode-block" id="NewClient.follow_newsletter">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.follow_newsletter">[docs]</a>
-    <span class="k">def</span> <span class="nf">follow_newsletter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">follow_newsletter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Follows a newsletter with the given JID.</span>
 
 <span class="sd">        :param jid: The JID of the newsletter to follow.</span>
@@ -2595,7 +2600,7 @@
 
 <div class="viewcode-block" id="NewClient.get_newsletter_info_with_invite">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_newsletter_info_with_invite">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_newsletter_info_with_invite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NewsletterMetadata</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_newsletter_info_with_invite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NewsletterMetadata</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieves the newsletter information with an invite using the provided key.</span>
 
 <span class="sd">        :param key: The key used to identify the newsletter.</span>
@@ -2616,7 +2621,7 @@
 
 <div class="viewcode-block" id="NewClient.get_newsletter_message_update">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_newsletter_message_update">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_newsletter_message_update</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_newsletter_message_update</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">since</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">after</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">NewsletterMessage</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieves a list of newsletter messages that have been updated since a given timestamp.</span>
@@ -2648,7 +2653,7 @@
 
 <div class="viewcode-block" id="NewClient.get_newsletter_messages">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_newsletter_messages">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_newsletter_messages</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_newsletter_messages</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">before</span><span class="p">:</span> <span class="n">MessageServerID</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">NewsletterMessage</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieves a list of newsletter messages for a given JID.</span>
@@ -2675,7 +2680,7 @@
 
 <div class="viewcode-block" id="NewClient.get_privacy_settings">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_privacy_settings">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_privacy_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PrivacySettings</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_privacy_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PrivacySettings</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function retrieves the my privacy settings.</span>
 
@@ -2689,7 +2694,7 @@
 
 <div class="viewcode-block" id="NewClient.get_profile_picture">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_profile_picture">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_profile_picture</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_profile_picture</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span>
         <span class="n">extra</span><span class="p">:</span> <span class="n">neonize_proto</span><span class="o">.</span><span class="n">GetProfilePictureParams</span> <span class="o">=</span> <span class="n">neonize_proto</span><span class="o">.</span><span class="n">GetProfilePictureParams</span><span class="p">(),</span>
@@ -2723,7 +2728,7 @@
 
 <div class="viewcode-block" id="NewClient.get_status_privacy">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_status_privacy">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_status_privacy</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_status_privacy</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">StatusPrivacy</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the status privacy settings of the user.</span>
@@ -2742,7 +2747,7 @@
 
 <div class="viewcode-block" id="NewClient.get_sub_groups">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_sub_groups">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_sub_groups</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_sub_groups</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">community</span><span class="p">:</span> <span class="n">JID</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">GroupLinkTarget</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2765,7 +2770,7 @@
 
 <div class="viewcode-block" id="NewClient.get_subscribed_newletters">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_subscribed_newletters">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_subscribed_newletters</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_subscribed_newletters</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">NewsletterMetadata</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2785,7 +2790,7 @@
 
 <div class="viewcode-block" id="NewClient.get_user_devices">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_user_devices">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_user_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">jids</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">JID</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">jids</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">JID</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve devices associated with specified user JIDs.</span>
 
@@ -2806,7 +2811,7 @@
 
 <div class="viewcode-block" id="NewClient.get_blocklist">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_blocklist">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_blocklist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Blocklist</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_blocklist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Blocklist</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieves the blocklist from the client.</span>
 
 <span class="sd">        :return: Blocklist: The retrieved blocklist.</span>
@@ -2822,7 +2827,7 @@
 
 <div class="viewcode-block" id="NewClient.get_me">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_me">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_me</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Device</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_me</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Device</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is used to get the device information associated with a given UUID.</span>
 
@@ -2834,7 +2839,7 @@
 
 <div class="viewcode-block" id="NewClient.get_contact_qr_link">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_contact_qr_link">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_contact_qr_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revoke</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_contact_qr_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revoke</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function returns a QR link for a specific contact. If the &#39;revoke&#39; parameter is set to True,</span>
 <span class="sd">        it revokes the existing QR link and generates a new one.</span>
@@ -2855,7 +2860,7 @@
 
 <div class="viewcode-block" id="NewClient.get_linked_group_participants">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_linked_group_participants">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_linked_group_participants</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_linked_group_participants</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">community</span><span class="p">:</span> <span class="n">JID</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RepeatedCompositeFieldContainer</span><span class="p">[</span><span class="n">JID</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fetches the participants of a linked group in a community.</span>
@@ -2879,7 +2884,7 @@
 
 <div class="viewcode-block" id="NewClient.get_newsletter_info">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_newsletter_info">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_newsletter_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">neonize_proto</span><span class="o">.</span><span class="n">NewsletterMetadata</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_newsletter_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">neonize_proto</span><span class="o">.</span><span class="n">NewsletterMetadata</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fetches the metadata of a specific newsletter using its JID.</span>
 
@@ -2902,7 +2907,7 @@
 
 <div class="viewcode-block" id="NewClient.PairPhone">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.PairPhone">[docs]</a>
-    <span class="k">def</span> <span class="nf">PairPhone</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">PairPhone</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">phone</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">show_push_notification</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
@@ -2976,7 +2981,7 @@
 
 <div class="viewcode-block" id="NewClient.get_message_for_retry">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.get_message_for_retry">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_message_for_retry</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_message_for_retry</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">requester</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">to</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">message_id</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Message</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -3008,9 +3013,44 @@
             <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">Message</span></div>
 
 
+<div class="viewcode-block" id="NewClient.send_fb_message">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.send_fb_message">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_fb_message</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">to</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span>
+        <span class="n">message</span><span class="p">:</span> <span class="n">ConsumerApplication</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="n">MessageApplication</span><span class="o">.</span><span class="n">Metadata</span><span class="p">,</span>
+        <span class="n">extra</span><span class="p">:</span> <span class="n">SendRequestExtra</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">to_buff</span> <span class="o">=</span> <span class="n">to</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+        <span class="n">message_buff</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+        <span class="n">metadata_buff</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+        <span class="n">extra_buff</span> <span class="o">=</span> <span class="n">extra</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">SendFBMessage</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span>
+            <span class="n">to_buff</span><span class="p">,</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">to_buff</span><span class="p">),</span>
+            <span class="n">message_buff</span><span class="p">,</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">message_buff</span><span class="p">),</span>
+            <span class="n">metadata_buff</span><span class="p">,</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">metadata_buff</span><span class="p">),</span>
+            <span class="n">extra_buff</span><span class="p">,</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">extra_buff</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">SendResponse</span><span class="o">.</span><span class="n">FromString</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">get_bytes</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="NewClient.send_presence">
+<a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.send_presence">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_presence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="n">Presence</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span><span class="o">.</span><span class="n">SendPresence</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">presence</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SendPresenceError</span><span class="p">(</span><span class="n">response</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="NewClient.connect">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.connect">[docs]</a>
-    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Establishes a connection to the WhatsApp servers.&quot;&quot;&quot;</span>
         <span class="c1"># Convert the list of functions to a bytearray</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">list_func</span><span class="p">))</span>
@@ -3050,7 +3090,7 @@
 
 <div class="viewcode-block" id="NewClient.disconnect">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.NewClient.disconnect">[docs]</a>
-    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Disconnect the client</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -3059,11 +3099,10 @@
 
 
 
-
 <div class="viewcode-block" id="ClientFactory">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ClientFactory">[docs]</a>
-<span class="k">class</span> <span class="nc">ClientFactory</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;neonize.db&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClientFactory</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;neonize.db&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This class is used to create new instances of the client.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -3074,7 +3113,7 @@
 <div class="viewcode-block" id="ClientFactory.get_all_devices_from_db">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ClientFactory.get_all_devices_from_db">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_all_devices_from_db</span><span class="p">(</span><span class="n">db</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;Device&quot;</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_all_devices_from_db</span><span class="p">(</span><span class="n">db</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Device</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves all devices associated with the current account.</span>
 <span class="sd">        :param db: The name of the database to retrieve the devices from.</span>
@@ -3084,37 +3123,37 @@
         <span class="n">c_string</span> <span class="o">=</span> <span class="n">gocode</span><span class="o">.</span><span class="n">GetAllDevices</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">c_string</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[]</span>
-        
-        <span class="k">class</span> <span class="nc">Device</span><span class="p">:</span>
-            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">JID</span><span class="p">:</span> <span class="n">JID</span><span class="p">,</span> <span class="n">PushName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">BussinessName</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Initialized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">JID</span> <span class="o">=</span> <span class="n">JID</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">PushName</span> <span class="o">=</span> <span class="n">PushName</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">BusinessName</span> <span class="o">=</span> <span class="n">BussinessName</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">Initialized</span> <span class="o">=</span> <span class="n">Initialized</span>
 
         <span class="n">devices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Device</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">for</span> <span class="n">device_str</span> <span class="ow">in</span> <span class="n">c_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|</span><span class="se">\u0001</span><span class="s1">|&#39;</span><span class="p">):</span>
-            <span class="nb">id</span><span class="p">,</span> <span class="n">push_name</span><span class="p">,</span> <span class="n">bussniess_name</span><span class="p">,</span> <span class="n">initialized</span> <span class="o">=</span> <span class="n">device_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-            <span class="nb">id</span><span class="p">,</span> <span class="n">server</span> <span class="o">=</span> <span class="nb">id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">device_str</span> <span class="ow">in</span> <span class="n">c_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|</span><span class="se">\u0001</span><span class="s2">|&quot;</span><span class="p">):</span>
+            <span class="nb">id</span><span class="p">,</span> <span class="n">push_name</span><span class="p">,</span> <span class="n">bussniess_name</span><span class="p">,</span> <span class="n">initialized</span> <span class="o">=</span> <span class="n">device_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="nb">id</span><span class="p">,</span> <span class="n">server</span> <span class="o">=</span> <span class="nb">id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>
             <span class="n">jid</span> <span class="o">=</span> <span class="n">build_jid</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
 
-            <span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">(</span><span class="n">jid</span><span class="p">,</span> <span class="n">push_name</span><span class="p">,</span> <span class="n">bussniess_name</span><span class="p">,</span> <span class="n">initialized</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span>
+            <span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">(</span>
+                <span class="n">JID</span><span class="o">=</span><span class="n">jid</span><span class="p">,</span>
+                <span class="n">PushName</span><span class="o">=</span><span class="n">push_name</span><span class="p">,</span>
+                <span class="n">BussinessName</span><span class="o">=</span><span class="n">bussniess_name</span><span class="p">,</span>
+                <span class="n">Initialized</span><span class="o">=</span><span class="n">initialized</span> <span class="o">==</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="n">devices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-        
+
         <span class="k">return</span> <span class="n">devices</span></div>
 
 
 <div class="viewcode-block" id="ClientFactory.get_all_devices">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ClientFactory.get_all_devices">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_all_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;Device&quot;</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_all_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;Device&quot;</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieves all devices associated with the current account from the database.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_devices_from_db</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database_name</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ClientFactory.new_client">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ClientFactory.new_client">[docs]</a>
-    <span class="k">def</span> <span class="nf">new_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">props</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceProps</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NewClient</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">new_client</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">jid</span><span class="p">:</span> <span class="n">JID</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">props</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeviceProps</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NewClient</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function creates a new instance of the client. If the jid parameter is not provided, a new client will be created.</span>
 <span class="sd">        :param name: The name of the client.</span>
@@ -3132,13 +3171,14 @@
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;JID and UUID cannot be none&quot;</span><span class="p">)</span>
 
         <span class="n">client</span> <span class="o">=</span> <span class="n">NewClient</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database_name</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">props</span><span class="p">,</span> <span class="n">uuid</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>    
+        <span class="n">client</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">list_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">client</span></div>
 
 
 <div class="viewcode-block" id="ClientFactory.run">
 <a class="viewcode-back" href="../../source/neonize.html#neonize.client.ClientFactory.run">[docs]</a>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="p">:</span>
             <span class="n">Thread</span><span class="p">(</span>
                 <span class="n">target</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">,</span>
@@ -3181,8 +3221,8 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=f663eb4a"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+</div><script src="../../_static/documentation_options.js?v=590429e0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
     </body>

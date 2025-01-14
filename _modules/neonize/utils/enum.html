@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>neonize.utils.enum - neonize 8.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>neonize.utils.enum - neonize 1.2.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">neonize 8.0.0 documentation</div></a>
+      <a href="../../../index.html"><div class="brand">neonize 1.2.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +189,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
   
   
-  <span class="sidebar-brand-text">neonize 8.0.0 documentation</span>
+  <span class="sidebar-brand-text">neonize 1.2.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -231,23 +231,23 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for neonize.utils.enum</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
-<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">import</span> <span class="nn">magic</span>
-<span class="kn">import</span> <span class="nn">typing</span>
-<span class="kn">from</span> <span class="nn">..proto.waE2E.WAWebProtobufsE2E_pb2</span> <span class="kn">import</span> <span class="p">(</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">magic</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..proto.waE2E.WAWebProtobufsE2E_pb2</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">Message</span><span class="p">,</span>
     <span class="n">ImageMessage</span><span class="p">,</span>
     <span class="n">AudioMessage</span><span class="p">,</span>
     <span class="n">VideoMessage</span><span class="p">,</span>
     <span class="n">DocumentMessage</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.message</span> <span class="kn">import</span> <span class="n">get_message_type</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_message_type</span>
 
 
 <div class="viewcode-block" id="MediaTypeToMMS">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.MediaTypeToMMS">[docs]</a>
-<span class="k">class</span> <span class="nc">MediaTypeToMMS</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MediaTypeToMMS</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">MediaImage</span> <span class="o">=</span> <span class="s2">&quot;image&quot;</span>
     <span class="n">MediaAudio</span> <span class="o">=</span> <span class="s2">&quot;audio&quot;</span>
     <span class="n">MediaVideo</span> <span class="o">=</span> <span class="s2">&quot;video&quot;</span>
@@ -259,7 +259,7 @@
 <div class="viewcode-block" id="MediaTypeToMMS.from_message">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.MediaTypeToMMS.from_message">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_message</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_message</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">ImageMessage</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">MediaImage</span><span class="p">,</span>
             <span class="n">AudioMessage</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">MediaAudio</span><span class="p">,</span>
@@ -271,7 +271,7 @@
 <div class="viewcode-block" id="MediaTypeToMMS.from_mime">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.MediaTypeToMMS.from_mime">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_mime</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">mime</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_mime</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">mime</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">type_</span> <span class="o">=</span> <span class="n">mime</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;audio&quot;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">MediaAudio</span><span class="p">,</span>
@@ -284,7 +284,7 @@
 
 <div class="viewcode-block" id="MediaType">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.MediaType">[docs]</a>
-<span class="k">class</span> <span class="nc">MediaType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MediaType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">MediaImage</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">MediaVideo</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">MediaAudio</span> <span class="o">=</span> <span class="mi">2</span>
@@ -296,7 +296,7 @@
 <div class="viewcode-block" id="MediaType.from_magic">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.MediaType.from_magic">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_magic</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fn_or_bytes</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">MediaType</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_magic</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">fn_or_bytes</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">MediaType</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the MediaType based on file magic bytes or file extension.</span>
 
 <span class="sd">        :param fn_or_bytes: Either a file path (str) or binary data (bytes) for determining the MediaType.</span>
@@ -323,7 +323,7 @@
 
 <div class="viewcode-block" id="ChatPresence">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.ChatPresence">[docs]</a>
-<span class="k">class</span> <span class="nc">ChatPresence</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ChatPresence</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enum representing the presence status in a chat.</span>
 
@@ -339,7 +339,7 @@
 
 <div class="viewcode-block" id="ChatPresenceMedia">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.ChatPresenceMedia">[docs]</a>
-<span class="k">class</span> <span class="nc">ChatPresenceMedia</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ChatPresenceMedia</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enum representing the type of media being used in a chat.</span>
 
@@ -355,7 +355,7 @@
 
 <div class="viewcode-block" id="LogLevel">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.LogLevel">[docs]</a>
-<span class="k">class</span> <span class="nc">LogLevel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LogLevel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enum representing the different levels of logging.</span>
 
@@ -374,7 +374,7 @@
     <span class="n">ERROR</span> <span class="o">=</span> <span class="mi">3</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">level</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">level</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the logging level name encoded as bytes.</span>
 
@@ -388,7 +388,7 @@
 <div class="viewcode-block" id="LogLevel.from_logging">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.LogLevel.from_logging">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_logging</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_logging</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts a numeric logging level to a corresponding LogLevel enum member.</span>
 
@@ -416,7 +416,7 @@
 
 <div class="viewcode-block" id="LogLevel.log_level">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.LogLevel.log_level">[docs]</a>
-    <span class="k">def</span> <span class="nf">log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts the LogLevel enum member to its corresponding numeric logging level.</span>
 
@@ -430,7 +430,7 @@
 
 <div class="viewcode-block" id="ReceiptType">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.ReceiptType">[docs]</a>
-<span class="k">class</span> <span class="nc">ReceiptType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ReceiptType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enum representing different types of message receipts.</span>
 
@@ -464,7 +464,7 @@
 
 <div class="viewcode-block" id="ClientType">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.ClientType">[docs]</a>
-<span class="k">class</span> <span class="nc">ClientType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClientType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration of client types.</span>
 
@@ -493,7 +493,7 @@
     <span class="n">OTHER</span> <span class="o">=</span> <span class="mi">9</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the title-cased name of the client type.</span>
 
@@ -506,7 +506,7 @@
 
 <div class="viewcode-block" id="ClientName">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.ClientName">[docs]</a>
-<span class="k">class</span> <span class="nc">ClientName</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClientName</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration of client names.</span>
 
@@ -521,7 +521,7 @@
     <span class="n">ANDROID</span> <span class="o">=</span> <span class="s2">&quot;android&quot;</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the title-cased name of the client.</span>
 
@@ -534,7 +534,7 @@
 
 <div class="viewcode-block" id="PrivacySettingType">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.PrivacySettingType">[docs]</a>
-<span class="k">class</span> <span class="nc">PrivacySettingType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PrivacySettingType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration of privacy setting types.</span>
 
@@ -560,7 +560,7 @@
 
 <div class="viewcode-block" id="PrivacySetting">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.PrivacySetting">[docs]</a>
-<span class="k">class</span> <span class="nc">PrivacySetting</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PrivacySetting</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration of privacy settings.</span>
 
@@ -586,7 +586,7 @@
 
 <div class="viewcode-block" id="BlocklistAction">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.BlocklistAction">[docs]</a>
-<span class="k">class</span> <span class="nc">BlocklistAction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BlocklistAction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration of blocklist actions.</span>
 
@@ -602,7 +602,7 @@
 
 <div class="viewcode-block" id="ParticipantChange">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.ParticipantChange">[docs]</a>
-<span class="k">class</span> <span class="nc">ParticipantChange</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ParticipantChange</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration of participant change actions.</span>
 
@@ -622,7 +622,7 @@
 
 <div class="viewcode-block" id="ParticipantRequestChange">
 <a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.ParticipantRequestChange">[docs]</a>
-<span class="k">class</span> <span class="nc">ParticipantRequestChange</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ParticipantRequestChange</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration of participant request change actions.</span>
 
@@ -633,6 +633,14 @@
 
     <span class="n">APPROVE</span> <span class="o">=</span> <span class="s2">&quot;approve&quot;</span>
     <span class="n">REJECT</span> <span class="o">=</span> <span class="s2">&quot;reject&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="Presence">
+<a class="viewcode-back" href="../../../source/neonize.utils.html#neonize.utils.enum.Presence">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Presence</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">AVAILABLE</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;available&quot;</span>
+    <span class="n">UNAVAILABLE</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;unavailable&quot;</span></div>
 
 </pre></div>
         </article>
@@ -666,8 +674,8 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=f663eb4a"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+</div><script src="../../../_static/documentation_options.js?v=590429e0"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>
     </body>
