@@ -12,7 +12,6 @@ jobs:
         python-version: "3.11.8"
     - name: Install uv
       uses: astral-sh/setup-uv@v5
-    - name: install deps
     - name: build docs
       run: |
         poetry sync --group docs
