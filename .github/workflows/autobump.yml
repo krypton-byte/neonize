@@ -57,8 +57,4 @@ jobs:
           automated pr
         assignees: krypton-byte
         reviewers: krypton-byte
-        team-reviewers: |
-          developers
-          qa-team
-        milestone: 1
         draft: false
