@@ -3,7 +3,6 @@ from colorama import init, Fore
 import argparse
 from pathlib import Path
 import re
-import dataclasses
 
 
 init()

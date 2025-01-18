@@ -1,0 +1,60 @@
+name: Auto Update whatsmeow
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v4
+      with:
+        go-version: '^1.21.5'
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.11.8"
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+    - name: fetch new proto files
+      run: |
+        uv sync --group dev
+        uv run task proto
+        git diff --exit-code > /dev/null && uv run task build proto
+    - name: update golang dependencies
+      run: cd goneonize && go get -u && go mod tidy
+    - uses: astral-sh/ruff-action@v3
+      with:
+        src: "./neonize"
+        args: "format --check"
+    - name: Create Pull Request
+      id: cpr
+      uses: peter-evans/create-pull-request@v7
+      with:
+        commit-message: |
+          Whatsmeow
+          - Update proto files
+          - Update golang depedencies
+        signoff: false
+        branch: master
+        delete-branch: true
+        title: '[Update] Whatsmeow version'
+        body: |
+          Whatsmeow
+          - Update proto files
+          - Update golang depedencies
+        labels: |
+          proto
+          whatsmeow
+          goneonize
+          automated pr
+        assignees: krypton-byte
+        reviewers: krypton-byte
+        team-reviewers: |
+          developers
+          qa-team
+        milestone: 1
+        draft: false

@@ -1,3 +1,4 @@
+from typing import Optional
 from colorama import Fore, init
 import shutil
 from pathlib import Path
@@ -7,19 +8,25 @@ import requests
 from tqdm import tqdm
 import zipfile
 from dataclasses import dataclass
+import argparse
 
 os_name = platform.system().lower()
 arch_name = platform.machine().lower()
 init()
 
 WORKDIR = Path(__file__).parent.parent
-
+SHA_FILE = WORKDIR / 'goneonize/defproto/.sha'
 
 @dataclass
 class FileValue:
     proto: int = 0
     dropped: int = 0
     folder: int = 0
+
+@dataclass
+class ProtoCommit:
+    upgradeable: bool
+    sha: Optional[str]
 
 
 def remove_not_proto(path: Path, value: FileValue):
@@ -83,5 +90,36 @@ def download_whatsmeow():
     os.remove(WORKDIR / "whatsmeow.zip")
     shutil.rmtree(WORKDIR / ".dest")
     print(f"{Fore.BLUE}[INFO] Work directory cleaned up successfully.")
+    git_proto_sha = ''
+    last_sha_commit = requests.get('https://api.github.com/repos/tulir/whatsmeow/contents/').json()
+    for result in filter(lambda item: item['name'] == 'proto', last_sha_commit):
+        git_proto_sha = result['sha']
+        break
+    with open(SHA_FILE, 'w') as file:
+        file.write(git_proto_sha)
+
+def upgradable() -> ProtoCommit:
+    git_proto_sha = ''
+    last_sha_commit = requests.get('https://api.github.com/repos/tulir/whatsmeow/contents/').json()
+    for result in filter(lambda item: item['name'] == 'proto', last_sha_commit):
+        git_proto_sha = result['sha']
+        break
+    if SHA_FILE.exists():
+        return ProtoCommit(upgradeable=SHA_FILE.read_text().strip() != git_proto_sha, sha=git_proto_sha)
+    else:
+        SHA_FILE.touch()
+    return ProtoCommit(upgradeable=True, sha=None)
+
 if __name__ == "__main__":
-    download_whatsmeow()
+    args = argparse.ArgumentParser()
+    args.add_argument('--force', help='force update', default=False, action='store_true')
+    parse = args.parse_args()
+    proto = upgradable()
+    if proto.upgradeable:
+        print(f'{Fore.BLUE}[INFO] A proto update is available.')
+    if proto.upgradeable or parse.force:
+        download_whatsmeow()
+    else:
+        print(f'{Fore.BLUE}[INFO] No proto update is available.')
+
+    
