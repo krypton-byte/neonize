@@ -222,6 +222,25 @@ def handler(client: NewClient, message: MessageEv):
             client.chat_settings.put_archived(chat, False)
         case "get_chat_settings":
             client.send_message(chat, client.chat_settings.get_chat_settings(chat).__str__())
+        case "edit_message":
+            text = "Hello World"
+            id_msg = None
+            for i in range(1, len(text) + 1):
+                if id_msg is None:
+                    msg = client.send_message(
+                        message.Info.MessageSource.Chat,
+                        Message(
+                            conversation=text[:i]
+                        )
+                    )
+                    id_msg = msg.ID
+                client.edit_message(
+                    message.Info.MessageSource.Chat,
+                    id_msg,
+                    Message(
+                        conversation=text[:i]
+                    )
+                )
         case "button":
             client.send_message(
                 message.Info.MessageSource.Chat,
