@@ -1,16 +1,15 @@
 import ctypes
 import os
 from platform import system
-import importlib.metadata
 from typing import Any
 from pathlib import Path
+from .utils.platform import generated_name
+from .download import download, __GONEONIZE_VERSION__
 
 func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
 func = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
 func_bytes = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_int)
 func_callback_bytes = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_int, ctypes.c_int)
-from .utils.platform import generated_name
-from .download import download, __GONEONIZE_VERSION__
 
 
 def load_goneonize():

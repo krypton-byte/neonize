@@ -12,7 +12,6 @@ from neonize.events import (
     ReceiptEv,
     CallOfferEv,
 )
-from neonize.proto.Neonize_pb2 import JID
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
     FutureProofMessage,

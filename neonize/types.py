@@ -53,7 +53,6 @@ MediaMessageType = TypeVar(
     DocumentMessage,
 )
 
-from typing import TypeVar
 
 MediaMessageType = TypeVar(
     "MediaMessageType",

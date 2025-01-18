@@ -52,7 +52,7 @@ def download_whatsmeow():
     name = WORKDIR / "whatsmeow.zip"
     print(f"{Fore.RED}[{Fore.GREEN}{name.name} {Fore.YELLOW}'HEAD'{Fore.RED}]{Fore.RESET}")
     resp = requests.get(
-        f"https://github.com/tulir/whatsmeow/archive/refs/heads/main.zip", stream=True
+        "https://github.com/tulir/whatsmeow/archive/refs/heads/main.zip", stream=True
     )
     total = int(resp.headers.get("content-length", 0))
     with (

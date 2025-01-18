@@ -94,11 +94,11 @@ class TemporaryFile:
         :type touch: bool, optional
         """
         params = {}
-        if prefix != None:
+        if prefix is not None:
             params["prefix"] = prefix
-        if suffix != None:
+        if suffix is not None:
             params["suffix"] = suffix
-        if dir != None:
+        if dir is not None:
             params["dir"] = dir
         self.path = Path(tempfile.mktemp(**params))
         if touch:

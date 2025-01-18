@@ -1,9 +1,8 @@
-from enum import Enum, auto
+from enum import Enum
 from pathlib import Path
 import shutil
 import subprocess
 import os
-from typing import Optional
 import platform
 
 WORKDIR = Path(__file__).parent.parent

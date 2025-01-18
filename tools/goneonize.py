@@ -3,7 +3,6 @@ import platform
 import shlex
 import argparse
 import subprocess
-import re
 import shutil
 from pathlib import Path
 from typing import Dict

@@ -1,5 +1,4 @@
-from typing import Literal, Optional, TypeVar, overload
-from httpx import URL, HTTPStatusError
+from httpx import HTTPStatusError
 from linkpreview import Link, LinkPreview
 from linkpreview.exceptions import InvalidMimeTypeError
 from .grabber import LinkGrabber

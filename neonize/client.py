@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import ctypes
-import datetime
 import re
 import struct
 import time
@@ -9,7 +8,7 @@ from types import NoneType
 import typing
 from datetime import timedelta
 from io import BytesIO
-from typing import Any, Optional, List, Sequence, overload
+from typing import Optional, List, Sequence, overload
 
 import magic
 from PIL import Image
@@ -154,7 +153,7 @@ from .utils.enum import (
     PrivacySetting,
     PrivacySettingType,
 )
-from .utils.ffmpeg import FFmpeg, ImageFormat
+from .utils.ffmpeg import FFmpeg
 from .utils.iofile import get_bytes_from_name_or_url
 from .utils.jid import Jid2String, JIDToNonAD, build_jid
 

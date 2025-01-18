@@ -1,4 +1,3 @@
-import importlib.metadata
 import os
 from .utils.platform import generated_name
 import requests

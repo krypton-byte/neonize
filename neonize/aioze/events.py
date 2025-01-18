@@ -34,25 +34,66 @@ from ..proto.Neonize_pb2 import (
     NewsletterJoin as NewsletterJoinEv,
     NewsletterLeave as NewsletterLeaveEv,
     NewsletterMuteChange as NewsletterMuteChangeEv,
-    NewsletterLiveUpdate as NewsletterLiveUpdateEV,
+    NewsletterLiveUpdate as NewsletterLiveUpdateEv,
     CallOffer as CallOfferEv,
     CallAccept as CallAcceptEv,
     CallPreAccept as CallPreAcceptEv,
     CallTransport as CallTransportEv,
     CallOfferNotice as CallOfferNoticeEv,
-    CallRelayLatency as CallRelayLatencyEV,
+    CallRelayLatency as CallRelayLatencyEv,
     CallTerminate as CallTerminateEv,
-    UnknownCallEvent as UnknownCallEventEV,
+    UnknownCallEvent as UnknownCallEventEv,
 )
 
 from google.protobuf.message import Message
-from typing import Awaitable, Coroutine, Dict, Callable, Type, TypeVar, TYPE_CHECKING
+from typing import Awaitable, Dict, Callable, Type, TypeVar, TYPE_CHECKING
 from asyncio import Event as IOEvent
 
 if TYPE_CHECKING:
     from .client import NewAClient, ClientFactory
 EventType = TypeVar("EventType", bound=Message)
 event = IOEvent()
+__all__ = [
+    "QREv",
+    "PairStatusEv",
+    "ConnectedEv",
+    "KeepAliveTimeoutEv",
+    "KeepAliveRestoredEv",
+    "LoggedOutEv",
+    "StreamReplacedEv",
+    "TemporaryBanEv",
+    "ConnectFailureEv",
+    "ClientOutdatedEv",
+    "StreamErrorEv",
+    "DisconnectedEv",
+    "HistorySyncEv",
+    "NewsLetterMessageMetaEv",
+    "MessageEv",
+    "ReceiptEv",
+    "ChatPresenceEv",
+    "PresenceEv",
+    "JoinedGroupEv",
+    "GroupInfoEv",
+    "PictureEv",
+    "IdentityChangeEv",
+    "PrivacySettingsEv",
+    "OfflineSyncPreviewEv",
+    "OfflineSyncCompletedEv",
+    "BlocklistEv",
+    "BlocklistChangeEv",
+    "NewsletterJoinEv",
+    "NewsletterLeaveEv",
+    "NewsletterMuteChangeEv",
+    "NewsletterLiveUpdateEv",
+    "CallOfferEv",
+    "CallAcceptEv",
+    "CallPreAcceptEv",
+    "CallTransportEv",
+    "CallOfferNoticeEv",
+    "CallRelayLatencyEv",
+    "CallTerminateEv",
+    "UnknownCallEventEv",
+]
 
 
 class Event:

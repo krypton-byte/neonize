@@ -1,7 +1,6 @@
 import asyncio
 import logging
 import os
-import signal
 import sys
 from datetime import timedelta
 from neonize.aioze.client import NewAClient
@@ -13,7 +12,6 @@ from neonize.events import (
     ReceiptEv,
     CallOfferEv,
 )
-from neonize.proto.Neonize_pb2 import JID
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
     FutureProofMessage,

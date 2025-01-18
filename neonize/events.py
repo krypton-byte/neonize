@@ -2,12 +2,10 @@ from __future__ import annotations
 import logging
 
 from neonize.exc import UnsupportedEvent
-from .proto import Neonize_pb2 as neonize
 import ctypes
 import segno
 from typing import TypeVar, Type, Callable, TYPE_CHECKING, Dict
 from google.protobuf.message import Message
-from dataclasses import dataclass
 from threading import Event as EventThread
 from .proto.Neonize_pb2 import (
     QR as QREv,

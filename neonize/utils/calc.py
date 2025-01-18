@@ -3,9 +3,6 @@ from typing import Tuple
 from PIL import Image
 
 
-from PIL import Image
-
-
 def crop_image(image: Image.Image) -> Image.Image:
     """
     Crops an image to make it square. If the image is already square, it is returned as is.

@@ -1,8 +1,6 @@
 from colorama import Fore, init
 import argparse
 from pathlib import Path
-import httpx
-import asyncio
 import sys
 import platform
 import requests

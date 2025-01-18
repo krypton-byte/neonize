@@ -164,16 +164,10 @@ from ..proto.Neonize_pb2 import (
     UploadReturnFunction,
     SendRequestExtra,
 )
-from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
-    ContextInfo,
-    ExtendedTextMessage,
-    Message,
-)
 from ..proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2 import DeviceProps
 from .._binder import gocode
 from .events import Event
 from ..utils.log import log
-from concurrent.futures import ThreadPoolExecutor
 from linkpreview import link_preview as fallback_link_preview
 
 loop = get_event_loop()

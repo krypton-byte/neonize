@@ -3,7 +3,6 @@ from enum import Enum
 import json
 import os
 import shlex
-from sys import stderr
 import time
 import subprocess
 import tempfile
@@ -236,9 +235,9 @@ class AFFmpeg:
             "libwebp",
             "-vf",
             (
-                f"scale='if(gt(iw,ih),512,-1)':'if(gt(iw,ih),-1,512)',fps=15, "
-                f"pad=512:512:-1:-1:color=white@0.0, split [a][b]; [a] "
-                f"palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse"
+                "scale='if(gt(iw,ih),512,-1)':'if(gt(iw,ih),-1,512)',fps=15, "
+                "pad=512:512:-1:-1:color=white@0.0, split [a][b]; [a] "
+                "palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse"
             ),
             temp,
         ]
@@ -463,9 +462,9 @@ class FFmpeg:
             "libwebp",
             "-vf",
             (
-                f"scale='if(gt(iw,ih),512,-1)':'if(gt(iw,ih),-1,512)',fps=15, "
-                f"pad=512:512:-1:-1:color=white@0.0, split [a][b]; [a] "
-                f"palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse"
+                "scale='if(gt(iw,ih),512,-1)':'if(gt(iw,ih),-1,512)',fps=15, "
+                "pad=512:512:-1:-1:color=white@0.0, split [a][b]; [a] "
+                "palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse"
             ),
             temp,
         ]
