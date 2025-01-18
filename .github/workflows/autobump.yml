@@ -35,7 +35,7 @@ jobs:
       run: cd goneonize && go get -u && go mod tidy
     - uses: astral-sh/ruff-action@v3
       with:
-        src: "./neonize"
+        src: "."
         args: "format --check"
     - name: Create Pull Request
       id: cpr
