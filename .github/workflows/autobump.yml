@@ -43,7 +43,7 @@ jobs:
           - Update proto files
           - Update golang depedencies
         signoff: false
-        branch: master
+        branch: whatsmeow_update
         delete-branch: true
         title: '[Update] Whatsmeow version'
         body: |
