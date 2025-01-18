@@ -126,13 +126,9 @@ async def handler(client: NewAClient, message: MessageEv):
                 viewonce=True,
             )
         case "profile_pict":
-            await client.send_message(
-                chat, (await client.get_profile_picture(chat)).__str__()
-            )
+            await client.send_message(chat, (await client.get_profile_picture(chat)).__str__())
         case "status_privacy":
-            await client.send_message(
-                chat, (await client.get_status_privacy()).__str__()
-            )
+            await client.send_message(chat, (await client.get_status_privacy()).__str__())
         case "read":
             await client.send_message(
                 chat,
@@ -151,9 +147,7 @@ async def handler(client: NewAClient, message: MessageEv):
             )
             err = await client.follow_newsletter(metadata.ID)
             await client.send_message(chat, "error: " + err.__str__())
-            resp = await client.newsletter_mark_viewed(
-                metadata.ID, [MessageServerID(0)]
-            )
+            resp = await client.newsletter_mark_viewed(metadata.ID, [MessageServerID(0)])
             await client.send_message(chat, resp.__str__() + "\n" + metadata.__str__())
         case "logout":
             await client.logout()
@@ -161,14 +155,10 @@ async def handler(client: NewAClient, message: MessageEv):
             metadata = await client.get_newsletter_info_with_invite(
                 "https://whatsapp.com/channel/0029Va4K0PZ5a245NkngBA2M"
             )
-            data_msg = await client.get_newsletter_messages(
-                metadata.ID, 2, MessageServerID(0)
-            )
+            data_msg = await client.get_newsletter_messages(metadata.ID, 2, MessageServerID(0))
             await client.send_message(chat, data_msg.__str__())
             for _ in data_msg:
-                await client.newsletter_send_reaction(
-                    metadata.ID, MessageServerID(0), "🗿", ""
-                )
+                await client.newsletter_send_reaction(metadata.ID, MessageServerID(0), "🗿", "")
         case "subscribe_channel_updates":
             metadata = await client.get_newsletter_info_with_invite(
                 "https://whatsapp.com/channel/0029Va4K0PZ5a245NkngBA2M"
@@ -186,14 +176,10 @@ async def handler(client: NewAClient, message: MessageEv):
         case "set_diseapearing":
             await client.send_message(
                 chat,
-                (
-                    await client.set_default_disappearing_timer(timedelta(days=7))
-                ).__str__(),
+                (await client.set_default_disappearing_timer(timedelta(days=7))).__str__(),
             )
         case "test_contacts":
-            await client.send_message(
-                chat, (await client.contact.get_all_contacts()).__str__()
-            )
+            await client.send_message(chat, (await client.contact.get_all_contacts()).__str__())
         case "build_sticker":
             await client.send_message(
                 chat,

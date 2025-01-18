@@ -43,9 +43,7 @@ def add_exif(name: str = "", packname: str = "") -> bytes:
         "ios-app-store-link": "https://itunes.apple.com/app/sticker-maker-studio/id1443326857",
     }
 
-    exif_attr = bytes.fromhex(
-        "49 49 2A 00 08 00 00 00 01 00 41 57 07 00 00 00 00 00 16 00 00 00"
-    )
+    exif_attr = bytes.fromhex("49 49 2A 00 08 00 00 00 01 00 41 57 07 00 00 00 00 00 16 00 00 00")
     json_buffer = json.dumps(json_data).encode("utf-8")
     exif = exif_attr + json_buffer
     exif_length = len(json_buffer)

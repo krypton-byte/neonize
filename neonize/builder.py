@@ -43,9 +43,7 @@ def build_edit(chat: neonize.JID, message_id: str, new_message: Message) -> Mess
     )
 
 
-def build_revoke(
-    chat: neonize.JID, sender: neonize.JID, id: str, myJID: neonize.JID
-) -> Message:
+def build_revoke(chat: neonize.JID, sender: neonize.JID, id: str, myJID: neonize.JID) -> Message:
     """
     This function builds and returns a protocol message of type 'REVOKE' with given parameters.
 
@@ -67,14 +65,10 @@ def build_revoke(
     )
     if not sender.IsEmpty and not msgKey.fromMe and chat.Server != DEFAULT_USER_SERVER:
         msgKey.participant = Jid2String(JIDToNonAD(sender))
-    return Message(
-        protocolMessage=ProtocolMessage(type=ProtocolMessage.REVOKE, key=msgKey)
-    )
+    return Message(protocolMessage=ProtocolMessage(type=ProtocolMessage.REVOKE, key=msgKey))
 
 
-def build_history_sync_request(
-    message_info: neonize.MessageInfo, count: int
-) -> Message:
+def build_history_sync_request(message_info: neonize.MessageInfo, count: int) -> Message:
     """
     Builds a history sync request message.
 

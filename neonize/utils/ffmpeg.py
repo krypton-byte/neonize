@@ -196,9 +196,7 @@ class AFFmpeg:
     async def __aenter__(self):
         if isinstance(self.__file_data, str):
             if URL_MATCH.match(self.__file_data):
-                self.filename = TemporaryFile(
-                    prefix=self.prefix, touch=False
-                ).__enter__()
+                self.filename = TemporaryFile(prefix=self.prefix, touch=False).__enter__()
                 with open(self.filename.path, "wb") as file:
                     file.write(await get_bytes_from_name_or_url_async(self.__file_data))
             else:
@@ -347,8 +345,7 @@ class AFFmpeg:
                     extra.extend(
                         [
                             "-vf",
-                            "scale='if(gt(iw,ih),%i,-1)':'if(gt(iw,ih),-1,%i)'"
-                            % (size, size),
+                            "scale='if(gt(iw,ih),%i,-1)':'if(gt(iw,ih),-1,%i)'" % (size, size),
                         ]
                     )
         elif isinstance(size, Tuple):
@@ -396,10 +393,7 @@ class AFFmpeg:
         format: dict = data["format"]
         return FFProbeInfo(
             format=Format(
-                **{
-                    i: format.get(i, None)
-                    for i, _ in Format.__dataclass_fields__.items()
-                }
+                **{i: format.get(i, None) for i, _ in Format.__dataclass_fields__.items()}
             ),
             streams=[
                 Stream(
@@ -551,8 +545,7 @@ class FFmpeg:
                     extra.extend(
                         [
                             "-vf",
-                            "scale='if(gt(iw,ih),%i,-1)':'if(gt(iw,ih),-1,%i)'"
-                            % (size, size),
+                            "scale='if(gt(iw,ih),%i,-1)':'if(gt(iw,ih),-1,%i)'" % (size, size),
                         ]
                     )
         elif isinstance(size, Tuple):
@@ -600,10 +593,7 @@ class FFmpeg:
         format: dict = data["format"]
         return FFProbeInfo(
             format=Format(
-                **{
-                    i: format.get(i, None)
-                    for i, _ in Format.__dataclass_fields__.items()
-                }
+                **{i: format.get(i, None) for i, _ in Format.__dataclass_fields__.items()}
             ),
             streams=[
                 Stream(

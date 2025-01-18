@@ -28,13 +28,8 @@ def download(
     chunk_size: int,
     path=Path(__file__).parent.parent / "neonize",
 ):
-    name = (Path(__file__).parent.parent / "neonize") / generated_name(
-        os_name, arch_name
-    )
-    print(
-        f"{Fore.RED}[{Fore.GREEN}{name.name} {Fore.YELLOW}%r{Fore.RED}]{Fore.RESET}"
-        % version
-    )
+    name = (Path(__file__).parent.parent / "neonize") / generated_name(os_name, arch_name)
+    print(f"{Fore.RED}[{Fore.GREEN}{name.name} {Fore.YELLOW}%r{Fore.RED}]{Fore.RESET}" % version)
     resp = requests.get(
         f"https://github.com/krypton-byte/neonize/releases/download/{version}/{generated_name(os_name, arch_name)}",
         stream=True,

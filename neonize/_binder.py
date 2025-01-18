@@ -8,9 +8,7 @@ from pathlib import Path
 func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
 func = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
 func_bytes = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_int)
-func_callback_bytes = ctypes.CFUNCTYPE(
-    None, ctypes.c_void_p, ctypes.c_int, ctypes.c_int
-)
+func_callback_bytes = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_int, ctypes.c_int)
 from .utils.platform import generated_name
 from .download import download, __GONEONIZE_VERSION__
 
