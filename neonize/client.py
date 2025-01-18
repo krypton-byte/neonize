@@ -738,7 +738,7 @@ class NewClient:
         """
         sticker = get_bytes_from_name_or_url(file)
         animated = False
-        mime = magic.from_buffer(sticker).split("/")
+        mime = magic.from_buffer(sticker, mime=True).split("/")
         if mime[0] == "image":
             io_save = BytesIO(sticker)
             stk = auto_sticker(io_save)

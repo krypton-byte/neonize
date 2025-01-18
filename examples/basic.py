@@ -228,18 +228,11 @@ def handler(client: NewClient, message: MessageEv):
             for i in range(1, len(text) + 1):
                 if id_msg is None:
                     msg = client.send_message(
-                        message.Info.MessageSource.Chat,
-                        Message(
-                            conversation=text[:i]
-                        )
+                        message.Info.MessageSource.Chat, Message(conversation=text[:i])
                     )
                     id_msg = msg.ID
                 client.edit_message(
-                    message.Info.MessageSource.Chat,
-                    id_msg,
-                    Message(
-                        conversation=text[:i]
-                    )
+                    message.Info.MessageSource.Chat, id_msg, Message(conversation=text[:i])
                 )
         case "button":
             client.send_message(
