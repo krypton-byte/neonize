@@ -31,7 +31,7 @@ jobs:
       run: |
         uv sync --group dev
         uv run task proto
-        git diff --exit-code > /dev/null && uv run task build proto
+        git diff --exit-code && uv run task build proto
     - name: update golang dependencies
       run: ruff format . && cd goneonize && go get -u && go mod tidy
     - name: Create Pull Request
