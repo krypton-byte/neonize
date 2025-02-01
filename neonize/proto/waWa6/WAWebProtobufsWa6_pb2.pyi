@@ -145,6 +145,7 @@ class ClientPayload(google.protobuf.message.Message):
             HARDCODED: ClientPayload.DNSSource._DNSResolutionMethod.ValueType  # 2
             OVERRIDE: ClientPayload.DNSSource._DNSResolutionMethod.ValueType  # 3
             FALLBACK: ClientPayload.DNSSource._DNSResolutionMethod.ValueType  # 4
+            MNS: ClientPayload.DNSSource._DNSResolutionMethod.ValueType  # 5
 
         class DNSResolutionMethod(_DNSResolutionMethod, metaclass=_DNSResolutionMethodEnumTypeWrapper): ...
         SYSTEM: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 0
@@ -152,6 +153,7 @@ class ClientPayload(google.protobuf.message.Message):
         HARDCODED: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 2
         OVERRIDE: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 3
         FALLBACK: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 4
+        MNS: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 5
 
         DNSMETHOD_FIELD_NUMBER: builtins.int
         APPCACHED_FIELD_NUMBER: builtins.int
@@ -181,6 +183,7 @@ class ClientPayload(google.protobuf.message.Message):
             WIN_STORE: ClientPayload.WebInfo._WebSubPlatform.ValueType  # 2
             DARWIN: ClientPayload.WebInfo._WebSubPlatform.ValueType  # 3
             WIN32: ClientPayload.WebInfo._WebSubPlatform.ValueType  # 4
+            WIN_HYBRID: ClientPayload.WebInfo._WebSubPlatform.ValueType  # 5
 
         class WebSubPlatform(_WebSubPlatform, metaclass=_WebSubPlatformEnumTypeWrapper): ...
         WEB_BROWSER: ClientPayload.WebInfo.WebSubPlatform.ValueType  # 0
@@ -188,6 +191,7 @@ class ClientPayload(google.protobuf.message.Message):
         WIN_STORE: ClientPayload.WebInfo.WebSubPlatform.ValueType  # 2
         DARWIN: ClientPayload.WebInfo.WebSubPlatform.ValueType  # 3
         WIN32: ClientPayload.WebInfo.WebSubPlatform.ValueType  # 4
+        WIN_HYBRID: ClientPayload.WebInfo.WebSubPlatform.ValueType  # 5
 
         @typing.final
         class WebdPayload(google.protobuf.message.Message):

@@ -157,6 +157,7 @@ class ExtendedContentMessage(google.protobuf.message.Message):
         RTC_MISSED_GROUP_VIDEO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3007
         RTC_ONGOING_AUDIO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3008
         RTC_ONGOING_VIDEO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3009
+        MSG_RECEIVER_FETCH_FALLBACK: ExtendedContentMessage._ExtendedContentType.ValueType  # 3025
         DATACLASS_SENDER_COPY: ExtendedContentMessage._ExtendedContentType.ValueType  # 4000
 
     class ExtendedContentType(_ExtendedContentType, metaclass=_ExtendedContentTypeEnumTypeWrapper): ...
@@ -226,6 +227,7 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     RTC_MISSED_GROUP_VIDEO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3007
     RTC_ONGOING_AUDIO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3008
     RTC_ONGOING_VIDEO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3009
+    MSG_RECEIVER_FETCH_FALLBACK: ExtendedContentMessage.ExtendedContentType.ValueType  # 3025
     DATACLASS_SENDER_COPY: ExtendedContentMessage.ExtendedContentType.ValueType  # 4000
 
     @typing.final
