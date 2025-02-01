@@ -462,6 +462,21 @@ class Armadillo(google.protobuf.message.Message):
             def ClearField(self, field_name: typing.Literal["amount", b"amount", "currency", b"currency", "extendedContentMessage", b"extendedContentMessage", "paymentStatus", b"paymentStatus", "transactionID", b"transactionID"]) -> None: ...
 
         @typing.final
+        class MessageHistoryDocumentMessage(google.protobuf.message.Message):
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+            DOCUMENT_FIELD_NUMBER: builtins.int
+            @property
+            def document(self) -> waCommon.WACommon_pb2.SubProtocol: ...
+            def __init__(
+                self,
+                *,
+                document: waCommon.WACommon_pb2.SubProtocol | None = ...,
+            ) -> None: ...
+            def HasField(self, field_name: typing.Literal["document", b"document"]) -> builtins.bool: ...
+            def ClearField(self, field_name: typing.Literal["document", b"document"]) -> None: ...
+
+        @typing.final
         class NetworkVerificationMessage(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -707,6 +722,7 @@ class Armadillo(google.protobuf.message.Message):
         NOTEREPLYMESSAGE_FIELD_NUMBER: builtins.int
         RAVENMESSAGEMSGR_FIELD_NUMBER: builtins.int
         NETWORKVERIFICATIONMESSAGE_FIELD_NUMBER: builtins.int
+        MESSAGEHISTORYDOCUMENTMESSAGE_FIELD_NUMBER: builtins.int
         @property
         def commonSticker(self) -> global___Armadillo.Content.CommonSticker: ...
         @property
@@ -731,6 +747,8 @@ class Armadillo(google.protobuf.message.Message):
         def ravenMessageMsgr(self) -> global___Armadillo.Content.RavenMessage: ...
         @property
         def networkVerificationMessage(self) -> global___Armadillo.Content.NetworkVerificationMessage: ...
+        @property
+        def messageHistoryDocumentMessage(self) -> global___Armadillo.Content.MessageHistoryDocumentMessage: ...
         def __init__(
             self,
             *,
@@ -746,10 +764,11 @@ class Armadillo(google.protobuf.message.Message):
             noteReplyMessage: global___Armadillo.Content.NoteReplyMessage | None = ...,
             ravenMessageMsgr: global___Armadillo.Content.RavenMessage | None = ...,
             networkVerificationMessage: global___Armadillo.Content.NetworkVerificationMessage | None = ...,
+            messageHistoryDocumentMessage: global___Armadillo.Content.MessageHistoryDocumentMessage | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["bumpExistingMessage", b"bumpExistingMessage", "commonSticker", b"commonSticker", "content", b"content", "extendedContentMessage", b"extendedContentMessage", "extendedMessageContentWithSear", b"extendedMessageContentWithSear", "imageGalleryMessage", b"imageGalleryMessage", "networkVerificationMessage", b"networkVerificationMessage", "noteReplyMessage", b"noteReplyMessage", "paymentsTransactionMessage", b"paymentsTransactionMessage", "ravenActionNotifMessage", b"ravenActionNotifMessage", "ravenMessage", b"ravenMessage", "ravenMessageMsgr", b"ravenMessageMsgr", "screenshotAction", b"screenshotAction"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["bumpExistingMessage", b"bumpExistingMessage", "commonSticker", b"commonSticker", "content", b"content", "extendedContentMessage", b"extendedContentMessage", "extendedMessageContentWithSear", b"extendedMessageContentWithSear", "imageGalleryMessage", b"imageGalleryMessage", "networkVerificationMessage", b"networkVerificationMessage", "noteReplyMessage", b"noteReplyMessage", "paymentsTransactionMessage", b"paymentsTransactionMessage", "ravenActionNotifMessage", b"ravenActionNotifMessage", "ravenMessage", b"ravenMessage", "ravenMessageMsgr", b"ravenMessageMsgr", "screenshotAction", b"screenshotAction"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["commonSticker", "screenshotAction", "extendedContentMessage", "ravenMessage", "ravenActionNotifMessage", "extendedMessageContentWithSear", "imageGalleryMessage", "paymentsTransactionMessage", "bumpExistingMessage", "noteReplyMessage", "ravenMessageMsgr", "networkVerificationMessage"] | None: ...
+        def HasField(self, field_name: typing.Literal["bumpExistingMessage", b"bumpExistingMessage", "commonSticker", b"commonSticker", "content", b"content", "extendedContentMessage", b"extendedContentMessage", "extendedMessageContentWithSear", b"extendedMessageContentWithSear", "imageGalleryMessage", b"imageGalleryMessage", "messageHistoryDocumentMessage", b"messageHistoryDocumentMessage", "networkVerificationMessage", b"networkVerificationMessage", "noteReplyMessage", b"noteReplyMessage", "paymentsTransactionMessage", b"paymentsTransactionMessage", "ravenActionNotifMessage", b"ravenActionNotifMessage", "ravenMessage", b"ravenMessage", "ravenMessageMsgr", b"ravenMessageMsgr", "screenshotAction", b"screenshotAction"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["bumpExistingMessage", b"bumpExistingMessage", "commonSticker", b"commonSticker", "content", b"content", "extendedContentMessage", b"extendedContentMessage", "extendedMessageContentWithSear", b"extendedMessageContentWithSear", "imageGalleryMessage", b"imageGalleryMessage", "messageHistoryDocumentMessage", b"messageHistoryDocumentMessage", "networkVerificationMessage", b"networkVerificationMessage", "noteReplyMessage", b"noteReplyMessage", "paymentsTransactionMessage", b"paymentsTransactionMessage", "ravenActionNotifMessage", b"ravenActionNotifMessage", "ravenMessage", b"ravenMessage", "ravenMessageMsgr", b"ravenMessageMsgr", "screenshotAction", b"screenshotAction"]) -> None: ...
+        def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["commonSticker", "screenshotAction", "extendedContentMessage", "ravenMessage", "ravenActionNotifMessage", "extendedMessageContentWithSear", "imageGalleryMessage", "paymentsTransactionMessage", "bumpExistingMessage", "noteReplyMessage", "ravenMessageMsgr", "networkVerificationMessage", "messageHistoryDocumentMessage"] | None: ...
 
     PAYLOAD_FIELD_NUMBER: builtins.int
     METADATA_FIELD_NUMBER: builtins.int

@@ -529,6 +529,7 @@ class StickerTransport(google.protobuf.message.Message):
         MUSTACHETEXT_FIELD_NUMBER: builtins.int
         ISTHIRDPARTY_FIELD_NUMBER: builtins.int
         RECEIVERFETCHID_FIELD_NUMBER: builtins.int
+        ACCESSIBILITYLABEL_FIELD_NUMBER: builtins.int
         pageCount: builtins.int
         height: builtins.int
         width: builtins.int
@@ -537,6 +538,7 @@ class StickerTransport(google.protobuf.message.Message):
         mustacheText: builtins.str
         isThirdParty: builtins.bool
         receiverFetchID: builtins.str
+        accessibilityLabel: builtins.str
         def __init__(
             self,
             *,
@@ -548,9 +550,10 @@ class StickerTransport(google.protobuf.message.Message):
             mustacheText: builtins.str | None = ...,
             isThirdParty: builtins.bool | None = ...,
             receiverFetchID: builtins.str | None = ...,
+            accessibilityLabel: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["firstFrameLength", b"firstFrameLength", "firstFrameSidecar", b"firstFrameSidecar", "height", b"height", "isThirdParty", b"isThirdParty", "mustacheText", b"mustacheText", "pageCount", b"pageCount", "receiverFetchID", b"receiverFetchID", "width", b"width"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["firstFrameLength", b"firstFrameLength", "firstFrameSidecar", b"firstFrameSidecar", "height", b"height", "isThirdParty", b"isThirdParty", "mustacheText", b"mustacheText", "pageCount", b"pageCount", "receiverFetchID", b"receiverFetchID", "width", b"width"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["accessibilityLabel", b"accessibilityLabel", "firstFrameLength", b"firstFrameLength", "firstFrameSidecar", b"firstFrameSidecar", "height", b"height", "isThirdParty", b"isThirdParty", "mustacheText", b"mustacheText", "pageCount", b"pageCount", "receiverFetchID", b"receiverFetchID", "width", b"width"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["accessibilityLabel", b"accessibilityLabel", "firstFrameLength", b"firstFrameLength", "firstFrameSidecar", b"firstFrameSidecar", "height", b"height", "isThirdParty", b"isThirdParty", "mustacheText", b"mustacheText", "pageCount", b"pageCount", "receiverFetchID", b"receiverFetchID", "width", b"width"]) -> None: ...
 
     @typing.final
     class Integral(google.protobuf.message.Message):

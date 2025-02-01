@@ -116,6 +116,7 @@ class _BotSessionSource:
 
 class _BotSessionSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_BotSessionSource.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    NONE: _BotSessionSource.ValueType  # 0
     NULL_STATE: _BotSessionSource.ValueType  # 1
     TYPEAHEAD: _BotSessionSource.ValueType  # 2
     USER_INPUT: _BotSessionSource.ValueType  # 3
@@ -125,6 +126,7 @@ class _BotSessionSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrappe
 
 class BotSessionSource(_BotSessionSource, metaclass=_BotSessionSourceEnumTypeWrapper): ...
 
+NONE: BotSessionSource.ValueType  # 0
 NULL_STATE: BotSessionSource.ValueType  # 1
 TYPEAHEAD: BotSessionSource.ValueType  # 2
 USER_INPUT: BotSessionSource.ValueType  # 3
@@ -1890,7 +1892,6 @@ class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
             TITLE_FIELD_NUMBER: builtins.int
             DESCRIPTION_FIELD_NUMBER: builtins.int
             THUMBDATA_FIELD_NUMBER: builtins.int
-            CANONICALURL_FIELD_NUMBER: builtins.int
             MATCHTEXT_FIELD_NUMBER: builtins.int
             PREVIEWTYPE_FIELD_NUMBER: builtins.int
             HQTHUMBNAIL_FIELD_NUMBER: builtins.int
@@ -1898,7 +1899,6 @@ class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
             title: builtins.str
             description: builtins.str
             thumbData: builtins.bytes
-            canonicalURL: builtins.str
             matchText: builtins.str
             previewType: builtins.str
             @property
@@ -1910,13 +1910,12 @@ class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
                 title: builtins.str | None = ...,
                 description: builtins.str | None = ...,
                 thumbData: builtins.bytes | None = ...,
-                canonicalURL: builtins.str | None = ...,
                 matchText: builtins.str | None = ...,
                 previewType: builtins.str | None = ...,
                 hqThumbnail: global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.LinkPreviewResponse.LinkPreviewHighQualityThumbnail | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["URL", b"URL", "canonicalURL", b"canonicalURL", "description", b"description", "hqThumbnail", b"hqThumbnail", "matchText", b"matchText", "previewType", b"previewType", "thumbData", b"thumbData", "title", b"title"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["URL", b"URL", "canonicalURL", b"canonicalURL", "description", b"description", "hqThumbnail", b"hqThumbnail", "matchText", b"matchText", "previewType", b"previewType", "thumbData", b"thumbData", "title", b"title"]) -> None: ...
+            def HasField(self, field_name: typing.Literal["URL", b"URL", "description", b"description", "hqThumbnail", b"hqThumbnail", "matchText", b"matchText", "previewType", b"previewType", "thumbData", b"thumbData", "title", b"title"]) -> builtins.bool: ...
+            def ClearField(self, field_name: typing.Literal["URL", b"URL", "description", b"description", "hqThumbnail", b"hqThumbnail", "matchText", b"matchText", "previewType", b"previewType", "thumbData", b"thumbData", "title", b"title"]) -> None: ...
 
         MEDIAUPLOADRESULT_FIELD_NUMBER: builtins.int
         STICKERMESSAGE_FIELD_NUMBER: builtins.int
@@ -2329,6 +2328,9 @@ class BotFeedbackMessage(google.protobuf.message.Message):
         BOT_FEEDBACK_NEGATIVE_REFUSED: BotFeedbackMessage._BotFeedbackKind.ValueType  # 7
         BOT_FEEDBACK_NEGATIVE_NOT_VISUALLY_APPEALING: BotFeedbackMessage._BotFeedbackKind.ValueType  # 8
         BOT_FEEDBACK_NEGATIVE_NOT_RELEVANT_TO_TEXT: BotFeedbackMessage._BotFeedbackKind.ValueType  # 9
+        BOT_FEEDBACK_NEGATIVE_PERSONALIZED: BotFeedbackMessage._BotFeedbackKind.ValueType  # 10
+        BOT_FEEDBACK_NEGATIVE_CLARITY: BotFeedbackMessage._BotFeedbackKind.ValueType  # 11
+        BOT_FEEDBACK_NEGATIVE_DOESNT_LOOK_LIKE_THE_PERSON: BotFeedbackMessage._BotFeedbackKind.ValueType  # 12
 
     class BotFeedbackKind(_BotFeedbackKind, metaclass=_BotFeedbackKindEnumTypeWrapper): ...
     BOT_FEEDBACK_POSITIVE: BotFeedbackMessage.BotFeedbackKind.ValueType  # 0
@@ -2341,6 +2343,9 @@ class BotFeedbackMessage(google.protobuf.message.Message):
     BOT_FEEDBACK_NEGATIVE_REFUSED: BotFeedbackMessage.BotFeedbackKind.ValueType  # 7
     BOT_FEEDBACK_NEGATIVE_NOT_VISUALLY_APPEALING: BotFeedbackMessage.BotFeedbackKind.ValueType  # 8
     BOT_FEEDBACK_NEGATIVE_NOT_RELEVANT_TO_TEXT: BotFeedbackMessage.BotFeedbackKind.ValueType  # 9
+    BOT_FEEDBACK_NEGATIVE_PERSONALIZED: BotFeedbackMessage.BotFeedbackKind.ValueType  # 10
+    BOT_FEEDBACK_NEGATIVE_CLARITY: BotFeedbackMessage.BotFeedbackKind.ValueType  # 11
+    BOT_FEEDBACK_NEGATIVE_DOESNT_LOOK_LIKE_THE_PERSON: BotFeedbackMessage.BotFeedbackKind.ValueType  # 12
 
     MESSAGEKEY_FIELD_NUMBER: builtins.int
     KIND_FIELD_NUMBER: builtins.int
@@ -2549,7 +2554,6 @@ class ExtendedTextMessage(google.protobuf.message.Message):
 
     TEXT_FIELD_NUMBER: builtins.int
     MATCHEDTEXT_FIELD_NUMBER: builtins.int
-    CANONICALURL_FIELD_NUMBER: builtins.int
     DESCRIPTION_FIELD_NUMBER: builtins.int
     TITLE_FIELD_NUMBER: builtins.int
     TEXTARGB_FIELD_NUMBER: builtins.int
@@ -2576,7 +2580,6 @@ class ExtendedTextMessage(google.protobuf.message.Message):
     FAVICONMMSMETADATA_FIELD_NUMBER: builtins.int
     text: builtins.str
     matchedText: builtins.str
-    canonicalURL: builtins.str
     description: builtins.str
     title: builtins.str
     textArgb: builtins.int
@@ -2608,7 +2611,6 @@ class ExtendedTextMessage(google.protobuf.message.Message):
         *,
         text: builtins.str | None = ...,
         matchedText: builtins.str | None = ...,
-        canonicalURL: builtins.str | None = ...,
         description: builtins.str | None = ...,
         title: builtins.str | None = ...,
         textArgb: builtins.int | None = ...,
@@ -2634,8 +2636,8 @@ class ExtendedTextMessage(google.protobuf.message.Message):
         videoWidth: builtins.int | None = ...,
         faviconMMSMetadata: global___MMSThumbnailMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "backgroundArgb", b"backgroundArgb", "canonicalURL", b"canonicalURL", "contextInfo", b"contextInfo", "description", b"description", "doNotPlayInline", b"doNotPlayInline", "faviconMMSMetadata", b"faviconMMSMetadata", "font", b"font", "inviteLinkGroupType", b"inviteLinkGroupType", "inviteLinkGroupTypeV2", b"inviteLinkGroupTypeV2", "inviteLinkParentGroupSubjectV2", b"inviteLinkParentGroupSubjectV2", "inviteLinkParentGroupThumbnailV2", b"inviteLinkParentGroupThumbnailV2", "matchedText", b"matchedText", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "previewType", b"previewType", "text", b"text", "textArgb", b"textArgb", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "title", b"title", "videoHeight", b"videoHeight", "videoWidth", b"videoWidth", "viewOnce", b"viewOnce"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "backgroundArgb", b"backgroundArgb", "canonicalURL", b"canonicalURL", "contextInfo", b"contextInfo", "description", b"description", "doNotPlayInline", b"doNotPlayInline", "faviconMMSMetadata", b"faviconMMSMetadata", "font", b"font", "inviteLinkGroupType", b"inviteLinkGroupType", "inviteLinkGroupTypeV2", b"inviteLinkGroupTypeV2", "inviteLinkParentGroupSubjectV2", b"inviteLinkParentGroupSubjectV2", "inviteLinkParentGroupThumbnailV2", b"inviteLinkParentGroupThumbnailV2", "matchedText", b"matchedText", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "previewType", b"previewType", "text", b"text", "textArgb", b"textArgb", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "title", b"title", "videoHeight", b"videoHeight", "videoWidth", b"videoWidth", "viewOnce", b"viewOnce"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "backgroundArgb", b"backgroundArgb", "contextInfo", b"contextInfo", "description", b"description", "doNotPlayInline", b"doNotPlayInline", "faviconMMSMetadata", b"faviconMMSMetadata", "font", b"font", "inviteLinkGroupType", b"inviteLinkGroupType", "inviteLinkGroupTypeV2", b"inviteLinkGroupTypeV2", "inviteLinkParentGroupSubjectV2", b"inviteLinkParentGroupSubjectV2", "inviteLinkParentGroupThumbnailV2", b"inviteLinkParentGroupThumbnailV2", "matchedText", b"matchedText", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "previewType", b"previewType", "text", b"text", "textArgb", b"textArgb", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "title", b"title", "videoHeight", b"videoHeight", "videoWidth", b"videoWidth", "viewOnce", b"viewOnce"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "backgroundArgb", b"backgroundArgb", "contextInfo", b"contextInfo", "description", b"description", "doNotPlayInline", b"doNotPlayInline", "faviconMMSMetadata", b"faviconMMSMetadata", "font", b"font", "inviteLinkGroupType", b"inviteLinkGroupType", "inviteLinkGroupTypeV2", b"inviteLinkGroupTypeV2", "inviteLinkParentGroupSubjectV2", b"inviteLinkParentGroupSubjectV2", "inviteLinkParentGroupThumbnailV2", b"inviteLinkParentGroupThumbnailV2", "matchedText", b"matchedText", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "previewType", b"previewType", "text", b"text", "textArgb", b"textArgb", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "title", b"title", "videoHeight", b"videoHeight", "videoWidth", b"videoWidth", "viewOnce", b"viewOnce"]) -> None: ...
 
 global___ExtendedTextMessage = ExtendedTextMessage
 
@@ -2826,10 +2828,12 @@ class ContextInfo(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         NONE: ContextInfo._StatusAttributionType.ValueType  # 0
         RESHARED_FROM_MENTION: ContextInfo._StatusAttributionType.ValueType  # 1
+        RESHARED_FROM_POST: ContextInfo._StatusAttributionType.ValueType  # 2
 
     class StatusAttributionType(_StatusAttributionType, metaclass=_StatusAttributionTypeEnumTypeWrapper): ...
     NONE: ContextInfo.StatusAttributionType.ValueType  # 0
     RESHARED_FROM_MENTION: ContextInfo.StatusAttributionType.ValueType  # 1
+    RESHARED_FROM_POST: ContextInfo.StatusAttributionType.ValueType  # 2
 
     @typing.final
     class ForwardedNewsletterMessageInfo(google.protobuf.message.Message):
@@ -3009,18 +3013,21 @@ class ContextInfo(google.protobuf.message.Message):
         CANNOTBEREACTEDTO_FIELD_NUMBER: builtins.int
         CANNOTBERANKED_FIELD_NUMBER: builtins.int
         CANREQUESTFEEDBACK_FIELD_NUMBER: builtins.int
+        CANBERESHARED_FIELD_NUMBER: builtins.int
         cannotBeReactedTo: builtins.bool
         cannotBeRanked: builtins.bool
         canRequestFeedback: builtins.bool
+        canBeReshared: builtins.bool
         def __init__(
             self,
             *,
             cannotBeReactedTo: builtins.bool | None = ...,
             cannotBeRanked: builtins.bool | None = ...,
             canRequestFeedback: builtins.bool | None = ...,
+            canBeReshared: builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["canRequestFeedback", b"canRequestFeedback", "cannotBeRanked", b"cannotBeRanked", "cannotBeReactedTo", b"cannotBeReactedTo"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["canRequestFeedback", b"canRequestFeedback", "cannotBeRanked", b"cannotBeRanked", "cannotBeReactedTo", b"cannotBeReactedTo"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["canBeReshared", b"canBeReshared", "canRequestFeedback", b"canRequestFeedback", "cannotBeRanked", b"cannotBeRanked", "cannotBeReactedTo", b"cannotBeReactedTo"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["canBeReshared", b"canBeReshared", "canRequestFeedback", b"canRequestFeedback", "cannotBeRanked", b"cannotBeRanked", "cannotBeReactedTo", b"cannotBeReactedTo"]) -> None: ...
 
     @typing.final
     class DataSharingContext(google.protobuf.message.Message):
@@ -3622,16 +3629,19 @@ class AIRichResponseMessage(google.protobuf.message.Message):
 
         IMAGEPREVIEWURL_FIELD_NUMBER: builtins.int
         IMAGEHIGHRESURL_FIELD_NUMBER: builtins.int
+        SOURCEURL_FIELD_NUMBER: builtins.int
         imagePreviewURL: builtins.str
         imageHighResURL: builtins.str
+        sourceURL: builtins.str
         def __init__(
             self,
             *,
             imagePreviewURL: builtins.str | None = ...,
             imageHighResURL: builtins.str | None = ...,
+            sourceURL: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["imageHighResURL", b"imageHighResURL", "imagePreviewURL", b"imagePreviewURL"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["imageHighResURL", b"imageHighResURL", "imagePreviewURL", b"imagePreviewURL"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["imageHighResURL", b"imageHighResURL", "imagePreviewURL", b"imagePreviewURL", "sourceURL", b"sourceURL"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["imageHighResURL", b"imageHighResURL", "imagePreviewURL", b"imagePreviewURL", "sourceURL", b"sourceURL"]) -> None: ...
 
     MESSAGETYPE_FIELD_NUMBER: builtins.int
     SUBMESSAGES_FIELD_NUMBER: builtins.int
@@ -3842,6 +3852,8 @@ class BotCapabilityMetadata(google.protobuf.message.Message):
         WA_IG_1P_PLUGIN_RANKING_UPDATE_8: BotCapabilityMetadata._BotCapabilityType.ValueType  # 18
         WA_IG_1P_PLUGIN_RANKING_UPDATE_9: BotCapabilityMetadata._BotCapabilityType.ValueType  # 19
         WA_IG_1P_PLUGIN_RANKING_UPDATE_10: BotCapabilityMetadata._BotCapabilityType.ValueType  # 20
+        RICH_RESPONSE_SUB_HEADING: BotCapabilityMetadata._BotCapabilityType.ValueType  # 21
+        RICH_RESPONSE_GRID_IMAGE: BotCapabilityMetadata._BotCapabilityType.ValueType  # 22
 
     class BotCapabilityType(_BotCapabilityType, metaclass=_BotCapabilityTypeEnumTypeWrapper): ...
     PROGRESS_INDICATOR: BotCapabilityMetadata.BotCapabilityType.ValueType  # 1
@@ -3864,6 +3876,8 @@ class BotCapabilityMetadata(google.protobuf.message.Message):
     WA_IG_1P_PLUGIN_RANKING_UPDATE_8: BotCapabilityMetadata.BotCapabilityType.ValueType  # 18
     WA_IG_1P_PLUGIN_RANKING_UPDATE_9: BotCapabilityMetadata.BotCapabilityType.ValueType  # 19
     WA_IG_1P_PLUGIN_RANKING_UPDATE_10: BotCapabilityMetadata.BotCapabilityType.ValueType  # 20
+    RICH_RESPONSE_SUB_HEADING: BotCapabilityMetadata.BotCapabilityType.ValueType  # 21
+    RICH_RESPONSE_GRID_IMAGE: BotCapabilityMetadata.BotCapabilityType.ValueType  # 22
 
     CAPABILITIES_FIELD_NUMBER: builtins.int
     @property
