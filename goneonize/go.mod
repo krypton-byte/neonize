@@ -4,7 +4,7 @@ go 1.23.4
 
 require (
 	github.com/mattn/go-sqlite3 v1.14.24
-	go.mau.fi/whatsmeow v0.0.0-20250131212655-c3c6a06399a5
+	go.mau.fi/whatsmeow v0.0.0-20250204095649-a75587ab11d7
 	google.golang.org/protobuf v1.36.4
 )
 
@@ -19,5 +19,5 @@ require (
 	go.mau.fi/util v0.8.4 // indirect
 	golang.org/x/crypto v0.32.0 // indirect
 	golang.org/x/net v0.34.0 // indirect
-	golang.org/x/sys v0.29.0 // indirect
+	golang.org/x/sys v0.30.0 // indirect
 )
