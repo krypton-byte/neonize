@@ -72,3 +72,22 @@ def auto_sticker(fn: str | BytesIO | Image.Image):
     new_layer = Image.new("RGBA", (512, 512), color=(0, 0, 0, 0))
     new_layer.paste(img, (256 - (int(img.width / 2)), 256 - (int(img.height / 2))))
     return new_layer
+
+
+def original_sticker(image: str | BytesIO | Image.Image):
+    """
+    This function creates a new sticker image with a square background.
+    The original image is placed at the center of the new sticker.
+
+    :param image: The file name of the original image.
+    :return: The new sticker image with the original image at the center (uncropped).
+    :rtype: Image object
+    """
+    img = image if isinstance(image, Image.Image) else Image.open(image)
+    orig_width, orig_height = img.size
+    square_size = max(orig_width, orig_height)
+    square_img = Image.new("RGBA", (square_size, square_size), (0, 0, 0, 0))
+    x_offset = (square_size - orig_width) // 2
+    y_offset = (square_size - orig_height) // 2
+    square_img.paste(img, (x_offset, y_offset), img if img.mode == "RGBA" else None)
+    return square_img
