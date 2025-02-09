@@ -865,7 +865,9 @@ class NewAClient:
         """
         return await self.send_message(
             to,
-            await self.build_sticker_message(file, quoted, name, packname, crop, enforce_not_broken),
+            await self.build_sticker_message(
+                file, quoted, name, packname, crop, enforce_not_broken
+            ),
         )
 
     async def build_video_message(
