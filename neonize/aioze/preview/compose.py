@@ -5,7 +5,6 @@ from linkpreview.exceptions import InvalidMimeTypeError
 from .grabber import LinkGrabber
 
 
-
 def fallback_grab_link(url: str):
     try:
         grabber = fallback_LinkGrabber(
@@ -14,15 +13,10 @@ def fallback_grab_link(url: str):
             receive_timeout=10,
             chunk_size=1024,
         )
-        return grabber.get_content(
-            url,
-            headers={
-                'user-agent': 'imessagebot',
-                'accept': '*/*'
-            }
-        )
+        return grabber.get_content(url, headers={"user-agent": "imessagebot", "accept": "*/*"})
     except Exception:
         return None, url
+
 
 async def link_preview(
     url: str = None,
@@ -44,6 +38,6 @@ async def link_preview(
             content, url = fallback_grab_link(url)
             if not content:
                 return
-            
+
     link = Link(url, content)
     return LinkPreview(link, parser=parser)
