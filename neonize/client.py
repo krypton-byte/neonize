@@ -414,7 +414,6 @@ class NewClient:
                 title=str(preview.title),
                 description=str(preview.description),
                 matchedText=valid_links[0],
-                canonicalURL=str(preview.link.url),
                 previewType=preview_type,
             )
             if preview.absolute_image:

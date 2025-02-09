@@ -2,10 +2,12 @@ from __future__ import annotations
 import time
 import struct
 import re
+
 from asyncio import get_event_loop
 import asyncio
 import ctypes
 from datetime import timedelta
+from requests.exceptions import HTTPError
 from typing import (
     Any,
     Awaitable,
@@ -24,7 +26,7 @@ from io import BytesIO
 from .preview.compose import link_preview
 from .events import EventsManager
 from ..utils.ffmpeg import AFFmpeg
-from ..utils.calc import AspectRatioMethod, auto_sticker
+from ..utils.calc import AspectRatioMethod, auto_sticker, original_sticker
 from ..utils import add_exif, gen_vcard
 from PIL import Image
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
@@ -168,7 +170,9 @@ from ..proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2 import DeviceProps
 from .._binder import gocode
 from .events import Event
 from ..utils.log import log
+
 from linkpreview import link_preview as fallback_link_preview
+from linkpreview.exceptions import MaximumContentSizeError
 
 loop = get_event_loop()
 
@@ -451,8 +455,14 @@ class NewAClient:
         valid_links = list(filter(validate_link, links))
         if valid_links:
             preview = await link_preview(valid_links[0])
+            if preview is False:
+                return None
             if not preview:
-                preview = fallback_link_preview(valid_links[0])
+                try:
+                    preview = fallback_link_preview(valid_links[0])
+                except (HTTPError, MaximumContentSizeError):
+                    log.debug(f"Getting link preview failed for link: {valid_links[0]}")
+                    return None
             preview_type = (
                 ExtendedTextMessage.PreviewType.VIDEO
                 if re.match(youtube_url_pattern, valid_links[0])
@@ -462,7 +472,6 @@ class NewAClient:
                 title=str(preview.title),
                 description=str(preview.description),
                 matchedText=valid_links[0],
-                canonicalURL=str(preview.link.url),
                 previewType=preview_type,
             )
             if preview.absolute_image:
@@ -761,6 +770,8 @@ class NewAClient:
         quoted: Optional[neonize_proto.Message] = None,
         name: str = "",
         packname: str = "",
+        crop: bool = False,
+        enforce_not_broken: bool = False,
     ) -> Message:
         """
         This function builds a sticker message from a given image or video file.
@@ -775,6 +786,10 @@ class NewAClient:
         :type name: str, optional
         :param packname: The name of the sticker pack, defaults to ""
         :type packname: str, optional
+        :param crop: Crop-center the image, defaults to False
+        :type crop: bool, optional
+        :param enforce_not_broken: Enforce non-broken stickers by constraining sticker size to WA limits, defaults to False
+        :type enforce_not_broken: bool, optional
         :return: The constructed sticker message
         :rtype: Message
         """
@@ -783,7 +798,8 @@ class NewAClient:
         mime = magic.from_buffer(sticker, mime=True).split("/")
         if mime[0] == "image":
             io_save = BytesIO(sticker)
-            stk = auto_sticker(io_save)
+            stk = auto_sticker(io_save) if crop else original_sticker(io_save)
+            io_save = BytesIO()
             stk.save(
                 io_save,
                 format="webp",
@@ -795,7 +811,7 @@ class NewAClient:
         else:
             async with AFFmpeg(sticker) as ffmpeg:
                 animated = True
-                sticker = await ffmpeg.cv_to_webp()
+                sticker = await ffmpeg.cv_to_webp(enforce_not_broken)
                 io_save = BytesIO(sticker)
                 img = Image.open(io_save)
                 io_save.seek(0)
@@ -824,6 +840,8 @@ class NewAClient:
         quoted: Optional[neonize_proto.Message] = None,
         name: str = "",
         packname: str = "",
+        crop: bool = False,
+        enforce_not_broken: bool = False,
     ) -> SendResponse:
         """
         Send a sticker to a specific JID.
@@ -838,12 +856,16 @@ class NewAClient:
         :type name: str, optional
         :param packname: The name of the sticker pack, defaults to "".
         :type packname: str, optional
+        :param crop: Crop-center the image, defaults to False
+        :type crop: bool, optional
+        :param enforce_not_broken: Enforce non-broken stickers by constraining sticker size to WA limits, defaults to False
+        :type enforce_not_broken: bool, optional
         :return: The response from the send message function.
         :rtype: SendResponse
         """
         return await self.send_message(
             to,
-            await self.build_sticker_message(file, quoted, name, packname),
+            await self.build_sticker_message(file, quoted, name, packname, crop, enforce_not_broken),
         )
 
     async def build_video_message(
