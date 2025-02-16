@@ -7,29 +7,13 @@ import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
 import typing
+import waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class BackupMessage(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    @typing.final
-    class Subprotocol(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-        PAYLOAD_FIELD_NUMBER: builtins.int
-        VERSION_FIELD_NUMBER: builtins.int
-        payload: builtins.bytes
-        version: builtins.int
-        def __init__(
-            self,
-            *,
-            payload: builtins.bytes | None = ...,
-            version: builtins.int | None = ...,
-        ) -> None: ...
-        def HasField(self, field_name: typing.Literal["payload", b"payload", "version", b"version"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["payload", b"payload", "version", b"version"]) -> None: ...
 
     @typing.final
     class Metadata(google.protobuf.message.Message):
@@ -87,17 +71,17 @@ class BackupMessage(google.protobuf.message.Message):
     METADATA_FIELD_NUMBER: builtins.int
     encryptedTransportMessage: builtins.bytes
     @property
-    def encryptedTransportEvent(self) -> global___BackupMessage.Subprotocol: ...
+    def encryptedTransportEvent(self) -> waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol: ...
     @property
-    def encryptedTransportLocallyTransformedMessage(self) -> global___BackupMessage.Subprotocol: ...
+    def encryptedTransportLocallyTransformedMessage(self) -> waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol: ...
     @property
     def metadata(self) -> global___BackupMessage.Metadata: ...
     def __init__(
         self,
         *,
         encryptedTransportMessage: builtins.bytes | None = ...,
-        encryptedTransportEvent: global___BackupMessage.Subprotocol | None = ...,
-        encryptedTransportLocallyTransformedMessage: global___BackupMessage.Subprotocol | None = ...,
+        encryptedTransportEvent: waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol | None = ...,
+        encryptedTransportLocallyTransformedMessage: waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol | None = ...,
         metadata: global___BackupMessage.Metadata | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["encryptedTransportEvent", b"encryptedTransportEvent", "encryptedTransportLocallyTransformedMessage", b"encryptedTransportLocallyTransformedMessage", "encryptedTransportMessage", b"encryptedTransportMessage", "metadata", b"metadata", "payload", b"payload"]) -> builtins.bool: ...

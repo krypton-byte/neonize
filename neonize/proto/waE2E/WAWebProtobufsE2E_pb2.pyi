@@ -89,6 +89,7 @@ class _BotMetricsEntryPointEnumTypeWrapper(google.protobuf.internal.enum_type_wr
     PROFILE_MESSAGE_BUTTON: _BotMetricsEntryPoint.ValueType  # 14
     FORWARD: _BotMetricsEntryPoint.ValueType  # 15
     APP_SHORTCUT: _BotMetricsEntryPoint.ValueType  # 16
+    FF_FAMILY: _BotMetricsEntryPoint.ValueType  # 17
 
 class BotMetricsEntryPoint(_BotMetricsEntryPoint, metaclass=_BotMetricsEntryPointEnumTypeWrapper): ...
 
@@ -108,6 +109,7 @@ NOTIFICATION: BotMetricsEntryPoint.ValueType  # 13
 PROFILE_MESSAGE_BUTTON: BotMetricsEntryPoint.ValueType  # 14
 FORWARD: BotMetricsEntryPoint.ValueType  # 15
 APP_SHORTCUT: BotMetricsEntryPoint.ValueType  # 16
+FF_FAMILY: BotMetricsEntryPoint.ValueType  # 17
 global___BotMetricsEntryPoint = BotMetricsEntryPoint
 
 class _BotSessionSource:
@@ -2859,6 +2861,25 @@ global___ImageMessage = ImageMessage
 class ContextInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class _PairedMediaType:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _PairedMediaTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo._PairedMediaType.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        NOT_PAIRED_MEDIA: ContextInfo._PairedMediaType.ValueType  # 0
+        SD_VIDEO_PARENT: ContextInfo._PairedMediaType.ValueType  # 1
+        HD_VIDEO_CHILD: ContextInfo._PairedMediaType.ValueType  # 2
+        SD_IMAGE_PARENT: ContextInfo._PairedMediaType.ValueType  # 3
+        HD_IMAGE_CHILD: ContextInfo._PairedMediaType.ValueType  # 4
+
+    class PairedMediaType(_PairedMediaType, metaclass=_PairedMediaTypeEnumTypeWrapper): ...
+    NOT_PAIRED_MEDIA: ContextInfo.PairedMediaType.ValueType  # 0
+    SD_VIDEO_PARENT: ContextInfo.PairedMediaType.ValueType  # 1
+    HD_VIDEO_CHILD: ContextInfo.PairedMediaType.ValueType  # 2
+    SD_IMAGE_PARENT: ContextInfo.PairedMediaType.ValueType  # 3
+    HD_IMAGE_CHILD: ContextInfo.PairedMediaType.ValueType  # 4
+
     class _StatusAttributionType:
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
@@ -3209,6 +3230,7 @@ class ContextInfo(google.protobuf.message.Message):
     FORWARDEDAIBOTMESSAGEINFO_FIELD_NUMBER: builtins.int
     STATUSATTRIBUTIONTYPE_FIELD_NUMBER: builtins.int
     URLTRACKINGMAP_FIELD_NUMBER: builtins.int
+    PAIREDMEDIATYPE_FIELD_NUMBER: builtins.int
     stanzaID: builtins.str
     participant: builtins.str
     remoteJID: builtins.str
@@ -3236,6 +3258,7 @@ class ContextInfo(google.protobuf.message.Message):
     ctwaSignals: builtins.str
     ctwaPayload: builtins.bytes
     statusAttributionType: global___ContextInfo.StatusAttributionType.ValueType
+    pairedMediaType: global___ContextInfo.PairedMediaType.ValueType
     @property
     def quotedMessage(self) -> global___Message: ...
     @property
@@ -3311,9 +3334,10 @@ class ContextInfo(google.protobuf.message.Message):
         forwardedAiBotMessageInfo: global___ContextInfo.ForwardedAIBotMessageInfo | None = ...,
         statusAttributionType: global___ContextInfo.StatusAttributionType.ValueType | None = ...,
         urlTrackingMap: global___UrlTrackingMap | None = ...,
+        pairedMediaType: global___ContextInfo.PairedMediaType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["actionLink", b"actionLink", "alwaysShowAdAttribution", b"alwaysShowAdAttribution", "businessMessageForwardInfo", b"businessMessageForwardInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "dataSharingContext", b"dataSharingContext", "disappearingMode", b"disappearingMode", "entryPointConversionApp", b"entryPointConversionApp", "entryPointConversionDelaySeconds", b"entryPointConversionDelaySeconds", "entryPointConversionExternalMedium", b"entryPointConversionExternalMedium", "entryPointConversionExternalSource", b"entryPointConversionExternalSource", "entryPointConversionSource", b"entryPointConversionSource", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralSharedSecret", b"ephemeralSharedSecret", "expiration", b"expiration", "externalAdReply", b"externalAdReply", "featureEligibilities", b"featureEligibilities", "forwardedAiBotMessageInfo", b"forwardedAiBotMessageInfo", "forwardedNewsletterMessageInfo", b"forwardedNewsletterMessageInfo", "forwardingScore", b"forwardingScore", "groupSubject", b"groupSubject", "isForwarded", b"isForwarded", "isSampled", b"isSampled", "parentGroupJID", b"parentGroupJID", "participant", b"participant", "placeholderKey", b"placeholderKey", "quotedAd", b"quotedAd", "quotedMessage", b"quotedMessage", "remoteJID", b"remoteJID", "smbClientCampaignID", b"smbClientCampaignID", "smbServerCampaignID", b"smbServerCampaignID", "stanzaID", b"stanzaID", "statusAttributionType", b"statusAttributionType", "trustBannerAction", b"trustBannerAction", "trustBannerType", b"trustBannerType", "urlTrackingMap", b"urlTrackingMap", "utm", b"utm"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["actionLink", b"actionLink", "alwaysShowAdAttribution", b"alwaysShowAdAttribution", "businessMessageForwardInfo", b"businessMessageForwardInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "dataSharingContext", b"dataSharingContext", "disappearingMode", b"disappearingMode", "entryPointConversionApp", b"entryPointConversionApp", "entryPointConversionDelaySeconds", b"entryPointConversionDelaySeconds", "entryPointConversionExternalMedium", b"entryPointConversionExternalMedium", "entryPointConversionExternalSource", b"entryPointConversionExternalSource", "entryPointConversionSource", b"entryPointConversionSource", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralSharedSecret", b"ephemeralSharedSecret", "expiration", b"expiration", "externalAdReply", b"externalAdReply", "featureEligibilities", b"featureEligibilities", "forwardedAiBotMessageInfo", b"forwardedAiBotMessageInfo", "forwardedNewsletterMessageInfo", b"forwardedNewsletterMessageInfo", "forwardingScore", b"forwardingScore", "groupMentions", b"groupMentions", "groupSubject", b"groupSubject", "isForwarded", b"isForwarded", "isSampled", b"isSampled", "mentionedJID", b"mentionedJID", "parentGroupJID", b"parentGroupJID", "participant", b"participant", "placeholderKey", b"placeholderKey", "quotedAd", b"quotedAd", "quotedMessage", b"quotedMessage", "remoteJID", b"remoteJID", "smbClientCampaignID", b"smbClientCampaignID", "smbServerCampaignID", b"smbServerCampaignID", "stanzaID", b"stanzaID", "statusAttributionType", b"statusAttributionType", "trustBannerAction", b"trustBannerAction", "trustBannerType", b"trustBannerType", "urlTrackingMap", b"urlTrackingMap", "utm", b"utm"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["actionLink", b"actionLink", "alwaysShowAdAttribution", b"alwaysShowAdAttribution", "businessMessageForwardInfo", b"businessMessageForwardInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "dataSharingContext", b"dataSharingContext", "disappearingMode", b"disappearingMode", "entryPointConversionApp", b"entryPointConversionApp", "entryPointConversionDelaySeconds", b"entryPointConversionDelaySeconds", "entryPointConversionExternalMedium", b"entryPointConversionExternalMedium", "entryPointConversionExternalSource", b"entryPointConversionExternalSource", "entryPointConversionSource", b"entryPointConversionSource", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralSharedSecret", b"ephemeralSharedSecret", "expiration", b"expiration", "externalAdReply", b"externalAdReply", "featureEligibilities", b"featureEligibilities", "forwardedAiBotMessageInfo", b"forwardedAiBotMessageInfo", "forwardedNewsletterMessageInfo", b"forwardedNewsletterMessageInfo", "forwardingScore", b"forwardingScore", "groupSubject", b"groupSubject", "isForwarded", b"isForwarded", "isSampled", b"isSampled", "pairedMediaType", b"pairedMediaType", "parentGroupJID", b"parentGroupJID", "participant", b"participant", "placeholderKey", b"placeholderKey", "quotedAd", b"quotedAd", "quotedMessage", b"quotedMessage", "remoteJID", b"remoteJID", "smbClientCampaignID", b"smbClientCampaignID", "smbServerCampaignID", b"smbServerCampaignID", "stanzaID", b"stanzaID", "statusAttributionType", b"statusAttributionType", "trustBannerAction", b"trustBannerAction", "trustBannerType", b"trustBannerType", "urlTrackingMap", b"urlTrackingMap", "utm", b"utm"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["actionLink", b"actionLink", "alwaysShowAdAttribution", b"alwaysShowAdAttribution", "businessMessageForwardInfo", b"businessMessageForwardInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "dataSharingContext", b"dataSharingContext", "disappearingMode", b"disappearingMode", "entryPointConversionApp", b"entryPointConversionApp", "entryPointConversionDelaySeconds", b"entryPointConversionDelaySeconds", "entryPointConversionExternalMedium", b"entryPointConversionExternalMedium", "entryPointConversionExternalSource", b"entryPointConversionExternalSource", "entryPointConversionSource", b"entryPointConversionSource", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralSharedSecret", b"ephemeralSharedSecret", "expiration", b"expiration", "externalAdReply", b"externalAdReply", "featureEligibilities", b"featureEligibilities", "forwardedAiBotMessageInfo", b"forwardedAiBotMessageInfo", "forwardedNewsletterMessageInfo", b"forwardedNewsletterMessageInfo", "forwardingScore", b"forwardingScore", "groupMentions", b"groupMentions", "groupSubject", b"groupSubject", "isForwarded", b"isForwarded", "isSampled", b"isSampled", "mentionedJID", b"mentionedJID", "pairedMediaType", b"pairedMediaType", "parentGroupJID", b"parentGroupJID", "participant", b"participant", "placeholderKey", b"placeholderKey", "quotedAd", b"quotedAd", "quotedMessage", b"quotedMessage", "remoteJID", b"remoteJID", "smbClientCampaignID", b"smbClientCampaignID", "smbServerCampaignID", b"smbServerCampaignID", "stanzaID", b"stanzaID", "statusAttributionType", b"statusAttributionType", "trustBannerAction", b"trustBannerAction", "trustBannerType", b"trustBannerType", "urlTrackingMap", b"urlTrackingMap", "utm", b"utm"]) -> None: ...
 
 global___ContextInfo = ContextInfo
 
@@ -3610,6 +3634,7 @@ class AIRichResponseMessage(google.protobuf.message.Message):
         CODEMETADATA_FIELD_NUMBER: builtins.int
         TABLEMETADATA_FIELD_NUMBER: builtins.int
         DYNAMICMETADATA_FIELD_NUMBER: builtins.int
+        ABSTRACTDATA_FIELD_NUMBER: builtins.int
         messageType: global___AIRichResponseMessage.AIRichResponseSubMessageType.ValueType
         messageText: builtins.str
         @property
@@ -3622,6 +3647,8 @@ class AIRichResponseMessage(google.protobuf.message.Message):
         def tableMetadata(self) -> global___AIRichResponseMessage.AIRichResponseTableMetadata: ...
         @property
         def dynamicMetadata(self) -> global___AIRichResponseMessage.AIRichResponseDynamicMetadata: ...
+        @property
+        def abstractData(self) -> global___AIRichResponseMessage.AIRichResponseAbstractData: ...
         def __init__(
             self,
             *,
@@ -3632,9 +3659,24 @@ class AIRichResponseMessage(google.protobuf.message.Message):
             codeMetadata: global___AIRichResponseMessage.AIRichResponseCodeMetadata | None = ...,
             tableMetadata: global___AIRichResponseMessage.AIRichResponseTableMetadata | None = ...,
             dynamicMetadata: global___AIRichResponseMessage.AIRichResponseDynamicMetadata | None = ...,
+            abstractData: global___AIRichResponseMessage.AIRichResponseAbstractData | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["codeMetadata", b"codeMetadata", "dynamicMetadata", b"dynamicMetadata", "gridImageMetadata", b"gridImageMetadata", "imageMetadata", b"imageMetadata", "messageText", b"messageText", "messageType", b"messageType", "tableMetadata", b"tableMetadata"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["codeMetadata", b"codeMetadata", "dynamicMetadata", b"dynamicMetadata", "gridImageMetadata", b"gridImageMetadata", "imageMetadata", b"imageMetadata", "messageText", b"messageText", "messageType", b"messageType", "tableMetadata", b"tableMetadata"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["abstractData", b"abstractData", "codeMetadata", b"codeMetadata", "dynamicMetadata", b"dynamicMetadata", "gridImageMetadata", b"gridImageMetadata", "imageMetadata", b"imageMetadata", "messageText", b"messageText", "messageType", b"messageType", "tableMetadata", b"tableMetadata"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["abstractData", b"abstractData", "codeMetadata", b"codeMetadata", "dynamicMetadata", b"dynamicMetadata", "gridImageMetadata", b"gridImageMetadata", "imageMetadata", b"imageMetadata", "messageText", b"messageText", "messageType", b"messageType", "tableMetadata", b"tableMetadata"]) -> None: ...
+
+    @typing.final
+    class AIRichResponseAbstractData(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        DATA_FIELD_NUMBER: builtins.int
+        data: builtins.bytes
+        def __init__(
+            self,
+            *,
+            data: builtins.bytes | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["data", b"data"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["data", b"data"]) -> None: ...
 
     @typing.final
     class AIRichResponseTableMetadata(google.protobuf.message.Message):
@@ -4012,6 +4054,8 @@ class MessageAssociation(google.protobuf.message.Message):
         MEDIA_POLL: MessageAssociation._AssociationType.ValueType  # 7
         STATUS_ADD_YOURS: MessageAssociation._AssociationType.ValueType  # 8
         STATUS_NOTIFICATION: MessageAssociation._AssociationType.ValueType  # 9
+        HD_IMAGE_DUAL_UPLOAD: MessageAssociation._AssociationType.ValueType  # 10
+        STICKER_ANNOTATION: MessageAssociation._AssociationType.ValueType  # 11
 
     class AssociationType(_AssociationType, metaclass=_AssociationTypeEnumTypeWrapper): ...
     UNKNOWN: MessageAssociation.AssociationType.ValueType  # 0
@@ -4024,6 +4068,8 @@ class MessageAssociation(google.protobuf.message.Message):
     MEDIA_POLL: MessageAssociation.AssociationType.ValueType  # 7
     STATUS_ADD_YOURS: MessageAssociation.AssociationType.ValueType  # 8
     STATUS_NOTIFICATION: MessageAssociation.AssociationType.ValueType  # 9
+    HD_IMAGE_DUAL_UPLOAD: MessageAssociation.AssociationType.ValueType  # 10
+    STICKER_ANNOTATION: MessageAssociation.AssociationType.ValueType  # 11
 
     ASSOCIATIONTYPE_FIELD_NUMBER: builtins.int
     PARENTMESSAGEKEY_FIELD_NUMBER: builtins.int
@@ -6425,14 +6471,18 @@ class BotLinkedAccountsMetadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     ACCOUNTS_FIELD_NUMBER: builtins.int
+    ACAUTHTOKENS_FIELD_NUMBER: builtins.int
+    acAuthTokens: builtins.bytes
     @property
     def accounts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BotLinkedAccount]: ...
     def __init__(
         self,
         *,
         accounts: collections.abc.Iterable[global___BotLinkedAccount] | None = ...,
+        acAuthTokens: builtins.bytes | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["accounts", b"accounts"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["acAuthTokens", b"acAuthTokens"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["acAuthTokens", b"acAuthTokens", "accounts", b"accounts"]) -> None: ...
 
 global___BotLinkedAccountsMetadata = BotLinkedAccountsMetadata
 
