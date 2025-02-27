@@ -1990,7 +1990,9 @@ class NewClient:
             raise CreateGroupError(model.Error)
         return model.GroupInfo
 
-    def get_group_request_participants(self, jid: JID) -> RepeatedCompositeFieldContainer[GroupParticipantRequest]:
+    def get_group_request_participants(
+        self, jid: JID
+    ) -> RepeatedCompositeFieldContainer[GroupParticipantRequest]:
         """Get the participants of a group request.
 
         :param jid: The JID of the group request.
@@ -2283,7 +2285,9 @@ class NewClient:
             raise GetContactQrLinkError(model.Error)
         return model.Link
 
-    def get_linked_group_participants(self, community: JID) -> RepeatedCompositeFieldContainer[GroupParticipantRequest]:
+    def get_linked_group_participants(
+        self, community: JID
+    ) -> RepeatedCompositeFieldContainer[GroupParticipantRequest]:
         """Fetches the participants of a linked group in a community.
 
         :param community: The community in which the linked group belongs.
@@ -2448,6 +2452,7 @@ class NewClient:
         response = self.__client.SendPresence(self.uuid, presence.value)
         if response:
             raise SendPresenceError(response)
+
     def decrypt_poll_vote(self, message: neonize_proto.Message) -> PollVoteMessage:
         """Decrypt PollMessage"""
         msg_buff = message.SerializeToString()
@@ -2456,6 +2461,7 @@ class NewClient:
         if model.Error:
             raise DecryptPollVoteError(model.Error)
         return model.PollVoteMessage
+
     def connect(self):
         """Establishes a connection to the WhatsApp servers."""
         # Convert the list of functions to a bytearray

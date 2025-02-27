@@ -465,5 +465,7 @@ if not os.environ.get("SPHINX"):
     gocode.SendFBMessage.restype = Bytes
     gocode.SendPresence.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     gocode.SendPresence.restype = ctypes.c_char_p
+    gocode.DecryptPollVote.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.DecryptPollVote.restype = Bytes
 else:
     gocode: Any = object()

@@ -20,6 +20,7 @@ import (
 	"github.com/krypton-byte/neonize/utils"
 	_ "github.com/mattn/go-sqlite3"
 	"go.mau.fi/whatsmeow"
+	"go.mau.fi/whatsmeow/proto/waCompanionReg"
 	"go.mau.fi/whatsmeow/proto/waConsumerApplication"
 	"go.mau.fi/whatsmeow/proto/waMsgApplication"
 	"go.mau.fi/whatsmeow/store"
@@ -134,7 +135,7 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 //export Neonize
 func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, subscribes *C.uchar, lenSubscriber C.int, blocking C.ptr_to_python_function, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int) { // ,
 	subscribers := map[int]bool{}
-	var deviceProps waProto.DeviceProps
+	var deviceProps waCompanionReg.DeviceProps
 	var loginStateChan = make(chan bool)
 	err_proto := proto.Unmarshal(getByteByAddr(devicePropsBuf, devicePropsSize), &deviceProps)
 	if err_proto != nil {
@@ -1999,7 +2000,6 @@ func SendPresence(id *C.char, presence *C.char) *C.char {
 
 //export DecryptPollVote
 func DecryptPollVote(id *C.char, message *C.uchar, messageSize C.int) C.struct_BytesReturn {
-	// var message
 	var pvmessage defproto.Message
 	return_proto := defproto.ReturnFunctionWithError{}
 	err := proto.Unmarshal(getByteByAddr(message, messageSize), &pvmessage)
