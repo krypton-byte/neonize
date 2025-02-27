@@ -1021,6 +1021,26 @@ class GetContactQRLinkReturnFunction(google.protobuf.message.Message):
 global___GetContactQRLinkReturnFunction = GetContactQRLinkReturnFunction
 
 @typing.final
+class GroupParticipantRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PARTICIPANT_FIELD_NUMBER: builtins.int
+    TIMEAT_FIELD_NUMBER: builtins.int
+    TimeAt: builtins.int
+    @property
+    def Participant(self) -> global___JID: ...
+    def __init__(
+        self,
+        *,
+        Participant: global___JID | None = ...,
+        TimeAt: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["Participant", b"Participant", "TimeAt", b"TimeAt"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["Participant", b"Participant", "TimeAt", b"TimeAt"]) -> None: ...
+
+global___GroupParticipantRequest = GroupParticipantRequest
+
+@typing.final
 class GetGroupRequestParticipantsReturnFunction(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1028,11 +1048,11 @@ class GetGroupRequestParticipantsReturnFunction(google.protobuf.message.Message)
     ERROR_FIELD_NUMBER: builtins.int
     Error: builtins.str
     @property
-    def Participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JID]: ...
+    def Participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GroupParticipantRequest]: ...
     def __init__(
         self,
         *,
-        Participants: collections.abc.Iterable[global___JID] | None = ...,
+        Participants: collections.abc.Iterable[global___GroupParticipantRequest] | None = ...,
         Error: builtins.str | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["Error", b"Error"]) -> builtins.bool: ...
@@ -1178,6 +1198,7 @@ class Message(google.protobuf.message.Message):
     UNAVAILABLEREQUESTID_FIELD_NUMBER: builtins.int
     RETRYCOUNT_FIELD_NUMBER: builtins.int
     NEWSLETTERMETA_FIELD_NUMBER: builtins.int
+    RAW_FIELD_NUMBER: builtins.int
     IsEphemeral: builtins.bool
     IsViewOnce: builtins.bool
     IsViewOnceV2: builtins.bool
@@ -1195,6 +1216,8 @@ class Message(google.protobuf.message.Message):
     def SourceWebMsg(self) -> waWeb.WAWebProtobufsWeb_pb2.WebMessageInfo: ...
     @property
     def NewsLetterMeta(self) -> global___NewsLetterMessageMeta: ...
+    @property
+    def Raw(self) -> waE2E.WAWebProtobufsE2E_pb2.Message: ...
     def __init__(
         self,
         *,
@@ -1211,9 +1234,10 @@ class Message(google.protobuf.message.Message):
         UnavailableRequestID: builtins.str | None = ...,
         RetryCount: builtins.int | None = ...,
         NewsLetterMeta: global___NewsLetterMessageMeta | None = ...,
+        Raw: waE2E.WAWebProtobufsE2E_pb2.Message | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["Info", b"Info", "IsDocumentWithCaption", b"IsDocumentWithCaption", "IsEdit", b"IsEdit", "IsEphemeral", b"IsEphemeral", "IsLottieSticker", b"IsLottieSticker", "IsViewOnce", b"IsViewOnce", "IsViewOnceV2", b"IsViewOnceV2", "IsViewOnceV2Extension", b"IsViewOnceV2Extension", "Message", b"Message", "NewsLetterMeta", b"NewsLetterMeta", "RetryCount", b"RetryCount", "SourceWebMsg", b"SourceWebMsg", "UnavailableRequestID", b"UnavailableRequestID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["Info", b"Info", "IsDocumentWithCaption", b"IsDocumentWithCaption", "IsEdit", b"IsEdit", "IsEphemeral", b"IsEphemeral", "IsLottieSticker", b"IsLottieSticker", "IsViewOnce", b"IsViewOnce", "IsViewOnceV2", b"IsViewOnceV2", "IsViewOnceV2Extension", b"IsViewOnceV2Extension", "Message", b"Message", "NewsLetterMeta", b"NewsLetterMeta", "RetryCount", b"RetryCount", "SourceWebMsg", b"SourceWebMsg", "UnavailableRequestID", b"UnavailableRequestID"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["Info", b"Info", "IsDocumentWithCaption", b"IsDocumentWithCaption", "IsEdit", b"IsEdit", "IsEphemeral", b"IsEphemeral", "IsLottieSticker", b"IsLottieSticker", "IsViewOnce", b"IsViewOnce", "IsViewOnceV2", b"IsViewOnceV2", "IsViewOnceV2Extension", b"IsViewOnceV2Extension", "Message", b"Message", "NewsLetterMeta", b"NewsLetterMeta", "Raw", b"Raw", "RetryCount", b"RetryCount", "SourceWebMsg", b"SourceWebMsg", "UnavailableRequestID", b"UnavailableRequestID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["Info", b"Info", "IsDocumentWithCaption", b"IsDocumentWithCaption", "IsEdit", b"IsEdit", "IsEphemeral", b"IsEphemeral", "IsLottieSticker", b"IsLottieSticker", "IsViewOnce", b"IsViewOnce", "IsViewOnceV2", b"IsViewOnceV2", "IsViewOnceV2Extension", b"IsViewOnceV2Extension", "Message", b"Message", "NewsLetterMeta", b"NewsLetterMeta", "Raw", b"Raw", "RetryCount", b"RetryCount", "SourceWebMsg", b"SourceWebMsg", "UnavailableRequestID", b"UnavailableRequestID"]) -> None: ...
 
 global___Message = Message
 
@@ -3490,18 +3514,26 @@ class ReturnFunctionWithError(google.protobuf.message.Message):
 
     ERROR_FIELD_NUMBER: builtins.int
     LOCALCHATSETTINGS_FIELD_NUMBER: builtins.int
+    POLLVOTEMESSAGE_FIELD_NUMBER: builtins.int
+    GETLINKEDGROUPSPARTICIPANTS_FIELD_NUMBER: builtins.int
     Error: builtins.str
     @property
     def LocalChatSettings(self) -> global___LocalChatSettings: ...
+    @property
+    def PollVoteMessage(self) -> waE2E.WAWebProtobufsE2E_pb2.PollVoteMessage: ...
+    @property
+    def GetLinkedGroupsParticipants(self) -> global___JIDArray: ...
     def __init__(
         self,
         *,
         Error: builtins.str | None = ...,
         LocalChatSettings: global___LocalChatSettings | None = ...,
+        PollVoteMessage: waE2E.WAWebProtobufsE2E_pb2.PollVoteMessage | None = ...,
+        GetLinkedGroupsParticipants: global___JIDArray | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["Error", b"Error", "LocalChatSettings", b"LocalChatSettings", "Return", b"Return"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["Error", b"Error", "LocalChatSettings", b"LocalChatSettings", "Return", b"Return"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["Return", b"Return"]) -> typing.Literal["LocalChatSettings"] | None: ...
+    def HasField(self, field_name: typing.Literal["Error", b"Error", "GetLinkedGroupsParticipants", b"GetLinkedGroupsParticipants", "LocalChatSettings", b"LocalChatSettings", "PollVoteMessage", b"PollVoteMessage", "Return", b"Return"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["Error", b"Error", "GetLinkedGroupsParticipants", b"GetLinkedGroupsParticipants", "LocalChatSettings", b"LocalChatSettings", "PollVoteMessage", b"PollVoteMessage", "Return", b"Return"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["Return", b"Return"]) -> typing.Literal["LocalChatSettings", "PollVoteMessage", "GetLinkedGroupsParticipants"] | None: ...
 
 global___ReturnFunctionWithError = ReturnFunctionWithError
 

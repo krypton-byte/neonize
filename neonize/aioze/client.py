@@ -42,6 +42,7 @@ from ..utils.jid import JIDToNonAD, Jid2String, build_jid
 from .._binder import func, func_string, func_callback_bytes
 from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
+    PollVoteMessage,
     StickerMessage,
     ContextInfo,
     ExtendedTextMessage,
@@ -72,6 +73,7 @@ from ..exc import (
     ContactStoreError,
     CreateGroupError,
     CreateNewsletterError,
+    DecryptPollVoteError,
     DownloadError,
     FollowNewsletterError,
     GetBlocklistError,
@@ -146,6 +148,7 @@ from ..proto.Neonize_pb2 import (
     GroupLinkedParent,
     GroupParent,
     GroupParticipant,
+    GroupParticipantRequest,
     IsOnWhatsAppResponse,
     IsOnWhatsAppReturnFunction,
     JIDArray,
@@ -2126,7 +2129,7 @@ class NewAClient:
 
     async def get_group_request_participants(
         self, jid: JID
-    ) -> RepeatedCompositeFieldContainer[JID]:
+    ) -> RepeatedCompositeFieldContainer[GroupParticipantRequest]:
         """Get the participants of a group request.
 
         :param jid: The JID of the group request.
@@ -2429,9 +2432,7 @@ class NewAClient:
             raise GetContactQrLinkError(model.Error)
         return model.Link
 
-    async def get_linked_group_participants(
-        self, community: JID
-    ) -> RepeatedCompositeFieldContainer[JID]:
+    async def get_linked_group_participants(self, community: JID) -> neonize_proto.JIDArray:
         """Fetches the participants of a linked group in a community.
 
         :param community: The community in which the linked group belongs.
@@ -2441,14 +2442,14 @@ class NewAClient:
         :rtype: RepeatedCompositeFieldContainer[JID]
         """
         jidbyte = community.SerializeToString()
-        model = neonize_proto.GetGroupRequestParticipantsReturnFunction.FromString(
+        model = neonize_proto.ReturnFunctionWithError.FromString(
             (
                 await self.__client.GetLinkedGroupsParticipants(self.uuid, jidbyte, len(jidbyte))
             ).get_bytes()
         )
         if model.Error:
             raise GetLinkedGroupParticipantsError(model.Error)
-        return model.Participants
+        return model.GetLinkedGroupsParticipants
 
     async def get_newsletter_info(self, jid: JID) -> neonize_proto.NewsletterMetadata:
         """
@@ -2600,6 +2601,15 @@ class NewAClient:
         response = await self.__client.SendPresence(self.uuid, presence.value)
         if response:
             raise SendPresenceError(response)
+
+    async def decrypt_poll_vote(self, message: neonize_proto.Message) -> PollVoteMessage:
+        """Decrypt PollMessage"""
+        msg_buff = message.SerializeToString()
+        response = await self.__client.DecryptPollVote(self.uuid, msg_buff)
+        model = ReturnFunctionWithError.FromString(response.get_bytes())
+        if model.Error:
+            raise DecryptPollVoteError(model.Error)
+        return model.PollVoteMessage
 
     async def connect(self):
         """Establishes a connection to the WhatsApp servers."""

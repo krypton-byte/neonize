@@ -906,9 +906,12 @@ func GetGroupRequestParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.
 		panic(err)
 	}
 	request_participants, err_request := clients[C.GoString(id)].GetGroupRequestParticipants(utils.DecodeJidProto(&JID))
-	participants := []*defproto.JID{}
+	participants := []*defproto.GroupParticipantRequest{}
 	for _, participant := range request_participants {
-		participants = append(participants, utils.EncodeJidProto(participant))
+		participants = append(participants, &defproto.GroupParticipantRequest{
+			Participant: utils.EncodeJidProto(participant.JID),
+			TimeAt:      proto.Uint64(uint64(participant.RequestedAt.UnixMicro())),
+		})
 	}
 	return_ := defproto.GetGroupRequestParticipantsReturnFunction{
 		Participants: participants,
@@ -926,7 +929,7 @@ func GetGroupRequestParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.
 //export GetLinkedGroupsParticipants
 func GetLinkedGroupsParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.struct_BytesReturn {
 	var JID defproto.JID
-	return_ := defproto.GetGroupRequestParticipantsReturnFunction{}
+	return_ := defproto.ReturnFunctionWithError{}
 	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
 	if err != nil {
 		panic(err)
@@ -939,7 +942,11 @@ func GetLinkedGroupsParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int) C.
 	for _, jid := range JIDS {
 		neonizeJID = append(neonizeJID, utils.EncodeJidProto(jid))
 	}
-	return_.Participants = neonizeJID
+	return_.Return = &defproto.ReturnFunctionWithError_GetLinkedGroupsParticipants{
+		GetLinkedGroupsParticipants: &defproto.JIDArray{
+			JIDS: neonizeJID,
+		},
+	}
 	return_buf, err_marshal := proto.Marshal(&return_)
 	if err_marshal != nil {
 		panic(err_marshal)
@@ -1988,6 +1995,30 @@ func SendPresence(id *C.char, presence *C.char) *C.char {
 		return C.CString(err.Error())
 	}
 	return C.CString("")
+}
+
+//export DecryptPollVote
+func DecryptPollVote(id *C.char, message *C.uchar, messageSize C.int) C.struct_BytesReturn {
+	// var message
+	var pvmessage defproto.Message
+	return_proto := defproto.ReturnFunctionWithError{}
+	err := proto.Unmarshal(getByteByAddr(message, messageSize), &pvmessage)
+	if err != nil {
+		panic(err)
+	}
+	result, err := clients[C.GoString(id)].DecryptPollVote(utils.DecodeEventTypesMessage(&pvmessage))
+	if err != nil {
+		return_proto.Error = proto.String(err.Error())
+	} else {
+		return_proto.Return = &defproto.ReturnFunctionWithError_PollVoteMessage{
+			PollVoteMessage: result,
+		}
+	}
+	return_buf, err := proto.Marshal(result)
+	if err != nil {
+		panic(err)
+	}
+	return ReturnBytes(return_buf)
 }
 
 //export SendFBMessage

@@ -11,6 +11,9 @@ import (
 	"go.mau.fi/whatsmeow/store"
 	"go.mau.fi/whatsmeow/types"
 )
+import (
+	"go.mau.fi/whatsmeow/types/events"
+)
 
 func DecodeJidProto(data *defproto.JID) types.JID {
 	return types.JID{
@@ -171,4 +174,35 @@ func DecodeSendRequestExtra(extra *defproto.SendRequestExtra) whatsmeow.SendRequ
 		Peer:         *extra.Peer,
 		Timeout:      time.Duration(*extra.Timeout),
 	}
+}
+func DecodeNewsLetterMessageMeta(defproto.NewsLetterMessageMeta) {
+
+}
+func DecodeEventTypesMessage(message *defproto.Message) *events.Message {
+	model := &events.Message{
+		Info:                  *DecodeMessageInfo(message.Info),
+		IsEphemeral:           *message.IsEphemeral,
+		IsViewOnce:            *message.IsViewOnce,
+		IsViewOnceV2:          *message.IsViewOnceV2,
+		IsEdit:                *message.IsEdit,
+		IsViewOnceV2Extension: *message.IsViewOnceV2Extension,
+		IsDocumentWithCaption: *message.IsDocumentWithCaption,
+		IsLottieSticker:       *message.IsLottieSticker,
+		UnavailableRequestID:  *message.UnavailableRequestID,
+		RetryCount:            int(*message.RetryCount),
+		RawMessage:            message.Message,
+	}
+	if message.NewsLetterMeta != nil {
+		model.NewsletterMeta = &events.NewsletterMessageMeta{
+			EditTS:     time.Unix(0, *message.NewsLetterMeta.EditTS),
+			OriginalTS: time.Unix(0, *message.NewsLetterMeta.OriginalTS),
+		}
+	}
+	if message.SourceWebMsg != nil {
+		model.SourceWebMsg = message.SourceWebMsg
+	}
+	if message.Message != nil {
+		model.Message = message.Message
+	}
+	return model
 }

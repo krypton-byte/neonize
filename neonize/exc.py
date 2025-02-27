@@ -240,3 +240,7 @@ class GetChatSettingsError(Exception):
 
 class SendPresenceError(Exception):
     pass
+
+
+class DecryptPollVoteError(Exception):
+    pass

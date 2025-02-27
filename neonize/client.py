@@ -24,6 +24,7 @@ from .builder import build_edit, build_revoke
 from .events import Event, EventsManager
 from .exc import (
     ContactStoreError,
+    DecryptPollVoteError,
     DownloadError,
     GetChatSettingsError,
     PutArchivedError,
@@ -93,6 +94,7 @@ from .proto.Neonize_pb2 import (
     GroupParticipant,
     Blocklist,
     GroupLinkTarget,
+    GroupParticipantRequest,
     MessageInfo,
     JID,
     NewsletterMessage,
@@ -126,6 +128,7 @@ from .proto.Neonize_pb2 import (
 from .proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2 import DeviceProps
 from .proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
+    PollVoteMessage,
     StickerMessage,
     ContextInfo,
     ExtendedTextMessage,
@@ -1987,7 +1990,7 @@ class NewClient:
             raise CreateGroupError(model.Error)
         return model.GroupInfo
 
-    def get_group_request_participants(self, jid: JID) -> RepeatedCompositeFieldContainer[JID]:
+    def get_group_request_participants(self, jid: JID) -> RepeatedCompositeFieldContainer[GroupParticipantRequest]:
         """Get the participants of a group request.
 
         :param jid: The JID of the group request.
@@ -2280,7 +2283,7 @@ class NewClient:
             raise GetContactQrLinkError(model.Error)
         return model.Link
 
-    def get_linked_group_participants(self, community: JID) -> RepeatedCompositeFieldContainer[JID]:
+    def get_linked_group_participants(self, community: JID) -> RepeatedCompositeFieldContainer[GroupParticipantRequest]:
         """Fetches the participants of a linked group in a community.
 
         :param community: The community in which the linked group belongs.
@@ -2445,7 +2448,14 @@ class NewClient:
         response = self.__client.SendPresence(self.uuid, presence.value)
         if response:
             raise SendPresenceError(response)
-
+    def decrypt_poll_vote(self, message: neonize_proto.Message) -> PollVoteMessage:
+        """Decrypt PollMessage"""
+        msg_buff = message.SerializeToString()
+        response = self.__client.DecryptPollVote(self.uuid, msg_buff)
+        model = ReturnFunctionWithError.FromString(response.get_bytes())
+        if model.Error:
+            raise DecryptPollVoteError(model.Error)
+        return model.PollVoteMessage
     def connect(self):
         """Establishes a connection to the WhatsApp servers."""
         # Convert the list of functions to a bytearray

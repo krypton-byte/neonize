@@ -7,7 +7,6 @@ import (
 	defproto "github.com/krypton-byte/neonize/defproto"
 	"go.mau.fi/whatsmeow"
 	waBinary "go.mau.fi/whatsmeow/binary"
-	waProto "go.mau.fi/whatsmeow/binary/proto"
 	"go.mau.fi/whatsmeow/types"
 	"google.golang.org/protobuf/proto"
 )
@@ -235,18 +234,18 @@ func EncodeMessageInfo(messageInfo types.MessageInfo) *defproto.MessageInfo {
 	return model
 }
 
-func EncodeMessage(message *waProto.Message) *defproto.Message {
-	var neonizeMessage defproto.Message
-	encoded, err := proto.Marshal(message)
-	if err != nil {
-		panic(err)
-	}
-	err_decode := proto.Unmarshal(encoded, &neonizeMessage)
-	if err_decode != nil {
-		panic(err_decode)
-	}
-	return &neonizeMessage
-}
+//	func EncodeMessage(message *waProto.Message) *defproto.Message {
+//		var neonizeMessage defproto.Message
+//		encoded, err := proto.Marshal(message)
+//		if err != nil {
+//			panic(err)
+//		}
+//		err_decode := proto.Unmarshal(encoded, &neonizeMessage)
+//		if err_decode != nil {
+//			panic(err_decode)
+//		}
+//		return &neonizeMessage
+//	}
 func EncodeNewsLetterMessageMeta(newsLetter *events.NewsletterMessageMeta) *defproto.NewsLetterMessageMeta {
 	return &defproto.NewsLetterMessageMeta{
 		EditTS:     proto.Int64(int64(newsLetter.EditTS.Unix())),
@@ -266,6 +265,7 @@ func EncodeEventTypesMessage(message *events.Message) *defproto.Message {
 		IsLottieSticker:       proto.Bool(message.IsLottieSticker),
 		UnavailableRequestID:  &message.UnavailableRequestID,
 		RetryCount:            proto.Int64(int64(message.RetryCount)),
+		Raw:                   message.Message,
 	}
 	if message.NewsletterMeta != nil {
 		model.NewsLetterMeta = EncodeNewsLetterMessageMeta(message.NewsletterMeta)
