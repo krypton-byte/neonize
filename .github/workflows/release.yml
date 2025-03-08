@@ -5,7 +5,7 @@ on:
     inputs:
       version:
         description: set release version
-        required: true
+        required: false
       goneonize:
         description: build binaries
         type: boolean
