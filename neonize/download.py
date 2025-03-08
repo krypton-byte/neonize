@@ -4,7 +4,7 @@ import requests
 from pathlib import Path
 from tqdm import tqdm
 
-__GONEONIZE_VERSION__ = "0.3.8"
+__GONEONIZE_VERSION__ = "0.3.9.1"
 
 
 class UnsupportedPlatform(Exception):
