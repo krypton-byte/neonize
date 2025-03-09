@@ -53,6 +53,7 @@ def extract_text(message: Message):
         return message.conversation
     return ""
 
+
 def get_poll_update_message(message: neonize_proto.Message) -> PollUpdateMessage | None:
     """
     Extracts pollUpdateMessage from event Message
