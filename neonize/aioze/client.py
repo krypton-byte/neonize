@@ -21,6 +21,7 @@ from typing import (
 )
 import typing
 import magic
+import traceback
 from io import BytesIO
 
 from .preview.compose import link_preview
@@ -51,6 +52,7 @@ from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
     AudioMessage,
     DocumentMessage,
     ContactMessage,
+    GroupMention,
 )
 from ..utils.enum import (
     BlocklistAction,
@@ -448,6 +450,37 @@ class NewAClient:
             return []
         return [jid.group(1) + "@s.whatsapp.net" for jid in re.finditer(r"@([0-9]{5,16}|0)", text)]
 
+    async def _parse_group_mention(self, text: Optional[str] = None) -> list[GroupMention]:
+        """
+        This function parses a given text and returns a list of 'mentions' in the format of 'GroupMention(…'
+        A 'mention' is defined as a sequence of numbers (11 to 26 digits long) (might also include an hypen) that is prefixed by '@' and suffixed by @g.us in the text.
+
+        :param text: The text to be parsed for mentions, defaults to None
+        :type text: Optional[str], optional
+        :return: A list of mentions in the format of 'GroupMention(groupJID="group_id@g.us", groupSubject="group_name")'
+        :rtype: list[GroupMention]
+        """
+        if text is None:
+            return []
+        
+        gc_mentions = []
+        for jid in re.finditer(r"@([0-9-]{11,26}|0)@g\.us", text):
+            try:
+                group = await self.get_group_info(build_jid(jid.group(1), "g.us"))
+            except GetGroupInfoError:
+                continue
+            except Exception:
+                log.info(traceback.format_exc())
+                continue
+            gc_mentions.append(
+                GroupMention(
+                    groupJID=Jid2String(group.JID),
+                    groupSubject=group.GroupName.Name
+                )
+            )
+            
+        return gc_mentions
+
     async def _generate_link_preview(self, text: str) -> ExtendedTextMessage | None:
         youtube_url_pattern = re.compile(
             r"(?:https?:)?//(?:www\.)?(?:youtube\.com/(?:[^/\n\s]+"
@@ -533,15 +566,16 @@ class NewAClient:
         """
         to_bytes = to.SerializeToString()
         if isinstance(message, str):
+            mentioned_groups = await self._parse_group_mention(message)
             mentioned_jid = self._parse_mention(ghost_mentions or message)
             partial_msg = ExtendedTextMessage(
-                text=message, contextInfo=ContextInfo(mentionedJID=mentioned_jid)
+                text=message, contextInfo=ContextInfo(mentionedJID=mentioned_jid, groupMentions=mentioned_groups)
             )
             if link_preview:
                 preview = await self._generate_link_preview(message)
                 if preview:
                     partial_msg.MergeFrom(preview)
-            if partial_msg.previewType is None and not mentioned_jid:
+            if partial_msg.previewType is None and not (mentioned_groups or mentioned_jid):
                 msg = Message(conversation=message)
             else:
                 msg = Message(extendedTextMessage=partial_msg)
@@ -586,7 +620,8 @@ class NewAClient:
             partial_message = ExtendedTextMessage(
                 text=message,
                 contextInfo=ContextInfo(
-                    mentionedJID=self._parse_mention(ghost_mentions or message)
+                    mentionedJID=self._parse_mention(ghost_mentions or message),
+                    groupMentions=(await self._parse_group_mention(message)),
                 ),
             )
             if link_preview:
@@ -910,9 +945,9 @@ class NewAClient:
         :type gifplayback: bool, optional
         :param is_gif: Optional. Whether the video to be sent is a gif. Defaults to False.
         :type is_gif: bool, optional
-        :return: A video message with the given parameters.
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
+        :return: A video message with the given parameters.
         :rtype: Message
         """
         io = BytesIO(await get_bytes_from_name_or_url_async(file))
@@ -944,6 +979,7 @@ class NewAClient:
                 viewOnce=viewonce,
                 contextInfo=ContextInfo(
                     mentionedJID=self._parse_mention(ghost_mentions or caption),
+                    groupMentions=(await self._parse_group_mention(caption)),
                 ),
             )
         )
@@ -1042,6 +1078,7 @@ class NewAClient:
                 viewOnce=viewonce,
                 contextInfo=ContextInfo(
                     mentionedJID=self._parse_mention(ghost_mentions or caption),
+                    groupMentions=(await self._parse_group_mention(caption)),
                 ),
             )
         )
@@ -1076,7 +1113,7 @@ class NewAClient:
         :rtype: SendResponse
         """
         return await self.send_message(
-            to, await self.build_image_message(file, caption, quoted, viewonce=viewonce)
+            to, await self.build_image_message(file, caption, quoted, viewonce=viewonce, ghost_mentions=ghost_mentions)
         )
 
     async def build_audio_message(
@@ -1171,6 +1208,7 @@ class NewAClient:
                 fileName=filename,
                 contextInfo=ContextInfo(
                     mentionedJID=self._parse_mention(ghost_mentions or caption),
+                    groupMentions=(await self._parse_group_mention(caption)),
                 ),
             )
         )
@@ -1210,7 +1248,7 @@ class NewAClient:
         """
         return await self.send_message(
             to,
-            await self.build_document_message(file, caption, title, filename, mimetype, quoted),
+            await self.build_document_message(file, caption, title, filename, mimetype, quoted, ghost_mentions),
         )
 
     async def send_contact(
