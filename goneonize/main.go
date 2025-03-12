@@ -995,6 +995,24 @@ func SetGroupPhoto(id *C.char, JIDByte *C.uchar, JIDSize C.int, Photo *C.uchar, 
 	return ReturnBytes(return_buf)
 }
 
+//export SetProfilePhoto
+func SetProfilePhoto(id *C.char, Photo *C.uchar, PhotoSize C.int) C.struct_BytesReturn {
+	var empty types.JID
+	photo_buf := getByteByAddr(Photo, PhotoSize)
+	response, err_status := clients[C.GoString(id)].SetGroupPhoto(empty, photo_buf)
+	return_ := defproto.SetGroupPhotoReturnFunction{
+		PictureID: &response,
+	}
+	if err_status != nil {
+		return_.Error = proto.String(err_status.Error())
+	}
+	return_buf, err_marshal := proto.Marshal(&return_)
+	if err_marshal != nil {
+		panic(err_marshal)
+	}
+	return ReturnBytes(return_buf)
+}
+
 //export LeaveGroup
 func LeaveGroup(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.char {
 	var neoJIDProto defproto.JID
@@ -2014,7 +2032,7 @@ func DecryptPollVote(id *C.char, message *C.uchar, messageSize C.int) C.struct_B
 			PollVoteMessage: result,
 		}
 	}
-	return_buf, err := proto.Marshal(result)
+	return_buf, err := proto.Marshal(&return_proto)
 	if err != nil {
 		panic(err)
 	}

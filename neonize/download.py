@@ -6,6 +6,8 @@ from tqdm import tqdm
 __GONEONIZE_VERSION__ = '0.3.9'
 __GIT_RELEASE_URL__ = 'https://github.com/krypton-byte/neonize'
 
+
+
 class UnsupportedPlatform(Exception):
     pass
 

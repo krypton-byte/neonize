@@ -4,7 +4,9 @@ from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
     DocumentMessage,
     ExtendedTextMessage,
     VideoMessage,
+    PollUpdateMessage,
 )
+from ..proto import Neonize_pb2 as neonize_proto
 from ..types import MediaMessageType, TextMessageType
 
 
@@ -50,3 +52,16 @@ def extract_text(message: Message):
     elif message.conversation:
         return message.conversation
     return ""
+
+def get_poll_update_message(message: neonize_proto.Message) -> PollUpdateMessage | None:
+    """
+    Extracts pollUpdateMessage from event Message
+    :param message: The message object.
+    :type message: neonize_proto.Message
+    :return: The extracted poll update message.
+    :rtype: PollUpdateMessage
+    """
+    msg = message.Message
+    if msg.pollUpdateMessage.ListFields():
+        pollUpdateMessage: PollUpdateMessage = msg.pollUpdateMessage
+        return pollUpdateMessage
