@@ -145,3 +145,35 @@ class SubProtocol(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["payload", b"payload", "version", b"version"]) -> None: ...
 
 global___SubProtocol = SubProtocol
+
+@typing.final
+class LimitSharing(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _Trigger:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _TriggerEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LimitSharing._Trigger.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        CHAT_SETTING: LimitSharing._Trigger.ValueType  # 0
+        BIZ_SUPPORTS_FB_HOSTING: LimitSharing._Trigger.ValueType  # 1
+
+    class Trigger(_Trigger, metaclass=_TriggerEnumTypeWrapper): ...
+    CHAT_SETTING: LimitSharing.Trigger.ValueType  # 0
+    BIZ_SUPPORTS_FB_HOSTING: LimitSharing.Trigger.ValueType  # 1
+
+    SHARINGLIMITED_FIELD_NUMBER: builtins.int
+    TRIGGER_FIELD_NUMBER: builtins.int
+    sharingLimited: builtins.bool
+    trigger: global___LimitSharing.Trigger.ValueType
+    def __init__(
+        self,
+        *,
+        sharingLimited: builtins.bool | None = ...,
+        trigger: global___LimitSharing.Trigger.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["sharingLimited", b"sharingLimited", "trigger", b"trigger"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["sharingLimited", b"sharingLimited", "trigger", b"trigger"]) -> None: ...
+
+global___LimitSharing = LimitSharing

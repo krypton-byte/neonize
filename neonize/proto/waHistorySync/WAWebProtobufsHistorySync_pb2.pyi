@@ -113,6 +113,7 @@ class HistorySync(google.protobuf.message.Message):
     PHONENUMBERTOLIDMAPPINGS_FIELD_NUMBER: builtins.int
     COMPANIONMETANONCE_FIELD_NUMBER: builtins.int
     SHAREABLECHATIDENTIFIERENCRYPTIONKEY_FIELD_NUMBER: builtins.int
+    ACCOUNTS_FIELD_NUMBER: builtins.int
     syncType: global___HistorySync.HistorySyncType.ValueType
     chunkOrder: builtins.int
     progress: builtins.int
@@ -137,6 +138,8 @@ class HistorySync(google.protobuf.message.Message):
     def callLogRecords(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[waSyncAction.WASyncAction_pb2.CallLogRecord]: ...
     @property
     def phoneNumberToLidMappings(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PhoneNumberToLIDMapping]: ...
+    @property
+    def accounts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Account]: ...
     def __init__(
         self,
         *,
@@ -156,9 +159,10 @@ class HistorySync(google.protobuf.message.Message):
         phoneNumberToLidMappings: collections.abc.Iterable[global___PhoneNumberToLIDMapping] | None = ...,
         companionMetaNonce: builtins.str | None = ...,
         shareableChatIdentifierEncryptionKey: builtins.bytes | None = ...,
+        accounts: collections.abc.Iterable[global___Account] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["aiWaitListState", b"aiWaitListState", "chunkOrder", b"chunkOrder", "companionMetaNonce", b"companionMetaNonce", "globalSettings", b"globalSettings", "progress", b"progress", "shareableChatIdentifierEncryptionKey", b"shareableChatIdentifierEncryptionKey", "syncType", b"syncType", "threadDsTimeframeOffset", b"threadDsTimeframeOffset", "threadIDUserSecret", b"threadIDUserSecret"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["aiWaitListState", b"aiWaitListState", "callLogRecords", b"callLogRecords", "chunkOrder", b"chunkOrder", "companionMetaNonce", b"companionMetaNonce", "conversations", b"conversations", "globalSettings", b"globalSettings", "pastParticipants", b"pastParticipants", "phoneNumberToLidMappings", b"phoneNumberToLidMappings", "progress", b"progress", "pushnames", b"pushnames", "recentStickers", b"recentStickers", "shareableChatIdentifierEncryptionKey", b"shareableChatIdentifierEncryptionKey", "statusV3Messages", b"statusV3Messages", "syncType", b"syncType", "threadDsTimeframeOffset", b"threadDsTimeframeOffset", "threadIDUserSecret", b"threadIDUserSecret"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["accounts", b"accounts", "aiWaitListState", b"aiWaitListState", "callLogRecords", b"callLogRecords", "chunkOrder", b"chunkOrder", "companionMetaNonce", b"companionMetaNonce", "conversations", b"conversations", "globalSettings", b"globalSettings", "pastParticipants", b"pastParticipants", "phoneNumberToLidMappings", b"phoneNumberToLidMappings", "progress", b"progress", "pushnames", b"pushnames", "recentStickers", b"recentStickers", "shareableChatIdentifierEncryptionKey", b"shareableChatIdentifierEncryptionKey", "statusV3Messages", b"statusV3Messages", "syncType", b"syncType", "threadDsTimeframeOffset", b"threadDsTimeframeOffset", "threadIDUserSecret", b"threadIDUserSecret"]) -> None: ...
 
 global___HistorySync = HistorySync
 
@@ -230,6 +234,8 @@ class Conversation(google.protobuf.message.Message):
     SYSTEMMESSAGETOINSERT_FIELD_NUMBER: builtins.int
     CAPICREATEDGROUP_FIELD_NUMBER: builtins.int
     ACCOUNTLID_FIELD_NUMBER: builtins.int
+    LIMITSHARING_FIELD_NUMBER: builtins.int
+    LIMITSHARINGSETTINGTIMESTAMP_FIELD_NUMBER: builtins.int
     ID: builtins.str
     newJID: builtins.str
     oldJID: builtins.str
@@ -275,6 +281,8 @@ class Conversation(google.protobuf.message.Message):
     systemMessageToInsert: global___PrivacySystemMessage.ValueType
     capiCreatedGroup: builtins.bool
     accountLid: builtins.str
+    limitSharing: builtins.bool
+    limitSharingSettingTimestamp: builtins.int
     @property
     def messages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HistorySyncMsg]: ...
     @property
@@ -335,9 +343,11 @@ class Conversation(google.protobuf.message.Message):
         systemMessageToInsert: global___PrivacySystemMessage.ValueType | None = ...,
         capiCreatedGroup: builtins.bool | None = ...,
         accountLid: builtins.str | None = ...,
+        limitSharing: builtins.bool | None = ...,
+        limitSharingSettingTimestamp: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ID", b"ID", "accountLid", b"accountLid", "archived", b"archived", "capiCreatedGroup", b"capiCreatedGroup", "commentsCount", b"commentsCount", "contactPrimaryIdentityKey", b"contactPrimaryIdentityKey", "conversationTimestamp", b"conversationTimestamp", "createdAt", b"createdAt", "createdBy", b"createdBy", "description", b"description", "disappearingMode", b"disappearingMode", "displayName", b"displayName", "endOfHistoryTransfer", b"endOfHistoryTransfer", "endOfHistoryTransferType", b"endOfHistoryTransferType", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isDefaultSubgroup", b"isDefaultSubgroup", "isParentGroup", b"isParentGroup", "lastMsgTimestamp", b"lastMsgTimestamp", "lidJID", b"lidJID", "lidOriginType", b"lidOriginType", "locked", b"locked", "markedAsUnread", b"markedAsUnread", "mediaVisibility", b"mediaVisibility", "muteEndTime", b"muteEndTime", "name", b"name", "newJID", b"newJID", "notSpam", b"notSpam", "oldJID", b"oldJID", "pHash", b"pHash", "parentGroupID", b"parentGroupID", "pinned", b"pinned", "pnJID", b"pnJID", "pnhDuplicateLidThread", b"pnhDuplicateLidThread", "readOnly", b"readOnly", "shareOwnPn", b"shareOwnPn", "support", b"support", "suspended", b"suspended", "systemMessageToInsert", b"systemMessageToInsert", "tcToken", b"tcToken", "tcTokenSenderTimestamp", b"tcTokenSenderTimestamp", "tcTokenTimestamp", b"tcTokenTimestamp", "terminated", b"terminated", "unreadCount", b"unreadCount", "unreadMentionCount", b"unreadMentionCount", "username", b"username", "wallpaper", b"wallpaper"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["ID", b"ID", "accountLid", b"accountLid", "archived", b"archived", "capiCreatedGroup", b"capiCreatedGroup", "commentsCount", b"commentsCount", "contactPrimaryIdentityKey", b"contactPrimaryIdentityKey", "conversationTimestamp", b"conversationTimestamp", "createdAt", b"createdAt", "createdBy", b"createdBy", "description", b"description", "disappearingMode", b"disappearingMode", "displayName", b"displayName", "endOfHistoryTransfer", b"endOfHistoryTransfer", "endOfHistoryTransferType", b"endOfHistoryTransferType", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isDefaultSubgroup", b"isDefaultSubgroup", "isParentGroup", b"isParentGroup", "lastMsgTimestamp", b"lastMsgTimestamp", "lidJID", b"lidJID", "lidOriginType", b"lidOriginType", "locked", b"locked", "markedAsUnread", b"markedAsUnread", "mediaVisibility", b"mediaVisibility", "messages", b"messages", "muteEndTime", b"muteEndTime", "name", b"name", "newJID", b"newJID", "notSpam", b"notSpam", "oldJID", b"oldJID", "pHash", b"pHash", "parentGroupID", b"parentGroupID", "participant", b"participant", "pinned", b"pinned", "pnJID", b"pnJID", "pnhDuplicateLidThread", b"pnhDuplicateLidThread", "readOnly", b"readOnly", "shareOwnPn", b"shareOwnPn", "support", b"support", "suspended", b"suspended", "systemMessageToInsert", b"systemMessageToInsert", "tcToken", b"tcToken", "tcTokenSenderTimestamp", b"tcTokenSenderTimestamp", "tcTokenTimestamp", b"tcTokenTimestamp", "terminated", b"terminated", "unreadCount", b"unreadCount", "unreadMentionCount", b"unreadMentionCount", "username", b"username", "wallpaper", b"wallpaper"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["ID", b"ID", "accountLid", b"accountLid", "archived", b"archived", "capiCreatedGroup", b"capiCreatedGroup", "commentsCount", b"commentsCount", "contactPrimaryIdentityKey", b"contactPrimaryIdentityKey", "conversationTimestamp", b"conversationTimestamp", "createdAt", b"createdAt", "createdBy", b"createdBy", "description", b"description", "disappearingMode", b"disappearingMode", "displayName", b"displayName", "endOfHistoryTransfer", b"endOfHistoryTransfer", "endOfHistoryTransferType", b"endOfHistoryTransferType", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isDefaultSubgroup", b"isDefaultSubgroup", "isParentGroup", b"isParentGroup", "lastMsgTimestamp", b"lastMsgTimestamp", "lidJID", b"lidJID", "lidOriginType", b"lidOriginType", "limitSharing", b"limitSharing", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "locked", b"locked", "markedAsUnread", b"markedAsUnread", "mediaVisibility", b"mediaVisibility", "muteEndTime", b"muteEndTime", "name", b"name", "newJID", b"newJID", "notSpam", b"notSpam", "oldJID", b"oldJID", "pHash", b"pHash", "parentGroupID", b"parentGroupID", "pinned", b"pinned", "pnJID", b"pnJID", "pnhDuplicateLidThread", b"pnhDuplicateLidThread", "readOnly", b"readOnly", "shareOwnPn", b"shareOwnPn", "support", b"support", "suspended", b"suspended", "systemMessageToInsert", b"systemMessageToInsert", "tcToken", b"tcToken", "tcTokenSenderTimestamp", b"tcTokenSenderTimestamp", "tcTokenTimestamp", b"tcTokenTimestamp", "terminated", b"terminated", "unreadCount", b"unreadCount", "unreadMentionCount", b"unreadMentionCount", "username", b"username", "wallpaper", b"wallpaper"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["ID", b"ID", "accountLid", b"accountLid", "archived", b"archived", "capiCreatedGroup", b"capiCreatedGroup", "commentsCount", b"commentsCount", "contactPrimaryIdentityKey", b"contactPrimaryIdentityKey", "conversationTimestamp", b"conversationTimestamp", "createdAt", b"createdAt", "createdBy", b"createdBy", "description", b"description", "disappearingMode", b"disappearingMode", "displayName", b"displayName", "endOfHistoryTransfer", b"endOfHistoryTransfer", "endOfHistoryTransferType", b"endOfHistoryTransferType", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isDefaultSubgroup", b"isDefaultSubgroup", "isParentGroup", b"isParentGroup", "lastMsgTimestamp", b"lastMsgTimestamp", "lidJID", b"lidJID", "lidOriginType", b"lidOriginType", "limitSharing", b"limitSharing", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "locked", b"locked", "markedAsUnread", b"markedAsUnread", "mediaVisibility", b"mediaVisibility", "messages", b"messages", "muteEndTime", b"muteEndTime", "name", b"name", "newJID", b"newJID", "notSpam", b"notSpam", "oldJID", b"oldJID", "pHash", b"pHash", "parentGroupID", b"parentGroupID", "participant", b"participant", "pinned", b"pinned", "pnJID", b"pnJID", "pnhDuplicateLidThread", b"pnhDuplicateLidThread", "readOnly", b"readOnly", "shareOwnPn", b"shareOwnPn", "support", b"support", "suspended", b"suspended", "systemMessageToInsert", b"systemMessageToInsert", "tcToken", b"tcToken", "tcTokenSenderTimestamp", b"tcTokenSenderTimestamp", "tcTokenTimestamp", b"tcTokenTimestamp", "terminated", b"terminated", "unreadCount", b"unreadCount", "unreadMentionCount", b"unreadMentionCount", "username", b"username", "wallpaper", b"wallpaper"]) -> None: ...
 
 global___Conversation = Conversation
 
@@ -428,6 +438,31 @@ class PhoneNumberToLIDMapping(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["lidJID", b"lidJID", "pnJID", b"pnJID"]) -> None: ...
 
 global___PhoneNumberToLIDMapping = PhoneNumberToLIDMapping
+
+@typing.final
+class Account(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LID_FIELD_NUMBER: builtins.int
+    USERNAME_FIELD_NUMBER: builtins.int
+    COUNTRYCODE_FIELD_NUMBER: builtins.int
+    ISUSERNAMEDELETED_FIELD_NUMBER: builtins.int
+    lid: builtins.str
+    username: builtins.str
+    countryCode: builtins.str
+    isUsernameDeleted: builtins.bool
+    def __init__(
+        self,
+        *,
+        lid: builtins.str | None = ...,
+        username: builtins.str | None = ...,
+        countryCode: builtins.str | None = ...,
+        isUsernameDeleted: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["countryCode", b"countryCode", "isUsernameDeleted", b"isUsernameDeleted", "lid", b"lid", "username", b"username"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["countryCode", b"countryCode", "isUsernameDeleted", b"isUsernameDeleted", "lid", b"lid", "username", b"username"]) -> None: ...
+
+global___Account = Account
 
 @typing.final
 class HistorySyncMsg(google.protobuf.message.Message):
