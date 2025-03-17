@@ -6,9 +6,11 @@ import platform
 import requests
 from tqdm import tqdm
 
+from .github import Github
+
 sys.path.insert(0, Path(__file__).parent.__str__())
 from goneonize import generated_name
-from versioning import Version
+from .version import Version
 
 os_name = platform.system().lower()
 arch_name = platform.machine().lower()
@@ -28,8 +30,9 @@ def download(
 ):
     name = (Path(__file__).parent.parent / "neonize") / generated_name(os_name, arch_name)
     print(f"{Fore.RED}[{Fore.GREEN}{name.name} {Fore.YELLOW}%r{Fore.RED}]{Fore.RESET}" % version)
+    username, repository = Version().github_url.split("/")[-2:]
     resp = requests.get(
-        f"https://github.com/krypton-byte/neonize/releases/download/{version}/{generated_name(os_name, arch_name)}",
+        f"https://github.com/{username}/{repository}/releases/download/{version}/{generated_name(os_name, arch_name)}",
         stream=True,
     )
     if resp.status_code != 200:
@@ -57,11 +60,14 @@ if __name__ == "__main__":
     arg = argparse.ArgumentParser()
     arg.add_argument("--os", default=os_name)
     arg.add_argument("--arch", default=arch_name)
-    arg.add_argument("--version", type=str, help="last version as default")
+    version = arg.add_mutually_exclusive_group(required=True)
+    version.add_argument("--last", action="store_true")
+    version.add_argument("--version", type=str, help="goneonize version")
     arg.add_argument("--chunk-size", type=int, help="default: 1024", default=1024)
     parse = arg.parse_args()
+    github = Github()
     if parse.version:
-        version = parse.version
+        target_version = parse.version
     else:
-        version = Version.get_last_goneonize_release()
-    download(version, parse.os, parse.arch, parse.chunk_size)
+        target_version = github.get_last_goneonize_version()
+    download(target_version, parse.os, parse.arch, parse.chunk_size)

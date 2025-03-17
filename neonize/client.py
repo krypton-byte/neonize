@@ -412,7 +412,7 @@ class NewClient:
         """
         if text is None:
             return []
-        
+
         gc_mentions = []
         for jid in re.finditer(r"@([0-9-]{11,26}|0)@g\.us", text):
             try:
@@ -423,12 +423,9 @@ class NewClient:
                 log.info(traceback.format_exc())
                 continue
             gc_mentions.append(
-                GroupMention(
-                    groupJID=Jid2String(group.JID),
-                    groupSubject=group.GroupName.Name
-                )
+                GroupMention(groupJID=Jid2String(group.JID), groupSubject=group.GroupName.Name)
             )
-            
+
         return gc_mentions
 
     def _generate_link_preview(self, text: str) -> ExtendedTextMessage | None:
@@ -489,7 +486,7 @@ class NewClient:
         self,
         to: JID,
         message: typing.Union[Message, str],
-        link_preview: bool = False, 
+        link_preview: bool = False,
         ghost_mentions: Optional[str] = None,
     ) -> SendResponse:
         """Send a message to the specified JID.
@@ -511,7 +508,8 @@ class NewClient:
             mentioned_groups = self._parse_group_mention(message)
             mentioned_jid = self._parse_mention(ghost_mentions or message)
             partial_msg = ExtendedTextMessage(
-                text=message, contextInfo=ContextInfo(mentionedJID=mentioned_jid, groupMentions=mentioned_groups)
+                text=message,
+                contextInfo=ContextInfo(mentionedJID=mentioned_jid, groupMentions=mentioned_groups),
             )
             if link_preview:
                 preview = self._generate_link_preview(message)
@@ -562,6 +560,7 @@ class NewClient:
                 contextInfo=ContextInfo(
                     mentionedJID=self._parse_mention(ghost_mentions or message),
                     groupMentions=self._parse_group_mention(message),
+                ),
             )
             if link_preview:
                 preview = self._generate_link_preview(message)
@@ -958,7 +957,12 @@ class NewClient:
         :return: A function for handling the result of the video sending process.
         :rtype: SendResponse
         """
-        return self.send_message(to, self.build_video_message(file, caption, quoted, viewonce, gifplayback, is_gif, ghost_mentions))
+        return self.send_message(
+            to,
+            self.build_video_message(
+                file, caption, quoted, viewonce, gifplayback, is_gif, ghost_mentions
+            ),
+        )
 
     def build_image_message(
         self,
@@ -1047,7 +1051,10 @@ class NewClient:
         :rtype: SendResponse
         """
         return self.send_message(
-            to, self.build_image_message(file, caption, quoted, viewonce=viewonce, ghost_mentions=ghost_mentions)
+            to,
+            self.build_image_message(
+                file, caption, quoted, viewonce=viewonce, ghost_mentions=ghost_mentions
+            ),
         )
 
     def build_audio_message(
@@ -1182,7 +1189,9 @@ class NewClient:
         """
         return self.send_message(
             to,
-            self.build_document_message(file, caption, title, filename, mimetype, quoted, ghost_mentions),
+            self.build_document_message(
+                file, caption, title, filename, mimetype, quoted, ghost_mentions
+            ),
         )
 
     def send_contact(
@@ -1520,14 +1529,11 @@ class NewClient:
         :rtype: str
         """
         data = get_bytes_from_name_or_url(file_or_bytes)
-        response = self.__client.SetProfilePhoto(
-            self.uuid, data, len(data)
-        )
+        response = self.__client.SetProfilePhoto(self.uuid, data, len(data))
         model = SetGroupPhotoReturnFunction.FromString(response.get_bytes())
         if model.Error:
             raise SetGroupPhotoError(model.Error)
         return model.PictureID
-
 
     def leave_group(self, jid: JID) -> str:
         """Leaves a group.

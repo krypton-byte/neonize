@@ -3,16 +3,36 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: set release version
+      version_major:
+        description: Specify whether the major version (<major>.minor.patch.post) should be updated.
+        type: boolean
+        required: false
+        default: false
+      version_minor:
+        description: Specify whether the minor version (major.<minor>.patch.post) should be updated.
+        type: boolean
+        required: false
+        default: false
+      version_patch:
+        description: Specify whether the patch version (major.minor.<patch>.post) should be updated.
+        type: boolean
+        required: false
+      version_post:
+        description: Specify whether the post version (major.minor.patch.<post>) should be updated.
+        type: boolean
         required: false
       goneonize:
-        description: build binaries
+        description: Specify whether to build binaries.
         type: boolean
-        required: true
+        required: false
         default: true
+
 env:
  UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
+ VERSION_MAJOR: ${{ github.event.inputs.version_major }}
+ VERSION_MINOR: ${{ github.event.inputs.version_minor }}
+ VERSION_PATCH: ${{ github.event.inputs.version_patch }}
+ VERSION_POST: ${{ github.event.inputs.version_post }}
 jobs:
   android:
     if: ${{ github.event.inputs.goneonize }}
@@ -37,46 +57,48 @@ jobs:
     - name: install deps
       run: |
         uv sync --dev
-        uv run task version neonize --set-version ${{ github.event.inputs.version }}
-        uv run task version goneonize --set-version ${{ github.event.inputs.version }}
+        uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
+        bash bump_version.sh
     - name: build
       run: |
-        export CGO_ENABLED=1
-        wget https://dl.google.com/android/repository/android-ndk-r26b-linux.zip > /dev/null
-        unzip android-ndk-r26b-linux.zip > /dev/null
-        export ANDROID_NDK_HOME=$(pwd)/android-ndk-r26b
-        export PATH=$PATH:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
-        #ARM64/AARCH64
-        export CC=$(which aarch64-linux-android28-clang)
-        export CXX=$(which aarch64-linux-android28-clang++)
-        export GOOS=android
-        export GOARCH=arm64
-        uv run task build goneonize
-        #ARM
-        export CC=$(which armv7a-linux-androideabi28-clang)
-        export CXX=$(which armv7a-linux-androideabi28-clang++)
-        export GOOS=android
-        export GOARCH=arm
-        uv run task build goneonize
-        #AMD64/x86_64
-        export CC=$(which x86_64-linux-android28-clang)
-        export CXX=$(which x86_64-linux-android28-clang++)
-        export GOOS=android
-        export GOARCH=amd64
-        uv run task build goneonize
-        #386/686
-        export CC=$(which i686-linux-android28-clang)
-        export CXX=$(which i686-linux-android28-clang++)
-        export GOOS=android
-        export GOARCH=386
-        uv run task build goneonize
+        uv run task goneonize_changed
+        if [[ $? == 1 ]]; then
+          export CGO_ENABLED=1
+          wget https://dl.google.com/android/repository/android-ndk-r26b-linux.zip > /dev/null
+          unzip android-ndk-r26b-linux.zip > /dev/null
+          export ANDROID_NDK_HOME=$(pwd)/android-ndk-r26b
+          export PATH=$PATH:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
+          #ARM64/AARCH64
+          export CC=$(which aarch64-linux-android28-clang)
+          export CXX=$(which aarch64-linux-android28-clang++)
+          export GOOS=android
+          export GOARCH=arm64
+          uv run task build goneonize
+          #ARM
+          export CC=$(which armv7a-linux-androideabi28-clang)
+          export CXX=$(which armv7a-linux-androideabi28-clang++)
+          export GOOS=android
+          export GOARCH=arm
+          uv run task build goneonize
+          #AMD64/x86_64
+          export CC=$(which x86_64-linux-android28-clang)
+          export CXX=$(which x86_64-linux-android28-clang++)
+          export GOOS=android
+          export GOARCH=amd64
+          uv run task build goneonize
+          #386/686
+          export CC=$(which i686-linux-android28-clang)
+          export CXX=$(which i686-linux-android28-clang++)
+          export GOOS=android
+          export GOARCH=386
+          uv run task build goneonize
+        fi
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with: 
         name: Android
         path: neonize/*.so
   zig:
-    if: ${{ github.event.inputs.goneonize }}
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
@@ -98,45 +120,50 @@ jobs:
     - name: install deps
       run: |
         uv sync --dev
-        uv run task version neonize --set-version ${{ github.event.inputs.version }}
-        uv run task version goneonize --set-version ${{ github.event.inputs.version }}
+        uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
+        bash bump_version.sh
     - name: build
       run: |
-        mkdir LIBS
-        export CGO_ENABLED=1
-        #AMD64
-        export GOOS=windows
-        export GOARCH=amd64
-        export CC="zig cc -target x86_64-windows"
-        uv run task build goneonize
-        uv build
-        uv run task repack
-        mv neonize/*.dll LIBS
-        #ARM64
-        export GOOS=windows
-        export GOARCH=arm64
-        export CC="zig cc -target aarch64-windows"
-        uv run task build goneonize
-        uv build
-        uv run task repack
-        mv neonize/*.dll LIBS
-        #X86 / 386
-        export GOOS=windows
-        export GOARCH=386
-        export CC="zig cc -target x86-windows"
-        uv run task build goneonize
-        uv build
-        uv run task repack
-        mv neonize/*.dll LIBS
-        #LINUX x86/386
-        export GOOS=linux
-        export GOARCH=386
-        export CC="zig cc -target x86-linux"
-        uv run task build goneonize
-        uv build
-        uv run task repack
-        mv neonize/*.so LIBS
-        uv publish
+        uv run task goneonize_changed
+        if [[ $? == 1 ]]; then
+          mkdir LIBS
+          export CGO_ENABLED=1
+          #AMD64
+          export GOOS=windows
+          export GOARCH=amd64
+          export CC="zig cc -target x86_64-windows"
+          uv run task build goneonize
+          uv build
+          uv run task repack
+          mv neonize/*.dll LIBS
+          #ARM64
+          export GOOS=windows
+          export GOARCH=arm64
+          export CC="zig cc -target aarch64-windows"
+          uv run task build goneonize
+          uv build
+          uv run task repack
+          mv neonize/*.dll LIBS
+          #X86 / 386
+          export GOOS=windows
+          export GOARCH=386
+          export CC="zig cc -target x86-windows"
+          uv run task build goneonize
+          uv build
+          uv run task repack
+          mv neonize/*.dll LIBS
+          #LINUX x86/386
+          export GOOS=linux
+          export GOARCH=386
+          export CC="zig cc -target x86-linux"
+          uv run task build goneonize
+          uv build
+          uv run task repack
+          mv neonize/*.so LIBS
+          if [[ $UV_PUBLISH_TOKEN ]];then
+            uv publish
+          fi
+        fi
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with: 
@@ -145,7 +172,6 @@ jobs:
           LIBS/*.so
           LIBS/*.dll
   linux:
-    if: ${{ github.event.inputs.goneonize }}
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
@@ -166,53 +192,56 @@ jobs:
     - name: install deps
       run: |
         uv sync --dev
-        uv run task version neonize --set-version ${{ github.event.inputs.version }}
-        uv run task version goneonize --set-version ${{ github.event.inputs.version }}
+        uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
+        bash bump_version.sh
     - name: Installing Dev Package
       run: sudo apt update && sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
     - name: build
       run: |
-        mkdir LIBS
-        #AMD64/X86_64
-        export CGO_ENABLED=1
-        uv run task build goneonize
-        uv build
-        uv run task repack
-        mv neonize/*.so LIBS
-        #ARM64/AARCH64
-        export GOOS=linux
-        export GOARCH=arm64
-        export CC=$(which aarch64-linux-gnu-gcc)
-        export CXX=$(which aarch64-linux-gnu-cpp)
-        uv run task build goneonize
-        uv build
-        uv run task repack
-        mv neonize/*.so LIBS
-        #RISCV64
-        export GOOS=linux
-        export GOARCH=riscv64
-        export CC=$(which riscv64-linux-gnu-gcc)
-        export CXX=$(which riscv64-linux-gnu-cpp)
-        uv run task build goneonize
-        mv neonize/*.so LIBS
-        #S390X
-        export GOOS=linux
-        export GOARCH=s390x
-        export CC=$(which s390x-linux-gnu-gcc)
-        export CXX=$(which s390x-linux-gnu-cpp)
-        uv run task build goneonize
-        uv build
-        uv run task repack
-        mv neonize/*.so LIBS
-        uv publish
-
+        uv run task goneonize_changed
+        if [[ $? == 1 ]]; then
+          mkdir LIBS
+          #AMD64/X86_64
+          export CGO_ENABLED=1
+          uv run task build goneonize
+          uv build
+          uv run task repack
+          mv neonize/*.so LIBS
+          #ARM64/AARCH64
+          export GOOS=linux
+          export GOARCH=arm64
+          export CC=$(which aarch64-linux-gnu-gcc)
+          export CXX=$(which aarch64-linux-gnu-cpp)
+          uv run task build goneonize
+          uv build
+          uv run task repack
+          mv neonize/*.so LIBS
+          #RISCV64
+          export GOOS=linux
+          export GOARCH=riscv64
+          export CC=$(which riscv64-linux-gnu-gcc)
+          export CXX=$(which riscv64-linux-gnu-cpp)
+          uv run task build goneonize
+          mv neonize/*.so LIBS
+          #S390X
+          export GOOS=linux
+          export GOARCH=s390x
+          export CC=$(which s390x-linux-gnu-gcc)
+          export CXX=$(which s390x-linux-gnu-cpp)
+          uv run task build goneonize
+          uv build
+          uv run task repack
+          mv neonize/*.so LIBS
+          if [[ $UV_PUBLISH_TOKEN ]];then
+            uv publish
+          fi
+        fi
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with: 
         name: Linux
         path: LIBS/*.so
   darwin:
-    if: ${{ github.event.inputs.goneonize }}
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
@@ -233,36 +262,42 @@ jobs:
     - name: install deps
       run: |
         uv sync --dev
-        uv run task version neonize --set-version ${{ github.event.inputs.version }}
-        uv run task version goneonize --set-version ${{ github.event.inputs.version }}
+        uv sync --dev
+        uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
+        bash bump_version.sh
     - name: build
       run: |
-        mkdir LIBS
-        export PATH="/Users/runner/.local/bin:$PATH"
-        # Set necessary environment variables for building on Darwin
-        export CGO_ENABLED=1
-        # Build for Darwin (macOS)
-        
-        # AMD64/X86_64
-        export GOOS=darwin
-        export GOARCH=amd64
-        export CC=$(which clang)
-        export CXX=$(which clang++)
-        uv run task build goneonize
-        uv build
-        uv run task repack
-        mv neonize/*.dylib LIBS/
-        
-        #ARM64/AARCH64
-        export GOOS=darwin
-        export GOARCH=arm64
-        export CC=$(which clang)
-        export CXX=$(which clang++)
-        uv run task build goneonize
-        uv build
-        uv run task repack
-        mv neonize/*.dylib LIBS/
-        uv publish
+        uv run task goneonize_changed
+        if [[ $? == 1 ]]; then
+          mkdir LIBS
+          export PATH="/Users/runner/.local/bin:$PATH"
+          # Set necessary environment variables for building on Darwin
+          export CGO_ENABLED=1
+          # Build for Darwin (macOS)
+          
+          # AMD64/X86_64
+          export GOOS=darwin
+          export GOARCH=amd64
+          export CC=$(which clang)
+          export CXX=$(which clang++)
+          uv run task build goneonize
+          uv build
+          uv run task repack
+          mv neonize/*.dylib LIBS/
+          
+          #ARM64/AARCH64
+          export GOOS=darwin
+          export GOARCH=arm64
+          export CC=$(which clang)
+          export CXX=$(which clang++)
+          uv run task build goneonize
+          uv build
+          uv run task repack
+          mv neonize/*.dylib LIBS/
+          if [[ $UV_PUBLISH_TOKEN ]];then
+            uv publish
+          fi
+        fi
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with: 
@@ -273,23 +308,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [android, zig, linux, darwin]
     steps:
-    - if: ${{ github.event.inputs.goneonize }}
-      name: Download Artifact
+    - name: Download Artifact
       uses: actions/download-artifact@v4
       with:
         merge-multiple: true
         path: sharedlib
-    - if: ${{ github.event.inputs.goneonize }}
-      name: Upload shared library to draft release
-      uses: softprops/action-gh-release@v1
-      with:
-        draft: false
-        files: |
-          sharedlib/*.so
-          sharedlib/*.dll
-          sharedlib/*.dylib
-        generate_release_notes: true
-        tag_name: ${{ github.event.inputs.version }}
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v4
       with:
@@ -305,12 +328,22 @@ jobs:
     - name: install deps
       run: |
         uv sync --dev
-        uv run task version neonize --set-version ${{ github.event.inputs.version }}
-    - if: ${{ github.event.inputs.goneonize }}
-      name: set target goneonize to ${{ github.event.inputs.version }}
-      run: uv run task version goneonize --set-version ${{ github.event.inputs.version }}
-    - if: ${{ !github.event.inputs.goneonize }}
-      name: set target goneonize to last release
-      run: uv run task version goneonize --last
+        uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
+        bash bump_version.sh
+        echo "TAG_NAME=$(uv run task version goneonize)" >> $GITHUB_ENV
+    - name: Upload shared library to draft release
+      uses: softprops/action-gh-release@v1
+      with:
+        draft: false
+        files: |
+          sharedlib/*.so
+          sharedlib/*.dll
+          sharedlib/*.dylib
+        generate_release_notes: true
+        tag_name: ${{ env.TAG_NAME }}
     - name: Publish
-      run: uv build && uv publish
+      run: |
+        if [[ $UV_PUBLISH_TOKEN ]];then
+          uv build && uv publish
+        fi
+        

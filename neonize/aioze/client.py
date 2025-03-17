@@ -462,7 +462,7 @@ class NewAClient:
         """
         if text is None:
             return []
-        
+
         gc_mentions = []
         for jid in re.finditer(r"@([0-9-]{11,26}|0)@g\.us", text):
             try:
@@ -473,12 +473,9 @@ class NewAClient:
                 log.info(traceback.format_exc())
                 continue
             gc_mentions.append(
-                GroupMention(
-                    groupJID=Jid2String(group.JID),
-                    groupSubject=group.GroupName.Name
-                )
+                GroupMention(groupJID=Jid2String(group.JID), groupSubject=group.GroupName.Name)
             )
-            
+
         return gc_mentions
 
     async def _generate_link_preview(self, text: str) -> ExtendedTextMessage | None:
@@ -560,6 +557,8 @@ class NewAClient:
         :type link_preview: bool, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
+        :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
+        :type ghost_mentions: str, optional
         :raises SendMessageError: If there was an error sending the message.
         :return: The response from the server.
         :rtype: SendResponse
@@ -567,9 +566,10 @@ class NewAClient:
         to_bytes = to.SerializeToString()
         if isinstance(message, str):
             mentioned_groups = await self._parse_group_mention(message)
-            mentioned_jid = self._parse_mention(ghost_mentions or message)
+            mentioned_jid = self._parse_mention(ghost_mentions or ghost_mentions or message)
             partial_msg = ExtendedTextMessage(
-                text=message, contextInfo=ContextInfo(mentionedJID=mentioned_jid, groupMentions=mentioned_groups)
+                text=message,
+                contextInfo=ContextInfo(mentionedJID=mentioned_jid, groupMentions=mentioned_groups),
             )
             if link_preview:
                 preview = await self._generate_link_preview(message)
@@ -621,7 +621,7 @@ class NewAClient:
                 text=message,
                 contextInfo=ContextInfo(
                     mentionedJID=self._parse_mention(ghost_mentions or message),
-                    groupMentions=(await self._parse_group_mention(message)),
+                    groupMentions=(await self._parse_group_mention(ghost_mentions or message)),
                 ),
             )
             if link_preview:
@@ -658,6 +658,8 @@ class NewAClient:
         :type link_preview: bool, optional
         :param reply_privately: If set to True, the message is sent as a private reply. Defaults to False.
         :type reply_privately: bool, optional
+        :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
+        :type ghost_mentions: str, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
         :return: Response of the send operation.
@@ -948,6 +950,8 @@ class NewAClient:
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
         :return: A video message with the given parameters.
+        :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
+        :type ghost_mentions: str, optional
         :rtype: Message
         """
         io = BytesIO(await get_bytes_from_name_or_url_async(file))
@@ -978,7 +982,7 @@ class NewAClient:
                 thumbnailSHA256=upload.FileSHA256,
                 viewOnce=viewonce,
                 contextInfo=ContextInfo(
-                    mentionedJID=self._parse_mention(ghost_mentions or caption),
+                    mentionedJID=self._parse_mention(ghost_mentions or ghost_mentions or caption),
                     groupMentions=(await self._parse_group_mention(caption)),
                 ),
             )
@@ -1016,6 +1020,8 @@ class NewAClient:
         :type is_gif: bool, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
+        :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
+        :type ghost_mentions: str, optional
         :return: A function for handling the result of the video sending process.
         :rtype: SendResponse
         """
@@ -1051,6 +1057,8 @@ class NewAClient:
         :type viewonce: bool, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
+        :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
+        :type ghost_mentions: str, optional
         :return: The constructed image message.
         :rtype: Message
         """
@@ -1077,7 +1085,7 @@ class NewAClient:
                 thumbnailSHA256=upload.FileSHA256,
                 viewOnce=viewonce,
                 contextInfo=ContextInfo(
-                    mentionedJID=self._parse_mention(ghost_mentions or caption),
+                    mentionedJID=self._parse_mention(ghost_mentions or ghost_mentions or caption),
                     groupMentions=(await self._parse_group_mention(caption)),
                 ),
             )
@@ -1109,11 +1117,16 @@ class NewAClient:
         :type viewonce: bool, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
+        :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
+        :type ghost_mentions: str, optional
         :return: A function for handling the result of the image sending process.
         :rtype: SendResponse
         """
         return await self.send_message(
-            to, await self.build_image_message(file, caption, quoted, viewonce=viewonce, ghost_mentions=ghost_mentions)
+            to,
+            await self.build_image_message(
+                file, caption, quoted, viewonce=viewonce, ghost_mentions=ghost_mentions
+            ),
         )
 
     async def build_audio_message(
@@ -1207,7 +1220,7 @@ class NewAClient:
                 title=title,
                 fileName=filename,
                 contextInfo=ContextInfo(
-                    mentionedJID=self._parse_mention(ghost_mentions or caption),
+                    mentionedJID=self._parse_mention(ghost_mentions or ghost_mentions or caption),
                     groupMentions=(await self._parse_group_mention(caption)),
                 ),
             )
@@ -1243,12 +1256,16 @@ class NewAClient:
         :type quoted: Optional[Message], optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
+        :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
+        :type ghost_mentions: str, optional
         :return: A function for handling the result of the document sending process.
         :rtype: SendResponse
         """
         return await self.send_message(
             to,
-            await self.build_document_message(file, caption, title, filename, mimetype, quoted, ghost_mentions),
+            await self.build_document_message(
+                file, caption, title, filename, mimetype, quoted, ghost_mentions
+            ),
         )
 
     async def send_contact(
@@ -2688,7 +2705,9 @@ class NewAClient:
     async def decrypt_poll_vote(self, message: neonize_proto.Message) -> PollVoteMessage:
         """Decrypt PollMessage"""
         msg_buff = message.SerializeToString()
-        response = await self.__client.DecryptPollVote(self.uuid, msg_buff, len(msg_buff))
+        response = await self.__client.DecryptPollVote(
+            self.uuid, msg_buff, len(msg_buff), len(msg_buff)
+        )
         model = ReturnFunctionWithError.FromString(response.get_bytes())
         if model.Error:
             raise DecryptPollVoteError(model.Error)
