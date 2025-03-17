@@ -328,7 +328,10 @@ jobs:
       with:
         draft: false
         files: |
-          sharedlib/*
+          sharedlib/*.so
+          sharedlib/*.dll
+          sharedlib/*.dylib
+          sharedlib/*.whl
         generate_release_notes: true
         tag_name: ${{ env.TAG_NAME }}
     - name: Publish
