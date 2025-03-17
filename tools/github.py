@@ -31,7 +31,7 @@ class Github(httpx.Client):
             str: The latest release tag name.
         """
         r = self.get(f"/repos/{self.username}/{self.repository}/releases").json()
-        if r.get("status") == '404':
+        if isinstance(r, dict) and r.get("status") == '404':
             return "0.0.0"
         return r[0]["tag_name"]
 
@@ -70,7 +70,7 @@ class Github(httpx.Client):
             TypeError: If no release with assets is found.
         """
         r = self.get(f"/repos/{self.username}/{self.repository}/releases").json()
-        if r.get("status") == '404':
+        if isinstance(r, dict) and r.get("status") == '404':
             return "0.0.0"
         for release in r:
             if len(release["assets"]):
