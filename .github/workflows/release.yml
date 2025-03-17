@@ -300,15 +300,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: [android, zig, linux, darwin]
     steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
     - name: Download Artifact
       uses: actions/download-artifact@v4
       with:
         merge-multiple: true
         path: sharedlib
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v4
-      with:
-        python-version: "3.11"
     - name: Install uv
       uses: astral-sh/setup-uv@v5
     - name: install deps
