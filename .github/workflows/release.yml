@@ -323,7 +323,7 @@ jobs:
         uv sync --dev
         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
         bash bump_version.sh
-        echo "TAG_NAME=$(uv run task version neonize --pypi-format)" >> $GITHUB_ENV
+        echo "TAG_NAME=$(uv run task version neonize)" >> $GITHUB_ENV
     - name: Upload shared library to draft release
       uses: softprops/action-gh-release@v1
       with:

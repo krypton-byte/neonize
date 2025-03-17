@@ -6,7 +6,7 @@ import os
 import platform
 
 WORKDIR = Path(__file__).parent.parent
-fname = "-".join(["neonize", os.popen("uv run task version neonize").read().strip()])
+fname = "-".join(["neonize", os.popen("uv run task version neonize --pypi-format").read().strip()])
 wheel_name = fname + "-py3-none-any.whl"
 os_name = os.environ.get("GOOS") or platform.system().lower()
 arch_name = os.environ.get("GOARCH") or platform.machine().lower()
