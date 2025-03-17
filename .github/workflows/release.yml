@@ -30,7 +30,6 @@ env:
  VERSION_POST: ${{ github.event.inputs.version_post }}
 jobs:
   android:
-    if: ${{ github.event.inputs.goneonize }}
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v4
