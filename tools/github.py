@@ -1,3 +1,4 @@
+from datetime import datetime
 import httpx
 from .version import Version
 
@@ -33,7 +34,9 @@ class Github(httpx.Client):
         r = self.get(f"/repos/{self.username}/{self.repository}/releases").json()
         if isinstance(r, dict) and r.get("status") == '404':
             return "0.0.0"
-        return r[0]["tag_name"]
+        for data in r:
+            data['created_at'] = datetime.strptime(data['created_at'], "%Y-%m-%dT%H:%M:%SZ").timestamp()
+        return sorted(r, key=lambda x:x['created_at'])[-1]["tag_name"]
 
     def download_neonize(self, version: str) -> bytes:
         """
@@ -72,7 +75,9 @@ class Github(httpx.Client):
         r = self.get(f"/repos/{self.username}/{self.repository}/releases").json()
         if isinstance(r, dict) and r.get("status") == '404':
             return "0.0.0"
-        for release in r:
+        for data in r:
+            data['created_at'] = datetime.strptime(data['created_at'], "%Y-%m-%dT%H:%M:%SZ").timestamp()
+        for release in sorted(r, key=lambda x:x['created_at'], reverse=True):
             if len(release["assets"]):
                 return release["tag_name"]
         raise TypeError("Unavailable")

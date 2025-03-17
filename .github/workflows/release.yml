@@ -163,8 +163,7 @@ jobs:
       with: 
         name: Zig
         path: |
-          LIBS/*.so
-          LIBS/*.dll
+          LIBS/*
   linux:
     runs-on: ubuntu-20.04
     steps:
@@ -234,7 +233,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with: 
         name: Linux
-        path: LIBS/*.so
+        path: LIBS/*
   darwin:
     runs-on: macos-latest
     steps:
@@ -296,7 +295,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with: 
         name: Darwin
-        path: LIBS/*.dylib
+        path: LIBS/*
 
   release:
     runs-on: ubuntu-latest
