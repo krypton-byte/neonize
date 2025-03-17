@@ -40,4 +40,4 @@ def build_goneonize_decision() -> bool:
 
 
 if __name__ == "__main__":
-    sys.exit(build_goneonize_decision())
+    sys.exit(not build_goneonize_decision())
