@@ -6,6 +6,6 @@ elif [[ $VERSION_MINOR == "true" ]];then
     uv run task version update minor
 elif [[ $VERSION_PATCH == "true" ]];then
     uv run task version update patch
-elif [[ ( $VERSION_MAJOR == "false" && $VERSION_MINOR == "false" && VERSION_PATCH == "false" && VERSION_POST == "false" ) || VERSION_POST == "true" ]]; then
+elif [[ ( $VERSION_MAJOR == "false" && $VERSION_MINOR == "false" && $VERSION_PATCH == "false" && $VERSION_POST == "false" ) || $VERSION_POST == "true" ]]; then
     uv run task version update post
 fi
