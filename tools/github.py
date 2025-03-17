@@ -78,6 +78,6 @@ class Github(httpx.Client):
         for data in r:
             data['created_at'] = datetime.strptime(data['created_at'], "%Y-%m-%dT%H:%M:%SZ").timestamp()
         for release in sorted(r, key=lambda x:x['created_at'], reverse=True):
-            if len(release["assets"]) > 10:
+            if len(release["assets"]) > 12:
                 return release["tag_name"]
         raise TypeError("Unavailable")

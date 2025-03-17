@@ -50,7 +50,7 @@ def build_goneonize_decision() -> bool:
     """
     try:
         github = Github()
-        zipfile = ZipFile(BytesIO(github.get_last_neonize_release()))
+        zipfile = ZipFile(BytesIO(github.download_neonize(github.get_last_goneonize_version())))
         return check(zipfile)
     except Exception:
         return True

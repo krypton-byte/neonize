@@ -255,7 +255,6 @@ jobs:
     - name: install deps
       run: |
         uv sync --dev
-        uv sync --dev
         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
         bash bump_version.sh
     - name: build
