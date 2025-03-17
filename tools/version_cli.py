@@ -40,10 +40,7 @@ if __name__ == "__main__":
                 version.neonize = parse.set_version
             elif parse.last:
                 post = github.get_last_version().split(".")
-                if len(post) > 3:
-                    post[-1] = f"post{post[-1]}"
-                version.neonize = ".".join(post)
-            print(version.version_pypi_standard)
+            print(version.neonize)
         case "goneonize":
             version = Version()
             github = Github()
