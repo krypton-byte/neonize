@@ -41,7 +41,7 @@ if __name__ == "__main__":
                 version.neonize = parse.set_version
                 print(version.neonize)
             elif parse.last:
-                post = github.get_last_version().split(".")
+                version.neonize = github.get_last_version()
                 print(version.neonize)
             elif parse.pypi_format:
                 print(version.version_pypi_standard)
