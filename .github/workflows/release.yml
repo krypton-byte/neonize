@@ -21,6 +21,7 @@ on:
         description: Specify whether the post version (major.minor.patch.<post>) should be updated.
         type: boolean
         required: false
+        default: true
 
 env:
  UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
