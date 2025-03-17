@@ -766,7 +766,7 @@ class NewClient:
         name: str = "",
         packname: str = "",
         crop: bool = False,
-        enforce_not_broken:  bool = False,
+        enforce_not_broken: bool = False,
     ) -> Message:
         """
         This function builds a sticker message from a given image or video file.
@@ -836,7 +836,7 @@ class NewClient:
         name: str = "",
         packname: str = "",
         crop: bool = False,
-        enforce_not_broken: bool = False
+        enforce_not_broken: bool = False,
     ) -> SendResponse:
         """
         Send a sticker to a specific JID.
