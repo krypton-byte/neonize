@@ -21,6 +21,7 @@ if __name__ == "__main__":
     neonize_version = nz.add_argument_group("version value")
     neonize_version.add_argument("--set-version", type=str)
     neonize_version.add_argument("--last", action="store_true")
+    neonize_version.add_argument("--pypi-format")
     gz = cmd.add_parser("goneonize")
     gz_group = gz.add_argument_group("version value")
     mutual = gz_group.add_mutually_exclusive_group()
@@ -38,9 +39,12 @@ if __name__ == "__main__":
             github = Github()
             if parse.set_version:
                 version.neonize = parse.set_version
+                print(version.neonize)
             elif parse.last:
                 post = github.get_last_version().split(".")
-            print(version.neonize)
+                print(version.neonize)
+            elif parse.pypi_format:
+                print(version.version_pypi_standard)
         case "goneonize":
             version = Version()
             github = Github()
