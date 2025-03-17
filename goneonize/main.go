@@ -2106,3 +2106,5 @@ func SendFBMessage(id *C.char, to *C.uchar, toSize C.int, message *C.uchar, mess
 func main() {
 
 }
+
+//comment
