@@ -1,12 +1,41 @@
 from io import BytesIO
+import os
+from os.path import isfile
 import sys
 from .github import Github
 from zipfile import ZipFile
 from hashlib import md5
 from pathlib import Path
+import glob
 
 goneonize = Path(__file__).parent.parent / "goneonize"
+def get_diff():
+    ignore = ["goneonize/defproto", "goneonize/go.mod", "goneonize/go.sum"]
+    file_paths = glob.glob("goneonize/**/*", recursive=True)
+    files = []
+    for file in file_paths:
+        if os.path.isfile(file) and not file.startswith("goneonize/defproto") and not file.startswith('goneonize/neonize') and '__pycache__' not in file and file not in ignore:
+            files.append(file)
+    files.append('goneonize/defproto/.sha')
+    files.remove("goneonize/version.go")
+    return files
 
+def get_current_md5():
+    data = get_diff()
+    result = {}
+    for file in data:
+        with open(Path(__file__).parent.parent / file, 'rb') as fd:
+            result[file] = md5(fd.read()).hexdigest()
+    return result
+
+def check(gh: ZipFile):
+    hash_file = get_current_md5()
+    files = list(hash_file)
+    folder = gh.filelist[0].filename.split('/')[0]
+    for file in files:
+        if hash_file[file] != md5(gh.read(f"{folder}/{file}")).hexdigest():
+            return True
+    return False
 
 def build_goneonize_decision() -> bool:
     """
@@ -22,19 +51,7 @@ def build_goneonize_decision() -> bool:
     try:
         github = Github()
         zipfile = ZipFile(BytesIO(github.get_last_neonize_release()))
-        neonize_proto = ""
-        defproto_sha = ""
-        for file in zipfile.filelist:
-            filename = file.filename
-            if filename.endswith("Neonize.proto"):
-                neonize_proto = md5(zipfile.read(file.filename)).hexdigest()
-            elif file.filename.endswith(".sha"):
-                defproto_sha = zipfile.read(filename).decode()
-        with open(goneonize / "Neonize.proto", "rb") as file:
-            current_neonize_proto = md5(file.read()).hexdigest()
-        with open(goneonize / "defproto" / ".sha", "r") as file:
-            current_defproto_sha = file.read()
-        return not (neonize_proto == current_neonize_proto and defproto_sha == current_defproto_sha)
+        return check(zipfile)
     except Exception:
         return True
 

@@ -3,7 +3,7 @@ from .utils.platform import generated_name
 import requests
 from pathlib import Path
 from tqdm import tqdm
-__GONEONIZE_VERSION__ = '0.0.0'
+__GONEONIZE_VERSION__ = '0.3.9'
 __GIT_RELEASE_URL__ = 'https://github.com/krypton-byte/neonize'
 
 class UnsupportedPlatform(Exception):

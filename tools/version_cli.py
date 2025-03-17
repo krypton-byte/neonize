@@ -39,7 +39,7 @@ if __name__ == "__main__":
             if parse.set_version:
                 version.neonize = parse.set_version
             elif parse.last:
-                post = github.get_last_goneonize_version().split(".")
+                post = github.get_last_version().split(".")
                 if len(post) > 3:
                     post[-1] = f"post{post[-1]}"
                 version.neonize = ".".join(post)
