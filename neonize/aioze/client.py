@@ -511,7 +511,11 @@ class NewAClient:
         )
 
     async def send_message(
-        self, to: JID, message: typing.Union[Message, str], link_preview: bool = False, ghost_mentions: Optional[str] = None
+        self,
+        to: JID,
+        message: typing.Union[Message, str],
+        link_preview: bool = False,
+        ghost_mentions: Optional[str] = None,
     ) -> SendResponse:
         """Send a message to the specified JID.
 
@@ -581,7 +585,9 @@ class NewAClient:
         if isinstance(message, str):
             partial_message = ExtendedTextMessage(
                 text=message,
-                contextInfo=ContextInfo(mentionedJID=self._parse_mention(ghost_mentions or message)),
+                contextInfo=ContextInfo(
+                    mentionedJID=self._parse_mention(ghost_mentions or message)
+                ),
             )
             if link_preview:
                 preview = await self._generate_link_preview(message)
@@ -979,7 +985,9 @@ class NewAClient:
         """
         return await self.send_message(
             to,
-            await self.build_video_message(file, caption, quoted, viewonce, gifplayback, is_gif, ghost_mentions),
+            await self.build_video_message(
+                file, caption, quoted, viewonce, gifplayback, is_gif, ghost_mentions
+            ),
         )
 
     async def build_image_message(
@@ -1555,9 +1563,7 @@ class NewAClient:
         :rtype: str
         """
         data = get_bytes_from_name_or_url(file_or_bytes)
-        response = await self.__client.SetProfilePhoto(
-            self.uuid, data, len(data)
-        )
+        response = await self.__client.SetProfilePhoto(self.uuid, data, len(data))
         model = SetGroupPhotoReturnFunction.FromString(response.get_bytes())
         if model.Error:
             raise SetGroupPhotoError(model.Error)

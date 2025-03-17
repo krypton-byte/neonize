@@ -33,12 +33,14 @@ docs = [
 ]
 
 [tool.taskipy.tasks]
-build = {cmd = "uv run python -m tools.goneonize", help = "build goneonize"}
-docsbuild = {cmd = "uv run python -m tools.docs", help="build autogen documentation for neonize"}
-version = {cmd = "uv run python -m tools.versioning", help = "set neonize & goneonize version"}
+build = {cmd = "uv run -m tools.goneonize", help = "build goneonize"}
+docsbuild = {cmd = "uv run -m tools.docs", help="build autogen documentation for neonize"}
+version = {cmd = "uv run -m tools.version_cli", help = "set neonize & goneonize version"}
 download = {cmd = "uv run -m tools.download", help="Download goneonize from github release with specific version"}
 repack = {cmd = "uv run -m tools.repack", help="generate wheel with spesific os & arch"}
 proto = {cmd = "uv run -m tools.update_proto", help="update whatsapp proto files"}
+goneonize_changed = {cmd = "uv run -m tools.build_goneonize_decision", help = "This command to compares the latest release of goneonize"}
+
 [tool.uv.workspace]
 exclude = ["docs/","goneonize/"]
 members = ["neonize/neonize-*"]

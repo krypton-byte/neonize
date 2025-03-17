@@ -10,6 +10,8 @@ import zipfile
 from dataclasses import dataclass
 import argparse
 
+from tools.value_changer import ValueChanger
+
 os_name = platform.system().lower()
 arch_name = platform.machine().lower()
 init()
