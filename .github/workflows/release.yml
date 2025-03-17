@@ -153,7 +153,7 @@ jobs:
         uv build
         uv run task repack
         mv neonize/*.so LIBS
-        cp neonize/*.whl LIBS/
+        cp dist/*.whl LIBS/
         if [[ $UV_PUBLISH_TOKEN ]];then
           uv publish
         fi
@@ -224,7 +224,7 @@ jobs:
         uv build
         uv run task repack
         mv neonize/*.so LIBS
-        cp neonize/*.whl LIBS/
+        cp dist/*.whl LIBS/
         if [[ $UV_PUBLISH_TOKEN ]];then
           uv publish
         fi
@@ -285,7 +285,7 @@ jobs:
         uv run task build goneonize
         uv build
         uv run task repack
-        cp neonize/*.whl LIBS/
+        cp dist/*.whl LIBS/
         mv neonize/*.dylib LIBS/
         if [[ $UV_PUBLISH_TOKEN ]];then
           uv publish
