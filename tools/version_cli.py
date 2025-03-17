@@ -21,7 +21,7 @@ if __name__ == "__main__":
     neonize_version = nz.add_argument_group("version value")
     neonize_version.add_argument("--set-version", type=str)
     neonize_version.add_argument("--last", action="store_true")
-    neonize_version.add_argument("--pypi-format", action='store_true')
+    neonize_version.add_argument("--pypi-format", action="store_true")
     gz = cmd.add_parser("goneonize")
     gz_group = gz.add_argument_group("version value")
     mutual = gz_group.add_mutually_exclusive_group()
