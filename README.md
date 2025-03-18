@@ -56,7 +56,7 @@ Neonize currently supports `sqlite` and `postgres` database. Use postgres if you
 Once you've created your postgres database, pass your full database url to the client. Database url will be in the format `"postgres://username:password@myhost:port/dbname"` e.g.
 
 ```python
-client = NewAclient("?sslmode=disable")
+client = NewAclient("postgres://username:password@myhost:port/dbname")
 ```
 
 **Note:** You may need to enable or disable ssl mode depending.
