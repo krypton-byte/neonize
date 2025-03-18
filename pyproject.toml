@@ -1,6 +1,6 @@
 [project]
 name = "neonize"
-description = "Add your description here"
+description = "Neonize is a Python library designed to streamline the automation of tasks on WhatsApp"
 readme = "README.md"
 requires-python = ">=3.10"
 dynamic = ["version"]

@@ -28,12 +28,23 @@ import (
 	"go.mau.fi/whatsmeow/types"
 	"go.mau.fi/whatsmeow/types/events"
 
+	_ "github.com/lib/pq"
+
 	waProto "go.mau.fi/whatsmeow/binary/proto"
 	waLog "go.mau.fi/whatsmeow/util/log"
 	"google.golang.org/protobuf/proto"
 )
 
 var clients = make(map[string]*whatsmeow.Client)
+
+// Defaults to sqlite otherwise use postgres database url
+func getDB(db *C.char, dbLog waLog.Logger) (*sqlstore.Container, error) {
+	container, err := sqlstore.New("sqlite3", fmt.Sprintf("file:%s?_foreign_keys=on", C.GoString(db)), dbLog)
+	if strings.HasPrefix(C.GoString(db), "postgres") {
+		container, err = sqlstore.New("postgres", C.GoString(db), dbLog)
+	}
+	return container, err
+}
 
 func getByteByAddr(addr *C.uchar, size C.int) []byte {
 	return C.GoBytes(unsafe.Pointer(addr), size)
@@ -146,7 +157,8 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 	}
 	dbLog := waLog.Stdout("Database", C.GoString(logLevel), true)
 	// Make sure you add appropriate DB connector imports, e.g. github.com/mattn/go-sqlite3 for SQLite
-	container, err := sqlstore.New("sqlite3", fmt.Sprintf("file:%s?_foreign_keys=on", C.GoString(db)), dbLog)
+	container, err := getDB(db, dbLog)
+
 	if err != nil {
 		panic(err)
 	}
@@ -1981,7 +1993,7 @@ func PutArchived(id *C.char, user *C.uchar, userSize C.int, archived C.bool) *C.
 //export GetAllDevices
 func GetAllDevices(db *C.char) *C.char {
 	dbLog := waLog.Stdout("Database", "ERROR", true)
-	container, err := sqlstore.New("sqlite3", fmt.Sprintf("file:%s?_foreign_keys=on", C.GoString(db)), dbLog)
+	container, err := getDB(db, dbLog)
 	if err != nil {
 		panic(err)
 	}
