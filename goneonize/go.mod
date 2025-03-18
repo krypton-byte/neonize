@@ -3,6 +3,7 @@ module github.com/krypton-byte/neonize
 go 1.23.4
 
 require (
+	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.24
 	go.mau.fi/whatsmeow v0.0.0-20250307203951-daf102be9698
 	google.golang.org/protobuf v1.36.5
