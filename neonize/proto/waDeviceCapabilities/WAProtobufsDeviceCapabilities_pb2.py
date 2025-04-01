@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n8waDeviceCapabilities/WAProtobufsDeviceCapabilities.proto\x12\x1dWAProtobufsDeviceCapabilities\"\xb3\x01\n\x12\x44\x65viceCapabilities\x12\x64\n\x14\x63hatLockSupportLevel\x18\x01 \x01(\x0e\x32\x46.WAProtobufsDeviceCapabilities.DeviceCapabilities.ChatLockSupportLevel\"7\n\x14\x43hatLockSupportLevel\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07MINIMAL\x10\x01\x12\x08\n\x04\x46ULL\x10\x02\x42\x30Z.go.mau.fi/whatsmeow/proto/waDeviceCapabilities')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n8waDeviceCapabilities/WAProtobufsDeviceCapabilities.proto\x12\x1dWAProtobufsDeviceCapabilities\"\xbb\x02\n\x12\x44\x65viceCapabilities\x12\x64\n\x14\x63hatLockSupportLevel\x18\x01 \x01(\x0e\x32\x46.WAProtobufsDeviceCapabilities.DeviceCapabilities.ChatLockSupportLevel\x12T\n\x0clidMigration\x18\x02 \x01(\x0b\x32>.WAProtobufsDeviceCapabilities.DeviceCapabilities.LIDMigration\x1a\x30\n\x0cLIDMigration\x12 \n\x18\x63hatDbMigrationTimestamp\x18\x01 \x01(\x04\"7\n\x14\x43hatLockSupportLevel\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07MINIMAL\x10\x01\x12\x08\n\x04\x46ULL\x10\x02\x42\x30Z.go.mau.fi/whatsmeow/proto/waDeviceCapabilities')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -23,7 +23,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z.go.mau.fi/whatsmeow/proto/waDeviceCapabilities'
   _globals['_DEVICECAPABILITIES']._serialized_start=92
-  _globals['_DEVICECAPABILITIES']._serialized_end=271
-  _globals['_DEVICECAPABILITIES_CHATLOCKSUPPORTLEVEL']._serialized_start=216
-  _globals['_DEVICECAPABILITIES_CHATLOCKSUPPORTLEVEL']._serialized_end=271
+  _globals['_DEVICECAPABILITIES']._serialized_end=407
+  _globals['_DEVICECAPABILITIES_LIDMIGRATION']._serialized_start=302
+  _globals['_DEVICECAPABILITIES_LIDMIGRATION']._serialized_end=350
+  _globals['_DEVICECAPABILITIES_CHATLOCKSUPPORTLEVEL']._serialized_start=352
+  _globals['_DEVICECAPABILITIES_CHATLOCKSUPPORTLEVEL']._serialized_end=407
 # @@protoc_insertion_point(module_scope)

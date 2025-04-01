@@ -41,11 +41,13 @@ class FingerprintData(google.protobuf.message.Message):
     LIDIDENTIFIER_FIELD_NUMBER: builtins.int
     USERNAMEIDENTIFIER_FIELD_NUMBER: builtins.int
     HOSTEDSTATE_FIELD_NUMBER: builtins.int
+    HASHEDPUBLICKEY_FIELD_NUMBER: builtins.int
     publicKey: builtins.bytes
     pnIdentifier: builtins.bytes
     lidIdentifier: builtins.bytes
     usernameIdentifier: builtins.bytes
     hostedState: global___HostedState.ValueType
+    hashedPublicKey: builtins.bytes
     def __init__(
         self,
         *,
@@ -54,9 +56,10 @@ class FingerprintData(google.protobuf.message.Message):
         lidIdentifier: builtins.bytes | None = ...,
         usernameIdentifier: builtins.bytes | None = ...,
         hostedState: global___HostedState.ValueType | None = ...,
+        hashedPublicKey: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["hostedState", b"hostedState", "lidIdentifier", b"lidIdentifier", "pnIdentifier", b"pnIdentifier", "publicKey", b"publicKey", "usernameIdentifier", b"usernameIdentifier"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["hostedState", b"hostedState", "lidIdentifier", b"lidIdentifier", "pnIdentifier", b"pnIdentifier", "publicKey", b"publicKey", "usernameIdentifier", b"usernameIdentifier"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["hashedPublicKey", b"hashedPublicKey", "hostedState", b"hostedState", "lidIdentifier", b"lidIdentifier", "pnIdentifier", b"pnIdentifier", "publicKey", b"publicKey", "usernameIdentifier", b"usernameIdentifier"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["hashedPublicKey", b"hashedPublicKey", "hostedState", b"hostedState", "lidIdentifier", b"lidIdentifier", "pnIdentifier", b"pnIdentifier", "publicKey", b"publicKey", "usernameIdentifier", b"usernameIdentifier"]) -> None: ...
 
 global___FingerprintData = FingerprintData
 

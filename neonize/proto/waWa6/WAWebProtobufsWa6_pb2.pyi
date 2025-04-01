@@ -36,6 +36,19 @@ class ClientPayload(google.protobuf.message.Message):
     OFF: ClientPayload.TrafficAnonymization.ValueType  # 0
     STANDARD: ClientPayload.TrafficAnonymization.ValueType  # 1
 
+    class _AccountType:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _AccountTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ClientPayload._AccountType.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DEFAULT: ClientPayload._AccountType.ValueType  # 0
+        GUEST: ClientPayload._AccountType.ValueType  # 1
+
+    class AccountType(_AccountType, metaclass=_AccountTypeEnumTypeWrapper): ...
+    DEFAULT: ClientPayload.AccountType.ValueType  # 0
+    GUEST: ClientPayload.AccountType.ValueType  # 1
+
     class _Product:
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
@@ -46,12 +59,14 @@ class ClientPayload(google.protobuf.message.Message):
         MESSENGER: ClientPayload._Product.ValueType  # 1
         INTEROP: ClientPayload._Product.ValueType  # 2
         INTEROP_MSGR: ClientPayload._Product.ValueType  # 3
+        WHATSAPP_LID: ClientPayload._Product.ValueType  # 4
 
     class Product(_Product, metaclass=_ProductEnumTypeWrapper): ...
     WHATSAPP: ClientPayload.Product.ValueType  # 0
     MESSENGER: ClientPayload.Product.ValueType  # 1
     INTEROP: ClientPayload.Product.ValueType  # 2
     INTEROP_MSGR: ClientPayload.Product.ValueType  # 3
+    WHATSAPP_LID: ClientPayload.Product.ValueType  # 4
 
     class _ConnectType:
         ValueType = typing.NewType("ValueType", builtins.int)
@@ -543,6 +558,8 @@ class ClientPayload(google.protobuf.message.Message):
     MEMCLASS_FIELD_NUMBER: builtins.int
     INTEROPDATA_FIELD_NUMBER: builtins.int
     TRAFFICANONYMIZATION_FIELD_NUMBER: builtins.int
+    LIDDBMIGRATED_FIELD_NUMBER: builtins.int
+    ACCOUNTTYPE_FIELD_NUMBER: builtins.int
     username: builtins.int
     passive: builtins.bool
     pushName: builtins.str
@@ -565,6 +582,8 @@ class ClientPayload(google.protobuf.message.Message):
     yearClass: builtins.int
     memClass: builtins.int
     trafficAnonymization: global___ClientPayload.TrafficAnonymization.ValueType
+    lidDbMigrated: builtins.bool
+    accountType: global___ClientPayload.AccountType.ValueType
     @property
     def userAgent(self) -> global___ClientPayload.UserAgent: ...
     @property
@@ -608,9 +627,11 @@ class ClientPayload(google.protobuf.message.Message):
         memClass: builtins.int | None = ...,
         interopData: global___ClientPayload.InteropData | None = ...,
         trafficAnonymization: global___ClientPayload.TrafficAnonymization.ValueType | None = ...,
+        lidDbMigrated: builtins.bool | None = ...,
+        accountType: global___ClientPayload.AccountType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "memClass", b"memClass", "oc", b"oc", "paddingBytes", b"paddingBytes", "passive", b"passive", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "memClass", b"memClass", "oc", b"oc", "paddingBytes", b"paddingBytes", "passive", b"passive", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shards", b"shards", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paddingBytes", b"paddingBytes", "passive", b"passive", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paddingBytes", b"paddingBytes", "passive", b"passive", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shards", b"shards", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> None: ...
 
 global___ClientPayload = ClientPayload
 

@@ -41,18 +41,21 @@ class MediaRetryNotification(google.protobuf.message.Message):
     STANZAID_FIELD_NUMBER: builtins.int
     DIRECTPATH_FIELD_NUMBER: builtins.int
     RESULT_FIELD_NUMBER: builtins.int
+    MESSAGESECRET_FIELD_NUMBER: builtins.int
     stanzaID: builtins.str
     directPath: builtins.str
     result: global___MediaRetryNotification.ResultType.ValueType
+    messageSecret: builtins.bytes
     def __init__(
         self,
         *,
         stanzaID: builtins.str | None = ...,
         directPath: builtins.str | None = ...,
         result: global___MediaRetryNotification.ResultType.ValueType | None = ...,
+        messageSecret: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["directPath", b"directPath", "result", b"result", "stanzaID", b"stanzaID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["directPath", b"directPath", "result", b"result", "stanzaID", b"stanzaID"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["directPath", b"directPath", "messageSecret", b"messageSecret", "result", b"result", "stanzaID", b"stanzaID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["directPath", b"directPath", "messageSecret", b"messageSecret", "result", b"result", "stanzaID", b"stanzaID"]) -> None: ...
 
 global___MediaRetryNotification = MediaRetryNotification
 

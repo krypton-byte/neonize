@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1bwaMmsRetry/WAMmsRetry.proto\x12\nWAMmsRetry\"\xd0\x01\n\x16MediaRetryNotification\x12\x10\n\x08stanzaID\x18\x01 \x01(\t\x12\x12\n\ndirectPath\x18\x02 \x01(\t\x12=\n\x06result\x18\x03 \x01(\x0e\x32-.WAMmsRetry.MediaRetryNotification.ResultType\"Q\n\nResultType\x12\x11\n\rGENERAL_ERROR\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\r\n\tNOT_FOUND\x10\x02\x12\x14\n\x10\x44\x45\x43RYPTION_ERROR\x10\x03\"&\n\x12ServerErrorReceipt\x12\x10\n\x08stanzaID\x18\x01 \x01(\tB&Z$go.mau.fi/whatsmeow/proto/waMmsRetry')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1bwaMmsRetry/WAMmsRetry.proto\x12\nWAMmsRetry\"\xe7\x01\n\x16MediaRetryNotification\x12\x10\n\x08stanzaID\x18\x01 \x01(\t\x12\x12\n\ndirectPath\x18\x02 \x01(\t\x12=\n\x06result\x18\x03 \x01(\x0e\x32-.WAMmsRetry.MediaRetryNotification.ResultType\x12\x15\n\rmessageSecret\x18\x04 \x01(\x0c\"Q\n\nResultType\x12\x11\n\rGENERAL_ERROR\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\r\n\tNOT_FOUND\x10\x02\x12\x14\n\x10\x44\x45\x43RYPTION_ERROR\x10\x03\"&\n\x12ServerErrorReceipt\x12\x10\n\x08stanzaID\x18\x01 \x01(\tB&Z$go.mau.fi/whatsmeow/proto/waMmsRetry')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -23,9 +23,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z$go.mau.fi/whatsmeow/proto/waMmsRetry'
   _globals['_MEDIARETRYNOTIFICATION']._serialized_start=44
-  _globals['_MEDIARETRYNOTIFICATION']._serialized_end=252
-  _globals['_MEDIARETRYNOTIFICATION_RESULTTYPE']._serialized_start=171
-  _globals['_MEDIARETRYNOTIFICATION_RESULTTYPE']._serialized_end=252
-  _globals['_SERVERERRORRECEIPT']._serialized_start=254
-  _globals['_SERVERERRORRECEIPT']._serialized_end=292
+  _globals['_MEDIARETRYNOTIFICATION']._serialized_end=275
+  _globals['_MEDIARETRYNOTIFICATION_RESULTTYPE']._serialized_start=194
+  _globals['_MEDIARETRYNOTIFICATION_RESULTTYPE']._serialized_end=275
+  _globals['_SERVERERRORRECEIPT']._serialized_start=277
+  _globals['_SERVERERRORRECEIPT']._serialized_end=315
 # @@protoc_insertion_point(module_scope)
