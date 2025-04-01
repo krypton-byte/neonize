@@ -32,6 +32,9 @@ jobs:
         uv run task proto
         git diff --exit-code || uv run task build proto
     - uses: astral-sh/ruff-action@v3
+      with:
+        args: "check --fix"
+    - name: format python style PEP8 standard
       run: ruff check --fix && ruff format .
     - name: update golang dependencies
       run: cd goneonize && go get -u && go mod tidy
