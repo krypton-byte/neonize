@@ -1,6 +1,5 @@
 from io import BytesIO
 import os
-from os.path import isfile
 import sys
 from .github import Github
 from zipfile import ZipFile

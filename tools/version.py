@@ -1,4 +1,3 @@
-import httpx
 from colorama import init, Fore
 from pathlib import Path
 import re
