@@ -104,26 +104,66 @@ class Command(google.protobuf.message.Message):
 global___Command = Command
 
 @typing.final
+class Mention(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _MentionType:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _MentionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Mention._MentionType.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        PROFILE: Mention._MentionType.ValueType  # 0
+
+    class MentionType(_MentionType, metaclass=_MentionTypeEnumTypeWrapper): ...
+    PROFILE: Mention.MentionType.ValueType  # 0
+
+    MENTIONTYPE_FIELD_NUMBER: builtins.int
+    MENTIONEDJID_FIELD_NUMBER: builtins.int
+    OFFSET_FIELD_NUMBER: builtins.int
+    LENGTH_FIELD_NUMBER: builtins.int
+    mentionType: global___Mention.MentionType.ValueType
+    mentionedJID: builtins.str
+    offset: builtins.int
+    length: builtins.int
+    def __init__(
+        self,
+        *,
+        mentionType: global___Mention.MentionType.ValueType | None = ...,
+        mentionedJID: builtins.str | None = ...,
+        offset: builtins.int | None = ...,
+        length: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["length", b"length", "mentionType", b"mentionType", "mentionedJID", b"mentionedJID", "offset", b"offset"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["length", b"length", "mentionType", b"mentionType", "mentionedJID", b"mentionedJID", "offset", b"offset"]) -> None: ...
+
+global___Mention = Mention
+
+@typing.final
 class MessageText(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     TEXT_FIELD_NUMBER: builtins.int
     MENTIONEDJID_FIELD_NUMBER: builtins.int
     COMMANDS_FIELD_NUMBER: builtins.int
+    MENTIONS_FIELD_NUMBER: builtins.int
     text: builtins.str
     @property
     def mentionedJID(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     @property
     def commands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Command]: ...
+    @property
+    def mentions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Mention]: ...
     def __init__(
         self,
         *,
         text: builtins.str | None = ...,
         mentionedJID: collections.abc.Iterable[builtins.str] | None = ...,
         commands: collections.abc.Iterable[global___Command] | None = ...,
+        mentions: collections.abc.Iterable[global___Mention] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["text", b"text"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["commands", b"commands", "mentionedJID", b"mentionedJID", "text", b"text"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["commands", b"commands", "mentionedJID", b"mentionedJID", "mentions", b"mentions", "text", b"text"]) -> None: ...
 
 global___MessageText = MessageText
 
@@ -156,24 +196,34 @@ class LimitSharing(google.protobuf.message.Message):
 
     class _TriggerEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LimitSharing._Trigger.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        CHAT_SETTING: LimitSharing._Trigger.ValueType  # 0
-        BIZ_SUPPORTS_FB_HOSTING: LimitSharing._Trigger.ValueType  # 1
+        UNKNOWN: LimitSharing._Trigger.ValueType  # 0
+        CHAT_SETTING: LimitSharing._Trigger.ValueType  # 1
+        BIZ_SUPPORTS_FB_HOSTING: LimitSharing._Trigger.ValueType  # 2
+        UNKNOWN_GROUP: LimitSharing._Trigger.ValueType  # 3
 
     class Trigger(_Trigger, metaclass=_TriggerEnumTypeWrapper): ...
-    CHAT_SETTING: LimitSharing.Trigger.ValueType  # 0
-    BIZ_SUPPORTS_FB_HOSTING: LimitSharing.Trigger.ValueType  # 1
+    UNKNOWN: LimitSharing.Trigger.ValueType  # 0
+    CHAT_SETTING: LimitSharing.Trigger.ValueType  # 1
+    BIZ_SUPPORTS_FB_HOSTING: LimitSharing.Trigger.ValueType  # 2
+    UNKNOWN_GROUP: LimitSharing.Trigger.ValueType  # 3
 
     SHARINGLIMITED_FIELD_NUMBER: builtins.int
     TRIGGER_FIELD_NUMBER: builtins.int
+    LIMITSHARINGSETTINGTIMESTAMP_FIELD_NUMBER: builtins.int
+    INITIATEDBYME_FIELD_NUMBER: builtins.int
     sharingLimited: builtins.bool
     trigger: global___LimitSharing.Trigger.ValueType
+    limitSharingSettingTimestamp: builtins.int
+    initiatedByMe: builtins.bool
     def __init__(
         self,
         *,
         sharingLimited: builtins.bool | None = ...,
         trigger: global___LimitSharing.Trigger.ValueType | None = ...,
+        limitSharingSettingTimestamp: builtins.int | None = ...,
+        initiatedByMe: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["sharingLimited", b"sharingLimited", "trigger", b"trigger"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["sharingLimited", b"sharingLimited", "trigger", b"trigger"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["initiatedByMe", b"initiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "sharingLimited", b"sharingLimited", "trigger", b"trigger"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["initiatedByMe", b"initiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "sharingLimited", b"sharingLimited", "trigger", b"trigger"]) -> None: ...
 
 global___LimitSharing = LimitSharing

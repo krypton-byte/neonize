@@ -284,6 +284,7 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     CONTENTREF_FIELD_NUMBER: builtins.int
     MENTIONEDJID_FIELD_NUMBER: builtins.int
     COMMANDS_FIELD_NUMBER: builtins.int
+    MENTIONS_FIELD_NUMBER: builtins.int
     targetType: global___ExtendedContentMessage.ExtendedContentType.ValueType
     targetUsername: builtins.str
     targetID: builtins.str
@@ -316,6 +317,8 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     def mentionedJID(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     @property
     def commands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[waCommon.WACommon_pb2.Command]: ...
+    @property
+    def mentions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[waCommon.WACommon_pb2.Mention]: ...
     def __init__(
         self,
         *,
@@ -344,8 +347,9 @@ class ExtendedContentMessage(google.protobuf.message.Message):
         contentRef: builtins.str | None = ...,
         mentionedJID: collections.abc.Iterable[builtins.str] | None = ...,
         commands: collections.abc.Iterable[waCommon.WACommon_pb2.Command] | None = ...,
+        mentions: collections.abc.Iterable[waCommon.WACommon_pb2.Mention] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["associatedMessage", b"associatedMessage", "contentRef", b"contentRef", "favicon", b"favicon", "headerImage", b"headerImage", "headerSubtitle", b"headerSubtitle", "headerTitle", b"headerTitle", "maxSubtitleNumOfLines", b"maxSubtitleNumOfLines", "maxTitleNumOfLines", b"maxTitleNumOfLines", "messageText", b"messageText", "overlayDescription", b"overlayDescription", "overlayIconGlyph", b"overlayIconGlyph", "overlayTitle", b"overlayTitle", "sentWithMessageID", b"sentWithMessageID", "subtitleText", b"subtitleText", "targetExpiringAtSec", b"targetExpiringAtSec", "targetID", b"targetID", "targetType", b"targetType", "targetUsername", b"targetUsername", "titleText", b"titleText", "xmaDataclass", b"xmaDataclass", "xmaLayoutType", b"xmaLayoutType"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["associatedMessage", b"associatedMessage", "commands", b"commands", "contentRef", b"contentRef", "ctas", b"ctas", "favicon", b"favicon", "headerImage", b"headerImage", "headerSubtitle", b"headerSubtitle", "headerTitle", b"headerTitle", "maxSubtitleNumOfLines", b"maxSubtitleNumOfLines", "maxTitleNumOfLines", b"maxTitleNumOfLines", "mentionedJID", b"mentionedJID", "messageText", b"messageText", "overlayDescription", b"overlayDescription", "overlayIconGlyph", b"overlayIconGlyph", "overlayTitle", b"overlayTitle", "previews", b"previews", "sentWithMessageID", b"sentWithMessageID", "subtitleText", b"subtitleText", "targetExpiringAtSec", b"targetExpiringAtSec", "targetID", b"targetID", "targetType", b"targetType", "targetUsername", b"targetUsername", "titleText", b"titleText", "xmaDataclass", b"xmaDataclass", "xmaLayoutType", b"xmaLayoutType"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["associatedMessage", b"associatedMessage", "commands", b"commands", "contentRef", b"contentRef", "ctas", b"ctas", "favicon", b"favicon", "headerImage", b"headerImage", "headerSubtitle", b"headerSubtitle", "headerTitle", b"headerTitle", "maxSubtitleNumOfLines", b"maxSubtitleNumOfLines", "maxTitleNumOfLines", b"maxTitleNumOfLines", "mentionedJID", b"mentionedJID", "mentions", b"mentions", "messageText", b"messageText", "overlayDescription", b"overlayDescription", "overlayIconGlyph", b"overlayIconGlyph", "overlayTitle", b"overlayTitle", "previews", b"previews", "sentWithMessageID", b"sentWithMessageID", "subtitleText", b"subtitleText", "targetExpiringAtSec", b"targetExpiringAtSec", "targetID", b"targetID", "targetType", b"targetType", "targetUsername", b"targetUsername", "titleText", b"titleText", "xmaDataclass", b"xmaDataclass", "xmaLayoutType", b"xmaLayoutType"]) -> None: ...
 
 global___ExtendedContentMessage = ExtendedContentMessage

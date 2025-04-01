@@ -241,21 +241,41 @@ class MessageApplication(google.protobuf.message.Message):
     class EphemeralSetting(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+        class _EphemeralityType:
+            ValueType = typing.NewType("ValueType", builtins.int)
+            V: typing_extensions.TypeAlias = ValueType
+
+        class _EphemeralityTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[MessageApplication.EphemeralSetting._EphemeralityType.ValueType], builtins.type):
+            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+            UNKNOWN: MessageApplication.EphemeralSetting._EphemeralityType.ValueType  # 0
+            SEEN_ONCE: MessageApplication.EphemeralSetting._EphemeralityType.ValueType  # 1
+            SEEN_BASED_WITH_TIMER: MessageApplication.EphemeralSetting._EphemeralityType.ValueType  # 2
+            SEND_BASED_WITH_TIMER: MessageApplication.EphemeralSetting._EphemeralityType.ValueType  # 3
+
+        class EphemeralityType(_EphemeralityType, metaclass=_EphemeralityTypeEnumTypeWrapper): ...
+        UNKNOWN: MessageApplication.EphemeralSetting.EphemeralityType.ValueType  # 0
+        SEEN_ONCE: MessageApplication.EphemeralSetting.EphemeralityType.ValueType  # 1
+        SEEN_BASED_WITH_TIMER: MessageApplication.EphemeralSetting.EphemeralityType.ValueType  # 2
+        SEND_BASED_WITH_TIMER: MessageApplication.EphemeralSetting.EphemeralityType.ValueType  # 3
+
         EPHEMERALEXPIRATION_FIELD_NUMBER: builtins.int
         EPHEMERALSETTINGTIMESTAMP_FIELD_NUMBER: builtins.int
+        EPHEMERALITYTYPE_FIELD_NUMBER: builtins.int
         ISEPHEMERALSETTINGRESET_FIELD_NUMBER: builtins.int
         ephemeralExpiration: builtins.int
         ephemeralSettingTimestamp: builtins.int
+        ephemeralityType: global___MessageApplication.EphemeralSetting.EphemeralityType.ValueType
         isEphemeralSettingReset: builtins.bool
         def __init__(
             self,
             *,
             ephemeralExpiration: builtins.int | None = ...,
             ephemeralSettingTimestamp: builtins.int | None = ...,
+            ephemeralityType: global___MessageApplication.EphemeralSetting.EphemeralityType.ValueType | None = ...,
             isEphemeralSettingReset: builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isEphemeralSettingReset", b"isEphemeralSettingReset"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isEphemeralSettingReset", b"isEphemeralSettingReset"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralityType", b"ephemeralityType", "isEphemeralSettingReset", b"isEphemeralSettingReset"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralityType", b"ephemeralityType", "isEphemeralSettingReset", b"isEphemeralSettingReset"]) -> None: ...
 
     PAYLOAD_FIELD_NUMBER: builtins.int
     METADATA_FIELD_NUMBER: builtins.int
