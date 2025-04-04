@@ -39,13 +39,17 @@ class LIDMigrationMappingSyncPayload(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     PNTOLIDMAPPINGS_FIELD_NUMBER: builtins.int
+    CHATDBMIGRATIONTIMESTAMP_FIELD_NUMBER: builtins.int
+    chatDbMigrationTimestamp: builtins.int
     @property
     def pnToLidMappings(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___LIDMigrationMapping]: ...
     def __init__(
         self,
         *,
         pnToLidMappings: collections.abc.Iterable[global___LIDMigrationMapping] | None = ...,
+        chatDbMigrationTimestamp: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["pnToLidMappings", b"pnToLidMappings"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["chatDbMigrationTimestamp", b"chatDbMigrationTimestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["chatDbMigrationTimestamp", b"chatDbMigrationTimestamp", "pnToLidMappings", b"pnToLidMappings"]) -> None: ...
 
 global___LIDMigrationMappingSyncPayload = LIDMigrationMappingSyncPayload

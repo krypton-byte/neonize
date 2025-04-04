@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\nDwaLidMigrationSyncPayload/WAWebProtobufLidMigrationSyncPayload.proto\x12$WAWebProtobufLidMigrationSyncPayload\"I\n\x13LIDMigrationMapping\x12\n\n\x02pn\x18\x01 \x02(\x04\x12\x13\n\x0b\x61ssignedLid\x18\x02 \x02(\x04\x12\x11\n\tlatestLid\x18\x03 \x01(\x04\"t\n\x1eLIDMigrationMappingSyncPayload\x12R\n\x0fpnToLidMappings\x18\x01 \x03(\x0b\x32\x39.WAWebProtobufLidMigrationSyncPayload.LIDMigrationMappingB5Z3go.mau.fi/whatsmeow/proto/waLidMigrationSyncPayload')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\nDwaLidMigrationSyncPayload/WAWebProtobufLidMigrationSyncPayload.proto\x12$WAWebProtobufLidMigrationSyncPayload\"I\n\x13LIDMigrationMapping\x12\n\n\x02pn\x18\x01 \x02(\x04\x12\x13\n\x0b\x61ssignedLid\x18\x02 \x02(\x04\x12\x11\n\tlatestLid\x18\x03 \x01(\x04\"\x96\x01\n\x1eLIDMigrationMappingSyncPayload\x12R\n\x0fpnToLidMappings\x18\x01 \x03(\x0b\x32\x39.WAWebProtobufLidMigrationSyncPayload.LIDMigrationMapping\x12 \n\x18\x63hatDbMigrationTimestamp\x18\x02 \x01(\x04\x42\x35Z3go.mau.fi/whatsmeow/proto/waLidMigrationSyncPayload')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -24,6 +24,6 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._serialized_options = b'Z3go.mau.fi/whatsmeow/proto/waLidMigrationSyncPayload'
   _globals['_LIDMIGRATIONMAPPING']._serialized_start=110
   _globals['_LIDMIGRATIONMAPPING']._serialized_end=183
-  _globals['_LIDMIGRATIONMAPPINGSYNCPAYLOAD']._serialized_start=185
-  _globals['_LIDMIGRATIONMAPPINGSYNCPAYLOAD']._serialized_end=301
+  _globals['_LIDMIGRATIONMAPPINGSYNCPAYLOAD']._serialized_start=186
+  _globals['_LIDMIGRATIONMAPPINGSYNCPAYLOAD']._serialized_end=336
 # @@protoc_insertion_point(module_scope)
