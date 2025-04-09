@@ -2142,6 +2142,8 @@ class ProtocolMessage(google.protobuf.message.Message):
         STATUS_MENTION_MESSAGE: ProtocolMessage._Type.ValueType  # 25
         STOP_GENERATION_MESSAGE: ProtocolMessage._Type.ValueType  # 26
         LIMIT_SHARING: ProtocolMessage._Type.ValueType  # 27
+        AI_PSI_METADATA: ProtocolMessage._Type.ValueType  # 28
+        AI_QUERY_FANOUT: ProtocolMessage._Type.ValueType  # 29
 
     class Type(_Type, metaclass=_TypeEnumTypeWrapper): ...
     REVOKE: ProtocolMessage.Type.ValueType  # 0
@@ -2167,6 +2169,8 @@ class ProtocolMessage(google.protobuf.message.Message):
     STATUS_MENTION_MESSAGE: ProtocolMessage.Type.ValueType  # 25
     STOP_GENERATION_MESSAGE: ProtocolMessage.Type.ValueType  # 26
     LIMIT_SHARING: ProtocolMessage.Type.ValueType  # 27
+    AI_PSI_METADATA: ProtocolMessage.Type.ValueType  # 28
+    AI_QUERY_FANOUT: ProtocolMessage.Type.ValueType  # 29
 
     KEY_FIELD_NUMBER: builtins.int
     TYPE_FIELD_NUMBER: builtins.int
@@ -2189,11 +2193,14 @@ class ProtocolMessage(google.protobuf.message.Message):
     CLOUDAPITHREADCONTROLNOTIFICATION_FIELD_NUMBER: builtins.int
     LIDMIGRATIONMAPPINGSYNCMESSAGE_FIELD_NUMBER: builtins.int
     LIMITSHARING_FIELD_NUMBER: builtins.int
+    AIPSIMETADATA_FIELD_NUMBER: builtins.int
+    AIQUERYFANOUT_FIELD_NUMBER: builtins.int
     type: global___ProtocolMessage.Type.ValueType
     ephemeralExpiration: builtins.int
     ephemeralSettingTimestamp: builtins.int
     timestampMS: builtins.int
     invokerJID: builtins.str
+    aiPsiMetadata: builtins.bytes
     @property
     def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
     @property
@@ -2226,6 +2233,8 @@ class ProtocolMessage(google.protobuf.message.Message):
     def lidMigrationMappingSyncMessage(self) -> global___LIDMigrationMappingSyncMessage: ...
     @property
     def limitSharing(self) -> waCommon.WACommon_pb2.LimitSharing: ...
+    @property
+    def aiQueryFanout(self) -> global___AIQueryFanout: ...
     def __init__(
         self,
         *,
@@ -2250,9 +2259,11 @@ class ProtocolMessage(google.protobuf.message.Message):
         cloudApiThreadControlNotification: global___CloudAPIThreadControlNotification | None = ...,
         lidMigrationMappingSyncMessage: global___LIDMigrationMappingSyncMessage | None = ...,
         limitSharing: waCommon.WACommon_pb2.LimitSharing | None = ...,
+        aiPsiMetadata: builtins.bytes | None = ...,
+        aiQueryFanout: global___AIQueryFanout | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["appStateFatalExceptionNotification", b"appStateFatalExceptionNotification", "appStateSyncKeyRequest", b"appStateSyncKeyRequest", "appStateSyncKeyShare", b"appStateSyncKeyShare", "botFeedbackMessage", b"botFeedbackMessage", "cloudApiThreadControlNotification", b"cloudApiThreadControlNotification", "disappearingMode", b"disappearingMode", "editedMessage", b"editedMessage", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "historySyncNotification", b"historySyncNotification", "initialSecurityNotificationSettingSync", b"initialSecurityNotificationSettingSync", "invokerJID", b"invokerJID", "key", b"key", "lidMigrationMappingSyncMessage", b"lidMigrationMappingSyncMessage", "limitSharing", b"limitSharing", "mediaNotifyMessage", b"mediaNotifyMessage", "peerDataOperationRequestMessage", b"peerDataOperationRequestMessage", "peerDataOperationRequestResponseMessage", b"peerDataOperationRequestResponseMessage", "requestWelcomeMessageMetadata", b"requestWelcomeMessageMetadata", "timestampMS", b"timestampMS", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["appStateFatalExceptionNotification", b"appStateFatalExceptionNotification", "appStateSyncKeyRequest", b"appStateSyncKeyRequest", "appStateSyncKeyShare", b"appStateSyncKeyShare", "botFeedbackMessage", b"botFeedbackMessage", "cloudApiThreadControlNotification", b"cloudApiThreadControlNotification", "disappearingMode", b"disappearingMode", "editedMessage", b"editedMessage", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "historySyncNotification", b"historySyncNotification", "initialSecurityNotificationSettingSync", b"initialSecurityNotificationSettingSync", "invokerJID", b"invokerJID", "key", b"key", "lidMigrationMappingSyncMessage", b"lidMigrationMappingSyncMessage", "limitSharing", b"limitSharing", "mediaNotifyMessage", b"mediaNotifyMessage", "peerDataOperationRequestMessage", b"peerDataOperationRequestMessage", "peerDataOperationRequestResponseMessage", b"peerDataOperationRequestResponseMessage", "requestWelcomeMessageMetadata", b"requestWelcomeMessageMetadata", "timestampMS", b"timestampMS", "type", b"type"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["aiPsiMetadata", b"aiPsiMetadata", "aiQueryFanout", b"aiQueryFanout", "appStateFatalExceptionNotification", b"appStateFatalExceptionNotification", "appStateSyncKeyRequest", b"appStateSyncKeyRequest", "appStateSyncKeyShare", b"appStateSyncKeyShare", "botFeedbackMessage", b"botFeedbackMessage", "cloudApiThreadControlNotification", b"cloudApiThreadControlNotification", "disappearingMode", b"disappearingMode", "editedMessage", b"editedMessage", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "historySyncNotification", b"historySyncNotification", "initialSecurityNotificationSettingSync", b"initialSecurityNotificationSettingSync", "invokerJID", b"invokerJID", "key", b"key", "lidMigrationMappingSyncMessage", b"lidMigrationMappingSyncMessage", "limitSharing", b"limitSharing", "mediaNotifyMessage", b"mediaNotifyMessage", "peerDataOperationRequestMessage", b"peerDataOperationRequestMessage", "peerDataOperationRequestResponseMessage", b"peerDataOperationRequestResponseMessage", "requestWelcomeMessageMetadata", b"requestWelcomeMessageMetadata", "timestampMS", b"timestampMS", "type", b"type"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["aiPsiMetadata", b"aiPsiMetadata", "aiQueryFanout", b"aiQueryFanout", "appStateFatalExceptionNotification", b"appStateFatalExceptionNotification", "appStateSyncKeyRequest", b"appStateSyncKeyRequest", "appStateSyncKeyShare", b"appStateSyncKeyShare", "botFeedbackMessage", b"botFeedbackMessage", "cloudApiThreadControlNotification", b"cloudApiThreadControlNotification", "disappearingMode", b"disappearingMode", "editedMessage", b"editedMessage", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "historySyncNotification", b"historySyncNotification", "initialSecurityNotificationSettingSync", b"initialSecurityNotificationSettingSync", "invokerJID", b"invokerJID", "key", b"key", "lidMigrationMappingSyncMessage", b"lidMigrationMappingSyncMessage", "limitSharing", b"limitSharing", "mediaNotifyMessage", b"mediaNotifyMessage", "peerDataOperationRequestMessage", b"peerDataOperationRequestMessage", "peerDataOperationRequestResponseMessage", b"peerDataOperationRequestResponseMessage", "requestWelcomeMessageMetadata", b"requestWelcomeMessageMetadata", "timestampMS", b"timestampMS", "type", b"type"]) -> None: ...
 
 global___ProtocolMessage = ProtocolMessage
 
@@ -4458,6 +4469,8 @@ class BotCapabilityMetadata(google.protobuf.message.Message):
         STREAMING_DISAGGREGATION: BotCapabilityMetadata._BotCapabilityType.ValueType  # 29
         RICH_RESPONSE_GRID_IMAGE_3P: BotCapabilityMetadata._BotCapabilityType.ValueType  # 30
         RICH_RESPONSE_LATEX_INLINE: BotCapabilityMetadata._BotCapabilityType.ValueType  # 31
+        QUERY_PLAN: BotCapabilityMetadata._BotCapabilityType.ValueType  # 32
+        PROACTIVE_MESSAGE: BotCapabilityMetadata._BotCapabilityType.ValueType  # 33
 
     class BotCapabilityType(_BotCapabilityType, metaclass=_BotCapabilityTypeEnumTypeWrapper): ...
     UNKNOWN: BotCapabilityMetadata.BotCapabilityType.ValueType  # 0
@@ -4492,6 +4505,8 @@ class BotCapabilityMetadata(google.protobuf.message.Message):
     STREAMING_DISAGGREGATION: BotCapabilityMetadata.BotCapabilityType.ValueType  # 29
     RICH_RESPONSE_GRID_IMAGE_3P: BotCapabilityMetadata.BotCapabilityType.ValueType  # 30
     RICH_RESPONSE_LATEX_INLINE: BotCapabilityMetadata.BotCapabilityType.ValueType  # 31
+    QUERY_PLAN: BotCapabilityMetadata.BotCapabilityType.ValueType  # 32
+    PROACTIVE_MESSAGE: BotCapabilityMetadata.BotCapabilityType.ValueType  # 33
 
     CAPABILITIES_FIELD_NUMBER: builtins.int
     @property
@@ -7333,10 +7348,12 @@ class BotMetadata(google.protobuf.message.Message):
     BOTMETRICSMETADATA_FIELD_NUMBER: builtins.int
     BOTLINKEDACCOUNTSMETADATA_FIELD_NUMBER: builtins.int
     RICHRESPONSESOURCESMETADATA_FIELD_NUMBER: builtins.int
+    AICONVERSATIONCONTEXT_FIELD_NUMBER: builtins.int
     personaID: builtins.str
     invokerJID: builtins.str
     timezone: builtins.str
     messageDisclaimerText: builtins.str
+    aiConversationContext: builtins.bytes
     @property
     def avatarMetadata(self) -> global___BotAvatarMetadata: ...
     @property
@@ -7389,9 +7406,10 @@ class BotMetadata(google.protobuf.message.Message):
         botMetricsMetadata: global___BotMetricsMetadata | None = ...,
         botLinkedAccountsMetadata: global___BotLinkedAccountsMetadata | None = ...,
         richResponseSourcesMetadata: global___BotSourcesMetadata | None = ...,
+        aiConversationContext: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["avatarMetadata", b"avatarMetadata", "botLinkedAccountsMetadata", b"botLinkedAccountsMetadata", "botMetricsMetadata", b"botMetricsMetadata", "capabilityMetadata", b"capabilityMetadata", "imagineMetadata", b"imagineMetadata", "invokerJID", b"invokerJID", "memoryMetadata", b"memoryMetadata", "memuMetadata", b"memuMetadata", "messageDisclaimerText", b"messageDisclaimerText", "modelMetadata", b"modelMetadata", "personaID", b"personaID", "pluginMetadata", b"pluginMetadata", "progressIndicatorMetadata", b"progressIndicatorMetadata", "reminderMetadata", b"reminderMetadata", "renderingMetadata", b"renderingMetadata", "richResponseSourcesMetadata", b"richResponseSourcesMetadata", "sessionMetadata", b"sessionMetadata", "suggestedPromptMetadata", b"suggestedPromptMetadata", "timezone", b"timezone"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["avatarMetadata", b"avatarMetadata", "botLinkedAccountsMetadata", b"botLinkedAccountsMetadata", "botMetricsMetadata", b"botMetricsMetadata", "capabilityMetadata", b"capabilityMetadata", "imagineMetadata", b"imagineMetadata", "invokerJID", b"invokerJID", "memoryMetadata", b"memoryMetadata", "memuMetadata", b"memuMetadata", "messageDisclaimerText", b"messageDisclaimerText", "modelMetadata", b"modelMetadata", "personaID", b"personaID", "pluginMetadata", b"pluginMetadata", "progressIndicatorMetadata", b"progressIndicatorMetadata", "reminderMetadata", b"reminderMetadata", "renderingMetadata", b"renderingMetadata", "richResponseSourcesMetadata", b"richResponseSourcesMetadata", "sessionMetadata", b"sessionMetadata", "suggestedPromptMetadata", b"suggestedPromptMetadata", "timezone", b"timezone"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["aiConversationContext", b"aiConversationContext", "avatarMetadata", b"avatarMetadata", "botLinkedAccountsMetadata", b"botLinkedAccountsMetadata", "botMetricsMetadata", b"botMetricsMetadata", "capabilityMetadata", b"capabilityMetadata", "imagineMetadata", b"imagineMetadata", "invokerJID", b"invokerJID", "memoryMetadata", b"memoryMetadata", "memuMetadata", b"memuMetadata", "messageDisclaimerText", b"messageDisclaimerText", "modelMetadata", b"modelMetadata", "personaID", b"personaID", "pluginMetadata", b"pluginMetadata", "progressIndicatorMetadata", b"progressIndicatorMetadata", "reminderMetadata", b"reminderMetadata", "renderingMetadata", b"renderingMetadata", "richResponseSourcesMetadata", b"richResponseSourcesMetadata", "sessionMetadata", b"sessionMetadata", "suggestedPromptMetadata", b"suggestedPromptMetadata", "timezone", b"timezone"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["aiConversationContext", b"aiConversationContext", "avatarMetadata", b"avatarMetadata", "botLinkedAccountsMetadata", b"botLinkedAccountsMetadata", "botMetricsMetadata", b"botMetricsMetadata", "capabilityMetadata", b"capabilityMetadata", "imagineMetadata", b"imagineMetadata", "invokerJID", b"invokerJID", "memoryMetadata", b"memoryMetadata", "memuMetadata", b"memuMetadata", "messageDisclaimerText", b"messageDisclaimerText", "modelMetadata", b"modelMetadata", "personaID", b"personaID", "pluginMetadata", b"pluginMetadata", "progressIndicatorMetadata", b"progressIndicatorMetadata", "reminderMetadata", b"reminderMetadata", "renderingMetadata", b"renderingMetadata", "richResponseSourcesMetadata", b"richResponseSourcesMetadata", "sessionMetadata", b"sessionMetadata", "suggestedPromptMetadata", b"suggestedPromptMetadata", "timezone", b"timezone"]) -> None: ...
 
 global___BotMetadata = BotMetadata
 
@@ -7831,3 +7849,27 @@ class UrlTrackingMap(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["urlTrackingMapElements", b"urlTrackingMapElements"]) -> None: ...
 
 global___UrlTrackingMap = UrlTrackingMap
+
+@typing.final
+class AIQueryFanout(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MESSAGEKEY_FIELD_NUMBER: builtins.int
+    MESSAGE_FIELD_NUMBER: builtins.int
+    TIMESTAMP_FIELD_NUMBER: builtins.int
+    timestamp: builtins.int
+    @property
+    def messageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    @property
+    def message(self) -> global___Message: ...
+    def __init__(
+        self,
+        *,
+        messageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+        message: global___Message | None = ...,
+        timestamp: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["message", b"message", "messageKey", b"messageKey", "timestamp", b"timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["message", b"message", "messageKey", b"messageKey", "timestamp", b"timestamp"]) -> None: ...
+
+global___AIQueryFanout = AIQueryFanout
