@@ -264,6 +264,7 @@ class WebMessageInfo(google.protobuf.message.Message):
         CHANGE_LID: WebMessageInfo._StubType.ValueType  # 213
         BIZ_CUSTOMER_3PD_DATA_SHARING_OPT_IN_MESSAGE: WebMessageInfo._StubType.ValueType  # 214
         BIZ_CUSTOMER_3PD_DATA_SHARING_OPT_OUT_MESSAGE: WebMessageInfo._StubType.ValueType  # 215
+        CHANGE_LIMIT_SHARING: WebMessageInfo._StubType.ValueType  # 216
 
     class StubType(_StubType, metaclass=_StubTypeEnumTypeWrapper): ...
     UNKNOWN: WebMessageInfo.StubType.ValueType  # 0
@@ -482,6 +483,7 @@ class WebMessageInfo(google.protobuf.message.Message):
     CHANGE_LID: WebMessageInfo.StubType.ValueType  # 213
     BIZ_CUSTOMER_3PD_DATA_SHARING_OPT_IN_MESSAGE: WebMessageInfo.StubType.ValueType  # 214
     BIZ_CUSTOMER_3PD_DATA_SHARING_OPT_OUT_MESSAGE: WebMessageInfo.StubType.ValueType  # 215
+    CHANGE_LIMIT_SHARING: WebMessageInfo.StubType.ValueType  # 216
 
     class _Status:
         ValueType = typing.NewType("ValueType", builtins.int)
