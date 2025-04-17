@@ -4,8 +4,8 @@ go 1.23.4
 
 require (
 	github.com/lib/pq v1.10.9
-	github.com/mattn/go-sqlite3 v1.14.27
-	go.mau.fi/whatsmeow v0.0.0-20250411192951-5ab78fadbf91
+	github.com/mattn/go-sqlite3 v1.14.28
+	go.mau.fi/whatsmeow v0.0.0-20250416223844-bc839c5a1270
 	google.golang.org/protobuf v1.36.6
 )
 

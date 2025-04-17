@@ -552,6 +552,7 @@ class GlobalSettings(google.protobuf.message.Message):
     INDIVIDUALNOTIFICATIONSETTINGS_FIELD_NUMBER: builtins.int
     GROUPNOTIFICATIONSETTINGS_FIELD_NUMBER: builtins.int
     CHATLOCKSETTINGS_FIELD_NUMBER: builtins.int
+    CHATDBLIDMIGRATIONTIMESTAMP_FIELD_NUMBER: builtins.int
     mediaVisibility: global___MediaVisibility.ValueType
     showIndividualNotificationsPreview: builtins.bool
     showGroupNotificationsPreview: builtins.bool
@@ -562,6 +563,7 @@ class GlobalSettings(google.protobuf.message.Message):
     autoUnarchiveChats: builtins.bool
     videoQualityMode: builtins.int
     photoQualityMode: builtins.int
+    chatDbLidMigrationTimestamp: builtins.int
     @property
     def lightThemeWallpaper(self) -> global___WallpaperSettings: ...
     @property
@@ -602,9 +604,10 @@ class GlobalSettings(google.protobuf.message.Message):
         individualNotificationSettings: global___NotificationSettings | None = ...,
         groupNotificationSettings: global___NotificationSettings | None = ...,
         chatLockSettings: waChatLockSettings.WAProtobufsChatLockSettings_pb2.ChatLockSettings | None = ...,
+        chatDbLidMigrationTimestamp: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["autoDownloadCellular", b"autoDownloadCellular", "autoDownloadRoaming", b"autoDownloadRoaming", "autoDownloadWiFi", b"autoDownloadWiFi", "autoUnarchiveChats", b"autoUnarchiveChats", "avatarUserSettings", b"avatarUserSettings", "chatLockSettings", b"chatLockSettings", "darkThemeWallpaper", b"darkThemeWallpaper", "disappearingModeDuration", b"disappearingModeDuration", "disappearingModeTimestamp", b"disappearingModeTimestamp", "fontSize", b"fontSize", "groupNotificationSettings", b"groupNotificationSettings", "individualNotificationSettings", b"individualNotificationSettings", "lightThemeWallpaper", b"lightThemeWallpaper", "mediaVisibility", b"mediaVisibility", "photoQualityMode", b"photoQualityMode", "securityNotifications", b"securityNotifications", "showGroupNotificationsPreview", b"showGroupNotificationsPreview", "showIndividualNotificationsPreview", b"showIndividualNotificationsPreview", "videoQualityMode", b"videoQualityMode"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["autoDownloadCellular", b"autoDownloadCellular", "autoDownloadRoaming", b"autoDownloadRoaming", "autoDownloadWiFi", b"autoDownloadWiFi", "autoUnarchiveChats", b"autoUnarchiveChats", "avatarUserSettings", b"avatarUserSettings", "chatLockSettings", b"chatLockSettings", "darkThemeWallpaper", b"darkThemeWallpaper", "disappearingModeDuration", b"disappearingModeDuration", "disappearingModeTimestamp", b"disappearingModeTimestamp", "fontSize", b"fontSize", "groupNotificationSettings", b"groupNotificationSettings", "individualNotificationSettings", b"individualNotificationSettings", "lightThemeWallpaper", b"lightThemeWallpaper", "mediaVisibility", b"mediaVisibility", "photoQualityMode", b"photoQualityMode", "securityNotifications", b"securityNotifications", "showGroupNotificationsPreview", b"showGroupNotificationsPreview", "showIndividualNotificationsPreview", b"showIndividualNotificationsPreview", "videoQualityMode", b"videoQualityMode"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["autoDownloadCellular", b"autoDownloadCellular", "autoDownloadRoaming", b"autoDownloadRoaming", "autoDownloadWiFi", b"autoDownloadWiFi", "autoUnarchiveChats", b"autoUnarchiveChats", "avatarUserSettings", b"avatarUserSettings", "chatDbLidMigrationTimestamp", b"chatDbLidMigrationTimestamp", "chatLockSettings", b"chatLockSettings", "darkThemeWallpaper", b"darkThemeWallpaper", "disappearingModeDuration", b"disappearingModeDuration", "disappearingModeTimestamp", b"disappearingModeTimestamp", "fontSize", b"fontSize", "groupNotificationSettings", b"groupNotificationSettings", "individualNotificationSettings", b"individualNotificationSettings", "lightThemeWallpaper", b"lightThemeWallpaper", "mediaVisibility", b"mediaVisibility", "photoQualityMode", b"photoQualityMode", "securityNotifications", b"securityNotifications", "showGroupNotificationsPreview", b"showGroupNotificationsPreview", "showIndividualNotificationsPreview", b"showIndividualNotificationsPreview", "videoQualityMode", b"videoQualityMode"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["autoDownloadCellular", b"autoDownloadCellular", "autoDownloadRoaming", b"autoDownloadRoaming", "autoDownloadWiFi", b"autoDownloadWiFi", "autoUnarchiveChats", b"autoUnarchiveChats", "avatarUserSettings", b"avatarUserSettings", "chatDbLidMigrationTimestamp", b"chatDbLidMigrationTimestamp", "chatLockSettings", b"chatLockSettings", "darkThemeWallpaper", b"darkThemeWallpaper", "disappearingModeDuration", b"disappearingModeDuration", "disappearingModeTimestamp", b"disappearingModeTimestamp", "fontSize", b"fontSize", "groupNotificationSettings", b"groupNotificationSettings", "individualNotificationSettings", b"individualNotificationSettings", "lightThemeWallpaper", b"lightThemeWallpaper", "mediaVisibility", b"mediaVisibility", "photoQualityMode", b"photoQualityMode", "securityNotifications", b"securityNotifications", "showGroupNotificationsPreview", b"showGroupNotificationsPreview", "showIndividualNotificationsPreview", b"showIndividualNotificationsPreview", "videoQualityMode", b"videoQualityMode"]) -> None: ...
 
 global___GlobalSettings = GlobalSettings
 

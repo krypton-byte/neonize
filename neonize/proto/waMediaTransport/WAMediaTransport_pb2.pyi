@@ -271,6 +271,7 @@ class VideoTransport(google.protobuf.message.Message):
         SIDECAR_FIELD_NUMBER: builtins.int
         GIFATTRIBUTION_FIELD_NUMBER: builtins.int
         ACCESSIBILITYLABEL_FIELD_NUMBER: builtins.int
+        ISHD_FIELD_NUMBER: builtins.int
         seconds: builtins.int
         gifPlayback: builtins.bool
         height: builtins.int
@@ -278,6 +279,7 @@ class VideoTransport(google.protobuf.message.Message):
         sidecar: builtins.bytes
         gifAttribution: global___VideoTransport.Ancillary.Attribution.ValueType
         accessibilityLabel: builtins.str
+        isHd: builtins.bool
         @property
         def caption(self) -> waCommon.WACommon_pb2.MessageText: ...
         def __init__(
@@ -291,9 +293,10 @@ class VideoTransport(google.protobuf.message.Message):
             sidecar: builtins.bytes | None = ...,
             gifAttribution: global___VideoTransport.Ancillary.Attribution.ValueType | None = ...,
             accessibilityLabel: builtins.str | None = ...,
+            isHd: builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "gifAttribution", b"gifAttribution", "gifPlayback", b"gifPlayback", "height", b"height", "seconds", b"seconds", "sidecar", b"sidecar", "width", b"width"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "gifAttribution", b"gifAttribution", "gifPlayback", b"gifPlayback", "height", b"height", "seconds", b"seconds", "sidecar", b"sidecar", "width", b"width"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "gifAttribution", b"gifAttribution", "gifPlayback", b"gifPlayback", "height", b"height", "isHd", b"isHd", "seconds", b"seconds", "sidecar", b"sidecar", "width", b"width"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "gifAttribution", b"gifAttribution", "gifPlayback", b"gifPlayback", "height", b"height", "isHd", b"isHd", "seconds", b"seconds", "sidecar", b"sidecar", "width", b"width"]) -> None: ...
 
     @typing.final
     class Integral(google.protobuf.message.Message):
