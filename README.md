@@ -1,7 +1,7 @@
-<p align="center"> <img src="assets/logo.jpg" width="150px">
+<p align="center"> <img src="assets/neonize.png" width="150px">
 </p>
 
-## <p align="center">Neonize</p>
+## 
 
 [![Release](https://github.com/krypton-byte/neonize/actions/workflows/release.yml/badge.svg)](https://github.com/krypton-byte/neonize/actions/workflows/release.yml)
 
