@@ -3067,6 +3067,19 @@ class ContextInfo(google.protobuf.message.Message):
     class ExternalAdReplyInfo(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+        class _AdType:
+            ValueType = typing.NewType("ValueType", builtins.int)
+            V: typing_extensions.TypeAlias = ValueType
+
+        class _AdTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo.ExternalAdReplyInfo._AdType.ValueType], builtins.type):
+            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+            CTWA: ContextInfo.ExternalAdReplyInfo._AdType.ValueType  # 0
+            CAWC: ContextInfo.ExternalAdReplyInfo._AdType.ValueType  # 1
+
+        class AdType(_AdType, metaclass=_AdTypeEnumTypeWrapper): ...
+        CTWA: ContextInfo.ExternalAdReplyInfo.AdType.ValueType  # 0
+        CAWC: ContextInfo.ExternalAdReplyInfo.AdType.ValueType  # 1
+
         class _MediaType:
             ValueType = typing.NewType("ValueType", builtins.int)
             V: typing_extensions.TypeAlias = ValueType
@@ -3106,6 +3119,7 @@ class ContextInfo(google.protobuf.message.Message):
         ORIGINALIMAGEURL_FIELD_NUMBER: builtins.int
         AUTOMATEDGREETINGMESSAGECTATYPE_FIELD_NUMBER: builtins.int
         WTWAADFORMAT_FIELD_NUMBER: builtins.int
+        ADTYPE_FIELD_NUMBER: builtins.int
         title: builtins.str
         body: builtins.str
         mediaType: global___ContextInfo.ExternalAdReplyInfo.MediaType.ValueType
@@ -3130,6 +3144,7 @@ class ContextInfo(google.protobuf.message.Message):
         originalImageURL: builtins.str
         automatedGreetingMessageCtaType: builtins.str
         wtwaAdFormat: builtins.bool
+        adType: global___ContextInfo.ExternalAdReplyInfo.AdType.ValueType
         def __init__(
             self,
             *,
@@ -3157,9 +3172,10 @@ class ContextInfo(google.protobuf.message.Message):
             originalImageURL: builtins.str | None = ...,
             automatedGreetingMessageCtaType: builtins.str | None = ...,
             wtwaAdFormat: builtins.bool | None = ...,
+            adType: global___ContextInfo.ExternalAdReplyInfo.AdType.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["adContextPreviewDismissed", b"adContextPreviewDismissed", "automatedGreetingMessageCtaType", b"automatedGreetingMessageCtaType", "automatedGreetingMessageShown", b"automatedGreetingMessageShown", "body", b"body", "clickToWhatsappCall", b"clickToWhatsappCall", "containsAutoReply", b"containsAutoReply", "ctaPayload", b"ctaPayload", "ctwaClid", b"ctwaClid", "disableNudge", b"disableNudge", "greetingMessageBody", b"greetingMessageBody", "mediaType", b"mediaType", "mediaURL", b"mediaURL", "originalImageURL", b"originalImageURL", "ref", b"ref", "renderLargerThumbnail", b"renderLargerThumbnail", "showAdAttribution", b"showAdAttribution", "sourceApp", b"sourceApp", "sourceID", b"sourceID", "sourceType", b"sourceType", "sourceURL", b"sourceURL", "thumbnail", b"thumbnail", "thumbnailURL", b"thumbnailURL", "title", b"title", "wtwaAdFormat", b"wtwaAdFormat"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["adContextPreviewDismissed", b"adContextPreviewDismissed", "automatedGreetingMessageCtaType", b"automatedGreetingMessageCtaType", "automatedGreetingMessageShown", b"automatedGreetingMessageShown", "body", b"body", "clickToWhatsappCall", b"clickToWhatsappCall", "containsAutoReply", b"containsAutoReply", "ctaPayload", b"ctaPayload", "ctwaClid", b"ctwaClid", "disableNudge", b"disableNudge", "greetingMessageBody", b"greetingMessageBody", "mediaType", b"mediaType", "mediaURL", b"mediaURL", "originalImageURL", b"originalImageURL", "ref", b"ref", "renderLargerThumbnail", b"renderLargerThumbnail", "showAdAttribution", b"showAdAttribution", "sourceApp", b"sourceApp", "sourceID", b"sourceID", "sourceType", b"sourceType", "sourceURL", b"sourceURL", "thumbnail", b"thumbnail", "thumbnailURL", b"thumbnailURL", "title", b"title", "wtwaAdFormat", b"wtwaAdFormat"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["adContextPreviewDismissed", b"adContextPreviewDismissed", "adType", b"adType", "automatedGreetingMessageCtaType", b"automatedGreetingMessageCtaType", "automatedGreetingMessageShown", b"automatedGreetingMessageShown", "body", b"body", "clickToWhatsappCall", b"clickToWhatsappCall", "containsAutoReply", b"containsAutoReply", "ctaPayload", b"ctaPayload", "ctwaClid", b"ctwaClid", "disableNudge", b"disableNudge", "greetingMessageBody", b"greetingMessageBody", "mediaType", b"mediaType", "mediaURL", b"mediaURL", "originalImageURL", b"originalImageURL", "ref", b"ref", "renderLargerThumbnail", b"renderLargerThumbnail", "showAdAttribution", b"showAdAttribution", "sourceApp", b"sourceApp", "sourceID", b"sourceID", "sourceType", b"sourceType", "sourceURL", b"sourceURL", "thumbnail", b"thumbnail", "thumbnailURL", b"thumbnailURL", "title", b"title", "wtwaAdFormat", b"wtwaAdFormat"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["adContextPreviewDismissed", b"adContextPreviewDismissed", "adType", b"adType", "automatedGreetingMessageCtaType", b"automatedGreetingMessageCtaType", "automatedGreetingMessageShown", b"automatedGreetingMessageShown", "body", b"body", "clickToWhatsappCall", b"clickToWhatsappCall", "containsAutoReply", b"containsAutoReply", "ctaPayload", b"ctaPayload", "ctwaClid", b"ctwaClid", "disableNudge", b"disableNudge", "greetingMessageBody", b"greetingMessageBody", "mediaType", b"mediaType", "mediaURL", b"mediaURL", "originalImageURL", b"originalImageURL", "ref", b"ref", "renderLargerThumbnail", b"renderLargerThumbnail", "showAdAttribution", b"showAdAttribution", "sourceApp", b"sourceApp", "sourceID", b"sourceID", "sourceType", b"sourceType", "sourceURL", b"sourceURL", "thumbnail", b"thumbnail", "thumbnailURL", b"thumbnailURL", "title", b"title", "wtwaAdFormat", b"wtwaAdFormat"]) -> None: ...
 
     @typing.final
     class AdReplyInfo(google.protobuf.message.Message):
@@ -4109,6 +4125,38 @@ class AIRichResponseMessage(google.protobuf.message.Message):
 global___AIRichResponseMessage = AIRichResponseMessage
 
 @typing.final
+class BotPromotionMessageMetadata(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _BotPromotionType:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _BotPromotionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BotPromotionMessageMetadata._BotPromotionType.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN_TYPE: BotPromotionMessageMetadata._BotPromotionType.ValueType  # 0
+        C50: BotPromotionMessageMetadata._BotPromotionType.ValueType  # 1
+
+    class BotPromotionType(_BotPromotionType, metaclass=_BotPromotionTypeEnumTypeWrapper): ...
+    UNKNOWN_TYPE: BotPromotionMessageMetadata.BotPromotionType.ValueType  # 0
+    C50: BotPromotionMessageMetadata.BotPromotionType.ValueType  # 1
+
+    PROMOTIONTYPE_FIELD_NUMBER: builtins.int
+    BUTTONTITLE_FIELD_NUMBER: builtins.int
+    promotionType: global___BotPromotionMessageMetadata.BotPromotionType.ValueType
+    buttonTitle: builtins.str
+    def __init__(
+        self,
+        *,
+        promotionType: global___BotPromotionMessageMetadata.BotPromotionType.ValueType | None = ...,
+        buttonTitle: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["buttonTitle", b"buttonTitle", "promotionType", b"promotionType"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["buttonTitle", b"buttonTitle", "promotionType", b"promotionType"]) -> None: ...
+
+global___BotPromotionMessageMetadata = BotPromotionMessageMetadata
+
+@typing.final
 class BotMediaMetadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -4485,6 +4533,7 @@ class BotCapabilityMetadata(google.protobuf.message.Message):
         QUERY_PLAN: BotCapabilityMetadata._BotCapabilityType.ValueType  # 32
         PROACTIVE_MESSAGE: BotCapabilityMetadata._BotCapabilityType.ValueType  # 33
         RICH_RESPONSE_UNIFIED_RESPONSE: BotCapabilityMetadata._BotCapabilityType.ValueType  # 34
+        PROMOTION_MESSAGE: BotCapabilityMetadata._BotCapabilityType.ValueType  # 35
 
     class BotCapabilityType(_BotCapabilityType, metaclass=_BotCapabilityTypeEnumTypeWrapper): ...
     UNKNOWN: BotCapabilityMetadata.BotCapabilityType.ValueType  # 0
@@ -4522,6 +4571,7 @@ class BotCapabilityMetadata(google.protobuf.message.Message):
     QUERY_PLAN: BotCapabilityMetadata.BotCapabilityType.ValueType  # 32
     PROACTIVE_MESSAGE: BotCapabilityMetadata.BotCapabilityType.ValueType  # 33
     RICH_RESPONSE_UNIFIED_RESPONSE: BotCapabilityMetadata.BotCapabilityType.ValueType  # 34
+    PROMOTION_MESSAGE: BotCapabilityMetadata.BotCapabilityType.ValueType  # 35
 
     CAPABILITIES_FIELD_NUMBER: builtins.int
     @property
@@ -5503,6 +5553,50 @@ class AlbumMessage(google.protobuf.message.Message):
 global___AlbumMessage = AlbumMessage
 
 @typing.final
+class MessageHistoryMetadata(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    HISTORYRECEIVERS_FIELD_NUMBER: builtins.int
+    FIRSTMESSAGETIMESTAMP_FIELD_NUMBER: builtins.int
+    MESSAGECOUNT_FIELD_NUMBER: builtins.int
+    firstMessageTimestamp: builtins.int
+    messageCount: builtins.int
+    @property
+    def historyReceivers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def __init__(
+        self,
+        *,
+        historyReceivers: collections.abc.Iterable[builtins.str] | None = ...,
+        firstMessageTimestamp: builtins.int | None = ...,
+        messageCount: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["firstMessageTimestamp", b"firstMessageTimestamp", "messageCount", b"messageCount"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["firstMessageTimestamp", b"firstMessageTimestamp", "historyReceivers", b"historyReceivers", "messageCount", b"messageCount"]) -> None: ...
+
+global___MessageHistoryMetadata = MessageHistoryMetadata
+
+@typing.final
+class MessageHistoryNotice(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CONTEXTINFO_FIELD_NUMBER: builtins.int
+    MESSAGEHISTORYMETADATA_FIELD_NUMBER: builtins.int
+    @property
+    def contextInfo(self) -> global___ContextInfo: ...
+    @property
+    def messageHistoryMetadata(self) -> global___MessageHistoryMetadata: ...
+    def __init__(
+        self,
+        *,
+        contextInfo: global___ContextInfo | None = ...,
+        messageHistoryMetadata: global___MessageHistoryMetadata | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "messageHistoryMetadata", b"messageHistoryMetadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "messageHistoryMetadata", b"messageHistoryMetadata"]) -> None: ...
+
+global___MessageHistoryNotice = MessageHistoryNotice
+
+@typing.final
 class MessageHistoryBundle(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -5513,19 +5607,17 @@ class MessageHistoryBundle(google.protobuf.message.Message):
     DIRECTPATH_FIELD_NUMBER: builtins.int
     MEDIAKEYTIMESTAMP_FIELD_NUMBER: builtins.int
     CONTEXTINFO_FIELD_NUMBER: builtins.int
-    HISTORYRECEIVERS_FIELD_NUMBER: builtins.int
-    FIRSTMESSAGETIMESTAMP_FIELD_NUMBER: builtins.int
+    MESSAGEHISTORYMETADATA_FIELD_NUMBER: builtins.int
     mimetype: builtins.str
     fileSHA256: builtins.bytes
     mediaKey: builtins.bytes
     fileEncSHA256: builtins.bytes
     directPath: builtins.str
     mediaKeyTimestamp: builtins.int
-    firstMessageTimestamp: builtins.int
     @property
     def contextInfo(self) -> global___ContextInfo: ...
     @property
-    def historyReceivers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def messageHistoryMetadata(self) -> global___MessageHistoryMetadata: ...
     def __init__(
         self,
         *,
@@ -5536,11 +5628,10 @@ class MessageHistoryBundle(google.protobuf.message.Message):
         directPath: builtins.str | None = ...,
         mediaKeyTimestamp: builtins.int | None = ...,
         contextInfo: global___ContextInfo | None = ...,
-        historyReceivers: collections.abc.Iterable[builtins.str] | None = ...,
-        firstMessageTimestamp: builtins.int | None = ...,
+        messageHistoryMetadata: global___MessageHistoryMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "firstMessageTimestamp", b"firstMessageTimestamp", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "firstMessageTimestamp", b"firstMessageTimestamp", "historyReceivers", b"historyReceivers", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "messageHistoryMetadata", b"messageHistoryMetadata", "mimetype", b"mimetype"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "messageHistoryMetadata", b"messageHistoryMetadata", "mimetype", b"mimetype"]) -> None: ...
 
 global___MessageHistoryBundle = MessageHistoryBundle
 
@@ -7375,6 +7466,7 @@ class BotMetadata(google.protobuf.message.Message):
     BOTLINKEDACCOUNTSMETADATA_FIELD_NUMBER: builtins.int
     RICHRESPONSESOURCESMETADATA_FIELD_NUMBER: builtins.int
     AICONVERSATIONCONTEXT_FIELD_NUMBER: builtins.int
+    BOTPROMOTIONMESSAGEMETADATA_FIELD_NUMBER: builtins.int
     personaID: builtins.str
     invokerJID: builtins.str
     timezone: builtins.str
@@ -7410,6 +7502,8 @@ class BotMetadata(google.protobuf.message.Message):
     def botLinkedAccountsMetadata(self) -> global___BotLinkedAccountsMetadata: ...
     @property
     def richResponseSourcesMetadata(self) -> global___BotSourcesMetadata: ...
+    @property
+    def botPromotionMessageMetadata(self) -> global___BotPromotionMessageMetadata: ...
     def __init__(
         self,
         *,
@@ -7433,9 +7527,10 @@ class BotMetadata(google.protobuf.message.Message):
         botLinkedAccountsMetadata: global___BotLinkedAccountsMetadata | None = ...,
         richResponseSourcesMetadata: global___BotSourcesMetadata | None = ...,
         aiConversationContext: builtins.bytes | None = ...,
+        botPromotionMessageMetadata: global___BotPromotionMessageMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["aiConversationContext", b"aiConversationContext", "avatarMetadata", b"avatarMetadata", "botLinkedAccountsMetadata", b"botLinkedAccountsMetadata", "botMetricsMetadata", b"botMetricsMetadata", "capabilityMetadata", b"capabilityMetadata", "imagineMetadata", b"imagineMetadata", "invokerJID", b"invokerJID", "memoryMetadata", b"memoryMetadata", "memuMetadata", b"memuMetadata", "messageDisclaimerText", b"messageDisclaimerText", "modelMetadata", b"modelMetadata", "personaID", b"personaID", "pluginMetadata", b"pluginMetadata", "progressIndicatorMetadata", b"progressIndicatorMetadata", "reminderMetadata", b"reminderMetadata", "renderingMetadata", b"renderingMetadata", "richResponseSourcesMetadata", b"richResponseSourcesMetadata", "sessionMetadata", b"sessionMetadata", "suggestedPromptMetadata", b"suggestedPromptMetadata", "timezone", b"timezone"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["aiConversationContext", b"aiConversationContext", "avatarMetadata", b"avatarMetadata", "botLinkedAccountsMetadata", b"botLinkedAccountsMetadata", "botMetricsMetadata", b"botMetricsMetadata", "capabilityMetadata", b"capabilityMetadata", "imagineMetadata", b"imagineMetadata", "invokerJID", b"invokerJID", "memoryMetadata", b"memoryMetadata", "memuMetadata", b"memuMetadata", "messageDisclaimerText", b"messageDisclaimerText", "modelMetadata", b"modelMetadata", "personaID", b"personaID", "pluginMetadata", b"pluginMetadata", "progressIndicatorMetadata", b"progressIndicatorMetadata", "reminderMetadata", b"reminderMetadata", "renderingMetadata", b"renderingMetadata", "richResponseSourcesMetadata", b"richResponseSourcesMetadata", "sessionMetadata", b"sessionMetadata", "suggestedPromptMetadata", b"suggestedPromptMetadata", "timezone", b"timezone"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["aiConversationContext", b"aiConversationContext", "avatarMetadata", b"avatarMetadata", "botLinkedAccountsMetadata", b"botLinkedAccountsMetadata", "botMetricsMetadata", b"botMetricsMetadata", "botPromotionMessageMetadata", b"botPromotionMessageMetadata", "capabilityMetadata", b"capabilityMetadata", "imagineMetadata", b"imagineMetadata", "invokerJID", b"invokerJID", "memoryMetadata", b"memoryMetadata", "memuMetadata", b"memuMetadata", "messageDisclaimerText", b"messageDisclaimerText", "modelMetadata", b"modelMetadata", "personaID", b"personaID", "pluginMetadata", b"pluginMetadata", "progressIndicatorMetadata", b"progressIndicatorMetadata", "reminderMetadata", b"reminderMetadata", "renderingMetadata", b"renderingMetadata", "richResponseSourcesMetadata", b"richResponseSourcesMetadata", "sessionMetadata", b"sessionMetadata", "suggestedPromptMetadata", b"suggestedPromptMetadata", "timezone", b"timezone"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["aiConversationContext", b"aiConversationContext", "avatarMetadata", b"avatarMetadata", "botLinkedAccountsMetadata", b"botLinkedAccountsMetadata", "botMetricsMetadata", b"botMetricsMetadata", "botPromotionMessageMetadata", b"botPromotionMessageMetadata", "capabilityMetadata", b"capabilityMetadata", "imagineMetadata", b"imagineMetadata", "invokerJID", b"invokerJID", "memoryMetadata", b"memoryMetadata", "memuMetadata", b"memuMetadata", "messageDisclaimerText", b"messageDisclaimerText", "modelMetadata", b"modelMetadata", "personaID", b"personaID", "pluginMetadata", b"pluginMetadata", "progressIndicatorMetadata", b"progressIndicatorMetadata", "reminderMetadata", b"reminderMetadata", "renderingMetadata", b"renderingMetadata", "richResponseSourcesMetadata", b"richResponseSourcesMetadata", "sessionMetadata", b"sessionMetadata", "suggestedPromptMetadata", b"suggestedPromptMetadata", "timezone", b"timezone"]) -> None: ...
 
 global___BotMetadata = BotMetadata
 
