@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\nKwaArmadilloMiTransportAdminMessage/WAArmadilloMiTransportAdminMessage.proto\x12\"WAArmadilloMiTransportAdminMessage\"\xcc\x0f\n\x17MiTransportAdminMessage\x12h\n\x10\x63hatThemeChanged\x18\x01 \x01(\x0b\x32L.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.ChatThemeChangedH\x00\x12\x66\n\x0fnicknameChanged\x18\x02 \x01(\x0b\x32K.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.NicknameChangedH\x00\x12v\n\x17groupParticipantChanged\x18\x03 \x01(\x0b\x32S.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupParticipantChangedH\x00\x12j\n\x11groupAdminChanged\x18\x04 \x01(\x0b\x32M.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupAdminChangedH\x00\x12h\n\x10groupNameChanged\x18\x05 \x01(\x0b\x32L.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupNameChangedH\x00\x12\x82\x01\n\x1dgroupMembershipAddModeChanged\x18\x06 \x01(\x0b\x32Y.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupMembershipAddModeChangedH\x00\x12\x62\n\rmessagePinned\x18\x07 \x01(\x0b\x32I.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.MessagePinnedH\x00\x12j\n\x11groupImageChanged\x18\x08 \x01(\x0b\x32M.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupImageChangedH\x00\x12p\n\x14quickReactionChanged\x18\t \x01(\x0b\x32P.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.QuickReactionChangedH\x00\x1a\x9d\x01\n\x11GroupImageChanged\x12\x64\n\x06\x61\x63tion\x18\x01 \x01(\x0e\x32T.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupImageChanged.Action\"\"\n\x06\x41\x63tion\x12\x0b\n\x07\x43HANGED\x10\x01\x12\x0b\n\x07REMOVED\x10\x02\x1a\x95\x01\n\rMessagePinned\x12`\n\x06\x61\x63tion\x18\x01 \x01(\x0e\x32P.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.MessagePinned.Action\"\"\n\x06\x41\x63tion\x12\n\n\x06PINNED\x10\x01\x12\x0c\n\x08UNPINNED\x10\x02\x1a\xb7\x01\n\x1dGroupMembershipAddModeChanged\x12l\n\x04mode\x18\x01 \x01(\x0e\x32^.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupMembershipAddModeChanged.Mode\"(\n\x04Mode\x12\x0f\n\x0b\x41LL_MEMBERS\x10\x01\x12\x0f\n\x0b\x41\x44MINS_ONLY\x10\x02\x1a\xb1\x01\n\x11GroupAdminChanged\x12\x14\n\x0ctargetUserID\x18\x01 \x03(\t\x12\x64\n\x06\x61\x63tion\x18\x02 \x01(\x0e\x32T.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupAdminChanged.Action\" \n\x06\x41\x63tion\x12\t\n\x05\x41\x44\x44\x45\x44\x10\x01\x12\x0b\n\x07REMOVED\x10\x02\x1aQ\n\x17GroupParticipantChanged\x12\x14\n\x0ctargetUserID\x18\x01 \x03(\t\" \n\x06\x41\x63tion\x12\t\n\x05\x41\x44\x44\x45\x44\x10\x01\x12\x0b\n\x07REMOVED\x10\x02\x1a)\n\x14QuickReactionChanged\x12\x11\n\temojiName\x18\x01 \x01(\t\x1a%\n\x10GroupNameChanged\x12\x11\n\tgroupName\x18\x01 \x01(\t\x1a\x39\n\x0fNicknameChanged\x12\x14\n\x0ctargetUserID\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t\x1a\x39\n\x10\x43hatThemeChanged\x12\x11\n\tthemeName\x18\x01 \x01(\t\x12\x12\n\nthemeEmoji\x18\x02 \x01(\tB\t\n\x07\x63ontentB>Z<go.mau.fi/whatsmeow/proto/waArmadilloMiTransportAdminMessage')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\nKwaArmadilloMiTransportAdminMessage/WAArmadilloMiTransportAdminMessage.proto\x12\"WAArmadilloMiTransportAdminMessage\"\xd7\x13\n\x17MiTransportAdminMessage\x12h\n\x10\x63hatThemeChanged\x18\x01 \x01(\x0b\x32L.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.ChatThemeChangedH\x00\x12\x66\n\x0fnicknameChanged\x18\x02 \x01(\x0b\x32K.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.NicknameChangedH\x00\x12v\n\x17groupParticipantChanged\x18\x03 \x01(\x0b\x32S.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupParticipantChangedH\x00\x12j\n\x11groupAdminChanged\x18\x04 \x01(\x0b\x32M.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupAdminChangedH\x00\x12h\n\x10groupNameChanged\x18\x05 \x01(\x0b\x32L.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupNameChangedH\x00\x12\x82\x01\n\x1dgroupMembershipAddModeChanged\x18\x06 \x01(\x0b\x32Y.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupMembershipAddModeChangedH\x00\x12\x62\n\rmessagePinned\x18\x07 \x01(\x0b\x32I.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.MessagePinnedH\x00\x12j\n\x11groupImageChanged\x18\x08 \x01(\x0b\x32M.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupImageChangedH\x00\x12p\n\x14quickReactionChanged\x18\t \x01(\x0b\x32P.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.QuickReactionChangedH\x00\x12V\n\x07linkCta\x18\n \x01(\x0b\x32\x43.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.LinkCtaH\x00\x12^\n\x0biconChanged\x18\x0b \x01(\x0b\x32G.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.IconChangedH\x00\x1a\x9d\x01\n\x11GroupImageChanged\x12\x64\n\x06\x61\x63tion\x18\x01 \x01(\x0e\x32T.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupImageChanged.Action\"\"\n\x06\x41\x63tion\x12\x0b\n\x07\x43HANGED\x10\x01\x12\x0b\n\x07REMOVED\x10\x02\x1a\x95\x01\n\rMessagePinned\x12`\n\x06\x61\x63tion\x18\x01 \x01(\x0e\x32P.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.MessagePinned.Action\"\"\n\x06\x41\x63tion\x12\n\n\x06PINNED\x10\x01\x12\x0c\n\x08UNPINNED\x10\x02\x1a\xb7\x01\n\x1dGroupMembershipAddModeChanged\x12l\n\x04mode\x18\x01 \x01(\x0e\x32^.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupMembershipAddModeChanged.Mode\"(\n\x04Mode\x12\x0f\n\x0b\x41LL_MEMBERS\x10\x01\x12\x0f\n\x0b\x41\x44MINS_ONLY\x10\x02\x1a\xb1\x01\n\x11GroupAdminChanged\x12\x14\n\x0ctargetUserID\x18\x01 \x03(\t\x12\x64\n\x06\x61\x63tion\x18\x02 \x01(\x0e\x32T.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupAdminChanged.Action\" \n\x06\x41\x63tion\x12\t\n\x05\x41\x44\x44\x45\x44\x10\x01\x12\x0b\n\x07REMOVED\x10\x02\x1a\xbd\x01\n\x17GroupParticipantChanged\x12\x14\n\x0ctargetUserID\x18\x01 \x03(\t\x12j\n\x06\x61\x63tion\x18\x02 \x01(\x0e\x32Z.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.GroupParticipantChanged.Action\" \n\x06\x41\x63tion\x12\t\n\x05\x41\x44\x44\x45\x44\x10\x01\x12\x0b\n\x07REMOVED\x10\x02\x1a!\n\x0bIconChanged\x12\x12\n\nthreadIcon\x18\x01 \x01(\t\x1a\xad\x01\n\x07LinkCta\x12l\n\x0eukOsaAdminText\x18\x01 \x01(\x0b\x32R.WAArmadilloMiTransportAdminMessage.MiTransportAdminMessage.LinkCta.UkOsaAdminTextH\x00\x1a)\n\x0eUkOsaAdminText\x12\x17\n\x0finitiatorUserID\x18\x02 \x01(\tB\t\n\x07\x63ontent\x1a)\n\x14QuickReactionChanged\x12\x11\n\temojiName\x18\x01 \x01(\t\x1a%\n\x10GroupNameChanged\x12\x11\n\tgroupName\x18\x01 \x01(\t\x1a\x39\n\x0fNicknameChanged\x12\x14\n\x0ctargetUserID\x18\x01 \x01(\t\x12\x10\n\x08nickname\x18\x02 \x01(\t\x1aL\n\x10\x43hatThemeChanged\x12\x11\n\tthemeName\x18\x01 \x01(\t\x12\x12\n\nthemeEmoji\x18\x02 \x01(\t\x12\x11\n\tthemeType\x18\x03 \x01(\x05\x42\t\n\x07\x63ontentB>Z<go.mau.fi/whatsmeow/proto/waArmadilloMiTransportAdminMessage')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -23,33 +23,39 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z<go.mau.fi/whatsmeow/proto/waArmadilloMiTransportAdminMessage'
   _globals['_MITRANSPORTADMINMESSAGE']._serialized_start=116
-  _globals['_MITRANSPORTADMINMESSAGE']._serialized_end=2112
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPIMAGECHANGED']._serialized_start=1143
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPIMAGECHANGED']._serialized_end=1300
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPIMAGECHANGED_ACTION']._serialized_start=1266
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPIMAGECHANGED_ACTION']._serialized_end=1300
-  _globals['_MITRANSPORTADMINMESSAGE_MESSAGEPINNED']._serialized_start=1303
-  _globals['_MITRANSPORTADMINMESSAGE_MESSAGEPINNED']._serialized_end=1452
-  _globals['_MITRANSPORTADMINMESSAGE_MESSAGEPINNED_ACTION']._serialized_start=1418
-  _globals['_MITRANSPORTADMINMESSAGE_MESSAGEPINNED_ACTION']._serialized_end=1452
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPMEMBERSHIPADDMODECHANGED']._serialized_start=1455
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPMEMBERSHIPADDMODECHANGED']._serialized_end=1638
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPMEMBERSHIPADDMODECHANGED_MODE']._serialized_start=1598
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPMEMBERSHIPADDMODECHANGED_MODE']._serialized_end=1638
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPADMINCHANGED']._serialized_start=1641
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPADMINCHANGED']._serialized_end=1818
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPADMINCHANGED_ACTION']._serialized_start=1786
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPADMINCHANGED_ACTION']._serialized_end=1818
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPPARTICIPANTCHANGED']._serialized_start=1820
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPPARTICIPANTCHANGED']._serialized_end=1901
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPPARTICIPANTCHANGED_ACTION']._serialized_start=1786
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPPARTICIPANTCHANGED_ACTION']._serialized_end=1818
-  _globals['_MITRANSPORTADMINMESSAGE_QUICKREACTIONCHANGED']._serialized_start=1903
-  _globals['_MITRANSPORTADMINMESSAGE_QUICKREACTIONCHANGED']._serialized_end=1944
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPNAMECHANGED']._serialized_start=1946
-  _globals['_MITRANSPORTADMINMESSAGE_GROUPNAMECHANGED']._serialized_end=1983
-  _globals['_MITRANSPORTADMINMESSAGE_NICKNAMECHANGED']._serialized_start=1985
-  _globals['_MITRANSPORTADMINMESSAGE_NICKNAMECHANGED']._serialized_end=2042
-  _globals['_MITRANSPORTADMINMESSAGE_CHATTHEMECHANGED']._serialized_start=2044
-  _globals['_MITRANSPORTADMINMESSAGE_CHATTHEMECHANGED']._serialized_end=2101
+  _globals['_MITRANSPORTADMINMESSAGE']._serialized_end=2635
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPIMAGECHANGED']._serialized_start=1327
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPIMAGECHANGED']._serialized_end=1484
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPIMAGECHANGED_ACTION']._serialized_start=1450
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPIMAGECHANGED_ACTION']._serialized_end=1484
+  _globals['_MITRANSPORTADMINMESSAGE_MESSAGEPINNED']._serialized_start=1487
+  _globals['_MITRANSPORTADMINMESSAGE_MESSAGEPINNED']._serialized_end=1636
+  _globals['_MITRANSPORTADMINMESSAGE_MESSAGEPINNED_ACTION']._serialized_start=1602
+  _globals['_MITRANSPORTADMINMESSAGE_MESSAGEPINNED_ACTION']._serialized_end=1636
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPMEMBERSHIPADDMODECHANGED']._serialized_start=1639
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPMEMBERSHIPADDMODECHANGED']._serialized_end=1822
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPMEMBERSHIPADDMODECHANGED_MODE']._serialized_start=1782
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPMEMBERSHIPADDMODECHANGED_MODE']._serialized_end=1822
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPADMINCHANGED']._serialized_start=1825
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPADMINCHANGED']._serialized_end=2002
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPADMINCHANGED_ACTION']._serialized_start=1970
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPADMINCHANGED_ACTION']._serialized_end=2002
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPPARTICIPANTCHANGED']._serialized_start=2005
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPPARTICIPANTCHANGED']._serialized_end=2194
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPPARTICIPANTCHANGED_ACTION']._serialized_start=1970
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPPARTICIPANTCHANGED_ACTION']._serialized_end=2002
+  _globals['_MITRANSPORTADMINMESSAGE_ICONCHANGED']._serialized_start=2196
+  _globals['_MITRANSPORTADMINMESSAGE_ICONCHANGED']._serialized_end=2229
+  _globals['_MITRANSPORTADMINMESSAGE_LINKCTA']._serialized_start=2232
+  _globals['_MITRANSPORTADMINMESSAGE_LINKCTA']._serialized_end=2405
+  _globals['_MITRANSPORTADMINMESSAGE_LINKCTA_UKOSAADMINTEXT']._serialized_start=2353
+  _globals['_MITRANSPORTADMINMESSAGE_LINKCTA_UKOSAADMINTEXT']._serialized_end=2394
+  _globals['_MITRANSPORTADMINMESSAGE_QUICKREACTIONCHANGED']._serialized_start=2407
+  _globals['_MITRANSPORTADMINMESSAGE_QUICKREACTIONCHANGED']._serialized_end=2448
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPNAMECHANGED']._serialized_start=2450
+  _globals['_MITRANSPORTADMINMESSAGE_GROUPNAMECHANGED']._serialized_end=2487
+  _globals['_MITRANSPORTADMINMESSAGE_NICKNAMECHANGED']._serialized_start=2489
+  _globals['_MITRANSPORTADMINMESSAGE_NICKNAMECHANGED']._serialized_end=2546
+  _globals['_MITRANSPORTADMINMESSAGE_CHATTHEMECHANGED']._serialized_start=2548
+  _globals['_MITRANSPORTADMINMESSAGE_CHATTHEMECHANGED']._serialized_end=2624
 # @@protoc_insertion_point(module_scope)

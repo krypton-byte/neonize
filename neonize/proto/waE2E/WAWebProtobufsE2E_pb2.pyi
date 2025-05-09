@@ -54,6 +54,7 @@ class _PeerDataOperationRequestTypeEnumTypeWrapper(google.protobuf.internal.enum
     WAFFLE_LINKING_NONCE_FETCH: _PeerDataOperationRequestType.ValueType  # 5
     FULL_HISTORY_SYNC_ON_DEMAND: _PeerDataOperationRequestType.ValueType  # 6
     COMPANION_META_NONCE_FETCH: _PeerDataOperationRequestType.ValueType  # 7
+    COMPANION_SYNCD_SNAPSHOT_FATAL_RECOVERY: _PeerDataOperationRequestType.ValueType  # 8
 
 class PeerDataOperationRequestType(_PeerDataOperationRequestType, metaclass=_PeerDataOperationRequestTypeEnumTypeWrapper): ...
 
@@ -65,6 +66,7 @@ PLACEHOLDER_MESSAGE_RESEND: PeerDataOperationRequestType.ValueType  # 4
 WAFFLE_LINKING_NONCE_FETCH: PeerDataOperationRequestType.ValueType  # 5
 FULL_HISTORY_SYNC_ON_DEMAND: PeerDataOperationRequestType.ValueType  # 6
 COMPANION_META_NONCE_FETCH: PeerDataOperationRequestType.ValueType  # 7
+COMPANION_SYNCD_SNAPSHOT_FATAL_RECOVERY: PeerDataOperationRequestType.ValueType  # 8
 global___PeerDataOperationRequestType = PeerDataOperationRequestType
 
 class _BotMetricsEntryPoint:
@@ -1819,6 +1821,23 @@ class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
         ERROR_HOSTED_DEVICE_LOGIN_TIME_NOT_SET: PeerDataOperationRequestResponseMessage.PeerDataOperationResult.FullHistorySyncOnDemandResponseCode.ValueType  # 6
 
         @typing.final
+        class SyncDSnapshotFatalRecoveryResponse(google.protobuf.message.Message):
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+            COLLECTIONSNAPSHOT_FIELD_NUMBER: builtins.int
+            ISCOMPRESSED_FIELD_NUMBER: builtins.int
+            collectionSnapshot: builtins.bytes
+            isCompressed: builtins.bool
+            def __init__(
+                self,
+                *,
+                collectionSnapshot: builtins.bytes | None = ...,
+                isCompressed: builtins.bool | None = ...,
+            ) -> None: ...
+            def HasField(self, field_name: typing.Literal["collectionSnapshot", b"collectionSnapshot", "isCompressed", b"isCompressed"]) -> builtins.bool: ...
+            def ClearField(self, field_name: typing.Literal["collectionSnapshot", b"collectionSnapshot", "isCompressed", b"isCompressed"]) -> None: ...
+
+        @typing.final
         class CompanionMetaNonceFetchResponse(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1953,6 +1972,7 @@ class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
         WAFFLENONCEFETCHREQUESTRESPONSE_FIELD_NUMBER: builtins.int
         FULLHISTORYSYNCONDEMANDREQUESTRESPONSE_FIELD_NUMBER: builtins.int
         COMPANIONMETANONCEFETCHREQUESTRESPONSE_FIELD_NUMBER: builtins.int
+        SYNCDSNAPSHOTFATALRECOVERYRESPONSE_FIELD_NUMBER: builtins.int
         mediaUploadResult: waMmsRetry.WAMmsRetry_pb2.MediaRetryNotification.ResultType.ValueType
         @property
         def stickerMessage(self) -> global___StickerMessage: ...
@@ -1966,6 +1986,8 @@ class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
         def fullHistorySyncOnDemandRequestResponse(self) -> global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.FullHistorySyncOnDemandRequestResponse: ...
         @property
         def companionMetaNonceFetchRequestResponse(self) -> global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.CompanionMetaNonceFetchResponse: ...
+        @property
+        def syncdSnapshotFatalRecoveryResponse(self) -> global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.SyncDSnapshotFatalRecoveryResponse: ...
         def __init__(
             self,
             *,
@@ -1976,9 +1998,10 @@ class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
             waffleNonceFetchRequestResponse: global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.WaffleNonceFetchResponse | None = ...,
             fullHistorySyncOnDemandRequestResponse: global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.FullHistorySyncOnDemandRequestResponse | None = ...,
             companionMetaNonceFetchRequestResponse: global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.CompanionMetaNonceFetchResponse | None = ...,
+            syncdSnapshotFatalRecoveryResponse: global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.SyncDSnapshotFatalRecoveryResponse | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["companionMetaNonceFetchRequestResponse", b"companionMetaNonceFetchRequestResponse", "fullHistorySyncOnDemandRequestResponse", b"fullHistorySyncOnDemandRequestResponse", "linkPreviewResponse", b"linkPreviewResponse", "mediaUploadResult", b"mediaUploadResult", "placeholderMessageResendResponse", b"placeholderMessageResendResponse", "stickerMessage", b"stickerMessage", "waffleNonceFetchRequestResponse", b"waffleNonceFetchRequestResponse"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["companionMetaNonceFetchRequestResponse", b"companionMetaNonceFetchRequestResponse", "fullHistorySyncOnDemandRequestResponse", b"fullHistorySyncOnDemandRequestResponse", "linkPreviewResponse", b"linkPreviewResponse", "mediaUploadResult", b"mediaUploadResult", "placeholderMessageResendResponse", b"placeholderMessageResendResponse", "stickerMessage", b"stickerMessage", "waffleNonceFetchRequestResponse", b"waffleNonceFetchRequestResponse"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["companionMetaNonceFetchRequestResponse", b"companionMetaNonceFetchRequestResponse", "fullHistorySyncOnDemandRequestResponse", b"fullHistorySyncOnDemandRequestResponse", "linkPreviewResponse", b"linkPreviewResponse", "mediaUploadResult", b"mediaUploadResult", "placeholderMessageResendResponse", b"placeholderMessageResendResponse", "stickerMessage", b"stickerMessage", "syncdSnapshotFatalRecoveryResponse", b"syncdSnapshotFatalRecoveryResponse", "waffleNonceFetchRequestResponse", b"waffleNonceFetchRequestResponse"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["companionMetaNonceFetchRequestResponse", b"companionMetaNonceFetchRequestResponse", "fullHistorySyncOnDemandRequestResponse", b"fullHistorySyncOnDemandRequestResponse", "linkPreviewResponse", b"linkPreviewResponse", "mediaUploadResult", b"mediaUploadResult", "placeholderMessageResendResponse", b"placeholderMessageResendResponse", "stickerMessage", b"stickerMessage", "syncdSnapshotFatalRecoveryResponse", b"syncdSnapshotFatalRecoveryResponse", "waffleNonceFetchRequestResponse", b"waffleNonceFetchRequestResponse"]) -> None: ...
 
     PEERDATAOPERATIONREQUESTTYPE_FIELD_NUMBER: builtins.int
     STANZAID_FIELD_NUMBER: builtins.int
@@ -6564,6 +6587,24 @@ class PeerDataOperationRequestMessage(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     @typing.final
+    class SyncDCollectionFatalRecoveryRequest(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        COLLECTIONNAMES_FIELD_NUMBER: builtins.int
+        TIMESTAMP_FIELD_NUMBER: builtins.int
+        timestamp: builtins.int
+        @property
+        def collectionNames(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+        def __init__(
+            self,
+            *,
+            collectionNames: collections.abc.Iterable[builtins.str] | None = ...,
+            timestamp: builtins.int | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["timestamp", b"timestamp"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["collectionNames", b"collectionNames", "timestamp", b"timestamp"]) -> None: ...
+
+    @typing.final
     class PlaceholderMessageResendRequest(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6663,6 +6704,7 @@ class PeerDataOperationRequestMessage(google.protobuf.message.Message):
     HISTORYSYNCONDEMANDREQUEST_FIELD_NUMBER: builtins.int
     PLACEHOLDERMESSAGERESENDREQUEST_FIELD_NUMBER: builtins.int
     FULLHISTORYSYNCONDEMANDREQUEST_FIELD_NUMBER: builtins.int
+    SYNCDCOLLECTIONFATALRECOVERYREQUEST_FIELD_NUMBER: builtins.int
     peerDataOperationRequestType: global___PeerDataOperationRequestType.ValueType
     @property
     def requestStickerReupload(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PeerDataOperationRequestMessage.RequestStickerReupload]: ...
@@ -6674,6 +6716,8 @@ class PeerDataOperationRequestMessage(google.protobuf.message.Message):
     def placeholderMessageResendRequest(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PeerDataOperationRequestMessage.PlaceholderMessageResendRequest]: ...
     @property
     def fullHistorySyncOnDemandRequest(self) -> global___PeerDataOperationRequestMessage.FullHistorySyncOnDemandRequest: ...
+    @property
+    def syncdCollectionFatalRecoveryRequest(self) -> global___PeerDataOperationRequestMessage.SyncDCollectionFatalRecoveryRequest: ...
     def __init__(
         self,
         *,
@@ -6683,9 +6727,10 @@ class PeerDataOperationRequestMessage(google.protobuf.message.Message):
         historySyncOnDemandRequest: global___PeerDataOperationRequestMessage.HistorySyncOnDemandRequest | None = ...,
         placeholderMessageResendRequest: collections.abc.Iterable[global___PeerDataOperationRequestMessage.PlaceholderMessageResendRequest] | None = ...,
         fullHistorySyncOnDemandRequest: global___PeerDataOperationRequestMessage.FullHistorySyncOnDemandRequest | None = ...,
+        syncdCollectionFatalRecoveryRequest: global___PeerDataOperationRequestMessage.SyncDCollectionFatalRecoveryRequest | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["fullHistorySyncOnDemandRequest", b"fullHistorySyncOnDemandRequest", "historySyncOnDemandRequest", b"historySyncOnDemandRequest", "peerDataOperationRequestType", b"peerDataOperationRequestType"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["fullHistorySyncOnDemandRequest", b"fullHistorySyncOnDemandRequest", "historySyncOnDemandRequest", b"historySyncOnDemandRequest", "peerDataOperationRequestType", b"peerDataOperationRequestType", "placeholderMessageResendRequest", b"placeholderMessageResendRequest", "requestStickerReupload", b"requestStickerReupload", "requestURLPreview", b"requestURLPreview"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["fullHistorySyncOnDemandRequest", b"fullHistorySyncOnDemandRequest", "historySyncOnDemandRequest", b"historySyncOnDemandRequest", "peerDataOperationRequestType", b"peerDataOperationRequestType", "syncdCollectionFatalRecoveryRequest", b"syncdCollectionFatalRecoveryRequest"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["fullHistorySyncOnDemandRequest", b"fullHistorySyncOnDemandRequest", "historySyncOnDemandRequest", b"historySyncOnDemandRequest", "peerDataOperationRequestType", b"peerDataOperationRequestType", "placeholderMessageResendRequest", b"placeholderMessageResendRequest", "requestStickerReupload", b"requestStickerReupload", "requestURLPreview", b"requestURLPreview", "syncdCollectionFatalRecoveryRequest", b"syncdCollectionFatalRecoveryRequest"]) -> None: ...
 
 global___PeerDataOperationRequestMessage = PeerDataOperationRequestMessage
 
