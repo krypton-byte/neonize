@@ -425,6 +425,8 @@ class LabelEditAction(google.protobuf.message.Message):
         FAVORITES: LabelEditAction._ListType.ValueType  # 3
         PREDEFINED: LabelEditAction._ListType.ValueType  # 4
         CUSTOM: LabelEditAction._ListType.ValueType  # 5
+        COMMUNITY: LabelEditAction._ListType.ValueType  # 6
+        SERVER_ASSIGNED: LabelEditAction._ListType.ValueType  # 7
 
     class ListType(_ListType, metaclass=_ListTypeEnumTypeWrapper): ...
     NONE: LabelEditAction.ListType.ValueType  # 0
@@ -433,6 +435,8 @@ class LabelEditAction(google.protobuf.message.Message):
     FAVORITES: LabelEditAction.ListType.ValueType  # 3
     PREDEFINED: LabelEditAction.ListType.ValueType  # 4
     CUSTOM: LabelEditAction.ListType.ValueType  # 5
+    COMMUNITY: LabelEditAction.ListType.ValueType  # 6
+    SERVER_ASSIGNED: LabelEditAction.ListType.ValueType  # 7
 
     NAME_FIELD_NUMBER: builtins.int
     COLOR_FIELD_NUMBER: builtins.int
@@ -441,6 +445,7 @@ class LabelEditAction(google.protobuf.message.Message):
     ORDERINDEX_FIELD_NUMBER: builtins.int
     ISACTIVE_FIELD_NUMBER: builtins.int
     TYPE_FIELD_NUMBER: builtins.int
+    ISIMMUTABLE_FIELD_NUMBER: builtins.int
     name: builtins.str
     color: builtins.int
     predefinedID: builtins.int
@@ -448,6 +453,7 @@ class LabelEditAction(google.protobuf.message.Message):
     orderIndex: builtins.int
     isActive: builtins.bool
     type: global___LabelEditAction.ListType.ValueType
+    isImmutable: builtins.bool
     def __init__(
         self,
         *,
@@ -458,9 +464,10 @@ class LabelEditAction(google.protobuf.message.Message):
         orderIndex: builtins.int | None = ...,
         isActive: builtins.bool | None = ...,
         type: global___LabelEditAction.ListType.ValueType | None = ...,
+        isImmutable: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["color", b"color", "deleted", b"deleted", "isActive", b"isActive", "name", b"name", "orderIndex", b"orderIndex", "predefinedID", b"predefinedID", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["color", b"color", "deleted", b"deleted", "isActive", b"isActive", "name", b"name", "orderIndex", b"orderIndex", "predefinedID", b"predefinedID", "type", b"type"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["color", b"color", "deleted", b"deleted", "isActive", b"isActive", "isImmutable", b"isImmutable", "name", b"name", "orderIndex", b"orderIndex", "predefinedID", b"predefinedID", "type", b"type"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["color", b"color", "deleted", b"deleted", "isActive", b"isActive", "isImmutable", b"isImmutable", "name", b"name", "orderIndex", b"orderIndex", "predefinedID", b"predefinedID", "type", b"type"]) -> None: ...
 
 global___LabelEditAction = LabelEditAction
 
@@ -614,6 +621,8 @@ class SyncActionValue(google.protobuf.message.Message):
     WAFFLEACCOUNTLINKSTATEACTION_FIELD_NUMBER: builtins.int
     USERNAMECHATSTARTMODE_FIELD_NUMBER: builtins.int
     NOTIFICATIONACTIVITYSETTINGACTION_FIELD_NUMBER: builtins.int
+    LIDCONTACTACTION_FIELD_NUMBER: builtins.int
+    CTWAPERCUSTOMERDATASHARINGACTION_FIELD_NUMBER: builtins.int
     timestamp: builtins.int
     @property
     def starAction(self) -> global___StarAction: ...
@@ -721,6 +730,10 @@ class SyncActionValue(google.protobuf.message.Message):
     def usernameChatStartMode(self) -> global___UsernameChatStartModeAction: ...
     @property
     def notificationActivitySettingAction(self) -> global___NotificationActivitySettingAction: ...
+    @property
+    def lidContactAction(self) -> global___LidContactAction: ...
+    @property
+    def ctwaPerCustomerDataSharingAction(self) -> global___CtwaPerCustomerDataSharingAction: ...
     def __init__(
         self,
         *,
@@ -778,11 +791,54 @@ class SyncActionValue(google.protobuf.message.Message):
         waffleAccountLinkStateAction: global___WaffleAccountLinkStateAction | None = ...,
         usernameChatStartMode: global___UsernameChatStartModeAction | None = ...,
         notificationActivitySettingAction: global___NotificationActivitySettingAction | None = ...,
+        lidContactAction: global___LidContactAction | None = ...,
+        ctwaPerCustomerDataSharingAction: global___CtwaPerCustomerDataSharingAction | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["agentAction", b"agentAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "muteAction", b"muteAction", "noteEditAction", b"noteEditAction", "notificationActivitySettingAction", b"notificationActivitySettingAction", "nuxAction", b"nuxAction", "paymentInfoAction", b"paymentInfoAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "securityNotificationSetting", b"securityNotificationSetting", "starAction", b"starAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "usernameChatStartMode", b"usernameChatStartMode", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["agentAction", b"agentAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "muteAction", b"muteAction", "noteEditAction", b"noteEditAction", "notificationActivitySettingAction", b"notificationActivitySettingAction", "nuxAction", b"nuxAction", "paymentInfoAction", b"paymentInfoAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "securityNotificationSetting", b"securityNotificationSetting", "starAction", b"starAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "usernameChatStartMode", b"usernameChatStartMode", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["agentAction", b"agentAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "ctwaPerCustomerDataSharingAction", b"ctwaPerCustomerDataSharingAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "lidContactAction", b"lidContactAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "muteAction", b"muteAction", "noteEditAction", b"noteEditAction", "notificationActivitySettingAction", b"notificationActivitySettingAction", "nuxAction", b"nuxAction", "paymentInfoAction", b"paymentInfoAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "securityNotificationSetting", b"securityNotificationSetting", "starAction", b"starAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "usernameChatStartMode", b"usernameChatStartMode", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["agentAction", b"agentAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "ctwaPerCustomerDataSharingAction", b"ctwaPerCustomerDataSharingAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "lidContactAction", b"lidContactAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "muteAction", b"muteAction", "noteEditAction", b"noteEditAction", "notificationActivitySettingAction", b"notificationActivitySettingAction", "nuxAction", b"nuxAction", "paymentInfoAction", b"paymentInfoAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "securityNotificationSetting", b"securityNotificationSetting", "starAction", b"starAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "usernameChatStartMode", b"usernameChatStartMode", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]) -> None: ...
 
 global___SyncActionValue = SyncActionValue
+
+@typing.final
+class CtwaPerCustomerDataSharingAction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ISCTWAPERCUSTOMERDATASHARINGENABLED_FIELD_NUMBER: builtins.int
+    isCtwaPerCustomerDataSharingEnabled: builtins.bool
+    def __init__(
+        self,
+        *,
+        isCtwaPerCustomerDataSharingEnabled: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["isCtwaPerCustomerDataSharingEnabled", b"isCtwaPerCustomerDataSharingEnabled"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["isCtwaPerCustomerDataSharingEnabled", b"isCtwaPerCustomerDataSharingEnabled"]) -> None: ...
+
+global___CtwaPerCustomerDataSharingAction = CtwaPerCustomerDataSharingAction
+
+@typing.final
+class LidContactAction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FULLNAME_FIELD_NUMBER: builtins.int
+    FIRSTNAME_FIELD_NUMBER: builtins.int
+    USERNAME_FIELD_NUMBER: builtins.int
+    SAVEONPRIMARYADDRESSBOOK_FIELD_NUMBER: builtins.int
+    fullName: builtins.str
+    firstName: builtins.str
+    username: builtins.str
+    saveOnPrimaryAddressbook: builtins.bool
+    def __init__(
+        self,
+        *,
+        fullName: builtins.str | None = ...,
+        firstName: builtins.str | None = ...,
+        username: builtins.str | None = ...,
+        saveOnPrimaryAddressbook: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["firstName", b"firstName", "fullName", b"fullName", "saveOnPrimaryAddressbook", b"saveOnPrimaryAddressbook", "username", b"username"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["firstName", b"firstName", "fullName", b"fullName", "saveOnPrimaryAddressbook", b"saveOnPrimaryAddressbook", "username", b"username"]) -> None: ...
+
+global___LidContactAction = LidContactAction
 
 @typing.final
 class FavoritesAction(google.protobuf.message.Message):
@@ -1628,10 +1684,14 @@ class ContactAction(google.protobuf.message.Message):
     FIRSTNAME_FIELD_NUMBER: builtins.int
     LIDJID_FIELD_NUMBER: builtins.int
     SAVEONPRIMARYADDRESSBOOK_FIELD_NUMBER: builtins.int
+    PNJID_FIELD_NUMBER: builtins.int
+    USERNAME_FIELD_NUMBER: builtins.int
     fullName: builtins.str
     firstName: builtins.str
     lidJID: builtins.str
     saveOnPrimaryAddressbook: builtins.bool
+    pnJID: builtins.str
+    username: builtins.str
     def __init__(
         self,
         *,
@@ -1639,9 +1699,11 @@ class ContactAction(google.protobuf.message.Message):
         firstName: builtins.str | None = ...,
         lidJID: builtins.str | None = ...,
         saveOnPrimaryAddressbook: builtins.bool | None = ...,
+        pnJID: builtins.str | None = ...,
+        username: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["firstName", b"firstName", "fullName", b"fullName", "lidJID", b"lidJID", "saveOnPrimaryAddressbook", b"saveOnPrimaryAddressbook"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["firstName", b"firstName", "fullName", b"fullName", "lidJID", b"lidJID", "saveOnPrimaryAddressbook", b"saveOnPrimaryAddressbook"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["firstName", b"firstName", "fullName", b"fullName", "lidJID", b"lidJID", "pnJID", b"pnJID", "saveOnPrimaryAddressbook", b"saveOnPrimaryAddressbook", "username", b"username"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["firstName", b"firstName", "fullName", b"fullName", "lidJID", b"lidJID", "pnJID", b"pnJID", "saveOnPrimaryAddressbook", b"saveOnPrimaryAddressbook", "username", b"username"]) -> None: ...
 
 global___ContactAction = ContactAction
 
