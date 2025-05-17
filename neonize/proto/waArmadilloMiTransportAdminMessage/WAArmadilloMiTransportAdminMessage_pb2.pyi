@@ -153,14 +153,79 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
         REMOVED: MiTransportAdminMessage.GroupParticipantChanged.Action.ValueType  # 2
 
         TARGETUSERID_FIELD_NUMBER: builtins.int
+        ACTION_FIELD_NUMBER: builtins.int
+        action: global___MiTransportAdminMessage.GroupParticipantChanged.Action.ValueType
         @property
         def targetUserID(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
         def __init__(
             self,
             *,
             targetUserID: collections.abc.Iterable[builtins.str] | None = ...,
+            action: global___MiTransportAdminMessage.GroupParticipantChanged.Action.ValueType | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["targetUserID", b"targetUserID"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["action", b"action"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["action", b"action", "targetUserID", b"targetUserID"]) -> None: ...
+
+    @typing.final
+    class DisappearingSettingChanged(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        DISAPPEARINGSETTINGDURATIONSECONDS_FIELD_NUMBER: builtins.int
+        OLDDISAPPEARINGSETTINGDURATIONSECONDS_FIELD_NUMBER: builtins.int
+        disappearingSettingDurationSeconds: builtins.int
+        oldDisappearingSettingDurationSeconds: builtins.int
+        def __init__(
+            self,
+            *,
+            disappearingSettingDurationSeconds: builtins.int | None = ...,
+            oldDisappearingSettingDurationSeconds: builtins.int | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["disappearingSettingDurationSeconds", b"disappearingSettingDurationSeconds", "oldDisappearingSettingDurationSeconds", b"oldDisappearingSettingDurationSeconds"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["disappearingSettingDurationSeconds", b"disappearingSettingDurationSeconds", "oldDisappearingSettingDurationSeconds", b"oldDisappearingSettingDurationSeconds"]) -> None: ...
+
+    @typing.final
+    class IconChanged(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        THREADICON_FIELD_NUMBER: builtins.int
+        threadIcon: builtins.str
+        def __init__(
+            self,
+            *,
+            threadIcon: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["threadIcon", b"threadIcon"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["threadIcon", b"threadIcon"]) -> None: ...
+
+    @typing.final
+    class LinkCta(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        @typing.final
+        class UkOsaAdminText(google.protobuf.message.Message):
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+            INITIATORUSERID_FIELD_NUMBER: builtins.int
+            initiatorUserID: builtins.str
+            def __init__(
+                self,
+                *,
+                initiatorUserID: builtins.str | None = ...,
+            ) -> None: ...
+            def HasField(self, field_name: typing.Literal["initiatorUserID", b"initiatorUserID"]) -> builtins.bool: ...
+            def ClearField(self, field_name: typing.Literal["initiatorUserID", b"initiatorUserID"]) -> None: ...
+
+        UKOSAADMINTEXT_FIELD_NUMBER: builtins.int
+        @property
+        def ukOsaAdminText(self) -> global___MiTransportAdminMessage.LinkCta.UkOsaAdminText: ...
+        def __init__(
+            self,
+            *,
+            ukOsaAdminText: global___MiTransportAdminMessage.LinkCta.UkOsaAdminText | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["content", b"content", "ukOsaAdminText", b"ukOsaAdminText"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["content", b"content", "ukOsaAdminText", b"ukOsaAdminText"]) -> None: ...
+        def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["ukOsaAdminText"] | None: ...
 
     @typing.final
     class QuickReactionChanged(google.protobuf.message.Message):
@@ -213,16 +278,19 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
 
         THEMENAME_FIELD_NUMBER: builtins.int
         THEMEEMOJI_FIELD_NUMBER: builtins.int
+        THEMETYPE_FIELD_NUMBER: builtins.int
         themeName: builtins.str
         themeEmoji: builtins.str
+        themeType: builtins.int
         def __init__(
             self,
             *,
             themeName: builtins.str | None = ...,
             themeEmoji: builtins.str | None = ...,
+            themeType: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["themeEmoji", b"themeEmoji", "themeName", b"themeName"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["themeEmoji", b"themeEmoji", "themeName", b"themeName"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["themeEmoji", b"themeEmoji", "themeName", b"themeName", "themeType", b"themeType"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["themeEmoji", b"themeEmoji", "themeName", b"themeName", "themeType", b"themeType"]) -> None: ...
 
     CHATTHEMECHANGED_FIELD_NUMBER: builtins.int
     NICKNAMECHANGED_FIELD_NUMBER: builtins.int
@@ -233,6 +301,9 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
     MESSAGEPINNED_FIELD_NUMBER: builtins.int
     GROUPIMAGECHANGED_FIELD_NUMBER: builtins.int
     QUICKREACTIONCHANGED_FIELD_NUMBER: builtins.int
+    LINKCTA_FIELD_NUMBER: builtins.int
+    ICONCHANGED_FIELD_NUMBER: builtins.int
+    DISAPPEARINGSETTINGCHANGED_FIELD_NUMBER: builtins.int
     @property
     def chatThemeChanged(self) -> global___MiTransportAdminMessage.ChatThemeChanged: ...
     @property
@@ -251,6 +322,12 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
     def groupImageChanged(self) -> global___MiTransportAdminMessage.GroupImageChanged: ...
     @property
     def quickReactionChanged(self) -> global___MiTransportAdminMessage.QuickReactionChanged: ...
+    @property
+    def linkCta(self) -> global___MiTransportAdminMessage.LinkCta: ...
+    @property
+    def iconChanged(self) -> global___MiTransportAdminMessage.IconChanged: ...
+    @property
+    def disappearingSettingChanged(self) -> global___MiTransportAdminMessage.DisappearingSettingChanged: ...
     def __init__(
         self,
         *,
@@ -263,9 +340,12 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
         messagePinned: global___MiTransportAdminMessage.MessagePinned | None = ...,
         groupImageChanged: global___MiTransportAdminMessage.GroupImageChanged | None = ...,
         quickReactionChanged: global___MiTransportAdminMessage.QuickReactionChanged | None = ...,
+        linkCta: global___MiTransportAdminMessage.LinkCta | None = ...,
+        iconChanged: global___MiTransportAdminMessage.IconChanged | None = ...,
+        disappearingSettingChanged: global___MiTransportAdminMessage.DisappearingSettingChanged | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["chatThemeChanged", "nicknameChanged", "groupParticipantChanged", "groupAdminChanged", "groupNameChanged", "groupMembershipAddModeChanged", "messagePinned", "groupImageChanged", "quickReactionChanged"] | None: ...
+    def HasField(self, field_name: typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["chatThemeChanged", "nicknameChanged", "groupParticipantChanged", "groupAdminChanged", "groupNameChanged", "groupMembershipAddModeChanged", "messagePinned", "groupImageChanged", "quickReactionChanged", "linkCta", "iconChanged", "disappearingSettingChanged"] | None: ...
 
 global___MiTransportAdminMessage = MiTransportAdminMessage
