@@ -6,7 +6,12 @@ import os
 import platform
 
 WORKDIR = Path(__file__).parent.parent
-fname = "-".join(["neonize", os.popen("uv run task version neonize --pypi-format").read().strip().replace('post', '')])
+fname = "-".join(
+    [
+        "neonize",
+        os.popen("uv run task version neonize --pypi-format").read().strip().replace("post", ""),
+    ]
+)
 wheel_name = fname + "-py3-none-any.whl"
 os_name = os.environ.get("GOOS") or platform.system().lower()
 arch_name = os.environ.get("GOARCH") or platform.machine().lower()
@@ -18,34 +23,35 @@ arch_name = {
 import subprocess
 import os
 
+
 def check_libc():
     # Coba cek dengan ldd --version
     try:
-        result = subprocess.run(['ldd', '--version'], capture_output=True, text=True)
+        result = subprocess.run(["ldd", "--version"], capture_output=True, text=True)
         output = result.stdout.lower() + result.stderr.lower()
-        if 'musl' in output:
-            return 'musl libc'
-        elif 'glibc' in output or 'gnu libc' in output:
-            return 'glibc'
+        if "musl" in output:
+            return "musl libc"
+        elif "glibc" in output or "gnu libc" in output:
+            return "glibc"
     except Exception:
         pass
 
     # Coba cek file libc.so.6 di /lib atau /lib64
-    libc_paths = ['/lib/libc.so.6', '/lib64/libc.so.6']
+    libc_paths = ["/lib/libc.so.6", "/lib64/libc.so.6"]
     for path in libc_paths:
         if os.path.isfile(path):
             try:
                 result = subprocess.run([path], capture_output=True, text=True)
                 output = result.stdout.lower() + result.stderr.lower()
-                if 'musl' in output:
-                    return 'musl libc'
-                elif 'glibc' in output or 'gnu libc' in output:
-                    return 'glibc'
+                if "musl" in output:
+                    return "musl libc"
+                elif "glibc" in output or "gnu libc" in output:
+                    return "glibc"
             except Exception:
                 pass
 
     # Jika belum ketahuan
-    return 'Unknown libc type'
+    return "Unknown libc type"
 
 
 class OS(Enum):

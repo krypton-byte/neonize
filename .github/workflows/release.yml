@@ -295,7 +295,67 @@ jobs:
       with: 
         name: Darwin
         path: LIBS/*
-
+  musl:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - arch: x86
+            goarch: 386
+          - arch: aarch64
+            goarch: arm64
+          - arch: x86_64
+            goarch: amd64
+          - arch: armv7
+            goarch: arm
+          - arch: ppc64le
+            goarch: ppc64le
+          - arch: s390x
+            goarch: s390x
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup latest Alpine Linux
+        uses: jirutka/setup-alpine@v1
+        with:
+          alpine-version: 'latest'
+          arch: ${{ matrix.arch }}
+          chroot: true
+          packages: |
+            linux-headers
+            python3-dev
+            go
+            python3
+            uv
+            musl
+            musl-dev
+            musl-utils
+            git
+            gcc
+            py3-pillow
+            build-base
+            zlib-dev
+            jpeg-dev
+            freetype-dev
+            lcms2-dev
+      - name: Run script inside Alpine chroot as the default user (unprivileged)
+        run: |
+          export CGO_ENABLED=1
+          export GOARCH=${{ matrix.goarch }}
+          go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+          go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+          ls -la  # as you would expect, you're in your workspace directory
+          uv sync
+          uv sync --dev
+          uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
+          bash bump_version.sh
+          uv run task build goneonize
+          uv build
+          uv run task repack
+          export UV_PUBLISH_TOKEN=${UV_PUBLISH_TOKEN}
+          if [[ $UV_PUBLISH_TOKEN ]];then
+            uv publish
+          fi
+        shell: alpine.sh {0}
   release:
     runs-on: ubuntu-latest
     needs: [android, zig, linux, darwin]
@@ -335,4 +395,3 @@ jobs:
         if [[ $UV_PUBLISH_TOKEN ]];then
           uv build && uv publish
         fi
-        
