@@ -44,7 +44,7 @@ jobs:
           uv sync
           uv sync --dev
           uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-          uv run task build all
+          uv run task build goneonize
           uv build
           uv run task repack
           export UV_PUBLISH_TOKEN=${UV_PUBLISH_TOKEN}
