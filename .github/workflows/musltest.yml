@@ -20,7 +20,7 @@ jobs:
           cat /etc/alpine-release
           apk add linux-headers
           apk add python3-dev
-          apk add golang
+          apk add go
           apk add python3
           apk add uv
           musl
