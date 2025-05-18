@@ -23,7 +23,6 @@ jobs:
           apk add go
           apk add python3
           apk add uv
-          musl
           musl-dev
           musl-utils
           git
