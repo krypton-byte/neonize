@@ -29,8 +29,6 @@ jobs:
             goarch: ppc64le
           - arch: s390x
             goarch: s390x
-          - arch: riscv64
-            goarch: riscv64
     steps:
       - uses: actions/checkout@v2
       - name: Setup latest Alpine Linux
