@@ -83,6 +83,7 @@ class ARCH(Enum):
     ARM = "armv7l"
     ARM64 = "arm64"
     RISCV64 = "riscv64"
+    PPC64LE = "ppc64le"
 
     @classmethod
     def auto(cls, os: OS):
@@ -102,6 +103,8 @@ class ARCH(Enum):
             return cls.ARM
         elif arch_name == "s390x":
             return cls.S390X
+        elif arch_name == "ppc64le":
+            return cls.PPC64LE
         raise OSError("Unsupported architecture")
 
 
