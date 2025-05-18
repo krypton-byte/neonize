@@ -14,30 +14,47 @@ env:
 jobs:
   musl:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - arch: x86
+            goarch: 386
+          - arch: aarch64
+            goarch: arm64
+          - arch: amd64
+            goarch: amd64
+          - arch: armv7
+            goarch: arm
+          - arch: ppc64le
+            goarch: ppc64le
+          - arch: s390x
+            goarch: s390x
+          - arch: riscv64
+            goarch: riscv64
     steps:
       - uses: actions/checkout@v2
-
       - name: Setup latest Alpine Linux
         uses: jirutka/setup-alpine@v1
-
-      - name: Run script inside Alpine chroot as root
-        run: |
-          cat /etc/alpine-release
-          apk add linux-headers
-          apk add python3-dev
-          apk add go
-          apk add python3
-          apk add uv
-          apk add musl
-          apk add musl-dev
-          apk add musl-utils
-          apk add git
-          apk add gcc
-        shell: alpine.sh --root {0}
+        with:
+          alpine-version: 'latest'
+          arch: ${{ matrix.arch }}
+          chroot: true
+          packages: |
+            linux-headers
+            python3-dev
+            go
+            python3
+            uv
+            musl
+            musl-dev
+            musl-utils
+            git
+            gcc
 
       - name: Run script inside Alpine chroot as the default user (unprivileged)
         run: |
           export CGO_ENABLED=1
+          export GOARCH=${{ matrix.goarch }}
           go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
           go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
           ls -la  # as you would expect, you're in your workspace directory
@@ -48,7 +65,7 @@ jobs:
           uv build
           uv run task repack
           export UV_PUBLISH_TOKEN=${UV_PUBLISH_TOKEN}
-          uv publish
+          # uv publish
         shell: alpine.sh {0}
       - name: Run script on the host system (Ubuntu)
         run: |
