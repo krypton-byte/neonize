@@ -50,6 +50,7 @@ jobs:
             musl-utils
             git
             gcc
+            py3-pillow
 
       - name: Run script inside Alpine chroot as the default user (unprivileged)
         run: |
