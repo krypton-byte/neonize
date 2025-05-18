@@ -45,3 +45,7 @@ jobs:
         run: |
           cat /etc/os-release
         shell: bash
+      - name: test
+        run: |
+          ls -la
+          ls goneonize
