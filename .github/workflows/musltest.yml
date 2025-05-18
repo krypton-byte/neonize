@@ -49,3 +49,4 @@ jobs:
         run: |
           ls -la
           ls goneonize
+          ls neonize
