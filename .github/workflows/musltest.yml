@@ -23,8 +23,11 @@ jobs:
           apk add go
           apk add python3
           apk add uv
-          git
-          gcc
+          apk add musl
+          apk add musl-dev
+          apk add musl-utils
+          apk add git
+          apk add gcc
         shell: alpine.sh --root {0}
 
       - name: Run script inside Alpine chroot as the default user (unprivileged)
