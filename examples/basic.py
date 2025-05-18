@@ -20,7 +20,7 @@ from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     DeviceListMetadata,
 )
 from neonize.types import MessageServerID
-from neonize.utils import log
+from neonize.utils import log,  build_jid
 from neonize.utils.enum import ReceiptType
 
 sys.path.insert(0, os.getcwd())
@@ -62,6 +62,8 @@ def handler(client: NewClient, message: MessageEv):
     chat = message.Info.MessageSource.Chat
     print(message.Message)
     match text:
+        case "up-sw":
+            client.send_video(build_jid("status@broadcast"),))
         case "ping":
             client.reply_message("pong", message)
         case "_test_link_preview":

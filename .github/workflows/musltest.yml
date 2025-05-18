@@ -1,0 +1,47 @@
+name: Auto Update whatsmeow
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  musl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup latest Alpine Linux
+        uses: jirutka/setup-alpine@v1
+
+      - name: Run script inside Alpine chroot as root
+        run: |
+          cat /etc/alpine-release
+          apk add linux-headers
+          apk add python3-dev
+          apk add golang
+          apk add python3
+          apk add uv
+          musl
+          musl-dev
+          musl-utils
+          git
+          gcc
+        shell: alpine.sh --root {0}
+
+      - name: Run script inside Alpine chroot as the default user (unprivileged)
+        run: |
+          go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+          go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+          ls -la  # as you would expect, you're in your workspace directory
+          uv sync
+          uv run task build goneonize
+          uv sync --group dev
+          uv run task proto
+        shell: alpine.sh {0}
+
+      - name: Run script on the host system (Ubuntu)
+        run: |
+          cat /etc/os-release
+        shell: bash
