@@ -23,8 +23,6 @@ jobs:
           apk add go
           apk add python3
           apk add uv
-          musl-dev
-          musl-utils
           git
           gcc
         shell: alpine.sh --root {0}
