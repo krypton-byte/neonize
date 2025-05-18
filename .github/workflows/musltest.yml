@@ -21,7 +21,7 @@ jobs:
             goarch: 386
           - arch: aarch64
             goarch: arm64
-          - arch: amd64
+          - arch: x86_64
             goarch: amd64
           - arch: armv7
             goarch: arm
