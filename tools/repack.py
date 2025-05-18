@@ -15,10 +15,43 @@ arch_name = {
     "x86_64": "amd64",
 }.get(arch_name, arch_name)
 
+import subprocess
+import os
+
+def check_libc():
+    # Coba cek dengan ldd --version
+    try:
+        result = subprocess.run(['ldd', '--version'], capture_output=True, text=True)
+        output = result.stdout.lower() + result.stderr.lower()
+        if 'musl' in output:
+            return 'musl libc'
+        elif 'glibc' in output or 'gnu libc' in output:
+            return 'glibc'
+    except Exception:
+        pass
+
+    # Coba cek file libc.so.6 di /lib atau /lib64
+    libc_paths = ['/lib/libc.so.6', '/lib64/libc.so.6']
+    for path in libc_paths:
+        if os.path.isfile(path):
+            try:
+                result = subprocess.run([path], capture_output=True, text=True)
+                output = result.stdout.lower() + result.stderr.lower()
+                if 'musl' in output:
+                    return 'musl libc'
+                elif 'glibc' in output or 'gnu libc' in output:
+                    return 'glibc'
+            except Exception:
+                pass
+
+    # Jika belum ketahuan
+    return 'Unknown libc type'
+
 
 class OS(Enum):
     MAC = "macosx"
     LINUX = "manylinux2014"
+    MUSL_LINUX = "musllinux_1_2"
     WINDOWS = "win"
 
     # ANDROID = "android"
@@ -27,7 +60,12 @@ class OS(Enum):
         if os_name == "windows":
             return cls.WINDOWS
         elif os_name == "linux":
-            return cls.LINUX
+            libc = check_libc()
+            if libc == "musl libc":
+                return cls.MUSL_LINUX
+            elif libc == "glibc":
+                return cls.LINUX
+            raise OSError("Unsupported libc type: " + libc)
         elif os_name == "darwin":
             return cls.MAC
         raise OSError(

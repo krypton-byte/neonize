@@ -5,7 +5,12 @@ on:
   push:
     branches:
       - musl
-
+env:
+ UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
+ VERSION_MAJOR: ${{ github.event.inputs.version_major }}
+ VERSION_MINOR: ${{ github.event.inputs.version_minor }}
+ VERSION_PATCH: ${{ github.event.inputs.version_patch }}
+ VERSION_POST: ${{ github.event.inputs.version_post }}
 jobs:
   musl:
     runs-on: ubuntu-latest
@@ -32,15 +37,20 @@ jobs:
 
       - name: Run script inside Alpine chroot as the default user (unprivileged)
         run: |
+          export CGO_ENABLED=1
           go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
           go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
           ls -la  # as you would expect, you're in your workspace directory
           uv sync
-          uv run task build goneonize
-          uv sync --group dev
+          uv sync --dev
+          uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
           uv run task proto
+          uv run task build goneonize
+          uv build
+          uv run task repack
+          export UV_PUBLISH_TOKEN=${UV_PUBLISH_TOKEN}
+          uv publish
         shell: alpine.sh {0}
-
       - name: Run script on the host system (Ubuntu)
         run: |
           cat /etc/os-release
