@@ -51,6 +51,11 @@ jobs:
             git
             gcc
             py3-pillow
+            build-base
+            zlib-dev
+            jpeg-dev
+            freetype-dev
+            lcms2-dev
 
       - name: Run script inside Alpine chroot as the default user (unprivileged)
         run: |
