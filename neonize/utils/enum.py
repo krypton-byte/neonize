@@ -351,6 +351,7 @@ class Presence(Enum):
     AVAILABLE = b"available"
     UNAVAILABLE = b"unavailable"
 
+
 class VoteType(Enum):
     """
     Enumeration of vote types.

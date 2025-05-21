@@ -227,13 +227,21 @@ def handler(client: NewClient, message: MessageEv):
         case "get_chat_settings":
             client.send_message(chat, client.chat_settings.get_chat_settings(chat).__str__())
         case "poll_vote":
-            client.send_message(chat, client.build_poll_vote_creation(
-                "Food",
-                ["Pizza", "Burger", "Sushi"],
-                VoteType.SINGLE,
-            ))
+            client.send_message(
+                chat,
+                client.build_poll_vote_creation(
+                    "Food",
+                    ["Pizza", "Burger", "Sushi"],
+                    VoteType.SINGLE,
+                ),
+            )
         case "send_react":
-            client.send_message(chat, client.build_reaction(chat, message.Info.MessageSource.Sender, message.Info.ID, reaction="🗿"))
+            client.send_message(
+                chat,
+                client.build_reaction(
+                    chat, message.Info.MessageSource.Sender, message.Info.ID, reaction="🗿"
+                ),
+            )
         case "edit_message":
             text = "Hello World"
             id_msg = None

@@ -67,7 +67,7 @@ from ..utils.enum import (
     ClientName,
     PrivacySetting,
     PrivacySettingType,
-    VoteType
+    VoteType,
 )
 from ..proto import Neonize_pb2 as neonize_proto
 from ..utils import validate_link

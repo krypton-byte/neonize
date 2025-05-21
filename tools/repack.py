@@ -20,9 +20,6 @@ arch_name = {
     "x86_64": "amd64",
 }.get(arch_name, arch_name)
 
-import subprocess
-import os
-
 
 def check_libc():
     # Coba cek dengan ldd --version
