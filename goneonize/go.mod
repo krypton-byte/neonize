@@ -5,7 +5,7 @@ go 1.23.4
 require (
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.28
-	go.mau.fi/whatsmeow v0.0.0-20250515105332-8c870897140e
+	go.mau.fi/whatsmeow v0.0.0-20250521125706-91ac75c2f61a
 	google.golang.org/protobuf v1.36.6
 )
 
@@ -23,4 +23,5 @@ require (
 	golang.org/x/exp v0.0.0-20250506013437-ce4c2cf36ca6 // indirect
 	golang.org/x/net v0.40.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect
+	golang.org/x/text v0.25.0 // indirect
 )
