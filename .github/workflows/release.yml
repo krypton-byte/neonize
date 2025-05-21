@@ -31,7 +31,7 @@ env:
  VERSION_POST: ${{ github.event.inputs.version_post }}
 jobs:
   android:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-go@v4
@@ -93,7 +93,7 @@ jobs:
         name: Android
         path: neonize/*.so
   zig:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-go@v4
@@ -165,7 +165,7 @@ jobs:
         path: |
           LIBS/*
   linux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-go@v4
