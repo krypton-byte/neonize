@@ -77,16 +77,22 @@ class TransportEvent(google.protobuf.message.Message):
 
             TYPE_FIELD_NUMBER: builtins.int
             DEVICENAME_FIELD_NUMBER: builtins.int
+            DEVICEPLATFORM_FIELD_NUMBER: builtins.int
+            DEVICEMODEL_FIELD_NUMBER: builtins.int
             type: global___TransportEvent.Event.DeviceChange.Type.ValueType
             deviceName: builtins.str
+            devicePlatform: builtins.str
+            deviceModel: builtins.str
             def __init__(
                 self,
                 *,
                 type: global___TransportEvent.Event.DeviceChange.Type.ValueType | None = ...,
                 deviceName: builtins.str | None = ...,
+                devicePlatform: builtins.str | None = ...,
+                deviceModel: builtins.str | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["deviceName", b"deviceName", "type", b"type"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["deviceName", b"deviceName", "type", b"type"]) -> None: ...
+            def HasField(self, field_name: typing.Literal["deviceModel", b"deviceModel", "deviceName", b"deviceName", "devicePlatform", b"devicePlatform", "type", b"type"]) -> builtins.bool: ...
+            def ClearField(self, field_name: typing.Literal["deviceModel", b"deviceModel", "deviceName", b"deviceName", "devicePlatform", b"devicePlatform", "type", b"type"]) -> None: ...
 
         DEVICECHANGE_FIELD_NUMBER: builtins.int
         ICDCALERT_FIELD_NUMBER: builtins.int
