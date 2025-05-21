@@ -366,7 +366,7 @@ jobs:
           path: LIBS/*
   release:
     runs-on: ubuntu-latest
-    needs: [android, zig, linux, darwin]
+    needs: [android, zig, linux, darwin, musl]
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v4
