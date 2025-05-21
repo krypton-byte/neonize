@@ -337,6 +337,7 @@ jobs:
             jpeg-dev
             freetype-dev
             lcms2-dev
+            bash
       - name: Run script inside Alpine chroot as the default user (unprivileged)
         run: |
           export CGO_ENABLED=1
