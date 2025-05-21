@@ -14,6 +14,7 @@ import (
 	"github.com/krypton-byte/neonize/utils"
 )
 import (
+	"context"
 	"time"
 
 	"google.golang.org/protobuf/proto"
@@ -23,7 +24,7 @@ import (
 func PutMutedUntil(id *C.char, user *C.uchar, userSize C.int, mutedUntil C.float) *C.char {
 	var JID defproto.JID
 	proto.Unmarshal(getByteByAddr(user, userSize), &JID)
-	err := clients[C.GoString(id)].Store.ChatSettings.PutMutedUntil(utils.DecodeJidProto(&JID), time.Unix(int64(mutedUntil), 0))
+	err := clients[C.GoString(id)].Store.ChatSettings.PutMutedUntil(context.Background(), utils.DecodeJidProto(&JID), time.Unix(int64(mutedUntil), 0))
 	if err != nil {
 		return C.CString(err.Error())
 	}
@@ -34,7 +35,7 @@ func PutMutedUntil(id *C.char, user *C.uchar, userSize C.int, mutedUntil C.float
 func GetChatSettings(id *C.char, user *C.uchar, userSize C.int) C.struct_BytesReturn {
 	var JID defproto.JID
 	proto.Unmarshal(getByteByAddr(user, userSize), &JID)
-	local_chat_settings, err := clients[C.GoString(id)].Store.ChatSettings.GetChatSettings(utils.DecodeJidProto(&JID))
+	local_chat_settings, err := clients[C.GoString(id)].Store.ChatSettings.GetChatSettings(context.Background(), utils.DecodeJidProto(&JID))
 	return_ := defproto.ReturnFunctionWithError{}
 	if err != nil {
 		return_.Error = proto.String(err.Error())

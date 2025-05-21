@@ -39,9 +39,9 @@ var clients = make(map[string]*whatsmeow.Client)
 
 // Defaults to sqlite otherwise use postgres database url
 func getDB(db *C.char, dbLog waLog.Logger) (*sqlstore.Container, error) {
-	container, err := sqlstore.New("sqlite3", fmt.Sprintf("file:%s?_foreign_keys=on", C.GoString(db)), dbLog)
+	container, err := sqlstore.New(context.TODO(), "sqlite3", fmt.Sprintf("file:%s?_foreign_keys=on", C.GoString(db)), dbLog)
 	if strings.HasPrefix(C.GoString(db), "postgres") {
-		container, err = sqlstore.New("postgres", C.GoString(db), dbLog)
+		container, err = sqlstore.New(context.TODO(), "postgres", C.GoString(db), dbLog)
 	}
 	return container, err
 }
@@ -172,9 +172,9 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 		if jidbyte_err != nil {
 			panic(jidbyte_err)
 		}
-		deviceStore, err_device = container.GetDevice(utils.DecodeJidProto(&JID))
+		deviceStore, err_device = container.GetDevice(context.TODO(), utils.DecodeJidProto(&JID))
 	} else {
-		deviceStore, err_device = container.GetFirstDevice()
+		deviceStore, err_device = container.GetFirstDevice(context.TODO())
 	}
 	if err_device != nil {
 		panic(err_device)
@@ -688,7 +688,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 			displayname := *PairPhone.ClientDisplayName
 			clientType := *PairPhone.ClientType
 			client.Connect()
-			code_, code_err := client.PairPhone(phone, notif, whatsmeow.PairClientType(int(clientType)), displayname)
+			code_, code_err := client.PairPhone(context.Background(), phone, notif, whatsmeow.PairClientType(int(clientType)), displayname)
 			if code_err != nil {
 				panic(code_err)
 			}
@@ -743,7 +743,7 @@ func DownloadAny(id *C.char, messageProto *C.uchar, size C.int) C.struct_BytesRe
 	if err != nil {
 		panic(err)
 	}
-	data_buff, err := clients[C.GoString(id)].DownloadAny(&message)
+	data_buff, err := clients[C.GoString(id)].DownloadAny(context.Background(), &message)
 	return_ := defproto.DownloadReturnFunction{}
 	if err != nil {
 		return_.Error = proto.String(err.Error())
@@ -761,7 +761,7 @@ func DownloadAny(id *C.char, messageProto *C.uchar, size C.int) C.struct_BytesRe
 
 //export DownloadMediaWithPath
 func DownloadMediaWithPath(id *C.char, directPath *C.char, encFileHash *C.uchar, encFileHashSize C.int, fileHash *C.uchar, fileHashSize C.int, mediakey *C.uchar, mediaKeySize C.int, fileLength C.int, mediaType C.int, mmsType *C.char) C.struct_BytesReturn {
-	data_buff, err := clients[C.GoString(id)].DownloadMediaWithPath(C.GoString(directPath), getByteByAddr(encFileHash, encFileHashSize), getByteByAddr(fileHash, fileHashSize), getByteByAddr(mediakey, mediaKeySize), int(fileLength), utils.MediaType[mediaType], C.GoString(mmsType))
+	data_buff, err := clients[C.GoString(id)].DownloadMediaWithPath(context.Background(), C.GoString(directPath), getByteByAddr(encFileHash, encFileHashSize), getByteByAddr(fileHash, fileHashSize), getByteByAddr(mediakey, mediaKeySize), int(fileLength), utils.MediaType[mediaType], C.GoString(mmsType))
 	return_ := defproto.DownloadReturnFunction{}
 	if err != nil {
 		return_.Error = proto.String(err.Error())
@@ -1322,7 +1322,7 @@ func GetNewsletterMessages(id *C.char, JIDByte *C.uchar, JIDSize C.int, Count C.
 
 //export Logout
 func Logout(id *C.char) *C.char {
-	err := clients[C.GoString(id)].Logout()
+	err := clients[C.GoString(id)].Logout(context.TODO())
 	if err != nil {
 		return C.CString(err.Error())
 	}
@@ -1455,7 +1455,7 @@ func SendAppState(id *C.char, patchByte *C.uchar, patchSize C.int) *C.char {
 	if err_unmarshal != nil {
 		panic(err_unmarshal)
 	}
-	err := clients[C.GoString(id)].SendAppState(*utils.DecodePatchInfo(&patchInfo))
+	err := clients[C.GoString(id)].SendAppState(context.Background(), *utils.DecodePatchInfo(&patchInfo))
 	if err != nil {
 		return C.CString(err.Error())
 	}
@@ -1535,7 +1535,7 @@ func SetGroupTopic(id *C.char, JIDByte *C.uchar, JIDSize C.int, previousID, newI
 //export SetPrivacySetting
 func SetPrivacySetting(id *C.char, name *C.char, value *C.char) C.struct_BytesReturn {
 	return_ := defproto.SetPrivacySettingReturnFunction{}
-	privacy_settings, err := clients[C.GoString(id)].SetPrivacySetting(types.PrivacySettingType(C.GoString(name)), types.PrivacySetting(C.GoString(value)))
+	privacy_settings, err := clients[C.GoString(id)].SetPrivacySetting(context.Background(), types.PrivacySettingType(C.GoString(name)), types.PrivacySetting(C.GoString(value)))
 	if err != nil {
 		return_.Error = proto.String(err.Error())
 	}
@@ -1549,7 +1549,7 @@ func SetPrivacySetting(id *C.char, name *C.char, value *C.char) C.struct_BytesRe
 
 //export SetPassive
 func SetPassive(id *C.char, passive C.bool) *C.char {
-	err := clients[C.GoString(id)].SetPassive(bool(passive))
+	err := clients[C.GoString(id)].SetPassive(context.Background(), bool(passive))
 	if err != nil {
 		return C.CString(err.Error())
 	}
@@ -1669,7 +1669,7 @@ func UpdateGroupParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int, partic
 
 //export GetPrivacySettings
 func GetPrivacySettings(id *C.char) C.struct_BytesReturn {
-	settings := clients[C.GoString(id)].GetPrivacySettings()
+	settings := clients[C.GoString(id)].GetPrivacySettings(context.Background())
 	return_buf, err := proto.Marshal(utils.EncodePrivacySettings(settings))
 	if err != nil {
 		panic(err)
@@ -1823,7 +1823,7 @@ func BuildPollVote(id *C.char, pollInfo *C.uchar, pollInfoSize C.int, optionName
 	if err_2 != nil {
 		panic(err_2)
 	}
-	pollInfo_, err_poll := clients[C.GoString(id)].BuildPollVote(utils.DecodeMessageInfo(&msgInfo), optionNames.Data)
+	pollInfo_, err_poll := clients[C.GoString(id)].BuildPollVote(context.Background(), utils.DecodeMessageInfo(&msgInfo), optionNames.Data)
 	return_ := defproto.BuildPollVoteReturnFunction{}
 	if err_poll != nil {
 		return_.Error = proto.String(err_poll.Error())
@@ -1972,7 +1972,7 @@ func GetMessageForRetry(id *C.char, requester *C.uchar, requesterSize C.int, to 
 func PutPinned(id *C.char, user *C.uchar, userSize C.int, pinned C.bool) *C.char {
 	var JID defproto.JID
 	proto.Unmarshal(getByteByAddr(user, userSize), &JID)
-	err := clients[C.GoString(id)].Store.ChatSettings.PutPinned(utils.DecodeJidProto(&JID), bool(pinned))
+	err := clients[C.GoString(id)].Store.ChatSettings.PutPinned(context.Background(), utils.DecodeJidProto(&JID), bool(pinned))
 	if err != nil {
 		return C.CString(err.Error())
 	}
@@ -1983,7 +1983,7 @@ func PutPinned(id *C.char, user *C.uchar, userSize C.int, pinned C.bool) *C.char
 func PutArchived(id *C.char, user *C.uchar, userSize C.int, archived C.bool) *C.char {
 	var JID defproto.JID
 	proto.Unmarshal(getByteByAddr(user, userSize), &JID)
-	err := clients[C.GoString(id)].Store.ChatSettings.PutArchived(utils.DecodeJidProto(&JID), bool(archived))
+	err := clients[C.GoString(id)].Store.ChatSettings.PutArchived(context.Background(), utils.DecodeJidProto(&JID), bool(archived))
 	if err != nil {
 		return C.CString(err.Error())
 	}
@@ -1998,7 +1998,7 @@ func GetAllDevices(db *C.char) *C.char {
 		panic(err)
 	}
 
-	deviceStore, err := container.GetAllDevices()
+	deviceStore, err := container.GetAllDevices(context.TODO())
 	if err != nil {
 		panic(err)
 	}
@@ -2036,7 +2036,7 @@ func DecryptPollVote(id *C.char, message *C.uchar, messageSize C.int) C.struct_B
 	if err != nil {
 		panic(err)
 	}
-	result, err := clients[C.GoString(id)].DecryptPollVote(utils.DecodeEventTypesMessage(&pvmessage))
+	result, err := clients[C.GoString(id)].DecryptPollVote(context.Background(), utils.DecodeEventTypesMessage(&pvmessage))
 	if err != nil {
 		return_proto.Error = proto.String(err.Error())
 	} else {

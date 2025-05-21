@@ -157,6 +157,7 @@ from .utils.enum import (
     ClientName,
     PrivacySetting,
     PrivacySettingType,
+    VoteType
 )
 from .utils.ffmpeg import FFmpeg
 from .utils.iofile import get_bytes_from_name_or_url
@@ -647,7 +648,7 @@ class NewClient:
         return self.send_message(chat, self.build_revoke(chat, sender, message_id))
 
     def build_poll_vote_creation(
-        self, name: str, options: List[str], selectable_count: int
+        self, name: str, options: List[str], type: VoteType
     ) -> Message:
         """Build a poll vote creation message.
 
@@ -667,7 +668,7 @@ class NewClient:
                 name.encode(),
                 options_buf,
                 len(options_buf),
-                selectable_count,
+                type.value,
             ).get_bytes()
         )
 

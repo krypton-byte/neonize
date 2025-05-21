@@ -9,7 +9,21 @@ Welcome to neonize's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
+   getstarted
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference:
+
    source/modules
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Development:
+
+   GitHub Repository <https://github.com/krypton-byte/neonize>
+   Issue Tracker <https://github.com/krypton-byte/neonize/issues>
 
 
 Indices and tables

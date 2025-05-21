@@ -350,3 +350,15 @@ class ParticipantRequestChange(Enum):
 class Presence(Enum):
     AVAILABLE = b"available"
     UNAVAILABLE = b"unavailable"
+
+class VoteType(Enum):
+    """
+    Enumeration of vote types.
+
+    Attributes:
+        MULTIPLE (int): Allows selecting multiple options in a poll.
+        SINGLE (int): Allows selecting only a single option in a poll.
+    """
+
+    MULTIPLE = 0
+    SINGLE = 1

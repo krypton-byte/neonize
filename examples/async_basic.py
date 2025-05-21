@@ -21,7 +21,7 @@ from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
 )
 from neonize.types import MessageServerID
 from neonize.utils import log
-from neonize.utils.enum import ReceiptType
+from neonize.utils.enum import ReceiptType, VoteType
 
 sys.path.insert(0, os.getcwd())
 
@@ -230,6 +230,14 @@ async def handler(client: NewAClient, message: MessageEv):
             await client.send_message(
                 chat, (await client.chat_settings.get_chat_settings(chat)).__str__()
             )
+        case "poll_vote":
+            await client.send_message(chat, await client.build_poll_vote_creation(
+                "Food",
+                ["Pizza", "Burger", "Sushi"],
+                VoteType.SINGLE,
+            ))
+        case "send_react":
+            await client.send_message(chat, await client.build_reaction(chat, message.Info.MessageSource.Sender, message.Info.ID, reaction="🗿"))
         case "edit_message":
             text = "Hello World"
             id_msg = None

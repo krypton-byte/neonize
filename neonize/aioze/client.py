@@ -67,6 +67,7 @@ from ..utils.enum import (
     ClientName,
     PrivacySetting,
     PrivacySettingType,
+    VoteType
 )
 from ..proto import Neonize_pb2 as neonize_proto
 from ..utils import validate_link
@@ -711,7 +712,7 @@ class NewAClient:
         return await self.send_message(chat, await self.build_revoke(chat, sender, message_id))
 
     async def build_poll_vote_creation(
-        self, name: str, options: List[str], selectable_count: int
+        self, name: str, options: List[str], type: VoteType
     ) -> Message:
         """Build a poll vote creation message.
 
@@ -732,7 +733,7 @@ class NewAClient:
                     name.encode(),
                     options_buf,
                     len(options_buf),
-                    selectable_count,
+                    type.value,
                 )
             ).get_bytes()
         )
