@@ -9,7 +9,7 @@ WORKDIR = Path(__file__).parent.parent
 fname = "-".join(
     [
         "neonize",
-        os.popen("uv run task version neonize --pypi-format").read().strip().replace("post", ""),
+        os.popen("uv run task version neonize --pypi-format").read().strip(),
     ]
 )
 wheel_name = fname + "-py3-none-any.whl"
