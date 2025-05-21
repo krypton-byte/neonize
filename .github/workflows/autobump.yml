@@ -24,6 +24,8 @@ jobs:
         python-version: "3.11.8"
     - name: Install Protoc
       uses: arduino/setup-protoc@v3
+      with:
+        version: "30.2"
     - name: Install uv
       uses: astral-sh/setup-uv@v5
     - name: fetch new proto files
