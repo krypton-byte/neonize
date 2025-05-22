@@ -56,7 +56,7 @@ jobs:
         bash bump_version.sh
     - name: build
       run: |
-        uv run task goneonize_changed
+        # uv run task goneonize_changed
         export CGO_ENABLED=1
         wget https://dl.google.com/android/repository/android-ndk-r26b-linux.zip > /dev/null
         unzip android-ndk-r26b-linux.zip > /dev/null
@@ -118,7 +118,7 @@ jobs:
         bash bump_version.sh
     - name: build
       run: |
-        uv run task goneonize_changed
+        # uv run task goneonize_changed
         mkdir LIBS
         export CGO_ENABLED=1
         #AMD64
@@ -191,7 +191,7 @@ jobs:
       run: sudo apt update && sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
     - name: build
       run: |
-        uv run task goneonize_changed
+        # uv run task goneonize_changed
         mkdir LIBS
         #AMD64/X86_64
         export CGO_ENABLED=1
@@ -259,7 +259,7 @@ jobs:
         bash bump_version.sh
     - name: build
       run: |
-        uv run task goneonize_changed
+        # uv run task goneonize_changed
         mkdir LIBS
         export PATH="/Users/runner/.local/bin:$PATH"
         # Set necessary environment variables for building on Darwin
