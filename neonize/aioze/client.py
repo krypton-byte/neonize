@@ -68,6 +68,7 @@ from ..utils.enum import (
     PrivacySetting,
     PrivacySettingType,
     VoteType,
+    MediaTypeToMMS
 )
 from ..proto import Neonize_pb2 as neonize_proto
 from ..utils import validate_link
@@ -1361,7 +1362,7 @@ class NewAClient:
         media_key: bytes,
         file_length: int,
         media_type: MediaType,
-        mms_type: str,
+        mms_type: MediaTypeToMMS,
     ) -> bytes:
         """
         Downloads media with the given parameters and path. The media is downloaded from the path specified.
@@ -1397,7 +1398,7 @@ class NewAClient:
                     len(media_key),
                     file_length,
                     media_type.value,
-                    mms_type.encode(),
+                    mms_type.value.encode(),
                 )
             ).get_bytes()
         )

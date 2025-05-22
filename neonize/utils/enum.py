@@ -49,6 +49,22 @@ class MediaType(Enum):
     MediaAppState = 5
     MediaLinkThumbnail = 6
 
+    def to_mms(self) -> MediaTypeToMMS:
+        """Converts the MediaType to its corresponding MediaTypeToMMS enum member.
+
+        :return: The corresponding MediaTypeToMMS enum member.
+        :rtype: MediaTypeToMMS
+        """
+        return {
+            self.MediaImage: MediaTypeToMMS.MediaImage,
+            self.MediaVideo: MediaTypeToMMS.MediaVideo,
+            self.MediaAudio: MediaTypeToMMS.MediaAudio,
+            self.MediaDocument: MediaTypeToMMS.MediaDocument,
+            self.MediaHistory: MediaTypeToMMS.MediaHistory,
+            self.MediaAppState: MediaTypeToMMS.MediaAppState,
+            self.MediaLinkThumbnail: MediaTypeToMMS.MediaLinkThumbnail,
+        }[self]
+
     @classmethod
     def from_magic(cls, fn_or_bytes: typing.Union[str, bytes]) -> MediaType:
         """Returns the MediaType based on file magic bytes or file extension.

@@ -158,6 +158,7 @@ from .utils.enum import (
     PrivacySetting,
     PrivacySettingType,
     VoteType,
+    MediaTypeToMMS
 )
 from .utils.ffmpeg import FFmpeg
 from .utils.iofile import get_bytes_from_name_or_url
@@ -1289,7 +1290,7 @@ class NewClient:
         media_key: bytes,
         file_length: int,
         media_type: MediaType,
-        mms_type: str,
+        mms_type: MediaTypeToMMS,
     ) -> bytes:
         """
         Downloads media with the given parameters and path. The media is downloaded from the path specified.
@@ -1324,7 +1325,7 @@ class NewClient:
                 len(media_key),
                 file_length,
                 media_type.value,
-                mms_type.encode(),
+                mms_type.value.encode(),
             ).get_bytes()
         )
         if model.Error:
@@ -2664,7 +2665,7 @@ class ClientFactory:
         return self.get_all_devices_from_db(self.database_name)
 
     def new_client(
-        self, jid: JID = None, uuid: str = None, props: Optional[DeviceProps] = None
+        self, jid: Optional[JID] = None, uuid: Optional[str] = None, props: Optional[DeviceProps] = None
     ) -> NewClient:
         """
         This function creates a new instance of the client. If the jid parameter is not provided, a new client will be created.
