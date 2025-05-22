@@ -352,6 +352,9 @@ jobs:
           uv run task build goneonize
           uv build
           uv run task repack
+        shell: alpine.sh {0}
+      - name: push to pypi
+        run: |
           export UV_PUBLISH_TOKEN=${UV_PUBLISH_TOKEN}
           if [[ $UV_PUBLISH_TOKEN ]];then
             uv publish
