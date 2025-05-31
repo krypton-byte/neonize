@@ -46,8 +46,10 @@ from ..proto.Neonize_pb2 import (
 )
 
 from google.protobuf.message import Message
-from typing import Awaitable, Dict, Callable, Type, TypeVar, TYPE_CHECKING
+from typing import Awaitable, Dict, Callable, Type, TypeVar, TYPE_CHECKING, Coroutine
 from asyncio import Event as IOEvent
+import threading
+event_global_loop = asyncio.new_event_loop()
 
 if TYPE_CHECKING:
     from .client import NewAClient, ClientFactory
@@ -107,7 +109,7 @@ class Event:
         """
         self.client = client
         self.blocking_func = self.blocking(self.default_blocking)
-        self.list_func: Dict[int, Callable[[NewAClient, Message], Awaitable[None]]] = {}
+        self.list_func: Dict[int, Callable[[NewAClient, Message], Coroutine[None, None, None]]] = {}
         self._qr = self.__onqr
 
     def execute(self, binary: int, size: int, code: int):
@@ -124,9 +126,13 @@ class Event:
             raise UnsupportedEvent()
 
         message = INT_TO_EVENT[code].FromString(ctypes.string_at(binary, size))
-        loop = asyncio.new_event_loop()
-        loop.run_until_complete(self.list_func[code](self.client, message))
-        loop.close()
+        # loop = asyncio.new_event_loop()
+        # loop.run_until_complete(
+        #     self.list_func[code](self.client, message)
+        # )
+        # loop.close()
+        asyncio.run_coroutine_threadsafe(self.list_func[code](self.client, message), event_global_loop)
+
 
     async def __onqr(self, _: NewAClient, data_qr: bytes):
         """
@@ -150,17 +156,15 @@ class Event:
 
     @property
     def blocking(self):
-        def block(f: Callable[[NewAClient], Awaitable[None]]):
+        def block(f: Callable[[NewAClient], Coroutine[None, None, None]]):
             """This method assigns a blocking function to process a new client and prevents the process from ending.
 
             :param f: A function that takes a new client as an argument and returns nothing.
             :type f: Callable[[NewClient], None]
             """
-
+            print("🚧 The blocking function has been set.")
             def wrap_blocking(_):
-                loop = asyncio.new_event_loop()
-                loop.run_until_complete(f(self.client))
-                loop.close()
+                asyncio.run_coroutine_threadsafe(f(self.client), event_global_loop).result()
 
             self.blocking_func = wrap_blocking
             return self.blocking_func
@@ -212,3 +216,8 @@ class EventsManager:
             self.list_func.update({EVENT_TO_INT[event]: func})
 
         return callback
+
+threading.Thread(
+    target=event_global_loop.run_forever,
+    daemon=True,
+).start()

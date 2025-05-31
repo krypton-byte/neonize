@@ -4,13 +4,13 @@ import os
 import sys
 from datetime import timedelta
 from neonize.aioze.client import NewAClient
-from neonize.events import (
+from neonize.aioze.events import (
     ConnectedEv,
     MessageEv,
     PairStatusEv,
-    event,
     ReceiptEv,
     CallOfferEv,
+    event
 )
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
@@ -20,8 +20,10 @@ from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     DeviceListMetadata,
 )
 from neonize.types import MessageServerID
-from neonize.utils import log
+from neonize.utils import log, build_jid
 from neonize.utils.enum import ReceiptType, VoteType
+import signal
+
 
 sys.path.insert(0, os.getcwd())
 
@@ -31,7 +33,7 @@ def interrupted(*_):
 
 
 log.setLevel(logging.DEBUG)
-# signal.signal(signal.SIGINT, interrupted)
+signal.signal(signal.SIGINT, interrupted)
 
 
 client = NewAClient("db.sqlite3")
@@ -40,6 +42,7 @@ client = NewAClient("db.sqlite3")
 @client.event(ConnectedEv)
 async def on_connected(_: NewAClient, __: ConnectedEv):
     log.info("⚡ Connected")
+    await client.send_message(build_jid("6283172366463"), "Hello from Neonize!")
 
 
 @client.event(ReceiptEv)
@@ -239,6 +242,12 @@ async def handler(client: NewAClient, message: MessageEv):
                     VoteType.SINGLE,
                 ),
             )
+        case "wait":
+            await client.send_message(chat, "Waiting for 5 seconds...")
+            await asyncio.sleep(5)
+            await client.send_message(chat, "Done waiting!")
+        case "shutdown":
+            event.set()
         case "send_react":
             await client.send_message(
                 chat,
@@ -321,6 +330,13 @@ async def handler(client: NewAClient, message: MessageEv):
 @client.event(PairStatusEv)
 async def PairStatusMessage(_: NewAClient, message: PairStatusEv):
     log.info(f"logged as {message.ID.User}")
+
+@client.blocking
+async def default_blocking(_: NewAClient):
+    log.debug("custom blocking function has been called.")
+    log.debug("🚧 The function is blocked, waiting for the event to be set.")
+    await event.wait()
+    log.debug("🚦 The function has been unblocked.")
 
 
 if __name__ == "__main__":

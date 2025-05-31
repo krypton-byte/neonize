@@ -4,11 +4,12 @@ import os
 import sys
 from datetime import timedelta
 from neonize.aioze.client import ClientFactory, NewAClient
-from neonize.events import (
+from neonize.aioze.events import (
     ConnectedEv,
     MessageEv,
     PairStatusEv,
     ReceiptEv,
+    event,
     CallOfferEv,
 )
 
@@ -22,16 +23,19 @@ from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
 from neonize.types import MessageServerID
 from neonize.utils import log
 from neonize.utils.enum import ReceiptType
+import signal
+
+
 
 sys.path.insert(0, os.getcwd())
 
 
-# def interrupted(*_):
-#     event.set()
+def interrupted(*_):
+    event.set()
 
 
 log.setLevel(logging.DEBUG)
-# signal.signal(signal.SIGINT, interrupted)
+signal.signal(signal.SIGINT, interrupted)
 
 
 client_factory = ClientFactory("db.sqlite3")
@@ -103,6 +107,12 @@ async def handler(client: NewAClient, message: MessageEv):
                 caption="Test",
                 quoted=message,
             )
+        case "wait":
+            await client.send_message(chat, "Waiting for 5 seconds...")
+            await asyncio.sleep(5)
+            await client.send_message(chat, "Done waiting!")
+        case "shutdown":
+            event.set()
         case "_audio":
             await client.send_audio(
                 chat,

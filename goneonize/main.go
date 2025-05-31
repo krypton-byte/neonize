@@ -728,6 +728,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 	}
 
 	// Listen to Ctrl+C (you can also do something else that prevents the program from exiting)
+	println("Press Ctrl+C to exit")
 	C.call_c_func(blocking, false)
 }
 
