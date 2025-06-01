@@ -153,6 +153,8 @@ if not os.environ.get("SPHINX"):
     gocode.IsLoggedIn.restype = ctypes.c_bool
     gocode.GetUserInfo.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.GetUserInfo.restype = Bytes
+    gocode.GetJIDFromLID.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.GetJIDFromLID.restype = Bytes
     gocode.GetMe.argtypes = [ctypes.c_char_p]
     gocode.GetMe.restype = Bytes
     gocode.BuildPollVoteCreation.argtypes = [
