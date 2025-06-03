@@ -842,6 +842,40 @@ func GetUserInfo(id *C.char, JIDSByte *C.uchar, JIDSSize C.int) C.struct_BytesRe
 	return ReturnBytes(return_buf)
 }
 
+//export GetJIDFromLID
+func GetJIDFromLID(id *C.char, JIDSByte *C.uchar, JIDSSize C.int) C.struct_BytesReturn {
+	var NeoJIDS defproto.JIDArray
+	JIDSBuf := getByteByAddr(JIDSByte, JIDSSize)
+	err := proto.Unmarshal(JIDSBuf, &NeoJIDS)
+	if err != nil {
+		panic(err)
+	}
+	JIDS := []types.JID{}
+	for _, jidBuf := range NeoJIDS.JIDS {
+		var jid types.JID = utils.DecodeJidProto(jidBuf)
+		if jid.Server == "lid" {
+			newJID, err := clients[C.GoString(id)].Store.LIDs.GetPNForLID(context.Background(), jid)
+			if err == nil {
+				JIDS = append(JIDS, newJID)
+			} else {
+				JIDS = append(JIDS, jid)
+			}
+		}
+	}
+	encodedJIDS := make([]*defproto.JID, len(JIDS))
+	for i, jid := range JIDS {
+		encodedJIDS[i] = utils.EncodeJidProto(jid)
+	}
+	return_ := defproto.JIDArray{
+		JIDS: encodedJIDS,
+	}
+	return_buf, marshal_err := proto.Marshal(&return_)
+	if marshal_err != nil {
+		panic(marshal_err)
+	}
+	return ReturnBytes(return_buf)
+}
+
 // /GROUP
 //
 //export GetGroupInfo

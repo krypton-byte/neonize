@@ -1417,6 +1417,13 @@ class NewClient:
             raise GetUserInfoError(model.Error)
         return model.UsersInfo
 
+    def get_jid_from_lid(self, *jid) -> list[JID]:
+        jidbuf = JIDArray(JIDS=jid).SerializeToString()
+        JIDS = self.__client.GetJIDFromLID(self.uuid, jidbuf, len(jidbuf)).get_bytes()
+        model = JIDArray.FromString(JIDS)
+        return model.JIDS        
+
+
     def get_group_info(self, jid: JID) -> GroupInfo:
         """Retrieves information about a group.
 
