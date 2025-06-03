@@ -42,7 +42,6 @@ client = NewAClient("db.sqlite3")
 @client.event(ConnectedEv)
 async def on_connected(_: NewAClient, __: ConnectedEv):
     log.info("⚡ Connected")
-    await client.send_message(build_jid("6283172366463"), "Hello from Neonize!")
 
 
 @client.event(ReceiptEv)
