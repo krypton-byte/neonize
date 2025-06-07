@@ -3465,7 +3465,9 @@ class GetMessageForRetryReturnFunction(google.protobuf.message.Message):
 
     ISEMPTY_FIELD_NUMBER: builtins.int
     MESSAGE_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
     isEmpty: builtins.bool
+    Error: builtins.str
     @property
     def Message(self) -> waE2E.WAWebProtobufsE2E_pb2.Message: ...
     def __init__(
@@ -3473,9 +3475,10 @@ class GetMessageForRetryReturnFunction(google.protobuf.message.Message):
         *,
         isEmpty: builtins.bool | None = ...,
         Message: waE2E.WAWebProtobufsE2E_pb2.Message | None = ...,
+        Error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["Message", b"Message", "isEmpty", b"isEmpty"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["Message", b"Message", "isEmpty", b"isEmpty"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["Error", b"Error", "Message", b"Message", "isEmpty", b"isEmpty"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["Error", b"Error", "Message", b"Message", "isEmpty", b"isEmpty"]) -> None: ...
 
 global___GetMessageForRetryReturnFunction = GetMessageForRetryReturnFunction
 
@@ -3565,3 +3568,33 @@ class SendRequestExtra(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["ID", b"ID", "InlineBotJID", b"InlineBotJID", "MediaHandle", b"MediaHandle", "Peer", b"Peer", "Timeout", b"Timeout"]) -> None: ...
 
 global___SendRequestExtra = SendRequestExtra
+
+@typing.final
+class BuildMessageReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ERROR_FIELD_NUMBER: builtins.int
+    MESSAGE_FIELD_NUMBER: builtins.int
+    Error: builtins.str
+    @property
+    def Message(self) -> waE2E.WAWebProtobufsE2E_pb2.Message: ...
+    def __init__(
+        self,
+        *,
+        Error: builtins.str | None = ...,
+        Message: waE2E.WAWebProtobufsE2E_pb2.Message | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["Error", b"Error", "Message", b"Message"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["Error", b"Error", "Message", b"Message"]) -> None: ...
+
+global___BuildMessageReturnFunction = BuildMessageReturnFunction
+
+@typing.final
+class Stop(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___Stop = Stop

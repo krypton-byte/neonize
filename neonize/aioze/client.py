@@ -2,7 +2,6 @@ from __future__ import annotations
 import time
 import struct
 import re
-
 from asyncio import get_event_loop
 import asyncio
 import ctypes
@@ -68,7 +67,7 @@ from ..utils.enum import (
     PrivacySetting,
     PrivacySettingType,
     VoteType,
-    MediaTypeToMMS
+    MediaTypeToMMS,
 )
 from ..proto import Neonize_pb2 as neonize_proto
 from ..utils import validate_link
@@ -172,10 +171,11 @@ from ..proto.Neonize_pb2 import (
     UploadResponse,
     UploadReturnFunction,
     SendRequestExtra,
+    BuildMessageReturnFunction,
 )
 from ..proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2 import DeviceProps
-from .._binder import gocode
-from .events import Event
+from .._binder import gocode, free_bytes
+from .events import Event, event_global_loop
 from ..utils.log import log
 
 from linkpreview import link_preview as fallback_link_preview
@@ -227,11 +227,10 @@ class ContactStore:
         :rtype: ContactsPutPushNameReturnFunction
         """
         user_bytes = user.SerializeToString()
-        model = ContactsPutPushNameReturnFunction.FromString(
-            (
-                await self.__client.PutPushName(user_bytes, len(user_bytes), pushname.encode())
-            ).get_bytes()
-        )
+        bytes_ptr = await self.__client.PutPushName(user_bytes, len(user_bytes), pushname.encode())
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = ContactsPutPushNameReturnFunction.FromString(protobytes)
         if model.Error:
             raise ContactStoreError(model.Error)
         return model
@@ -291,9 +290,10 @@ class ContactStore:
         :rtype: ContactInfo
         """
         jid = user.SerializeToString()
-        model = ContactsGetContactReturnFunction.FromString(
-            (await self.__client.GetContact(self.uuid, jid, len(jid))).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetContact(self.uuid, jid, len(jid))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = ContactsGetContactReturnFunction.FromString(protobytes)
         if model.Error:
             raise ContactStoreError(model.Error)
         return model.ContactInfo
@@ -307,9 +307,10 @@ class ContactStore:
         :return: A list of all contacts.
         :rtype: RepeatedCompositeFieldContainer[Contact]
         """
-        model = ContactsGetAllContactsReturnFunction.FromString(
-            (await self.__client.GetAllContacts(self.uuid)).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetAllContacts(self.uuid)
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = ContactsGetAllContactsReturnFunction.FromString(protobytes)
         if model.Error:
             raise ContactStoreError(model.Error)
         return model.Contact
@@ -384,9 +385,10 @@ class ChatSettingsStore:
         :rtype: LocalChatSettings
         """
         user_buf = user.SerializeToString()
-        return_ = ReturnFunctionWithError.FromString(
-            (await self.__client.GetChatSettings(self.uuid, user_buf, len(user_buf))).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetChatSettings(self.uuid, user_buf, len(user_buf))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        return_ = ReturnFunctionWithError.FromString(protobytes)
         if return_.Error:
             raise GetChatSettingsError(return_.Error)
         return return_.LocalChatSettings
@@ -415,28 +417,28 @@ class NewAClient:
         self.name = name
         self.device_props = props
         self.jid = jid
-        self.uuid = ((jid.User if jid else None) or uuid or name).encode()
+        self.uuid = (jid.User if jid else (uuid or name)).encode() #((jid.User if jid else None) or uuid or name).encode()
         self.__client = async_gocode
         self.event = Event(self)
-        self.blocking = self.event.blocking
+        self.paircode = self.event.paircode
         self.qr = self.event.qr
         self.contact = ContactStore(self.uuid)
         self.chat_settings = ChatSettingsStore(self.uuid)
         log.debug("🔨 Creating a NewClient instance")
 
-    def __onLoginStatus(self, s: str):
-        print(s)
+    def __onLoginStatus(self, uuid: int, status: int):
+        pass
 
-    def __onQr(self, qr_protoaddr: int):
+    def __onQr(self, uuid: int, qr_protoaddr: int):
         """
         This method triggers an event when a QR code is detected.
 
         :param qr_protoaddr: The address of the QR code in memory.
         :type qr_protoaddr: int
         """
-        loop = asyncio.new_event_loop()
-        loop.run_until_complete(self.event._qr(self, ctypes.string_at(qr_protoaddr)))
-        loop.close()
+        asyncio.run_coroutine_threadsafe(
+            self.event._qr(self, ctypes.string_at(qr_protoaddr)), event_global_loop
+        )
 
     def _parse_mention(self, text: Optional[str] = None) -> list[str]:
         """
@@ -584,12 +586,12 @@ class NewAClient:
         else:
             msg = message
         message_bytes = msg.SerializeToString()
-        sendresponse = (
-            await self.__client.SendMessage(
-                self.uuid, to_bytes, len(to_bytes), message_bytes, len(message_bytes)
-            )
-        ).get_bytes()
-        model = SendMessageReturnFunction.FromString(sendresponse)
+        bytes_ptr = await self.__client.SendMessage(
+            self.uuid, to_bytes, len(to_bytes), message_bytes, len(message_bytes)
+        )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = SendMessageReturnFunction.FromString(protobytes)
         if model.Error:
             raise SendMessageError(model.Error)
         return model.SendResponse
@@ -727,17 +729,17 @@ class NewAClient:
         :rtype: Message
         """
         options_buf = neonize_proto.ArrayString(data=options).SerializeToString()
-        return Message.FromString(
-            (
-                await self.__client.BuildPollVoteCreation(
-                    self.uuid,
-                    name.encode(),
-                    options_buf,
-                    len(options_buf),
-                    type.value,
-                )
-            ).get_bytes()
+        bytes_ptr = await self.__client.BuildPollVoteCreation(
+            self.uuid,
+            name.encode(),
+            options_buf,
+            len(options_buf),
+            type.value,
         )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        result = Message.FromString(protobytes)
+        return result
 
     async def build_poll_vote(self, poll_info: MessageInfo, option_names: List[str]) -> Message:
         """Builds a poll vote.
@@ -752,16 +754,16 @@ class NewAClient:
         """
         option_names_proto = neonize_proto.ArrayString(data=option_names).SerializeToString()
         poll_info_proto = poll_info.SerializeToString()
-        resp = (
-            await self.__client.BuildPollVote(
-                self.uuid,
-                poll_info_proto,
-                len(poll_info_proto),
-                option_names_proto,
-                len(option_names_proto),
-            )
-        ).get_bytes()
-        model = neonize_proto.BuildPollVoteReturnFunction.FromString(resp)
+        bytes_ptr = await self.__client.BuildPollVote(
+            self.uuid,
+            poll_info_proto,
+            len(poll_info_proto),
+            option_names_proto,
+            len(option_names_proto),
+        )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.BuildPollVoteReturnFunction.FromString(protobytes)
         if model.Error:
             raise BuildPollVoteError(model.Error)
         return model.PollVote
@@ -789,19 +791,21 @@ class NewAClient:
         """
         sender_proto = sender.SerializeToString()
         chat_proto = chat.SerializeToString()
-        return Message.FromString(
-            (
-                await self.__client.BuildReaction(
-                    self.uuid,
-                    chat_proto,
-                    len(chat_proto),
-                    sender_proto,
-                    len(sender_proto),
-                    message_id.encode(),
-                    reaction.encode(),
-                )
-            ).get_bytes()
+        bytes_ptr = await self.__client.BuildReaction(
+            self.uuid,
+            chat_proto,
+            len(chat_proto),
+            sender_proto,
+            len(sender_proto),
+            message_id.encode(),
+            reaction.encode(),
         )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        result = BuildMessageReturnFunction.FromString(protobytes)
+        if result.Error:
+            raise SendMessageError(result.Error)
+        return result.Message
 
     async def build_revoke(self, chat: JID, sender: JID, message_id: str) -> Message:
         """Builds a message to revoke a previous message.
@@ -949,6 +953,8 @@ class NewAClient:
         :type gifplayback: bool, optional
         :param is_gif: Optional. Whether the video to be sent is a gif. Defaults to False.
         :type is_gif: bool, optional
+        :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
+        :type ghost_mentions: str, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
         :return: A video message with the given parameters.
@@ -1315,8 +1321,10 @@ class NewAClient:
             mime = MediaType.from_magic(binary)
         else:
             mime = media_type
-        response = await self.__client.Upload(self.uuid, binary, len(binary), mime.value)
-        upload_model = UploadReturnFunction.FromString(response.get_bytes())
+        bytes_ptr = await self.__client.Upload(self.uuid, binary, len(binary), mime.value)
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        upload_model = UploadReturnFunction.FromString(protobytes)
         if upload_model.Error:
             raise UploadError(upload_model.Error)
         return upload_model.UploadResponse
@@ -1341,10 +1349,10 @@ class NewAClient:
         :rtype: Union[None, bytes]
         """
         msg_protobuf = message.SerializeToString()
-        media_buff = (
-            await self.__client.DownloadAny(self.uuid, msg_protobuf, len(msg_protobuf))
-        ).get_bytes()
-        media = DownloadReturnFunction.FromString(media_buff)
+        bytes_ptr = await self.__client.DownloadAny(self.uuid, msg_protobuf, len(msg_protobuf))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        media = DownloadReturnFunction.FromString(protobytes)
         if media.Error:
             raise DownloadError(media.Error)
         if path:
@@ -1385,23 +1393,22 @@ class NewAClient:
         :return: The downloaded media in bytes.
         :rtype: bytes
         """
-        model = neonize_proto.DownloadReturnFunction.FromString(
-            (
-                await self.__client.DownloadMediaWithPath(
-                    self.uuid,
-                    direct_path.encode(),
-                    enc_file_hash,
-                    len(enc_file_hash),
-                    file_hash,
-                    len(file_hash),
-                    media_key,
-                    len(media_key),
-                    file_length,
-                    media_type.value,
-                    mms_type.value.encode(),
-                )
-            ).get_bytes()
+        bytes_ptr = await self.__client.DownloadMediaWithPath(
+            self.uuid,
+            direct_path.encode(),
+            enc_file_hash,
+            len(enc_file_hash),
+            file_hash,
+            len(file_hash),
+            media_key,
+            len(media_key),
+            file_length,
+            media_type.value,
+            mms_type.value.encode(),
         )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.DownloadReturnFunction.FromString(protobytes)
         if model.Error:
             raise DownloadError(model.Error)
         return model.Binary
@@ -1447,10 +1454,10 @@ class NewAClient:
         """
         if numbers:
             numbers_buf = " ".join(numbers).encode()
-            response = (
-                await self.__client.IsOnWhatsApp(self.uuid, numbers_buf, len(numbers_buf))
-            ).get_bytes()
-            model = IsOnWhatsAppReturnFunction.FromString(response)
+            bytes_ptr = await self.__client.IsOnWhatsApp(self.uuid, numbers_buf, len(numbers_buf))
+            protobytes = bytes_ptr.contents.get_bytes()
+            free_bytes(bytes_ptr)
+            model = IsOnWhatsAppReturnFunction.FromString(protobytes)
             if model.Error:
                 raise IsOnWhatsAppError(model.Error)
             return model.IsOnWhatsAppResponse
@@ -1489,8 +1496,10 @@ class NewAClient:
         :rtype: RepeatedCompositeFieldContainer[GetUserInfoSingleReturnFunction]
         """
         jidbuf = JIDArray(JIDS=jid).SerializeToString()
-        getUser = (await self.__client.GetUserInfo(self.uuid, jidbuf, len(jidbuf))).get_bytes()
-        model = GetUserInfoReturnFunction.FromString(getUser)
+        bytes_ptr = await self.__client.GetUserInfo(self.uuid, jidbuf, len(jidbuf))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = GetUserInfoReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetUserInfoError(model.Error)
         return model.UsersInfo
@@ -1505,12 +1514,14 @@ class NewAClient:
         :rtype: GroupInfo
         """
         jidbuf = jid.SerializeToString()
-        group_info_buf = await self.__client.GetGroupInfo(
+        bytes_ptr = await self.__client.GetGroupInfo(
             self.uuid,
             jidbuf,
             len(jidbuf),
         )
-        model = GetGroupInfoReturnFunction.FromString(group_info_buf.get_bytes())
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = GetGroupInfoReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetGroupInfoError(model.Error)
         return model.GroupInfo
@@ -1524,9 +1535,10 @@ class NewAClient:
         :rtype: GroupInfo
         :raises GetGroupInfoError: If there is an error retrieving the group information.
         """
-        model = GetGroupInfoReturnFunction.FromString(
-            (await self.__client.GetGroupInfoFromLink(self.uuid, code.encode())).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetGroupInfoFromLink(self.uuid, code.encode())
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = GetGroupInfoReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetGroupInfoError(model.Error)
         return model.GroupInfo
@@ -1552,19 +1564,18 @@ class NewAClient:
         """
         jidbyte = jid.SerializeToString()
         inviterbyte = inviter.SerializeToString()
-        model = GetGroupInfoReturnFunction.FromString(
-            (
-                await self.__client.GetGroupInfoFromInvite(
-                    self.uuid,
-                    jidbyte,
-                    len(jidbyte),
-                    inviterbyte,
-                    len(inviterbyte),
-                    code.encode(),
-                    expiration,
-                )
-            ).get_bytes()
+        bytes_ptr = await self.__client.GetGroupInfoFromInvite(
+            self.uuid,
+            jidbyte,
+            len(jidbyte),
+            inviterbyte,
+            len(inviterbyte),
+            code.encode(),
+            expiration,
         )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = GetGroupInfoReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetGroupInfoError(model.Error)
         return model.GroupInfo
@@ -1602,10 +1613,12 @@ class NewAClient:
         """
         data = get_bytes_from_name_or_url(file_or_bytes)
         jid_buf = jid.SerializeToString()
-        response = await self.__client.SetGroupPhoto(
+        bytes_ptr = await self.__client.SetGroupPhoto(
             self.uuid, jid_buf, len(jid_buf), data, len(data)
         )
-        model = SetGroupPhotoReturnFunction.FromString(response.get_bytes())
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = SetGroupPhotoReturnFunction.FromString(protobytes)
         if model.Error:
             raise SetGroupPhotoError(model.Error)
         return model.PictureID
@@ -1620,8 +1633,10 @@ class NewAClient:
         :rtype: str
         """
         data = get_bytes_from_name_or_url(file_or_bytes)
-        response = await self.__client.SetProfilePhoto(self.uuid, data, len(data))
-        model = SetGroupPhotoReturnFunction.FromString(response.get_bytes())
+        bytes_ptr = await self.__client.SetProfilePhoto(self.uuid, data, len(data))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = SetGroupPhotoReturnFunction.FromString(protobytes)
         if model.Error:
             raise SetGroupPhotoError(model.Error)
         return model.PictureID
@@ -1649,10 +1664,10 @@ class NewAClient:
         :rtype: str
         """
         jid_buf = jid.SerializeToString()
-        response = (
-            await self.__client.GetGroupInviteLink(self.uuid, jid_buf, len(jid_buf), revoke)
-        ).get_bytes()
-        model = GetGroupInviteLinkReturnFunction.FromString(response)
+        bytes_ptr = await self.__client.GetGroupInviteLink(self.uuid, jid_buf, len(jid_buf), revoke)
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = GetGroupInviteLinkReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetGroupInviteLinkError(model.Error)
         return model.InviteLink
@@ -1666,8 +1681,10 @@ class NewAClient:
         :return: The JID (Jabber Identifier) of the joined group.
         :rtype: JID
         """
-        resp = (await self.__client.JoinGroupWithLink(self.uuid, code.encode())).get_bytes()
-        model = JoinGroupWithLinkReturnFunction.FromString(resp)
+        bytes_ptr = await self.__client.JoinGroupWithLink(self.uuid, code.encode())
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = JoinGroupWithLinkReturnFunction.FromString(protobytes)
         if model.Error:
             raise InviteLinkError(model.Error)
         return model.Jid
@@ -1831,13 +1848,12 @@ class NewAClient:
         :rtype: int
         """
         jid_proto = jid.SerializeToString()
-        model = neonize_proto.NewsletterSubscribeLiveUpdatesReturnFunction.FromString(
-            (
-                await self.__client.NewsletterSubscribeLiveUpdates(
-                    self.uuid, jid_proto, len(jid_proto)
-                )
-            ).get_bytes()
+        bytes_ptr = await self.__client.NewsletterSubscribeLiveUpdates(
+            self.uuid, jid_proto, len(jid_proto)
         )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.NewsletterSubscribeLiveUpdatesReturnFunction.FromString(protobytes)
         if model.Error:
             raise NewsletterSubscribeLiveUpdatesError(model.Error)
         return model.Duration
@@ -1848,6 +1864,7 @@ class NewAClient:
         :param jid: The JID (Jabber Identifier) of the user.
         :type jid: JID
         :param mute: The desired mute status. If True, the user will be muted. If False, the user will be unmuted.
+
         :type mute: bool
         :raises NewsletterToggleMuteError: If there is an error while toggling the mute status.
         """
@@ -1869,9 +1886,10 @@ class NewAClient:
         :return: The target of the business message link.
         :rtype: neonize_proto.BusinessMessageLinkTarget
         """
-        model = neonize_proto.ResolveBusinessMessageLinkReturnFunction.FromString(
-            (await self.__client.ResolveBusinessMessageLink(self.uuid, code.encode())).get_bytes()
-        )
+        bytes_ptr = await self.__client.ResolveBusinessMessageLink(self.uuid, code.encode())
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.ResolveBusinessMessageLinkReturnFunction.FromString(protobytes)
         if model.Error:
             raise ResolveContactQRLinkError(model.Error)
         return model.MessageLinkTarget
@@ -1885,9 +1903,10 @@ class NewAClient:
         :return: The target contact of the QR link.
         :rtype: neonize_proto.ContactQRLinkTarget
         """
-        model = neonize_proto.ResolveContactQRLinkReturnFunction.FromString(
-            (await self.__client.ResolveContactQRLink(self.uuid, code.encode())).get_bytes()
-        )
+        bytes_ptr = await self.__client.ResolveContactQRLink(self.uuid, code.encode())
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.ResolveContactQRLinkReturnFunction.FromString(protobytes)
         if model.Error:
             raise ResolveContactQRLinkError(model.Error)
         return model.ContactQrLink
@@ -2127,13 +2146,12 @@ class NewAClient:
         :rtype: Blocklist
         """
         jid_proto = jid.SerializeToString()
-        model = neonize_proto.GetBlocklistReturnFunction.FromString(
-            (
-                await self.__client.UpdateBlocklist(
-                    self.uuid, jid_proto, len(jid_proto), action.value.encode()
-                )
-            ).get_bytes()
+        bytes_ptr = await self.__client.UpdateBlocklist(
+            self.uuid, jid_proto, len(jid_proto), action.value.encode()
         )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetBlocklistReturnFunction.FromString(protobytes)
         if model.Error:
             raise UpdateBlocklistError(model.Error)
         return model.Blocklist
@@ -2157,18 +2175,17 @@ class NewAClient:
         """
         jid_proto = jid.SerializeToString()
         jids_proto = neonize_proto.JIDArray(JIDS=participants_changes).SerializeToString()
-        model = neonize_proto.UpdateGroupParticipantsReturnFunction.FromString(
-            (
-                await self.__client.UpdateGroupParticipants(
-                    self.uuid,
-                    jid_proto,
-                    len(jid_proto),
-                    jids_proto,
-                    len(jids_proto),
-                    action.value.encode(),
-                )
-            ).get_bytes()
+        bytes_ptr = await self.__client.UpdateGroupParticipants(
+            self.uuid,
+            jid_proto,
+            len(jid_proto),
+            jids_proto,
+            len(jids_proto),
+            action.value.encode(),
         )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.UpdateGroupParticipantsReturnFunction.FromString(protobytes)
         if model.Error:
             raise UpdateGroupParticipantsError(model.Error)
         return model.participants
@@ -2184,11 +2201,10 @@ class NewAClient:
         :return: The response from the server after the upload.
         :rtype: UploadResponse
         """
-        model = UploadReturnFunction.FromString(
-            (
-                await self.__client.UploadNewsletter(self.uuid, data, len(data), media_type.value)
-            ).get_bytes()
-        )
+        bytes_ptr = await self.__client.UploadNewsletter(self.uuid, data, len(data), media_type.value)
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = UploadReturnFunction.FromString(protobytes)
         if model.Error:
             raise UploadError(model.Error)
         return model.UploadResponse
@@ -2223,8 +2239,10 @@ class NewAClient:
         if group_parent:
             group_info.GroupParent.MergeFrom(group_parent)
         group_info_buf = group_info.SerializeToString()
-        resp = await self.__client.CreateGroup(self.uuid, group_info_buf, len(group_info_buf))
-        model = GetGroupInfoReturnFunction.FromString(resp.get_bytes())
+        bytes_ptr = await self.__client.CreateGroup(self.uuid, group_info_buf, len(group_info_buf))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = GetGroupInfoReturnFunction.FromString(protobytes)
         if model.Error:
             raise CreateGroupError(model.Error)
         return model.GroupInfo
@@ -2240,11 +2258,10 @@ class NewAClient:
         :rtype: RepeatedCompositeFieldContainer[JID]
         """
         jidbyte = jid.SerializeToString()
-        model = neonize_proto.GetGroupRequestParticipantsReturnFunction.FromString(
-            (
-                await self.__client.GetGroupRequestParticipants(self.uuid, jidbyte, len(jidbyte))
-            ).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetGroupRequestParticipants(self.uuid, jidbyte, len(jidbyte))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetGroupRequestParticipantsReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetGroupRequestParticipantsError(model.Error)
         return model.Participants
@@ -2257,9 +2274,10 @@ class NewAClient:
 
         :raises GetJoinedGroupsError: If there was an error retrieving the joined groups.
         """
-        model = neonize_proto.GetJoinedGroupsReturnFunction.FromString(
-            (await self.__client.GetJoinedGroups(self.uuid)).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetJoinedGroups(self.uuid)
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetJoinedGroupsReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetJoinedGroupsError(model.Error)
         return model.Group
@@ -2284,9 +2302,10 @@ class NewAClient:
             Description=description,
             Picture=get_bytes_from_name_or_url(picture),
         ).SerializeToString()
-        model = neonize_proto.CreateNewsLetterReturnFunction.FromString(
-            (await self.__client.CreateNewsletter(self.uuid, protobuf, len(protobuf))).get_bytes()
-        )
+        bytes_ptr = await self.__client.CreateNewsletter(self.uuid, protobuf, len(protobuf))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.CreateNewsLetterReturnFunction.FromString(protobytes)
         if model.Error:
             raise CreateNewsletterError(model.Error)
         return model.NewsletterMetadata
@@ -2315,9 +2334,10 @@ class NewAClient:
         :rtype: NewsletterMetadata
         :raises GetNewsletterInfoWithInviteError: If there is an error retrieving the newsletter information.
         """
-        model = neonize_proto.CreateNewsLetterReturnFunction.FromString(
-            (await self.__client.GetNewsletterInfoWithInvite(self.uuid, key.encode())).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetNewsletterInfoWithInvite(self.uuid, key.encode())
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.CreateNewsLetterReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetNewsletterInfoWithInviteError(model.Error)
         return model.NewsletterMetadata
@@ -2342,13 +2362,12 @@ class NewAClient:
         :raises GetNewsletterMessageUpdateError: If there was an error retrieving the newsletter messages.
         """
         jidbyte = jid.SerializeToString()
-        model = neonize_proto.GetNewsletterMessageUpdateReturnFunction.FromString(
-            (
-                await self.__client.GetNewsletterMessageUpdate(
-                    self.uuid, jidbyte, len(jidbyte), count, since, after
-                )
-            ).get_bytes()
+        bytes_ptr = await self.__client.GetNewsletterMessageUpdate(
+            self.uuid, jidbyte, len(jidbyte), count, since, after
         )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetNewsletterMessageUpdateReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetNewsletterMessageUpdateError(model.Error)
         return model.NewsletterMessage
@@ -2368,13 +2387,12 @@ class NewAClient:
         :rtype: RepeatedCompositeFieldContaine[NewsletterMessage]
         """
         jidbyte = jid.SerializeToString()
-        model = neonize_proto.GetNewsletterMessageUpdateReturnFunction.FromString(
-            (
-                await self.__client.GetNewsletterMessages(
-                    self.uuid, jidbyte, len(jidbyte), count, before
-                )
-            ).get_bytes()
+        bytes_ptr = await self.__client.GetNewsletterMessages(
+            self.uuid, jidbyte, len(jidbyte), count, before
         )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetNewsletterMessageUpdateReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetNewsletterMessagesError(model.Error)
         return model.NewsletterMessage
@@ -2386,9 +2404,11 @@ class NewAClient:
         :return: privacy settings
         :rtype: PrivacySettings
         """
-        return neonize_proto.PrivacySettings.FromString(
-            (await self.__client.GetPrivacySettings(self.uuid)).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetPrivacySettings(self.uuid)
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        result = neonize_proto.PrivacySettings.FromString(protobytes)
+        return result
 
     async def get_profile_picture(
         self,
@@ -2408,17 +2428,16 @@ class NewAClient:
         """
         jid_bytes = jid.SerializeToString()
         extra_bytes = extra.SerializeToString()
-        model = neonize_proto.GetProfilePictureReturnFunction.FromString(
-            (
-                await self.__client.GetProfilePicture(
-                    self.uuid,
-                    jid_bytes,
-                    len(jid_bytes),
-                    extra_bytes,
-                    len(extra_bytes),
-                )
-            ).get_bytes()
+        bytes_ptr = await self.__client.GetProfilePicture(
+            self.uuid,
+            jid_bytes,
+            len(jid_bytes),
+            extra_bytes,
+            len(extra_bytes),
         )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetProfilePictureReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetProfilePictureError(model)
         return model.Picture
@@ -2432,9 +2451,10 @@ class NewAClient:
         :return: The status privacy settings of the user.
         :rtype: RepeatedCompositeFieldContainer[StatusPrivacy]
         """
-        model = neonize_proto.GetStatusPrivacyReturnFunction.FromString(
-            (await self.__client.GetStatusPrivacy(self.uuid)).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetStatusPrivacy(self.uuid)
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetStatusPrivacyReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetStatusPrivacyError(model.Error)
         return model.StatusPrivacy
@@ -2452,9 +2472,10 @@ class NewAClient:
         :rtype: RepeatedCompositeFieldContainer[GroupLinkTarget]
         """
         jid = community.SerializeToString()
-        model = neonize_proto.GetSubGroupsReturnFunction.FromString(
-            (await self.__client.GetSubGroups(self.uuid, jid, len(jid))).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetSubGroups(self.uuid, jid, len(jid))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetSubGroupsReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetSubGroupsError(model.Error)
         return model.GroupLinkTarget
@@ -2469,9 +2490,10 @@ class NewAClient:
         :return: A container with the metadata of each subscribed newsletter
         :rtype: RepeatedCompositeFieldContainer[NewsletterMetadata]
         """
-        model = neonize_proto.GetSubscribedNewslettersReturnFunction.FromString(
-            (await self.__client.GetSubscribedNewsletters(self.uuid)).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetSubscribedNewsletters(self.uuid)
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetSubscribedNewslettersReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetSubscribedNewslettersError(model.Error)
         return model.Newsletter
@@ -2487,9 +2509,10 @@ class NewAClient:
         :rtype: RepeatedCompositeFieldContainer[JID]
         """
         jids_ = neonize_proto.JIDArray(JIDS=jids).SerializeToString()
-        model = neonize_proto.GetUserDevicesreturnFunction.FromString(
-            (await self.__client.GetUserDevices(self.uuid, jids_, len(jids_))).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetUserDevices(self.uuid, jids_, len(jids_))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetUserDevicesreturnFunction.FromString(protobytes)
         if model.Error:
             raise GetUserDevicesError(model.Error)
         return model.JID
@@ -2500,9 +2523,10 @@ class NewAClient:
         :return: Blocklist: The retrieved blocklist.
         :raises GetBlocklistError: If there was an error retrieving the blocklist.
         """
-        model = neonize_proto.GetBlocklistReturnFunction.FromString(
-            (await self.__client.GetBlocklist(self.uuid)).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetBlocklist(self.uuid)
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetBlocklistReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetBlocklistError(model.Error)
         return model.Blocklist
@@ -2514,7 +2538,11 @@ class NewAClient:
         :return: It returns a Device object created from the byte string response from the client's GetMe method.
         :rtype: Device
         """
-        return Device.FromString((await self.__client.GetMe(self.uuid)).get_bytes())
+        bytes_ptr = await self.__client.GetMe(self.uuid)
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        result = Device.FromString(protobytes)
+        return result
 
     async def get_contact_qr_link(self, revoke: bool = False) -> str:
         """
@@ -2527,9 +2555,10 @@ class NewAClient:
         :return: The QR link for the contact.
         :rtype: str
         """
-        model = neonize_proto.GetContactQRLinkReturnFunction.FromString(
-            (await self.__client.GetContactQRLink(self.uuid, revoke)).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetContactQRLink(self.uuid, revoke)
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetContactQRLinkReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetContactQrLinkError(model.Error)
         return model.Link
@@ -2544,11 +2573,10 @@ class NewAClient:
         :rtype: RepeatedCompositeFieldContainer[JID]
         """
         jidbyte = community.SerializeToString()
-        model = neonize_proto.ReturnFunctionWithError.FromString(
-            (
-                await self.__client.GetLinkedGroupsParticipants(self.uuid, jidbyte, len(jidbyte))
-            ).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetLinkedGroupsParticipants(self.uuid, jidbyte, len(jidbyte))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.ReturnFunctionWithError.FromString(protobytes)
         if model.Error:
             raise GetLinkedGroupParticipantsError(model.Error)
         return model.GetLinkedGroupsParticipants
@@ -2564,9 +2592,10 @@ class NewAClient:
         :rtype: neonize_proto.NewsletterMetadata
         """
         jidbyte = jid.SerializeToString()
-        model = neonize_proto.CreateNewsLetterReturnFunction.FromString(
-            (await self.__client.GetNewsletterInfo(self.uuid, jidbyte, len(jidbyte))).get_bytes()
-        )
+        bytes_ptr = await self.__client.GetNewsletterInfo(self.uuid, jidbyte, len(jidbyte))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.CreateNewsLetterReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetNewsletterInfoError(model.Error)
         return model.NewsletterMetadata
@@ -2635,12 +2664,17 @@ class NewAClient:
             func_callback_bytes(self.event.execute),
             (ctypes.c_char * self.event.list_func.__len__()).from_buffer(d),
             len(d),
-            func(self.event.blocking_func),
             deviceprops,
             len(deviceprops),
             payload,
             len(payload),
         )
+
+    async def stop(self):
+        """
+        Stops the client and disconnects from the WhatsApp servers.
+        """
+        await self.__client.Stop(self.uuid)
 
     async def get_message_for_retry(
         self, requester: JID, to: JID, message_id: str
@@ -2660,18 +2694,19 @@ class NewAClient:
         """
         requester_buf = requester.SerializeToString()
         to_buf = to.SerializeToString()
-        model = neonize_proto.GetMessageForRetryReturnFunction.FromString(
-            (
-                await self.__client.GetMessageForRetry(
-                    self.uuid,
-                    requester_buf,
-                    len(requester_buf),
-                    to_buf,
-                    len(to_buf),
-                    message_id.encode(),
-                )
-            ).get_bytes()
+        bytes_ptr = await self.__client.GetMessageForRetry(
+            self.uuid,
+            requester_buf,
+            len(requester_buf),
+            to_buf,
+            len(to_buf),
+            message_id.encode(),
         )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = neonize_proto.GetMessageForRetryReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise Exception(model.Error)
         if not model.isEmpty:
             return model.Message
 
@@ -2686,7 +2721,7 @@ class NewAClient:
         message_buff = message.SerializeToString()
         metadata_buff = metadata.SerializeToString()
         extra_buff = extra.SerializeToString()
-        response = await self.__client.SendFBMessage(
+        bytes_ptr = await self.__client.SendFBMessage(
             self.uuid,
             to_buff,
             len(to_buff),
@@ -2697,7 +2732,12 @@ class NewAClient:
             extra_buff,
             len(extra_buff),
         )
-        return SendResponse.FromString(response.get_bytes())
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        result = SendMessageReturnFunction.FromString(protobytes)
+        if result.Error:
+            raise SendMessageError(result.Error)
+        return result.SendResponse
 
     async def send_presence(self, presence: Presence):
         response = await self.__client.SendPresence(self.uuid, presence.value)
@@ -2707,10 +2747,12 @@ class NewAClient:
     async def decrypt_poll_vote(self, message: neonize_proto.Message) -> PollVoteMessage:
         """Decrypt PollMessage"""
         msg_buff = message.SerializeToString()
-        response = await self.__client.DecryptPollVote(
+        bytes_ptr = await self.__client.DecryptPollVote(
             self.uuid, msg_buff, len(msg_buff), len(msg_buff)
         )
-        model = ReturnFunctionWithError.FromString(response.get_bytes())
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = ReturnFunctionWithError.FromString(protobytes)
         if model.Error:
             raise DecryptPollVoteError(model.Error)
         return model.PollVoteMessage
@@ -2745,7 +2787,6 @@ class NewAClient:
             func_callback_bytes(self.event.execute),
             (ctypes.c_char * len(self.event.list_func)).from_buffer(d),
             len(d),
-            func(self.event.blocking_func),
             deviceprops,
             len(deviceprops),
             b"",
@@ -2800,6 +2841,13 @@ class ClientFactory:
     def get_all_devices(self) -> List["Device"]:
         """Retrieves all devices associated with the current account from the database."""
         return self.get_all_devices_from_db(self.database_name)
+
+    @staticmethod
+    async def stop():
+        """
+        Stops all clients and disconnects from the WhatsApp servers.
+        """
+        await async_gocode.StopAll()
 
     def new_client(
         self,

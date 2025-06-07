@@ -3,16 +3,8 @@ import logging
 import os
 import sys
 from datetime import timedelta
-from neonize.aioze.client import ClientFactory, NewAClient
-from neonize.aioze.events import (
-    ConnectedEv,
-    MessageEv,
-    PairStatusEv,
-    ReceiptEv,
-    event,
-    CallOfferEv,
-)
-
+from neonize.aioze.client import NewAClient, ClientFactory
+from neonize.aioze.events import ConnectedEv, MessageEv, PairStatusEv, ReceiptEv, CallOfferEv, event
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
     FutureProofMessage,
@@ -21,8 +13,8 @@ from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     DeviceListMetadata,
 )
 from neonize.types import MessageServerID
-from neonize.utils import log
-from neonize.utils.enum import ReceiptType
+from neonize.utils import log, build_jid
+from neonize.utils.enum import ReceiptType, VoteType
 import signal
 
 
@@ -38,35 +30,25 @@ log.setLevel(logging.DEBUG)
 signal.signal(signal.SIGINT, interrupted)
 
 
-client_factory = ClientFactory("db.sqlite3")
-
-# create clients from preconfigured sessions
-sessions = client_factory.get_all_devices()
-for device in sessions:
-    client_factory.new_client(device.JID)
-# if new_client jid parameter is not passed, it will create a new client
-
-# or create a new client
-# from uuid import uuid4
-# client_factory.new_client(uuid=uuid4().hex[:5])
+client = NewAClient("db.sqlite3")
 
 
-@client_factory.event(ConnectedEv)
+@client.event(ConnectedEv)
 async def on_connected(_: NewAClient, __: ConnectedEv):
     log.info("⚡ Connected")
 
 
-@client_factory.event(ReceiptEv)
+@client.event(ReceiptEv)
 async def on_receipt(_: NewAClient, receipt: ReceiptEv):
     log.debug(receipt)
 
 
-@client_factory.event(CallOfferEv)
+@client.event(CallOfferEv)
 async def on_call(_: NewAClient, call: CallOfferEv):
     log.debug(call)
 
 
-@client_factory.event(MessageEv)
+@client.event(MessageEv)
 async def on_message(client: NewAClient, message: MessageEv):
     await handler(client, message)
 
@@ -74,15 +56,17 @@ async def on_message(client: NewAClient, message: MessageEv):
 async def handler(client: NewAClient, message: MessageEv):
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     chat = message.Info.MessageSource.Chat
+    print(message.Message)
     match text:
         case "ping":
             await client.reply_message("pong", message)
+        case "stop":
+            print("Stopping client...")
+            await client.stop()
         case "_test_link_preview":
             await client.send_message(
                 chat, "Test https://github.com/krypton-byte/neonize", link_preview=True
             )
-        case "stop_all":
-            await client_factory.stop()
         case "_sticker":
             await client.send_sticker(
                 chat,
@@ -109,12 +93,6 @@ async def handler(client: NewAClient, message: MessageEv):
                 caption="Test",
                 quoted=message,
             )
-        case "wait":
-            await client.send_message(chat, "Waiting for 5 seconds...")
-            await asyncio.sleep(5)
-            await client.send_message(chat, "Done waiting!")
-        case "shutdown":
-            event.set()
         case "_audio":
             await client.send_audio(
                 chat,
@@ -251,6 +229,40 @@ async def handler(client: NewAClient, message: MessageEv):
             await client.send_message(
                 chat, (await client.chat_settings.get_chat_settings(chat)).__str__()
             )
+        case "poll_vote":
+            await client.send_message(
+                chat,
+                await client.build_poll_vote_creation(
+                    "Food",
+                    ["Pizza", "Burger", "Sushi"],
+                    VoteType.SINGLE,
+                ),
+            )
+        case "wait":
+            await client.send_message(chat, "Waiting for 5 seconds...")
+            await asyncio.sleep(5)
+            await client.send_message(chat, "Done waiting!")
+        case "shutdown":
+            event.set()
+        case "send_react":
+            await client.send_message(
+                chat,
+                await client.build_reaction(
+                    chat, message.Info.MessageSource.Sender, message.Info.ID, reaction="🗿"
+                ),
+            )
+        case "edit_message":
+            text = "Hello World"
+            id_msg = None
+            for i in range(1, len(text) + 1):
+                if id_msg is None:
+                    msg = await client.send_message(
+                        message.Info.MessageSource.Chat, Message(conversation=text[:i])
+                    )
+                    id_msg = msg.ID
+                await client.edit_message(
+                    message.Info.MessageSource.Chat, id_msg, Message(conversation=text[:i])
+                )
         case "button":
             await client.send_message(
                 message.Info.MessageSource.Chat,
@@ -311,12 +323,30 @@ async def handler(client: NewAClient, message: MessageEv):
             )
 
 
-@client_factory.event(PairStatusEv)
+@client.event(PairStatusEv)
 async def PairStatusMessage(_: NewAClient, message: PairStatusEv):
     log.info(f"logged as {message.ID.User}")
 
 
+@client.paircode
+async def default_blocking(client: NewAClient, code: str, connected: bool = True):
+    """
+    A default callback function that handles the pair code event.
+    This function is called when the pair code event occurs, and it blocks the execution until the event is processed.
+
+    :param client: The client instance that triggered the event.
+    :type client: NewAClient
+    :param code: The pair code as a string.
+    :type code: str
+    :param connected: A boolean indicating if the client is connected.
+    :type connected: bool
+    """
+    if connected:
+        log.info("Pair code successfully processed: %s", code)
+    else:
+        log.info("Pair code: %s", code)
+
+
 if __name__ == "__main__":
-    # all created clients will be automatically logged in and receive all events
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(client_factory.run())
+    loop.run_until_complete(client.connect())

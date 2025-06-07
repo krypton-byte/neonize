@@ -32,7 +32,7 @@ func PutMutedUntil(id *C.char, user *C.uchar, userSize C.int, mutedUntil C.float
 }
 
 //export GetChatSettings
-func GetChatSettings(id *C.char, user *C.uchar, userSize C.int) C.struct_BytesReturn {
+func GetChatSettings(id *C.char, user *C.uchar, userSize C.int) *C.struct_BytesReturn {
 	var JID defproto.JID
 	proto.Unmarshal(getByteByAddr(user, userSize), &JID)
 	local_chat_settings, err := clients[C.GoString(id)].Store.ChatSettings.GetChatSettings(context.Background(), utils.DecodeJidProto(&JID))
@@ -48,9 +48,5 @@ func GetChatSettings(id *C.char, user *C.uchar, userSize C.int) C.struct_BytesRe
 			Archived:   proto.Bool(local_chat_settings.Pinned),
 		},
 	}
-	return_bytes, err_proto := proto.Marshal(&return_)
-	if err_proto != nil {
-		panic(err_proto)
-	}
-	return ReturnBytes(return_bytes)
+	return ProtoReturnV3(&return_)
 }

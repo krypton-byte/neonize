@@ -1,4 +1,5 @@
 import ctypes
+import ctypes.util
 import os
 from platform import system
 from typing import Any
@@ -6,10 +7,12 @@ from pathlib import Path
 from .utils.platform import generated_name
 from .download import download, __GONEONIZE_VERSION__
 
-func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p)
-func = ctypes.CFUNCTYPE(None, ctypes.c_bool)
-func_bytes = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_int)
-func_callback_bytes = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_int, ctypes.c_int)
+func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_void_p)  # qr
+func = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_bool)  # blocking
+func_bytes = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_int)  # status
+func_callback_bytes = ctypes.CFUNCTYPE(
+    None, ctypes.c_char_p, ctypes.c_void_p, ctypes.c_int, ctypes.c_int
+)  # callback_bytes
 
 
 def load_goneonize():
@@ -27,6 +30,12 @@ def load_goneonize():
             download()
 
 
+class Bytes(ctypes.Structure):
+    ptr: int
+    size: int
+    _fields_ = [("ptr", ctypes.POINTER(ctypes.c_char)), ("size", ctypes.c_size_t)]
+    def get_bytes(self):
+        return ctypes.string_at(self.ptr, self.size)
 if not os.environ.get("SPHINX"):
     if not (Path(__file__).parent / generated_name()).exists():
         download()
@@ -34,13 +43,6 @@ if not os.environ.get("SPHINX"):
     root_dir = os.path.abspath(os.path.dirname(__file__))
     gocode = load_goneonize()
 
-    class Bytes(ctypes.Structure):
-        ptr: int
-        size: int
-        _fields_ = [("ptr", ctypes.POINTER(ctypes.c_char)), ("size", ctypes.c_size_t)]
-
-        def get_bytes(self):
-            return ctypes.string_at(self.ptr, self.size)
 
     gocode.Neonize.argtypes = [
         ctypes.c_char_p,
@@ -53,7 +55,6 @@ if not os.environ.get("SPHINX"):
         func_callback_bytes,
         ctypes.c_char_p,
         ctypes.c_int,
-        func,
         ctypes.c_char_p,
         ctypes.c_int,
         ctypes.c_char_p,
@@ -65,9 +66,11 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
         ctypes.c_int,
     ]
-    gocode.Upload.restype = Bytes
+    gocode.TestStruct.argtypes = []
+    gocode.TestStruct.restype = ctypes.POINTER(Bytes)
+    gocode.Upload.restype = ctypes.POINTER(Bytes)
     gocode.DownloadAny.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.DownloadAny.restype = Bytes
+    gocode.DownloadAny.restype = ctypes.POINTER(Bytes)
     gocode.DownloadMediaWithPath.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -81,9 +84,9 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
         ctypes.c_char_p,
     ]
-    gocode.DownloadMediaWithPath.restype = Bytes
+    gocode.DownloadMediaWithPath.restype = ctypes.POINTER(Bytes)
     gocode.GetGroupInfo.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.GetGroupInfo.restype = Bytes
+    gocode.GetGroupInfo.restype = ctypes.POINTER(Bytes)
     gocode.SetGroupPhoto.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -91,13 +94,13 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_int,
     ]
-    gocode.SetGroupPhoto.restype = Bytes
+    gocode.SetGroupPhoto.restype = ctypes.POINTER(Bytes)
     gocode.SetProfilePhoto.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
         ctypes.c_int,
     ]
-    gocode.SetProfilePhoto.restype = Bytes
+    gocode.SetProfilePhoto.restype = ctypes.POINTER(Bytes)
     gocode.LeaveGroup.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.LeaveGroup.restype = ctypes.c_char_p
     gocode.SetGroupName.argtypes = [
@@ -113,9 +116,9 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
         ctypes.c_bool,
     ]
-    gocode.GetGroupInviteLink.restype = Bytes
+    gocode.GetGroupInviteLink.restype = ctypes.POINTER(Bytes)
     gocode.JoinGroupWithLink.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
-    gocode.JoinGroupWithLink.restype = Bytes
+    gocode.JoinGroupWithLink.restype = ctypes.POINTER(Bytes)
     gocode.SendMessage.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -123,7 +126,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_int,
     ]
-    gocode.SendMessage.restype = Bytes
+    gocode.SendMessage.restype = ctypes.POINTER(Bytes)
     gocode.SendChatPresence.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -140,21 +143,21 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
         ctypes.c_char_p,
     ]
-    gocode.BuildRevoke.restype = Bytes
+    gocode.BuildRevoke.restype = ctypes.POINTER(Bytes)
     gocode.CreateGroup.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.CreateGroup.restype = Bytes
+    gocode.CreateGroup.restype = ctypes.POINTER(Bytes)
     gocode.GenerateMessageID.argtypes = [ctypes.c_char_p]
     gocode.GenerateMessageID.restype = ctypes.c_char_p
     gocode.IsOnWhatsApp.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
-    gocode.IsOnWhatsApp.restype = Bytes
+    gocode.IsOnWhatsApp.restype = ctypes.POINTER(Bytes)
     gocode.IsConnected.argtypes = [ctypes.c_char_p]
     gocode.IsConnected.restype = ctypes.c_bool
     gocode.IsLoggedIn.argtypes = [ctypes.c_char_p]
     gocode.IsLoggedIn.restype = ctypes.c_bool
     gocode.GetUserInfo.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.GetUserInfo.restype = Bytes
+    gocode.GetUserInfo.restype = ctypes.POINTER(Bytes)
     gocode.GetMe.argtypes = [ctypes.c_char_p]
-    gocode.GetMe.restype = Bytes
+    gocode.GetMe.restype = ctypes.POINTER(Bytes)
     gocode.BuildPollVoteCreation.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -162,7 +165,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
         ctypes.c_int,
     ]
-    gocode.BuildPollVoteCreation.restype = Bytes
+    gocode.BuildPollVoteCreation.restype = ctypes.POINTER(Bytes)
     gocode.BuildPollVote.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -170,7 +173,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_int,
     ]
-    gocode.BuildPollVote.restype = Bytes
+    gocode.BuildPollVote.restype = ctypes.POINTER(Bytes)
     gocode.BuildReaction.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -180,15 +183,15 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_char_p,
     ]
-    gocode.BuildReaction.restype = Bytes
+    gocode.BuildReaction.restype = ctypes.POINTER(Bytes)
     gocode.CreateNewsletter.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.CreateNewsletter.restype = Bytes
+    gocode.CreateNewsletter.restype = ctypes.POINTER(Bytes)
     gocode.FollowNewsletter.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.FollowNewsletter.restype = ctypes.c_char_p
     gocode.GetBlocklist.argtypes = [ctypes.c_char_p]
-    gocode.GetBlocklist.restype = Bytes
+    gocode.GetBlocklist.restype = ctypes.POINTER(Bytes)
     gocode.GetContactQRLink.argtypes = [ctypes.c_char_p, ctypes.c_bool]
-    gocode.GetContactQRLink.restype = Bytes
+    gocode.GetContactQRLink.restype = ctypes.POINTER(Bytes)
     gocode.GetGroupInfoFromInvite.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -198,27 +201,27 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_int,
     ]
-    gocode.GetGroupInfoFromInvite.restype = Bytes
+    gocode.GetGroupInfoFromInvite.restype = ctypes.POINTER(Bytes)
     gocode.GetGroupInfoFromLink.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
-    gocode.GetGroupInfoFromLink.restype = Bytes
+    gocode.GetGroupInfoFromLink.restype = ctypes.POINTER(Bytes)
     gocode.GetGroupRequestParticipants.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
         ctypes.c_int,
     ]
-    gocode.GetGroupRequestParticipants.restype = Bytes
+    gocode.GetGroupRequestParticipants.restype = ctypes.POINTER(Bytes)
     gocode.GetJoinedGroups.argtypes = [ctypes.c_char_p]
-    gocode.GetJoinedGroups.restype = Bytes
+    gocode.GetJoinedGroups.restype = ctypes.POINTER(Bytes)
     gocode.GetLinkedGroupsParticipants.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
         ctypes.c_int,
     ]
-    gocode.GetLinkedGroupsParticipants.restype = Bytes
+    gocode.GetLinkedGroupsParticipants.restype = ctypes.POINTER(Bytes)
     gocode.GetNewsletterInfo.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.GetNewsletterInfo.restype = Bytes
+    gocode.GetNewsletterInfo.restype = ctypes.POINTER(Bytes)
     gocode.GetNewsletterInfoWithInvite.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
-    gocode.GetNewsletterInfoWithInvite.restype = Bytes
+    gocode.GetNewsletterInfoWithInvite.restype = ctypes.POINTER(Bytes)
     gocode.GetNewsletterMessageUpdate.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -227,7 +230,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
         ctypes.c_int,
     ]
-    gocode.GetNewsletterMessageUpdate.restype = Bytes
+    gocode.GetNewsletterMessageUpdate.restype = ctypes.POINTER(Bytes)
     gocode.GetNewsletterMessages.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -235,9 +238,9 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
         ctypes.c_int,
     ]
-    gocode.GetNewsletterMessages.restype = Bytes
+    gocode.GetNewsletterMessages.restype = ctypes.POINTER(Bytes)
     gocode.GetPrivacySettings.argtypes = [ctypes.c_char_p]
-    gocode.GetPrivacySettings.restype = Bytes
+    gocode.GetPrivacySettings.restype = ctypes.POINTER(Bytes)
     gocode.GetProfilePicture.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -245,15 +248,15 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_int,
     ]
-    gocode.GetProfilePicture.restype = Bytes
+    gocode.GetProfilePicture.restype = ctypes.POINTER(Bytes)
     gocode.GetStatusPrivacy.argtypes = [ctypes.c_char_p]
-    gocode.GetStatusPrivacy.restype = Bytes
+    gocode.GetStatusPrivacy.restype = ctypes.POINTER(Bytes)
     gocode.GetSubGroups.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.GetSubGroups.restype = Bytes
+    gocode.GetSubGroups.restype = ctypes.POINTER(Bytes)
     gocode.GetSubscribedNewsletters.argtypes = [ctypes.c_char_p]
-    gocode.GetSubscribedNewsletters.restype = Bytes
+    gocode.GetSubscribedNewsletters.restype = ctypes.POINTER(Bytes)
     gocode.GetUserDevices.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.GetUserDevices.restype = Bytes
+    gocode.GetUserDevices.restype = ctypes.POINTER(Bytes)
     gocode.JoinGroupWithLink.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -271,7 +274,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_int,
     ]
-    gocode.LinkGroup.restype = Bytes
+    gocode.LinkGroup.restype = ctypes.POINTER(Bytes)
     gocode.Logout.argtypes = [ctypes.c_char_p]
     gocode.Logout.restype = ctypes.c_char_p
     gocode.MarkRead.argtypes = [
@@ -307,7 +310,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_int,
     ]
-    gocode.NewsletterSubscribeLiveUpdates.restype = Bytes
+    gocode.NewsletterSubscribeLiveUpdates.restype = ctypes.POINTER(Bytes)
     gocode.NewsletterToggleMute.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -317,9 +320,9 @@ if not os.environ.get("SPHINX"):
     gocode.NewsletterToggleMute.restype = ctypes.c_char_p
     gocode.Disconnect.argtypes = [ctypes.c_char_p]
     gocode.ResolveContactQRLink.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
-    gocode.ResolveContactQRLink.restype = Bytes
+    gocode.ResolveContactQRLink.restype = ctypes.POINTER(Bytes)
     gocode.ResolveBusinessMessageLink.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
-    gocode.ResolveBusinessMessageLink.restype = Bytes
+    gocode.ResolveBusinessMessageLink.restype = ctypes.POINTER(Bytes)
     gocode.SendAppState.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.SendAppState.restype = ctypes.c_char_p
     gocode.SetDefaultDisappearingTimer.argtypes = [ctypes.c_char_p, ctypes.c_int64]
@@ -361,7 +364,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_char_p,
     ]
-    gocode.SetPrivacySetting.restype = Bytes
+    gocode.SetPrivacySetting.restype = ctypes.POINTER(Bytes)
     gocode.SetPassive.argtypes = [ctypes.c_char_p, ctypes.c_bool]
     gocode.SetPassive.restype = ctypes.c_char_p
     gocode.SetStatusMessage.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
@@ -388,7 +391,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
         ctypes.c_char_p,
     ]
-    gocode.UpdateBlocklist.restype = Bytes
+    gocode.UpdateBlocklist.restype = ctypes.POINTER(Bytes)
     gocode.UpdateGroupParticipants.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -397,7 +400,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
         ctypes.c_char_p,
     ]
-    gocode.UpdateGroupParticipants.restype = Bytes
+    gocode.UpdateGroupParticipants.restype = ctypes.POINTER(Bytes)
     gocode.GetMessageForRetry.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -406,14 +409,14 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
         ctypes.c_char_p,
     ]
-    gocode.GetMessageForRetry.restype = Bytes
+    gocode.GetMessageForRetry.restype = ctypes.POINTER(Bytes)
     gocode.PutPushName.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
         ctypes.c_int,
         ctypes.c_char_p,
     ]
-    gocode.PutPushName.restype = Bytes
+    gocode.PutPushName.restype = ctypes.POINTER(Bytes)
     gocode.PutContactName.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -429,9 +432,9 @@ if not os.environ.get("SPHINX"):
     ]
     gocode.PutAllContactNames.restype = ctypes.c_char_p
     gocode.GetContact.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.GetContact.restype = Bytes
+    gocode.GetContact.restype = ctypes.POINTER(Bytes)
     gocode.GetAllContacts.argtypes = [ctypes.c_char_p]
-    gocode.GetAllContacts.restype = Bytes
+    gocode.GetAllContacts.restype = ctypes.POINTER(Bytes)
     gocode.PutMutedUntil.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -454,7 +457,7 @@ if not os.environ.get("SPHINX"):
     ]
     gocode.PutArchived.restype = ctypes.c_char_p
     gocode.GetChatSettings.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.GetChatSettings.restype = Bytes
+    gocode.GetChatSettings.restype = ctypes.POINTER(Bytes)
     gocode.GetAllDevices.argtypes = [ctypes.c_char_p]
     gocode.GetAllDevices.restype = ctypes.c_char_p
     gocode.SendFBMessage.argtypes = [
@@ -468,10 +471,20 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_int,
     ]
-    gocode.SendFBMessage.restype = Bytes
+    gocode.SendFBMessage.restype = ctypes.POINTER(Bytes)
     gocode.SendPresence.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     gocode.SendPresence.restype = ctypes.c_char_p
     gocode.DecryptPollVote.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
-    gocode.DecryptPollVote.restype = Bytes
+    gocode.DecryptPollVote.restype = ctypes.POINTER(Bytes)
+    gocode.Stop.argtypes = [ctypes.c_char_p]
+    gocode.Stop.restype = ctypes.c_void_p
+    gocode.StopAll.argtypes = []
+    gocode.StopAll.restype = ctypes.c_void_p
+    gocode.FreeBytesStruct.argtypes = [ctypes.POINTER(Bytes)]
+    gocode.FreeBytesStruct.restype = None
 else:
     gocode: Any = object()
+
+def free_bytes(bytes_ptr: ctypes._Pointer):
+    print("Freeing bytes", bytes_ptr)
+    gocode.FreeBytesStruct(bytes_ptr)

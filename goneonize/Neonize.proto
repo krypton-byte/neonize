@@ -867,6 +867,7 @@ message UpdateGroupParticipantsReturnFunction {
 message GetMessageForRetryReturnFunction{
     optional bool isEmpty = 1 [default=false];
     optional WAWebProtobufsE2E.Message Message = 2;
+    optional string Error = 3;
 }
 
 
@@ -896,3 +897,10 @@ message SendRequestExtra {
     required int64 Timeout = 4;
     required string MediaHandle = 5;
 }
+
+message BuildMessageReturnFunction{
+    required string Error = 1;
+    required WAWebProtobufsE2E.Message Message = 2;
+}
+
+message Stop{}

@@ -14,7 +14,7 @@ import (
 )
 
 //export PutPushName
-func PutPushName(id *C.char, user *C.uchar, userSize C.int, pushname *C.char) C.struct_BytesReturn {
+func PutPushName(id *C.char, user *C.uchar, userSize C.int, pushname *C.char) *C.struct_BytesReturn {
 	var userJID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(user, userSize), &userJID)
 	if err != nil {
@@ -27,15 +27,11 @@ func PutPushName(id *C.char, user *C.uchar, userSize C.int, pushname *C.char) C.
 	if err != nil {
 		return_.Error = proto.String(err.Error())
 	}
-	return_bytes, err := proto.Marshal(&return_)
-	if err != nil {
-		panic(err)
-	}
-	return ReturnBytes(return_bytes)
+	return ProtoReturnV3(&return_)
 }
 
 //export PutBusinessName
-func PutBusinessName(id *C.char, user *C.uchar, userSize C.int, businessName *C.char) C.struct_BytesReturn {
+func PutBusinessName(id *C.char, user *C.uchar, userSize C.int, businessName *C.char) *C.struct_BytesReturn {
 	var userJID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(user, userSize), &userJID)
 	if err != nil {
@@ -48,11 +44,7 @@ func PutBusinessName(id *C.char, user *C.uchar, userSize C.int, businessName *C.
 	if err != nil {
 		return_.Error = proto.String(err.Error())
 	}
-	return_bytes, err := proto.Marshal(&return_)
-	if err != nil {
-		panic(err)
-	}
-	return ReturnBytes(return_bytes)
+	return ProtoReturnV3(&return_)
 }
 
 //export PutContactName
@@ -88,7 +80,7 @@ func PutAllContactNames(id *C.char, contacts *C.uchar, contactsSize C.int) *C.ch
 }
 
 //export GetContact
-func GetContact(id *C.char, user *C.uchar, userSize C.int) C.struct_BytesReturn {
+func GetContact(id *C.char, user *C.uchar, userSize C.int) *C.struct_BytesReturn {
 	var userJID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(user, userSize), &userJID)
 	if err != nil {
@@ -101,15 +93,11 @@ func GetContact(id *C.char, user *C.uchar, userSize C.int) C.struct_BytesReturn 
 	if err_ != nil {
 		return_.Error = proto.String(err_.Error())
 	}
-	return_bytes, err_proto := proto.Marshal(&return_)
-	if err_proto != nil {
-		panic(err_proto)
-	}
-	return ReturnBytes(return_bytes)
+	return ProtoReturnV3(&return_)
 }
 
 //export GetAllContacts
-func GetAllContacts(id *C.char) C.struct_BytesReturn {
+func GetAllContacts(id *C.char) *C.struct_BytesReturn {
 	contacts, err := clients[C.GoString(id)].Store.Contacts.GetAllContacts(context.Background())
 	return_ := defproto.ContactsGetAllContactsReturnFunction{
 		Contact: utils.EncodeContacts(contacts),
@@ -117,10 +105,6 @@ func GetAllContacts(id *C.char) C.struct_BytesReturn {
 	if err != nil {
 		return_.Error = proto.String(err.Error())
 	}
-	return_bytes, err_proto := proto.Marshal(&return_)
-	if err_proto != nil {
-		panic(err_proto)
-	}
-	return ReturnBytes(return_bytes)
+	return ProtoReturnV3(&return_)
 
 }

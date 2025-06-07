@@ -49,6 +49,7 @@ from google.protobuf.message import Message
 from typing import Awaitable, Dict, Callable, Type, TypeVar, TYPE_CHECKING, Coroutine
 from asyncio import Event as IOEvent
 import threading
+
 event_global_loop = asyncio.new_event_loop()
 
 if TYPE_CHECKING:
@@ -108,11 +109,11 @@ class Event:
         :type client: NewClient
         """
         self.client = client
-        self.blocking_func = self.blocking(self.default_blocking)
+        self.blocking_func = self.paircode(self.default_paircode_cb)
         self.list_func: Dict[int, Callable[[NewAClient, Message], Coroutine[None, None, None]]] = {}
         self._qr = self.__onqr
 
-    def execute(self, binary: int, size: int, code: int):
+    def execute(self, uuid: int, binary: int, size: int, code: int):
         """Executes a function from the list of functions based on the given code.
 
         :param binary: The binary data to be processed by the function.
@@ -124,15 +125,17 @@ class Event:
         """
         if code not in INT_TO_EVENT:
             raise UnsupportedEvent()
-
+        print("key", code, "uuid", uuid, "size", size)
+        # print(f"Executing function for event code {ctypes.string_at(code, size)} with UUID {uuid}")
         message = INT_TO_EVENT[code].FromString(ctypes.string_at(binary, size))
         # loop = asyncio.new_event_loop()
         # loop.run_until_complete(
         #     self.list_func[code](self.client, message)
         # )
         # loop.close()
-        asyncio.run_coroutine_threadsafe(self.list_func[code](self.client, message), event_global_loop)
-
+        asyncio.run_coroutine_threadsafe(
+            self.list_func[code](self.client, message), event_global_loop
+        )
 
     async def __onqr(self, _: NewAClient, data_qr: bytes):
         """
@@ -145,7 +148,7 @@ class Event:
         """
         segno.make_qr(data_qr).terminal(compact=True)
 
-    def qr(self, f: Callable[[NewAClient, bytes], Awaitable[None]]):
+    def qr(self, f: Callable[[NewAClient, bytes], Coroutine[None, None, None]]):
         """
         Sets a callback function for handling QR code data.
 
@@ -155,27 +158,41 @@ class Event:
         self._qr = f
 
     @property
-    def blocking(self):
-        def block(f: Callable[[NewAClient], Coroutine[None, None, None]]):
-            """This method assigns a blocking function to process a new client and prevents the process from ending.
-
-            :param f: A function that takes a new client as an argument and returns nothing.
-            :type f: Callable[[NewClient], None]
+    def paircode(self):
+        def paircodecb(f: Callable[[NewAClient, str, bool], Coroutine[None, None, None]]):
             """
-            print("🚧 The blocking function has been set.")
-            def wrap_blocking(_):
-                asyncio.run_coroutine_threadsafe(f(self.client), event_global_loop).result()
+            A decorator that registers a callback function for handling pair code events.
+            :param f: The callback function that takes a NewAClient instance, pair code as a string, and a boolean indicating if the connection is established.
+            :type f: Callable[[NewAClient, str, bool], Coroutine[None, None, None]]
+            :return: A function that wraps the callback function to handle pair code events.
+            :rtype: Callable[[NewAClient, bytes, bool], Coroutine[None, None, None]]
+            """
 
-            self.blocking_func = wrap_blocking
+            def wrap_paircode(_, code, connected: bool):
+                paircode = ctypes.string_at(code)
+                asyncio.run_coroutine_threadsafe(
+                    f(self.client, paircode.decode(), connected), event_global_loop
+                ).result()
+
+            self.blocking_func = wrap_paircode
             return self.blocking_func
 
-        return block
+        return paircodecb
 
-    @classmethod
-    async def default_blocking(cls, _):
-        log.debug("🚧 The blocking function has been called.")
-        await event.wait()
-        log.debug("🚦 The function has been unblocked.")
+    @staticmethod
+    async def default_paircode_cb(client: NewAClient, data: str, connected: bool = True):
+        """
+        A default callback function that handles the pair code event.
+        This function is called when the pair code event occurs, and it blocks the execution until the event is processed.
+        :param client: The client instance that triggered the event.
+        :type client: NewAClient
+        :param data: The pair code data as a string.
+        :type data: str
+        """
+        if connected:
+            log.info("Pair code successfully processed: %s", data)
+        else:
+            log.info("Pair code: %s", data)
 
     def __call__(
         self, event: Type[EventType]
@@ -216,6 +233,7 @@ class EventsManager:
             self.list_func.update({EVENT_TO_INT[event]: func})
 
         return callback
+
 
 threading.Thread(
     target=event_global_loop.run_forever,

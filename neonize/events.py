@@ -134,7 +134,7 @@ class Event:
         :type client: NewClient
         """
         self.client = client
-        self.blocking_func = self.blocking(self.default_blocking)
+        self.paircode_cb = self.paircode(self.default_paircode_cb)
         self.list_func: Dict[int, Callable[[NewClient, Message], None]] = {}
         self._qr = self.__onqr
 
@@ -174,23 +174,37 @@ class Event:
         self._qr = f
 
     @property
-    def blocking(self):
-        def block(f: Callable[[NewClient], None]):
-            """This method assigns a blocking function to process a new client and prevents the process from ending.
-
-            :param f: A function that takes a new client as an argument and returns nothing.
-            :type f: Callable[[NewClient], None]
+    def paircode(self):
+        def paircodecb(f: Callable[[NewClient, str, bool], None]):
             """
-            self.blocking_func = lambda _: f(self.client)
-            return self.blocking_func
+            Sets a callback function for handling pair codes.
+            :param f: The callback function that takes a NewClient instance and pair code as a string.
+            :type f: Callable[[NewClient, str], None]
+            """
 
-        return block
+            def wrap_paircode_cb(code, connected):
+                """
+                Wraps the pair code callback function to include the client instance.
+                :param code: The pair code as a string.
+                :type code: str
+                :param connected: A boolean indicating if the client is connected.
+                :type connected: bool
+                """
+                paircode = ctypes.string_at(code)
+                if self.paircode_cb:
+                    f(self.client, paircode.decode(), connected)
 
-    @classmethod
-    def default_blocking(cls, _):
-        log.debug("🚧 The blocking function has been called.")
-        event.wait()
-        log.debug("🚦 The function has been unblocked.")
+            self.paircode_cb = wrap_paircode_cb
+            return self.paircode_cb
+
+        return paircodecb
+
+    @staticmethod
+    def default_paircode_cb(client: NewClient, data: str, connected: bool):
+        if connected:
+            log.info("authtenticated with pair code: %s", data)
+        else:
+            log.info("Pair code: %s", data)
 
     def __call__(
         self, event: Type[EventType]

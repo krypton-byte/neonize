@@ -3,15 +3,8 @@ import logging
 import os
 import sys
 from datetime import timedelta
-from neonize.aioze.client import NewAClient
-from neonize.aioze.events import (
-    ConnectedEv,
-    MessageEv,
-    PairStatusEv,
-    ReceiptEv,
-    CallOfferEv,
-    event
-)
+from neonize.aioze.client import NewAClient, ClientFactory
+from neonize.aioze.events import ConnectedEv, MessageEv, PairStatusEv, ReceiptEv, CallOfferEv, event
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
     FutureProofMessage,
@@ -29,7 +22,8 @@ sys.path.insert(0, os.getcwd())
 
 
 def interrupted(*_):
-    event.set()
+    loop = asyncio.get_event_loop()
+    asyncio.run_coroutine_threadsafe(ClientFactory.stop(), loop)
 
 
 log.setLevel(logging.DEBUG)
@@ -42,7 +36,6 @@ client = NewAClient("db.sqlite3")
 @client.event(ConnectedEv)
 async def on_connected(_: NewAClient, __: ConnectedEv):
     log.info("⚡ Connected")
-    await client.send_message(build_jid("6283172366463"), "Hello from Neonize!")
 
 
 @client.event(ReceiptEv)
@@ -60,13 +53,19 @@ async def on_message(client: NewAClient, message: MessageEv):
     await handler(client, message)
 
 
+import pickle
+
+
 async def handler(client: NewAClient, message: MessageEv):
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     chat = message.Info.MessageSource.Chat
     print(message.Message)
     match text:
         case "ping":
-            await client.reply_message("pong", message)
+            result = await client.reply_message("pong", message)
+        case "stop":
+            print("Stopping client...")
+            await client.stop()
         case "_test_link_preview":
             await client.send_message(
                 chat, "Test https://github.com/krypton-byte/neonize", link_preview=True
@@ -119,7 +118,8 @@ async def handler(client: NewAClient, message: MessageEv):
                 quoted=message,
             )
         case "debug":
-            await client.send_message(chat, message.__str__())
+            result = await client.send_message(chat, message.__str__())
+            await client.send_message(chat, result.__str__())
         case "viewonce":
             await client.send_image(
                 chat,
@@ -330,13 +330,6 @@ async def handler(client: NewAClient, message: MessageEv):
 @client.event(PairStatusEv)
 async def PairStatusMessage(_: NewAClient, message: PairStatusEv):
     log.info(f"logged as {message.ID.User}")
-
-@client.blocking
-async def default_blocking(_: NewAClient):
-    log.debug("custom blocking function has been called.")
-    log.debug("🚧 The function is blocked, waiting for the event to be set.")
-    await event.wait()
-    log.debug("🚦 The function has been unblocked.")
 
 
 if __name__ == "__main__":
