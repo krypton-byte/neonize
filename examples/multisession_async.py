@@ -26,7 +26,6 @@ from neonize.utils.enum import ReceiptType
 import signal
 
 
-
 sys.path.insert(0, os.getcwd())
 
 

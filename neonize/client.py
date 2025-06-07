@@ -158,7 +158,7 @@ from .utils.enum import (
     PrivacySetting,
     PrivacySettingType,
     VoteType,
-    MediaTypeToMMS
+    MediaTypeToMMS,
 )
 from .utils.ffmpeg import FFmpeg
 from .utils.iofile import get_bytes_from_name_or_url
@@ -2665,7 +2665,10 @@ class ClientFactory:
         return self.get_all_devices_from_db(self.database_name)
 
     def new_client(
-        self, jid: Optional[JID] = None, uuid: Optional[str] = None, props: Optional[DeviceProps] = None
+        self,
+        jid: Optional[JID] = None,
+        uuid: Optional[str] = None,
+        props: Optional[DeviceProps] = None,
     ) -> NewClient:
         """
         This function creates a new instance of the client. If the jid parameter is not provided, a new client will be created.

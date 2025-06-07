@@ -68,7 +68,7 @@ from ..utils.enum import (
     PrivacySetting,
     PrivacySettingType,
     VoteType,
-    MediaTypeToMMS
+    MediaTypeToMMS,
 )
 from ..proto import Neonize_pb2 as neonize_proto
 from ..utils import validate_link
