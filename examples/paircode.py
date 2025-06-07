@@ -56,7 +56,6 @@ async def on_message(client: NewAClient, message: MessageEv):
 async def handler(client: NewAClient, message: MessageEv):
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     chat = message.Info.MessageSource.Chat
-    print(message.Message)
     match text:
         case "ping":
             await client.reply_message("pong", message)

@@ -2083,9 +2083,6 @@ func CallbackFunction(ctx context.Context, callback C.ptr_to_python_function_byt
 
 //export FreeBytesStruct
 func FreeBytesStruct(bytesReturn *C.struct_BytesReturn) {
-	fmt.Println("FreeBytesStruct called with bytesReturn:")
 	C.free(unsafe.Pointer(bytesReturn.data))
-	fmt.Println("Freed data pointer in bytesReturn")
 	C.free(unsafe.Pointer(bytesReturn))
-	fmt.Println("FreeBytesStruct called")
 }

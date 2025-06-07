@@ -60,7 +60,6 @@ def on_message(client: NewClient, message: MessageEv):
 def handler(client: NewClient, message: MessageEv):
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     chat = message.Info.MessageSource.Chat
-    print(message.Message)
     match text:
         case "up-sw":
             client.send_video(
