@@ -49,6 +49,7 @@ from google.protobuf.message import Message
 from typing import Awaitable, Dict, Callable, Type, TypeVar, TYPE_CHECKING, Coroutine
 from asyncio import Event as IOEvent
 import threading
+
 event_global_loop = asyncio.new_event_loop()
 
 if TYPE_CHECKING:
@@ -131,8 +132,9 @@ class Event:
         #     self.list_func[code](self.client, message)
         # )
         # loop.close()
-        asyncio.run_coroutine_threadsafe(self.list_func[code](self.client, message), event_global_loop)
-
+        asyncio.run_coroutine_threadsafe(
+            self.list_func[code](self.client, message), event_global_loop
+        )
 
     async def __onqr(self, _: NewAClient, data_qr: bytes):
         """
@@ -163,6 +165,7 @@ class Event:
             :type f: Callable[[NewClient], None]
             """
             print("🚧 The blocking function has been set.")
+
             def wrap_blocking(_):
                 asyncio.run_coroutine_threadsafe(f(self.client), event_global_loop).result()
 
@@ -216,6 +219,7 @@ class EventsManager:
             self.list_func.update({EVENT_TO_INT[event]: func})
 
         return callback
+
 
 threading.Thread(
     target=event_global_loop.run_forever,

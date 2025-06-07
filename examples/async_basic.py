@@ -4,14 +4,7 @@ import os
 import sys
 from datetime import timedelta
 from neonize.aioze.client import NewAClient
-from neonize.aioze.events import (
-    ConnectedEv,
-    MessageEv,
-    PairStatusEv,
-    ReceiptEv,
-    CallOfferEv,
-    event
-)
+from neonize.aioze.events import ConnectedEv, MessageEv, PairStatusEv, ReceiptEv, CallOfferEv, event
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
     FutureProofMessage,
@@ -20,7 +13,7 @@ from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     DeviceListMetadata,
 )
 from neonize.types import MessageServerID
-from neonize.utils import log, build_jid
+from neonize.utils import log
 from neonize.utils.enum import ReceiptType, VoteType
 import signal
 
@@ -329,6 +322,7 @@ async def handler(client: NewAClient, message: MessageEv):
 @client.event(PairStatusEv)
 async def PairStatusMessage(_: NewAClient, message: PairStatusEv):
     log.info(f"logged as {message.ID.User}")
+
 
 @client.blocking
 async def default_blocking(_: NewAClient):

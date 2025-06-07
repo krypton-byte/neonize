@@ -99,6 +99,7 @@ class _BotMetricsEntryPointEnumTypeWrapper(google.protobuf.internal.enum_type_wr
     META_AI_CHAT_SHORTCUT_AI_STUDIO: _BotMetricsEntryPoint.ValueType  # 22
     UGC_CHAT_SHORTCUT_AI_STUDIO: _BotMetricsEntryPoint.ValueType  # 23
     NEW_CHAT_AI_STUDIO: _BotMetricsEntryPoint.ValueType  # 24
+    AIVOICE_FAVICON_CALL_HISTORY: _BotMetricsEntryPoint.ValueType  # 25
 
 class BotMetricsEntryPoint(_BotMetricsEntryPoint, metaclass=_BotMetricsEntryPointEnumTypeWrapper): ...
 
@@ -126,6 +127,7 @@ AI_DEEPLINK: BotMetricsEntryPoint.ValueType  # 21
 META_AI_CHAT_SHORTCUT_AI_STUDIO: BotMetricsEntryPoint.ValueType  # 22
 UGC_CHAT_SHORTCUT_AI_STUDIO: BotMetricsEntryPoint.ValueType  # 23
 NEW_CHAT_AI_STUDIO: BotMetricsEntryPoint.ValueType  # 24
+AIVOICE_FAVICON_CALL_HISTORY: BotMetricsEntryPoint.ValueType  # 25
 global___BotMetricsEntryPoint = BotMetricsEntryPoint
 
 class _BotMetricsThreadEntryPoint:
@@ -2378,10 +2380,12 @@ class BotFeedbackMessage(google.protobuf.message.Message):
 
     class _ReportKindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BotFeedbackMessage._ReportKind.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        GENERIC: BotFeedbackMessage._ReportKind.ValueType  # 0
+        NONE: BotFeedbackMessage._ReportKind.ValueType  # 0
+        GENERIC: BotFeedbackMessage._ReportKind.ValueType  # 1
 
     class ReportKind(_ReportKind, metaclass=_ReportKindEnumTypeWrapper): ...
-    GENERIC: BotFeedbackMessage.ReportKind.ValueType  # 0
+    NONE: BotFeedbackMessage.ReportKind.ValueType  # 0
+    GENERIC: BotFeedbackMessage.ReportKind.ValueType  # 1
 
     class _BotFeedbackKindMultiplePositive:
         ValueType = typing.NewType("ValueType", builtins.int)
@@ -2440,6 +2444,8 @@ class BotFeedbackMessage(google.protobuf.message.Message):
         BOT_FEEDBACK_NEGATIVE_PERSONALIZED: BotFeedbackMessage._BotFeedbackKind.ValueType  # 10
         BOT_FEEDBACK_NEGATIVE_CLARITY: BotFeedbackMessage._BotFeedbackKind.ValueType  # 11
         BOT_FEEDBACK_NEGATIVE_DOESNT_LOOK_LIKE_THE_PERSON: BotFeedbackMessage._BotFeedbackKind.ValueType  # 12
+        BOT_FEEDBACK_NEGATIVE_HALLUCINATION_INTERNAL_ONLY: BotFeedbackMessage._BotFeedbackKind.ValueType  # 13
+        BOT_FEEDBACK_NEGATIVE: BotFeedbackMessage._BotFeedbackKind.ValueType  # 14
 
     class BotFeedbackKind(_BotFeedbackKind, metaclass=_BotFeedbackKindEnumTypeWrapper): ...
     BOT_FEEDBACK_POSITIVE: BotFeedbackMessage.BotFeedbackKind.ValueType  # 0
@@ -2455,6 +2461,8 @@ class BotFeedbackMessage(google.protobuf.message.Message):
     BOT_FEEDBACK_NEGATIVE_PERSONALIZED: BotFeedbackMessage.BotFeedbackKind.ValueType  # 10
     BOT_FEEDBACK_NEGATIVE_CLARITY: BotFeedbackMessage.BotFeedbackKind.ValueType  # 11
     BOT_FEEDBACK_NEGATIVE_DOESNT_LOOK_LIKE_THE_PERSON: BotFeedbackMessage.BotFeedbackKind.ValueType  # 12
+    BOT_FEEDBACK_NEGATIVE_HALLUCINATION_INTERNAL_ONLY: BotFeedbackMessage.BotFeedbackKind.ValueType  # 13
+    BOT_FEEDBACK_NEGATIVE: BotFeedbackMessage.BotFeedbackKind.ValueType  # 14
 
     MESSAGEKEY_FIELD_NUMBER: builtins.int
     KIND_FIELD_NUMBER: builtins.int
@@ -3075,6 +3083,8 @@ class ContextInfo(google.protobuf.message.Message):
         HD_VIDEO_CHILD: ContextInfo._PairedMediaType.ValueType  # 2
         SD_IMAGE_PARENT: ContextInfo._PairedMediaType.ValueType  # 3
         HD_IMAGE_CHILD: ContextInfo._PairedMediaType.ValueType  # 4
+        MOTION_PHOTO_PARENT: ContextInfo._PairedMediaType.ValueType  # 5
+        MOTION_PHOTO_CHILD: ContextInfo._PairedMediaType.ValueType  # 6
 
     class PairedMediaType(_PairedMediaType, metaclass=_PairedMediaTypeEnumTypeWrapper): ...
     NOT_PAIRED_MEDIA: ContextInfo.PairedMediaType.ValueType  # 0
@@ -3082,6 +3092,8 @@ class ContextInfo(google.protobuf.message.Message):
     HD_VIDEO_CHILD: ContextInfo.PairedMediaType.ValueType  # 2
     SD_IMAGE_PARENT: ContextInfo.PairedMediaType.ValueType  # 3
     HD_IMAGE_CHILD: ContextInfo.PairedMediaType.ValueType  # 4
+    MOTION_PHOTO_PARENT: ContextInfo.PairedMediaType.ValueType  # 5
+    MOTION_PHOTO_CHILD: ContextInfo.PairedMediaType.ValueType  # 6
 
     class _StatusAttributionType:
         ValueType = typing.NewType("ValueType", builtins.int)
@@ -4902,6 +4914,39 @@ class MessageAssociation(google.protobuf.message.Message):
 global___MessageAssociation = MessageAssociation
 
 @typing.final
+class ThreadID(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _ThreadType:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _ThreadTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ThreadID._ThreadType.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: ThreadID._ThreadType.ValueType  # 0
+        VIEW_REPLIES: ThreadID._ThreadType.ValueType  # 1
+
+    class ThreadType(_ThreadType, metaclass=_ThreadTypeEnumTypeWrapper): ...
+    UNKNOWN: ThreadID.ThreadType.ValueType  # 0
+    VIEW_REPLIES: ThreadID.ThreadType.ValueType  # 1
+
+    THREADTYPE_FIELD_NUMBER: builtins.int
+    THREADKEY_FIELD_NUMBER: builtins.int
+    threadType: global___ThreadID.ThreadType.ValueType
+    @property
+    def threadKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    def __init__(
+        self,
+        *,
+        threadType: global___ThreadID.ThreadType.ValueType | None = ...,
+        threadKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["threadKey", b"threadKey", "threadType", b"threadType"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["threadKey", b"threadKey", "threadType", b"threadType"]) -> None: ...
+
+global___ThreadID = ThreadID
+
+@typing.final
 class MessageContextInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -4932,6 +4977,7 @@ class MessageContextInfo(google.protobuf.message.Message):
     SUPPORTPAYLOAD_FIELD_NUMBER: builtins.int
     LIMITSHARING_FIELD_NUMBER: builtins.int
     LIMITSHARINGV2_FIELD_NUMBER: builtins.int
+    THREADID_FIELD_NUMBER: builtins.int
     deviceListMetadataVersion: builtins.int
     messageSecret: builtins.bytes
     paddingBytes: builtins.bytes
@@ -4951,6 +4997,8 @@ class MessageContextInfo(google.protobuf.message.Message):
     def limitSharing(self) -> waCommon.WACommon_pb2.LimitSharing: ...
     @property
     def limitSharingV2(self) -> waCommon.WACommon_pb2.LimitSharing: ...
+    @property
+    def threadID(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ThreadID]: ...
     def __init__(
         self,
         *,
@@ -4968,9 +5016,10 @@ class MessageContextInfo(google.protobuf.message.Message):
         supportPayload: builtins.str | None = ...,
         limitSharing: waCommon.WACommon_pb2.LimitSharing | None = ...,
         limitSharingV2: waCommon.WACommon_pb2.LimitSharing | None = ...,
+        threadID: collections.abc.Iterable[global___ThreadID] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["botMessageSecret", b"botMessageSecret", "botMetadata", b"botMetadata", "capiCreatedGroup", b"capiCreatedGroup", "deviceListMetadata", b"deviceListMetadata", "deviceListMetadataVersion", b"deviceListMetadataVersion", "limitSharing", b"limitSharing", "limitSharingV2", b"limitSharingV2", "messageAddOnDurationInSecs", b"messageAddOnDurationInSecs", "messageAddOnExpiryType", b"messageAddOnExpiryType", "messageAssociation", b"messageAssociation", "messageSecret", b"messageSecret", "paddingBytes", b"paddingBytes", "reportingTokenVersion", b"reportingTokenVersion", "supportPayload", b"supportPayload"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["botMessageSecret", b"botMessageSecret", "botMetadata", b"botMetadata", "capiCreatedGroup", b"capiCreatedGroup", "deviceListMetadata", b"deviceListMetadata", "deviceListMetadataVersion", b"deviceListMetadataVersion", "limitSharing", b"limitSharing", "limitSharingV2", b"limitSharingV2", "messageAddOnDurationInSecs", b"messageAddOnDurationInSecs", "messageAddOnExpiryType", b"messageAddOnExpiryType", "messageAssociation", b"messageAssociation", "messageSecret", b"messageSecret", "paddingBytes", b"paddingBytes", "reportingTokenVersion", b"reportingTokenVersion", "supportPayload", b"supportPayload"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["botMessageSecret", b"botMessageSecret", "botMetadata", b"botMetadata", "capiCreatedGroup", b"capiCreatedGroup", "deviceListMetadata", b"deviceListMetadata", "deviceListMetadataVersion", b"deviceListMetadataVersion", "limitSharing", b"limitSharing", "limitSharingV2", b"limitSharingV2", "messageAddOnDurationInSecs", b"messageAddOnDurationInSecs", "messageAddOnExpiryType", b"messageAddOnExpiryType", "messageAssociation", b"messageAssociation", "messageSecret", b"messageSecret", "paddingBytes", b"paddingBytes", "reportingTokenVersion", b"reportingTokenVersion", "supportPayload", b"supportPayload", "threadID", b"threadID"]) -> None: ...
 
 global___MessageContextInfo = MessageContextInfo
 
