@@ -13,7 +13,7 @@ from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     DeviceListMetadata,
 )
 from neonize.types import MessageServerID
-from neonize.utils import log, build_jid
+from neonize.utils import log
 from neonize.utils.enum import ReceiptType, VoteType
 import signal
 
@@ -51,9 +51,6 @@ async def on_call(_: NewAClient, call: CallOfferEv):
 @client.event(MessageEv)
 async def on_message(client: NewAClient, message: MessageEv):
     await handler(client, message)
-
-
-import pickle
 
 
 async def handler(client: NewAClient, message: MessageEv):
