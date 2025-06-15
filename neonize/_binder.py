@@ -34,15 +34,17 @@ class Bytes(ctypes.Structure):
     ptr: int
     size: int
     _fields_ = [("ptr", ctypes.POINTER(ctypes.c_char)), ("size", ctypes.c_size_t)]
+
     def get_bytes(self):
         return ctypes.string_at(self.ptr, self.size)
+
+
 if not os.environ.get("SPHINX"):
     if not (Path(__file__).parent / generated_name()).exists():
         download()
     file_ext = "dll" if system() == "Windows" else "so"
     root_dir = os.path.abspath(os.path.dirname(__file__))
     gocode = load_goneonize()
-
 
     gocode.Neonize.argtypes = [
         ctypes.c_char_p,
@@ -484,6 +486,7 @@ if not os.environ.get("SPHINX"):
     gocode.FreeBytesStruct.restype = None
 else:
     gocode: Any = object()
+
 
 def free_bytes(bytes_ptr: ctypes._Pointer):
     print("Freeing bytes", bytes_ptr)
