@@ -39,7 +39,7 @@ from ..utils.iofile import (
     get_bytes_from_name_or_url_async,
 )
 from ..utils.jid import JIDToNonAD, Jid2String, build_jid
-from .._binder import func, func_string, func_callback_bytes
+from .._binder import func_string, func_callback_bytes
 from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
     PollVoteMessage,
@@ -417,7 +417,9 @@ class NewAClient:
         self.name = name
         self.device_props = props
         self.jid = jid
-        self.uuid = (jid.User if jid else (uuid or name)).encode() #((jid.User if jid else None) or uuid or name).encode()
+        self.uuid = (
+            jid.User if jid else (uuid or name)
+        ).encode()  # ((jid.User if jid else None) or uuid or name).encode()
         self.__client = async_gocode
         self.event = Event(self)
         self.paircode = self.event.paircode
@@ -2201,7 +2203,9 @@ class NewAClient:
         :return: The response from the server after the upload.
         :rtype: UploadResponse
         """
-        bytes_ptr = await self.__client.UploadNewsletter(self.uuid, data, len(data), media_type.value)
+        bytes_ptr = await self.__client.UploadNewsletter(
+            self.uuid, data, len(data), media_type.value
+        )
         protobytes = bytes_ptr.contents.get_bytes()
         free_bytes(bytes_ptr)
         model = UploadReturnFunction.FromString(protobytes)
@@ -2258,7 +2262,9 @@ class NewAClient:
         :rtype: RepeatedCompositeFieldContainer[JID]
         """
         jidbyte = jid.SerializeToString()
-        bytes_ptr = await self.__client.GetGroupRequestParticipants(self.uuid, jidbyte, len(jidbyte))
+        bytes_ptr = await self.__client.GetGroupRequestParticipants(
+            self.uuid, jidbyte, len(jidbyte)
+        )
         protobytes = bytes_ptr.contents.get_bytes()
         free_bytes(bytes_ptr)
         model = neonize_proto.GetGroupRequestParticipantsReturnFunction.FromString(protobytes)
@@ -2573,7 +2579,9 @@ class NewAClient:
         :rtype: RepeatedCompositeFieldContainer[JID]
         """
         jidbyte = community.SerializeToString()
-        bytes_ptr = await self.__client.GetLinkedGroupsParticipants(self.uuid, jidbyte, len(jidbyte))
+        bytes_ptr = await self.__client.GetLinkedGroupsParticipants(
+            self.uuid, jidbyte, len(jidbyte)
+        )
         protobytes = bytes_ptr.contents.get_bytes()
         free_bytes(bytes_ptr)
         model = neonize_proto.ReturnFunctionWithError.FromString(protobytes)
