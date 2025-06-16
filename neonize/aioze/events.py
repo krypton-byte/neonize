@@ -125,7 +125,7 @@ class Event:
         """
         if code not in INT_TO_EVENT:
             raise UnsupportedEvent()
-        print("key", code, "uuid", uuid, "size", size)
+        # print("key", code, "uuid", uuid, "size", size)
         # print(f"Executing function for event code {ctypes.string_at(code, size)} with UUID {uuid}")
         message = INT_TO_EVENT[code].FromString(ctypes.string_at(binary, size))
         # loop = asyncio.new_event_loop()

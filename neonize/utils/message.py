@@ -7,7 +7,7 @@ from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
     PollUpdateMessage,
 )
 from ..proto import Neonize_pb2 as neonize_proto
-from ..types import MediaMessageType, TextMessageType
+from ..types import MediaMessageType, MessageWithContextInfo, TextMessageType
 
 
 def get_message_type(message: Message) -> MediaMessageType | TextMessageType:
@@ -21,7 +21,7 @@ def get_message_type(message: Message) -> MediaMessageType | TextMessageType:
     :rtype: MediaMessageType | TextMessageType
     """
     for field_name, v in message.ListFields():
-        if field_name.name.endswith("Message"):
+        if field_name.name.endswith(("Message", "MessageV2", "MessageV3")):
             return v
         elif field_name.name == "conversation":
             return v
@@ -66,3 +66,12 @@ def get_poll_update_message(message: neonize_proto.Message) -> PollUpdateMessage
     if msg.pollUpdateMessage.ListFields():
         pollUpdateMessage: PollUpdateMessage = msg.pollUpdateMessage
         return pollUpdateMessage
+
+
+def message_has_contextinfo(message: Message) -> bool:
+    for field_name, msg in message.ListFields():
+        if field_name.name.endswith("Message"):
+            break
+    else:
+        return False
+    return type(msg) in MessageWithContextInfo.__constraints__

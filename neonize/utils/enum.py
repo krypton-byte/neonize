@@ -6,6 +6,7 @@ from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
     ImageMessage,
     AudioMessage,
+    StickerMessage,
     VideoMessage,
     DocumentMessage,
 )
@@ -25,6 +26,7 @@ class MediaTypeToMMS(Enum):
     def from_message(cls, message: Message):
         return {
             ImageMessage: cls.MediaImage,
+            StickerMessage: cls.MediaImage,
             AudioMessage: cls.MediaAudio,
             VideoMessage: cls.MediaVideo,
             DocumentMessage: cls.MediaDocument,
@@ -85,6 +87,16 @@ class MediaType(Enum):
                 return cls.MediaAudio
             case _:
                 return cls.MediaDocument
+
+    @classmethod
+    def from_message(cls, message: Message):
+        return {
+            ImageMessage: cls.MediaImage,
+            StickerMessage: cls.MediaImage,
+            AudioMessage: cls.MediaAudio,
+            VideoMessage: cls.MediaVideo,
+            DocumentMessage: cls.MediaDocument,
+        }[type(get_message_type(message))]
 
 
 class ChatPresence(Enum):

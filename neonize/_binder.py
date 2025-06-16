@@ -34,15 +34,17 @@ class Bytes(ctypes.Structure):
     ptr: int
     size: int
     _fields_ = [("ptr", ctypes.POINTER(ctypes.c_char)), ("size", ctypes.c_size_t)]
+
     def get_bytes(self):
         return ctypes.string_at(self.ptr, self.size)
+
+
 if not os.environ.get("SPHINX"):
     if not (Path(__file__).parent / generated_name()).exists():
         download()
     file_ext = "dll" if system() == "Windows" else "so"
     root_dir = os.path.abspath(os.path.dirname(__file__))
     gocode = load_goneonize()
-
 
     gocode.Neonize.argtypes = [
         ctypes.c_char_p,
@@ -60,6 +62,10 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_int,
     ]
+    gocode.GetLIDFromPN.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.GetLIDFromPN.restype = ctypes.POINTER(Bytes)
+    gocode.GetPNFromLID.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.GetPNFromLID.restype = ctypes.POINTER(Bytes)
     gocode.Upload.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -257,7 +263,7 @@ if not os.environ.get("SPHINX"):
     gocode.GetSubscribedNewsletters.restype = ctypes.POINTER(Bytes)
     gocode.GetUserDevices.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.GetUserDevices.restype = ctypes.POINTER(Bytes)
-    gocode.JoinGroupWithLink.argtypes = [
+    gocode.JoinGroupWithInvite.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
         ctypes.c_int,
@@ -485,6 +491,7 @@ if not os.environ.get("SPHINX"):
 else:
     gocode: Any = object()
 
+
 def free_bytes(bytes_ptr: ctypes._Pointer):
-    print("Freeing bytes", bytes_ptr)
+    # print("Freeing bytes", bytes_ptr)
     gocode.FreeBytesStruct(bytes_ptr)

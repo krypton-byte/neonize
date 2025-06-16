@@ -56,14 +56,33 @@ func DecodeReqCreateGroup(reqCreateGroup *defproto.ReqCreateGroup) whatsmeow.Req
 	}
 	return new_type
 }
+
+func DecodeAddressingMode(mode_types *defproto.AddressingMode) types.AddressingMode {
+	var AddressingMode types.AddressingMode
+	switch mode_types {
+	case defproto.AddressingMode_PN.Enum():
+		AddressingMode = types.AddressingModePN
+	case defproto.AddressingMode_LID.Enum():
+		AddressingMode = types.AddressingModeLID
+	}
+	return AddressingMode
+}
 func DecodeMessageSource(messageSource *defproto.MessageSource) types.MessageSource {
-	return types.MessageSource{
+	model := types.MessageSource{
 		Chat:               DecodeJidProto(messageSource.Chat),
 		Sender:             DecodeJidProto(messageSource.Sender),
 		IsFromMe:           *messageSource.IsFromMe,
 		IsGroup:            *messageSource.IsGroup,
+		
+		SenderAlt:          DecodeJidProto(messageSource.SenderAlt),
+		RecipientAlt:       DecodeJidProto(messageSource.RecipientAlt),
+
 		BroadcastListOwner: DecodeJidProto(messageSource.BroadcastListOwner),
 	}
+	if messageSource.AddressingMode != nil {
+		model.AddressingMode = DecodeAddressingMode(messageSource.AddressingMode)
+	}
+	return model
 }
 func DecodeVerifiedNameCertificate(verifiedNameCertificate *waVname.VerifiedNameCertificate) *waVname.VerifiedNameCertificate {
 	//passing types through protobuf
@@ -145,7 +164,7 @@ func DecodePatchInfo(patchInfo *defproto.PatchInfo) *appstate.PatchInfo {
 		Type = appstate.WAPatchCriticalBlock
 	case defproto.PatchInfo_CRITICAL_UNBLOCK_LOW.Enum():
 		Type = appstate.WAPatchCriticalUnblockLow
-	case defproto.PatchInfo_REGULAR.Enum():
+		case defproto.PatchInfo_REGULAR.Enum():
 		Type = appstate.WAPatchRegular
 	}
 	mutationInfo := []appstate.MutationInfo{}

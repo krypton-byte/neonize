@@ -39,12 +39,20 @@ message UploadResponse {
     required bytes FileSHA256 = 6;
     required uint32 FileLength = 7;
 }
+
+enum AddressingMode {
+    PN = 1;
+    LID = 2;
+}
 message MessageSource {
     required JID Chat = 1;
     required JID Sender = 2;
     required bool IsFromMe = 3;
     required bool IsGroup = 4;
-    required JID BroadcastListOwner = 5;
+    optional AddressingMode AddressingMode = 5;
+    required JID SenderAlt = 6;
+    required JID RecipientAlt = 7;
+    required JID BroadcastListOwner = 8;
 }
 message DeviceSentMeta {
     required string DestinationJID = 1;
@@ -83,10 +91,11 @@ message UserInfo {
 
 message Device {
     optional JID JID = 1;
-    required string Platform = 2;
-    required string BussinessName = 3;
-    required string PushName = 4;
-    required bool Initialized = 5;
+    optional JID LID = 2;
+    required string Platform = 3;
+    required string BussinessName = 4;
+    required string PushName = 5;
+    required bool Initialized = 6;
 }
 
 
@@ -134,27 +143,29 @@ message GroupParticipantAddRequest {
 message GroupParticipant {
     optional JID JID = 1;
     required JID LID = 2;
-    required bool IsAdmin = 3;
-    required bool IsSuperAdmin = 4;
-    required string DisplayName = 5;
-    required int32 Error = 6;
-    optional GroupParticipantAddRequest AddRequest = 7;
+    required JID PhoneNumber = 3;
+    required bool IsAdmin = 4;
+    required bool IsSuperAdmin = 5;
+    required string DisplayName = 6;
+    required int32 Error = 7;
+    optional GroupParticipantAddRequest AddRequest = 8;
 }
 message GroupInfo{
     required JID OwnerJID=2;
     required JID JID=1;
-    required GroupName GroupName = 3;
-    required GroupTopic GroupTopic = 4;
-    required GroupLocked GroupLocked = 5;
-    required GroupAnnounce GroupAnnounce = 6;
-    required GroupEphemeral GroupEphemeral = 7;
-    required GroupIncognito GroupIncognito = 8;
-    required GroupParent GroupParent = 9;
-    required GroupLinkedParent GroupLinkedParent = 10;
-    required GroupIsDefaultSub GroupIsDefaultSub = 11;
-    required float GroupCreated = 12;
-    required string ParticipantVersionID = 13;
-    repeated GroupParticipant Participants = 14;
+    required JID OwnerPN=3;
+    required GroupName GroupName = 4;
+    required GroupTopic GroupTopic = 5;
+    required GroupLocked GroupLocked = 6;
+    required GroupAnnounce GroupAnnounce = 7;
+    required GroupEphemeral GroupEphemeral = 8;
+    required GroupIncognito GroupIncognito = 9;
+    required GroupParent GroupParent = 10;
+    required GroupLinkedParent GroupLinkedParent = 11;
+    required GroupIsDefaultSub GroupIsDefaultSub = 12;
+    required float GroupCreated = 13;
+    required string ParticipantVersionID = 14;
+    repeated GroupParticipant Participants = 15;
     enum GroupMemberAddMode {
         GroupMemberAddModeAdmin = 1;
     }
@@ -175,6 +186,7 @@ message SendResponse {
     required string ID = 2;
     required int64 ServerID = 3;
     required MessageDebugTimings DebugTimings = 4;
+    optional WAWebProtobufsE2E.Message Message = 5;
 }
 
 message SendMessageReturnFunction {
@@ -195,6 +207,10 @@ message GetGroupInfoReturnFunction{
     optional string Error = 2;
 }
 message JoinGroupWithLinkReturnFunction{
+    optional string Error = 1;
+    optional JID Jid = 2;
+}
+message GetJIDFromStoreReturnFunction{
     optional string Error = 1;
     optional JID Jid = 2;
 }
@@ -899,7 +915,7 @@ message SendRequestExtra {
 }
 
 message BuildMessageReturnFunction{
-    required string Error = 1;
+    optional string Error = 1;
     required WAWebProtobufsE2E.Message Message = 2;
 }
 

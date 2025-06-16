@@ -158,7 +158,6 @@ from .utils.enum import (
     ClientName,
     PrivacySetting,
     PrivacySettingType,
-    VoteType,
     MediaTypeToMMS,
 )
 from .utils.ffmpeg import FFmpeg
@@ -654,7 +653,9 @@ class NewClient:
         """
         return self.send_message(chat, self.build_revoke(chat, sender, message_id))
 
-    def build_poll_vote_creation(self, name: str, options: List[str], type: VoteType) -> Message:
+    def build_poll_vote_creation(
+        self, name: str, options: List[str], selectable_count: int
+    ) -> Message:
         """Build a poll vote creation message.
 
         :param name: The name of the poll.
@@ -672,7 +673,7 @@ class NewClient:
             name.encode(),
             options_buf,
             len(options_buf),
-            type.value,
+            selectable_count,
         )
         protobytes = bytes_ptr.contents.get_bytes()
         free_bytes(bytes_ptr)
@@ -1289,9 +1290,7 @@ class NewClient:
         :rtype: Union[None, bytes]
         """
         msg_protobuf = message.SerializeToString()
-        bytes_ptr = self.__client.DownloadAny(
-            self.uuid, msg_protobuf, len(msg_protobuf)
-        )
+        bytes_ptr = self.__client.DownloadAny(self.uuid, msg_protobuf, len(msg_protobuf))
         protobytes = bytes_ptr.contents.get_bytes()
         free_bytes(bytes_ptr)
         media = DownloadReturnFunction.FromString(protobytes)
@@ -1392,9 +1391,7 @@ class NewClient:
         """
         if numbers:
             numbers_buf = " ".join(numbers).encode()
-            bytes_ptr = self.__client.IsOnWhatsApp(
-                self.uuid, numbers_buf, len(numbers_buf)
-            )
+            bytes_ptr = self.__client.IsOnWhatsApp(self.uuid, numbers_buf, len(numbers_buf))
             protobytes = bytes_ptr.contents.get_bytes()
             free_bytes(bytes_ptr)
             model = IsOnWhatsAppReturnFunction.FromString(protobytes)
@@ -1597,9 +1594,7 @@ class NewClient:
         :rtype: str
         """
         jid_buf = jid.SerializeToString()
-        bytes_ptr = self.__client.GetGroupInviteLink(
-            self.uuid, jid_buf, len(jid_buf), revoke
-        )
+        bytes_ptr = self.__client.GetGroupInviteLink(self.uuid, jid_buf, len(jid_buf), revoke)
         protobytes = bytes_ptr.contents.get_bytes()
         free_bytes(bytes_ptr)
         model = GetGroupInviteLinkReturnFunction.FromString(protobytes)

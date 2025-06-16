@@ -12,8 +12,8 @@ package main
 import "C"
 import (
 	"context"
-	"crypto/sha256"
-	"encoding/hex"
+	// "crypto/sha256"
+	// "encoding/hex"
 	"fmt"
 	"strings"
 	"time"
@@ -67,6 +67,54 @@ func getByteByAddr(addr *C.uchar, size C.int) []byte {
 	// }
 	// return result
 }
+
+//export GetPNFromLID
+func GetPNFromLID(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesReturn {
+	var neoJIDProto defproto.JID
+	jidbyte := getByteByAddr(JIDByte, JIDSize)
+	err := proto.Unmarshal(jidbyte, &neoJIDProto)
+	if err != nil {
+		panic(err)
+	}
+	lid := utils.DecodeJidProto(&neoJIDProto)
+	cli := clients[C.GoString(id)].Store
+	pn, err := cli.LIDs.GetPNForLID(context.Background(), lid)
+
+	neojid := utils.EncodeJidProto(pn)
+
+	return_ := defproto.GetJIDFromStoreReturnFunction{
+		Jid: neojid,
+	}
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+	}
+
+	return ProtoReturnV3(&return_)
+}
+//export GetLIDFromPN
+func GetLIDFromPN(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesReturn {
+	var neoJIDProto defproto.JID
+	jidbyte := getByteByAddr(JIDByte, JIDSize)
+	err := proto.Unmarshal(jidbyte, &neoJIDProto)
+	if err != nil {
+		panic(err)
+	}
+	pn := utils.DecodeJidProto(&neoJIDProto)
+	cli := clients[C.GoString(id)].Store
+	lid, err := cli.LIDs.GetLIDForPN(context.Background(), pn)
+
+	neojid := utils.EncodeJidProto(lid)
+
+	return_ := defproto.GetJIDFromStoreReturnFunction{
+		Jid: neojid,
+	}
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+	}
+
+	return ProtoReturnV3(&return_)
+}
+
 
 func ReturnBytes(data []byte) C.struct_BytesReturn {
 	size := C.size_t(len(data))
@@ -172,49 +220,49 @@ func TestStruct() *C.struct_BytesReturn {
 
 //export SendMessage
 func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uchar, messageSize C.int) *C.struct_BytesReturn {
-	fmt.Println("SendMessage: Getting client from ID")
+	// fmt.Println("SendMessage: Getting client from ID")
 	client := clients[C.GoString(id)]
-	fmt.Println("SendMessage: Getting JID byte array")
+	// fmt.Println("SendMessage: Getting JID byte array")
 	jid := getByteByAddr(JIDByte, JIDSize)
-	fmt.Println("SendMessage: Creating neonize_jid variable")
+	// fmt.Println("SendMessage: Creating neonize_jid variable")
 	var neonize_jid defproto.JID
-	fmt.Println("SendMessage: Creating return object")
+	// fmt.Println("SendMessage: Creating return object")
 	return_ := defproto.SendMessageReturnFunction{}
-	fmt.Println("SendMessage: Unmarshaling JID")
+	// fmt.Println("SendMessage: Unmarshaling JID")
 	err := proto.Unmarshal(jid, &neonize_jid)
 	if err != nil {
 		fmt.Println("SendMessage: Error unmarshaling JID:", err.Error())
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
 	}
-	fmt.Println("SendMessage: Getting message byte array")
+	// fmt.Println("SendMessage: Getting message byte array")
 	message_bytes := getByteByAddr(messageByte, messageSize)
-	fmt.Println("SendMessage: Creating message variable")
+	// fmt.Println("SendMessage: Creating message variable")
 	var message waE2E.Message
-	fmt.Println("SendMessage: Unmarshaling message")
+	// fmt.Println("SendMessage: Unmarshaling message")
 	err_message := proto.Unmarshal(message_bytes, &message)
 	if err_message != nil {
 		fmt.Println("SendMessage: Error unmarshaling message:", err_message.Error())
 		return_.Error = proto.String(err_message.Error())
 		return ProtoReturnV3(&return_)
 	}
-	fmt.Println("SendMessage: Sending message to WhatsApp")
+	// fmt.Println("SendMessage: Sending message to WhatsApp")
 	sendresponse, err := client.SendMessage(context.Background(), utils.DecodeJidProto(&neonize_jid), &message)
 	if err != nil {
 		fmt.Println("SendMessage: Error sending message:", err.Error())
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
 	}
-	fmt.Println("SendMessage: Encoding send response")
+	// fmt.Println("SendMessage: Encoding send response")
 	return_.SendResponse = utils.EncodeSendResponse(sendresponse)
-	buff, err := proto.Marshal(&return_)
-	if err != nil {
-		panic(err)
-	}
-	hashx := sha256.Sum256(buff)
-	hashl := hex.EncodeToString(hashx[:]) // This is just to ensure the data is not empty
-	fmt.Printf("Marshaled data (%d bytes): %x\thash: %s\n", len(buff), buff, hashl)
-	fmt.Println("SendMessage: Returning proto response")
+	// buff, err := proto.Marshal(&return_)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// hashx := sha256.Sum256(buff)
+	// hashl := hex.EncodeToString(hashx[:]) // This is just to ensure the data is not empty
+	// fmt.Printf("Marshaled data (%d bytes): %x\thash: %s\n", len(buff), buff, hashl)
+	// fmt.Println("SendMessage: Returning proto response")
 	// result := ProtoReturnV3(&return_)
 	// fmt.Println("size of result:", int(result.size))
 	return ProtoReturnV3(&return_)
@@ -319,7 +367,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 				eventChan <- &messageEvent
 			}
 		case *events.Connected:
-			if int(pairphoneSize) > 0 {
+			if int(pairphoneSize) > 0 && client.Store.ID == nil {
 				loginStateChan <- true
 			}
 			if _, ok := subscribers[3]; ok {
@@ -1871,6 +1919,7 @@ func GetMe(id *C.char) *C.struct_BytesReturn {
 	if cli.ID != nil {
 		device.JID = utils.EncodeJidProto(*cli.ID)
 	}
+	device.LID = utils.EncodeJidProto(cli.LID)
 	return ProtoReturnV3(&device)
 }
 

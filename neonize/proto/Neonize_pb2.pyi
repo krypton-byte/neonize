@@ -24,6 +24,21 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class _AddressingMode:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _AddressingModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_AddressingMode.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    PN: _AddressingMode.ValueType  # 1
+    LID: _AddressingMode.ValueType  # 2
+
+class AddressingMode(_AddressingMode, metaclass=_AddressingModeEnumTypeWrapper): ...
+
+PN: AddressingMode.ValueType  # 1
+LID: AddressingMode.ValueType  # 2
+global___AddressingMode = AddressingMode
+
 class _NewsletterRole:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
@@ -217,13 +232,21 @@ class MessageSource(google.protobuf.message.Message):
     SENDER_FIELD_NUMBER: builtins.int
     ISFROMME_FIELD_NUMBER: builtins.int
     ISGROUP_FIELD_NUMBER: builtins.int
+    ADDRESSINGMODE_FIELD_NUMBER: builtins.int
+    SENDERALT_FIELD_NUMBER: builtins.int
+    RECIPIENTALT_FIELD_NUMBER: builtins.int
     BROADCASTLISTOWNER_FIELD_NUMBER: builtins.int
     IsFromMe: builtins.bool
     IsGroup: builtins.bool
+    AddressingMode: global___AddressingMode.ValueType
     @property
     def Chat(self) -> global___JID: ...
     @property
     def Sender(self) -> global___JID: ...
+    @property
+    def SenderAlt(self) -> global___JID: ...
+    @property
+    def RecipientAlt(self) -> global___JID: ...
     @property
     def BroadcastListOwner(self) -> global___JID: ...
     def __init__(
@@ -233,10 +256,13 @@ class MessageSource(google.protobuf.message.Message):
         Sender: global___JID | None = ...,
         IsFromMe: builtins.bool | None = ...,
         IsGroup: builtins.bool | None = ...,
+        AddressingMode: global___AddressingMode.ValueType | None = ...,
+        SenderAlt: global___JID | None = ...,
+        RecipientAlt: global___JID | None = ...,
         BroadcastListOwner: global___JID | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["BroadcastListOwner", b"BroadcastListOwner", "Chat", b"Chat", "IsFromMe", b"IsFromMe", "IsGroup", b"IsGroup", "Sender", b"Sender"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["BroadcastListOwner", b"BroadcastListOwner", "Chat", b"Chat", "IsFromMe", b"IsFromMe", "IsGroup", b"IsGroup", "Sender", b"Sender"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["AddressingMode", b"AddressingMode", "BroadcastListOwner", b"BroadcastListOwner", "Chat", b"Chat", "IsFromMe", b"IsFromMe", "IsGroup", b"IsGroup", "RecipientAlt", b"RecipientAlt", "Sender", b"Sender", "SenderAlt", b"SenderAlt"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["AddressingMode", b"AddressingMode", "BroadcastListOwner", b"BroadcastListOwner", "Chat", b"Chat", "IsFromMe", b"IsFromMe", "IsGroup", b"IsGroup", "RecipientAlt", b"RecipientAlt", "Sender", b"Sender", "SenderAlt", b"SenderAlt"]) -> None: ...
 
 global___MessageSource = MessageSource
 
@@ -341,6 +367,7 @@ class Device(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     JID_FIELD_NUMBER: builtins.int
+    LID_FIELD_NUMBER: builtins.int
     PLATFORM_FIELD_NUMBER: builtins.int
     BUSSINESSNAME_FIELD_NUMBER: builtins.int
     PUSHNAME_FIELD_NUMBER: builtins.int
@@ -351,17 +378,20 @@ class Device(google.protobuf.message.Message):
     Initialized: builtins.bool
     @property
     def JID(self) -> global___JID: ...
+    @property
+    def LID(self) -> global___JID: ...
     def __init__(
         self,
         *,
         JID: global___JID | None = ...,
+        LID: global___JID | None = ...,
         Platform: builtins.str | None = ...,
         BussinessName: builtins.str | None = ...,
         PushName: builtins.str | None = ...,
         Initialized: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["BussinessName", b"BussinessName", "Initialized", b"Initialized", "JID", b"JID", "Platform", b"Platform", "PushName", b"PushName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["BussinessName", b"BussinessName", "Initialized", b"Initialized", "JID", b"JID", "Platform", b"Platform", "PushName", b"PushName"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["BussinessName", b"BussinessName", "Initialized", b"Initialized", "JID", b"JID", "LID", b"LID", "Platform", b"Platform", "PushName", b"PushName"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["BussinessName", b"BussinessName", "Initialized", b"Initialized", "JID", b"JID", "LID", b"LID", "Platform", b"Platform", "PushName", b"PushName"]) -> None: ...
 
 global___Device = Device
 
@@ -566,6 +596,7 @@ class GroupParticipant(google.protobuf.message.Message):
 
     JID_FIELD_NUMBER: builtins.int
     LID_FIELD_NUMBER: builtins.int
+    PHONENUMBER_FIELD_NUMBER: builtins.int
     ISADMIN_FIELD_NUMBER: builtins.int
     ISSUPERADMIN_FIELD_NUMBER: builtins.int
     DISPLAYNAME_FIELD_NUMBER: builtins.int
@@ -580,20 +611,23 @@ class GroupParticipant(google.protobuf.message.Message):
     @property
     def LID(self) -> global___JID: ...
     @property
+    def PhoneNumber(self) -> global___JID: ...
+    @property
     def AddRequest(self) -> global___GroupParticipantAddRequest: ...
     def __init__(
         self,
         *,
         JID: global___JID | None = ...,
         LID: global___JID | None = ...,
+        PhoneNumber: global___JID | None = ...,
         IsAdmin: builtins.bool | None = ...,
         IsSuperAdmin: builtins.bool | None = ...,
         DisplayName: builtins.str | None = ...,
         Error: builtins.int | None = ...,
         AddRequest: global___GroupParticipantAddRequest | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID", "LID", b"LID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID", "LID", b"LID"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID", "LID", b"LID", "PhoneNumber", b"PhoneNumber"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["AddRequest", b"AddRequest", "DisplayName", b"DisplayName", "Error", b"Error", "IsAdmin", b"IsAdmin", "IsSuperAdmin", b"IsSuperAdmin", "JID", b"JID", "LID", b"LID", "PhoneNumber", b"PhoneNumber"]) -> None: ...
 
 global___GroupParticipant = GroupParticipant
 
@@ -614,6 +648,7 @@ class GroupInfo(google.protobuf.message.Message):
 
     OWNERJID_FIELD_NUMBER: builtins.int
     JID_FIELD_NUMBER: builtins.int
+    OWNERPN_FIELD_NUMBER: builtins.int
     GROUPNAME_FIELD_NUMBER: builtins.int
     GROUPTOPIC_FIELD_NUMBER: builtins.int
     GROUPLOCKED_FIELD_NUMBER: builtins.int
@@ -632,6 +667,8 @@ class GroupInfo(google.protobuf.message.Message):
     def OwnerJID(self) -> global___JID: ...
     @property
     def JID(self) -> global___JID: ...
+    @property
+    def OwnerPN(self) -> global___JID: ...
     @property
     def GroupName(self) -> global___GroupName: ...
     @property
@@ -657,6 +694,7 @@ class GroupInfo(google.protobuf.message.Message):
         *,
         OwnerJID: global___JID | None = ...,
         JID: global___JID | None = ...,
+        OwnerPN: global___JID | None = ...,
         GroupName: global___GroupName | None = ...,
         GroupTopic: global___GroupTopic | None = ...,
         GroupLocked: global___GroupLocked | None = ...,
@@ -670,8 +708,8 @@ class GroupInfo(google.protobuf.message.Message):
         ParticipantVersionID: builtins.str | None = ...,
         Participants: collections.abc.Iterable[global___GroupParticipant] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["GroupAnnounce", b"GroupAnnounce", "GroupCreated", b"GroupCreated", "GroupEphemeral", b"GroupEphemeral", "GroupIncognito", b"GroupIncognito", "GroupIsDefaultSub", b"GroupIsDefaultSub", "GroupLinkedParent", b"GroupLinkedParent", "GroupLocked", b"GroupLocked", "GroupName", b"GroupName", "GroupParent", b"GroupParent", "GroupTopic", b"GroupTopic", "JID", b"JID", "OwnerJID", b"OwnerJID", "ParticipantVersionID", b"ParticipantVersionID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["GroupAnnounce", b"GroupAnnounce", "GroupCreated", b"GroupCreated", "GroupEphemeral", b"GroupEphemeral", "GroupIncognito", b"GroupIncognito", "GroupIsDefaultSub", b"GroupIsDefaultSub", "GroupLinkedParent", b"GroupLinkedParent", "GroupLocked", b"GroupLocked", "GroupName", b"GroupName", "GroupParent", b"GroupParent", "GroupTopic", b"GroupTopic", "JID", b"JID", "OwnerJID", b"OwnerJID", "ParticipantVersionID", b"ParticipantVersionID", "Participants", b"Participants"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["GroupAnnounce", b"GroupAnnounce", "GroupCreated", b"GroupCreated", "GroupEphemeral", b"GroupEphemeral", "GroupIncognito", b"GroupIncognito", "GroupIsDefaultSub", b"GroupIsDefaultSub", "GroupLinkedParent", b"GroupLinkedParent", "GroupLocked", b"GroupLocked", "GroupName", b"GroupName", "GroupParent", b"GroupParent", "GroupTopic", b"GroupTopic", "JID", b"JID", "OwnerJID", b"OwnerJID", "OwnerPN", b"OwnerPN", "ParticipantVersionID", b"ParticipantVersionID"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["GroupAnnounce", b"GroupAnnounce", "GroupCreated", b"GroupCreated", "GroupEphemeral", b"GroupEphemeral", "GroupIncognito", b"GroupIncognito", "GroupIsDefaultSub", b"GroupIsDefaultSub", "GroupLinkedParent", b"GroupLinkedParent", "GroupLocked", b"GroupLocked", "GroupName", b"GroupName", "GroupParent", b"GroupParent", "GroupTopic", b"GroupTopic", "JID", b"JID", "OwnerJID", b"OwnerJID", "OwnerPN", b"OwnerPN", "ParticipantVersionID", b"ParticipantVersionID", "Participants", b"Participants"]) -> None: ...
 
 global___GroupInfo = GroupInfo
 
@@ -723,11 +761,14 @@ class SendResponse(google.protobuf.message.Message):
     ID_FIELD_NUMBER: builtins.int
     SERVERID_FIELD_NUMBER: builtins.int
     DEBUGTIMINGS_FIELD_NUMBER: builtins.int
+    MESSAGE_FIELD_NUMBER: builtins.int
     Timestamp: builtins.int
     ID: builtins.str
     ServerID: builtins.int
     @property
     def DebugTimings(self) -> global___MessageDebugTimings: ...
+    @property
+    def Message(self) -> waE2E.WAWebProtobufsE2E_pb2.Message: ...
     def __init__(
         self,
         *,
@@ -735,9 +776,10 @@ class SendResponse(google.protobuf.message.Message):
         ID: builtins.str | None = ...,
         ServerID: builtins.int | None = ...,
         DebugTimings: global___MessageDebugTimings | None = ...,
+        Message: waE2E.WAWebProtobufsE2E_pb2.Message | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["DebugTimings", b"DebugTimings", "ID", b"ID", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["DebugTimings", b"DebugTimings", "ID", b"ID", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["DebugTimings", b"DebugTimings", "ID", b"ID", "Message", b"Message", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["DebugTimings", b"DebugTimings", "ID", b"ID", "Message", b"Message", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]) -> None: ...
 
 global___SendResponse = SendResponse
 
@@ -802,6 +844,26 @@ class JoinGroupWithLinkReturnFunction(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["Error", b"Error", "Jid", b"Jid"]) -> None: ...
 
 global___JoinGroupWithLinkReturnFunction = JoinGroupWithLinkReturnFunction
+
+@typing.final
+class GetJIDFromStoreReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ERROR_FIELD_NUMBER: builtins.int
+    JID_FIELD_NUMBER: builtins.int
+    Error: builtins.str
+    @property
+    def Jid(self) -> global___JID: ...
+    def __init__(
+        self,
+        *,
+        Error: builtins.str | None = ...,
+        Jid: global___JID | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["Error", b"Error", "Jid", b"Jid"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["Error", b"Error", "Jid", b"Jid"]) -> None: ...
+
+global___GetJIDFromStoreReturnFunction = GetJIDFromStoreReturnFunction
 
 @typing.final
 class GetGroupInviteLinkReturnFunction(google.protobuf.message.Message):
