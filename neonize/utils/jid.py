@@ -51,3 +51,15 @@ def build_jid(phone_number: str, server: str = "s.whatsapp.net") -> JID:
         RawAgent=0,
         Server=server,
     )
+
+
+def jid_is_lid(jid: JID) -> bool:
+    """
+    Checks if a JID (Jabber ID) is a hidden user.
+
+    :param jid: The JID to check.
+    :type jid: JID
+    :return: A bool whether the jid is an lid or not.
+    :rtype: bool
+    """
+    return jid.Server == "lid"

@@ -138,7 +138,7 @@ class Event:
         self.list_func: Dict[int, Callable[[NewClient, Message], None]] = {}
         self._qr = self.__onqr
 
-    def execute(self, binary: int, size: int, code: int):
+    def execute(self, uuid: int, binary: int, size: int, code: int):  # Demands Attention
         """Executes a function from the list of functions based on the given code.
 
         :param binary: The binary data to be processed by the function.
