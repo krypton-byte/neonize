@@ -331,6 +331,10 @@ async def PairStatusMessage(_: NewAClient, message: PairStatusEv):
     log.info(f"logged as {message.ID.User}")
 
 
+async def connect():
+    await client.connect()
+    # Do something else
+    await client.idle() # Necessary to keep receiving events 
+
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(client.connect())
+    client.loop.run_until_complete(connect())

@@ -128,6 +128,12 @@ class Event:
         # print("key", code, "uuid", uuid, "size", size)
         # print(f"Executing function for event code {ctypes.string_at(code, size)} with UUID {uuid}")
         message = INT_TO_EVENT[code].FromString(ctypes.string_at(binary, size))
+
+        if code == 0:
+            self.client.me = message
+            return
+        elif code == 3:
+            self.client.connected = True
         # loop = asyncio.new_event_loop()
         # loop.run_until_complete(
         #     self.list_func[code](self.client, message)
@@ -235,7 +241,7 @@ class EventsManager:
         return callback
 
 
-threading.Thread(
-    target=event_global_loop.run_forever,
-    daemon=True,
-).start()
+#threading.Thread(
+#    target=event_global_loop.run_forever,
+#    daemon=True,
+#).start()
