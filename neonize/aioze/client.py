@@ -427,8 +427,10 @@ class NewAClient:
         self.qr = self.event.qr
         self.contact = ContactStore(self.uuid)
         self.chat_settings = ChatSettingsStore(self.uuid)
-
-        self.loop = get_event_loop()
+        self.connect_task = None
+        self.connected = False
+        self.loop = event_global_loop
+        self.me = None
         log.debug("🔨 Creating a NewClient instance")
 
     def __onLoginStatus(self, uuid: int, status: int):
@@ -2767,7 +2769,7 @@ class NewAClient:
             jidbuf = self.jid.SerializeToString()
             jidbuf_size = len(jidbuf)
 
-        await self.__client.Neonize(
+        task = self.__client.Neonize(
             self.name.encode(),
             self.uuid,
             jidbuf,
@@ -2783,6 +2785,14 @@ class NewAClient:
             payload,
             len(payload),
         )
+        self.connect_task = connect_task = self.loop.create_task(task)
+        return connect_task
+
+    async def idle(self):
+        """
+        Idles the client (Necessary to receive event)
+        """
+        await self.connect_task
 
     async def stop(self):
         """
@@ -2890,7 +2900,7 @@ class NewAClient:
             jidbuf_size = len(jidbuf)
 
         # Initiate connection to the server
-        await self.__client.Neonize(
+        task = self.__client.Neonize(
             self.name.encode(),
             self.uuid,
             jidbuf,
@@ -2906,6 +2916,8 @@ class NewAClient:
             b"",
             0,
         )
+        self.connect_task = connect_task = self.loop.create_task(task)
+        return connect_task
 
     async def disconnect(self) -> None:
         """
@@ -2988,7 +3000,11 @@ class ClientFactory:
         client = NewAClient(self.database_name, jid, props, uuid)
         client.event.list_func = self.event.list_func
         self.clients.append(client)
+        self.loop = event_global_loop
         return client
 
     async def run(self):
         return await asyncio.gather(*[client.connect() for client in self.clients])
+
+    async def idle_all(self):
+        return await asyncio.gather(*[client.idle() for client in self.clients])

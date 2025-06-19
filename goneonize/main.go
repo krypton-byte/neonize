@@ -367,7 +367,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 				eventChan <- &messageEvent
 			}
 		case *events.Connected:
-			if int(pairphoneSize) > 0 && client.Store.ID == nil {
+			if int(pairphoneSize) > 0 {
 				loginStateChan <- true
 			}
 			if _, ok := subscribers[3]; ok {
@@ -804,11 +804,11 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 				panic(code_err)
 			}
 			fmt.Println("Pair Code: ", code_)
-			for stat := range loginStateChan {
-				if stat {
-					break
-				}
-			}
+			// for stat := range loginStateChan {
+			//	if stat {
+			//		break
+			//	}
+			// }
 
 		} else {
 			qrChan, _ := client.GetQRChannel(context.Background())
@@ -835,6 +835,14 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 		err = client.Connect()
 		if err != nil {
 			panic(err)
+		}
+	}
+
+	if int(pairphoneSize) > 0 {
+		for stat := range loginStateChan {
+			if stat {
+				break
+			}
 		}
 	}
 
@@ -2109,10 +2117,37 @@ func main() {
 
 }
 
+func FetchMe(id string) *defproto.Device {
+    cli := clients[id].Store
+    
+    // Block until cli.ID is set
+    for cli.ID == nil {
+        time.Sleep(100 * time.Millisecond) // Honestly I'm not sure this check is necessary 
+    }
+
+    device := defproto.Device{
+        PushName:      &cli.PushName,
+        Platform:      &cli.Platform,
+        BussinessName: &cli.BusinessName,
+        Initialized:   &cli.Initialized,
+    }
+    
+    device.JID = utils.EncodeJidProto(*cli.ID)
+    device.LID = utils.EncodeJidProto(cli.LID)
+    
+    return &device
+}
+
 // comment
 func CallbackFunction(ctx context.Context, callback C.ptr_to_python_function_bytes, id string) {
 	uuid := C.CString(id)
 	channel := eventChannel[id]
+	buff, err := proto.Marshal(FetchMe(id))
+	if err != nil {
+		panic(err)
+	}
+	uchars, size := getBytesAndSize(buff)
+	C.call_c_func_callback_bytes(callback, uuid, uchars, size, C.int(0))
 	for {
 		select {
 		case <-ctx.Done():
