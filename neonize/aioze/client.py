@@ -2792,6 +2792,8 @@ class NewAClient:
         """
         Idles the client (Necessary to receive event)
         """
+        if not self.connect_task:
+            raise Exception ("Pair or connect with client before idling!") 
         await self.connect_task
 
     async def stop(self):
