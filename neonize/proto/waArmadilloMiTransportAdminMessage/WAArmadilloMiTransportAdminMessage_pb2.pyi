@@ -24,6 +24,33 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     @typing.final
+    class LimitSharingChanged(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        class _SharingType:
+            ValueType = typing.NewType("ValueType", builtins.int)
+            V: typing_extensions.TypeAlias = ValueType
+
+        class _SharingTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[MiTransportAdminMessage.LimitSharingChanged._SharingType.ValueType], builtins.type):
+            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+            DISABLED: MiTransportAdminMessage.LimitSharingChanged._SharingType.ValueType  # 1
+            ENABLED: MiTransportAdminMessage.LimitSharingChanged._SharingType.ValueType  # 2
+
+        class SharingType(_SharingType, metaclass=_SharingTypeEnumTypeWrapper): ...
+        DISABLED: MiTransportAdminMessage.LimitSharingChanged.SharingType.ValueType  # 1
+        ENABLED: MiTransportAdminMessage.LimitSharingChanged.SharingType.ValueType  # 2
+
+        SHARINGTYPE_FIELD_NUMBER: builtins.int
+        sharingType: global___MiTransportAdminMessage.LimitSharingChanged.SharingType.ValueType
+        def __init__(
+            self,
+            *,
+            sharingType: global___MiTransportAdminMessage.LimitSharingChanged.SharingType.ValueType | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["sharingType", b"sharingType"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["sharingType", b"sharingType"]) -> None: ...
+
+    @typing.final
     class GroupImageChanged(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -304,6 +331,7 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
     LINKCTA_FIELD_NUMBER: builtins.int
     ICONCHANGED_FIELD_NUMBER: builtins.int
     DISAPPEARINGSETTINGCHANGED_FIELD_NUMBER: builtins.int
+    LIMITSHARINGCHANGED_FIELD_NUMBER: builtins.int
     @property
     def chatThemeChanged(self) -> global___MiTransportAdminMessage.ChatThemeChanged: ...
     @property
@@ -328,6 +356,8 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
     def iconChanged(self) -> global___MiTransportAdminMessage.IconChanged: ...
     @property
     def disappearingSettingChanged(self) -> global___MiTransportAdminMessage.DisappearingSettingChanged: ...
+    @property
+    def limitSharingChanged(self) -> global___MiTransportAdminMessage.LimitSharingChanged: ...
     def __init__(
         self,
         *,
@@ -343,9 +373,10 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
         linkCta: global___MiTransportAdminMessage.LinkCta | None = ...,
         iconChanged: global___MiTransportAdminMessage.IconChanged | None = ...,
         disappearingSettingChanged: global___MiTransportAdminMessage.DisappearingSettingChanged | None = ...,
+        limitSharingChanged: global___MiTransportAdminMessage.LimitSharingChanged | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["chatThemeChanged", "nicknameChanged", "groupParticipantChanged", "groupAdminChanged", "groupNameChanged", "groupMembershipAddModeChanged", "messagePinned", "groupImageChanged", "quickReactionChanged", "linkCta", "iconChanged", "disappearingSettingChanged"] | None: ...
+    def HasField(self, field_name: typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "limitSharingChanged", b"limitSharingChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "limitSharingChanged", b"limitSharingChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["chatThemeChanged", "nicknameChanged", "groupParticipantChanged", "groupAdminChanged", "groupNameChanged", "groupMembershipAddModeChanged", "messagePinned", "groupImageChanged", "quickReactionChanged", "linkCta", "iconChanged", "disappearingSettingChanged", "limitSharingChanged"] | None: ...
 
 global___MiTransportAdminMessage = MiTransportAdminMessage

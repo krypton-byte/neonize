@@ -55,6 +55,8 @@ class StatusAttribution(google.protobuf.message.Message):
             FACEBOOK: StatusAttribution.ExternalShare._Source.ValueType  # 2
             MESSENGER: StatusAttribution.ExternalShare._Source.ValueType  # 3
             SPOTIFY: StatusAttribution.ExternalShare._Source.ValueType  # 4
+            YOUTUBE: StatusAttribution.ExternalShare._Source.ValueType  # 5
+            PINTEREST: StatusAttribution.ExternalShare._Source.ValueType  # 6
 
         class Source(_Source, metaclass=_SourceEnumTypeWrapper): ...
         UNKNOWN: StatusAttribution.ExternalShare.Source.ValueType  # 0
@@ -62,6 +64,8 @@ class StatusAttribution(google.protobuf.message.Message):
         FACEBOOK: StatusAttribution.ExternalShare.Source.ValueType  # 2
         MESSENGER: StatusAttribution.ExternalShare.Source.ValueType  # 3
         SPOTIFY: StatusAttribution.ExternalShare.Source.ValueType  # 4
+        YOUTUBE: StatusAttribution.ExternalShare.Source.ValueType  # 5
+        PINTEREST: StatusAttribution.ExternalShare.Source.ValueType  # 6
 
         ACTIONURL_FIELD_NUMBER: builtins.int
         SOURCE_FIELD_NUMBER: builtins.int
