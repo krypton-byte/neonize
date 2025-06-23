@@ -68,6 +68,7 @@ from ..utils.enum import (
     PrivacySetting,
     PrivacySettingType,
     MediaTypeToMMS,
+    ParticipantRequestChange
 )
 from ..proto import Neonize_pb2 as neonize_proto
 from ..utils import get_message_type, validate_link
@@ -173,6 +174,7 @@ from ..proto.Neonize_pb2 import (
     UploadReturnFunction,
     SendRequestExtra,
     BuildMessageReturnFunction,
+    UpdateGroupRequestParticipantsReturnFunction
 )
 from ..proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2 import DeviceProps
 from .._binder import gocode, free_bytes
@@ -1632,7 +1634,32 @@ class NewAClient:
         if model.Error:
             raise GetGroupInfoError(model.Error)
         return model.GroupInfo
+    async def update_group_request_participants(
+        self, jid: JID, participants: typing.List[JID],
+        action: ParticipantRequestChange
+    ) -> RepeatedCompositeFieldContainer[GroupParticipant]:
+        """Updates group request participants.
 
+        :param jid: The JID (Jabber Identifier) of the group.
+        :type jid: JID
+        :param participants: List of JIDs of participants to be updated.
+        :type participants: typing.List[JID]
+        :param action: The action to be performed on the participants.
+        :type action: GroupRequestAction
+        :return: A string indicating the result or an error status. Empty string if successful.
+        :rtype: str
+        """
+        jidbuf = jid.SerializeToString()
+        participants_buf = JIDArray(JIDS=participants).SerializeToString()
+        bytes_ptr = await self.__client.UpdateGroupRequestParticipants(
+            self.uuid, jidbuf, len(jidbuf), participants_buf, len(participants_buf), action.value
+        )
+        proto_bytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = UpdateGroupRequestParticipantsReturnFunction.FromString(proto_bytes)
+        if model.Error:
+            raise UpdateGroupParticipantsError(model.Error)
+        return model.Participants
     async def get_group_info_from_invite(
         self, jid: JID, inviter: JID, code: str, expiration: int
     ) -> GroupInfo:

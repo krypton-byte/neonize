@@ -3545,6 +3545,26 @@ class GetMessageForRetryReturnFunction(google.protobuf.message.Message):
 global___GetMessageForRetryReturnFunction = GetMessageForRetryReturnFunction
 
 @typing.final
+class UpdateGroupRequestParticipantsReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ERROR_FIELD_NUMBER: builtins.int
+    PARTICIPANTS_FIELD_NUMBER: builtins.int
+    Error: builtins.str
+    @property
+    def Participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GroupParticipant]: ...
+    def __init__(
+        self,
+        *,
+        Error: builtins.str | None = ...,
+        Participants: collections.abc.Iterable[global___GroupParticipant] | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["Error", b"Error", "Participants", b"Participants"]) -> None: ...
+
+global___UpdateGroupRequestParticipantsReturnFunction = UpdateGroupRequestParticipantsReturnFunction
+
+@typing.final
 class LocalChatSettings(google.protobuf.message.Message):
     """chat_setting_store"""
 

@@ -126,6 +126,7 @@ from .proto.Neonize_pb2 import (
     ReturnFunctionWithError,
     LocalChatSettings,
     BuildMessageReturnFunction,
+    UpdateGroupRequestParticipantsReturnFunction
 )
 from .proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2 import DeviceProps
 from .proto.waE2E.WAWebProtobufsE2E_pb2 import (
@@ -159,6 +160,7 @@ from .utils.enum import (
     PrivacySetting,
     PrivacySettingType,
     MediaTypeToMMS,
+    ParticipantRequestChange
 )
 from .utils.ffmpeg import FFmpeg
 from .utils.iofile import get_bytes_from_name_or_url
@@ -1481,7 +1483,32 @@ class NewClient:
         if model.Error:
             raise GetGroupInfoError(model.Error)
         return model.GroupInfo
+    def update_group_request_participants(
+        self, jid: JID, participants: typing.List[JID],
+        action: ParticipantRequestChange
+    ) -> RepeatedCompositeFieldContainer[GroupParticipant]:
+        """Updates group request participants.
 
+        :param jid: The JID (Jabber Identifier) of the group.
+        :type jid: JID
+        :param participants: List of JIDs of participants to be updated.
+        :type participants: typing.List[JID]
+        :param action: The action to be performed on the participants.
+        :type action: GroupRequestAction
+        :return: A string indicating the result or an error status. Empty string if successful.
+        :rtype: str
+        """
+        jidbuf = jid.SerializeToString()
+        participants_buf = JIDArray(JIDS=participants).SerializeToString()
+        bytes_ptr = self.__client.UpdateGroupRequestParticipants(
+            self.uuid, jidbuf, len(jidbuf), participants_buf, len(participants_buf), action.value
+        )
+        proto_bytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = UpdateGroupRequestParticipantsReturnFunction.FromString(proto_bytes)
+        if model.Error:
+            raise UpdateGroupParticipantsError(model.Error)
+        return model.Participants
     def get_group_info_from_invite(
         self, jid: JID, inviter: JID, code: str, expiration: int
     ) -> GroupInfo:

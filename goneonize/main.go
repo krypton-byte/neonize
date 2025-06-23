@@ -91,6 +91,7 @@ func GetPNFromLID(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesRe
 
 	return ProtoReturnV3(&return_)
 }
+
 //export GetLIDFromPN
 func GetLIDFromPN(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesReturn {
 	var neoJIDProto defproto.JID
@@ -114,7 +115,6 @@ func GetLIDFromPN(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesRe
 
 	return ProtoReturnV3(&return_)
 }
-
 
 func ReturnBytes(data []byte) C.struct_BytesReturn {
 	size := C.size_t(len(data))
@@ -1707,6 +1707,39 @@ func UpdateGroupParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int, partic
 	return ProtoReturnV3(&return_)
 }
 
+//export UpdateGroupRequestParticipants
+func UpdateGroupRequestParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int, participantsChanges *C.uchar, participantSize C.int, action *C.char) *C.struct_BytesReturn {
+	var JID defproto.JID
+	var jidArray defproto.JIDArray
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	return_ := defproto.UpdateGroupRequestParticipantsReturnFunction{}
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	err_ := proto.Unmarshal(getByteByAddr(participantsChanges, participantSize), &jidArray)
+	if err_ != nil {
+		return_.Error = proto.String(err_.Error())
+		return ProtoReturnV3(&return_)
+	}
+	request_participants := make([]types.JID, len(jidArray.JIDS))
+	for i, participant := range jidArray.JIDS {
+		request_participants[i] = utils.DecodeJidProto(participant)
+	}
+	go_action := whatsmeow.ParticipantRequestChange(C.GoString(action))
+	participants, err_changes := clients[C.GoString(id)].UpdateGroupRequestParticipants(utils.DecodeJidProto(&JID), request_participants, go_action)
+	if err_changes != nil {
+		return_.Error = proto.String(err_changes.Error())
+		return ProtoReturnV3(&return_)
+	}
+	neonizeParticipants := make([]*defproto.GroupParticipant, len(participants))
+	for i, participant := range participants {
+		neonizeParticipants[i] = utils.EncodeGroupParticipant(participant)
+	}
+	return_.Participants = neonizeParticipants
+	return ProtoReturnV3(&return_)
+}
+
 //export GetPrivacySettings
 func GetPrivacySettings(id *C.char) *C.struct_BytesReturn {
 	settings := utils.EncodePrivacySettings(clients[C.GoString(id)].GetPrivacySettings(context.Background()))
@@ -2118,24 +2151,24 @@ func main() {
 }
 
 func FetchMe(id string) *defproto.Device {
-    cli := clients[id].Store
-    
-    // Block until cli.ID is set
-    for cli.ID == nil {
-        time.Sleep(100 * time.Millisecond) // Honestly I'm not sure this check is necessary 
-    }
+	cli := clients[id].Store
 
-    device := defproto.Device{
-        PushName:      &cli.PushName,
-        Platform:      &cli.Platform,
-        BussinessName: &cli.BusinessName,
-        Initialized:   &cli.Initialized,
-    }
-    
-    device.JID = utils.EncodeJidProto(*cli.ID)
-    device.LID = utils.EncodeJidProto(cli.LID)
-    
-    return &device
+	// Block until cli.ID is set
+	for cli.ID == nil {
+		time.Sleep(100 * time.Millisecond) // Honestly I'm not sure this check is necessary
+	}
+
+	device := defproto.Device{
+		PushName:      &cli.PushName,
+		Platform:      &cli.Platform,
+		BussinessName: &cli.BusinessName,
+		Initialized:   &cli.Initialized,
+	}
+
+	device.JID = utils.EncodeJidProto(*cli.ID)
+	device.LID = utils.EncodeJidProto(cli.LID)
+
+	return &device
 }
 
 // comment
