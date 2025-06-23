@@ -315,8 +315,11 @@ async def handler(client: NewAClient, message: MessageEv):
 async def PairStatusMessage(_: NewAClient, message: PairStatusEv):
     log.info(f"logged as {message.ID.User}")
 
+async def run_factory():
+    await client_factory.run()
+    # Do something else
+    await client_factory.idle_all()
 
 if __name__ == "__main__":
     # all created clients will be automatically logged in and receive all events
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(client_factory.run())
+    client.loop.run_until_complete(run_factory())

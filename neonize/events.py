@@ -7,6 +7,7 @@ import segno
 from typing import TypeVar, Type, Callable, TYPE_CHECKING, Dict
 from google.protobuf.message import Message
 from threading import Event as EventThread
+from .proto.Neonize_pb2 import Device
 from .proto.Neonize_pb2 import (
     QR as QREv,
     PairStatus as PairStatusEv,
@@ -55,6 +56,7 @@ if TYPE_CHECKING:
     from .client import NewClient, ClientFactory
 EventType = TypeVar("EventType", bound=Message)
 EVENT_TO_INT: Dict[Type[Message], int] = {
+    Device: 0,
     QREv: 1,
     PairStatusEv: 2,
     ConnectedEv: 3,
@@ -151,6 +153,11 @@ class Event:
         if code not in INT_TO_EVENT:
             raise UnsupportedEvent()
         message = INT_TO_EVENT[code].FromString(ctypes.string_at(binary, size))
+        if code == 0:
+            self.client.me = message
+            return
+        elif code == 3:
+            self.client.connected = True
         self.list_func[code](self.client, message)
 
     def __onqr(self, _: NewClient, data_qr: bytes):
