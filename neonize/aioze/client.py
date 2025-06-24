@@ -1301,7 +1301,7 @@ class NewAClient:
         io = BytesIO(await get_bytes_from_name_or_url_async(file))
         io.seek(0)
         buff = io.read()
-        upload = await self.upload(buff)
+        upload = await self.upload(buff, MediaType.MediaDocument)
         message = Message(
             documentMessage=DocumentMessage(
                 URL=upload.url,

@@ -1161,7 +1161,7 @@ class NewClient:
         io = BytesIO(get_bytes_from_name_or_url(file))
         io.seek(0)
         buff = io.read()
-        upload = self.upload(buff)
+        upload = self.upload(buff, MediaType.MediaDocument)
         message = Message(
             documentMessage=DocumentMessage(
                 URL=upload.url,
