@@ -244,3 +244,15 @@ class SendPresenceError(Exception):
 
 class DecryptPollVoteError(Exception):
     pass
+
+
+class BuildPollVoteCreationError(Exception):
+    pass
+
+
+class GetJIDFromStoreError(Exception):
+    pass
+
+
+class ConvertStickerError(Exception):
+    pass

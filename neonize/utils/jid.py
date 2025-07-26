@@ -1,4 +1,5 @@
 import copy
+
 from ..proto.Neonize_pb2 import JID
 
 

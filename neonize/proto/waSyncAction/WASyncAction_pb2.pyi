@@ -162,6 +162,37 @@ class CallLogRecord(google.protobuf.message.Message):
 global___CallLogRecord = CallLogRecord
 
 @typing.final
+class MaibaAIFeaturesControlAction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _MaibaAIFeatureStatus:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _MaibaAIFeatureStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[MaibaAIFeaturesControlAction._MaibaAIFeatureStatus.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        ENABLED: MaibaAIFeaturesControlAction._MaibaAIFeatureStatus.ValueType  # 0
+        ENABLED_HAS_LEARNING: MaibaAIFeaturesControlAction._MaibaAIFeatureStatus.ValueType  # 1
+        DISABLED: MaibaAIFeaturesControlAction._MaibaAIFeatureStatus.ValueType  # 2
+
+    class MaibaAIFeatureStatus(_MaibaAIFeatureStatus, metaclass=_MaibaAIFeatureStatusEnumTypeWrapper): ...
+    ENABLED: MaibaAIFeaturesControlAction.MaibaAIFeatureStatus.ValueType  # 0
+    ENABLED_HAS_LEARNING: MaibaAIFeaturesControlAction.MaibaAIFeatureStatus.ValueType  # 1
+    DISABLED: MaibaAIFeaturesControlAction.MaibaAIFeatureStatus.ValueType  # 2
+
+    AIFEATURESTATUS_FIELD_NUMBER: builtins.int
+    aiFeatureStatus: global___MaibaAIFeaturesControlAction.MaibaAIFeatureStatus.ValueType
+    def __init__(
+        self,
+        *,
+        aiFeatureStatus: global___MaibaAIFeaturesControlAction.MaibaAIFeatureStatus.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["aiFeatureStatus", b"aiFeatureStatus"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["aiFeatureStatus", b"aiFeatureStatus"]) -> None: ...
+
+global___MaibaAIFeaturesControlAction = MaibaAIFeaturesControlAction
+
+@typing.final
 class PaymentTosAction(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -654,6 +685,10 @@ class SyncActionValue(google.protobuf.message.Message):
     LIDCONTACTACTION_FIELD_NUMBER: builtins.int
     CTWAPERCUSTOMERDATASHARINGACTION_FIELD_NUMBER: builtins.int
     PAYMENTTOSACTION_FIELD_NUMBER: builtins.int
+    PRIVACYSETTINGCHANNELSPERSONALISEDRECOMMENDATIONACTION_FIELD_NUMBER: builtins.int
+    BUSINESSBROADCASTASSOCIATIONACTION_FIELD_NUMBER: builtins.int
+    DETECTEDOUTCOMESSTATUSACTION_FIELD_NUMBER: builtins.int
+    MAIBAAIFEATURESCONTROLACTION_FIELD_NUMBER: builtins.int
     timestamp: builtins.int
     @property
     def starAction(self) -> global___StarAction: ...
@@ -767,6 +802,14 @@ class SyncActionValue(google.protobuf.message.Message):
     def ctwaPerCustomerDataSharingAction(self) -> global___CtwaPerCustomerDataSharingAction: ...
     @property
     def paymentTosAction(self) -> global___PaymentTosAction: ...
+    @property
+    def privacySettingChannelsPersonalisedRecommendationAction(self) -> global___PrivacySettingChannelsPersonalisedRecommendationAction: ...
+    @property
+    def businessBroadcastAssociationAction(self) -> global___BusinessBroadcastAssociationAction: ...
+    @property
+    def detectedOutcomesStatusAction(self) -> global___DetectedOutcomesStatusAction: ...
+    @property
+    def maibaAiFeaturesControlAction(self) -> global___MaibaAIFeaturesControlAction: ...
     def __init__(
         self,
         *,
@@ -827,11 +870,31 @@ class SyncActionValue(google.protobuf.message.Message):
         lidContactAction: global___LidContactAction | None = ...,
         ctwaPerCustomerDataSharingAction: global___CtwaPerCustomerDataSharingAction | None = ...,
         paymentTosAction: global___PaymentTosAction | None = ...,
+        privacySettingChannelsPersonalisedRecommendationAction: global___PrivacySettingChannelsPersonalisedRecommendationAction | None = ...,
+        businessBroadcastAssociationAction: global___BusinessBroadcastAssociationAction | None = ...,
+        detectedOutcomesStatusAction: global___DetectedOutcomesStatusAction | None = ...,
+        maibaAiFeaturesControlAction: global___MaibaAIFeaturesControlAction | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["agentAction", b"agentAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "ctwaPerCustomerDataSharingAction", b"ctwaPerCustomerDataSharingAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "lidContactAction", b"lidContactAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "muteAction", b"muteAction", "noteEditAction", b"noteEditAction", "notificationActivitySettingAction", b"notificationActivitySettingAction", "nuxAction", b"nuxAction", "paymentInfoAction", b"paymentInfoAction", "paymentTosAction", b"paymentTosAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "securityNotificationSetting", b"securityNotificationSetting", "starAction", b"starAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "usernameChatStartMode", b"usernameChatStartMode", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["agentAction", b"agentAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "ctwaPerCustomerDataSharingAction", b"ctwaPerCustomerDataSharingAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "lidContactAction", b"lidContactAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "muteAction", b"muteAction", "noteEditAction", b"noteEditAction", "notificationActivitySettingAction", b"notificationActivitySettingAction", "nuxAction", b"nuxAction", "paymentInfoAction", b"paymentInfoAction", "paymentTosAction", b"paymentTosAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "securityNotificationSetting", b"securityNotificationSetting", "starAction", b"starAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "usernameChatStartMode", b"usernameChatStartMode", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["agentAction", b"agentAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "businessBroadcastAssociationAction", b"businessBroadcastAssociationAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "ctwaPerCustomerDataSharingAction", b"ctwaPerCustomerDataSharingAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "detectedOutcomesStatusAction", b"detectedOutcomesStatusAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "lidContactAction", b"lidContactAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "maibaAiFeaturesControlAction", b"maibaAiFeaturesControlAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "muteAction", b"muteAction", "noteEditAction", b"noteEditAction", "notificationActivitySettingAction", b"notificationActivitySettingAction", "nuxAction", b"nuxAction", "paymentInfoAction", b"paymentInfoAction", "paymentTosAction", b"paymentTosAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingChannelsPersonalisedRecommendationAction", b"privacySettingChannelsPersonalisedRecommendationAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "securityNotificationSetting", b"securityNotificationSetting", "starAction", b"starAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "usernameChatStartMode", b"usernameChatStartMode", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["agentAction", b"agentAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "businessBroadcastAssociationAction", b"businessBroadcastAssociationAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "ctwaPerCustomerDataSharingAction", b"ctwaPerCustomerDataSharingAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "detectedOutcomesStatusAction", b"detectedOutcomesStatusAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "lidContactAction", b"lidContactAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "maibaAiFeaturesControlAction", b"maibaAiFeaturesControlAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "muteAction", b"muteAction", "noteEditAction", b"noteEditAction", "notificationActivitySettingAction", b"notificationActivitySettingAction", "nuxAction", b"nuxAction", "paymentInfoAction", b"paymentInfoAction", "paymentTosAction", b"paymentTosAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingChannelsPersonalisedRecommendationAction", b"privacySettingChannelsPersonalisedRecommendationAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "securityNotificationSetting", b"securityNotificationSetting", "starAction", b"starAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "usernameChatStartMode", b"usernameChatStartMode", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]) -> None: ...
 
 global___SyncActionValue = SyncActionValue
+
+@typing.final
+class BusinessBroadcastAssociationAction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DELETED_FIELD_NUMBER: builtins.int
+    deleted: builtins.bool
+    def __init__(
+        self,
+        *,
+        deleted: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["deleted", b"deleted"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["deleted", b"deleted"]) -> None: ...
+
+global___BusinessBroadcastAssociationAction = BusinessBroadcastAssociationAction
 
 @typing.final
 class CtwaPerCustomerDataSharingAction(google.protobuf.message.Message):
@@ -903,6 +966,22 @@ class FavoritesAction(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["favorites", b"favorites"]) -> None: ...
 
 global___FavoritesAction = FavoritesAction
+
+@typing.final
+class PrivacySettingChannelsPersonalisedRecommendationAction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ISUSEROPTEDOUT_FIELD_NUMBER: builtins.int
+    isUserOptedOut: builtins.bool
+    def __init__(
+        self,
+        *,
+        isUserOptedOut: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["isUserOptedOut", b"isUserOptedOut"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["isUserOptedOut", b"isUserOptedOut"]) -> None: ...
+
+global___PrivacySettingChannelsPersonalisedRecommendationAction = PrivacySettingChannelsPersonalisedRecommendationAction
 
 @typing.final
 class PrivacySettingDisableLinkPreviewsAction(google.protobuf.message.Message):
@@ -1112,6 +1191,22 @@ class PrivacySettingRelayAllCalls(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["isEnabled", b"isEnabled"]) -> None: ...
 
 global___PrivacySettingRelayAllCalls = PrivacySettingRelayAllCalls
+
+@typing.final
+class DetectedOutcomesStatusAction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ISENABLED_FIELD_NUMBER: builtins.int
+    isEnabled: builtins.bool
+    def __init__(
+        self,
+        *,
+        isEnabled: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["isEnabled", b"isEnabled"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["isEnabled", b"isEnabled"]) -> None: ...
+
+global___DetectedOutcomesStatusAction = DetectedOutcomesStatusAction
 
 @typing.final
 class ExternalWebBetaAction(google.protobuf.message.Message):

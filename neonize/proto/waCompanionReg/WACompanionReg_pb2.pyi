@@ -309,15 +309,18 @@ class ClientPairingProps(google.protobuf.message.Message):
 
     ISCHATDBLIDMIGRATED_FIELD_NUMBER: builtins.int
     ISSYNCDPURELIDSESSION_FIELD_NUMBER: builtins.int
+    ISSYNCDSNAPSHOTRECOVERYENABLED_FIELD_NUMBER: builtins.int
     isChatDbLidMigrated: builtins.bool
     isSyncdPureLidSession: builtins.bool
+    isSyncdSnapshotRecoveryEnabled: builtins.bool
     def __init__(
         self,
         *,
         isChatDbLidMigrated: builtins.bool | None = ...,
         isSyncdPureLidSession: builtins.bool | None = ...,
+        isSyncdSnapshotRecoveryEnabled: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["isChatDbLidMigrated", b"isChatDbLidMigrated", "isSyncdPureLidSession", b"isSyncdPureLidSession"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["isChatDbLidMigrated", b"isChatDbLidMigrated", "isSyncdPureLidSession", b"isSyncdPureLidSession"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["isChatDbLidMigrated", b"isChatDbLidMigrated", "isSyncdPureLidSession", b"isSyncdPureLidSession", "isSyncdSnapshotRecoveryEnabled", b"isSyncdSnapshotRecoveryEnabled"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["isChatDbLidMigrated", b"isChatDbLidMigrated", "isSyncdPureLidSession", b"isSyncdPureLidSession", "isSyncdSnapshotRecoveryEnabled", b"isSyncdSnapshotRecoveryEnabled"]) -> None: ...
 
 global___ClientPairingProps = ClientPairingProps

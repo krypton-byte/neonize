@@ -1,59 +1,58 @@
 from __future__ import annotations
-import ctypes
-import asyncio
-import segno
-from ..events import EVENT_TO_INT, INT_TO_EVENT, UnsupportedEvent, log
-from ..proto.Neonize_pb2 import (
-    QR as QREv,
-    PairStatus as PairStatusEv,
-    Connected as ConnectedEv,
-    KeepAliveTimeout as KeepAliveTimeoutEv,
-    KeepAliveRestored as KeepAliveRestoredEv,
-    LoggedOut as LoggedOutEv,
-    StreamReplaced as StreamReplacedEv,
-    TemporaryBan as TemporaryBanEv,
-    ConnectFailure as ConnectFailureEv,
-    ClientOutdated as ClientOutdatedEv,
-    StreamError as StreamErrorEv,
-    Disconnected as DisconnectedEv,
-    HistorySync as HistorySyncEv,
-    NewsLetterMessageMeta as NewsLetterMessageMetaEv,
-    Message as MessageEv,
-    Receipt as ReceiptEv,
-    ChatPresence as ChatPresenceEv,
-    Presence as PresenceEv,
-    JoinedGroup as JoinedGroupEv,
-    GroupInfoEvent as GroupInfoEv,
-    Picture as PictureEv,
-    IdentityChange as IdentityChangeEv,
-    privacySettingsEvent as PrivacySettingsEv,
-    OfflineSyncPreview as OfflineSyncPreviewEv,
-    OfflineSyncCompleted as OfflineSyncCompletedEv,
-    BlocklistEvent as BlocklistEv,
-    BlocklistChange as BlocklistChangeEv,
-    NewsletterJoin as NewsletterJoinEv,
-    NewsletterLeave as NewsletterLeaveEv,
-    NewsletterMuteChange as NewsletterMuteChangeEv,
-    NewsletterLiveUpdate as NewsletterLiveUpdateEv,
-    CallOffer as CallOfferEv,
-    CallAccept as CallAcceptEv,
-    CallPreAccept as CallPreAcceptEv,
-    CallTransport as CallTransportEv,
-    CallOfferNotice as CallOfferNoticeEv,
-    CallRelayLatency as CallRelayLatencyEv,
-    CallTerminate as CallTerminateEv,
-    UnknownCallEvent as UnknownCallEventEv,
-)
 
-from google.protobuf.message import Message
-from typing import Awaitable, Dict, Callable, Type, TypeVar, TYPE_CHECKING, Coroutine
+import asyncio
+import ctypes
 from asyncio import Event as IOEvent
-import threading
+from typing import TYPE_CHECKING, Awaitable, Callable, Coroutine, Dict, Type, TypeVar
+
+import segno
+from google.protobuf.message import Message
+
+from ..events import EVENT_TO_INT, INT_TO_EVENT, UnsupportedEvent, log
+from ..proto.Neonize_pb2 import QR as QREv
+from ..proto.Neonize_pb2 import BlocklistChange as BlocklistChangeEv
+from ..proto.Neonize_pb2 import BlocklistEvent as BlocklistEv
+from ..proto.Neonize_pb2 import CallAccept as CallAcceptEv
+from ..proto.Neonize_pb2 import CallOffer as CallOfferEv
+from ..proto.Neonize_pb2 import CallOfferNotice as CallOfferNoticeEv
+from ..proto.Neonize_pb2 import CallPreAccept as CallPreAcceptEv
+from ..proto.Neonize_pb2 import CallRelayLatency as CallRelayLatencyEv
+from ..proto.Neonize_pb2 import CallTerminate as CallTerminateEv
+from ..proto.Neonize_pb2 import CallTransport as CallTransportEv
+from ..proto.Neonize_pb2 import ChatPresence as ChatPresenceEv
+from ..proto.Neonize_pb2 import ClientOutdated as ClientOutdatedEv
+from ..proto.Neonize_pb2 import Connected as ConnectedEv
+from ..proto.Neonize_pb2 import ConnectFailure as ConnectFailureEv
+from ..proto.Neonize_pb2 import Disconnected as DisconnectedEv
+from ..proto.Neonize_pb2 import GroupInfoEvent as GroupInfoEv
+from ..proto.Neonize_pb2 import HistorySync as HistorySyncEv
+from ..proto.Neonize_pb2 import IdentityChange as IdentityChangeEv
+from ..proto.Neonize_pb2 import JoinedGroup as JoinedGroupEv
+from ..proto.Neonize_pb2 import KeepAliveRestored as KeepAliveRestoredEv
+from ..proto.Neonize_pb2 import KeepAliveTimeout as KeepAliveTimeoutEv
+from ..proto.Neonize_pb2 import LoggedOut as LoggedOutEv
+from ..proto.Neonize_pb2 import Message as MessageEv
+from ..proto.Neonize_pb2 import NewsletterJoin as NewsletterJoinEv
+from ..proto.Neonize_pb2 import NewsletterLeave as NewsletterLeaveEv
+from ..proto.Neonize_pb2 import NewsletterLiveUpdate as NewsletterLiveUpdateEv
+from ..proto.Neonize_pb2 import NewsLetterMessageMeta as NewsLetterMessageMetaEv
+from ..proto.Neonize_pb2 import NewsletterMuteChange as NewsletterMuteChangeEv
+from ..proto.Neonize_pb2 import OfflineSyncCompleted as OfflineSyncCompletedEv
+from ..proto.Neonize_pb2 import OfflineSyncPreview as OfflineSyncPreviewEv
+from ..proto.Neonize_pb2 import PairStatus as PairStatusEv
+from ..proto.Neonize_pb2 import Picture as PictureEv
+from ..proto.Neonize_pb2 import Presence as PresenceEv
+from ..proto.Neonize_pb2 import Receipt as ReceiptEv
+from ..proto.Neonize_pb2 import StreamError as StreamErrorEv
+from ..proto.Neonize_pb2 import StreamReplaced as StreamReplacedEv
+from ..proto.Neonize_pb2 import TemporaryBan as TemporaryBanEv
+from ..proto.Neonize_pb2 import UnknownCallEvent as UnknownCallEventEv
+from ..proto.Neonize_pb2 import privacySettingsEvent as PrivacySettingsEv
 
 event_global_loop = asyncio.new_event_loop()
 
 if TYPE_CHECKING:
-    from .client import NewAClient, ClientFactory
+    from .client import ClientFactory, NewAClient
 EventType = TypeVar("EventType", bound=Message)
 event = IOEvent()
 __all__ = [
@@ -110,7 +109,9 @@ class Event:
         """
         self.client = client
         self.blocking_func = self.paircode(self.default_paircode_cb)
-        self.list_func: Dict[int, Callable[[NewAClient, Message], Coroutine[None, None, None]]] = {}
+        self.list_func: Dict[
+            int, Callable[[NewAClient, Message], Coroutine[None, None, None]]
+        ] = {}
         self._qr = self.__onqr
 
     def execute(self, uuid: int, binary: int, size: int, code: int):
@@ -165,7 +166,9 @@ class Event:
 
     @property
     def paircode(self):
-        def paircodecb(f: Callable[[NewAClient, str, bool], Coroutine[None, None, None]]):
+        def paircodecb(
+            f: Callable[[NewAClient, str, bool], Coroutine[None, None, None]],
+        ):
             """
             A decorator that registers a callback function for handling pair code events.
             :param f: The callback function that takes a NewAClient instance, pair code as a string, and a boolean indicating if the connection is established.
@@ -186,7 +189,9 @@ class Event:
         return paircodecb
 
     @staticmethod
-    async def default_paircode_cb(client: NewAClient, data: str, connected: bool = True):
+    async def default_paircode_cb(
+        client: NewAClient, data: str, connected: bool = True
+    ):
         """
         A default callback function that handles the pair code event.
         This function is called when the pair code event occurs, and it blocks the execution until the event is processed.
@@ -241,7 +246,7 @@ class EventsManager:
         return callback
 
 
-#threading.Thread(
+# threading.Thread(
 #    target=event_global_loop.run_forever,
 #    daemon=True,
-#).start()
+# ).start()

@@ -1,10 +1,10 @@
 import asyncio
 import logging
+import os
 import signal
 import sys
 import traceback
 from neonize.aioze.client import NewAClient
-from neonize.events import ConnectedEv
 from neonize.utils import jid, log
 
 sys.path.insert(0, os.getcwd())
@@ -24,7 +24,7 @@ async def greet():
             lambda: asyncio.create_task(on_exit()),
         )
     await client.connect()
-    while not client.connected: # Do not rely on this to detect if client is still connected 
+    while not client.connected:  # Do not rely on this to detect if client is still connected
         await asyncio.sleep(0.1)
     await client.send_message(
         jid.build_jid("123456789"),

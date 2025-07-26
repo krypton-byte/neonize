@@ -354,6 +354,7 @@ class ClientPayload(google.protobuf.message.Message):
             IPAD: ClientPayload.UserAgent._Platform.ValueType  # 33
             TEST: ClientPayload.UserAgent._Platform.ValueType  # 34
             SMART_GLASSES: ClientPayload.UserAgent._Platform.ValueType  # 35
+            BLUE_VR: ClientPayload.UserAgent._Platform.ValueType  # 36
 
         class Platform(_Platform, metaclass=_PlatformEnumTypeWrapper): ...
         ANDROID: ClientPayload.UserAgent.Platform.ValueType  # 0
@@ -392,6 +393,7 @@ class ClientPayload(google.protobuf.message.Message):
         IPAD: ClientPayload.UserAgent.Platform.ValueType  # 33
         TEST: ClientPayload.UserAgent.Platform.ValueType  # 34
         SMART_GLASSES: ClientPayload.UserAgent.Platform.ValueType  # 35
+        BLUE_VR: ClientPayload.UserAgent.Platform.ValueType  # 36
 
         @typing.final
         class AppVersion(google.protobuf.message.Message):

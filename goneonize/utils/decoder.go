@@ -11,6 +11,7 @@ import (
 	"go.mau.fi/whatsmeow/store"
 	"go.mau.fi/whatsmeow/types"
 )
+
 import (
 	"go.mau.fi/whatsmeow/types/events"
 )
@@ -67,15 +68,16 @@ func DecodeAddressingMode(mode_types *defproto.AddressingMode) types.AddressingM
 	}
 	return AddressingMode
 }
+
 func DecodeMessageSource(messageSource *defproto.MessageSource) types.MessageSource {
 	model := types.MessageSource{
-		Chat:               DecodeJidProto(messageSource.Chat),
-		Sender:             DecodeJidProto(messageSource.Sender),
-		IsFromMe:           *messageSource.IsFromMe,
-		IsGroup:            *messageSource.IsGroup,
-		
-		SenderAlt:          DecodeJidProto(messageSource.SenderAlt),
-		RecipientAlt:       DecodeJidProto(messageSource.RecipientAlt),
+		Chat:     DecodeJidProto(messageSource.Chat),
+		Sender:   DecodeJidProto(messageSource.Sender),
+		IsFromMe: *messageSource.IsFromMe,
+		IsGroup:  *messageSource.IsGroup,
+
+		SenderAlt:    DecodeJidProto(messageSource.SenderAlt),
+		RecipientAlt: DecodeJidProto(messageSource.RecipientAlt),
 
 		BroadcastListOwner: DecodeJidProto(messageSource.BroadcastListOwner),
 	}
@@ -84,15 +86,16 @@ func DecodeMessageSource(messageSource *defproto.MessageSource) types.MessageSou
 	}
 	return model
 }
-func DecodeVerifiedNameCertificate(verifiedNameCertificate *waVname.VerifiedNameCertificate) *waVname.VerifiedNameCertificate {
-	//passing types through protobuf
-	return verifiedNameCertificate
 
+func DecodeVerifiedNameCertificate(verifiedNameCertificate *waVname.VerifiedNameCertificate) *waVname.VerifiedNameCertificate {
+	// passing types through protobuf
+	return verifiedNameCertificate
 }
 
 func DecodeVerifiedNameDetails(verifiedNameDetails *waVname.VerifiedNameCertificate_Details) *waVname.VerifiedNameCertificate_Details {
 	return verifiedNameDetails
 }
+
 func DecodeVerifiedName(verifiedName *defproto.VerifiedName) *types.VerifiedName {
 	verifiednametypes := types.VerifiedName{}
 	if verifiedName.Certificate != nil {
@@ -103,12 +106,14 @@ func DecodeVerifiedName(verifiedName *defproto.VerifiedName) *types.VerifiedName
 	}
 	return &verifiednametypes
 }
+
 func DecodeDeviceSentMeta(deviceSentMeta *defproto.DeviceSentMeta) *types.DeviceSentMeta {
 	return &types.DeviceSentMeta{
 		DestinationJID: *deviceSentMeta.DestinationJID,
 		Phash:          *deviceSentMeta.Phash,
 	}
 }
+
 func DecodeMessageInfo(messageInfo *defproto.MessageInfo) *types.MessageInfo {
 	ts := *messageInfo.Timestamp
 	model := &types.MessageInfo{
@@ -150,6 +155,7 @@ func DecodeGetProfilePictureParams(params *defproto.GetProfilePictureParams) *wh
 		IsCommunity: *params.IsCommunity,
 	}
 }
+
 func DecodeMutationInfo(mutationInfo *defproto.MutationInfo) appstate.MutationInfo {
 	return appstate.MutationInfo{
 		Index:   mutationInfo.Index,
@@ -157,6 +163,7 @@ func DecodeMutationInfo(mutationInfo *defproto.MutationInfo) appstate.MutationIn
 		Value:   mutationInfo.Value,
 	}
 }
+
 func DecodePatchInfo(patchInfo *defproto.PatchInfo) *appstate.PatchInfo {
 	var Type appstate.WAPatchName
 	switch patchInfo.Type {
@@ -164,7 +171,7 @@ func DecodePatchInfo(patchInfo *defproto.PatchInfo) *appstate.PatchInfo {
 		Type = appstate.WAPatchCriticalBlock
 	case defproto.PatchInfo_CRITICAL_UNBLOCK_LOW.Enum():
 		Type = appstate.WAPatchCriticalUnblockLow
-		case defproto.PatchInfo_REGULAR.Enum():
+	case defproto.PatchInfo_REGULAR.Enum():
 		Type = appstate.WAPatchRegular
 	}
 	mutationInfo := []appstate.MutationInfo{}
@@ -194,9 +201,10 @@ func DecodeSendRequestExtra(extra *defproto.SendRequestExtra) whatsmeow.SendRequ
 		Timeout:      time.Duration(*extra.Timeout),
 	}
 }
-func DecodeNewsLetterMessageMeta(defproto.NewsLetterMessageMeta) {
 
+func DecodeNewsLetterMessageMeta(defproto.NewsLetterMessageMeta) {
 }
+
 func DecodeEventTypesMessage(message *defproto.Message) *events.Message {
 	model := &events.Message{
 		Info:                  *DecodeMessageInfo(message.Info),

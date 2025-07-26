@@ -1,7 +1,7 @@
 import time
 from typing import Optional
-import httpx
 
+import httpx
 from linkpreview.exceptions import (
     InvalidContentError,
     InvalidMimeTypeError,

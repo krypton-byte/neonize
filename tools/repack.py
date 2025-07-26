@@ -24,7 +24,8 @@ arch_name = {
 def check_libc():
     # Coba cek dengan ldd --version
     try:
-        result = subprocess.run(["ldd", "--version"], capture_output=True, text=True)
+        result = subprocess.run(["ldd", "--version"],
+                                capture_output=True, text=True)
         output = result.stdout.lower() + result.stderr.lower()
         if "musl" in output:
             return "musl libc"
@@ -113,8 +114,10 @@ class ARCH(Enum):
 
 def repack(_os: OS, arch: ARCH):
     try:
-        subprocess.call(["wheel", "unpack", WORKDIR / "dist" / wheel_name], cwd=WORKDIR / "dist")
-        wheel_path = WORKDIR / "dist" / fname / (fname + ".dist-info") / "WHEEL"
+        subprocess.call(["wheel", "unpack", WORKDIR /
+                        "dist" / wheel_name], cwd=WORKDIR / "dist")
+        wheel_path = WORKDIR / "dist" / fname / \
+            (fname + ".dist-info") / "WHEEL"
         wheel = open(wheel_path, "r").read()
         arch_value = arch.value
         if _os == OS.MAC:
@@ -124,9 +127,16 @@ def repack(_os: OS, arch: ARCH):
                 file.write(wheel.replace("py3-none-any", "py310-none-win32"))
                 print(wheel.replace("py3-none-any", "py310-none-win32"))
             else:
-                file.write(wheel.replace("py3-none-any", f"py310-none-{_os.value}_{arch_value}"))
-                print(wheel.replace("py3-none-any", f"py310-none-{_os.value}_{arch_value}"))
-        subprocess.call(["wheel", "pack", WORKDIR / "dist" / fname], cwd=WORKDIR / "dist")
+                file.write(
+                    wheel.replace(
+                        "py3-none-any",
+                        f"py310-none-{_os.value}_{arch_value}"))
+                print(
+                    wheel.replace(
+                        "py3-none-any",
+                        f"py310-none-{_os.value}_{arch_value}"))
+        subprocess.call(["wheel", "pack", WORKDIR / "dist" /
+                        fname], cwd=WORKDIR / "dist")
         os.remove(WORKDIR / "dist" / wheel_name)
         os.remove(WORKDIR / "dist" / (fname + ".tar.gz"))
         shutil.rmtree(WORKDIR / "dist" / fname)

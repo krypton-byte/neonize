@@ -38,8 +38,29 @@ jobs:
         args: "check --fix"
     - name: format python style PEP8 standard
       run: ruff check --fix && ruff format .
+    - name: Install Python lint libraries
+      run: |
+        pip3 install autopep8 autoflake isort black
+    - name: Check for showstoppers
+      run: autopep8 --verbose --in-place --recursive --aggressive --exclude='*/proto/*' .
+    - name: Remove unused imports and variables
+      run: autoflake --in-place --recursive --remove-all-unused-imports --remove-unused-variables --exclude "*/proto/*" --ignore-init-module-imports .
+    - name: lint with isort and black
+      run: |
+        isort neonize --skip "neonize/proto"
+        black neonize  --exclude "neonize/proto"
     - name: update golang dependencies
       run: cd goneonize && go get -u && go mod tidy
+    - name: Run golangci-lint
+      uses: golangci/golangci-lint-action@v8
+      with:
+        version: v2.1 # Specify a golangci-lint version
+        working-directory: goneonize
+        args: --issues-exit-code=0 # Exit with 0 even if issues are found, useful for reformatting
+    - name: Install gofumpt
+      run: go install mvdan.cc/gofumpt@latest
+    - name: reformat go
+      run: cd goneonize && gofumpt -l -w .
     - name: Create Pull Request
       id: cpr
       uses: peter-evans/create-pull-request@v7
