@@ -1,5 +1,6 @@
 from io import BytesIO
 from typing import Tuple
+
 from PIL import Image
 
 
@@ -24,7 +25,9 @@ def crop_image(image: Image.Image) -> Image.Image:
     return image
 
 
-def AspectRatioMethod(width: int | float, height: int | float, res: int = 1280) -> Tuple[int, int]:
+def AspectRatioMethod(
+    width: int | float, height: int | float, res: int = 1280
+) -> Tuple[int, int]:
     """Calculate the aspect ratio of a given width and height with respect to a resolution.
 
     :param width: The width of the given area.

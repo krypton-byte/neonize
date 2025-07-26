@@ -1,12 +1,12 @@
+from ..proto import Neonize_pb2 as neonize_proto
 from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
-    Message,
-    ImageMessage,
     DocumentMessage,
     ExtendedTextMessage,
-    VideoMessage,
+    ImageMessage,
+    Message,
     PollUpdateMessage,
+    VideoMessage,
 )
-from ..proto import Neonize_pb2 as neonize_proto
 from ..types import MediaMessageType, MessageWithContextInfo, TextMessageType
 
 

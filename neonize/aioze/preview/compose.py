@@ -1,7 +1,9 @@
-from httpx import HTTPStatusError, ConnectTimeout
-from linkpreview import Link, LinkPreview
+from httpx import ConnectTimeout, HTTPStatusError
+from linkpreview import Link
 from linkpreview import LinkGrabber as fallback_LinkGrabber
+from linkpreview import LinkPreview
 from linkpreview.exceptions import InvalidMimeTypeError
+
 from .grabber import LinkGrabber
 
 
@@ -13,7 +15,9 @@ def fallback_grab_link(url: str):
             receive_timeout=10,
             chunk_size=1024,
         )
-        return grabber.get_content(url, headers={"user-agent": "imessagebot", "accept": "*/*"})
+        return grabber.get_content(
+            url, headers={"user-agent": "imessagebot", "accept": "*/*"}
+        )
     except Exception:
         return None, url
 

@@ -10,6 +10,7 @@ import (
 	"go.mau.fi/whatsmeow/types"
 	"google.golang.org/protobuf/proto"
 )
+
 import (
 	"go.mau.fi/whatsmeow/types/events"
 )
@@ -39,6 +40,7 @@ func EncodeJidProto(data types.JID) *defproto.JID {
 		IsEmpty:    &isempty,
 	}
 }
+
 func EncodeGroupName(groupName types.GroupName) *defproto.GroupName {
 	return &defproto.GroupName{
 		Name:      &groupName.Name,
@@ -46,6 +48,7 @@ func EncodeGroupName(groupName types.GroupName) *defproto.GroupName {
 		NameSetBy: EncodeJidProto(groupName.NameSetBy),
 	}
 }
+
 func EncodeGroupTopic(topic types.GroupTopic) *defproto.GroupTopic {
 	return &defproto.GroupTopic{
 		Topic:        &topic.Topic,
@@ -55,50 +58,59 @@ func EncodeGroupTopic(topic types.GroupTopic) *defproto.GroupTopic {
 		TopicDeleted: &topic.TopicDeleted,
 	}
 }
+
 func EncodeGroupLocked(locked types.GroupLocked) *defproto.GroupLocked {
 	return &defproto.GroupLocked{
 		IsLocked: &locked.IsLocked,
 	}
 }
+
 func EncodeGroupAnnounce(announce types.GroupAnnounce) *defproto.GroupAnnounce {
 	return &defproto.GroupAnnounce{
 		IsAnnounce:        &announce.IsAnnounce,
 		AnnounceVersionID: &announce.AnnounceVersionID,
 	}
 }
+
 func EncodeGroupEphemeral(ephemeral types.GroupEphemeral) *defproto.GroupEphemeral {
 	return &defproto.GroupEphemeral{
 		IsEphemeral:       &ephemeral.IsEphemeral,
 		DisappearingTimer: &ephemeral.DisappearingTimer,
 	}
 }
+
 func EncodeGroupIncognito(incognito types.GroupIncognito) *defproto.GroupIncognito {
 	return &defproto.GroupIncognito{
 		IsIncognito: &incognito.IsIncognito,
 	}
 }
+
 func EncodeGroupParent(parent types.GroupParent) *defproto.GroupParent {
 	return &defproto.GroupParent{
 		IsParent:                      &parent.IsParent,
 		DefaultMembershipApprovalMode: &parent.DefaultMembershipApprovalMode,
 	}
 }
+
 func EncodeGroupLinkedParent(linkedParent types.GroupLinkedParent) *defproto.GroupLinkedParent {
 	return &defproto.GroupLinkedParent{
 		LinkedParentJID: EncodeJidProto(linkedParent.LinkedParentJID),
 	}
 }
+
 func EncodeGroupIsDefaultSub(isDefaultSub types.GroupIsDefaultSub) *defproto.GroupIsDefaultSub {
 	return &defproto.GroupIsDefaultSub{
 		IsDefaultSubGroup: &isDefaultSub.IsDefaultSubGroup,
 	}
 }
+
 func EncodeGroupParticipantAddRequest(addRequest types.GroupParticipantAddRequest) *defproto.GroupParticipantAddRequest {
 	return &defproto.GroupParticipantAddRequest{
 		Code:       &addRequest.Code,
 		Expiration: proto.Float32(float32(addRequest.Expiration.Unix())),
 	}
 }
+
 func EncodeGroupParticipant(participant types.GroupParticipant) *defproto.GroupParticipant {
 	participant_group := defproto.GroupParticipant{
 		LID:          EncodeJidProto(participant.LID),
@@ -153,6 +165,7 @@ func EncodeMessageDebugTimings(debugTimings whatsmeow.MessageDebugTimings) *defp
 		Retry:           proto.Int64(debugTimings.Retry.Nanoseconds()),
 	}
 }
+
 func EncodeSendResponse(sendResponse whatsmeow.SendResponse) *defproto.SendResponse {
 	return &defproto.SendResponse{
 		Timestamp:    proto.Int64(sendResponse.Timestamp.Unix()),
@@ -172,6 +185,7 @@ func EncodeVerifiedName(verifiedName *types.VerifiedName) *defproto.VerifiedName
 	}
 	return models
 }
+
 func EncodeIsOnWhatsApp(isOnWhatsApp types.IsOnWhatsAppResponse) *defproto.IsOnWhatsAppResponse {
 	model := &defproto.IsOnWhatsAppResponse{
 		Query: &isOnWhatsApp.Query,
@@ -210,26 +224,29 @@ func EncodeAddressingMode(mode_types types.AddressingMode) *defproto.AddressingM
 	}
 	return AddressingMode
 }
+
 func EncodeMessageSource(messageSource types.MessageSource) *defproto.MessageSource {
 	return &defproto.MessageSource{
-		Chat:               EncodeJidProto(messageSource.Chat),
-		Sender:             EncodeJidProto(messageSource.Sender),
-		IsFromMe:           &messageSource.IsFromMe,
-		IsGroup:            &messageSource.IsGroup,
+		Chat:     EncodeJidProto(messageSource.Chat),
+		Sender:   EncodeJidProto(messageSource.Sender),
+		IsFromMe: &messageSource.IsFromMe,
+		IsGroup:  &messageSource.IsGroup,
 
-		AddressingMode:     EncodeAddressingMode(messageSource.AddressingMode),
-		SenderAlt:          EncodeJidProto(messageSource.SenderAlt),
-		RecipientAlt:       EncodeJidProto(messageSource.RecipientAlt),
+		AddressingMode: EncodeAddressingMode(messageSource.AddressingMode),
+		SenderAlt:      EncodeJidProto(messageSource.SenderAlt),
+		RecipientAlt:   EncodeJidProto(messageSource.RecipientAlt),
 
 		BroadcastListOwner: EncodeJidProto(messageSource.BroadcastListOwner),
 	}
 }
+
 func EncodeDeviceSentMeta(deviceSentMeta *types.DeviceSentMeta) *defproto.DeviceSentMeta {
 	return &defproto.DeviceSentMeta{
 		DestinationJID: &deviceSentMeta.DestinationJID,
 		Phash:          &deviceSentMeta.Phash,
 	}
 }
+
 func EncodeMessageInfo(messageInfo types.MessageInfo) *defproto.MessageInfo {
 	model := &defproto.MessageInfo{
 		MessageSource: EncodeMessageSource(messageInfo.MessageSource),
@@ -296,6 +313,7 @@ func EncodeEventTypesMessage(message *events.Message) *defproto.Message {
 	}
 	return model
 }
+
 func EncodeNewsletterText(newsletterText types.NewsletterText) *defproto.NewsletterText {
 	return &defproto.NewsletterText{
 		Text:       &newsletterText.Text,
@@ -303,6 +321,7 @@ func EncodeNewsletterText(newsletterText types.NewsletterText) *defproto.Newslet
 		UpdateTime: proto.Int64(newsletterText.UpdateTime.Unix()),
 	}
 }
+
 func EncodeWrappedNewsletterState(state types.WrappedNewsletterState) *defproto.WrappedNewsletterState {
 	var enum defproto.WrappedNewsletterState_NewsletterState
 	switch state.Type {
@@ -317,6 +336,7 @@ func EncodeWrappedNewsletterState(state types.WrappedNewsletterState) *defproto.
 		Type: &enum,
 	}
 }
+
 func EncodeProfilePictureInfo(profilePictureInfo types.ProfilePictureInfo) *defproto.ProfilePictureInfo {
 	return &defproto.ProfilePictureInfo{
 		URL:        &profilePictureInfo.URL,
@@ -325,6 +345,7 @@ func EncodeProfilePictureInfo(profilePictureInfo types.ProfilePictureInfo) *defp
 		DirectPath: &profilePictureInfo.DirectPath,
 	}
 }
+
 func EncodeNewsletterReactionSettings(reactionSettings types.NewsletterReactionSettings) *defproto.NewsletterReactionSettings {
 	var reactionMode defproto.NewsletterReactionSettings_NewsletterReactionsMode
 	switch reactionSettings.Value {
@@ -341,11 +362,13 @@ func EncodeNewsletterReactionSettings(reactionSettings types.NewsletterReactionS
 		Value: &reactionMode,
 	}
 }
+
 func EncodeNewsletterSetting(settings types.NewsletterSettings) *defproto.NewsletterSetting {
 	return &defproto.NewsletterSetting{
 		ReactionCodes: EncodeNewsletterReactionSettings(settings.ReactionCodes),
 	}
 }
+
 func EncodeNewsletterThreadMetadata(threadMetadata types.NewsletterThreadMetadata) *defproto.NewsletterThreadMetadata {
 	var state defproto.NewsletterThreadMetadata_NewsletterVerificationState
 	switch threadMetadata.VerificationState {
@@ -369,6 +392,7 @@ func EncodeNewsletterThreadMetadata(threadMetadata types.NewsletterThreadMetadat
 	}
 	return &metadata
 }
+
 func EncodeNewsletterViewerMetadata(viewerMetadata *types.NewsletterViewerMetadata) *defproto.NewsletterViewerMetadata {
 	var mute defproto.NewsletterMuteState
 	var role defproto.NewsletterRole
@@ -394,6 +418,7 @@ func EncodeNewsletterViewerMetadata(viewerMetadata *types.NewsletterViewerMetada
 		Role: &role,
 	}
 }
+
 func EncodeNewsLetterMessageMetadata(metadata types.NewsletterMetadata) *defproto.NewsletterMetadata {
 	model := &defproto.NewsletterMetadata{
 		ID:         EncodeJidProto(metadata.ID),
@@ -405,6 +430,7 @@ func EncodeNewsLetterMessageMetadata(metadata types.NewsletterMetadata) *defprot
 	}
 	return model
 }
+
 func EncodeBlocklist(blocklist *types.Blocklist) *defproto.Blocklist {
 	JIDs := []*defproto.JID{}
 	for _, jid := range blocklist.JIDs {
@@ -415,6 +441,7 @@ func EncodeBlocklist(blocklist *types.Blocklist) *defproto.Blocklist {
 		JIDs:  JIDs,
 	}
 }
+
 func EncodeNewsletterMessage(message *types.NewsletterMessage) *defproto.NewsletterMessage {
 	reacts := []*defproto.Reaction{}
 	for react, count := range message.ReactionCounts {
@@ -530,6 +557,7 @@ func EncodePairError(pair *events.PairError) *defproto.PairStatus {
 		Error:        proto.String(pair.Error.Error()),
 	}
 }
+
 func EncodeConnectFailureReason(reason_types events.ConnectFailureReason) *defproto.ConnectFailureReason {
 	var reason *defproto.ConnectFailureReason
 	switch reason_types {
@@ -556,6 +584,7 @@ func EncodeConnectFailureReason(reason_types events.ConnectFailureReason) *defpr
 	}
 	return reason
 }
+
 func EncodeLoggedOut(logout *events.LoggedOut) *defproto.LoggedOut {
 	return &defproto.LoggedOut{
 		OnConnect: &logout.OnConnect,
@@ -582,6 +611,7 @@ func EncodeTemporaryBan(ban *events.TemporaryBan) *defproto.TemporaryBan {
 		Expire: proto.Int64(int64(ban.Expire.Seconds())),
 	}
 }
+
 func EncodeNodeAttrs(attrs waBinary.Attrs) []*defproto.NodeAttrs {
 	n_attr := []*defproto.NodeAttrs{}
 	for k, v := range attrs {
@@ -604,6 +634,7 @@ func EncodeNodeAttrs(attrs waBinary.Attrs) []*defproto.NodeAttrs {
 	}
 	return n_attr
 }
+
 func EncodeNode(node *waBinary.Node) *defproto.Node {
 	nodes := defproto.Node{
 		Tag:   &node.Tag,
@@ -613,7 +644,7 @@ func EncodeNode(node *waBinary.Node) *defproto.Node {
 	case nil:
 		nodes.Nil = proto.Bool(true)
 	case []waBinary.Node:
-		var content = make([]*defproto.Node, len(v))
+		content := make([]*defproto.Node, len(v))
 		for i, c_node := range v {
 			content[i] = EncodeNode(&c_node)
 		}
@@ -623,8 +654,8 @@ func EncodeNode(node *waBinary.Node) *defproto.Node {
 	}
 
 	return &nodes
-
 }
+
 func EncodeConnectFailure(connect *events.ConnectFailure) *defproto.ConnectFailure {
 	return &defproto.ConnectFailure{
 		Reason:  EncodeConnectFailureReason(connect.Reason),
@@ -686,6 +717,7 @@ func EncodeChatPresence(presence *events.ChatPresence) defproto.ChatPresence {
 		Media:         chat_presence_media,
 	}
 }
+
 func EncodePresence(presence *events.Presence) defproto.Presence {
 	return defproto.Presence{
 		From:        EncodeJidProto(presence.From),
@@ -702,12 +734,14 @@ func EncodeJoinedGroup(joined *events.JoinedGroup) defproto.JoinedGroup {
 		GroupInfo: EncodeGroupInfo(&joined.GroupInfo),
 	}
 }
+
 func EncodeGroupDelete(delete types.GroupDelete) *defproto.GroupDelete {
 	return &defproto.GroupDelete{
 		Deleted:       &delete.Deleted,
 		DeletedReason: &delete.DeleteReason,
 	}
 }
+
 func EncodeGroupLinkChange(group *types.GroupLinkChange) *defproto.GroupLinkChange {
 	var Type *defproto.GroupLinkChange_ChangeType
 	switch group.Type {
@@ -724,12 +758,13 @@ func EncodeGroupLinkChange(group *types.GroupLinkChange) *defproto.GroupLinkChan
 		Group:        EncodeGroupLinkTarget(group.Group),
 	}
 }
+
 func EncodeGroupInfoEvent(groupInfo *events.GroupInfo) *defproto.GroupInfoEvent {
-	var Join = make([]*defproto.JID, len(groupInfo.Join))
-	var Leave = make([]*defproto.JID, len(groupInfo.Leave))
-	var Promote = make([]*defproto.JID, len(groupInfo.Promote))
-	var Demote = make([]*defproto.JID, len(groupInfo.Demote))
-	var UnknownChanges = make([]*defproto.Node, len(groupInfo.UnknownChanges))
+	Join := make([]*defproto.JID, len(groupInfo.Join))
+	Leave := make([]*defproto.JID, len(groupInfo.Leave))
+	Promote := make([]*defproto.JID, len(groupInfo.Promote))
+	Demote := make([]*defproto.JID, len(groupInfo.Demote))
+	UnknownChanges := make([]*defproto.Node, len(groupInfo.UnknownChanges))
 	for i, jidJoin := range groupInfo.Join {
 		Join[i] = EncodeJidProto(jidJoin)
 	}
@@ -807,7 +842,7 @@ func EncodeBlocklistChange(blocklist *events.BlocklistChange) *defproto.Blocklis
 
 func EncodeBlocklistEvent(blocklist *events.Blocklist) defproto.BlocklistEvent {
 	var action *defproto.BlocklistEvent_Actions
-	var blocklistchanges = make([]*defproto.BlocklistChange, len(blocklist.Changes))
+	blocklistchanges := make([]*defproto.BlocklistChange, len(blocklist.Changes))
 	for i, changes := range blocklist.Changes {
 		blocklistchanges[i] = EncodeBlocklistChange(&changes)
 	}
@@ -842,6 +877,7 @@ func EncodeNewsletterLeave(leave *events.NewsletterLeave) defproto.NewsletterLea
 		Role: role,
 	}
 }
+
 func EncodeNewsletterMuteChange(mute *events.NewsletterMuteChange) defproto.NewsletterMuteChange {
 	var state *defproto.NewsletterMuteState
 	switch mute.Mute {
@@ -855,8 +891,9 @@ func EncodeNewsletterMuteChange(mute *events.NewsletterMuteChange) defproto.News
 		Mute: state,
 	}
 }
+
 func EncodeNewsletterLiveUpdate(update *events.NewsletterLiveUpdate) defproto.NewsletterLiveUpdate {
-	var messages = make([]*defproto.NewsletterMessage, len(update.Messages))
+	messages := make([]*defproto.NewsletterMessage, len(update.Messages))
 	for i, message := range update.Messages {
 		messages[i] = EncodeNewsletterMessage(message)
 	}
@@ -878,7 +915,7 @@ func EncodeContactInfo(info types.ContactInfo) *defproto.ContactInfo {
 }
 
 func EncodeContacts(info map[types.JID]types.ContactInfo) []*defproto.Contact {
-	var contacts = make([]*defproto.Contact, len(info))
+	contacts := make([]*defproto.Contact, len(info))
 	i := 0
 	for k, v := range info {
 		contacts[i] = &defproto.Contact{

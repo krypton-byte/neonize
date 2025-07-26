@@ -262,8 +262,10 @@ async def handler(client: NewAClient, message: MessageEv):
                                 deviceListMetadataVersion=2,
                             ),
                             interactiveMessage=InteractiveMessage(
-                                body=InteractiveMessage.Body(text="Body Message"),
-                                footer=InteractiveMessage.Footer(text="@krypton-byte"),
+                                body=InteractiveMessage.Body(
+                                    text="Body Message"),
+                                footer=InteractiveMessage.Footer(
+                                    text="@krypton-byte"),
                                 header=InteractiveMessage.Header(
                                     title="Title Message",
                                     subtitle="Subtitle Message",
@@ -315,11 +317,14 @@ async def handler(client: NewAClient, message: MessageEv):
 async def PairStatusMessage(_: NewAClient, message: PairStatusEv):
     log.info(f"logged as {message.ID.User}")
 
+
 async def run_factory():
     await client_factory.run()
     # Do something else
     await client_factory.idle_all()
 
+
 if __name__ == "__main__":
-    # all created clients will be automatically logged in and receive all events
-    client.loop.run_until_complete(run_factory())
+    # all created clients will be automatically logged in and receive all
+    # events
+    client_factory.loop.run_until_complete(run_factory())

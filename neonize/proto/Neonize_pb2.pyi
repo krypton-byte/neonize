@@ -3545,26 +3545,6 @@ class GetMessageForRetryReturnFunction(google.protobuf.message.Message):
 global___GetMessageForRetryReturnFunction = GetMessageForRetryReturnFunction
 
 @typing.final
-class UpdateGroupRequestParticipantsReturnFunction(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    ERROR_FIELD_NUMBER: builtins.int
-    PARTICIPANTS_FIELD_NUMBER: builtins.int
-    Error: builtins.str
-    @property
-    def Participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GroupParticipant]: ...
-    def __init__(
-        self,
-        *,
-        Error: builtins.str | None = ...,
-        Participants: collections.abc.Iterable[global___GroupParticipant] | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["Error", b"Error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["Error", b"Error", "Participants", b"Participants"]) -> None: ...
-
-global___UpdateGroupRequestParticipantsReturnFunction = UpdateGroupRequestParticipantsReturnFunction
-
-@typing.final
 class LocalChatSettings(google.protobuf.message.Message):
     """chat_setting_store"""
 
@@ -3670,6 +3650,28 @@ class BuildMessageReturnFunction(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["Error", b"Error", "Message", b"Message"]) -> None: ...
 
 global___BuildMessageReturnFunction = BuildMessageReturnFunction
+
+@typing.final
+class LogEntry(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MESSAGE_FIELD_NUMBER: builtins.int
+    LEVEL_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    Message: builtins.str
+    Level: builtins.str
+    Name: builtins.str
+    def __init__(
+        self,
+        *,
+        Message: builtins.str | None = ...,
+        Level: builtins.str | None = ...,
+        Name: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["Level", b"Level", "Message", b"Message", "Name", b"Name"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["Level", b"Level", "Message", b"Message", "Name", b"Name"]) -> None: ...
+
+global___LogEntry = LogEntry
 
 @typing.final
 class Stop(google.protobuf.message.Message):

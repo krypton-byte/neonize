@@ -26,11 +26,13 @@ class Changer(ast.NodeVisitor):
         Args:
             node (ast.Assign): The assignment node being visited.
         """
-        if node.targets.__len__() == 1 and isinstance(node.targets[0], ast.Name):
+        if node.targets.__len__() == 1 and isinstance(
+                node.targets[0], ast.Name):
             target_id = node.targets[0].id
             if target_id in self.rules:
                 node.value = ast.Constant(value=self.rules[target_id])
-            if target_id in self.extract_rules and isinstance(node.value, ast.Constant):
+            if target_id in self.extract_rules and isinstance(
+                    node.value, ast.Constant):
                 self.extract_result.update({target_id: node.value.value})
         return self
 
@@ -102,7 +104,8 @@ class ValueChanger:
     @overload
     def extract(self, name: str) -> const_type: ...
 
-    def extract(self, name: str, expect_type: Optional[type[const_type]] = None) -> const_type:
+    def extract(self, name: str,
+                expect_type: Optional[type[const_type]] = None) -> const_type:
         """
         Extracts the assigned value of a specified variable from the source code.
 

@@ -7,6 +7,7 @@ import (
 	"github.com/krypton-byte/neonize/utils"
 	"google.golang.org/protobuf/proto"
 )
+
 import (
 	"context"
 
@@ -68,7 +69,7 @@ func PutAllContactNames(id *C.char, contacts *C.uchar, contactsSize C.int) *C.ch
 	if err != nil {
 		panic(err)
 	}
-	var contactEntry = make([]store.ContactEntry, len(entry.ContactEntry))
+	contactEntry := make([]store.ContactEntry, len(entry.ContactEntry))
 	for i, centry := range entry.ContactEntry {
 		contactEntry[i] = *utils.DecodeContactEntry(centry)
 	}
@@ -106,5 +107,4 @@ func GetAllContacts(id *C.char) *C.struct_BytesReturn {
 		return_.Error = proto.String(err.Error())
 	}
 	return ProtoReturnV3(&return_)
-
 }

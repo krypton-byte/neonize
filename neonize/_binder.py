@@ -1,17 +1,24 @@
 import ctypes
 import ctypes.util
 import os
+from pathlib import Path
 from platform import system
 from typing import Any
-from pathlib import Path
+
+from .download import __GONEONIZE_VERSION__, download
 from .utils.platform import generated_name
-from .download import download, __GONEONIZE_VERSION__
 
 func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_void_p)  # qr
 func = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_bool)  # blocking
-func_bytes = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_int)  # status
+func_bytes = ctypes.CFUNCTYPE(
+    None, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_int
+)  # status
 func_callback_bytes = ctypes.CFUNCTYPE(
     None, ctypes.c_char_p, ctypes.c_void_p, ctypes.c_int, ctypes.c_int
+)  # callback_bytes
+
+func_callback_bytes2 = ctypes.CFUNCTYPE(
+    None, ctypes.c_void_p, ctypes.c_int
 )  # callback_bytes
 
 
@@ -55,6 +62,7 @@ if not os.environ.get("SPHINX"):
         func_string,
         func_string,
         func_callback_bytes,
+        func_callback_bytes2,
         ctypes.c_char_p,
         ctypes.c_int,
         ctypes.c_char_p,
@@ -66,6 +74,16 @@ if not os.environ.get("SPHINX"):
     gocode.GetLIDFromPN.restype = ctypes.POINTER(Bytes)
     gocode.GetPNFromLID.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.GetPNFromLID.restype = ctypes.POINTER(Bytes)
+    gocode.PinMessage.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
+    gocode.PinMessage.restype = ctypes.POINTER(Bytes)
     gocode.Upload.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -464,7 +482,7 @@ if not os.environ.get("SPHINX"):
     gocode.PutArchived.restype = ctypes.c_char_p
     gocode.GetChatSettings.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.GetChatSettings.restype = ctypes.POINTER(Bytes)
-    gocode.GetAllDevices.argtypes = [ctypes.c_char_p]
+    gocode.GetAllDevices.argtypes = [ctypes.c_char_p, func_callback_bytes2]
     gocode.GetAllDevices.restype = ctypes.c_char_p
     gocode.SendFBMessage.argtypes = [
         ctypes.c_char_p,
@@ -488,15 +506,6 @@ if not os.environ.get("SPHINX"):
     gocode.StopAll.restype = ctypes.c_void_p
     gocode.FreeBytesStruct.argtypes = [ctypes.POINTER(Bytes)]
     gocode.FreeBytesStruct.restype = None
-    gocode.UpdateGroupRequestParticipants.argtypes = [
-        ctypes.c_char_p,
-        ctypes.c_char_p,
-        ctypes.c_int,
-        ctypes.c_char_p,
-        ctypes.c_int,
-        ctypes.c_char_p,
-    ]
-    gocode.UpdateGroupRequestParticipants.restype = ctypes.POINTER(Bytes)
 else:
     gocode: Any = object()
 

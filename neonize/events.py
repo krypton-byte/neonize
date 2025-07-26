@@ -1,59 +1,60 @@
 from __future__ import annotations
+
+import ctypes
 import logging
+from threading import Event as EventThread
+from typing import TYPE_CHECKING, Callable, Dict, Type, TypeVar
+
+import segno
+from google.protobuf.message import Message
 
 from neonize.exc import UnsupportedEvent
-import ctypes
-import segno
-from typing import TypeVar, Type, Callable, TYPE_CHECKING, Dict
-from google.protobuf.message import Message
-from threading import Event as EventThread
+
+from .proto.Neonize_pb2 import QR as QREv
+from .proto.Neonize_pb2 import BlocklistChange as BlocklistChangeEv
+from .proto.Neonize_pb2 import BlocklistEvent as BlocklistEv
+from .proto.Neonize_pb2 import CallAccept as CallAcceptEv
+from .proto.Neonize_pb2 import CallOffer as CallOfferEv
+from .proto.Neonize_pb2 import CallOfferNotice as CallOfferNoticeEv
+from .proto.Neonize_pb2 import CallPreAccept as CallPreAcceptEv
+from .proto.Neonize_pb2 import CallRelayLatency as CallRelayLatencyEV
+from .proto.Neonize_pb2 import CallTerminate as CallTerminateEv
+from .proto.Neonize_pb2 import CallTransport as CallTransportEv
+from .proto.Neonize_pb2 import ChatPresence as ChatPresenceEv
+from .proto.Neonize_pb2 import ClientOutdated as ClientOutdatedEv
+from .proto.Neonize_pb2 import Connected as ConnectedEv
+from .proto.Neonize_pb2 import ConnectFailure as ConnectFailureEv
 from .proto.Neonize_pb2 import Device
-from .proto.Neonize_pb2 import (
-    QR as QREv,
-    PairStatus as PairStatusEv,
-    Connected as ConnectedEv,
-    KeepAliveTimeout as KeepAliveTimeoutEv,
-    KeepAliveRestored as KeepAliveRestoredEv,
-    LoggedOut as LoggedOutEv,
-    StreamReplaced as StreamReplacedEv,
-    TemporaryBan as TemporaryBanEv,
-    ConnectFailure as ConnectFailureEv,
-    ClientOutdated as ClientOutdatedEv,
-    StreamError as StreamErrorEv,
-    Disconnected as DisconnectedEv,
-    HistorySync as HistorySyncEv,
-    NewsLetterMessageMeta as NewsLetterMessageMetaEv,
-    Message as MessageEv,
-    Receipt as ReceiptEv,
-    ChatPresence as ChatPresenceEv,
-    Presence as PresenceEv,
-    JoinedGroup as JoinedGroupEv,
-    GroupInfoEvent as GroupInfoEv,
-    Picture as PictureEv,
-    IdentityChange as IdentityChangeEv,
-    privacySettingsEvent as PrivacySettingsEv,
-    OfflineSyncPreview as OfflineSyncPreviewEv,
-    OfflineSyncCompleted as OfflineSyncCompletedEv,
-    BlocklistEvent as BlocklistEv,
-    BlocklistChange as BlocklistChangeEv,
-    NewsletterJoin as NewsletterJoinEv,
-    NewsletterLeave as NewsletterLeaveEv,
-    NewsletterMuteChange as NewsletterMuteChangeEv,
-    NewsletterLiveUpdate as NewsletterLiveUpdateEV,
-    CallOffer as CallOfferEv,
-    CallAccept as CallAcceptEv,
-    CallPreAccept as CallPreAcceptEv,
-    CallTransport as CallTransportEv,
-    CallOfferNotice as CallOfferNoticeEv,
-    CallRelayLatency as CallRelayLatencyEV,
-    CallTerminate as CallTerminateEv,
-    UnknownCallEvent as UnknownCallEventEV,
-    UndecryptableMessage as UndecryptableMessageEv,
-)
+from .proto.Neonize_pb2 import Disconnected as DisconnectedEv
+from .proto.Neonize_pb2 import GroupInfoEvent as GroupInfoEv
+from .proto.Neonize_pb2 import HistorySync as HistorySyncEv
+from .proto.Neonize_pb2 import IdentityChange as IdentityChangeEv
+from .proto.Neonize_pb2 import JoinedGroup as JoinedGroupEv
+from .proto.Neonize_pb2 import KeepAliveRestored as KeepAliveRestoredEv
+from .proto.Neonize_pb2 import KeepAliveTimeout as KeepAliveTimeoutEv
+from .proto.Neonize_pb2 import LoggedOut as LoggedOutEv
+from .proto.Neonize_pb2 import Message as MessageEv
+from .proto.Neonize_pb2 import NewsletterJoin as NewsletterJoinEv
+from .proto.Neonize_pb2 import NewsletterLeave as NewsletterLeaveEv
+from .proto.Neonize_pb2 import NewsletterLiveUpdate as NewsletterLiveUpdateEV
+from .proto.Neonize_pb2 import NewsLetterMessageMeta as NewsLetterMessageMetaEv
+from .proto.Neonize_pb2 import NewsletterMuteChange as NewsletterMuteChangeEv
+from .proto.Neonize_pb2 import OfflineSyncCompleted as OfflineSyncCompletedEv
+from .proto.Neonize_pb2 import OfflineSyncPreview as OfflineSyncPreviewEv
+from .proto.Neonize_pb2 import PairStatus as PairStatusEv
+from .proto.Neonize_pb2 import Picture as PictureEv
+from .proto.Neonize_pb2 import Presence as PresenceEv
+from .proto.Neonize_pb2 import Receipt as ReceiptEv
+from .proto.Neonize_pb2 import StreamError as StreamErrorEv
+from .proto.Neonize_pb2 import StreamReplaced as StreamReplacedEv
+from .proto.Neonize_pb2 import TemporaryBan as TemporaryBanEv
+from .proto.Neonize_pb2 import UndecryptableMessage as UndecryptableMessageEv
+from .proto.Neonize_pb2 import UnknownCallEvent as UnknownCallEventEV
+from .proto.Neonize_pb2 import privacySettingsEvent as PrivacySettingsEv
 
 log = logging.getLogger(__name__)
 if TYPE_CHECKING:
-    from .client import NewClient, ClientFactory
+    from .client import ClientFactory, NewClient
 EventType = TypeVar("EventType", bound=Message)
 EVENT_TO_INT: Dict[Type[Message], int] = {
     Device: 0,
@@ -140,7 +141,9 @@ class Event:
         self.list_func: Dict[int, Callable[[NewClient, Message], None]] = {}
         self._qr = self.__onqr
 
-    def execute(self, uuid: int, binary: int, size: int, code: int):  # Demands Attention
+    def execute(
+        self, uuid: int, binary: int, size: int, code: int
+    ):  # Demands Attention
         """Executes a function from the list of functions based on the given code.
 
         :param binary: The binary data to be processed by the function.

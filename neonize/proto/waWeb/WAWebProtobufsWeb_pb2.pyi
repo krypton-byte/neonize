@@ -267,6 +267,7 @@ class WebMessageInfo(google.protobuf.message.Message):
         CHANGE_LIMIT_SHARING: WebMessageInfo._StubType.ValueType  # 216
         GROUP_MEMBER_LINK_MODE: WebMessageInfo._StubType.ValueType  # 217
         BIZ_AUTOMATICALLY_LABELED_CHAT_SYSTEM_MESSAGE: WebMessageInfo._StubType.ValueType  # 218
+        PHONE_NUMBER_HIDING_CHAT_DEPRECATED_MESSAGE: WebMessageInfo._StubType.ValueType  # 219
 
     class StubType(_StubType, metaclass=_StubTypeEnumTypeWrapper): ...
     UNKNOWN: WebMessageInfo.StubType.ValueType  # 0
@@ -488,6 +489,7 @@ class WebMessageInfo(google.protobuf.message.Message):
     CHANGE_LIMIT_SHARING: WebMessageInfo.StubType.ValueType  # 216
     GROUP_MEMBER_LINK_MODE: WebMessageInfo.StubType.ValueType  # 217
     BIZ_AUTOMATICALLY_LABELED_CHAT_SYSTEM_MESSAGE: WebMessageInfo.StubType.ValueType  # 218
+    PHONE_NUMBER_HIDING_CHAT_DEPRECATED_MESSAGE: WebMessageInfo.StubType.ValueType  # 219
 
     class _Status:
         ValueType = typing.NewType("ValueType", builtins.int)

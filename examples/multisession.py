@@ -134,7 +134,8 @@ def handler(client: NewClient, message: MessageEv):
                 viewonce=True,
             )
         case "profile_pict":
-            client.send_message(chat, client.get_profile_picture(chat).__str__())
+            client.send_message(
+                chat, client.get_profile_picture(chat).__str__())
         case "status_privacy":
             client.send_message(chat, client.get_status_privacy().__str__())
         case "read":
@@ -153,18 +154,25 @@ def handler(client: NewClient, message: MessageEv):
             )
             err = client.follow_newsletter(metadata.ID)
             client.send_message(chat, "error: " + err.__str__())
-            resp = client.newsletter_mark_viewed(metadata.ID, [MessageServerID(0)])
-            client.send_message(chat, resp.__str__() + "\n" + metadata.__str__())
+            resp = client.newsletter_mark_viewed(
+                metadata.ID, [MessageServerID(0)])
+            client.send_message(
+                chat,
+                resp.__str__() +
+                "\n" +
+                metadata.__str__())
         case "logout":
             client.logout()
         case "send_react_channel":
             metadata = client.get_newsletter_info_with_invite(
                 "https://whatsapp.com/channel/0029Va4K0PZ5a245NkngBA2M"
             )
-            data_msg = client.get_newsletter_messages(metadata.ID, 2, MessageServerID(0))
+            data_msg = client.get_newsletter_messages(
+                metadata.ID, 2, MessageServerID(0))
             client.send_message(chat, data_msg.__str__())
             for _ in data_msg:
-                client.newsletter_send_reaction(metadata.ID, MessageServerID(0), "🗿", "")
+                client.newsletter_send_reaction(
+                    metadata.ID, MessageServerID(0), "🗿", "")
         case "subscribe_channel_updates":
             metadata = client.get_newsletter_info_with_invite(
                 "https://whatsapp.com/channel/0029Va4K0PZ5a245NkngBA2M"
@@ -175,13 +183,17 @@ def handler(client: NewClient, message: MessageEv):
             metadata = client.get_newsletter_info_with_invite(
                 "https://whatsapp.com/channel/0029Va4K0PZ5a245NkngBA2M"
             )
-            client.send_message(chat, client.newsletter_toggle_mute(metadata.ID, False).__str__())
+            client.send_message(
+                chat, client.newsletter_toggle_mute(
+                    metadata.ID, False).__str__())
         case "set_diseapearing":
             client.send_message(
-                chat, client.set_default_disappearing_timer(timedelta(days=7)).__str__()
+                chat, client.set_default_disappearing_timer(
+                    timedelta(days=7)).__str__()
             )
         case "test_contacts":
-            client.send_message(chat, client.contact.get_all_contacts().__str__())
+            client.send_message(
+                chat, client.contact.get_all_contacts().__str__())
         case "build_sticker":
             client.send_message(
                 chat,
@@ -231,7 +243,8 @@ def handler(client: NewClient, message: MessageEv):
         case "put_archived_disable":
             client.chat_settings.put_archived(chat, False)
         case "get_chat_settings":
-            client.send_message(chat, client.chat_settings.get_chat_settings(chat).__str__())
+            client.send_message(
+                chat, client.chat_settings.get_chat_settings(chat).__str__())
         case "button":
             client.send_message(
                 message.Info.MessageSource.Chat,
@@ -243,8 +256,10 @@ def handler(client: NewClient, message: MessageEv):
                                 deviceListMetadataVersion=2,
                             ),
                             interactiveMessage=InteractiveMessage(
-                                body=InteractiveMessage.Body(text="Body Message"),
-                                footer=InteractiveMessage.Footer(text="@krypton-byte"),
+                                body=InteractiveMessage.Body(
+                                    text="Body Message"),
+                                footer=InteractiveMessage.Footer(
+                                    text="@krypton-byte"),
                                 header=InteractiveMessage.Header(
                                     title="Title Message",
                                     subtitle="Subtitle Message",
@@ -298,5 +313,6 @@ def PairStatusMessage(_: NewClient, message: PairStatusEv):
 
 
 if __name__ == "__main__":
-    # all created clients will be automatically logged in and receive all events
+    # all created clients will be automatically logged in and receive all
+    # events
     client_factory.run()

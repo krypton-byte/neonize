@@ -13,7 +13,7 @@ from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     DeviceListMetadata,
 )
 from neonize.types import MessageServerID
-from neonize.utils import log, build_jid
+from neonize.utils import log
 from neonize.utils.enum import ReceiptType, VoteType
 import signal
 
@@ -256,11 +256,13 @@ async def handler(client: NewAClient, message: MessageEv):
             for i in range(1, len(text) + 1):
                 if id_msg is None:
                     msg = await client.send_message(
-                        message.Info.MessageSource.Chat, Message(conversation=text[:i])
+                        message.Info.MessageSource.Chat, Message(
+                            conversation=text[:i])
                     )
                     id_msg = msg.ID
                 await client.edit_message(
-                    message.Info.MessageSource.Chat, id_msg, Message(conversation=text[:i])
+                    message.Info.MessageSource.Chat, id_msg, Message(
+                        conversation=text[:i])
                 )
         case "button":
             await client.send_message(
@@ -273,8 +275,10 @@ async def handler(client: NewAClient, message: MessageEv):
                                 deviceListMetadataVersion=2,
                             ),
                             interactiveMessage=InteractiveMessage(
-                                body=InteractiveMessage.Body(text="Body Message"),
-                                footer=InteractiveMessage.Footer(text="@krypton-byte"),
+                                body=InteractiveMessage.Body(
+                                    text="Body Message"),
+                                footer=InteractiveMessage.Footer(
+                                    text="@krypton-byte"),
                                 header=InteractiveMessage.Header(
                                     title="Title Message",
                                     subtitle="Subtitle Message",
@@ -328,7 +332,8 @@ async def PairStatusMessage(_: NewAClient, message: PairStatusEv):
 
 
 @client.paircode
-async def default_blocking(client: NewAClient, code: str, connected: bool = True):
+async def default_blocking(
+        client: NewAClient, code: str, connected: bool = True):
     """
     A default callback function that handles the pair code event.
     This function is called when the pair code event occurs, and it blocks the execution until the event is processed.

@@ -10,7 +10,8 @@ def build():
     env = os.environ
     env["SPHINX"] = "true"
     call(
-        shlex.split("uv run sphinx-apidoc -o docs/source neonize neonize.proto neonize.utils"),
+        shlex.split(
+            "uv run sphinx-apidoc -o docs/source neonize neonize.proto neonize.utils"),
         env=env,
     )
     call(shlex.split("uv run make html"), cwd=workdir / "docs")

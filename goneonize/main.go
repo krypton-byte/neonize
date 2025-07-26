@@ -10,6 +10,7 @@ package main
    #include "python/pythonptr.h"
 */
 import "C"
+
 import (
 	"context"
 	// "crypto/sha256"
@@ -34,7 +35,7 @@ import (
 
 	_ "github.com/lib/pq"
 
-	waLog "go.mau.fi/whatsmeow/util/log"
+	// waLog "go.mau.fi/whatsmeow/util/log"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -45,11 +46,13 @@ type MessageEvent struct {
 	message   proto.Message
 }
 
-var eventChannel map[string]chan *MessageEvent = make(map[string]chan *MessageEvent)
-var StopSignal map[string]context.CancelFunc = make(map[string]context.CancelFunc)
+var (
+	eventChannel map[string]chan *MessageEvent = make(map[string]chan *MessageEvent)
+	StopSignal   map[string]context.CancelFunc = make(map[string]context.CancelFunc)
+)
 
 // Defaults to sqlite otherwise use postgres database url
-func getDB(db *C.char, dbLog waLog.Logger) (*sqlstore.Container, error) {
+func getDB(db *C.char, dbLog utils.Logger) (*sqlstore.Container, error) {
 	container, err := sqlstore.New(context.TODO(), "sqlite3", fmt.Sprintf("file:%s?_foreign_keys=on", C.GoString(db)), dbLog)
 	if strings.HasPrefix(C.GoString(db), "postgres") {
 		container, err = sqlstore.New(context.TODO(), "postgres", C.GoString(db), dbLog)
@@ -137,6 +140,7 @@ func ProtoReturn(data proto.Message) C.struct_BytesReturn {
 	}
 	return ReturnBytes(data_buf)
 }
+
 func ProtoReturnV2(data proto.Message) *C.struct_BytesReturn {
 	data_buf, err := proto.Marshal(data)
 	if err != nil {
@@ -144,6 +148,7 @@ func ProtoReturnV2(data proto.Message) *C.struct_BytesReturn {
 	}
 	return ReturnBytesV2(data_buf)
 }
+
 func ProtoReturnV3(data proto.Message) *C.struct_BytesReturn {
 	data_buf, err := proto.Marshal(data)
 	if err != nil {
@@ -155,6 +160,7 @@ func ProtoReturnV3(data proto.Message) *C.struct_BytesReturn {
 	C.memcpy(unsafe.Pointer(result.data), unsafe.Pointer(&data_buf[0]), result.size)
 	return result
 }
+
 func getBytesAndSize(data []byte) (*C.char, C.size_t) {
 	messageSourceCDATA := (*C.char)(unsafe.Pointer(&data[0]))
 	messageSourceCSize := C.size_t(len(data))
@@ -268,6 +274,53 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 	return ProtoReturnV3(&return_)
 }
 
+//export PinMessage
+func PinMessage(id *C.char, ChatJIDByte *C.uchar, ChatJIDSize C.int, SenderJIDByte *C.uchar, SenderJIDSize C.int, messageID *C.char, seconds C.int) *C.struct_BytesReturn {
+	client := clients[C.GoString(id)]
+	_chat_jid := getByteByAddr(ChatJIDByte, ChatJIDSize)
+	_sender_jid := getByteByAddr(SenderJIDByte, SenderJIDSize)
+	var chat_jid defproto.JID
+	var sender_jid defproto.JID
+	return_ := defproto.SendMessageReturnFunction{}
+	err := proto.Unmarshal(_chat_jid, &chat_jid)
+	if err != nil {
+		fmt.Println("SendMessage: Error unmarshaling JID:", err.Error())
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	err_message := proto.Unmarshal(_sender_jid, &sender_jid)
+	if err_message != nil {
+		fmt.Println("SendMessage: Error unmarshaling JID:", err_message.Error())
+		return_.Error = proto.String(err_message.Error())
+		return ProtoReturnV3(&return_)
+	}
+	chat := utils.DecodeJidProto(&chat_jid)
+	sender := utils.DecodeJidProto(&sender_jid)
+	messageId := C.GoString(messageID)
+	messageKey := client.BuildMessageKey(chat, sender, messageId)
+	messageKey.Participant = proto.String(sender.ToNonAD().String())
+	pinInChatMessage := &waE2E.PinInChatMessage{
+		Key:               messageKey,
+		Type:              waE2E.PinInChatMessage_PIN_FOR_ALL.Enum(),
+		SenderTimestampMS: proto.Int64(time.Now().UnixMilli()),
+	}
+	message := waE2E.Message{
+		MessageContextInfo: &waE2E.MessageContextInfo{
+			MessageAddOnExpiryType:     waE2E.MessageContextInfo_STATIC.Enum(),
+			MessageAddOnDurationInSecs: proto.Uint32(uint32(seconds)),
+		},
+		PinInChatMessage: pinInChatMessage,
+	}
+	sendresponse, err := client.SendMessage(context.Background(), chat, &message)
+	if err != nil {
+		fmt.Println("SendMessage: Error sending message:", err.Error())
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.SendResponse = utils.EncodeSendResponse(sendresponse)
+	return ProtoReturnV3(&return_)
+}
+
 //export StopAll
 func StopAll() {
 	for key := range clients {
@@ -277,7 +330,7 @@ func StopAll() {
 
 //export Stop
 func Stop(id *C.char) {
-	waLog.Noop.Infof("Stopping client with ID:", C.GoString(id))
+	utils.Noop.Infof("Stopping client with ID:", C.GoString(id)) // utils.Logger
 	if client, exists := clients[C.GoString(id)]; exists {
 		client.Disconnect()
 		delete(clients, C.GoString(id))
@@ -293,10 +346,10 @@ func Stop(id *C.char) {
 }
 
 //export Neonize
-func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, subscribes *C.uchar, lenSubscriber C.int, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int) { // ,
+func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, logCb C.ptr_to_python_function_callback_bytes2, subscribes *C.uchar, lenSubscriber C.int, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int) { // ,
 	subscribers := map[int]bool{}
 	var deviceProps waCompanionReg.DeviceProps
-	var loginStateChan = make(chan bool)
+	loginStateChan := make(chan bool)
 	err_proto := proto.Unmarshal(getByteByAddr(devicePropsBuf, devicePropsSize), &deviceProps)
 	ctx, cancel := context.WithCancel(context.Background())
 	StopSignal[C.GoString(id)] = cancel
@@ -306,7 +359,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 	for _, s := range getByteByAddr(subscribes, lenSubscriber) {
 		subscribers[int(s)] = true
 	}
-	dbLog := waLog.Stdout("Database", C.GoString(logLevel), true)
+	dbLog := utils.NewLogger("Database", C.GoString(logLevel), utils.Callback(logCb))
 	// Make sure you add appropriate DB connector imports, e.g. github.com/mattn/go-sqlite3 for SQLite
 	container, err := getDB(db, dbLog)
 	uuid := C.GoString(id)
@@ -332,7 +385,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 		panic(err_device)
 	}
 	proto.Merge(store.DeviceProps, &deviceProps)
-	clientLog := waLog.Stdout("Client", C.GoString(logLevel), true)
+	clientLog := utils.NewLogger("Client", C.GoString(logLevel), utils.Callback(logCb))
 	client := whatsmeow.NewClient(deviceStore, clientLog)
 	clients[uuid] = client
 	eventHandler := func(evt interface{}) {
@@ -829,7 +882,6 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 				}
 			}
 		}
-
 	} else {
 		// Already logged in, just connect
 		err = client.Connect()
@@ -902,7 +954,11 @@ func IsOnWhatsApp(id *C.char, numbers *C.char) *C.struct_BytesReturn {
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
 	}
-	return_.IsOnWhatsAppResponse = onWhatsApp
+	if len(onWhatsApp) > 0 {
+		return_.IsOnWhatsAppResponse = onWhatsApp
+	} else {
+		return_.Error = proto.String("Function returned nothing.")
+	}
 	return ProtoReturnV3(&return_)
 }
 
@@ -1079,10 +1135,8 @@ func SetGroupName(id *C.char, JIDByte *C.uchar, JIDSize C.int, name *C.char) *C.
 	status_err := clients[C.GoString(id)].SetGroupName(utils.DecodeJidProto(&neoJIDProto), C.GoString(name))
 	if status_err != nil {
 		return C.CString(status_err.Error())
-
 	}
 	return C.CString("")
-
 }
 
 //export SetGroupPhoto
@@ -1201,7 +1255,6 @@ func LinkGroup(id *C.char, parent *C.uchar, parentSize C.int, child *C.uchar, ch
 		return C.CString(err.Error())
 	}
 	return C.CString("")
-
 }
 
 //export SendChatPresence
@@ -1411,7 +1464,7 @@ func MarkRead(id *C.char, ids *C.char, timestamp C.int, chatByte *C.uchar, chatS
 //export NewsletterMarkViewed
 func NewsletterMarkViewed(id *C.char, JIDByte *C.uchar, JIDSize C.int, MessageServerID *C.uchar, MessageServerIDSize C.int) *C.char {
 	var JID defproto.JID
-	var serverIDs = make([]int, int(MessageServerIDSize))
+	serverIDs := make([]int, int(MessageServerIDSize))
 	for _, msid := range getByteByAddr(MessageServerID, MessageServerIDSize) {
 		serverIDs = append(serverIDs, int(msid))
 	}
@@ -1707,39 +1760,6 @@ func UpdateGroupParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int, partic
 	return ProtoReturnV3(&return_)
 }
 
-//export UpdateGroupRequestParticipants
-func UpdateGroupRequestParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int, participantsChanges *C.uchar, participantSize C.int, action *C.char) *C.struct_BytesReturn {
-	var JID defproto.JID
-	var jidArray defproto.JIDArray
-	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
-	return_ := defproto.UpdateGroupRequestParticipantsReturnFunction{}
-	if err != nil {
-		return_.Error = proto.String(err.Error())
-		return ProtoReturnV3(&return_)
-	}
-	err_ := proto.Unmarshal(getByteByAddr(participantsChanges, participantSize), &jidArray)
-	if err_ != nil {
-		return_.Error = proto.String(err_.Error())
-		return ProtoReturnV3(&return_)
-	}
-	request_participants := make([]types.JID, len(jidArray.JIDS))
-	for i, participant := range jidArray.JIDS {
-		request_participants[i] = utils.DecodeJidProto(participant)
-	}
-	go_action := whatsmeow.ParticipantRequestChange(C.GoString(action))
-	participants, err_changes := clients[C.GoString(id)].UpdateGroupRequestParticipants(utils.DecodeJidProto(&JID), request_participants, go_action)
-	if err_changes != nil {
-		return_.Error = proto.String(err_changes.Error())
-		return ProtoReturnV3(&return_)
-	}
-	neonizeParticipants := make([]*defproto.GroupParticipant, len(participants))
-	for i, participant := range participants {
-		neonizeParticipants[i] = utils.EncodeGroupParticipant(participant)
-	}
-	return_.Participants = neonizeParticipants
-	return ProtoReturnV3(&return_)
-}
-
 //export GetPrivacySettings
 func GetPrivacySettings(id *C.char) *C.struct_BytesReturn {
 	settings := utils.EncodePrivacySettings(clients[C.GoString(id)].GetPrivacySettings(context.Background()))
@@ -1945,7 +1965,6 @@ func GetJoinedGroups(id *C.char) *C.struct_BytesReturn {
 
 	return_.Group = neonize_groups_info
 	return ProtoReturnV3(&return_)
-
 }
 
 //export GetMe
@@ -2024,8 +2043,8 @@ func PutArchived(id *C.char, user *C.uchar, userSize C.int, archived C.bool) *C.
 }
 
 //export GetAllDevices
-func GetAllDevices(db *C.char) *C.char {
-	dbLog := waLog.Stdout("Database", "ERROR", true)
+func GetAllDevices(db *C.char, logCb C.ptr_to_python_function_callback_bytes2) *C.char {
+	dbLog := utils.NewLogger("Database", "ERROR", utils.Callback(logCb))
 	container, err := getDB(db, dbLog)
 	if err != nil {
 		panic(err)
@@ -2082,7 +2101,7 @@ func DecryptPollVote(id *C.char, message *C.uchar, messageSize C.int) *C.struct_
 
 //export SendFBMessage
 func SendFBMessage(id *C.char, to *C.uchar, toSize C.int, message *C.uchar, messageSize C.int, metadata *C.uchar, metadataSize C.int, extra *C.uchar, extraSize C.int) *C.struct_BytesReturn {
-	var _return = defproto.SendMessageReturnFunction{}
+	_return := defproto.SendMessageReturnFunction{}
 	var toJID defproto.JID
 	var waConsumerApp waConsumerApplication.ConsumerApplication
 	var waConsumerAppMetadata waMsgApplication.MessageApplication_Metadata
@@ -2146,8 +2165,8 @@ func SendFBMessage(id *C.char, to *C.uchar, toSize C.int, message *C.uchar, mess
 	_return.SendResponse = &response
 	return ProtoReturnV3(&_return)
 }
-func main() {
 
+func main() {
 }
 
 func FetchMe(id string) *defproto.Device {
@@ -2155,7 +2174,7 @@ func FetchMe(id string) *defproto.Device {
 
 	// Block until cli.ID is set
 	for cli.ID == nil {
-		time.Sleep(100 * time.Millisecond) // Honestly I'm not sure this check is necessary
+		time.Sleep(100 * time.Millisecond) // Check 10 times per second
 	}
 
 	device := defproto.Device{
@@ -2165,6 +2184,7 @@ func FetchMe(id string) *defproto.Device {
 		Initialized:   &cli.Initialized,
 	}
 
+	// Now guaranteed to have value
 	device.JID = utils.EncodeJidProto(*cli.ID)
 	device.LID = utils.EncodeJidProto(cli.LID)
 
@@ -2194,7 +2214,6 @@ func CallbackFunction(ctx context.Context, callback C.ptr_to_python_function_byt
 			C.call_c_func_callback_bytes(callback, uuid, uchars, size, C.int(message.eventType))
 
 		}
-
 	}
 }
 

@@ -78,7 +78,8 @@ class Version:
 
     @property
     def github_url(self) -> str:
-        return ValueChanger(open(self.GO_PY_PATH, "r").read()).extract("__GIT_RELEASE_URL__", str)
+        return ValueChanger(open(self.GO_PY_PATH, "r").read()
+                            ).extract("__GIT_RELEASE_URL__", str)
 
     @github_url.setter
     def github_url(self, url: str) -> None:
@@ -91,14 +92,20 @@ class Version:
     def neonize(self):
         return ".".join(
             re.findall(
-                r"\d+", ValueChanger(open(self.PY_PATH, "r").read()).extract("__version__", str)
+                r"\d+", ValueChanger(open(self.PY_PATH, "r").read()
+                                     ).extract("__version__", str)
             )
         )
 
     @neonize.setter
     def neonize(self, new_version: str):
         modified = (
-            ValueChanger(open(self.PY_PATH, "r").read()).set_value("__version__", new_version).text
+            ValueChanger(
+                open(
+                    self.PY_PATH,
+                    "r").read()).set_value(
+                "__version__",
+                new_version).text
         )
         with open(self.PY_PATH, "w") as file:
             file.write(modified)
@@ -107,7 +114,13 @@ class Version:
     @property
     def goneonize(self):
         return ".".join(
-            re.findall(r"\d+", re.findall(self.GO_RE, open(self.GO_PATH, "r").read())[0])
+            re.findall(
+                r"\d+",
+                re.findall(
+                    self.GO_RE,
+                    open(
+                        self.GO_PATH,
+                        "r").read())[0])
         )
 
     @property
