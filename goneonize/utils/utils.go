@@ -13,6 +13,7 @@ var MediaType = []whatsmeow.MediaType{
 	whatsmeow.MediaHistory,
 	whatsmeow.MediaAppState,
 	whatsmeow.MediaLinkThumbnail,
+	whatsmeow.MediaStickerPack,
 }
 
 var ChatPresence = []types.ChatPresence{

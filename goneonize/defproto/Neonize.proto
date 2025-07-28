@@ -885,10 +885,6 @@ message GetMessageForRetryReturnFunction{
     optional WAWebProtobufsE2E.Message Message = 2;
     optional string Error = 3;
 }
-message UpdateGroupRequestParticipantsReturnFunction {
-    optional string Error = 1;
-    repeated GroupParticipant Participants = 2;
-}
 
 
 //chat_setting_store
@@ -921,6 +917,12 @@ message SendRequestExtra {
 message BuildMessageReturnFunction{
     optional string Error = 1;
     required WAWebProtobufsE2E.Message Message = 2;
+}
+
+message LogEntry {
+  required string Message = 1;
+  required string Level = 2;
+  required string Name = 3;
 }
 
 message Stop{}

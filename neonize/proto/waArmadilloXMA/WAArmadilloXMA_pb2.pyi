@@ -123,6 +123,8 @@ class ExtendedContentMessage(google.protobuf.message.Message):
         FB_SHORT: ExtendedContentMessage._ExtendedContentType.ValueType  # 1009
         FB_COMMENT_MENTION_SHARE: ExtendedContentMessage._ExtendedContentType.ValueType  # 1010
         FB_POST_MENTION: ExtendedContentMessage._ExtendedContentType.ValueType  # 1011
+        FB_PROFILE_DIRECTORY_ITEM: ExtendedContentMessage._ExtendedContentType.ValueType  # 1013
+        FB_FEED_POST_REACTION_REPLY: ExtendedContentMessage._ExtendedContentType.ValueType  # 1014
         MSG_EXTERNAL_LINK_SHARE: ExtendedContentMessage._ExtendedContentType.ValueType  # 2000
         MSG_P2P_PAYMENT: ExtendedContentMessage._ExtendedContentType.ValueType  # 2001
         MSG_LOCATION_SHARING: ExtendedContentMessage._ExtendedContentType.ValueType  # 2002
@@ -147,6 +149,7 @@ class ExtendedContentMessage(google.protobuf.message.Message):
         MSG_GEN_AI_MEMU_ONBOARDING_RESPONSE: ExtendedContentMessage._ExtendedContentType.ValueType  # 2023
         MSG_NOTE_REPLY: ExtendedContentMessage._ExtendedContentType.ValueType  # 2024
         MSG_NOTE_MENTION: ExtendedContentMessage._ExtendedContentType.ValueType  # 2025
+        GEN_AI_ENTITY: ExtendedContentMessage._ExtendedContentType.ValueType  # 2026
         RTC_AUDIO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3000
         RTC_VIDEO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3001
         RTC_MISSED_AUDIO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3002
@@ -193,6 +196,8 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     FB_SHORT: ExtendedContentMessage.ExtendedContentType.ValueType  # 1009
     FB_COMMENT_MENTION_SHARE: ExtendedContentMessage.ExtendedContentType.ValueType  # 1010
     FB_POST_MENTION: ExtendedContentMessage.ExtendedContentType.ValueType  # 1011
+    FB_PROFILE_DIRECTORY_ITEM: ExtendedContentMessage.ExtendedContentType.ValueType  # 1013
+    FB_FEED_POST_REACTION_REPLY: ExtendedContentMessage.ExtendedContentType.ValueType  # 1014
     MSG_EXTERNAL_LINK_SHARE: ExtendedContentMessage.ExtendedContentType.ValueType  # 2000
     MSG_P2P_PAYMENT: ExtendedContentMessage.ExtendedContentType.ValueType  # 2001
     MSG_LOCATION_SHARING: ExtendedContentMessage.ExtendedContentType.ValueType  # 2002
@@ -217,6 +222,7 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     MSG_GEN_AI_MEMU_ONBOARDING_RESPONSE: ExtendedContentMessage.ExtendedContentType.ValueType  # 2023
     MSG_NOTE_REPLY: ExtendedContentMessage.ExtendedContentType.ValueType  # 2024
     MSG_NOTE_MENTION: ExtendedContentMessage.ExtendedContentType.ValueType  # 2025
+    GEN_AI_ENTITY: ExtendedContentMessage.ExtendedContentType.ValueType  # 2026
     RTC_AUDIO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3000
     RTC_VIDEO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3001
     RTC_MISSED_AUDIO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3002

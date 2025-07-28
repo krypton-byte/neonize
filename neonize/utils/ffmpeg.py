@@ -1,14 +1,15 @@
 import asyncio
-from enum import Enum
 import json
+import logging
 import os
 import shlex
-import time
 import subprocess
 import tempfile
-import logging
-from typing import List, Optional, Tuple
+import uuid
 from dataclasses import dataclass
+from enum import Enum
+from typing import List, Optional, Tuple
+
 from .iofile import (
     URL_MATCH,
     TemporaryFile,
@@ -195,7 +196,9 @@ class AFFmpeg:
     async def __aenter__(self):
         if isinstance(self.__file_data, str):
             if URL_MATCH.match(self.__file_data):
-                self.filename = TemporaryFile(prefix=self.prefix, touch=False).__enter__()
+                self.filename = TemporaryFile(
+                    prefix=self.prefix, touch=False
+                ).__enter__()
                 with open(self.filename.path, "wb") as file:
                     file.write(await get_bytes_from_name_or_url_async(self.__file_data))
             else:
@@ -217,7 +220,12 @@ class AFFmpeg:
         return self.filename.path.__str__()
 
     async def cv_to_webp(
-        self, animated: bool = True, enforce_not_broken: bool = False, animated_gif: bool = False
+        self,
+        animated: bool = True,
+        enforce_not_broken: bool = False,
+        animated_gif: bool = False,
+        max_sticker_size: int = 0,
+        is_webm=False,
     ) -> bytes:
         """
         This function converts a given file to webp format using ffmpeg.
@@ -230,8 +238,8 @@ class AFFmpeg:
         :return: The converted file in bytes
         :rtype: bytes
         """
-        MAX_STICKER_FILESIZE = 512000
-        temp = tempfile.gettempdir() + "/" + time.time().__str__() + ".webp"
+        MAX_STICKER_FILESIZE = max_sticker_size or 512000
+        temp = tempfile.gettempdir() + "/" + uuid.uuid4().__str__() + ".webp"
         duration = int((await self.extract_info()).format.duration or 0)
         if not duration:
             duration = 1
@@ -239,11 +247,19 @@ class AFFmpeg:
             duration = 6
         elif duration < 6:
             animated = False
-        ffmpeg_command = [
-            "ffmpeg",
-            "-i",
-            self.filepath,
-        ]
+        ffmpeg_command = ["ffmpeg"]
+        if is_webm:
+            decoder = "-c:v libvpx"
+            codec = (await self.extract_info()).streams[0].codec_name
+            if codec == "vp9":
+                decoder += "-vp9"
+            ffmpeg_command.extend(decoder.split())
+        ffmpeg_command.extend(
+            [
+                "-i",
+                self.filepath,
+            ]
+        )
         if animated:
             ffmpeg_command.extend(
                 [
@@ -298,7 +314,8 @@ class AFFmpeg:
         stdout, stderr = await popen.communicate()  # type: ignore
         if popen.returncode != 0:
             raise RuntimeError(
-                f"stderr: {stderr} Return code: {popen.returncode}"  # type: ignore
+                # type: ignore
+                f"stderr: {stderr} Return code: {popen.returncode}"
             )
         return stdout
 
@@ -306,7 +323,7 @@ class AFFmpeg:
         """
         This function convertes a gif to mp4 format.
         """
-        temp = tempfile.gettempdir() + "/" + time.time().__str__() + ".mp4"
+        temp = tempfile.gettempdir() + "/" + uuid.uuid4().__str__() + ".mp4"
         await self.call(
             [
                 "ffmpeg",
@@ -329,7 +346,7 @@ class AFFmpeg:
         return buf
 
     async def to_mp3(self) -> bytes:
-        temp = tempfile.gettempdir() + "/" + time.time().__str__() + ".mp3"
+        temp = tempfile.gettempdir() + "/" + uuid.uuid4().__str__() + ".mp3"
         await self.call(
             [
                 "ffmpeg",
@@ -374,7 +391,8 @@ class AFFmpeg:
                     extra.extend(
                         [
                             "-vf",
-                            "scale='if(gt(iw,ih),%i,-1)':'if(gt(iw,ih),-1,%i)'" % (size, size),
+                            "scale='if(gt(iw,ih),%i,-1)':'if(gt(iw,ih),-1,%i)'"
+                            % (size, size),
                         ]
                     )
         elif isinstance(size, Tuple):
@@ -422,7 +440,10 @@ class AFFmpeg:
         format: dict = data["format"]
         return FFProbeInfo(
             format=Format(
-                **{i: format.get(i, None) for i, _ in Format.__dataclass_fields__.items()}
+                **{
+                    i: format.get(i, None)
+                    for i, _ in Format.__dataclass_fields__.items()
+                }
             ),
             streams=[
                 Stream(
@@ -473,7 +494,14 @@ class FFmpeg:
             return self.filename
         return self.filename.path.__str__()
 
-    def cv_to_webp(self, animated: bool = True, enforce_not_broken: bool = False) -> bytes:
+    def cv_to_webp(
+        self,
+        animated: bool = True,
+        enforce_not_broken: bool = False,
+        animated_gif: bool = False,
+        max_sticker_size: int = 0,
+        is_webm=False,
+    ) -> bytes:
         """
         This function converts a given file to webp format using ffmpeg.
         If the animated flag is set to True, it will only convert the first 6 seconds of the file.
@@ -485,27 +513,50 @@ class FFmpeg:
         :return: The converted file in bytes
         :rtype: bytes
         """
-        MAX_STICKER_FILESIZE = 512000
-        temp = tempfile.gettempdir() + "/" + time.time().__str__() + ".webp"
-        ffmpeg_command = [
-            "ffmpeg",
-            "-i",
-            self.filepath,
-            "-vcodec",
-            "libwebp",
-            "-vf",
-            (
-                "scale='if(gt(iw,ih),512,-1)':'if(gt(iw,ih),-1,512)',fps=15, "
-                "pad=512:512:-1:-1:color=white@0.0, split [a][b]; [a] "
-                "palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse"
-            ),
-        ]
+        MAX_STICKER_FILESIZE = max_sticker_size or 512000
+        temp = tempfile.gettempdir() + "/" + uuid.uuid4().__str__() + ".webp"
+        duration = int((self.extract_info()).format.duration or 0)
+        if not duration:
+            duration = 1
+        if duration > 6 and animated:
+            duration = 6
+        elif duration < 6:
+            animated = False
+        ffmpeg_command = ["ffmpeg"]
+        if is_webm:
+            decoder = "-c:v libvpx"
+            codec = (self.extract_info()).streams[0].codec_name
+            if codec == "vp9":
+                decoder += "-vp9"
+            ffmpeg_command.extend(decoder.split())
+        ffmpeg_command.extend(
+            [
+                "-i",
+                self.filepath,
+            ]
+        )
+        if animated:
+            ffmpeg_command.extend(
+                [
+                    "-ss",
+                    "00:00:00.0",
+                    "-t",
+                    "00:00:06.0",
+                ]
+            )
+        ffmpeg_command.extend(
+            [
+                "-vcodec",
+                "libwebp_anim" if animated_gif else "libwebp",
+                "-vf",
+                (
+                    "scale='if(gt(iw,ih),512,-1)':'if(gt(iw,ih),-1,512)',fps=15, "
+                    "pad=512:512:-1:-1:color=white@0.0, split [a][b]; [a] "
+                    "palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse"
+                ),
+            ]
+        )
         if enforce_not_broken:
-            duration = int(self.extract_info().format.duration)
-            if not duration:
-                duration = 1
-            if duration > 6 and animated:
-                duration = 6
             bitrate = f"{MAX_STICKER_FILESIZE // duration}k"
             ffmpeg_command.extend(
                 [
@@ -517,15 +568,6 @@ class FFmpeg:
                     f"{MAX_STICKER_FILESIZE}",
                     "-q:v",
                     bitrate,
-                ]
-            )
-        if animated:
-            ffmpeg_command.extend(
-                [
-                    "-ss",
-                    "00:00:00.0",
-                    "-t",
-                    "00:00:06.0",
                 ]
             )
         ffmpeg_command.append(temp)
@@ -546,7 +588,8 @@ class FFmpeg:
         popen.wait(10)
         if popen.returncode != 0:
             raise RuntimeError(
-                f"stderr: {popen.stderr.read().decode()} Return code: {popen.returncode}"  # type: ignore
+                # type: ignore
+                f"stderr: {popen.stderr.read().decode()} Return code: {popen.returncode}"
             )
         return out
 
@@ -554,7 +597,7 @@ class FFmpeg:
         """
         This function convertes a gif to mp4 format.
         """
-        temp = tempfile.gettempdir() + "/" + time.time().__str__() + ".mp4"
+        temp = tempfile.gettempdir() + "/" + uuid.uuid4().__str__() + ".mp4"
         self.call(
             [
                 "ffmpeg",
@@ -577,7 +620,7 @@ class FFmpeg:
         return buf
 
     def to_mp3(self) -> bytes:
-        temp = tempfile.gettempdir() + "/" + time.time().__str__() + ".mp3"
+        temp = tempfile.gettempdir() + "/" + uuid.uuid4().__str__() + ".mp3"
         self.call(
             [
                 "ffmpeg",
@@ -622,7 +665,8 @@ class FFmpeg:
                     extra.extend(
                         [
                             "-vf",
-                            "scale='if(gt(iw,ih),%i,-1)':'if(gt(iw,ih),-1,%i)'" % (size, size),
+                            "scale='if(gt(iw,ih),%i,-1)':'if(gt(iw,ih),-1,%i)'"
+                            % (size, size),
                         ]
                     )
         elif isinstance(size, Tuple):
@@ -670,7 +714,10 @@ class FFmpeg:
         format: dict = data["format"]
         return FFProbeInfo(
             format=Format(
-                **{i: format.get(i, None) for i, _ in Format.__dataclass_fields__.items()}
+                **{
+                    i: format.get(i, None)
+                    for i, _ in Format.__dataclass_fields__.items()
+                }
             ),
             streams=[
                 Stream(
