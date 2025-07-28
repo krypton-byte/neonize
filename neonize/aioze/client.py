@@ -148,9 +148,11 @@ from ..proto.Neonize_pb2 import (
     UploadResponse,
     UploadReturnFunction,
 )
+from ..proto.waCommon.WACommon_pb2 import MessageKey
 from ..proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2 import DeviceProps
 from ..proto.waConsumerApplication.WAConsumerApplication_pb2 import ConsumerApplication
 from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
+    AlbumMessage,
     AudioMessage,
     ContactMessage,
     ContextInfo,
@@ -159,6 +161,7 @@ from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
     GroupMention,
     ImageMessage,
     Message,
+    MessageAssociation,
     PollVoteMessage,
     StickerMessage,
     StickerPackMessage,
@@ -625,7 +628,7 @@ class NewAClient:
         :type link_preview: bool, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
-        :param mentions_are_lids: whether mentions contained in meesage or ghost_mentions are lids, defaults to False.
+        :param mentions_are_lids: whether mentions contained in message or ghost_mentions are lids, defaults to False.
         :type mentions_are_lids: bool, optional
         :param add_msg_secret: Whether to generate 32 random bytes for messageSecret inside MessageContextInfo before sending, defaults to False
         :type add_msg_secret: bool, optional
@@ -695,7 +698,7 @@ class NewAClient:
         :type reply_privately: bool, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
-        :param mentions_are_lids: whether mentions contained in meesage or ghost_mentions are lids, defaults to False.
+        :param mentions_are_lids: whether mentions contained in message or ghost_mentions are lids, defaults to False.
         :type mentions_are_lids: bool, optional
         :return: Response of the send operation.
         :rtype: SendResponse
@@ -752,7 +755,7 @@ class NewAClient:
         :type reply_privately: bool, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
-        :param mentions_are_lids: whether mentions contained in meesage or ghost_mentions are lids, defaults to False.
+        :param mentions_are_lids: whether mentions contained in message or ghost_mentions are lids, defaults to False.
         :type mentions_are_lids: bool, optional
         :param add_msg_secret: If set to True generate 32 random bytes for messageSecret inside MessageContextInfo before sending, defaults to False
         :type add_msg_secret: bool, optional
@@ -1215,9 +1218,9 @@ class NewAClient:
             stickers[i : i + CHUNK_SIZE] for i in range(0, len(stickers), CHUNK_SIZE)
         ]
         tasks = []
-
+        total = len(chunks)
         for idx, chunk in enumerate(chunks):
-            pack_suffix = f" ({idx + 1})" if len(chunks) > 1 else ""
+            pack_suffix = f" ({idx + 1})" if total > 1 else ""
             task = self._process_single_pack(
                 stickers=chunk,
                 pack_name=packname + pack_suffix,
@@ -1504,6 +1507,124 @@ class NewAClient:
             ),
             add_msg_secret=add_msg_secret,
         )
+
+    async def build_album_content(
+        self,
+        file: str | bytes,
+        media_type: str,
+        msg_association: MessageAssociation,
+        **kwargs,
+    ) -> Message:
+        build_message = (
+            self.build_image_message
+            if media_type == "image"
+            else self.build_video_message
+        )
+        msg = await build_message(file, **kwargs)
+        msg.messageContextInfo.MergeFrom(
+            msg.messageContextInfo.__class__(messageAssociation=msg_association)
+        )
+        return msg
+
+    async def send_album(
+        self,
+        to: JID,
+        files: list,
+        caption: Optional[str] = None,
+        quoted: Optional[neonize_proto.Message] = None,
+        ghost_mentions: Optional[str] = None,
+        mentions_are_lids: bool = False,
+        add_msg_secret: bool = False,
+    ) -> List[SendResponse, List[SendResponse]]:
+        """Sends an album containing images, videos or both to the specified recipient.
+
+        :param to: The JID (Jabber Identifier) of the recipient.
+        :type to: JID
+        :param files: A list containing either a file path (str), url (str) or binary data (bytes) representing the image/video.
+        :type file: List[typing.Union[str | bytes]]
+        :param caption: Optional. The caption of the first media in the album. Defaults to None.
+        :type caption: Optional[str], optional
+        :param quoted: Optional. The message to which the album is a reply. Defaults to None.
+        :type quoted: Optional[Message], optional
+        :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
+        :type ghost_mentions: str, optional
+        :param add_msg_secret: Optional. Whether to generate 32 random bytes for messageSecret inside MessageContextInfo before sending, defaults to False
+        :type add_msg_secret: bool, optional
+        :return: A function for handling the result of the album sending process.
+        :rtype: List[SendResponse, List[SendResponse]]
+        """
+        image_count = video_count = 0
+        medias = []
+        for file in files:
+            file = await get_bytes_from_name_or_url_async(file)
+            mime = magic.from_buffer(file, mime=True)
+            media_type = mime.split("/")[0]
+            if media_type == "image":
+                image_count += 1
+            elif media_type == "video":
+                video_count += 1
+            else:
+                _log_.warning(
+                    f"File with mime_type: {mime} was wrongly passed to send_album_message, ignoring…"
+                )
+                continue
+            medias.append((file, media_type))
+        if not (image_count or video_count):
+            raise SendMessageError("No media found to send!")
+        elif len(medias) < 2:
+            raise SendMessageError("No enough media to send an album")
+        message = Message(
+            albumMessage=AlbumMessage(
+                expectedImageCount=image_count,
+                expectedVideoCount=video_count,
+                contextInfo=ContextInfo(
+                    mentionedJID=self._parse_mention(
+                        (ghost_mentions or caption), mentions_are_lids
+                    ),
+                    groupMentions=(await self._parse_group_mention(caption)),
+                ),
+            )
+        )
+        if quoted:
+            message.albumMessage.contextInfo.MergeFrom(
+                self._make_quoted_message(quoted)
+            )
+        response = await self.send_message(to, message, add_msg_secret=add_msg_secret)
+        msg_association = MessageAssociation(
+            associationType=MessageAssociation.AssociationType.MEDIA_ALBUM,
+            parentMessageKey=MessageKey(
+                remoteJID=Jid2String(to),
+                fromMe=True,
+                ID=response.ID,
+            ),
+        )
+        funcs = [
+            self.build_album_content(
+                file,
+                media_type,
+                msg_association,
+                caption=caption,
+                quoted=quoted,
+                ghost_mentions=ghost_mentions,
+                mentions_are_lids=mentions_are_lids,
+            )
+            for file, media_type in medias[:1]
+        ]
+        funcs.extend(
+            [
+                self.build_album_content(
+                    file, media_type, msg_association, quoted=quoted
+                )
+                for file, media_type in medias[1:]
+            ]
+        )
+        messages = await asyncio.gather(*funcs)
+        funcs = [
+            self.send_message(to, message, add_msg_secret=add_msg_secret)
+            for message in messages
+        ]
+        responses = await asyncio.gather(*funcs)
+        return [response, responses]
 
     async def build_audio_message(
         self,
