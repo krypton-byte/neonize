@@ -4,9 +4,9 @@ go 1.23.4
 
 require (
 	github.com/lib/pq v1.10.9
-	github.com/mattn/go-sqlite3 v1.14.29
-	go.mau.fi/whatsmeow v0.0.0-20250729133431-9166d862a88c
-	google.golang.org/protobuf v1.36.6
+	github.com/mattn/go-sqlite3 v1.14.30
+	go.mau.fi/whatsmeow v0.0.0-20250807072145-72ce90b82194
+	google.golang.org/protobuf v1.36.7
 )
 
 require (
@@ -19,9 +19,9 @@ require (
 	github.com/rs/zerolog v1.34.0 // indirect
 	go.mau.fi/libsignal v0.2.0 // indirect
 	go.mau.fi/util v0.8.8 // indirect
-	golang.org/x/crypto v0.40.0 // indirect
-	golang.org/x/exp v0.0.0-20250718183923-645b1fa84792 // indirect
-	golang.org/x/net v0.42.0 // indirect
-	golang.org/x/sys v0.34.0 // indirect
-	golang.org/x/text v0.27.0 // indirect
+	golang.org/x/crypto v0.41.0 // indirect
+	golang.org/x/exp v0.0.0-20250808145144-a408d31f581a // indirect
+	golang.org/x/net v0.43.0 // indirect
+	golang.org/x/sys v0.35.0 // indirect
+	golang.org/x/text v0.28.0 // indirect
 )
