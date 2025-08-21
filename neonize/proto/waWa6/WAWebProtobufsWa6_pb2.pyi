@@ -562,6 +562,7 @@ class ClientPayload(google.protobuf.message.Message):
     TRAFFICANONYMIZATION_FIELD_NUMBER: builtins.int
     LIDDBMIGRATED_FIELD_NUMBER: builtins.int
     ACCOUNTTYPE_FIELD_NUMBER: builtins.int
+    CONNECTIONSEQUENCEINFO_FIELD_NUMBER: builtins.int
     username: builtins.int
     passive: builtins.bool
     pushName: builtins.str
@@ -586,6 +587,7 @@ class ClientPayload(google.protobuf.message.Message):
     trafficAnonymization: global___ClientPayload.TrafficAnonymization.ValueType
     lidDbMigrated: builtins.bool
     accountType: global___ClientPayload.AccountType.ValueType
+    connectionSequenceInfo: builtins.int
     @property
     def userAgent(self) -> global___ClientPayload.UserAgent: ...
     @property
@@ -631,9 +633,10 @@ class ClientPayload(google.protobuf.message.Message):
         trafficAnonymization: global___ClientPayload.TrafficAnonymization.ValueType | None = ...,
         lidDbMigrated: builtins.bool | None = ...,
         accountType: global___ClientPayload.AccountType.ValueType | None = ...,
+        connectionSequenceInfo: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paddingBytes", b"paddingBytes", "passive", b"passive", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paddingBytes", b"paddingBytes", "passive", b"passive", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shards", b"shards", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paddingBytes", b"paddingBytes", "passive", b"passive", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paddingBytes", b"paddingBytes", "passive", b"passive", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shards", b"shards", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> None: ...
 
 global___ClientPayload = ClientPayload
 
