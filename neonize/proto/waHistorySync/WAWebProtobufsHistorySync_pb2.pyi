@@ -656,6 +656,7 @@ class StickerMetadata(google.protobuf.message.Message):
     WEIGHT_FIELD_NUMBER: builtins.int
     LASTSTICKERSENTTS_FIELD_NUMBER: builtins.int
     ISLOTTIE_FIELD_NUMBER: builtins.int
+    IMAGEHASH_FIELD_NUMBER: builtins.int
     ISAVATARSTICKER_FIELD_NUMBER: builtins.int
     URL: builtins.str
     fileSHA256: builtins.bytes
@@ -669,6 +670,7 @@ class StickerMetadata(google.protobuf.message.Message):
     weight: builtins.float
     lastStickerSentTS: builtins.int
     isLottie: builtins.bool
+    imageHash: builtins.str
     isAvatarSticker: builtins.bool
     def __init__(
         self,
@@ -685,10 +687,11 @@ class StickerMetadata(google.protobuf.message.Message):
         weight: builtins.float | None = ...,
         lastStickerSentTS: builtins.int | None = ...,
         isLottie: builtins.bool | None = ...,
+        imageHash: builtins.str | None = ...,
         isAvatarSticker: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["URL", b"URL", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "height", b"height", "isAvatarSticker", b"isAvatarSticker", "isLottie", b"isLottie", "lastStickerSentTS", b"lastStickerSentTS", "mediaKey", b"mediaKey", "mimetype", b"mimetype", "weight", b"weight", "width", b"width"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["URL", b"URL", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "height", b"height", "isAvatarSticker", b"isAvatarSticker", "isLottie", b"isLottie", "lastStickerSentTS", b"lastStickerSentTS", "mediaKey", b"mediaKey", "mimetype", b"mimetype", "weight", b"weight", "width", b"width"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["URL", b"URL", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "height", b"height", "imageHash", b"imageHash", "isAvatarSticker", b"isAvatarSticker", "isLottie", b"isLottie", "lastStickerSentTS", b"lastStickerSentTS", "mediaKey", b"mediaKey", "mimetype", b"mimetype", "weight", b"weight", "width", b"width"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["URL", b"URL", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "height", b"height", "imageHash", b"imageHash", "isAvatarSticker", b"isAvatarSticker", "isLottie", b"isLottie", "lastStickerSentTS", b"lastStickerSentTS", "mediaKey", b"mediaKey", "mimetype", b"mimetype", "weight", b"weight", "width", b"width"]) -> None: ...
 
 global___StickerMetadata = StickerMetadata
 
