@@ -57,11 +57,13 @@ class StatusAttribution(google.protobuf.message.Message):
             UNKNOWN: StatusAttribution.RLAttribution._Source.ValueType  # 0
             RAY_BAN_META_GLASSES: StatusAttribution.RLAttribution._Source.ValueType  # 1
             OAKLEY_META_GLASSES: StatusAttribution.RLAttribution._Source.ValueType  # 2
+            HYPERNOVA_GLASSES: StatusAttribution.RLAttribution._Source.ValueType  # 3
 
         class Source(_Source, metaclass=_SourceEnumTypeWrapper): ...
         UNKNOWN: StatusAttribution.RLAttribution.Source.ValueType  # 0
         RAY_BAN_META_GLASSES: StatusAttribution.RLAttribution.Source.ValueType  # 1
         OAKLEY_META_GLASSES: StatusAttribution.RLAttribution.Source.ValueType  # 2
+        HYPERNOVA_GLASSES: StatusAttribution.RLAttribution.Source.ValueType  # 3
 
         SOURCE_FIELD_NUMBER: builtins.int
         source: global___StatusAttribution.RLAttribution.Source.ValueType
@@ -90,6 +92,7 @@ class StatusAttribution(google.protobuf.message.Message):
             SPOTIFY: StatusAttribution.ExternalShare._Source.ValueType  # 4
             YOUTUBE: StatusAttribution.ExternalShare._Source.ValueType  # 5
             PINTEREST: StatusAttribution.ExternalShare._Source.ValueType  # 6
+            THREADS: StatusAttribution.ExternalShare._Source.ValueType  # 7
 
         class Source(_Source, metaclass=_SourceEnumTypeWrapper): ...
         UNKNOWN: StatusAttribution.ExternalShare.Source.ValueType  # 0
@@ -99,6 +102,7 @@ class StatusAttribution(google.protobuf.message.Message):
         SPOTIFY: StatusAttribution.ExternalShare.Source.ValueType  # 4
         YOUTUBE: StatusAttribution.ExternalShare.Source.ValueType  # 5
         PINTEREST: StatusAttribution.ExternalShare.Source.ValueType  # 6
+        THREADS: StatusAttribution.ExternalShare.Source.ValueType  # 7
 
         ACTIONURL_FIELD_NUMBER: builtins.int
         SOURCE_FIELD_NUMBER: builtins.int

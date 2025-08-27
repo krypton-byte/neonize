@@ -98,6 +98,9 @@ class DeviceProps(google.protobuf.message.Message):
         SUPPORTFBIDBOTCHATHISTORY_FIELD_NUMBER: builtins.int
         SUPPORTADDONHISTORYSYNCMIGRATION_FIELD_NUMBER: builtins.int
         SUPPORTMESSAGEASSOCIATION_FIELD_NUMBER: builtins.int
+        SUPPORTGROUPHISTORY_FIELD_NUMBER: builtins.int
+        ONDEMANDREADY_FIELD_NUMBER: builtins.int
+        SUPPORTGUESTCHAT_FIELD_NUMBER: builtins.int
         fullSyncDaysLimit: builtins.int
         fullSyncSizeMbLimit: builtins.int
         storageQuotaMb: builtins.int
@@ -112,6 +115,9 @@ class DeviceProps(google.protobuf.message.Message):
         supportFbidBotChatHistory: builtins.bool
         supportAddOnHistorySyncMigration: builtins.bool
         supportMessageAssociation: builtins.bool
+        supportGroupHistory: builtins.bool
+        onDemandReady: builtins.bool
+        supportGuestChat: builtins.bool
         def __init__(
             self,
             *,
@@ -129,9 +135,12 @@ class DeviceProps(google.protobuf.message.Message):
             supportFbidBotChatHistory: builtins.bool | None = ...,
             supportAddOnHistorySyncMigration: builtins.bool | None = ...,
             supportMessageAssociation: builtins.bool | None = ...,
+            supportGroupHistory: builtins.bool | None = ...,
+            onDemandReady: builtins.bool | None = ...,
+            supportGuestChat: builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["fullSyncDaysLimit", b"fullSyncDaysLimit", "fullSyncSizeMbLimit", b"fullSyncSizeMbLimit", "inlineInitialPayloadInE2EeMsg", b"inlineInitialPayloadInE2EeMsg", "recentSyncDaysLimit", b"recentSyncDaysLimit", "storageQuotaMb", b"storageQuotaMb", "supportAddOnHistorySyncMigration", b"supportAddOnHistorySyncMigration", "supportBizHostedMsg", b"supportBizHostedMsg", "supportBotUserAgentChatHistory", b"supportBotUserAgentChatHistory", "supportCagReactionsAndPolls", b"supportCagReactionsAndPolls", "supportCallLogHistory", b"supportCallLogHistory", "supportFbidBotChatHistory", b"supportFbidBotChatHistory", "supportHostedGroupMsg", b"supportHostedGroupMsg", "supportMessageAssociation", b"supportMessageAssociation", "supportRecentSyncChunkMessageCountTuning", b"supportRecentSyncChunkMessageCountTuning"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["fullSyncDaysLimit", b"fullSyncDaysLimit", "fullSyncSizeMbLimit", b"fullSyncSizeMbLimit", "inlineInitialPayloadInE2EeMsg", b"inlineInitialPayloadInE2EeMsg", "recentSyncDaysLimit", b"recentSyncDaysLimit", "storageQuotaMb", b"storageQuotaMb", "supportAddOnHistorySyncMigration", b"supportAddOnHistorySyncMigration", "supportBizHostedMsg", b"supportBizHostedMsg", "supportBotUserAgentChatHistory", b"supportBotUserAgentChatHistory", "supportCagReactionsAndPolls", b"supportCagReactionsAndPolls", "supportCallLogHistory", b"supportCallLogHistory", "supportFbidBotChatHistory", b"supportFbidBotChatHistory", "supportHostedGroupMsg", b"supportHostedGroupMsg", "supportMessageAssociation", b"supportMessageAssociation", "supportRecentSyncChunkMessageCountTuning", b"supportRecentSyncChunkMessageCountTuning"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["fullSyncDaysLimit", b"fullSyncDaysLimit", "fullSyncSizeMbLimit", b"fullSyncSizeMbLimit", "inlineInitialPayloadInE2EeMsg", b"inlineInitialPayloadInE2EeMsg", "onDemandReady", b"onDemandReady", "recentSyncDaysLimit", b"recentSyncDaysLimit", "storageQuotaMb", b"storageQuotaMb", "supportAddOnHistorySyncMigration", b"supportAddOnHistorySyncMigration", "supportBizHostedMsg", b"supportBizHostedMsg", "supportBotUserAgentChatHistory", b"supportBotUserAgentChatHistory", "supportCagReactionsAndPolls", b"supportCagReactionsAndPolls", "supportCallLogHistory", b"supportCallLogHistory", "supportFbidBotChatHistory", b"supportFbidBotChatHistory", "supportGroupHistory", b"supportGroupHistory", "supportGuestChat", b"supportGuestChat", "supportHostedGroupMsg", b"supportHostedGroupMsg", "supportMessageAssociation", b"supportMessageAssociation", "supportRecentSyncChunkMessageCountTuning", b"supportRecentSyncChunkMessageCountTuning"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["fullSyncDaysLimit", b"fullSyncDaysLimit", "fullSyncSizeMbLimit", b"fullSyncSizeMbLimit", "inlineInitialPayloadInE2EeMsg", b"inlineInitialPayloadInE2EeMsg", "onDemandReady", b"onDemandReady", "recentSyncDaysLimit", b"recentSyncDaysLimit", "storageQuotaMb", b"storageQuotaMb", "supportAddOnHistorySyncMigration", b"supportAddOnHistorySyncMigration", "supportBizHostedMsg", b"supportBizHostedMsg", "supportBotUserAgentChatHistory", b"supportBotUserAgentChatHistory", "supportCagReactionsAndPolls", b"supportCagReactionsAndPolls", "supportCallLogHistory", b"supportCallLogHistory", "supportFbidBotChatHistory", b"supportFbidBotChatHistory", "supportGroupHistory", b"supportGroupHistory", "supportGuestChat", b"supportGuestChat", "supportHostedGroupMsg", b"supportHostedGroupMsg", "supportMessageAssociation", b"supportMessageAssociation", "supportRecentSyncChunkMessageCountTuning", b"supportRecentSyncChunkMessageCountTuning"]) -> None: ...
 
     @typing.final
     class AppVersion(google.protobuf.message.Message):
