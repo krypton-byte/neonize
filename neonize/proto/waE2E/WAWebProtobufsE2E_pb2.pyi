@@ -12,7 +12,7 @@ import google.protobuf.message
 import sys
 import typing
 import waAdv.WAAdv_pb2
-import waBotMetadata.WAWebProtobufsBotMetadata_pb2
+import waBotMetadata.WABotMetadata_pb2
 import waCommon.WACommon_pb2
 import waCompanionReg.WACompanionReg_pb2
 import waMmsRetry.WAMmsRetry_pb2
@@ -964,6 +964,40 @@ class InteractiveMessage(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     @typing.final
+    class CarouselMessage(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        class _CarouselCardType:
+            ValueType = typing.NewType("ValueType", builtins.int)
+            V: typing_extensions.TypeAlias = ValueType
+
+        class _CarouselCardTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[InteractiveMessage.CarouselMessage._CarouselCardType.ValueType], builtins.type):
+            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+            DEFAULT: InteractiveMessage.CarouselMessage._CarouselCardType.ValueType  # 0
+            ALBUM: InteractiveMessage.CarouselMessage._CarouselCardType.ValueType  # 1
+
+        class CarouselCardType(_CarouselCardType, metaclass=_CarouselCardTypeEnumTypeWrapper): ...
+        DEFAULT: InteractiveMessage.CarouselMessage.CarouselCardType.ValueType  # 0
+        ALBUM: InteractiveMessage.CarouselMessage.CarouselCardType.ValueType  # 1
+
+        CARDS_FIELD_NUMBER: builtins.int
+        MESSAGEVERSION_FIELD_NUMBER: builtins.int
+        CAROUSELCARDTYPE_FIELD_NUMBER: builtins.int
+        messageVersion: builtins.int
+        carouselCardType: global___InteractiveMessage.CarouselMessage.CarouselCardType.ValueType
+        @property
+        def cards(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___InteractiveMessage]: ...
+        def __init__(
+            self,
+            *,
+            cards: collections.abc.Iterable[global___InteractiveMessage] | None = ...,
+            messageVersion: builtins.int | None = ...,
+            carouselCardType: global___InteractiveMessage.CarouselMessage.CarouselCardType.ValueType | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["carouselCardType", b"carouselCardType", "messageVersion", b"messageVersion"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["cards", b"cards", "carouselCardType", b"carouselCardType", "messageVersion", b"messageVersion"]) -> None: ...
+
+    @typing.final
     class ShopMessage(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -999,24 +1033,6 @@ class InteractiveMessage(google.protobuf.message.Message):
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["ID", b"ID", "messageVersion", b"messageVersion", "surface", b"surface"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["ID", b"ID", "messageVersion", b"messageVersion", "surface", b"surface"]) -> None: ...
-
-    @typing.final
-    class CarouselMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-        CARDS_FIELD_NUMBER: builtins.int
-        MESSAGEVERSION_FIELD_NUMBER: builtins.int
-        messageVersion: builtins.int
-        @property
-        def cards(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___InteractiveMessage]: ...
-        def __init__(
-            self,
-            *,
-            cards: collections.abc.Iterable[global___InteractiveMessage] | None = ...,
-            messageVersion: builtins.int | None = ...,
-        ) -> None: ...
-        def HasField(self, field_name: typing.Literal["messageVersion", b"messageVersion"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["cards", b"cards", "messageVersion", b"messageVersion"]) -> None: ...
 
     @typing.final
     class NativeFlowMessage(google.protobuf.message.Message):
@@ -1775,14 +1791,20 @@ class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
             DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
             NONCE_FIELD_NUMBER: builtins.int
+            WAFBID_FIELD_NUMBER: builtins.int
+            FORCEREFRESH_FIELD_NUMBER: builtins.int
             nonce: builtins.str
+            waFbid: builtins.str
+            forceRefresh: builtins.bool
             def __init__(
                 self,
                 *,
                 nonce: builtins.str | None = ...,
+                waFbid: builtins.str | None = ...,
+                forceRefresh: builtins.bool | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["nonce", b"nonce"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["nonce", b"nonce"]) -> None: ...
+            def HasField(self, field_name: typing.Literal["forceRefresh", b"forceRefresh", "nonce", b"nonce", "waFbid", b"waFbid"]) -> builtins.bool: ...
+            def ClearField(self, field_name: typing.Literal["forceRefresh", b"forceRefresh", "nonce", b"nonce", "waFbid", b"waFbid"]) -> None: ...
 
         @typing.final
         class CompanionMetaNonceFetchResponse(google.protobuf.message.Message):
@@ -3098,6 +3120,7 @@ class ImageMessage(google.protobuf.message.Message):
     IMAGESOURCETYPE_FIELD_NUMBER: builtins.int
     ACCESSIBILITYLABEL_FIELD_NUMBER: builtins.int
     MEDIAKEYDOMAIN_FIELD_NUMBER: builtins.int
+    QRURL_FIELD_NUMBER: builtins.int
     URL: builtins.str
     mimetype: builtins.str
     caption: builtins.str
@@ -3124,6 +3147,7 @@ class ImageMessage(google.protobuf.message.Message):
     imageSourceType: global___ImageMessage.ImageSourceType.ValueType
     accessibilityLabel: builtins.str
     mediaKeyDomain: global___MediaKeyDomain.ValueType
+    qrURL: builtins.str
     @property
     def interactiveAnnotations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___InteractiveAnnotation]: ...
     @property
@@ -3165,9 +3189,10 @@ class ImageMessage(google.protobuf.message.Message):
         imageSourceType: global___ImageMessage.ImageSourceType.ValueType | None = ...,
         accessibilityLabel: builtins.str | None = ...,
         mediaKeyDomain: global___MediaKeyDomain.ValueType | None = ...,
+        qrURL: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "experimentGroupID", b"experimentGroupID", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "firstScanLength", b"firstScanLength", "firstScanSidecar", b"firstScanSidecar", "height", b"height", "imageSourceType", b"imageSourceType", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "midQualityFileEncSHA256", b"midQualityFileEncSHA256", "midQualityFileSHA256", b"midQualityFileSHA256", "mimetype", b"mimetype", "scansSidecar", b"scansSidecar", "staticURL", b"staticURL", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailSHA256", b"thumbnailSHA256", "viewOnce", b"viewOnce", "width", b"width"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "annotations", b"annotations", "caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "experimentGroupID", b"experimentGroupID", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "firstScanLength", b"firstScanLength", "firstScanSidecar", b"firstScanSidecar", "height", b"height", "imageSourceType", b"imageSourceType", "interactiveAnnotations", b"interactiveAnnotations", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "midQualityFileEncSHA256", b"midQualityFileEncSHA256", "midQualityFileSHA256", b"midQualityFileSHA256", "mimetype", b"mimetype", "scanLengths", b"scanLengths", "scansSidecar", b"scansSidecar", "staticURL", b"staticURL", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailSHA256", b"thumbnailSHA256", "viewOnce", b"viewOnce", "width", b"width"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "experimentGroupID", b"experimentGroupID", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "firstScanLength", b"firstScanLength", "firstScanSidecar", b"firstScanSidecar", "height", b"height", "imageSourceType", b"imageSourceType", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "midQualityFileEncSHA256", b"midQualityFileEncSHA256", "midQualityFileSHA256", b"midQualityFileSHA256", "mimetype", b"mimetype", "qrURL", b"qrURL", "scansSidecar", b"scansSidecar", "staticURL", b"staticURL", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailSHA256", b"thumbnailSHA256", "viewOnce", b"viewOnce", "width", b"width"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "annotations", b"annotations", "caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "experimentGroupID", b"experimentGroupID", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "firstScanLength", b"firstScanLength", "firstScanSidecar", b"firstScanSidecar", "height", b"height", "imageSourceType", b"imageSourceType", "interactiveAnnotations", b"interactiveAnnotations", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "midQualityFileEncSHA256", b"midQualityFileEncSHA256", "midQualityFileSHA256", b"midQualityFileSHA256", "mimetype", b"mimetype", "qrURL", b"qrURL", "scanLengths", b"scanLengths", "scansSidecar", b"scansSidecar", "staticURL", b"staticURL", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailSHA256", b"thumbnailSHA256", "viewOnce", b"viewOnce", "width", b"width"]) -> None: ...
 
 global___ImageMessage = ImageMessage
 
@@ -3447,6 +3472,7 @@ class ContextInfo(google.protobuf.message.Message):
         WTWAADFORMAT_FIELD_NUMBER: builtins.int
         ADTYPE_FIELD_NUMBER: builtins.int
         WTWAWEBSITEURL_FIELD_NUMBER: builtins.int
+        ADPREVIEWURL_FIELD_NUMBER: builtins.int
         title: builtins.str
         body: builtins.str
         mediaType: global___ContextInfo.ExternalAdReplyInfo.MediaType.ValueType
@@ -3473,6 +3499,7 @@ class ContextInfo(google.protobuf.message.Message):
         wtwaAdFormat: builtins.bool
         adType: global___ContextInfo.ExternalAdReplyInfo.AdType.ValueType
         wtwaWebsiteURL: builtins.str
+        adPreviewURL: builtins.str
         def __init__(
             self,
             *,
@@ -3502,9 +3529,10 @@ class ContextInfo(google.protobuf.message.Message):
             wtwaAdFormat: builtins.bool | None = ...,
             adType: global___ContextInfo.ExternalAdReplyInfo.AdType.ValueType | None = ...,
             wtwaWebsiteURL: builtins.str | None = ...,
+            adPreviewURL: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["adContextPreviewDismissed", b"adContextPreviewDismissed", "adType", b"adType", "automatedGreetingMessageCtaType", b"automatedGreetingMessageCtaType", "automatedGreetingMessageShown", b"automatedGreetingMessageShown", "body", b"body", "clickToWhatsappCall", b"clickToWhatsappCall", "containsAutoReply", b"containsAutoReply", "ctaPayload", b"ctaPayload", "ctwaClid", b"ctwaClid", "disableNudge", b"disableNudge", "greetingMessageBody", b"greetingMessageBody", "mediaType", b"mediaType", "mediaURL", b"mediaURL", "originalImageURL", b"originalImageURL", "ref", b"ref", "renderLargerThumbnail", b"renderLargerThumbnail", "showAdAttribution", b"showAdAttribution", "sourceApp", b"sourceApp", "sourceID", b"sourceID", "sourceType", b"sourceType", "sourceURL", b"sourceURL", "thumbnail", b"thumbnail", "thumbnailURL", b"thumbnailURL", "title", b"title", "wtwaAdFormat", b"wtwaAdFormat", "wtwaWebsiteURL", b"wtwaWebsiteURL"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["adContextPreviewDismissed", b"adContextPreviewDismissed", "adType", b"adType", "automatedGreetingMessageCtaType", b"automatedGreetingMessageCtaType", "automatedGreetingMessageShown", b"automatedGreetingMessageShown", "body", b"body", "clickToWhatsappCall", b"clickToWhatsappCall", "containsAutoReply", b"containsAutoReply", "ctaPayload", b"ctaPayload", "ctwaClid", b"ctwaClid", "disableNudge", b"disableNudge", "greetingMessageBody", b"greetingMessageBody", "mediaType", b"mediaType", "mediaURL", b"mediaURL", "originalImageURL", b"originalImageURL", "ref", b"ref", "renderLargerThumbnail", b"renderLargerThumbnail", "showAdAttribution", b"showAdAttribution", "sourceApp", b"sourceApp", "sourceID", b"sourceID", "sourceType", b"sourceType", "sourceURL", b"sourceURL", "thumbnail", b"thumbnail", "thumbnailURL", b"thumbnailURL", "title", b"title", "wtwaAdFormat", b"wtwaAdFormat", "wtwaWebsiteURL", b"wtwaWebsiteURL"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["adContextPreviewDismissed", b"adContextPreviewDismissed", "adPreviewURL", b"adPreviewURL", "adType", b"adType", "automatedGreetingMessageCtaType", b"automatedGreetingMessageCtaType", "automatedGreetingMessageShown", b"automatedGreetingMessageShown", "body", b"body", "clickToWhatsappCall", b"clickToWhatsappCall", "containsAutoReply", b"containsAutoReply", "ctaPayload", b"ctaPayload", "ctwaClid", b"ctwaClid", "disableNudge", b"disableNudge", "greetingMessageBody", b"greetingMessageBody", "mediaType", b"mediaType", "mediaURL", b"mediaURL", "originalImageURL", b"originalImageURL", "ref", b"ref", "renderLargerThumbnail", b"renderLargerThumbnail", "showAdAttribution", b"showAdAttribution", "sourceApp", b"sourceApp", "sourceID", b"sourceID", "sourceType", b"sourceType", "sourceURL", b"sourceURL", "thumbnail", b"thumbnail", "thumbnailURL", b"thumbnailURL", "title", b"title", "wtwaAdFormat", b"wtwaAdFormat", "wtwaWebsiteURL", b"wtwaWebsiteURL"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["adContextPreviewDismissed", b"adContextPreviewDismissed", "adPreviewURL", b"adPreviewURL", "adType", b"adType", "automatedGreetingMessageCtaType", b"automatedGreetingMessageCtaType", "automatedGreetingMessageShown", b"automatedGreetingMessageShown", "body", b"body", "clickToWhatsappCall", b"clickToWhatsappCall", "containsAutoReply", b"containsAutoReply", "ctaPayload", b"ctaPayload", "ctwaClid", b"ctwaClid", "disableNudge", b"disableNudge", "greetingMessageBody", b"greetingMessageBody", "mediaType", b"mediaType", "mediaURL", b"mediaURL", "originalImageURL", b"originalImageURL", "ref", b"ref", "renderLargerThumbnail", b"renderLargerThumbnail", "showAdAttribution", b"showAdAttribution", "sourceApp", b"sourceApp", "sourceID", b"sourceID", "sourceType", b"sourceType", "sourceURL", b"sourceURL", "thumbnail", b"thumbnail", "thumbnailURL", b"thumbnailURL", "title", b"title", "wtwaAdFormat", b"wtwaAdFormat", "wtwaWebsiteURL", b"wtwaWebsiteURL"]) -> None: ...
 
     @typing.final
     class AdReplyInfo(google.protobuf.message.Message):
@@ -4490,7 +4518,7 @@ class MessageContextInfo(google.protobuf.message.Message):
     @property
     def deviceListMetadata(self) -> global___DeviceListMetadata: ...
     @property
-    def botMetadata(self) -> waBotMetadata.WAWebProtobufsBotMetadata_pb2.BotMetadata: ...
+    def botMetadata(self) -> waBotMetadata.WABotMetadata_pb2.BotMetadata: ...
     @property
     def messageAssociation(self) -> global___MessageAssociation: ...
     @property
@@ -4508,7 +4536,7 @@ class MessageContextInfo(google.protobuf.message.Message):
         paddingBytes: builtins.bytes | None = ...,
         messageAddOnDurationInSecs: builtins.int | None = ...,
         botMessageSecret: builtins.bytes | None = ...,
-        botMetadata: waBotMetadata.WAWebProtobufsBotMetadata_pb2.BotMetadata | None = ...,
+        botMetadata: waBotMetadata.WABotMetadata_pb2.BotMetadata | None = ...,
         reportingTokenVersion: builtins.int | None = ...,
         messageAddOnExpiryType: global___MessageContextInfo.MessageAddonExpiryType.ValueType | None = ...,
         messageAssociation: global___MessageAssociation | None = ...,
@@ -5287,9 +5315,9 @@ class MessageHistoryMetadata(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     HISTORYRECEIVERS_FIELD_NUMBER: builtins.int
-    FIRSTMESSAGETIMESTAMP_FIELD_NUMBER: builtins.int
+    OLDESTMESSAGETIMESTAMP_FIELD_NUMBER: builtins.int
     MESSAGECOUNT_FIELD_NUMBER: builtins.int
-    firstMessageTimestamp: builtins.int
+    oldestMessageTimestamp: builtins.int
     messageCount: builtins.int
     @property
     def historyReceivers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
@@ -5297,11 +5325,11 @@ class MessageHistoryMetadata(google.protobuf.message.Message):
         self,
         *,
         historyReceivers: collections.abc.Iterable[builtins.str] | None = ...,
-        firstMessageTimestamp: builtins.int | None = ...,
+        oldestMessageTimestamp: builtins.int | None = ...,
         messageCount: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["firstMessageTimestamp", b"firstMessageTimestamp", "messageCount", b"messageCount"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["firstMessageTimestamp", b"firstMessageTimestamp", "historyReceivers", b"historyReceivers", "messageCount", b"messageCount"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["messageCount", b"messageCount", "oldestMessageTimestamp", b"oldestMessageTimestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["historyReceivers", b"historyReceivers", "messageCount", b"messageCount", "oldestMessageTimestamp", b"oldestMessageTimestamp"]) -> None: ...
 
 global___MessageHistoryMetadata = MessageHistoryMetadata
 
@@ -6274,6 +6302,8 @@ class SendPaymentMessage(google.protobuf.message.Message):
     NOTEMESSAGE_FIELD_NUMBER: builtins.int
     REQUESTMESSAGEKEY_FIELD_NUMBER: builtins.int
     BACKGROUND_FIELD_NUMBER: builtins.int
+    TRANSACTIONDATA_FIELD_NUMBER: builtins.int
+    transactionData: builtins.str
     @property
     def noteMessage(self) -> global___Message: ...
     @property
@@ -6286,9 +6316,10 @@ class SendPaymentMessage(google.protobuf.message.Message):
         noteMessage: global___Message | None = ...,
         requestMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
         background: global___PaymentBackground | None = ...,
+        transactionData: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["background", b"background", "noteMessage", b"noteMessage", "requestMessageKey", b"requestMessageKey"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["background", b"background", "noteMessage", b"noteMessage", "requestMessageKey", b"requestMessageKey"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["background", b"background", "noteMessage", b"noteMessage", "requestMessageKey", b"requestMessageKey", "transactionData", b"transactionData"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["background", b"background", "noteMessage", b"noteMessage", "requestMessageKey", b"requestMessageKey", "transactionData", b"transactionData"]) -> None: ...
 
 global___SendPaymentMessage = SendPaymentMessage
 
