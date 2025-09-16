@@ -20,8 +20,8 @@ jobs:
 
       # ⚠️ Note: You can use any deployment step here to automatically push the README
       # changes back to your branch.
-      # - name: Deploy to GitHub Pages 🚀
-      #   uses: JamesIves/github-pages-deploy-action@v4
-      #   with:
-      #     branch: master # The branch the action should deploy to.
-      #     folder: '.'
+      - name: Deploy to GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: master # The branch the action should deploy to.
+          folder: '.'
