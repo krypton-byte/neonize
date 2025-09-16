@@ -60,6 +60,25 @@
 - ⚡ Both synchronous and asynchronous APIs
 - 🧪 Comprehensive examples and documentation
 
+## 💎 Sponsors
+
+We are grateful to our sponsors who help make Neonize possible. Their support enables us to continue developing and maintaining this open-source project for the community.
+
+<!-- sponsors --><!-- sponsors -->
+
+### 🤝 Become a Sponsor
+
+Your sponsorship helps us:
+- ⚡ Maintain and improve Neonize
+- 🐛 Fix bugs and add new features
+- 📚 Create better documentation
+- 🔧 Provide community support
+- 🚀 Keep the project free and open-source
+
+**[Become a Sponsor →](https://github.com/sponsors/krypton-byte)**
+
+*Thank you to all our sponsors for believing in Neonize and supporting open-source development! 🙏*
+
 ## 🚀 Getting Started
 
 ### Prerequisites
