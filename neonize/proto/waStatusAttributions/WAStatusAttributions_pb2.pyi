@@ -34,6 +34,7 @@ class StatusAttribution(google.protobuf.message.Message):
         STATUS_MENTION: StatusAttribution._Type.ValueType  # 4
         GROUP_STATUS: StatusAttribution._Type.ValueType  # 5
         RL_ATTRIBUTION: StatusAttribution._Type.ValueType  # 6
+        AI_CREATED: StatusAttribution._Type.ValueType  # 7
 
     class Type(_Type, metaclass=_TypeEnumTypeWrapper): ...
     UNKNOWN: StatusAttribution.Type.ValueType  # 0
@@ -43,6 +44,34 @@ class StatusAttribution(google.protobuf.message.Message):
     STATUS_MENTION: StatusAttribution.Type.ValueType  # 4
     GROUP_STATUS: StatusAttribution.Type.ValueType  # 5
     RL_ATTRIBUTION: StatusAttribution.Type.ValueType  # 6
+    AI_CREATED: StatusAttribution.Type.ValueType  # 7
+
+    @typing.final
+    class AiCreatedAttribution(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        class _Source:
+            ValueType = typing.NewType("ValueType", builtins.int)
+            V: typing_extensions.TypeAlias = ValueType
+
+        class _SourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[StatusAttribution.AiCreatedAttribution._Source.ValueType], builtins.type):
+            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+            UNKNOWN: StatusAttribution.AiCreatedAttribution._Source.ValueType  # 0
+            STATUS_MIMICRY: StatusAttribution.AiCreatedAttribution._Source.ValueType  # 1
+
+        class Source(_Source, metaclass=_SourceEnumTypeWrapper): ...
+        UNKNOWN: StatusAttribution.AiCreatedAttribution.Source.ValueType  # 0
+        STATUS_MIMICRY: StatusAttribution.AiCreatedAttribution.Source.ValueType  # 1
+
+        SOURCE_FIELD_NUMBER: builtins.int
+        source: global___StatusAttribution.AiCreatedAttribution.Source.ValueType
+        def __init__(
+            self,
+            *,
+            source: global___StatusAttribution.AiCreatedAttribution.Source.ValueType | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["source", b"source"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["source", b"source"]) -> None: ...
 
     @typing.final
     class RLAttribution(google.protobuf.message.Message):
@@ -229,6 +258,7 @@ class StatusAttribution(google.protobuf.message.Message):
     MUSIC_FIELD_NUMBER: builtins.int
     GROUPSTATUS_FIELD_NUMBER: builtins.int
     RLATTRIBUTION_FIELD_NUMBER: builtins.int
+    AICREATEDATTRIBUTION_FIELD_NUMBER: builtins.int
     TYPE_FIELD_NUMBER: builtins.int
     ACTIONURL_FIELD_NUMBER: builtins.int
     type: global___StatusAttribution.Type.ValueType
@@ -243,6 +273,8 @@ class StatusAttribution(google.protobuf.message.Message):
     def groupStatus(self) -> global___StatusAttribution.GroupStatus: ...
     @property
     def rlAttribution(self) -> global___StatusAttribution.RLAttribution: ...
+    @property
+    def aiCreatedAttribution(self) -> global___StatusAttribution.AiCreatedAttribution: ...
     def __init__(
         self,
         *,
@@ -251,11 +283,12 @@ class StatusAttribution(google.protobuf.message.Message):
         music: global___StatusAttribution.Music | None = ...,
         groupStatus: global___StatusAttribution.GroupStatus | None = ...,
         rlAttribution: global___StatusAttribution.RLAttribution | None = ...,
+        aiCreatedAttribution: global___StatusAttribution.AiCreatedAttribution | None = ...,
         type: global___StatusAttribution.Type.ValueType | None = ...,
         actionURL: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["actionURL", b"actionURL", "attributionData", b"attributionData", "externalShare", b"externalShare", "groupStatus", b"groupStatus", "music", b"music", "rlAttribution", b"rlAttribution", "statusReshare", b"statusReshare", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["actionURL", b"actionURL", "attributionData", b"attributionData", "externalShare", b"externalShare", "groupStatus", b"groupStatus", "music", b"music", "rlAttribution", b"rlAttribution", "statusReshare", b"statusReshare", "type", b"type"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["attributionData", b"attributionData"]) -> typing.Literal["statusReshare", "externalShare", "music", "groupStatus", "rlAttribution"] | None: ...
+    def HasField(self, field_name: typing.Literal["actionURL", b"actionURL", "aiCreatedAttribution", b"aiCreatedAttribution", "attributionData", b"attributionData", "externalShare", b"externalShare", "groupStatus", b"groupStatus", "music", b"music", "rlAttribution", b"rlAttribution", "statusReshare", b"statusReshare", "type", b"type"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["actionURL", b"actionURL", "aiCreatedAttribution", b"aiCreatedAttribution", "attributionData", b"attributionData", "externalShare", b"externalShare", "groupStatus", b"groupStatus", "music", b"music", "rlAttribution", b"rlAttribution", "statusReshare", b"statusReshare", "type", b"type"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["attributionData", b"attributionData"]) -> typing.Literal["statusReshare", "externalShare", "music", "groupStatus", "rlAttribution", "aiCreatedAttribution"] | None: ...
 
 global___StatusAttribution = StatusAttribution
