@@ -225,6 +225,27 @@ class UploadResponse(google.protobuf.message.Message):
 global___UploadResponse = UploadResponse
 
 @typing.final
+class BroadcastRecipient(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LID_FIELD_NUMBER: builtins.int
+    PN_FIELD_NUMBER: builtins.int
+    @property
+    def LID(self) -> global___JID: ...
+    @property
+    def PN(self) -> global___JID: ...
+    def __init__(
+        self,
+        *,
+        LID: global___JID | None = ...,
+        PN: global___JID | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["LID", b"LID", "PN", b"PN"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["LID", b"LID", "PN", b"PN"]) -> None: ...
+
+global___BroadcastRecipient = BroadcastRecipient
+
+@typing.final
 class MessageSource(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -236,6 +257,7 @@ class MessageSource(google.protobuf.message.Message):
     SENDERALT_FIELD_NUMBER: builtins.int
     RECIPIENTALT_FIELD_NUMBER: builtins.int
     BROADCASTLISTOWNER_FIELD_NUMBER: builtins.int
+    BROADCASTRECIPIENTS_FIELD_NUMBER: builtins.int
     IsFromMe: builtins.bool
     IsGroup: builtins.bool
     AddressingMode: global___AddressingMode.ValueType
@@ -249,6 +271,8 @@ class MessageSource(google.protobuf.message.Message):
     def RecipientAlt(self) -> global___JID: ...
     @property
     def BroadcastListOwner(self) -> global___JID: ...
+    @property
+    def BroadcastRecipients(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BroadcastRecipient]: ...
     def __init__(
         self,
         *,
@@ -260,9 +284,10 @@ class MessageSource(google.protobuf.message.Message):
         SenderAlt: global___JID | None = ...,
         RecipientAlt: global___JID | None = ...,
         BroadcastListOwner: global___JID | None = ...,
+        BroadcastRecipients: collections.abc.Iterable[global___BroadcastRecipient] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["AddressingMode", b"AddressingMode", "BroadcastListOwner", b"BroadcastListOwner", "Chat", b"Chat", "IsFromMe", b"IsFromMe", "IsGroup", b"IsGroup", "RecipientAlt", b"RecipientAlt", "Sender", b"Sender", "SenderAlt", b"SenderAlt"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["AddressingMode", b"AddressingMode", "BroadcastListOwner", b"BroadcastListOwner", "Chat", b"Chat", "IsFromMe", b"IsFromMe", "IsGroup", b"IsGroup", "RecipientAlt", b"RecipientAlt", "Sender", b"Sender", "SenderAlt", b"SenderAlt"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["AddressingMode", b"AddressingMode", "BroadcastListOwner", b"BroadcastListOwner", "BroadcastRecipients", b"BroadcastRecipients", "Chat", b"Chat", "IsFromMe", b"IsFromMe", "IsGroup", b"IsGroup", "RecipientAlt", b"RecipientAlt", "Sender", b"Sender", "SenderAlt", b"SenderAlt"]) -> None: ...
 
 global___MessageSource = MessageSource
 
@@ -1386,10 +1411,12 @@ class ProfilePictureInfo(google.protobuf.message.Message):
     ID_FIELD_NUMBER: builtins.int
     TYPE_FIELD_NUMBER: builtins.int
     DIRECTPATH_FIELD_NUMBER: builtins.int
+    HASH_FIELD_NUMBER: builtins.int
     URL: builtins.str
     ID: builtins.str
     Type: builtins.str
     DirectPath: builtins.str
+    Hash: builtins.bytes
     def __init__(
         self,
         *,
@@ -1397,9 +1424,10 @@ class ProfilePictureInfo(google.protobuf.message.Message):
         ID: builtins.str | None = ...,
         Type: builtins.str | None = ...,
         DirectPath: builtins.str | None = ...,
+        Hash: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["DirectPath", b"DirectPath", "ID", b"ID", "Type", b"Type", "URL", b"URL"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["DirectPath", b"DirectPath", "ID", b"ID", "Type", b"Type", "URL", b"URL"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["DirectPath", b"DirectPath", "Hash", b"Hash", "ID", b"ID", "Type", b"Type", "URL", b"URL"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["DirectPath", b"DirectPath", "Hash", b"Hash", "ID", b"ID", "Type", b"Type", "URL", b"URL"]) -> None: ...
 
 global___ProfilePictureInfo = ProfilePictureInfo
 
@@ -2326,11 +2354,13 @@ class ContactInfo(google.protobuf.message.Message):
     FULLNAME_FIELD_NUMBER: builtins.int
     PUSHNAME_FIELD_NUMBER: builtins.int
     BUSINESSNAME_FIELD_NUMBER: builtins.int
+    REDACTEDPHONE_FIELD_NUMBER: builtins.int
     Found: builtins.bool
     FirstName: builtins.str
     FullName: builtins.str
     PushName: builtins.str
     BusinessName: builtins.str
+    RedactedPhone: builtins.str
     def __init__(
         self,
         *,
@@ -2339,9 +2369,10 @@ class ContactInfo(google.protobuf.message.Message):
         FullName: builtins.str | None = ...,
         PushName: builtins.str | None = ...,
         BusinessName: builtins.str | None = ...,
+        RedactedPhone: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["BusinessName", b"BusinessName", "FirstName", b"FirstName", "Found", b"Found", "FullName", b"FullName", "PushName", b"PushName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["BusinessName", b"BusinessName", "FirstName", b"FirstName", "Found", b"Found", "FullName", b"FullName", "PushName", b"PushName"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["BusinessName", b"BusinessName", "FirstName", b"FirstName", "Found", b"Found", "FullName", b"FullName", "PushName", b"PushName", "RedactedPhone", b"RedactedPhone"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["BusinessName", b"BusinessName", "FirstName", b"FirstName", "Found", b"Found", "FullName", b"FullName", "PushName", b"PushName", "RedactedPhone", b"RedactedPhone"]) -> None: ...
 
 global___ContactInfo = ContactInfo
 
@@ -3238,20 +3269,24 @@ class BasicCallMeta(google.protobuf.message.Message):
     FROM_FIELD_NUMBER: builtins.int
     TIMESTAMP_FIELD_NUMBER: builtins.int
     CALLCREATOR_FIELD_NUMBER: builtins.int
+    CALLCREATORALT_FIELD_NUMBER: builtins.int
     CALLID_FIELD_NUMBER: builtins.int
     timestamp: builtins.int
     callID: builtins.str
     @property
     def callCreator(self) -> global___JID: ...
+    @property
+    def callCreatorAlt(self) -> global___JID: ...
     def __init__(
         self,
         *,
         timestamp: builtins.int | None = ...,
         callCreator: global___JID | None = ...,
+        callCreatorAlt: global___JID | None = ...,
         callID: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["callCreator", b"callCreator", "callID", b"callID", "from", b"from", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["callCreator", b"callCreator", "callID", b"callID", "from", b"from", "timestamp", b"timestamp"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["callCreator", b"callCreator", "callCreatorAlt", b"callCreatorAlt", "callID", b"callID", "from", b"from", "timestamp", b"timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["callCreator", b"callCreator", "callCreatorAlt", b"callCreatorAlt", "callID", b"callID", "from", b"from", "timestamp", b"timestamp"]) -> None: ...
 
 global___BasicCallMeta = BasicCallMeta
 

@@ -225,6 +225,17 @@ func EncodeAddressingMode(mode_types types.AddressingMode) *defproto.AddressingM
 	return AddressingMode
 }
 
+func EncodeBroadcastRecipients(recipients []types.BroadcastRecipient) []*defproto.BroadcastRecipient {
+	models := []*defproto.BroadcastRecipient{}
+	for _, recipient := range recipients {
+		models = append(models, &defproto.BroadcastRecipient{
+			LID: EncodeJidProto(recipient.LID),
+			PN:  EncodeJidProto(recipient.PN),
+		})
+	}
+	return models
+}
+
 func EncodeMessageSource(messageSource types.MessageSource) *defproto.MessageSource {
 	return &defproto.MessageSource{
 		Chat:     EncodeJidProto(messageSource.Chat),
@@ -236,7 +247,8 @@ func EncodeMessageSource(messageSource types.MessageSource) *defproto.MessageSou
 		SenderAlt:      EncodeJidProto(messageSource.SenderAlt),
 		RecipientAlt:   EncodeJidProto(messageSource.RecipientAlt),
 
-		BroadcastListOwner: EncodeJidProto(messageSource.BroadcastListOwner),
+		BroadcastListOwner:  EncodeJidProto(messageSource.BroadcastListOwner),
+		BroadcastRecipients: EncodeBroadcastRecipients(messageSource.BroadcastRecipients),
 	}
 }
 
@@ -343,6 +355,7 @@ func EncodeProfilePictureInfo(profilePictureInfo types.ProfilePictureInfo) *defp
 		ID:         &profilePictureInfo.ID,
 		Type:       &profilePictureInfo.Type,
 		DirectPath: &profilePictureInfo.DirectPath,
+		Hash:       profilePictureInfo.Hash,
 	}
 }
 
@@ -906,11 +919,12 @@ func EncodeNewsletterLiveUpdate(update *events.NewsletterLiveUpdate) defproto.Ne
 
 func EncodeContactInfo(info types.ContactInfo) *defproto.ContactInfo {
 	return &defproto.ContactInfo{
-		Found:        proto.Bool(info.Found),
-		FirstName:    proto.String(info.FirstName),
-		FullName:     proto.String(info.FullName),
-		PushName:     proto.String(info.PushName),
-		BusinessName: proto.String(info.BusinessName),
+		Found:         proto.Bool(info.Found),
+		FirstName:     proto.String(info.FirstName),
+		FullName:      proto.String(info.FullName),
+		PushName:      proto.String(info.PushName),
+		BusinessName:  proto.String(info.BusinessName),
+		RedactedPhone: proto.String(info.RedactedPhone),
 	}
 }
 
@@ -929,10 +943,11 @@ func EncodeContacts(info map[types.JID]types.ContactInfo) []*defproto.Contact {
 
 func EncodeBasicCallMeta(basicCallMeta types.BasicCallMeta) *defproto.BasicCallMeta {
 	return &defproto.BasicCallMeta{
-		From:        EncodeJidProto(basicCallMeta.From),
-		Timestamp:   proto.Int64(int64(basicCallMeta.Timestamp.Unix())),
-		CallCreator: EncodeJidProto(basicCallMeta.CallCreator),
-		CallID:      proto.String(basicCallMeta.CallID),
+		From:           EncodeJidProto(basicCallMeta.From),
+		Timestamp:      proto.Int64(int64(basicCallMeta.Timestamp.Unix())),
+		CallCreator:    EncodeJidProto(basicCallMeta.CallCreator),
+		CallCreatorAlt: EncodeJidProto(basicCallMeta.CallCreatorAlt),
+		CallID:         proto.String(basicCallMeta.CallID),
 	}
 }
 
