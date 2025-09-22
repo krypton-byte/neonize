@@ -1574,13 +1574,13 @@ func SetDefaultDisappearingTimer(id *C.char, timer C.int64_t) *C.char {
 }
 
 //export SetDisappearingTimer
-func SetDisappearingTimer(id *C.char, JIDByte *C.uchar, JIDSize C.int, timer C.int64_t) *C.char {
+func SetDisappearingTimer(id *C.char, JIDByte *C.uchar, JIDSize C.int, timer C.int64_t, settingTS C.int64_t) *C.char {
 	var JID defproto.JID
 	err_ := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
 	if err_ != nil {
 		panic(err_)
 	}
-	err := clients[C.GoString(id)].SetDisappearingTimer(utils.DecodeJidProto(&JID), time.Duration(timer))
+	err := clients[C.GoString(id)].SetDisappearingTimer(utils.DecodeJidProto(&JID), time.Duration(timer), time.UnixMilli(int64(settingTS)))
 	if err != nil {
 		return C.CString(err.Error())
 	}

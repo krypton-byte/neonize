@@ -206,6 +206,450 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
         def ClearField(self, field_name: typing.Literal["action", b"action", "targetUserID", b"targetUserID"]) -> None: ...
 
     @typing.final
+    class XmatUnpinMessageV2(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        PINNEDMESSAGEID_FIELD_NUMBER: builtins.int
+        pinnedMessageID: builtins.str
+        def __init__(
+            self,
+            *,
+            pinnedMessageID: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["pinnedMessageID", b"pinnedMessageID"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["pinnedMessageID", b"pinnedMessageID"]) -> None: ...
+
+    @typing.final
+    class XmatPinMessageV2(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        PINNEDMESSAGEID_FIELD_NUMBER: builtins.int
+        pinnedMessageID: builtins.str
+        def __init__(
+            self,
+            *,
+            pinnedMessageID: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["pinnedMessageID", b"pinnedMessageID"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["pinnedMessageID", b"pinnedMessageID"]) -> None: ...
+
+    @typing.final
+    class XmatUpdatePayments(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        RECEIVERNAME_FIELD_NUMBER: builtins.int
+        SENDERNAME_FIELD_NUMBER: builtins.int
+        AMOUNT_FIELD_NUMBER: builtins.int
+        TRANSACTIONID_FIELD_NUMBER: builtins.int
+        TRANSACTIONSTATUS_FIELD_NUMBER: builtins.int
+        receiverName: builtins.str
+        senderName: builtins.str
+        amount: builtins.float
+        transactionID: builtins.int
+        transactionStatus: builtins.int
+        def __init__(
+            self,
+            *,
+            receiverName: builtins.str | None = ...,
+            senderName: builtins.str | None = ...,
+            amount: builtins.float | None = ...,
+            transactionID: builtins.int | None = ...,
+            transactionStatus: builtins.int | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["amount", b"amount", "receiverName", b"receiverName", "senderName", b"senderName", "transactionID", b"transactionID", "transactionStatus", b"transactionStatus"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["amount", b"amount", "receiverName", b"receiverName", "senderName", b"senderName", "transactionID", b"transactionID", "transactionStatus", b"transactionStatus"]) -> None: ...
+
+    @typing.final
+    class XmatThreadQuickReaction(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        THREADQUICKREACTIONEMOJI_FIELD_NUMBER: builtins.int
+        THREADQUICKREACTIONINSTRUCTIONKEYID_FIELD_NUMBER: builtins.int
+        threadQuickReactionEmoji: builtins.str
+        threadQuickReactionInstructionKeyID: builtins.str
+        def __init__(
+            self,
+            *,
+            threadQuickReactionEmoji: builtins.str | None = ...,
+            threadQuickReactionInstructionKeyID: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["threadQuickReactionEmoji", b"threadQuickReactionEmoji", "threadQuickReactionInstructionKeyID", b"threadQuickReactionInstructionKeyID"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["threadQuickReactionEmoji", b"threadQuickReactionEmoji", "threadQuickReactionInstructionKeyID", b"threadQuickReactionInstructionKeyID"]) -> None: ...
+
+    @typing.final
+    class XmatThreadNickname(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        PARTICIPANTID_FIELD_NUMBER: builtins.int
+        NICKNAME_FIELD_NUMBER: builtins.int
+        participantID: builtins.int
+        nickname: builtins.str
+        def __init__(
+            self,
+            *,
+            participantID: builtins.int | None = ...,
+            nickname: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["nickname", b"nickname", "participantID", b"participantID"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["nickname", b"nickname", "participantID", b"participantID"]) -> None: ...
+
+    @typing.final
+    class XmatThreadIcon(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        THREADICON_FIELD_NUMBER: builtins.int
+        threadIcon: builtins.str
+        def __init__(
+            self,
+            *,
+            threadIcon: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["threadIcon", b"threadIcon"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["threadIcon", b"threadIcon"]) -> None: ...
+
+    @typing.final
+    class XmatThemeColor(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        THEMEID_FIELD_NUMBER: builtins.int
+        THEMECOLOR_FIELD_NUMBER: builtins.int
+        GRADIENT_FIELD_NUMBER: builtins.int
+        SHOULDSHOWICON_FIELD_NUMBER: builtins.int
+        THEMETYPE_FIELD_NUMBER: builtins.int
+        ACCESSIBILITYLABEL_FIELD_NUMBER: builtins.int
+        THEMENAMEWITHSUBTITLE_FIELD_NUMBER: builtins.int
+        THEMEEMOJI_FIELD_NUMBER: builtins.int
+        themeID: builtins.str
+        themeColor: builtins.str
+        shouldShowIcon: builtins.bool
+        themeType: builtins.int
+        accessibilityLabel: builtins.str
+        themeNameWithSubtitle: builtins.str
+        themeEmoji: builtins.str
+        @property
+        def gradient(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+        def __init__(
+            self,
+            *,
+            themeID: builtins.str | None = ...,
+            themeColor: builtins.str | None = ...,
+            gradient: collections.abc.Iterable[builtins.str] | None = ...,
+            shouldShowIcon: builtins.bool | None = ...,
+            themeType: builtins.int | None = ...,
+            accessibilityLabel: builtins.str | None = ...,
+            themeNameWithSubtitle: builtins.str | None = ...,
+            themeEmoji: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["accessibilityLabel", b"accessibilityLabel", "shouldShowIcon", b"shouldShowIcon", "themeColor", b"themeColor", "themeEmoji", b"themeEmoji", "themeID", b"themeID", "themeNameWithSubtitle", b"themeNameWithSubtitle", "themeType", b"themeType"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["accessibilityLabel", b"accessibilityLabel", "gradient", b"gradient", "shouldShowIcon", b"shouldShowIcon", "themeColor", b"themeColor", "themeEmoji", b"themeEmoji", "themeID", b"themeID", "themeNameWithSubtitle", b"themeNameWithSubtitle", "themeType", b"themeType"]) -> None: ...
+
+    @typing.final
+    class XmatMessengerSharedAlbum(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        XMADATACLASS_FIELD_NUMBER: builtins.int
+        xmaDataclass: builtins.str
+        def __init__(
+            self,
+            *,
+            xmaDataclass: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["xmaDataclass", b"xmaDataclass"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["xmaDataclass", b"xmaDataclass"]) -> None: ...
+
+    @typing.final
+    class XmatMessengerSharedAlbumRename(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        SHAREDALBUMID_FIELD_NUMBER: builtins.int
+        OLDALBUMTITLE_FIELD_NUMBER: builtins.int
+        NEWALBUMTITLE_FIELD_NUMBER: builtins.int
+        sharedAlbumID: builtins.int
+        oldAlbumTitle: builtins.str
+        newAlbumTitle: builtins.str
+        def __init__(
+            self,
+            *,
+            sharedAlbumID: builtins.int | None = ...,
+            oldAlbumTitle: builtins.str | None = ...,
+            newAlbumTitle: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["newAlbumTitle", b"newAlbumTitle", "oldAlbumTitle", b"oldAlbumTitle", "sharedAlbumID", b"sharedAlbumID"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["newAlbumTitle", b"newAlbumTitle", "oldAlbumTitle", b"oldAlbumTitle", "sharedAlbumID", b"sharedAlbumID"]) -> None: ...
+
+    @typing.final
+    class XmatMessengerSharedAlbumDeletion(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        SHAREDALBUMID_FIELD_NUMBER: builtins.int
+        ALBUMTITLE_FIELD_NUMBER: builtins.int
+        sharedAlbumID: builtins.int
+        albumTitle: builtins.str
+        def __init__(
+            self,
+            *,
+            sharedAlbumID: builtins.int | None = ...,
+            albumTitle: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["albumTitle", b"albumTitle", "sharedAlbumID", b"sharedAlbumID"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["albumTitle", b"albumTitle", "sharedAlbumID", b"sharedAlbumID"]) -> None: ...
+
+    @typing.final
+    class XmatMessengerSharedAlbumContentRemoval(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        @typing.final
+        class RemovedContentTuple(google.protobuf.message.Message):
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+            KEY_FIELD_NUMBER: builtins.int
+            VALUE_FIELD_NUMBER: builtins.int
+            key: builtins.int
+            value: builtins.str
+            def __init__(
+                self,
+                *,
+                key: builtins.int | None = ...,
+                value: builtins.str | None = ...,
+            ) -> None: ...
+            def HasField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
+            def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+
+        SHAREDALBUMID_FIELD_NUMBER: builtins.int
+        REMOVEDCONTENTMAP_FIELD_NUMBER: builtins.int
+        REMOVEDCONTENTCOUNT_FIELD_NUMBER: builtins.int
+        ALBUMTITLE_FIELD_NUMBER: builtins.int
+        sharedAlbumID: builtins.int
+        removedContentCount: builtins.int
+        albumTitle: builtins.str
+        @property
+        def removedContentMap(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___MiTransportAdminMessage.XmatMessengerSharedAlbumContentRemoval.RemovedContentTuple]: ...
+        def __init__(
+            self,
+            *,
+            sharedAlbumID: builtins.int | None = ...,
+            removedContentMap: collections.abc.Iterable[global___MiTransportAdminMessage.XmatMessengerSharedAlbumContentRemoval.RemovedContentTuple] | None = ...,
+            removedContentCount: builtins.int | None = ...,
+            albumTitle: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["albumTitle", b"albumTitle", "removedContentCount", b"removedContentCount", "sharedAlbumID", b"sharedAlbumID"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["albumTitle", b"albumTitle", "removedContentCount", b"removedContentCount", "removedContentMap", b"removedContentMap", "sharedAlbumID", b"sharedAlbumID"]) -> None: ...
+
+    @typing.final
+    class XmatMessengerSharedAlbumAddition(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        SHAREDALBUMID_FIELD_NUMBER: builtins.int
+        ALBUMTITLE_FIELD_NUMBER: builtins.int
+        NUMOFATTACHMENTS_FIELD_NUMBER: builtins.int
+        ISALBUMCREATION_FIELD_NUMBER: builtins.int
+        sharedAlbumID: builtins.int
+        albumTitle: builtins.str
+        numOfAttachments: builtins.int
+        isAlbumCreation: builtins.bool
+        def __init__(
+            self,
+            *,
+            sharedAlbumID: builtins.int | None = ...,
+            albumTitle: builtins.str | None = ...,
+            numOfAttachments: builtins.int | None = ...,
+            isAlbumCreation: builtins.bool | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["albumTitle", b"albumTitle", "isAlbumCreation", b"isAlbumCreation", "numOfAttachments", b"numOfAttachments", "sharedAlbumID", b"sharedAlbumID"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["albumTitle", b"albumTitle", "isAlbumCreation", b"isAlbumCreation", "numOfAttachments", b"numOfAttachments", "sharedAlbumID", b"sharedAlbumID"]) -> None: ...
+
+    @typing.final
+    class XmatMessengerQRCodeScanned(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        RECEIVERNAME_FIELD_NUMBER: builtins.int
+        SENDERNAME_FIELD_NUMBER: builtins.int
+        receiverName: builtins.str
+        senderName: builtins.str
+        def __init__(
+            self,
+            *,
+            receiverName: builtins.str | None = ...,
+            senderName: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["receiverName", b"receiverName", "senderName", b"senderName"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["receiverName", b"receiverName", "senderName", b"senderName"]) -> None: ...
+
+    @typing.final
+    class XmatMessagingLimitSharing(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        SENDERNAME_FIELD_NUMBER: builtins.int
+        SENDERID_FIELD_NUMBER: builtins.int
+        LIMITSHARINGTYPE_FIELD_NUMBER: builtins.int
+        senderName: builtins.str
+        senderID: builtins.str
+        limitSharingType: builtins.str
+        def __init__(
+            self,
+            *,
+            senderName: builtins.str | None = ...,
+            senderID: builtins.str | None = ...,
+            limitSharingType: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["limitSharingType", b"limitSharingType", "senderID", b"senderID", "senderName", b"senderName"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["limitSharingType", b"limitSharingType", "senderID", b"senderID", "senderName", b"senderName"]) -> None: ...
+
+    @typing.final
+    class XmatMagicWords(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        NEWMAGICWORDCOUNT_FIELD_NUMBER: builtins.int
+        REMOVEDMAGICWORDCOUNT_FIELD_NUMBER: builtins.int
+        MAGICWORD_FIELD_NUMBER: builtins.int
+        EMOJIEFFECT_FIELD_NUMBER: builtins.int
+        ISALLEDITED_FIELD_NUMBER: builtins.int
+        THEMENAME_FIELD_NUMBER: builtins.int
+        newMagicWordCount: builtins.int
+        removedMagicWordCount: builtins.int
+        magicWord: builtins.str
+        emojiEffect: builtins.str
+        isAllEdited: builtins.bool
+        themeName: builtins.str
+        def __init__(
+            self,
+            *,
+            newMagicWordCount: builtins.int | None = ...,
+            removedMagicWordCount: builtins.int | None = ...,
+            magicWord: builtins.str | None = ...,
+            emojiEffect: builtins.str | None = ...,
+            isAllEdited: builtins.bool | None = ...,
+            themeName: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["emojiEffect", b"emojiEffect", "isAllEdited", b"isAllEdited", "magicWord", b"magicWord", "newMagicWordCount", b"newMagicWordCount", "removedMagicWordCount", b"removedMagicWordCount", "themeName", b"themeName"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["emojiEffect", b"emojiEffect", "isAllEdited", b"isAllEdited", "magicWord", b"magicWord", "newMagicWordCount", b"newMagicWordCount", "removedMagicWordCount", b"removedMagicWordCount", "themeName", b"themeName"]) -> None: ...
+
+    @typing.final
+    class XmatLinkCTA(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        LINKCTAXMATPRIMARYTEXT_FIELD_NUMBER: builtins.int
+        LINKCTAXMATCTATEXT_FIELD_NUMBER: builtins.int
+        LINKCTAXMATCTAURL_FIELD_NUMBER: builtins.int
+        LINKCTAXMATCTAIOSURL_FIELD_NUMBER: builtins.int
+        ANDROIDURI_FIELD_NUMBER: builtins.int
+        ASYNCURL_FIELD_NUMBER: builtins.int
+        WWWISASYNCURL_FIELD_NUMBER: builtins.int
+        MSITEENABLED_FIELD_NUMBER: builtins.int
+        HIDEURIINFALLBACK_FIELD_NUMBER: builtins.int
+        SHOWCONFIRMATIONDIALOG_FIELD_NUMBER: builtins.int
+        GRAPHPAYLOAD_FIELD_NUMBER: builtins.int
+        IDENTIFIERNAME_FIELD_NUMBER: builtins.int
+        THREADID_FIELD_NUMBER: builtins.int
+        HIDECTAINFALLBACK_FIELD_NUMBER: builtins.int
+        CTXADCONVERSATIONSTARTERINFO_FIELD_NUMBER: builtins.int
+        FBMURI_FIELD_NUMBER: builtins.int
+        INITIATORUSERID_FIELD_NUMBER: builtins.int
+        linkCtaXmatPrimaryText: builtins.str
+        linkCtaXmatCtaText: builtins.str
+        linkCtaXmatCtaURL: builtins.str
+        linkCtaXmatCtaIosURL: builtins.str
+        androidUri: builtins.str
+        asyncURL: builtins.str
+        wwwIsAsyncURL: builtins.bool
+        msiteEnabled: builtins.bool
+        hideUriInFallback: builtins.bool
+        showConfirmationDialog: builtins.bool
+        graphPayload: builtins.str
+        identifierName: builtins.str
+        threadID: builtins.str
+        hideCtaInFallback: builtins.bool
+        ctxAdConversationStarterInfo: builtins.str
+        fbmUri: builtins.str
+        initiatorUserID: builtins.str
+        def __init__(
+            self,
+            *,
+            linkCtaXmatPrimaryText: builtins.str | None = ...,
+            linkCtaXmatCtaText: builtins.str | None = ...,
+            linkCtaXmatCtaURL: builtins.str | None = ...,
+            linkCtaXmatCtaIosURL: builtins.str | None = ...,
+            androidUri: builtins.str | None = ...,
+            asyncURL: builtins.str | None = ...,
+            wwwIsAsyncURL: builtins.bool | None = ...,
+            msiteEnabled: builtins.bool | None = ...,
+            hideUriInFallback: builtins.bool | None = ...,
+            showConfirmationDialog: builtins.bool | None = ...,
+            graphPayload: builtins.str | None = ...,
+            identifierName: builtins.str | None = ...,
+            threadID: builtins.str | None = ...,
+            hideCtaInFallback: builtins.bool | None = ...,
+            ctxAdConversationStarterInfo: builtins.str | None = ...,
+            fbmUri: builtins.str | None = ...,
+            initiatorUserID: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["androidUri", b"androidUri", "asyncURL", b"asyncURL", "ctxAdConversationStarterInfo", b"ctxAdConversationStarterInfo", "fbmUri", b"fbmUri", "graphPayload", b"graphPayload", "hideCtaInFallback", b"hideCtaInFallback", "hideUriInFallback", b"hideUriInFallback", "identifierName", b"identifierName", "initiatorUserID", b"initiatorUserID", "linkCtaXmatCtaIosURL", b"linkCtaXmatCtaIosURL", "linkCtaXmatCtaText", b"linkCtaXmatCtaText", "linkCtaXmatCtaURL", b"linkCtaXmatCtaURL", "linkCtaXmatPrimaryText", b"linkCtaXmatPrimaryText", "msiteEnabled", b"msiteEnabled", "showConfirmationDialog", b"showConfirmationDialog", "threadID", b"threadID", "wwwIsAsyncURL", b"wwwIsAsyncURL"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["androidUri", b"androidUri", "asyncURL", b"asyncURL", "ctxAdConversationStarterInfo", b"ctxAdConversationStarterInfo", "fbmUri", b"fbmUri", "graphPayload", b"graphPayload", "hideCtaInFallback", b"hideCtaInFallback", "hideUriInFallback", b"hideUriInFallback", "identifierName", b"identifierName", "initiatorUserID", b"initiatorUserID", "linkCtaXmatCtaIosURL", b"linkCtaXmatCtaIosURL", "linkCtaXmatCtaText", b"linkCtaXmatCtaText", "linkCtaXmatCtaURL", b"linkCtaXmatCtaURL", "linkCtaXmatPrimaryText", b"linkCtaXmatPrimaryText", "msiteEnabled", b"msiteEnabled", "showConfirmationDialog", b"showConfirmationDialog", "threadID", b"threadID", "wwwIsAsyncURL", b"wwwIsAsyncURL"]) -> None: ...
+
+    @typing.final
+    class XmatInstantGameEncryptedDynamicCustomUpdate(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        SENDERNAME_FIELD_NUMBER: builtins.int
+        MUTEMANAGEMENTADMINTEXTTYPE_FIELD_NUMBER: builtins.int
+        GAMENAME_FIELD_NUMBER: builtins.int
+        senderName: builtins.str
+        muteManagementAdminTextType: builtins.str
+        gameName: builtins.str
+        def __init__(
+            self,
+            *,
+            senderName: builtins.str | None = ...,
+            muteManagementAdminTextType: builtins.str | None = ...,
+            gameName: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["gameName", b"gameName", "muteManagementAdminTextType", b"muteManagementAdminTextType", "senderName", b"senderName"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["gameName", b"gameName", "muteManagementAdminTextType", b"muteManagementAdminTextType", "senderName", b"senderName"]) -> None: ...
+
+    @typing.final
+    class XmatFriendRequestConfirmedEncrypted(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        OTHERUSERNAME_FIELD_NUMBER: builtins.int
+        ISTURNONCOHORT_FIELD_NUMBER: builtins.int
+        otherUserName: builtins.str
+        isTurnOnCohort: builtins.str
+        def __init__(
+            self,
+            *,
+            otherUserName: builtins.str | None = ...,
+            isTurnOnCohort: builtins.str | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["isTurnOnCohort", b"isTurnOnCohort", "otherUserName", b"otherUserName"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["isTurnOnCohort", b"isTurnOnCohort", "otherUserName", b"otherUserName"]) -> None: ...
+
+    @typing.final
+    class XmatDisappearingSetting(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        DISAPPEARINGSETTINGTIME_FIELD_NUMBER: builtins.int
+        OLDDISAPPEARINGSETTINGTIME_FIELD_NUMBER: builtins.int
+        DISAPPEARINGSETTINGACTORFBID_FIELD_NUMBER: builtins.int
+        NEWEPHEMERALITYTYPE_FIELD_NUMBER: builtins.int
+        OLDEPHEMERALITYTYPE_FIELD_NUMBER: builtins.int
+        disappearingSettingTime: builtins.int
+        oldDisappearingSettingTime: builtins.int
+        disappearingSettingActorFbid: builtins.int
+        newEphemeralityType: builtins.int
+        oldEphemeralityType: builtins.int
+        def __init__(
+            self,
+            *,
+            disappearingSettingTime: builtins.int | None = ...,
+            oldDisappearingSettingTime: builtins.int | None = ...,
+            disappearingSettingActorFbid: builtins.int | None = ...,
+            newEphemeralityType: builtins.int | None = ...,
+            oldEphemeralityType: builtins.int | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["disappearingSettingActorFbid", b"disappearingSettingActorFbid", "disappearingSettingTime", b"disappearingSettingTime", "newEphemeralityType", b"newEphemeralityType", "oldDisappearingSettingTime", b"oldDisappearingSettingTime", "oldEphemeralityType", b"oldEphemeralityType"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["disappearingSettingActorFbid", b"disappearingSettingActorFbid", "disappearingSettingTime", b"disappearingSettingTime", "newEphemeralityType", b"newEphemeralityType", "oldDisappearingSettingTime", b"oldDisappearingSettingTime", "oldEphemeralityType", b"oldEphemeralityType"]) -> None: ...
+
+    @typing.final
     class DisappearingSettingChanged(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -344,6 +788,25 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
     ICONCHANGED_FIELD_NUMBER: builtins.int
     DISAPPEARINGSETTINGCHANGED_FIELD_NUMBER: builtins.int
     LIMITSHARINGCHANGED_FIELD_NUMBER: builtins.int
+    XMATDISAPPEARINGSETTING_FIELD_NUMBER: builtins.int
+    XMATFRIENDREQUESTCONFIRMEDENCRYPTED_FIELD_NUMBER: builtins.int
+    XMATINSTANTGAMEENCRYPTEDDYNAMICCUSTOMUPDATE_FIELD_NUMBER: builtins.int
+    XMATLINKCTA_FIELD_NUMBER: builtins.int
+    XMATMAGICWORDS_FIELD_NUMBER: builtins.int
+    XMATMESSAGINGLIMITSHARING_FIELD_NUMBER: builtins.int
+    XMATMESSENGERQRCODESCANNED_FIELD_NUMBER: builtins.int
+    XMATMESSENGERSHAREDALBUMADDITION_FIELD_NUMBER: builtins.int
+    XMATMESSENGERSHAREDALBUMCONTENTREMOVAL_FIELD_NUMBER: builtins.int
+    XMATMESSENGERSHAREDALBUMDELETION_FIELD_NUMBER: builtins.int
+    XMATMESSENGERSHAREDALBUMRENAME_FIELD_NUMBER: builtins.int
+    XMATMESSENGERSHAREDALBUM_FIELD_NUMBER: builtins.int
+    XMATTHEMECOLOR_FIELD_NUMBER: builtins.int
+    XMATTHREADICON_FIELD_NUMBER: builtins.int
+    XMATTHREADNICKNAME_FIELD_NUMBER: builtins.int
+    XMATTHREADQUICKREACTION_FIELD_NUMBER: builtins.int
+    XMATUPDATEPAYMENTS_FIELD_NUMBER: builtins.int
+    XMATPINMESSAGEV2_FIELD_NUMBER: builtins.int
+    XMATUNPINMESSAGEV2_FIELD_NUMBER: builtins.int
     @property
     def chatThemeChanged(self) -> global___MiTransportAdminMessage.ChatThemeChanged: ...
     @property
@@ -370,6 +833,44 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
     def disappearingSettingChanged(self) -> global___MiTransportAdminMessage.DisappearingSettingChanged: ...
     @property
     def limitSharingChanged(self) -> global___MiTransportAdminMessage.LimitSharingChanged: ...
+    @property
+    def xmatDisappearingSetting(self) -> global___MiTransportAdminMessage.XmatDisappearingSetting: ...
+    @property
+    def xmatFriendRequestConfirmedEncrypted(self) -> global___MiTransportAdminMessage.XmatFriendRequestConfirmedEncrypted: ...
+    @property
+    def xmatInstantGameEncryptedDynamicCustomUpdate(self) -> global___MiTransportAdminMessage.XmatInstantGameEncryptedDynamicCustomUpdate: ...
+    @property
+    def xmatLinkCta(self) -> global___MiTransportAdminMessage.XmatLinkCTA: ...
+    @property
+    def xmatMagicWords(self) -> global___MiTransportAdminMessage.XmatMagicWords: ...
+    @property
+    def xmatMessagingLimitSharing(self) -> global___MiTransportAdminMessage.XmatMessagingLimitSharing: ...
+    @property
+    def xmatMessengerQrCodeScanned(self) -> global___MiTransportAdminMessage.XmatMessengerQRCodeScanned: ...
+    @property
+    def xmatMessengerSharedAlbumAddition(self) -> global___MiTransportAdminMessage.XmatMessengerSharedAlbumAddition: ...
+    @property
+    def xmatMessengerSharedAlbumContentRemoval(self) -> global___MiTransportAdminMessage.XmatMessengerSharedAlbumContentRemoval: ...
+    @property
+    def xmatMessengerSharedAlbumDeletion(self) -> global___MiTransportAdminMessage.XmatMessengerSharedAlbumDeletion: ...
+    @property
+    def xmatMessengerSharedAlbumRename(self) -> global___MiTransportAdminMessage.XmatMessengerSharedAlbumRename: ...
+    @property
+    def xmatMessengerSharedAlbum(self) -> global___MiTransportAdminMessage.XmatMessengerSharedAlbum: ...
+    @property
+    def xmatThemeColor(self) -> global___MiTransportAdminMessage.XmatThemeColor: ...
+    @property
+    def xmatThreadIcon(self) -> global___MiTransportAdminMessage.XmatThreadIcon: ...
+    @property
+    def xmatThreadNickname(self) -> global___MiTransportAdminMessage.XmatThreadNickname: ...
+    @property
+    def xmatThreadQuickReaction(self) -> global___MiTransportAdminMessage.XmatThreadQuickReaction: ...
+    @property
+    def xmatUpdatePayments(self) -> global___MiTransportAdminMessage.XmatUpdatePayments: ...
+    @property
+    def xmatPinMessageV2(self) -> global___MiTransportAdminMessage.XmatPinMessageV2: ...
+    @property
+    def xmatUnpinMessageV2(self) -> global___MiTransportAdminMessage.XmatUnpinMessageV2: ...
     def __init__(
         self,
         *,
@@ -386,9 +887,28 @@ class MiTransportAdminMessage(google.protobuf.message.Message):
         iconChanged: global___MiTransportAdminMessage.IconChanged | None = ...,
         disappearingSettingChanged: global___MiTransportAdminMessage.DisappearingSettingChanged | None = ...,
         limitSharingChanged: global___MiTransportAdminMessage.LimitSharingChanged | None = ...,
+        xmatDisappearingSetting: global___MiTransportAdminMessage.XmatDisappearingSetting | None = ...,
+        xmatFriendRequestConfirmedEncrypted: global___MiTransportAdminMessage.XmatFriendRequestConfirmedEncrypted | None = ...,
+        xmatInstantGameEncryptedDynamicCustomUpdate: global___MiTransportAdminMessage.XmatInstantGameEncryptedDynamicCustomUpdate | None = ...,
+        xmatLinkCta: global___MiTransportAdminMessage.XmatLinkCTA | None = ...,
+        xmatMagicWords: global___MiTransportAdminMessage.XmatMagicWords | None = ...,
+        xmatMessagingLimitSharing: global___MiTransportAdminMessage.XmatMessagingLimitSharing | None = ...,
+        xmatMessengerQrCodeScanned: global___MiTransportAdminMessage.XmatMessengerQRCodeScanned | None = ...,
+        xmatMessengerSharedAlbumAddition: global___MiTransportAdminMessage.XmatMessengerSharedAlbumAddition | None = ...,
+        xmatMessengerSharedAlbumContentRemoval: global___MiTransportAdminMessage.XmatMessengerSharedAlbumContentRemoval | None = ...,
+        xmatMessengerSharedAlbumDeletion: global___MiTransportAdminMessage.XmatMessengerSharedAlbumDeletion | None = ...,
+        xmatMessengerSharedAlbumRename: global___MiTransportAdminMessage.XmatMessengerSharedAlbumRename | None = ...,
+        xmatMessengerSharedAlbum: global___MiTransportAdminMessage.XmatMessengerSharedAlbum | None = ...,
+        xmatThemeColor: global___MiTransportAdminMessage.XmatThemeColor | None = ...,
+        xmatThreadIcon: global___MiTransportAdminMessage.XmatThreadIcon | None = ...,
+        xmatThreadNickname: global___MiTransportAdminMessage.XmatThreadNickname | None = ...,
+        xmatThreadQuickReaction: global___MiTransportAdminMessage.XmatThreadQuickReaction | None = ...,
+        xmatUpdatePayments: global___MiTransportAdminMessage.XmatUpdatePayments | None = ...,
+        xmatPinMessageV2: global___MiTransportAdminMessage.XmatPinMessageV2 | None = ...,
+        xmatUnpinMessageV2: global___MiTransportAdminMessage.XmatUnpinMessageV2 | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "limitSharingChanged", b"limitSharingChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "limitSharingChanged", b"limitSharingChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["chatThemeChanged", "nicknameChanged", "groupParticipantChanged", "groupAdminChanged", "groupNameChanged", "groupMembershipAddModeChanged", "messagePinned", "groupImageChanged", "quickReactionChanged", "linkCta", "iconChanged", "disappearingSettingChanged", "limitSharingChanged"] | None: ...
+    def HasField(self, field_name: typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "limitSharingChanged", b"limitSharingChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged", "xmatDisappearingSetting", b"xmatDisappearingSetting", "xmatFriendRequestConfirmedEncrypted", b"xmatFriendRequestConfirmedEncrypted", "xmatInstantGameEncryptedDynamicCustomUpdate", b"xmatInstantGameEncryptedDynamicCustomUpdate", "xmatLinkCta", b"xmatLinkCta", "xmatMagicWords", b"xmatMagicWords", "xmatMessagingLimitSharing", b"xmatMessagingLimitSharing", "xmatMessengerQrCodeScanned", b"xmatMessengerQrCodeScanned", "xmatMessengerSharedAlbum", b"xmatMessengerSharedAlbum", "xmatMessengerSharedAlbumAddition", b"xmatMessengerSharedAlbumAddition", "xmatMessengerSharedAlbumContentRemoval", b"xmatMessengerSharedAlbumContentRemoval", "xmatMessengerSharedAlbumDeletion", b"xmatMessengerSharedAlbumDeletion", "xmatMessengerSharedAlbumRename", b"xmatMessengerSharedAlbumRename", "xmatPinMessageV2", b"xmatPinMessageV2", "xmatThemeColor", b"xmatThemeColor", "xmatThreadIcon", b"xmatThreadIcon", "xmatThreadNickname", b"xmatThreadNickname", "xmatThreadQuickReaction", b"xmatThreadQuickReaction", "xmatUnpinMessageV2", b"xmatUnpinMessageV2", "xmatUpdatePayments", b"xmatUpdatePayments"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "limitSharingChanged", b"limitSharingChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged", "xmatDisappearingSetting", b"xmatDisappearingSetting", "xmatFriendRequestConfirmedEncrypted", b"xmatFriendRequestConfirmedEncrypted", "xmatInstantGameEncryptedDynamicCustomUpdate", b"xmatInstantGameEncryptedDynamicCustomUpdate", "xmatLinkCta", b"xmatLinkCta", "xmatMagicWords", b"xmatMagicWords", "xmatMessagingLimitSharing", b"xmatMessagingLimitSharing", "xmatMessengerQrCodeScanned", b"xmatMessengerQrCodeScanned", "xmatMessengerSharedAlbum", b"xmatMessengerSharedAlbum", "xmatMessengerSharedAlbumAddition", b"xmatMessengerSharedAlbumAddition", "xmatMessengerSharedAlbumContentRemoval", b"xmatMessengerSharedAlbumContentRemoval", "xmatMessengerSharedAlbumDeletion", b"xmatMessengerSharedAlbumDeletion", "xmatMessengerSharedAlbumRename", b"xmatMessengerSharedAlbumRename", "xmatPinMessageV2", b"xmatPinMessageV2", "xmatThemeColor", b"xmatThemeColor", "xmatThreadIcon", b"xmatThreadIcon", "xmatThreadNickname", b"xmatThreadNickname", "xmatThreadQuickReaction", b"xmatThreadQuickReaction", "xmatUnpinMessageV2", b"xmatUnpinMessageV2", "xmatUpdatePayments", b"xmatUpdatePayments"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["chatThemeChanged", "nicknameChanged", "groupParticipantChanged", "groupAdminChanged", "groupNameChanged", "groupMembershipAddModeChanged", "messagePinned", "groupImageChanged", "quickReactionChanged", "linkCta", "iconChanged", "disappearingSettingChanged", "limitSharingChanged", "xmatDisappearingSetting", "xmatFriendRequestConfirmedEncrypted", "xmatInstantGameEncryptedDynamicCustomUpdate", "xmatLinkCta", "xmatMagicWords", "xmatMessagingLimitSharing", "xmatMessengerQrCodeScanned", "xmatMessengerSharedAlbumAddition", "xmatMessengerSharedAlbumContentRemoval", "xmatMessengerSharedAlbumDeletion", "xmatMessengerSharedAlbumRename", "xmatMessengerSharedAlbum", "xmatThemeColor", "xmatThreadIcon", "xmatThreadNickname", "xmatThreadQuickReaction", "xmatUpdatePayments", "xmatPinMessageV2", "xmatUnpinMessageV2"] | None: ...
 
 global___MiTransportAdminMessage = MiTransportAdminMessage
