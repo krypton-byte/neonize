@@ -2549,7 +2549,7 @@ class NewAClient:
             raise SetDefaultDisappearingTimerError(err)
 
     async def set_disappearing_timer(
-        self, jid: JID, timer: typing.Union[timedelta, int]
+        self, jid: JID, timer: typing.Union[timedelta, int], setting_ts: Optional[timedelta] = None
     ):
         """
         Set a disappearing timer for a specific JID. The timer can be set as either a timedelta object or an integer.
@@ -2564,12 +2564,15 @@ class NewAClient:
         timestamp = 0
         jid_proto = jid.SerializeToString()
         if isinstance(timer, timedelta):
-            timestamp = int(timer.total_seconds() * 1000**3)
+            timestamp = int(timer.total_seconds() * 1000)
         else:
             timestamp = timer
+        setting_ts_ms = 0
+        if setting_ts:
+            setting_ts_ms = int(time.time() + setting_ts.total_seconds() * 1000)
         err = (
             await self.__client.SetDisappearingTimer(
-                self.uuid, jid_proto, len(jid_proto), timestamp
+                self.uuid, jid_proto, len(jid_proto), timestamp, setting_ts_ms
             )
         ).decode()
         if err:
