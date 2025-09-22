@@ -356,6 +356,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_int,
         ctypes.c_int64,
+        ctypes.c_int64
     ]
     gocode.SetDisappearingTimer.restype = ctypes.c_char_p
     gocode.SetForceActiveDeliveryReceipts.argtypes = [ctypes.c_char_p, ctypes.c_bool]
