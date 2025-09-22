@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n/waStatusAttributions/WAStatusAttributions.proto\x12\x14WAStatusAttributions\"\xd5\x0c\n\x11StatusAttribution\x12N\n\rstatusReshare\x18\x03 \x01(\x0b\x32\x35.WAStatusAttributions.StatusAttribution.StatusReshareH\x00\x12N\n\rexternalShare\x18\x04 \x01(\x0b\x32\x35.WAStatusAttributions.StatusAttribution.ExternalShareH\x00\x12>\n\x05music\x18\x05 \x01(\x0b\x32-.WAStatusAttributions.StatusAttribution.MusicH\x00\x12J\n\x0bgroupStatus\x18\x06 \x01(\x0b\x32\x33.WAStatusAttributions.StatusAttribution.GroupStatusH\x00\x12N\n\rrlAttribution\x18\x07 \x01(\x0b\x32\x35.WAStatusAttributions.StatusAttribution.RLAttributionH\x00\x12:\n\x04type\x18\x01 \x01(\x0e\x32,.WAStatusAttributions.StatusAttribution.Type\x12\x11\n\tactionURL\x18\x02 \x01(\t\x1a\xbe\x01\n\rRLAttribution\x12L\n\x06source\x18\x01 \x01(\x0e\x32<.WAStatusAttributions.StatusAttribution.RLAttribution.Source\"_\n\x06Source\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x18\n\x14RAY_BAN_META_GLASSES\x10\x01\x12\x17\n\x13OAKLEY_META_GLASSES\x10\x02\x12\x15\n\x11HYPERNOVA_GLASSES\x10\x03\x1a\x96\x02\n\rExternalShare\x12\x11\n\tactionURL\x18\x01 \x01(\t\x12L\n\x06source\x18\x02 \x01(\x0e\x32<.WAStatusAttributions.StatusAttribution.ExternalShare.Source\x12\x10\n\x08\x64uration\x18\x03 \x01(\x05\x12\x19\n\x11\x61\x63tionFallbackURL\x18\x04 \x01(\t\"w\n\x06Source\x12\x0b\n\x07UNKNOWN\x10\x00\x12\r\n\tINSTAGRAM\x10\x01\x12\x0c\n\x08\x46\x41\x43\x45\x42OOK\x10\x02\x12\r\n\tMESSENGER\x10\x03\x12\x0b\n\x07SPOTIFY\x10\x04\x12\x0b\n\x07YOUTUBE\x10\x05\x12\r\n\tPINTEREST\x10\x06\x12\x0b\n\x07THREADS\x10\x07\x1a\xef\x02\n\rStatusReshare\x12L\n\x06source\x18\x01 \x01(\x0e\x32<.WAStatusAttributions.StatusAttribution.StatusReshare.Source\x12P\n\x08metadata\x18\x02 \x01(\x0b\x32>.WAStatusAttributions.StatusAttribution.StatusReshare.Metadata\x1ag\n\x08Metadata\x12\x10\n\x08\x64uration\x18\x01 \x01(\x05\x12\x12\n\nchannelJID\x18\x02 \x01(\t\x12\x18\n\x10\x63hannelMessageID\x18\x03 \x01(\x05\x12\x1b\n\x13hasMultipleReshares\x18\x04 \x01(\x08\"U\n\x06Source\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x14\n\x10INTERNAL_RESHARE\x10\x01\x12\x13\n\x0fMENTION_RESHARE\x10\x02\x12\x13\n\x0f\x43HANNEL_RESHARE\x10\x03\x1a \n\x0bGroupStatus\x12\x11\n\tauthorJID\x18\x01 \x01(\t\x1ay\n\x05Music\x12\x12\n\nauthorName\x18\x01 \x01(\t\x12\x0e\n\x06songID\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0e\n\x06\x61uthor\x18\x04 \x01(\t\x12\x19\n\x11\x61rtistAttribution\x18\x05 \x01(\t\x12\x12\n\nisExplicit\x18\x06 \x01(\x08\"y\n\x04Type\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07RESHARE\x10\x01\x12\x12\n\x0e\x45XTERNAL_SHARE\x10\x02\x12\t\n\x05MUSIC\x10\x03\x12\x12\n\x0eSTATUS_MENTION\x10\x04\x12\x10\n\x0cGROUP_STATUS\x10\x05\x12\x12\n\x0eRL_ATTRIBUTION\x10\x06\x42\x11\n\x0f\x61ttributionDataB0Z.go.mau.fi/whatsmeow/proto/waStatusAttributions')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n/waStatusAttributions/WAStatusAttributions.proto\x12\x14WAStatusAttributions\"\xdd\x0e\n\x11StatusAttribution\x12N\n\rstatusReshare\x18\x03 \x01(\x0b\x32\x35.WAStatusAttributions.StatusAttribution.StatusReshareH\x00\x12N\n\rexternalShare\x18\x04 \x01(\x0b\x32\x35.WAStatusAttributions.StatusAttribution.ExternalShareH\x00\x12>\n\x05music\x18\x05 \x01(\x0b\x32-.WAStatusAttributions.StatusAttribution.MusicH\x00\x12J\n\x0bgroupStatus\x18\x06 \x01(\x0b\x32\x33.WAStatusAttributions.StatusAttribution.GroupStatusH\x00\x12N\n\rrlAttribution\x18\x07 \x01(\x0b\x32\x35.WAStatusAttributions.StatusAttribution.RLAttributionH\x00\x12\\\n\x14\x61iCreatedAttribution\x18\x08 \x01(\x0b\x32<.WAStatusAttributions.StatusAttribution.AiCreatedAttributionH\x00\x12:\n\x04type\x18\x01 \x01(\x0e\x32,.WAStatusAttributions.StatusAttribution.Type\x12\x11\n\tactionURL\x18\x02 \x01(\t\x1a\x96\x01\n\x14\x41iCreatedAttribution\x12S\n\x06source\x18\x01 \x01(\x0e\x32\x43.WAStatusAttributions.StatusAttribution.AiCreatedAttribution.Source\")\n\x06Source\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x12\n\x0eSTATUS_MIMICRY\x10\x01\x1a\xbe\x01\n\rRLAttribution\x12L\n\x06source\x18\x01 \x01(\x0e\x32<.WAStatusAttributions.StatusAttribution.RLAttribution.Source\"_\n\x06Source\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x18\n\x14RAY_BAN_META_GLASSES\x10\x01\x12\x17\n\x13OAKLEY_META_GLASSES\x10\x02\x12\x15\n\x11HYPERNOVA_GLASSES\x10\x03\x1a\x96\x02\n\rExternalShare\x12\x11\n\tactionURL\x18\x01 \x01(\t\x12L\n\x06source\x18\x02 \x01(\x0e\x32<.WAStatusAttributions.StatusAttribution.ExternalShare.Source\x12\x10\n\x08\x64uration\x18\x03 \x01(\x05\x12\x19\n\x11\x61\x63tionFallbackURL\x18\x04 \x01(\t\"w\n\x06Source\x12\x0b\n\x07UNKNOWN\x10\x00\x12\r\n\tINSTAGRAM\x10\x01\x12\x0c\n\x08\x46\x41\x43\x45\x42OOK\x10\x02\x12\r\n\tMESSENGER\x10\x03\x12\x0b\n\x07SPOTIFY\x10\x04\x12\x0b\n\x07YOUTUBE\x10\x05\x12\r\n\tPINTEREST\x10\x06\x12\x0b\n\x07THREADS\x10\x07\x1a\xef\x02\n\rStatusReshare\x12L\n\x06source\x18\x01 \x01(\x0e\x32<.WAStatusAttributions.StatusAttribution.StatusReshare.Source\x12P\n\x08metadata\x18\x02 \x01(\x0b\x32>.WAStatusAttributions.StatusAttribution.StatusReshare.Metadata\x1ag\n\x08Metadata\x12\x10\n\x08\x64uration\x18\x01 \x01(\x05\x12\x12\n\nchannelJID\x18\x02 \x01(\t\x12\x18\n\x10\x63hannelMessageID\x18\x03 \x01(\x05\x12\x1b\n\x13hasMultipleReshares\x18\x04 \x01(\x08\"U\n\x06Source\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x14\n\x10INTERNAL_RESHARE\x10\x01\x12\x13\n\x0fMENTION_RESHARE\x10\x02\x12\x13\n\x0f\x43HANNEL_RESHARE\x10\x03\x1a \n\x0bGroupStatus\x12\x11\n\tauthorJID\x18\x01 \x01(\t\x1ay\n\x05Music\x12\x12\n\nauthorName\x18\x01 \x01(\t\x12\x0e\n\x06songID\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0e\n\x06\x61uthor\x18\x04 \x01(\t\x12\x19\n\x11\x61rtistAttribution\x18\x05 \x01(\t\x12\x12\n\nisExplicit\x18\x06 \x01(\x08\"\x89\x01\n\x04Type\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07RESHARE\x10\x01\x12\x12\n\x0e\x45XTERNAL_SHARE\x10\x02\x12\t\n\x05MUSIC\x10\x03\x12\x12\n\x0eSTATUS_MENTION\x10\x04\x12\x10\n\x0cGROUP_STATUS\x10\x05\x12\x12\n\x0eRL_ATTRIBUTION\x10\x06\x12\x0e\n\nAI_CREATED\x10\x07\x42\x11\n\x0f\x61ttributionDataB0Z.go.mau.fi/whatsmeow/proto/waStatusAttributions')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,25 +33,29 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z.go.mau.fi/whatsmeow/proto/waStatusAttributions'
   _globals['_STATUSATTRIBUTION']._serialized_start=74
-  _globals['_STATUSATTRIBUTION']._serialized_end=1695
-  _globals['_STATUSATTRIBUTION_RLATTRIBUTION']._serialized_start=555
-  _globals['_STATUSATTRIBUTION_RLATTRIBUTION']._serialized_end=745
-  _globals['_STATUSATTRIBUTION_RLATTRIBUTION_SOURCE']._serialized_start=650
-  _globals['_STATUSATTRIBUTION_RLATTRIBUTION_SOURCE']._serialized_end=745
-  _globals['_STATUSATTRIBUTION_EXTERNALSHARE']._serialized_start=748
-  _globals['_STATUSATTRIBUTION_EXTERNALSHARE']._serialized_end=1026
-  _globals['_STATUSATTRIBUTION_EXTERNALSHARE_SOURCE']._serialized_start=907
-  _globals['_STATUSATTRIBUTION_EXTERNALSHARE_SOURCE']._serialized_end=1026
-  _globals['_STATUSATTRIBUTION_STATUSRESHARE']._serialized_start=1029
-  _globals['_STATUSATTRIBUTION_STATUSRESHARE']._serialized_end=1396
-  _globals['_STATUSATTRIBUTION_STATUSRESHARE_METADATA']._serialized_start=1206
-  _globals['_STATUSATTRIBUTION_STATUSRESHARE_METADATA']._serialized_end=1309
-  _globals['_STATUSATTRIBUTION_STATUSRESHARE_SOURCE']._serialized_start=1311
-  _globals['_STATUSATTRIBUTION_STATUSRESHARE_SOURCE']._serialized_end=1396
-  _globals['_STATUSATTRIBUTION_GROUPSTATUS']._serialized_start=1398
-  _globals['_STATUSATTRIBUTION_GROUPSTATUS']._serialized_end=1430
-  _globals['_STATUSATTRIBUTION_MUSIC']._serialized_start=1432
-  _globals['_STATUSATTRIBUTION_MUSIC']._serialized_end=1553
-  _globals['_STATUSATTRIBUTION_TYPE']._serialized_start=1555
-  _globals['_STATUSATTRIBUTION_TYPE']._serialized_end=1676
+  _globals['_STATUSATTRIBUTION']._serialized_end=1959
+  _globals['_STATUSATTRIBUTION_AICREATEDATTRIBUTION']._serialized_start=649
+  _globals['_STATUSATTRIBUTION_AICREATEDATTRIBUTION']._serialized_end=799
+  _globals['_STATUSATTRIBUTION_AICREATEDATTRIBUTION_SOURCE']._serialized_start=758
+  _globals['_STATUSATTRIBUTION_AICREATEDATTRIBUTION_SOURCE']._serialized_end=799
+  _globals['_STATUSATTRIBUTION_RLATTRIBUTION']._serialized_start=802
+  _globals['_STATUSATTRIBUTION_RLATTRIBUTION']._serialized_end=992
+  _globals['_STATUSATTRIBUTION_RLATTRIBUTION_SOURCE']._serialized_start=897
+  _globals['_STATUSATTRIBUTION_RLATTRIBUTION_SOURCE']._serialized_end=992
+  _globals['_STATUSATTRIBUTION_EXTERNALSHARE']._serialized_start=995
+  _globals['_STATUSATTRIBUTION_EXTERNALSHARE']._serialized_end=1273
+  _globals['_STATUSATTRIBUTION_EXTERNALSHARE_SOURCE']._serialized_start=1154
+  _globals['_STATUSATTRIBUTION_EXTERNALSHARE_SOURCE']._serialized_end=1273
+  _globals['_STATUSATTRIBUTION_STATUSRESHARE']._serialized_start=1276
+  _globals['_STATUSATTRIBUTION_STATUSRESHARE']._serialized_end=1643
+  _globals['_STATUSATTRIBUTION_STATUSRESHARE_METADATA']._serialized_start=1453
+  _globals['_STATUSATTRIBUTION_STATUSRESHARE_METADATA']._serialized_end=1556
+  _globals['_STATUSATTRIBUTION_STATUSRESHARE_SOURCE']._serialized_start=1558
+  _globals['_STATUSATTRIBUTION_STATUSRESHARE_SOURCE']._serialized_end=1643
+  _globals['_STATUSATTRIBUTION_GROUPSTATUS']._serialized_start=1645
+  _globals['_STATUSATTRIBUTION_GROUPSTATUS']._serialized_end=1677
+  _globals['_STATUSATTRIBUTION_MUSIC']._serialized_start=1679
+  _globals['_STATUSATTRIBUTION_MUSIC']._serialized_end=1800
+  _globals['_STATUSATTRIBUTION_TYPE']._serialized_start=1803
+  _globals['_STATUSATTRIBUTION_TYPE']._serialized_end=1940
 # @@protoc_insertion_point(module_scope)

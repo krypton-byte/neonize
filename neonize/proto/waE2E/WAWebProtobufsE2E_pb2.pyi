@@ -973,12 +973,14 @@ class InteractiveMessage(google.protobuf.message.Message):
 
         class _CarouselCardTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[InteractiveMessage.CarouselMessage._CarouselCardType.ValueType], builtins.type):
             DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-            DEFAULT: InteractiveMessage.CarouselMessage._CarouselCardType.ValueType  # 0
-            ALBUM: InteractiveMessage.CarouselMessage._CarouselCardType.ValueType  # 1
+            UNKNOWN: InteractiveMessage.CarouselMessage._CarouselCardType.ValueType  # 0
+            HSCROLL_CARDS: InteractiveMessage.CarouselMessage._CarouselCardType.ValueType  # 1
+            ALBUM_IMAGE: InteractiveMessage.CarouselMessage._CarouselCardType.ValueType  # 2
 
         class CarouselCardType(_CarouselCardType, metaclass=_CarouselCardTypeEnumTypeWrapper): ...
-        DEFAULT: InteractiveMessage.CarouselMessage.CarouselCardType.ValueType  # 0
-        ALBUM: InteractiveMessage.CarouselMessage.CarouselCardType.ValueType  # 1
+        UNKNOWN: InteractiveMessage.CarouselMessage.CarouselCardType.ValueType  # 0
+        HSCROLL_CARDS: InteractiveMessage.CarouselMessage.CarouselCardType.ValueType  # 1
+        ALBUM_IMAGE: InteractiveMessage.CarouselMessage.CarouselCardType.ValueType  # 2
 
         CARDS_FIELD_NUMBER: builtins.int
         MESSAGEVERSION_FIELD_NUMBER: builtins.int
@@ -3211,6 +3213,7 @@ class ContextInfo(google.protobuf.message.Message):
         STATUS: ContextInfo._ForwardOrigin.ValueType  # 2
         CHANNELS: ContextInfo._ForwardOrigin.ValueType  # 3
         META_AI: ContextInfo._ForwardOrigin.ValueType  # 4
+        UGC: ContextInfo._ForwardOrigin.ValueType  # 5
 
     class ForwardOrigin(_ForwardOrigin, metaclass=_ForwardOriginEnumTypeWrapper): ...
     UNKNOWN: ContextInfo.ForwardOrigin.ValueType  # 0
@@ -3218,6 +3221,7 @@ class ContextInfo(google.protobuf.message.Message):
     STATUS: ContextInfo.ForwardOrigin.ValueType  # 2
     CHANNELS: ContextInfo.ForwardOrigin.ValueType  # 3
     META_AI: ContextInfo.ForwardOrigin.ValueType  # 4
+    UGC: ContextInfo.ForwardOrigin.ValueType  # 5
 
     class _StatusSourceType:
         ValueType = typing.NewType("ValueType", builtins.int)
@@ -3720,6 +3724,7 @@ class ContextInfo(google.protobuf.message.Message):
     FORWARDORIGIN_FIELD_NUMBER: builtins.int
     QUESTIONREPLYQUOTEDMESSAGE_FIELD_NUMBER: builtins.int
     STATUSAUDIENCEMETADATA_FIELD_NUMBER: builtins.int
+    NONJIDMENTIONS_FIELD_NUMBER: builtins.int
     stanzaID: builtins.str
     participant: builtins.str
     remoteJID: builtins.str
@@ -3753,6 +3758,7 @@ class ContextInfo(google.protobuf.message.Message):
     statusSourceType: global___ContextInfo.StatusSourceType.ValueType
     isGroupStatus: builtins.bool
     forwardOrigin: global___ContextInfo.ForwardOrigin.ValueType
+    nonJIDMentions: builtins.int
     @property
     def quotedMessage(self) -> global___Message: ...
     @property
@@ -3846,9 +3852,10 @@ class ContextInfo(google.protobuf.message.Message):
         forwardOrigin: global___ContextInfo.ForwardOrigin.ValueType | None = ...,
         questionReplyQuotedMessage: global___ContextInfo.QuestionReplyQuotedMessage | None = ...,
         statusAudienceMetadata: global___ContextInfo.StatusAudienceMetadata | None = ...,
+        nonJIDMentions: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["actionLink", b"actionLink", "alwaysShowAdAttribution", b"alwaysShowAdAttribution", "businessMessageForwardInfo", b"businessMessageForwardInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "dataSharingContext", b"dataSharingContext", "disappearingMode", b"disappearingMode", "entryPointConversionApp", b"entryPointConversionApp", "entryPointConversionDelaySeconds", b"entryPointConversionDelaySeconds", "entryPointConversionExternalMedium", b"entryPointConversionExternalMedium", "entryPointConversionExternalSource", b"entryPointConversionExternalSource", "entryPointConversionSource", b"entryPointConversionSource", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralSharedSecret", b"ephemeralSharedSecret", "expiration", b"expiration", "externalAdReply", b"externalAdReply", "featureEligibilities", b"featureEligibilities", "forwardOrigin", b"forwardOrigin", "forwardedAiBotMessageInfo", b"forwardedAiBotMessageInfo", "forwardedNewsletterMessageInfo", b"forwardedNewsletterMessageInfo", "forwardingScore", b"forwardingScore", "groupSubject", b"groupSubject", "isForwarded", b"isForwarded", "isGroupStatus", b"isGroupStatus", "isQuestion", b"isQuestion", "isSampled", b"isSampled", "memberLabel", b"memberLabel", "pairedMediaType", b"pairedMediaType", "parentGroupJID", b"parentGroupJID", "participant", b"participant", "placeholderKey", b"placeholderKey", "questionReplyQuotedMessage", b"questionReplyQuotedMessage", "quotedAd", b"quotedAd", "quotedMessage", b"quotedMessage", "rankingVersion", b"rankingVersion", "remoteJID", b"remoteJID", "smbClientCampaignID", b"smbClientCampaignID", "smbServerCampaignID", b"smbServerCampaignID", "stanzaID", b"stanzaID", "statusAttributionType", b"statusAttributionType", "statusAudienceMetadata", b"statusAudienceMetadata", "statusSourceType", b"statusSourceType", "trustBannerAction", b"trustBannerAction", "trustBannerType", b"trustBannerType", "urlTrackingMap", b"urlTrackingMap", "utm", b"utm"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["actionLink", b"actionLink", "alwaysShowAdAttribution", b"alwaysShowAdAttribution", "businessMessageForwardInfo", b"businessMessageForwardInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "dataSharingContext", b"dataSharingContext", "disappearingMode", b"disappearingMode", "entryPointConversionApp", b"entryPointConversionApp", "entryPointConversionDelaySeconds", b"entryPointConversionDelaySeconds", "entryPointConversionExternalMedium", b"entryPointConversionExternalMedium", "entryPointConversionExternalSource", b"entryPointConversionExternalSource", "entryPointConversionSource", b"entryPointConversionSource", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralSharedSecret", b"ephemeralSharedSecret", "expiration", b"expiration", "externalAdReply", b"externalAdReply", "featureEligibilities", b"featureEligibilities", "forwardOrigin", b"forwardOrigin", "forwardedAiBotMessageInfo", b"forwardedAiBotMessageInfo", "forwardedNewsletterMessageInfo", b"forwardedNewsletterMessageInfo", "forwardingScore", b"forwardingScore", "groupMentions", b"groupMentions", "groupSubject", b"groupSubject", "isForwarded", b"isForwarded", "isGroupStatus", b"isGroupStatus", "isQuestion", b"isQuestion", "isSampled", b"isSampled", "memberLabel", b"memberLabel", "mentionedJID", b"mentionedJID", "pairedMediaType", b"pairedMediaType", "parentGroupJID", b"parentGroupJID", "participant", b"participant", "placeholderKey", b"placeholderKey", "questionReplyQuotedMessage", b"questionReplyQuotedMessage", "quotedAd", b"quotedAd", "quotedMessage", b"quotedMessage", "rankingVersion", b"rankingVersion", "remoteJID", b"remoteJID", "smbClientCampaignID", b"smbClientCampaignID", "smbServerCampaignID", b"smbServerCampaignID", "stanzaID", b"stanzaID", "statusAttributionType", b"statusAttributionType", "statusAttributions", b"statusAttributions", "statusAudienceMetadata", b"statusAudienceMetadata", "statusSourceType", b"statusSourceType", "trustBannerAction", b"trustBannerAction", "trustBannerType", b"trustBannerType", "urlTrackingMap", b"urlTrackingMap", "utm", b"utm"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["actionLink", b"actionLink", "alwaysShowAdAttribution", b"alwaysShowAdAttribution", "businessMessageForwardInfo", b"businessMessageForwardInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "dataSharingContext", b"dataSharingContext", "disappearingMode", b"disappearingMode", "entryPointConversionApp", b"entryPointConversionApp", "entryPointConversionDelaySeconds", b"entryPointConversionDelaySeconds", "entryPointConversionExternalMedium", b"entryPointConversionExternalMedium", "entryPointConversionExternalSource", b"entryPointConversionExternalSource", "entryPointConversionSource", b"entryPointConversionSource", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralSharedSecret", b"ephemeralSharedSecret", "expiration", b"expiration", "externalAdReply", b"externalAdReply", "featureEligibilities", b"featureEligibilities", "forwardOrigin", b"forwardOrigin", "forwardedAiBotMessageInfo", b"forwardedAiBotMessageInfo", "forwardedNewsletterMessageInfo", b"forwardedNewsletterMessageInfo", "forwardingScore", b"forwardingScore", "groupSubject", b"groupSubject", "isForwarded", b"isForwarded", "isGroupStatus", b"isGroupStatus", "isQuestion", b"isQuestion", "isSampled", b"isSampled", "memberLabel", b"memberLabel", "nonJIDMentions", b"nonJIDMentions", "pairedMediaType", b"pairedMediaType", "parentGroupJID", b"parentGroupJID", "participant", b"participant", "placeholderKey", b"placeholderKey", "questionReplyQuotedMessage", b"questionReplyQuotedMessage", "quotedAd", b"quotedAd", "quotedMessage", b"quotedMessage", "rankingVersion", b"rankingVersion", "remoteJID", b"remoteJID", "smbClientCampaignID", b"smbClientCampaignID", "smbServerCampaignID", b"smbServerCampaignID", "stanzaID", b"stanzaID", "statusAttributionType", b"statusAttributionType", "statusAudienceMetadata", b"statusAudienceMetadata", "statusSourceType", b"statusSourceType", "trustBannerAction", b"trustBannerAction", "trustBannerType", b"trustBannerType", "urlTrackingMap", b"urlTrackingMap", "utm", b"utm"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["actionLink", b"actionLink", "alwaysShowAdAttribution", b"alwaysShowAdAttribution", "businessMessageForwardInfo", b"businessMessageForwardInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "dataSharingContext", b"dataSharingContext", "disappearingMode", b"disappearingMode", "entryPointConversionApp", b"entryPointConversionApp", "entryPointConversionDelaySeconds", b"entryPointConversionDelaySeconds", "entryPointConversionExternalMedium", b"entryPointConversionExternalMedium", "entryPointConversionExternalSource", b"entryPointConversionExternalSource", "entryPointConversionSource", b"entryPointConversionSource", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralSharedSecret", b"ephemeralSharedSecret", "expiration", b"expiration", "externalAdReply", b"externalAdReply", "featureEligibilities", b"featureEligibilities", "forwardOrigin", b"forwardOrigin", "forwardedAiBotMessageInfo", b"forwardedAiBotMessageInfo", "forwardedNewsletterMessageInfo", b"forwardedNewsletterMessageInfo", "forwardingScore", b"forwardingScore", "groupMentions", b"groupMentions", "groupSubject", b"groupSubject", "isForwarded", b"isForwarded", "isGroupStatus", b"isGroupStatus", "isQuestion", b"isQuestion", "isSampled", b"isSampled", "memberLabel", b"memberLabel", "mentionedJID", b"mentionedJID", "nonJIDMentions", b"nonJIDMentions", "pairedMediaType", b"pairedMediaType", "parentGroupJID", b"parentGroupJID", "participant", b"participant", "placeholderKey", b"placeholderKey", "questionReplyQuotedMessage", b"questionReplyQuotedMessage", "quotedAd", b"quotedAd", "quotedMessage", b"quotedMessage", "rankingVersion", b"rankingVersion", "remoteJID", b"remoteJID", "smbClientCampaignID", b"smbClientCampaignID", "smbServerCampaignID", b"smbServerCampaignID", "stanzaID", b"stanzaID", "statusAttributionType", b"statusAttributionType", "statusAttributions", b"statusAttributions", "statusAudienceMetadata", b"statusAudienceMetadata", "statusSourceType", b"statusSourceType", "trustBannerAction", b"trustBannerAction", "trustBannerType", b"trustBannerType", "urlTrackingMap", b"urlTrackingMap", "utm", b"utm"]) -> None: ...
 
 global___ContextInfo = ContextInfo
 
@@ -4453,10 +4460,12 @@ class ThreadID(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: ThreadID._ThreadType.ValueType  # 0
         VIEW_REPLIES: ThreadID._ThreadType.ValueType  # 1
+        AI_THREAD: ThreadID._ThreadType.ValueType  # 2
 
     class ThreadType(_ThreadType, metaclass=_ThreadTypeEnumTypeWrapper): ...
     UNKNOWN: ThreadID.ThreadType.ValueType  # 0
     VIEW_REPLIES: ThreadID.ThreadType.ValueType  # 1
+    AI_THREAD: ThreadID.ThreadType.ValueType  # 2
 
     THREADTYPE_FIELD_NUMBER: builtins.int
     THREADKEY_FIELD_NUMBER: builtins.int
