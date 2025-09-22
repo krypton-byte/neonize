@@ -1940,7 +1940,7 @@ func CreateGroup(id *C.char, createGroupByte *C.uchar, createGroupSize C.int) *C
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
 	}
-	group_info, err_ := clients[C.GoString(id)].CreateGroup(utils.DecodeReqCreateGroup(&reqCreateGroup))
+	group_info, err_ := clients[C.GoString(id)].CreateGroup(context.Background(), utils.DecodeReqCreateGroup(&reqCreateGroup))
 	if group_info != nil {
 		return_.GroupInfo = utils.EncodeGroupInfo(group_info)
 	}
@@ -1954,7 +1954,7 @@ func CreateGroup(id *C.char, createGroupByte *C.uchar, createGroupSize C.int) *C
 func GetJoinedGroups(id *C.char) *C.struct_BytesReturn {
 	return_ := defproto.GetJoinedGroupsReturnFunction{}
 	neonize_groups_info := []*defproto.GroupInfo{}
-	joined_groups, err := clients[C.GoString(id)].GetJoinedGroups()
+	joined_groups, err := clients[C.GoString(id)].GetJoinedGroups(context.Background())
 	if err != nil {
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
