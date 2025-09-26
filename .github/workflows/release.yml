@@ -58,6 +58,7 @@ jobs:
       uses: arduino/setup-protoc@v3
       with:
         version: "32.1"
+        repo-token: ${{ secrets.PAT }}
     - name: build
       run: |
         # uv run task goneonize_changed
@@ -113,6 +114,7 @@ jobs:
       uses: arduino/setup-protoc@v3
       with:
         version: "32.1"
+        repo-token: ${{ secrets.PAT }}
     - name: Cache dependencies
       uses: actions/cache@v4
       with:
@@ -188,6 +190,7 @@ jobs:
       uses: arduino/setup-protoc@v3
       with:
         version: "32.1"
+        repo-token: ${{ secrets.PAT }}
     - name: Cache dependencies
       uses: actions/cache@v4
       with:
@@ -262,6 +265,7 @@ jobs:
       uses: arduino/setup-protoc@v3
       with:
         version: "32.1"
+        repo-token: ${{ secrets.PAT }}
     - name: Cache dependencies
       uses: actions/cache@v4
       with:
@@ -405,6 +409,7 @@ jobs:
       uses: arduino/setup-protoc@v3
       with:
         version: "32.1"
+        repo-token: ${{ secrets.PAT }}
     - name: install deps
       run: |
         uv sync --dev
