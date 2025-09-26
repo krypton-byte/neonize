@@ -182,6 +182,7 @@ from .utils.enum import (
     PrivacySetting,
     PrivacySettingType,
     ReceiptType,
+    VoteType
 )
 from .utils.ffmpeg import FFmpeg
 from .utils.iofile import get_bytes_from_name_or_url, prepare_zip_file_content
@@ -752,7 +753,7 @@ class NewClient:
         self,
         name: str,
         options: List[str],
-        selectable_count: int,
+        selectable_count: VoteType,
         quoted: Optional[neonize_proto.Message] = None,
     ) -> Message:
         """Build a poll vote creation message.
@@ -774,7 +775,7 @@ class NewClient:
             name.encode(),
             options_buf,
             len(options_buf),
-            selectable_count,
+            selectable_count.value,
         )
         protobytes = bytes_ptr.contents.get_bytes()
         free_bytes(bytes_ptr)
