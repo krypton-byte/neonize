@@ -398,6 +398,9 @@ jobs:
         path: sharedlib
     - name: Install uv
       uses: astral-sh/setup-uv@v5
+    - name: Bypass Rate Limit
+      run: sleep 20
+      shell: bash
     - name: Install Protoc
       uses: arduino/setup-protoc@v3
       with:
