@@ -7,7 +7,7 @@ toolchain go1.24.5
 require (
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.32
-	go.mau.fi/whatsmeow v0.0.0-20250919124702-c8bdfd36d05e
+	go.mau.fi/whatsmeow v0.0.0-20250922112717-258fd9454b95
 	google.golang.org/protobuf v1.36.9
 )
 
