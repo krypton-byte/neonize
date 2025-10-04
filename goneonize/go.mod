@@ -7,8 +7,8 @@ toolchain go1.24.5
 require (
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.32
-	go.mau.fi/whatsmeow v0.0.0-20250919124702-c8bdfd36d05e
-	google.golang.org/protobuf v1.36.9
+	go.mau.fi/whatsmeow v0.0.0-20251003154939-d562355c4d82
+	google.golang.org/protobuf v1.36.10
 )
 
 require (
@@ -25,7 +25,7 @@ require (
 	go.mau.fi/libsignal v0.2.0 // indirect
 	go.mau.fi/util v0.9.1 // indirect
 	golang.org/x/crypto v0.42.0 // indirect
-	golang.org/x/exp v0.0.0-20250911091902-df9299821621 // indirect
+	golang.org/x/exp v0.0.0-20251002181428-27f1f14c8bb9 // indirect
 	golang.org/x/net v0.44.0 // indirect
 	golang.org/x/sys v0.36.0 // indirect
 	golang.org/x/text v0.29.0 // indirect
