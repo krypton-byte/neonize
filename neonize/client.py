@@ -182,7 +182,7 @@ from .utils.enum import (
     PrivacySetting,
     PrivacySettingType,
     ReceiptType,
-    VoteType
+    VoteType,
 )
 from .utils.ffmpeg import FFmpeg
 from .utils.iofile import get_bytes_from_name_or_url, prepare_zip_file_content
@@ -2495,7 +2495,12 @@ class NewClient:
         if err:
             raise SetDefaultDisappearingTimerError(err)
 
-    def set_disappearing_timer(self, jid: JID, timer: typing.Union[timedelta, int], setting_ts: Optional[timedelta] = None):
+    def set_disappearing_timer(
+        self,
+        jid: JID,
+        timer: typing.Union[timedelta, int],
+        setting_ts: Optional[timedelta] = None,
+    ):
         """
         Set a disappearing timer for a specific JID. The timer can be set as either a timedelta object or an integer.
         If a timedelta object is provided, it's converted into nanoseconds. If an integer is provided, it's interpreted as nanoseconds.

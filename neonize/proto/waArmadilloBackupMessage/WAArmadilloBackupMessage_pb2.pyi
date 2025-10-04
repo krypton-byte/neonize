@@ -43,12 +43,14 @@ class BackupMessage(google.protobuf.message.Message):
         PAYLOADVERSION_FIELD_NUMBER: builtins.int
         FUTUREPROOFBEHAVIOR_FIELD_NUMBER: builtins.int
         THREADTYPETAG_FIELD_NUMBER: builtins.int
+        CLIENTTIMESTAMPMS_FIELD_NUMBER: builtins.int
         senderID: builtins.str
         messageID: builtins.str
         timestampMS: builtins.int
         payloadVersion: builtins.int
         futureProofBehavior: builtins.int
         threadTypeTag: builtins.int
+        clientTimestampMS: builtins.int
         @property
         def frankingMetadata(self) -> global___BackupMessage.Metadata.FrankingMetadata: ...
         def __init__(
@@ -61,9 +63,10 @@ class BackupMessage(google.protobuf.message.Message):
             payloadVersion: builtins.int | None = ...,
             futureProofBehavior: builtins.int | None = ...,
             threadTypeTag: builtins.int | None = ...,
+            clientTimestampMS: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["frankingMetadata", b"frankingMetadata", "futureProofBehavior", b"futureProofBehavior", "messageID", b"messageID", "payloadVersion", b"payloadVersion", "senderID", b"senderID", "threadTypeTag", b"threadTypeTag", "timestampMS", b"timestampMS"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["frankingMetadata", b"frankingMetadata", "futureProofBehavior", b"futureProofBehavior", "messageID", b"messageID", "payloadVersion", b"payloadVersion", "senderID", b"senderID", "threadTypeTag", b"threadTypeTag", "timestampMS", b"timestampMS"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["clientTimestampMS", b"clientTimestampMS", "frankingMetadata", b"frankingMetadata", "futureProofBehavior", b"futureProofBehavior", "messageID", b"messageID", "payloadVersion", b"payloadVersion", "senderID", b"senderID", "threadTypeTag", b"threadTypeTag", "timestampMS", b"timestampMS"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["clientTimestampMS", b"clientTimestampMS", "frankingMetadata", b"frankingMetadata", "futureProofBehavior", b"futureProofBehavior", "messageID", b"messageID", "payloadVersion", b"payloadVersion", "senderID", b"senderID", "threadTypeTag", b"threadTypeTag", "timestampMS", b"timestampMS"]) -> None: ...
 
     ENCRYPTEDTRANSPORTMESSAGE_FIELD_NUMBER: builtins.int
     ENCRYPTEDTRANSPORTEVENT_FIELD_NUMBER: builtins.int
