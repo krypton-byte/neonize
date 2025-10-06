@@ -185,7 +185,7 @@ from ..utils.enum import (
     PrivacySetting,
     PrivacySettingType,
     ReceiptType,
-    VoteType
+    VoteType,
 )
 from ..utils.ffmpeg import AFFmpeg
 from ..utils.iofile import (
@@ -2550,7 +2550,10 @@ class NewAClient:
             raise SetDefaultDisappearingTimerError(err)
 
     async def set_disappearing_timer(
-        self, jid: JID, timer: typing.Union[timedelta, int], setting_ts: Optional[timedelta] = None
+        self,
+        jid: JID,
+        timer: typing.Union[timedelta, int],
+        setting_ts: Optional[timedelta] = None,
     ):
         """
         Set a disappearing timer for a specific JID. The timer can be set as either a timedelta object or an integer.
