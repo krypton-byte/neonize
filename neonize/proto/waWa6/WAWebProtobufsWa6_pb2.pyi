@@ -564,6 +564,8 @@ class ClientPayload(google.protobuf.message.Message):
     ACCOUNTTYPE_FIELD_NUMBER: builtins.int
     CONNECTIONSEQUENCEINFO_FIELD_NUMBER: builtins.int
     PAALINK_FIELD_NUMBER: builtins.int
+    PREACKSCOUNT_FIELD_NUMBER: builtins.int
+    PROCESSINGQUEUESIZE_FIELD_NUMBER: builtins.int
     username: builtins.int
     passive: builtins.bool
     pushName: builtins.str
@@ -590,6 +592,8 @@ class ClientPayload(google.protobuf.message.Message):
     accountType: global___ClientPayload.AccountType.ValueType
     connectionSequenceInfo: builtins.int
     paaLink: builtins.bool
+    preacksCount: builtins.int
+    processingQueueSize: builtins.int
     @property
     def userAgent(self) -> global___ClientPayload.UserAgent: ...
     @property
@@ -637,9 +641,11 @@ class ClientPayload(google.protobuf.message.Message):
         accountType: global___ClientPayload.AccountType.ValueType | None = ...,
         connectionSequenceInfo: builtins.int | None = ...,
         paaLink: builtins.bool | None = ...,
+        preacksCount: builtins.int | None = ...,
+        processingQueueSize: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "passive", b"passive", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "passive", b"passive", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shards", b"shards", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "passive", b"passive", "preacksCount", b"preacksCount", "processingQueueSize", b"processingQueueSize", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "passive", b"passive", "preacksCount", b"preacksCount", "processingQueueSize", b"processingQueueSize", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shards", b"shards", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> None: ...
 
 global___ClientPayload = ClientPayload
 
@@ -653,16 +659,19 @@ class HandshakeMessage(google.protobuf.message.Message):
 
         STATIC_FIELD_NUMBER: builtins.int
         PAYLOAD_FIELD_NUMBER: builtins.int
+        EXTENDEDCIPHERTEXT_FIELD_NUMBER: builtins.int
         static: builtins.bytes
         payload: builtins.bytes
+        extendedCiphertext: builtins.bytes
         def __init__(
             self,
             *,
             static: builtins.bytes | None = ...,
             payload: builtins.bytes | None = ...,
+            extendedCiphertext: builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["payload", b"payload", "static", b"static"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["payload", b"payload", "static", b"static"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static"]) -> None: ...
 
     @typing.final
     class ServerHello(google.protobuf.message.Message):
@@ -671,18 +680,21 @@ class HandshakeMessage(google.protobuf.message.Message):
         EPHEMERAL_FIELD_NUMBER: builtins.int
         STATIC_FIELD_NUMBER: builtins.int
         PAYLOAD_FIELD_NUMBER: builtins.int
+        EXTENDEDSTATIC_FIELD_NUMBER: builtins.int
         ephemeral: builtins.bytes
         static: builtins.bytes
         payload: builtins.bytes
+        extendedStatic: builtins.bytes
         def __init__(
             self,
             *,
             ephemeral: builtins.bytes | None = ...,
             static: builtins.bytes | None = ...,
             payload: builtins.bytes | None = ...,
+            extendedStatic: builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["ephemeral", b"ephemeral", "payload", b"payload", "static", b"static"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["ephemeral", b"ephemeral", "payload", b"payload", "static", b"static"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["ephemeral", b"ephemeral", "extendedStatic", b"extendedStatic", "payload", b"payload", "static", b"static"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["ephemeral", b"ephemeral", "extendedStatic", b"extendedStatic", "payload", b"payload", "static", b"static"]) -> None: ...
 
     @typing.final
     class ClientHello(google.protobuf.message.Message):
@@ -691,18 +703,24 @@ class HandshakeMessage(google.protobuf.message.Message):
         EPHEMERAL_FIELD_NUMBER: builtins.int
         STATIC_FIELD_NUMBER: builtins.int
         PAYLOAD_FIELD_NUMBER: builtins.int
+        USEEXTENDED_FIELD_NUMBER: builtins.int
+        EXTENDEDCIPHERTEXT_FIELD_NUMBER: builtins.int
         ephemeral: builtins.bytes
         static: builtins.bytes
         payload: builtins.bytes
+        useExtended: builtins.bool
+        extendedCiphertext: builtins.bytes
         def __init__(
             self,
             *,
             ephemeral: builtins.bytes | None = ...,
             static: builtins.bytes | None = ...,
             payload: builtins.bytes | None = ...,
+            useExtended: builtins.bool | None = ...,
+            extendedCiphertext: builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["ephemeral", b"ephemeral", "payload", b"payload", "static", b"static"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["ephemeral", b"ephemeral", "payload", b"payload", "static", b"static"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["ephemeral", b"ephemeral", "extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static", "useExtended", b"useExtended"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["ephemeral", b"ephemeral", "extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static", "useExtended", b"useExtended"]) -> None: ...
 
     CLIENTHELLO_FIELD_NUMBER: builtins.int
     SERVERHELLO_FIELD_NUMBER: builtins.int
