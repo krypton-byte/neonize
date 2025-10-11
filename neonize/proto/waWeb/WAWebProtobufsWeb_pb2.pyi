@@ -1201,14 +1201,16 @@ class GroupHistoryBundleInfo(google.protobuf.message.Message):
 
     class _ProcessStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GroupHistoryBundleInfo._ProcessState.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        NOT_DOWNLOADED: GroupHistoryBundleInfo._ProcessState.ValueType  # 0
-        DOWNLOADED: GroupHistoryBundleInfo._ProcessState.ValueType  # 1
-        DOWNLOAD_FAILED: GroupHistoryBundleInfo._ProcessState.ValueType  # 2
+        NOT_INJECTED: GroupHistoryBundleInfo._ProcessState.ValueType  # 0
+        INJECTED: GroupHistoryBundleInfo._ProcessState.ValueType  # 1
+        INJECTED_PARTIAL: GroupHistoryBundleInfo._ProcessState.ValueType  # 2
+        INJECTION_FAILED: GroupHistoryBundleInfo._ProcessState.ValueType  # 3
 
     class ProcessState(_ProcessState, metaclass=_ProcessStateEnumTypeWrapper): ...
-    NOT_DOWNLOADED: GroupHistoryBundleInfo.ProcessState.ValueType  # 0
-    DOWNLOADED: GroupHistoryBundleInfo.ProcessState.ValueType  # 1
-    DOWNLOAD_FAILED: GroupHistoryBundleInfo.ProcessState.ValueType  # 2
+    NOT_INJECTED: GroupHistoryBundleInfo.ProcessState.ValueType  # 0
+    INJECTED: GroupHistoryBundleInfo.ProcessState.ValueType  # 1
+    INJECTED_PARTIAL: GroupHistoryBundleInfo.ProcessState.ValueType  # 2
+    INJECTION_FAILED: GroupHistoryBundleInfo.ProcessState.ValueType  # 3
 
     DEPRECATEDMESSAGEHISTORYBUNDLE_FIELD_NUMBER: builtins.int
     PROCESSSTATE_FIELD_NUMBER: builtins.int
@@ -1674,14 +1676,17 @@ class GroupHistoryIndividualMessageInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     BUNDLEMESSAGEKEY_FIELD_NUMBER: builtins.int
+    EDITEDAFTERRECEIVEDASHISTORY_FIELD_NUMBER: builtins.int
+    editedAfterReceivedAsHistory: builtins.bool
     @property
     def bundleMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
         bundleMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+        editedAfterReceivedAsHistory: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["bundleMessageKey", b"bundleMessageKey"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["bundleMessageKey", b"bundleMessageKey"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["bundleMessageKey", b"bundleMessageKey", "editedAfterReceivedAsHistory", b"editedAfterReceivedAsHistory"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["bundleMessageKey", b"bundleMessageKey", "editedAfterReceivedAsHistory", b"editedAfterReceivedAsHistory"]) -> None: ...
 
 global___GroupHistoryIndividualMessageInfo = GroupHistoryIndividualMessageInfo
