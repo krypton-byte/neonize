@@ -333,11 +333,11 @@ message NewsletterText {
     required int64 UpdateTime = 3;
 }
 message ProfilePictureInfo {
-    required string URL = 1;
-    required string ID = 2;
-    required string Type = 3;
-    required string DirectPath = 4;
-    required bytes Hash = 5;
+    optional string URL = 1;
+    optional string ID = 2;
+    optional string Type = 3;
+    optional string DirectPath = 4;
+    optional bytes Hash = 5;
 }
 message NewsletterReactionSettings {
     enum NewsletterReactionsMode {
