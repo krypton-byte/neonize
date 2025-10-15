@@ -615,6 +615,7 @@ class PatchDebugData(google.protobuf.message.Message):
         WEAROS: PatchDebugData._Platform.ValueType  # 8
         WASG: PatchDebugData._Platform.ValueType  # 9
         WEARM: PatchDebugData._Platform.ValueType  # 10
+        CAPI: PatchDebugData._Platform.ValueType  # 11
 
     class Platform(_Platform, metaclass=_PlatformEnumTypeWrapper): ...
     ANDROID: PatchDebugData.Platform.ValueType  # 0
@@ -628,6 +629,7 @@ class PatchDebugData(google.protobuf.message.Message):
     WEAROS: PatchDebugData.Platform.ValueType  # 8
     WASG: PatchDebugData.Platform.ValueType  # 9
     WEARM: PatchDebugData.Platform.ValueType  # 10
+    CAPI: PatchDebugData.Platform.ValueType  # 11
 
     CURRENTLTHASH_FIELD_NUMBER: builtins.int
     NEWLTHASH_FIELD_NUMBER: builtins.int
