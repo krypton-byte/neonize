@@ -2084,6 +2084,25 @@ class PairPhoneParams(google.protobuf.message.Message):
 global___PairPhoneParams = PairPhoneParams
 
 @typing.final
+class PairPhoneReturnFunction(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CODE_FIELD_NUMBER: builtins.int
+    ERROR_FIELD_NUMBER: builtins.int
+    Code: builtins.str
+    Error: builtins.str
+    def __init__(
+        self,
+        *,
+        Code: builtins.str | None = ...,
+        Error: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["Code", b"Code", "Error", b"Error"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["Code", b"Code", "Error", b"Error"]) -> None: ...
+
+global___PairPhoneReturnFunction = PairPhoneReturnFunction
+
+@typing.final
 class ContactQRLinkTarget(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
