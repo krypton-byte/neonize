@@ -516,6 +516,11 @@ message PairPhoneParams{
     optional string clientDisplayName = 4;
 }
 
+message PairPhoneReturnFunction {
+    optional string Code = 1;
+    optional string Error = 2;
+}
+
 message ContactQRLinkTarget {
     required JID JID = 1;
     required string Type = 2;
