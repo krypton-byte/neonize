@@ -268,6 +268,7 @@ class WebMessageInfo(google.protobuf.message.Message):
         GROUP_MEMBER_LINK_MODE: WebMessageInfo._StubType.ValueType  # 217
         BIZ_AUTOMATICALLY_LABELED_CHAT_SYSTEM_MESSAGE: WebMessageInfo._StubType.ValueType  # 218
         PHONE_NUMBER_HIDING_CHAT_DEPRECATED_MESSAGE: WebMessageInfo._StubType.ValueType  # 219
+        QUARANTINED_MESSAGE: WebMessageInfo._StubType.ValueType  # 220
 
     class StubType(_StubType, metaclass=_StubTypeEnumTypeWrapper): ...
     UNKNOWN: WebMessageInfo.StubType.ValueType  # 0
@@ -490,6 +491,7 @@ class WebMessageInfo(google.protobuf.message.Message):
     GROUP_MEMBER_LINK_MODE: WebMessageInfo.StubType.ValueType  # 217
     BIZ_AUTOMATICALLY_LABELED_CHAT_SYSTEM_MESSAGE: WebMessageInfo.StubType.ValueType  # 218
     PHONE_NUMBER_HIDING_CHAT_DEPRECATED_MESSAGE: WebMessageInfo.StubType.ValueType  # 219
+    QUARANTINED_MESSAGE: WebMessageInfo.StubType.ValueType  # 220
 
     class _Status:
         ValueType = typing.NewType("ValueType", builtins.int)
@@ -577,6 +579,7 @@ class WebMessageInfo(google.protobuf.message.Message):
     GROUPHISTORYINDIVIDUALMESSAGEINFO_FIELD_NUMBER: builtins.int
     GROUPHISTORYBUNDLEINFO_FIELD_NUMBER: builtins.int
     INTERACTIVEMESSAGEADDITIONALMETADATA_FIELD_NUMBER: builtins.int
+    QUARANTINEDMESSAGE_FIELD_NUMBER: builtins.int
     messageTimestamp: builtins.int
     status: global___WebMessageInfo.Status.ValueType
     participant: builtins.str
@@ -673,6 +676,8 @@ class WebMessageInfo(google.protobuf.message.Message):
     def groupHistoryBundleInfo(self) -> global___GroupHistoryBundleInfo: ...
     @property
     def interactiveMessageAdditionalMetadata(self) -> global___InteractiveMessageAdditionalMetadata: ...
+    @property
+    def quarantinedMessage(self) -> global___QuarantinedMessage: ...
     def __init__(
         self,
         *,
@@ -741,9 +746,10 @@ class WebMessageInfo(google.protobuf.message.Message):
         groupHistoryIndividualMessageInfo: global___GroupHistoryIndividualMessageInfo | None = ...,
         groupHistoryBundleInfo: global___GroupHistoryBundleInfo | None = ...,
         interactiveMessageAdditionalMetadata: global___InteractiveMessageAdditionalMetadata | None = ...,
+        quarantinedMessage: global___QuarantinedMessage | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusPsa", b"statusPsa", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "verifiedBizName", b"verifiedBizName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "eventResponses", b"eventResponses", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "labels", b"labels", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageAddOns", b"messageAddOns", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubParameters", b"messageStubParameters", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "pollUpdates", b"pollUpdates", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reactions", b"reactions", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusMentionSources", b"statusMentionSources", "statusMentions", b"statusMentions", "statusPsa", b"statusPsa", "supportAiCitations", b"supportAiCitations", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "userReceipt", b"userReceipt", "verifiedBizName", b"verifiedBizName"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quarantinedMessage", b"quarantinedMessage", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusPsa", b"statusPsa", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "verifiedBizName", b"verifiedBizName"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "eventResponses", b"eventResponses", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "labels", b"labels", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageAddOns", b"messageAddOns", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubParameters", b"messageStubParameters", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "pollUpdates", b"pollUpdates", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quarantinedMessage", b"quarantinedMessage", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reactions", b"reactions", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusMentionSources", b"statusMentionSources", "statusMentions", b"statusMentions", "statusPsa", b"statusPsa", "supportAiCitations", b"supportAiCitations", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "userReceipt", b"userReceipt", "verifiedBizName", b"verifiedBizName"]) -> None: ...
 
 global___WebMessageInfo = WebMessageInfo
 
@@ -1201,14 +1207,16 @@ class GroupHistoryBundleInfo(google.protobuf.message.Message):
 
     class _ProcessStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GroupHistoryBundleInfo._ProcessState.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        NOT_DOWNLOADED: GroupHistoryBundleInfo._ProcessState.ValueType  # 0
-        DOWNLOADED: GroupHistoryBundleInfo._ProcessState.ValueType  # 1
-        DOWNLOAD_FAILED: GroupHistoryBundleInfo._ProcessState.ValueType  # 2
+        NOT_INJECTED: GroupHistoryBundleInfo._ProcessState.ValueType  # 0
+        INJECTED: GroupHistoryBundleInfo._ProcessState.ValueType  # 1
+        INJECTED_PARTIAL: GroupHistoryBundleInfo._ProcessState.ValueType  # 2
+        INJECTION_FAILED: GroupHistoryBundleInfo._ProcessState.ValueType  # 3
 
     class ProcessState(_ProcessState, metaclass=_ProcessStateEnumTypeWrapper): ...
-    NOT_DOWNLOADED: GroupHistoryBundleInfo.ProcessState.ValueType  # 0
-    DOWNLOADED: GroupHistoryBundleInfo.ProcessState.ValueType  # 1
-    DOWNLOAD_FAILED: GroupHistoryBundleInfo.ProcessState.ValueType  # 2
+    NOT_INJECTED: GroupHistoryBundleInfo.ProcessState.ValueType  # 0
+    INJECTED: GroupHistoryBundleInfo.ProcessState.ValueType  # 1
+    INJECTED_PARTIAL: GroupHistoryBundleInfo.ProcessState.ValueType  # 2
+    INJECTION_FAILED: GroupHistoryBundleInfo.ProcessState.ValueType  # 3
 
     DEPRECATEDMESSAGEHISTORYBUNDLE_FIELD_NUMBER: builtins.int
     PROCESSSTATE_FIELD_NUMBER: builtins.int
@@ -1674,14 +1682,36 @@ class GroupHistoryIndividualMessageInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     BUNDLEMESSAGEKEY_FIELD_NUMBER: builtins.int
+    EDITEDAFTERRECEIVEDASHISTORY_FIELD_NUMBER: builtins.int
+    editedAfterReceivedAsHistory: builtins.bool
     @property
     def bundleMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
         bundleMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+        editedAfterReceivedAsHistory: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["bundleMessageKey", b"bundleMessageKey"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["bundleMessageKey", b"bundleMessageKey"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["bundleMessageKey", b"bundleMessageKey", "editedAfterReceivedAsHistory", b"editedAfterReceivedAsHistory"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["bundleMessageKey", b"bundleMessageKey", "editedAfterReceivedAsHistory", b"editedAfterReceivedAsHistory"]) -> None: ...
 
 global___GroupHistoryIndividualMessageInfo = GroupHistoryIndividualMessageInfo
+
+@typing.final
+class QuarantinedMessage(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ORIGINALDATA_FIELD_NUMBER: builtins.int
+    EXTRACTEDTEXT_FIELD_NUMBER: builtins.int
+    originalData: builtins.bytes
+    extractedText: builtins.str
+    def __init__(
+        self,
+        *,
+        originalData: builtins.bytes | None = ...,
+        extractedText: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["extractedText", b"extractedText", "originalData", b"originalData"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["extractedText", b"extractedText", "originalData", b"originalData"]) -> None: ...
+
+global___QuarantinedMessage = QuarantinedMessage
