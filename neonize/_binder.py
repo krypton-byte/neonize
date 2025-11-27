@@ -347,6 +347,8 @@ if not os.environ.get("SPHINX"):
     gocode.ResolveContactQRLink.restype = ctypes.POINTER(Bytes)
     gocode.ResolveBusinessMessageLink.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     gocode.ResolveBusinessMessageLink.restype = ctypes.POINTER(Bytes)
+    gocode.PairPhone.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.PairPhone.restype = ctypes.POINTER(Bytes)
     gocode.SendAppState.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.SendAppState.restype = ctypes.c_char_p
     gocode.SetDefaultDisappearingTimer.argtypes = [ctypes.c_char_p, ctypes.c_int64]
