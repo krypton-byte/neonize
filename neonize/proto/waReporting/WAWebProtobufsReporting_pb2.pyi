@@ -8,7 +8,13 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -34,7 +40,7 @@ class Reportable(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing.Literal["maxVersion", b"maxVersion", "minVersion", b"minVersion", "never", b"never", "notReportableMinVersion", b"notReportableMinVersion"]) -> None: ...
 
-global___Reportable = Reportable
+Global___Reportable: typing_extensions.TypeAlias = Reportable
 
 @typing.final
 class Config(google.protobuf.message.Message):
@@ -48,12 +54,12 @@ class Config(google.protobuf.message.Message):
         VALUE_FIELD_NUMBER: builtins.int
         key: builtins.int
         @property
-        def value(self) -> global___Field: ...
+        def value(self) -> Global___Field: ...
         def __init__(
             self,
             *,
             key: builtins.int = ...,
-            value: global___Field | None = ...,
+            value: Global___Field | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
@@ -62,16 +68,16 @@ class Config(google.protobuf.message.Message):
     VERSION_FIELD_NUMBER: builtins.int
     version: builtins.int
     @property
-    def field(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___Field]: ...
+    def field(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, Global___Field]: ...
     def __init__(
         self,
         *,
-        field: collections.abc.Mapping[builtins.int, global___Field] | None = ...,
+        field: collections.abc.Mapping[builtins.int, Global___Field] | None = ...,
         version: builtins.int = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing.Literal["field", b"field", "version", b"version"]) -> None: ...
 
-global___Config = Config
+Global___Config: typing_extensions.TypeAlias = Config
 
 @typing.final
 class Field(google.protobuf.message.Message):
@@ -85,12 +91,12 @@ class Field(google.protobuf.message.Message):
         VALUE_FIELD_NUMBER: builtins.int
         key: builtins.int
         @property
-        def value(self) -> global___Field: ...
+        def value(self) -> Global___Field: ...
         def __init__(
             self,
             *,
             key: builtins.int = ...,
-            value: global___Field | None = ...,
+            value: Global___Field | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
@@ -105,7 +111,7 @@ class Field(google.protobuf.message.Message):
     notReportableMinVersion: builtins.int
     isMessage: builtins.bool
     @property
-    def subfield(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___Field]: ...
+    def subfield(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, Global___Field]: ...
     def __init__(
         self,
         *,
@@ -113,8 +119,8 @@ class Field(google.protobuf.message.Message):
         maxVersion: builtins.int = ...,
         notReportableMinVersion: builtins.int = ...,
         isMessage: builtins.bool = ...,
-        subfield: collections.abc.Mapping[builtins.int, global___Field] | None = ...,
+        subfield: collections.abc.Mapping[builtins.int, Global___Field] | None = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing.Literal["isMessage", b"isMessage", "maxVersion", b"maxVersion", "minVersion", b"minVersion", "notReportableMinVersion", b"notReportableMinVersion", "subfield", b"subfield"]) -> None: ...
 
-global___Field = Field
+Global___Field: typing_extensions.TypeAlias = Field

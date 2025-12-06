@@ -6,8 +6,14 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
+import sys
 import typing
 import waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -52,14 +58,14 @@ class BackupMessage(google.protobuf.message.Message):
         threadTypeTag: builtins.int
         clientTimestampMS: builtins.int
         @property
-        def frankingMetadata(self) -> global___BackupMessage.Metadata.FrankingMetadata: ...
+        def frankingMetadata(self) -> Global___BackupMessage.Metadata.FrankingMetadata: ...
         def __init__(
             self,
             *,
             senderID: builtins.str | None = ...,
             messageID: builtins.str | None = ...,
             timestampMS: builtins.int | None = ...,
-            frankingMetadata: global___BackupMessage.Metadata.FrankingMetadata | None = ...,
+            frankingMetadata: Global___BackupMessage.Metadata.FrankingMetadata | None = ...,
             payloadVersion: builtins.int | None = ...,
             futureProofBehavior: builtins.int | None = ...,
             threadTypeTag: builtins.int | None = ...,
@@ -81,7 +87,7 @@ class BackupMessage(google.protobuf.message.Message):
     @property
     def miTransportAdminMessage(self) -> waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol: ...
     @property
-    def metadata(self) -> global___BackupMessage.Metadata: ...
+    def metadata(self) -> Global___BackupMessage.Metadata: ...
     def __init__(
         self,
         *,
@@ -89,10 +95,10 @@ class BackupMessage(google.protobuf.message.Message):
         encryptedTransportEvent: waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol | None = ...,
         encryptedTransportLocallyTransformedMessage: waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol | None = ...,
         miTransportAdminMessage: waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol | None = ...,
-        metadata: global___BackupMessage.Metadata | None = ...,
+        metadata: Global___BackupMessage.Metadata | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["encryptedTransportEvent", b"encryptedTransportEvent", "encryptedTransportLocallyTransformedMessage", b"encryptedTransportLocallyTransformedMessage", "encryptedTransportMessage", b"encryptedTransportMessage", "metadata", b"metadata", "miTransportAdminMessage", b"miTransportAdminMessage", "payload", b"payload"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["encryptedTransportEvent", b"encryptedTransportEvent", "encryptedTransportLocallyTransformedMessage", b"encryptedTransportLocallyTransformedMessage", "encryptedTransportMessage", b"encryptedTransportMessage", "metadata", b"metadata", "miTransportAdminMessage", b"miTransportAdminMessage", "payload", b"payload"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["payload", b"payload"]) -> typing.Literal["encryptedTransportMessage", "encryptedTransportEvent", "encryptedTransportLocallyTransformedMessage", "miTransportAdminMessage"] | None: ...
 
-global___BackupMessage = BackupMessage
+Global___BackupMessage: typing_extensions.TypeAlias = BackupMessage

@@ -76,12 +76,12 @@ class WAMediaTransport(google.protobuf.message.Message):
             thumbnailWidth: builtins.int
             thumbnailHeight: builtins.int
             @property
-            def downloadableThumbnail(self) -> global___WAMediaTransport.Ancillary.Thumbnail.DownloadableThumbnail: ...
+            def downloadableThumbnail(self) -> Global___WAMediaTransport.Ancillary.Thumbnail.DownloadableThumbnail: ...
             def __init__(
                 self,
                 *,
                 JPEGThumbnail: builtins.bytes | None = ...,
-                downloadableThumbnail: global___WAMediaTransport.Ancillary.Thumbnail.DownloadableThumbnail | None = ...,
+                downloadableThumbnail: Global___WAMediaTransport.Ancillary.Thumbnail.DownloadableThumbnail | None = ...,
                 thumbnailWidth: builtins.int | None = ...,
                 thumbnailHeight: builtins.int | None = ...,
             ) -> None: ...
@@ -96,13 +96,13 @@ class WAMediaTransport(google.protobuf.message.Message):
         mimetype: builtins.str
         objectID: builtins.str
         @property
-        def thumbnail(self) -> global___WAMediaTransport.Ancillary.Thumbnail: ...
+        def thumbnail(self) -> Global___WAMediaTransport.Ancillary.Thumbnail: ...
         def __init__(
             self,
             *,
             fileLength: builtins.int | None = ...,
             mimetype: builtins.str | None = ...,
-            thumbnail: global___WAMediaTransport.Ancillary.Thumbnail | None = ...,
+            thumbnail: Global___WAMediaTransport.Ancillary.Thumbnail | None = ...,
             objectID: builtins.str | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["fileLength", b"fileLength", "mimetype", b"mimetype", "objectID", b"objectID", "thumbnail", b"thumbnail"]) -> builtins.bool: ...
@@ -137,19 +137,19 @@ class WAMediaTransport(google.protobuf.message.Message):
     INTEGRAL_FIELD_NUMBER: builtins.int
     ANCILLARY_FIELD_NUMBER: builtins.int
     @property
-    def integral(self) -> global___WAMediaTransport.Integral: ...
+    def integral(self) -> Global___WAMediaTransport.Integral: ...
     @property
-    def ancillary(self) -> global___WAMediaTransport.Ancillary: ...
+    def ancillary(self) -> Global___WAMediaTransport.Ancillary: ...
     def __init__(
         self,
         *,
-        integral: global___WAMediaTransport.Integral | None = ...,
-        ancillary: global___WAMediaTransport.Ancillary | None = ...,
+        integral: Global___WAMediaTransport.Integral | None = ...,
+        ancillary: Global___WAMediaTransport.Ancillary | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> None: ...
 
-global___WAMediaTransport = WAMediaTransport
+Global___WAMediaTransport: typing_extensions.TypeAlias = WAMediaTransport
 
 @typing.final
 class ImageTransport(google.protobuf.message.Message):
@@ -186,7 +186,7 @@ class ImageTransport(google.protobuf.message.Message):
         width: builtins.int
         scansSidecar: builtins.bytes
         midQualityFileSHA256: builtins.bytes
-        hdType: global___ImageTransport.Ancillary.HdType.ValueType
+        hdType: Global___ImageTransport.Ancillary.HdType.ValueType
         @property
         def scanLengths(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
         @property
@@ -201,7 +201,7 @@ class ImageTransport(google.protobuf.message.Message):
             scansSidecar: builtins.bytes | None = ...,
             scanLengths: collections.abc.Iterable[builtins.int] | None = ...,
             midQualityFileSHA256: builtins.bytes | None = ...,
-            hdType: global___ImageTransport.Ancillary.HdType.ValueType | None = ...,
+            hdType: Global___ImageTransport.Ancillary.HdType.ValueType | None = ...,
             memoriesConceptScores: collections.abc.Iterable[builtins.float] | None = ...,
             memoriesConceptIDs: collections.abc.Iterable[builtins.int] | None = ...,
         ) -> None: ...
@@ -214,11 +214,11 @@ class ImageTransport(google.protobuf.message.Message):
 
         TRANSPORT_FIELD_NUMBER: builtins.int
         @property
-        def transport(self) -> global___WAMediaTransport: ...
+        def transport(self) -> Global___WAMediaTransport: ...
         def __init__(
             self,
             *,
-            transport: global___WAMediaTransport | None = ...,
+            transport: Global___WAMediaTransport | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["transport", b"transport"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["transport", b"transport"]) -> None: ...
@@ -226,19 +226,19 @@ class ImageTransport(google.protobuf.message.Message):
     INTEGRAL_FIELD_NUMBER: builtins.int
     ANCILLARY_FIELD_NUMBER: builtins.int
     @property
-    def integral(self) -> global___ImageTransport.Integral: ...
+    def integral(self) -> Global___ImageTransport.Integral: ...
     @property
-    def ancillary(self) -> global___ImageTransport.Ancillary: ...
+    def ancillary(self) -> Global___ImageTransport.Ancillary: ...
     def __init__(
         self,
         *,
-        integral: global___ImageTransport.Integral | None = ...,
-        ancillary: global___ImageTransport.Ancillary | None = ...,
+        integral: Global___ImageTransport.Integral | None = ...,
+        ancillary: Global___ImageTransport.Ancillary | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> None: ...
 
-global___ImageTransport = ImageTransport
+Global___ImageTransport: typing_extensions.TypeAlias = ImageTransport
 
 @typing.final
 class VideoTransport(google.protobuf.message.Message):
@@ -277,7 +277,7 @@ class VideoTransport(google.protobuf.message.Message):
         height: builtins.int
         width: builtins.int
         sidecar: builtins.bytes
-        gifAttribution: global___VideoTransport.Ancillary.Attribution.ValueType
+        gifAttribution: Global___VideoTransport.Ancillary.Attribution.ValueType
         accessibilityLabel: builtins.str
         isHd: builtins.bool
         @property
@@ -291,7 +291,7 @@ class VideoTransport(google.protobuf.message.Message):
             height: builtins.int | None = ...,
             width: builtins.int | None = ...,
             sidecar: builtins.bytes | None = ...,
-            gifAttribution: global___VideoTransport.Ancillary.Attribution.ValueType | None = ...,
+            gifAttribution: Global___VideoTransport.Ancillary.Attribution.ValueType | None = ...,
             accessibilityLabel: builtins.str | None = ...,
             isHd: builtins.bool | None = ...,
         ) -> None: ...
@@ -304,11 +304,11 @@ class VideoTransport(google.protobuf.message.Message):
 
         TRANSPORT_FIELD_NUMBER: builtins.int
         @property
-        def transport(self) -> global___WAMediaTransport: ...
+        def transport(self) -> Global___WAMediaTransport: ...
         def __init__(
             self,
             *,
-            transport: global___WAMediaTransport | None = ...,
+            transport: Global___WAMediaTransport | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["transport", b"transport"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["transport", b"transport"]) -> None: ...
@@ -316,19 +316,19 @@ class VideoTransport(google.protobuf.message.Message):
     INTEGRAL_FIELD_NUMBER: builtins.int
     ANCILLARY_FIELD_NUMBER: builtins.int
     @property
-    def integral(self) -> global___VideoTransport.Integral: ...
+    def integral(self) -> Global___VideoTransport.Integral: ...
     @property
-    def ancillary(self) -> global___VideoTransport.Ancillary: ...
+    def ancillary(self) -> Global___VideoTransport.Ancillary: ...
     def __init__(
         self,
         *,
-        integral: global___VideoTransport.Integral | None = ...,
-        ancillary: global___VideoTransport.Ancillary | None = ...,
+        integral: Global___VideoTransport.Integral | None = ...,
+        ancillary: Global___VideoTransport.Ancillary | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> None: ...
 
-global___VideoTransport = VideoTransport
+Global___VideoTransport: typing_extensions.TypeAlias = VideoTransport
 
 @typing.final
 class AudioTransport(google.protobuf.message.Message):
@@ -378,7 +378,7 @@ class AudioTransport(google.protobuf.message.Message):
                 mediaKey: builtins.bytes
                 mediaKeyTimestamp: builtins.int
                 objectID: builtins.str
-                animationsType: global___AudioTransport.Ancillary.AvatarAudio.AnimationsType.ValueType
+                animationsType: Global___AudioTransport.Ancillary.AvatarAudio.AnimationsType.ValueType
                 def __init__(
                     self,
                     *,
@@ -388,7 +388,7 @@ class AudioTransport(google.protobuf.message.Message):
                     mediaKey: builtins.bytes | None = ...,
                     mediaKeyTimestamp: builtins.int | None = ...,
                     objectID: builtins.str | None = ...,
-                    animationsType: global___AudioTransport.Ancillary.AvatarAudio.AnimationsType.ValueType | None = ...,
+                    animationsType: Global___AudioTransport.Ancillary.AvatarAudio.AnimationsType.ValueType | None = ...,
                 ) -> None: ...
                 def HasField(self, field_name: typing.Literal["animationsType", b"animationsType", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "objectID", b"objectID"]) -> builtins.bool: ...
                 def ClearField(self, field_name: typing.Literal["animationsType", b"animationsType", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "objectID", b"objectID"]) -> None: ...
@@ -397,29 +397,35 @@ class AudioTransport(google.protobuf.message.Message):
             AVATARANIMATIONS_FIELD_NUMBER: builtins.int
             poseID: builtins.int
             @property
-            def avatarAnimations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AudioTransport.Ancillary.AvatarAudio.DownloadableAvatarAnimations]: ...
+            def avatarAnimations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AudioTransport.Ancillary.AvatarAudio.DownloadableAvatarAnimations]: ...
             def __init__(
                 self,
                 *,
                 poseID: builtins.int | None = ...,
-                avatarAnimations: collections.abc.Iterable[global___AudioTransport.Ancillary.AvatarAudio.DownloadableAvatarAnimations] | None = ...,
+                avatarAnimations: collections.abc.Iterable[Global___AudioTransport.Ancillary.AvatarAudio.DownloadableAvatarAnimations] | None = ...,
             ) -> None: ...
             def HasField(self, field_name: typing.Literal["poseID", b"poseID"]) -> builtins.bool: ...
             def ClearField(self, field_name: typing.Literal["avatarAnimations", b"avatarAnimations", "poseID", b"poseID"]) -> None: ...
 
         SECONDS_FIELD_NUMBER: builtins.int
         AVATARAUDIO_FIELD_NUMBER: builtins.int
+        WAVEFORMDATA_FIELD_NUMBER: builtins.int
+        WAVEFORM_FIELD_NUMBER: builtins.int
         seconds: builtins.int
+        waveformData: builtins.str
+        waveform: builtins.bytes
         @property
-        def avatarAudio(self) -> global___AudioTransport.Ancillary.AvatarAudio: ...
+        def avatarAudio(self) -> Global___AudioTransport.Ancillary.AvatarAudio: ...
         def __init__(
             self,
             *,
             seconds: builtins.int | None = ...,
-            avatarAudio: global___AudioTransport.Ancillary.AvatarAudio | None = ...,
+            avatarAudio: Global___AudioTransport.Ancillary.AvatarAudio | None = ...,
+            waveformData: builtins.str | None = ...,
+            waveform: builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["avatarAudio", b"avatarAudio", "seconds", b"seconds"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["avatarAudio", b"avatarAudio", "seconds", b"seconds"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["avatarAudio", b"avatarAudio", "seconds", b"seconds", "waveform", b"waveform", "waveformData", b"waveformData"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["avatarAudio", b"avatarAudio", "seconds", b"seconds", "waveform", b"waveform", "waveformData", b"waveformData"]) -> None: ...
 
     @typing.final
     class Integral(google.protobuf.message.Message):
@@ -440,14 +446,14 @@ class AudioTransport(google.protobuf.message.Message):
 
         TRANSPORT_FIELD_NUMBER: builtins.int
         AUDIOFORMAT_FIELD_NUMBER: builtins.int
-        audioFormat: global___AudioTransport.Integral.AudioFormat.ValueType
+        audioFormat: Global___AudioTransport.Integral.AudioFormat.ValueType
         @property
-        def transport(self) -> global___WAMediaTransport: ...
+        def transport(self) -> Global___WAMediaTransport: ...
         def __init__(
             self,
             *,
-            transport: global___WAMediaTransport | None = ...,
-            audioFormat: global___AudioTransport.Integral.AudioFormat.ValueType | None = ...,
+            transport: Global___WAMediaTransport | None = ...,
+            audioFormat: Global___AudioTransport.Integral.AudioFormat.ValueType | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["audioFormat", b"audioFormat", "transport", b"transport"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["audioFormat", b"audioFormat", "transport", b"transport"]) -> None: ...
@@ -455,19 +461,19 @@ class AudioTransport(google.protobuf.message.Message):
     INTEGRAL_FIELD_NUMBER: builtins.int
     ANCILLARY_FIELD_NUMBER: builtins.int
     @property
-    def integral(self) -> global___AudioTransport.Integral: ...
+    def integral(self) -> Global___AudioTransport.Integral: ...
     @property
-    def ancillary(self) -> global___AudioTransport.Ancillary: ...
+    def ancillary(self) -> Global___AudioTransport.Ancillary: ...
     def __init__(
         self,
         *,
-        integral: global___AudioTransport.Integral | None = ...,
-        ancillary: global___AudioTransport.Ancillary | None = ...,
+        integral: Global___AudioTransport.Integral | None = ...,
+        ancillary: Global___AudioTransport.Ancillary | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> None: ...
 
-global___AudioTransport = AudioTransport
+Global___AudioTransport: typing_extensions.TypeAlias = AudioTransport
 
 @typing.final
 class DocumentTransport(google.protobuf.message.Message):
@@ -493,11 +499,11 @@ class DocumentTransport(google.protobuf.message.Message):
 
         TRANSPORT_FIELD_NUMBER: builtins.int
         @property
-        def transport(self) -> global___WAMediaTransport: ...
+        def transport(self) -> Global___WAMediaTransport: ...
         def __init__(
             self,
             *,
-            transport: global___WAMediaTransport | None = ...,
+            transport: Global___WAMediaTransport | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["transport", b"transport"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["transport", b"transport"]) -> None: ...
@@ -505,19 +511,19 @@ class DocumentTransport(google.protobuf.message.Message):
     INTEGRAL_FIELD_NUMBER: builtins.int
     ANCILLARY_FIELD_NUMBER: builtins.int
     @property
-    def integral(self) -> global___DocumentTransport.Integral: ...
+    def integral(self) -> Global___DocumentTransport.Integral: ...
     @property
-    def ancillary(self) -> global___DocumentTransport.Ancillary: ...
+    def ancillary(self) -> Global___DocumentTransport.Ancillary: ...
     def __init__(
         self,
         *,
-        integral: global___DocumentTransport.Integral | None = ...,
-        ancillary: global___DocumentTransport.Ancillary | None = ...,
+        integral: Global___DocumentTransport.Integral | None = ...,
+        ancillary: Global___DocumentTransport.Ancillary | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> None: ...
 
-global___DocumentTransport = DocumentTransport
+Global___DocumentTransport: typing_extensions.TypeAlias = DocumentTransport
 
 @typing.final
 class StickerTransport(google.protobuf.message.Message):
@@ -571,11 +577,11 @@ class StickerTransport(google.protobuf.message.Message):
         isAnimated: builtins.bool
         receiverFetchID: builtins.str
         @property
-        def transport(self) -> global___WAMediaTransport: ...
+        def transport(self) -> Global___WAMediaTransport: ...
         def __init__(
             self,
             *,
-            transport: global___WAMediaTransport | None = ...,
+            transport: Global___WAMediaTransport | None = ...,
             isAnimated: builtins.bool | None = ...,
             receiverFetchID: builtins.str | None = ...,
         ) -> None: ...
@@ -585,19 +591,19 @@ class StickerTransport(google.protobuf.message.Message):
     INTEGRAL_FIELD_NUMBER: builtins.int
     ANCILLARY_FIELD_NUMBER: builtins.int
     @property
-    def integral(self) -> global___StickerTransport.Integral: ...
+    def integral(self) -> Global___StickerTransport.Integral: ...
     @property
-    def ancillary(self) -> global___StickerTransport.Ancillary: ...
+    def ancillary(self) -> Global___StickerTransport.Ancillary: ...
     def __init__(
         self,
         *,
-        integral: global___StickerTransport.Integral | None = ...,
-        ancillary: global___StickerTransport.Ancillary | None = ...,
+        integral: Global___StickerTransport.Integral | None = ...,
+        ancillary: Global___StickerTransport.Ancillary | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> None: ...
 
-global___StickerTransport = StickerTransport
+Global___StickerTransport: typing_extensions.TypeAlias = StickerTransport
 
 @typing.final
 class ContactTransport(google.protobuf.message.Message):
@@ -625,12 +631,12 @@ class ContactTransport(google.protobuf.message.Message):
         DOWNLOADABLEVCARD_FIELD_NUMBER: builtins.int
         vcard: builtins.str
         @property
-        def downloadableVcard(self) -> global___WAMediaTransport: ...
+        def downloadableVcard(self) -> Global___WAMediaTransport: ...
         def __init__(
             self,
             *,
             vcard: builtins.str | None = ...,
-            downloadableVcard: global___WAMediaTransport | None = ...,
+            downloadableVcard: Global___WAMediaTransport | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["contact", b"contact", "downloadableVcard", b"downloadableVcard", "vcard", b"vcard"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["contact", b"contact", "downloadableVcard", b"downloadableVcard", "vcard", b"vcard"]) -> None: ...
@@ -639,16 +645,16 @@ class ContactTransport(google.protobuf.message.Message):
     INTEGRAL_FIELD_NUMBER: builtins.int
     ANCILLARY_FIELD_NUMBER: builtins.int
     @property
-    def integral(self) -> global___ContactTransport.Integral: ...
+    def integral(self) -> Global___ContactTransport.Integral: ...
     @property
-    def ancillary(self) -> global___ContactTransport.Ancillary: ...
+    def ancillary(self) -> Global___ContactTransport.Ancillary: ...
     def __init__(
         self,
         *,
-        integral: global___ContactTransport.Integral | None = ...,
-        ancillary: global___ContactTransport.Ancillary | None = ...,
+        integral: Global___ContactTransport.Integral | None = ...,
+        ancillary: Global___ContactTransport.Ancillary | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> None: ...
 
-global___ContactTransport = ContactTransport
+Global___ContactTransport: typing_extensions.TypeAlias = ContactTransport

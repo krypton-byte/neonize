@@ -6,7 +6,13 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -53,7 +59,7 @@ class NoiseCertificate(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["details", b"details", "signature", b"signature"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["details", b"details", "signature", b"signature"]) -> None: ...
 
-global___NoiseCertificate = NoiseCertificate
+Global___NoiseCertificate: typing_extensions.TypeAlias = NoiseCertificate
 
 @typing.final
 class CertChain(google.protobuf.message.Message):
@@ -105,16 +111,16 @@ class CertChain(google.protobuf.message.Message):
     LEAF_FIELD_NUMBER: builtins.int
     INTERMEDIATE_FIELD_NUMBER: builtins.int
     @property
-    def leaf(self) -> global___CertChain.NoiseCertificate: ...
+    def leaf(self) -> Global___CertChain.NoiseCertificate: ...
     @property
-    def intermediate(self) -> global___CertChain.NoiseCertificate: ...
+    def intermediate(self) -> Global___CertChain.NoiseCertificate: ...
     def __init__(
         self,
         *,
-        leaf: global___CertChain.NoiseCertificate | None = ...,
-        intermediate: global___CertChain.NoiseCertificate | None = ...,
+        leaf: Global___CertChain.NoiseCertificate | None = ...,
+        intermediate: Global___CertChain.NoiseCertificate | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["intermediate", b"intermediate", "leaf", b"leaf"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["intermediate", b"intermediate", "leaf", b"leaf"]) -> None: ...
 
-global___CertChain = CertChain
+Global___CertChain: typing_extensions.TypeAlias = CertChain

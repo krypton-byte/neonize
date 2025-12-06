@@ -38,19 +38,19 @@ class SyncdMutation(google.protobuf.message.Message):
 
     OPERATION_FIELD_NUMBER: builtins.int
     RECORD_FIELD_NUMBER: builtins.int
-    operation: global___SyncdMutation.SyncdOperation.ValueType
+    operation: Global___SyncdMutation.SyncdOperation.ValueType
     @property
-    def record(self) -> global___SyncdRecord: ...
+    def record(self) -> Global___SyncdRecord: ...
     def __init__(
         self,
         *,
-        operation: global___SyncdMutation.SyncdOperation.ValueType | None = ...,
-        record: global___SyncdRecord | None = ...,
+        operation: Global___SyncdMutation.SyncdOperation.ValueType | None = ...,
+        record: Global___SyncdRecord | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["operation", b"operation", "record", b"record"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["operation", b"operation", "record", b"record"]) -> None: ...
 
-global___SyncdMutation = SyncdMutation
+Global___SyncdMutation: typing_extensions.TypeAlias = SyncdMutation
 
 @typing.final
 class SyncdVersion(google.protobuf.message.Message):
@@ -66,7 +66,7 @@ class SyncdVersion(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["version", b"version"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["version", b"version"]) -> None: ...
 
-global___SyncdVersion = SyncdVersion
+Global___SyncdVersion: typing_extensions.TypeAlias = SyncdVersion
 
 @typing.final
 class ExitCode(google.protobuf.message.Message):
@@ -85,7 +85,7 @@ class ExitCode(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["code", b"code", "text", b"text"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["code", b"code", "text", b"text"]) -> None: ...
 
-global___ExitCode = ExitCode
+Global___ExitCode: typing_extensions.TypeAlias = ExitCode
 
 @typing.final
 class SyncdIndex(google.protobuf.message.Message):
@@ -101,7 +101,7 @@ class SyncdIndex(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["blob", b"blob"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["blob", b"blob"]) -> None: ...
 
-global___SyncdIndex = SyncdIndex
+Global___SyncdIndex: typing_extensions.TypeAlias = SyncdIndex
 
 @typing.final
 class SyncdValue(google.protobuf.message.Message):
@@ -117,7 +117,7 @@ class SyncdValue(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["blob", b"blob"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["blob", b"blob"]) -> None: ...
 
-global___SyncdValue = SyncdValue
+Global___SyncdValue: typing_extensions.TypeAlias = SyncdValue
 
 @typing.final
 class KeyId(google.protobuf.message.Message):
@@ -133,7 +133,7 @@ class KeyId(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["ID", b"ID"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["ID", b"ID"]) -> None: ...
 
-global___KeyId = KeyId
+Global___KeyId: typing_extensions.TypeAlias = KeyId
 
 @typing.final
 class SyncdRecord(google.protobuf.message.Message):
@@ -143,22 +143,22 @@ class SyncdRecord(google.protobuf.message.Message):
     VALUE_FIELD_NUMBER: builtins.int
     KEYID_FIELD_NUMBER: builtins.int
     @property
-    def index(self) -> global___SyncdIndex: ...
+    def index(self) -> Global___SyncdIndex: ...
     @property
-    def value(self) -> global___SyncdValue: ...
+    def value(self) -> Global___SyncdValue: ...
     @property
-    def keyID(self) -> global___KeyId: ...
+    def keyID(self) -> Global___KeyId: ...
     def __init__(
         self,
         *,
-        index: global___SyncdIndex | None = ...,
-        value: global___SyncdValue | None = ...,
-        keyID: global___KeyId | None = ...,
+        index: Global___SyncdIndex | None = ...,
+        value: Global___SyncdValue | None = ...,
+        keyID: Global___KeyId | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["index", b"index", "keyID", b"keyID", "value", b"value"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["index", b"index", "keyID", b"keyID", "value", b"value"]) -> None: ...
 
-global___SyncdRecord = SyncdRecord
+Global___SyncdRecord: typing_extensions.TypeAlias = SyncdRecord
 
 @typing.final
 class ExternalBlobReference(google.protobuf.message.Message):
@@ -189,7 +189,7 @@ class ExternalBlobReference(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "fileSizeBytes", b"fileSizeBytes", "handle", b"handle", "mediaKey", b"mediaKey"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "fileSizeBytes", b"fileSizeBytes", "handle", b"handle", "mediaKey", b"mediaKey"]) -> None: ...
 
-global___ExternalBlobReference = ExternalBlobReference
+Global___ExternalBlobReference: typing_extensions.TypeAlias = ExternalBlobReference
 
 @typing.final
 class SyncdSnapshot(google.protobuf.message.Message):
@@ -201,23 +201,23 @@ class SyncdSnapshot(google.protobuf.message.Message):
     KEYID_FIELD_NUMBER: builtins.int
     mac: builtins.bytes
     @property
-    def version(self) -> global___SyncdVersion: ...
+    def version(self) -> Global___SyncdVersion: ...
     @property
-    def records(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SyncdRecord]: ...
+    def records(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___SyncdRecord]: ...
     @property
-    def keyID(self) -> global___KeyId: ...
+    def keyID(self) -> Global___KeyId: ...
     def __init__(
         self,
         *,
-        version: global___SyncdVersion | None = ...,
-        records: collections.abc.Iterable[global___SyncdRecord] | None = ...,
+        version: Global___SyncdVersion | None = ...,
+        records: collections.abc.Iterable[Global___SyncdRecord] | None = ...,
         mac: builtins.bytes | None = ...,
-        keyID: global___KeyId | None = ...,
+        keyID: Global___KeyId | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["keyID", b"keyID", "mac", b"mac", "version", b"version"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["keyID", b"keyID", "mac", b"mac", "records", b"records", "version", b"version"]) -> None: ...
 
-global___SyncdSnapshot = SyncdSnapshot
+Global___SyncdSnapshot: typing_extensions.TypeAlias = SyncdSnapshot
 
 @typing.final
 class SyncdMutations(google.protobuf.message.Message):
@@ -225,15 +225,15 @@ class SyncdMutations(google.protobuf.message.Message):
 
     MUTATIONS_FIELD_NUMBER: builtins.int
     @property
-    def mutations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SyncdMutation]: ...
+    def mutations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___SyncdMutation]: ...
     def __init__(
         self,
         *,
-        mutations: collections.abc.Iterable[global___SyncdMutation] | None = ...,
+        mutations: collections.abc.Iterable[Global___SyncdMutation] | None = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing.Literal["mutations", b"mutations"]) -> None: ...
 
-global___SyncdMutations = SyncdMutations
+Global___SyncdMutations: typing_extensions.TypeAlias = SyncdMutations
 
 @typing.final
 class SyncdPatch(google.protobuf.message.Message):
@@ -253,29 +253,29 @@ class SyncdPatch(google.protobuf.message.Message):
     deviceIndex: builtins.int
     clientDebugData: builtins.bytes
     @property
-    def version(self) -> global___SyncdVersion: ...
+    def version(self) -> Global___SyncdVersion: ...
     @property
-    def mutations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SyncdMutation]: ...
+    def mutations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___SyncdMutation]: ...
     @property
-    def externalMutations(self) -> global___ExternalBlobReference: ...
+    def externalMutations(self) -> Global___ExternalBlobReference: ...
     @property
-    def keyID(self) -> global___KeyId: ...
+    def keyID(self) -> Global___KeyId: ...
     @property
-    def exitCode(self) -> global___ExitCode: ...
+    def exitCode(self) -> Global___ExitCode: ...
     def __init__(
         self,
         *,
-        version: global___SyncdVersion | None = ...,
-        mutations: collections.abc.Iterable[global___SyncdMutation] | None = ...,
-        externalMutations: global___ExternalBlobReference | None = ...,
+        version: Global___SyncdVersion | None = ...,
+        mutations: collections.abc.Iterable[Global___SyncdMutation] | None = ...,
+        externalMutations: Global___ExternalBlobReference | None = ...,
         snapshotMAC: builtins.bytes | None = ...,
         patchMAC: builtins.bytes | None = ...,
-        keyID: global___KeyId | None = ...,
-        exitCode: global___ExitCode | None = ...,
+        keyID: Global___KeyId | None = ...,
+        exitCode: Global___ExitCode | None = ...,
         deviceIndex: builtins.int | None = ...,
         clientDebugData: builtins.bytes | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["clientDebugData", b"clientDebugData", "deviceIndex", b"deviceIndex", "exitCode", b"exitCode", "externalMutations", b"externalMutations", "keyID", b"keyID", "patchMAC", b"patchMAC", "snapshotMAC", b"snapshotMAC", "version", b"version"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["clientDebugData", b"clientDebugData", "deviceIndex", b"deviceIndex", "exitCode", b"exitCode", "externalMutations", b"externalMutations", "keyID", b"keyID", "mutations", b"mutations", "patchMAC", b"patchMAC", "snapshotMAC", b"snapshotMAC", "version", b"version"]) -> None: ...
 
-global___SyncdPatch = SyncdPatch
+Global___SyncdPatch: typing_extensions.TypeAlias = SyncdPatch

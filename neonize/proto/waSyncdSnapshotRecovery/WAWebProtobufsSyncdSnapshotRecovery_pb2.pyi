@@ -8,8 +8,14 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
+import sys
 import typing
-import waSyncAction.WASyncAction_pb2
+import waSyncAction.WAWebProtobufSyncAction_pb2
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -24,21 +30,21 @@ class SyncdSnapshotRecovery(google.protobuf.message.Message):
     collectionName: builtins.str
     collectionLthash: builtins.bytes
     @property
-    def version(self) -> global___SyncdVersion: ...
+    def version(self) -> Global___SyncdVersion: ...
     @property
-    def mutationRecords(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SyncdPlainTextRecord]: ...
+    def mutationRecords(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___SyncdPlainTextRecord]: ...
     def __init__(
         self,
         *,
-        version: global___SyncdVersion | None = ...,
+        version: Global___SyncdVersion | None = ...,
         collectionName: builtins.str | None = ...,
-        mutationRecords: collections.abc.Iterable[global___SyncdPlainTextRecord] | None = ...,
+        mutationRecords: collections.abc.Iterable[Global___SyncdPlainTextRecord] | None = ...,
         collectionLthash: builtins.bytes | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["collectionLthash", b"collectionLthash", "collectionName", b"collectionName", "version", b"version"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["collectionLthash", b"collectionLthash", "collectionName", b"collectionName", "mutationRecords", b"mutationRecords", "version", b"version"]) -> None: ...
 
-global___SyncdSnapshotRecovery = SyncdSnapshotRecovery
+Global___SyncdSnapshotRecovery: typing_extensions.TypeAlias = SyncdSnapshotRecovery
 
 @typing.final
 class SyncdPlainTextRecord(google.protobuf.message.Message):
@@ -50,18 +56,18 @@ class SyncdPlainTextRecord(google.protobuf.message.Message):
     keyID: builtins.bytes
     mac: builtins.bytes
     @property
-    def value(self) -> waSyncAction.WASyncAction_pb2.SyncActionData: ...
+    def value(self) -> waSyncAction.WAWebProtobufSyncAction_pb2.SyncActionData: ...
     def __init__(
         self,
         *,
-        value: waSyncAction.WASyncAction_pb2.SyncActionData | None = ...,
+        value: waSyncAction.WAWebProtobufSyncAction_pb2.SyncActionData | None = ...,
         keyID: builtins.bytes | None = ...,
         mac: builtins.bytes | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["keyID", b"keyID", "mac", b"mac", "value", b"value"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["keyID", b"keyID", "mac", b"mac", "value", b"value"]) -> None: ...
 
-global___SyncdPlainTextRecord = SyncdPlainTextRecord
+Global___SyncdPlainTextRecord: typing_extensions.TypeAlias = SyncdPlainTextRecord
 
 @typing.final
 class SyncdVersion(google.protobuf.message.Message):
@@ -77,4 +83,4 @@ class SyncdVersion(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["version", b"version"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["version", b"version"]) -> None: ...
 
-global___SyncdVersion = SyncdVersion
+Global___SyncdVersion: typing_extensions.TypeAlias = SyncdVersion

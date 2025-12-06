@@ -36,7 +36,7 @@ XMA_ACTION_TYPE_SHARE: XmaActionType.ValueType  # 1
 XMA_ACTION_TYPE_REPLY: XmaActionType.ValueType  # 2
 XMA_ACTION_TYPE_REACT: XmaActionType.ValueType  # 3
 XMA_ACTION_TYPE_MENTION: XmaActionType.ValueType  # 4
-global___XmaActionType = XmaActionType
+Global___XmaActionType: typing_extensions.TypeAlias = XmaActionType
 
 class _ReceiverFetchContentType:
     ValueType = typing.NewType("ValueType", builtins.int)
@@ -73,7 +73,7 @@ RECEIVER_FETCH_CONTENT_TYPE_REELS_AUDIO: ReceiverFetchContentType.ValueType  # 9
 RECEIVER_FETCH_CONTENT_TYPE_MEDIA_NOTE: ReceiverFetchContentType.ValueType  # 10
 RECEIVER_FETCH_CONTENT_TYPE_STORY_HIGHLIGHT: ReceiverFetchContentType.ValueType  # 11
 RECEIVER_FETCH_CONTENT_TYPE_SOCIAL_CONTEXT: ReceiverFetchContentType.ValueType  # 12
-global___ReceiverFetchContentType = ReceiverFetchContentType
+Global___ReceiverFetchContentType: typing_extensions.TypeAlias = ReceiverFetchContentType
 
 class _MediaNoteFetchParamsMessageType:
     ValueType = typing.NewType("ValueType", builtins.int)
@@ -90,7 +90,7 @@ class MediaNoteFetchParamsMessageType(_MediaNoteFetchParamsMessageType, metaclas
 MEDIA_NOTE_FETCH_PARAMS_MESSAGE_TYPE_UNSPECIFIED: MediaNoteFetchParamsMessageType.ValueType  # 0
 MEDIA_NOTE_FETCH_PARAMS_MESSAGE_TYPE_MENTION: MediaNoteFetchParamsMessageType.ValueType  # 1
 MEDIA_NOTE_FETCH_PARAMS_MESSAGE_TYPE_REPLY: MediaNoteFetchParamsMessageType.ValueType  # 2
-global___MediaNoteFetchParamsMessageType = MediaNoteFetchParamsMessageType
+Global___MediaNoteFetchParamsMessageType: typing_extensions.TypeAlias = MediaNoteFetchParamsMessageType
 
 @typing.final
 class XmaContentRef(google.protobuf.message.Message):
@@ -102,27 +102,27 @@ class XmaContentRef(google.protobuf.message.Message):
     USERNAME_FIELD_NUMBER: builtins.int
     OWNERFBID_FIELD_NUMBER: builtins.int
     FETCHPARAMS_FIELD_NUMBER: builtins.int
-    actionType: global___XmaActionType.ValueType
-    contentType: global___ReceiverFetchContentType.ValueType
+    actionType: Global___XmaActionType.ValueType
+    contentType: Global___ReceiverFetchContentType.ValueType
     targetURL: builtins.str
     userName: builtins.str
     ownerFbid: builtins.str
     @property
-    def fetchParams(self) -> global___ReceiverFetchXmaFetchParams: ...
+    def fetchParams(self) -> Global___ReceiverFetchXmaFetchParams: ...
     def __init__(
         self,
         *,
-        actionType: global___XmaActionType.ValueType | None = ...,
-        contentType: global___ReceiverFetchContentType.ValueType | None = ...,
+        actionType: Global___XmaActionType.ValueType | None = ...,
+        contentType: Global___ReceiverFetchContentType.ValueType | None = ...,
         targetURL: builtins.str | None = ...,
         userName: builtins.str | None = ...,
         ownerFbid: builtins.str | None = ...,
-        fetchParams: global___ReceiverFetchXmaFetchParams | None = ...,
+        fetchParams: Global___ReceiverFetchXmaFetchParams | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["actionType", b"actionType", "contentType", b"contentType", "fetchParams", b"fetchParams", "ownerFbid", b"ownerFbid", "targetURL", b"targetURL", "userName", b"userName"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["actionType", b"actionType", "contentType", b"contentType", "fetchParams", b"fetchParams", "ownerFbid", b"ownerFbid", "targetURL", b"targetURL", "userName", b"userName"]) -> None: ...
 
-global___XmaContentRef = XmaContentRef
+Global___XmaContentRef: typing_extensions.TypeAlias = XmaContentRef
 
 @typing.final
 class ReceiverFetchXmaFetchParams(google.protobuf.message.Message):
@@ -140,47 +140,47 @@ class ReceiverFetchXmaFetchParams(google.protobuf.message.Message):
     MEDIANOTEFETCHPARAMS_FIELD_NUMBER: builtins.int
     SOCIALCONTEXTFETCHPARAMS_FIELD_NUMBER: builtins.int
     @property
-    def noteFetchParams(self) -> global___ReceiverFetchXmaNoteFetchParams: ...
+    def noteFetchParams(self) -> Global___ReceiverFetchXmaNoteFetchParams: ...
     @property
-    def storyFetchParams(self) -> global___ReceiverFetchXmaStoryFetchParams: ...
+    def storyFetchParams(self) -> Global___ReceiverFetchXmaStoryFetchParams: ...
     @property
-    def profileFetchParams(self) -> global___ReceiverFetchXmaProfileFetchParams: ...
+    def profileFetchParams(self) -> Global___ReceiverFetchXmaProfileFetchParams: ...
     @property
-    def clipFetchParams(self) -> global___ReceiverFetchXmaClipFetchParams: ...
+    def clipFetchParams(self) -> Global___ReceiverFetchXmaClipFetchParams: ...
     @property
-    def feedFetchParams(self) -> global___ReceiverFetchXmaFeedFetchParams: ...
+    def feedFetchParams(self) -> Global___ReceiverFetchXmaFeedFetchParams: ...
     @property
-    def liveFetchParams(self) -> global___ReceiverFetchXmaLiveFetchParams: ...
+    def liveFetchParams(self) -> Global___ReceiverFetchXmaLiveFetchParams: ...
     @property
-    def commentFetchParams(self) -> global___ReceiverFetchXmaCommentFetchParams: ...
+    def commentFetchParams(self) -> Global___ReceiverFetchXmaCommentFetchParams: ...
     @property
-    def locationShareFetchParams(self) -> global___ReceiverFetchXmaLocationShareFetchParams: ...
+    def locationShareFetchParams(self) -> Global___ReceiverFetchXmaLocationShareFetchParams: ...
     @property
-    def reelsAudioFetchParams(self) -> global___ReceiverFetchXmaReelsAudioFetchParams: ...
+    def reelsAudioFetchParams(self) -> Global___ReceiverFetchXmaReelsAudioFetchParams: ...
     @property
-    def mediaNoteFetchParams(self) -> global___ReceiverFetchXmaMediaNoteFetchParams: ...
+    def mediaNoteFetchParams(self) -> Global___ReceiverFetchXmaMediaNoteFetchParams: ...
     @property
-    def socialContextFetchParams(self) -> global___ReceiverFetchXmaSocialContextFetchParams: ...
+    def socialContextFetchParams(self) -> Global___ReceiverFetchXmaSocialContextFetchParams: ...
     def __init__(
         self,
         *,
-        noteFetchParams: global___ReceiverFetchXmaNoteFetchParams | None = ...,
-        storyFetchParams: global___ReceiverFetchXmaStoryFetchParams | None = ...,
-        profileFetchParams: global___ReceiverFetchXmaProfileFetchParams | None = ...,
-        clipFetchParams: global___ReceiverFetchXmaClipFetchParams | None = ...,
-        feedFetchParams: global___ReceiverFetchXmaFeedFetchParams | None = ...,
-        liveFetchParams: global___ReceiverFetchXmaLiveFetchParams | None = ...,
-        commentFetchParams: global___ReceiverFetchXmaCommentFetchParams | None = ...,
-        locationShareFetchParams: global___ReceiverFetchXmaLocationShareFetchParams | None = ...,
-        reelsAudioFetchParams: global___ReceiverFetchXmaReelsAudioFetchParams | None = ...,
-        mediaNoteFetchParams: global___ReceiverFetchXmaMediaNoteFetchParams | None = ...,
-        socialContextFetchParams: global___ReceiverFetchXmaSocialContextFetchParams | None = ...,
+        noteFetchParams: Global___ReceiverFetchXmaNoteFetchParams | None = ...,
+        storyFetchParams: Global___ReceiverFetchXmaStoryFetchParams | None = ...,
+        profileFetchParams: Global___ReceiverFetchXmaProfileFetchParams | None = ...,
+        clipFetchParams: Global___ReceiverFetchXmaClipFetchParams | None = ...,
+        feedFetchParams: Global___ReceiverFetchXmaFeedFetchParams | None = ...,
+        liveFetchParams: Global___ReceiverFetchXmaLiveFetchParams | None = ...,
+        commentFetchParams: Global___ReceiverFetchXmaCommentFetchParams | None = ...,
+        locationShareFetchParams: Global___ReceiverFetchXmaLocationShareFetchParams | None = ...,
+        reelsAudioFetchParams: Global___ReceiverFetchXmaReelsAudioFetchParams | None = ...,
+        mediaNoteFetchParams: Global___ReceiverFetchXmaMediaNoteFetchParams | None = ...,
+        socialContextFetchParams: Global___ReceiverFetchXmaSocialContextFetchParams | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["clipFetchParams", b"clipFetchParams", "commentFetchParams", b"commentFetchParams", "feedFetchParams", b"feedFetchParams", "liveFetchParams", b"liveFetchParams", "locationShareFetchParams", b"locationShareFetchParams", "mediaNoteFetchParams", b"mediaNoteFetchParams", "noteFetchParams", b"noteFetchParams", "profileFetchParams", b"profileFetchParams", "receiverFetchXmaFetchParams", b"receiverFetchXmaFetchParams", "reelsAudioFetchParams", b"reelsAudioFetchParams", "socialContextFetchParams", b"socialContextFetchParams", "storyFetchParams", b"storyFetchParams"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["clipFetchParams", b"clipFetchParams", "commentFetchParams", b"commentFetchParams", "feedFetchParams", b"feedFetchParams", "liveFetchParams", b"liveFetchParams", "locationShareFetchParams", b"locationShareFetchParams", "mediaNoteFetchParams", b"mediaNoteFetchParams", "noteFetchParams", b"noteFetchParams", "profileFetchParams", b"profileFetchParams", "receiverFetchXmaFetchParams", b"receiverFetchXmaFetchParams", "reelsAudioFetchParams", b"reelsAudioFetchParams", "socialContextFetchParams", b"socialContextFetchParams", "storyFetchParams", b"storyFetchParams"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["receiverFetchXmaFetchParams", b"receiverFetchXmaFetchParams"]) -> typing.Literal["noteFetchParams", "storyFetchParams", "profileFetchParams", "clipFetchParams", "feedFetchParams", "liveFetchParams", "commentFetchParams", "locationShareFetchParams", "reelsAudioFetchParams", "mediaNoteFetchParams", "socialContextFetchParams"] | None: ...
 
-global___ReceiverFetchXmaFetchParams = ReceiverFetchXmaFetchParams
+Global___ReceiverFetchXmaFetchParams: typing_extensions.TypeAlias = ReceiverFetchXmaFetchParams
 
 @typing.final
 class ReceiverFetchXmaNoteFetchParams(google.protobuf.message.Message):
@@ -196,7 +196,7 @@ class ReceiverFetchXmaNoteFetchParams(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["noteIgid", b"noteIgid"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["noteIgid", b"noteIgid"]) -> None: ...
 
-global___ReceiverFetchXmaNoteFetchParams = ReceiverFetchXmaNoteFetchParams
+Global___ReceiverFetchXmaNoteFetchParams: typing_extensions.TypeAlias = ReceiverFetchXmaNoteFetchParams
 
 @typing.final
 class ReceiverFetchXmaStoryFetchParams(google.protobuf.message.Message):
@@ -215,7 +215,7 @@ class ReceiverFetchXmaStoryFetchParams(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["reelID", b"reelID", "storyIgid", b"storyIgid"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["reelID", b"reelID", "storyIgid", b"storyIgid"]) -> None: ...
 
-global___ReceiverFetchXmaStoryFetchParams = ReceiverFetchXmaStoryFetchParams
+Global___ReceiverFetchXmaStoryFetchParams: typing_extensions.TypeAlias = ReceiverFetchXmaStoryFetchParams
 
 @typing.final
 class ReceiverFetchXmaProfileFetchParams(google.protobuf.message.Message):
@@ -231,7 +231,7 @@ class ReceiverFetchXmaProfileFetchParams(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["profileIgid", b"profileIgid"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["profileIgid", b"profileIgid"]) -> None: ...
 
-global___ReceiverFetchXmaProfileFetchParams = ReceiverFetchXmaProfileFetchParams
+Global___ReceiverFetchXmaProfileFetchParams: typing_extensions.TypeAlias = ReceiverFetchXmaProfileFetchParams
 
 @typing.final
 class ReceiverFetchXmaClipFetchParams(google.protobuf.message.Message):
@@ -247,7 +247,7 @@ class ReceiverFetchXmaClipFetchParams(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["mediaIgid", b"mediaIgid"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["mediaIgid", b"mediaIgid"]) -> None: ...
 
-global___ReceiverFetchXmaClipFetchParams = ReceiverFetchXmaClipFetchParams
+Global___ReceiverFetchXmaClipFetchParams: typing_extensions.TypeAlias = ReceiverFetchXmaClipFetchParams
 
 @typing.final
 class ReceiverFetchXmaFeedFetchParams(google.protobuf.message.Message):
@@ -266,7 +266,7 @@ class ReceiverFetchXmaFeedFetchParams(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["carouselShareChildMediaIgid", b"carouselShareChildMediaIgid", "mediaIgid", b"mediaIgid"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["carouselShareChildMediaIgid", b"carouselShareChildMediaIgid", "mediaIgid", b"mediaIgid"]) -> None: ...
 
-global___ReceiverFetchXmaFeedFetchParams = ReceiverFetchXmaFeedFetchParams
+Global___ReceiverFetchXmaFeedFetchParams: typing_extensions.TypeAlias = ReceiverFetchXmaFeedFetchParams
 
 @typing.final
 class ReceiverFetchXmaLiveFetchParams(google.protobuf.message.Message):
@@ -282,7 +282,7 @@ class ReceiverFetchXmaLiveFetchParams(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["liveIgid", b"liveIgid"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["liveIgid", b"liveIgid"]) -> None: ...
 
-global___ReceiverFetchXmaLiveFetchParams = ReceiverFetchXmaLiveFetchParams
+Global___ReceiverFetchXmaLiveFetchParams: typing_extensions.TypeAlias = ReceiverFetchXmaLiveFetchParams
 
 @typing.final
 class ReceiverFetchXmaCommentFetchParams(google.protobuf.message.Message):
@@ -298,7 +298,7 @@ class ReceiverFetchXmaCommentFetchParams(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["commentFbid", b"commentFbid"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["commentFbid", b"commentFbid"]) -> None: ...
 
-global___ReceiverFetchXmaCommentFetchParams = ReceiverFetchXmaCommentFetchParams
+Global___ReceiverFetchXmaCommentFetchParams: typing_extensions.TypeAlias = ReceiverFetchXmaCommentFetchParams
 
 @typing.final
 class ReceiverFetchXmaLocationShareFetchParams(google.protobuf.message.Message):
@@ -314,7 +314,7 @@ class ReceiverFetchXmaLocationShareFetchParams(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["locationIgid", b"locationIgid"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["locationIgid", b"locationIgid"]) -> None: ...
 
-global___ReceiverFetchXmaLocationShareFetchParams = ReceiverFetchXmaLocationShareFetchParams
+Global___ReceiverFetchXmaLocationShareFetchParams: typing_extensions.TypeAlias = ReceiverFetchXmaLocationShareFetchParams
 
 @typing.final
 class ReceiverFetchXmaReelsAudioFetchParams(google.protobuf.message.Message):
@@ -330,7 +330,7 @@ class ReceiverFetchXmaReelsAudioFetchParams(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["audioIgid", b"audioIgid"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["audioIgid", b"audioIgid"]) -> None: ...
 
-global___ReceiverFetchXmaReelsAudioFetchParams = ReceiverFetchXmaReelsAudioFetchParams
+Global___ReceiverFetchXmaReelsAudioFetchParams: typing_extensions.TypeAlias = ReceiverFetchXmaReelsAudioFetchParams
 
 @typing.final
 class ReceiverFetchXmaMediaNoteFetchParams(google.protobuf.message.Message):
@@ -339,17 +339,17 @@ class ReceiverFetchXmaMediaNoteFetchParams(google.protobuf.message.Message):
     MEDIANOTEIGID_FIELD_NUMBER: builtins.int
     MESSAGETYPE_FIELD_NUMBER: builtins.int
     mediaNoteIgid: builtins.str
-    messageType: global___MediaNoteFetchParamsMessageType.ValueType
+    messageType: Global___MediaNoteFetchParamsMessageType.ValueType
     def __init__(
         self,
         *,
         mediaNoteIgid: builtins.str | None = ...,
-        messageType: global___MediaNoteFetchParamsMessageType.ValueType | None = ...,
+        messageType: Global___MediaNoteFetchParamsMessageType.ValueType | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["mediaNoteIgid", b"mediaNoteIgid", "messageType", b"messageType"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["mediaNoteIgid", b"mediaNoteIgid", "messageType", b"messageType"]) -> None: ...
 
-global___ReceiverFetchXmaMediaNoteFetchParams = ReceiverFetchXmaMediaNoteFetchParams
+Global___ReceiverFetchXmaMediaNoteFetchParams: typing_extensions.TypeAlias = ReceiverFetchXmaMediaNoteFetchParams
 
 @typing.final
 class ReceiverFetchXmaSocialContextFetchParams(google.protobuf.message.Message):
@@ -365,4 +365,4 @@ class ReceiverFetchXmaSocialContextFetchParams(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["mediaIgid", b"mediaIgid"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["mediaIgid", b"mediaIgid"]) -> None: ...
 
-global___ReceiverFetchXmaSocialContextFetchParams = ReceiverFetchXmaSocialContextFetchParams
+Global___ReceiverFetchXmaSocialContextFetchParams: typing_extensions.TypeAlias = ReceiverFetchXmaSocialContextFetchParams

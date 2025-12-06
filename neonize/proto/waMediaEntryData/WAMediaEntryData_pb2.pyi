@@ -8,7 +8,13 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -96,9 +102,9 @@ class MediaEntry(google.protobuf.message.Message):
     size: builtins.int
     lastDownloadAttemptTimestamp: builtins.int
     @property
-    def downloadableThumbnail(self) -> global___MediaEntry.DownloadableThumbnail: ...
+    def downloadableThumbnail(self) -> Global___MediaEntry.DownloadableThumbnail: ...
     @property
-    def progressiveJPEGDetails(self) -> global___MediaEntry.ProgressiveJpegDetails: ...
+    def progressiveJPEGDetails(self) -> Global___MediaEntry.ProgressiveJpegDetails: ...
     def __init__(
         self,
         *,
@@ -113,14 +119,14 @@ class MediaEntry(google.protobuf.message.Message):
         sidecar: builtins.bytes | None = ...,
         objectID: builtins.str | None = ...,
         FBID: builtins.str | None = ...,
-        downloadableThumbnail: global___MediaEntry.DownloadableThumbnail | None = ...,
+        downloadableThumbnail: Global___MediaEntry.DownloadableThumbnail | None = ...,
         handle: builtins.str | None = ...,
         filename: builtins.str | None = ...,
-        progressiveJPEGDetails: global___MediaEntry.ProgressiveJpegDetails | None = ...,
+        progressiveJPEGDetails: Global___MediaEntry.ProgressiveJpegDetails | None = ...,
         size: builtins.int | None = ...,
         lastDownloadAttemptTimestamp: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["FBID", b"FBID", "directPath", b"directPath", "downloadableThumbnail", b"downloadableThumbnail", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "filename", b"filename", "handle", b"handle", "lastDownloadAttemptTimestamp", b"lastDownloadAttemptTimestamp", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "objectID", b"objectID", "progressiveJPEGDetails", b"progressiveJPEGDetails", "serverMediaType", b"serverMediaType", "sidecar", b"sidecar", "size", b"size", "uploadToken", b"uploadToken", "validatedTimestamp", b"validatedTimestamp"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["FBID", b"FBID", "directPath", b"directPath", "downloadableThumbnail", b"downloadableThumbnail", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "filename", b"filename", "handle", b"handle", "lastDownloadAttemptTimestamp", b"lastDownloadAttemptTimestamp", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "objectID", b"objectID", "progressiveJPEGDetails", b"progressiveJPEGDetails", "serverMediaType", b"serverMediaType", "sidecar", b"sidecar", "size", b"size", "uploadToken", b"uploadToken", "validatedTimestamp", b"validatedTimestamp"]) -> None: ...
 
-global___MediaEntry = MediaEntry
+Global___MediaEntry: typing_extensions.TypeAlias = MediaEntry

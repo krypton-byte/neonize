@@ -35,6 +35,7 @@ class StatusAttribution(google.protobuf.message.Message):
         GROUP_STATUS: StatusAttribution._Type.ValueType  # 5
         RL_ATTRIBUTION: StatusAttribution._Type.ValueType  # 6
         AI_CREATED: StatusAttribution._Type.ValueType  # 7
+        LAYOUTS: StatusAttribution._Type.ValueType  # 8
 
     class Type(_Type, metaclass=_TypeEnumTypeWrapper): ...
     UNKNOWN: StatusAttribution.Type.ValueType  # 0
@@ -45,6 +46,7 @@ class StatusAttribution(google.protobuf.message.Message):
     GROUP_STATUS: StatusAttribution.Type.ValueType  # 5
     RL_ATTRIBUTION: StatusAttribution.Type.ValueType  # 6
     AI_CREATED: StatusAttribution.Type.ValueType  # 7
+    LAYOUTS: StatusAttribution.Type.ValueType  # 8
 
     @typing.final
     class AiCreatedAttribution(google.protobuf.message.Message):
@@ -64,11 +66,11 @@ class StatusAttribution(google.protobuf.message.Message):
         STATUS_MIMICRY: StatusAttribution.AiCreatedAttribution.Source.ValueType  # 1
 
         SOURCE_FIELD_NUMBER: builtins.int
-        source: global___StatusAttribution.AiCreatedAttribution.Source.ValueType
+        source: Global___StatusAttribution.AiCreatedAttribution.Source.ValueType
         def __init__(
             self,
             *,
-            source: global___StatusAttribution.AiCreatedAttribution.Source.ValueType | None = ...,
+            source: Global___StatusAttribution.AiCreatedAttribution.Source.ValueType | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["source", b"source"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["source", b"source"]) -> None: ...
@@ -95,11 +97,11 @@ class StatusAttribution(google.protobuf.message.Message):
         HYPERNOVA_GLASSES: StatusAttribution.RLAttribution.Source.ValueType  # 3
 
         SOURCE_FIELD_NUMBER: builtins.int
-        source: global___StatusAttribution.RLAttribution.Source.ValueType
+        source: Global___StatusAttribution.RLAttribution.Source.ValueType
         def __init__(
             self,
             *,
-            source: global___StatusAttribution.RLAttribution.Source.ValueType | None = ...,
+            source: Global___StatusAttribution.RLAttribution.Source.ValueType | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["source", b"source"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["source", b"source"]) -> None: ...
@@ -124,6 +126,7 @@ class StatusAttribution(google.protobuf.message.Message):
             THREADS: StatusAttribution.ExternalShare._Source.ValueType  # 7
             APPLE_MUSIC: StatusAttribution.ExternalShare._Source.ValueType  # 8
             SHARECHAT: StatusAttribution.ExternalShare._Source.ValueType  # 9
+            GOOGLE_PHOTOS: StatusAttribution.ExternalShare._Source.ValueType  # 10
 
         class Source(_Source, metaclass=_SourceEnumTypeWrapper): ...
         UNKNOWN: StatusAttribution.ExternalShare.Source.ValueType  # 0
@@ -136,20 +139,21 @@ class StatusAttribution(google.protobuf.message.Message):
         THREADS: StatusAttribution.ExternalShare.Source.ValueType  # 7
         APPLE_MUSIC: StatusAttribution.ExternalShare.Source.ValueType  # 8
         SHARECHAT: StatusAttribution.ExternalShare.Source.ValueType  # 9
+        GOOGLE_PHOTOS: StatusAttribution.ExternalShare.Source.ValueType  # 10
 
         ACTIONURL_FIELD_NUMBER: builtins.int
         SOURCE_FIELD_NUMBER: builtins.int
         DURATION_FIELD_NUMBER: builtins.int
         ACTIONFALLBACKURL_FIELD_NUMBER: builtins.int
         actionURL: builtins.str
-        source: global___StatusAttribution.ExternalShare.Source.ValueType
+        source: Global___StatusAttribution.ExternalShare.Source.ValueType
         duration: builtins.int
         actionFallbackURL: builtins.str
         def __init__(
             self,
             *,
             actionURL: builtins.str | None = ...,
-            source: global___StatusAttribution.ExternalShare.Source.ValueType | None = ...,
+            source: Global___StatusAttribution.ExternalShare.Source.ValueType | None = ...,
             duration: builtins.int | None = ...,
             actionFallbackURL: builtins.str | None = ...,
         ) -> None: ...
@@ -204,14 +208,14 @@ class StatusAttribution(google.protobuf.message.Message):
 
         SOURCE_FIELD_NUMBER: builtins.int
         METADATA_FIELD_NUMBER: builtins.int
-        source: global___StatusAttribution.StatusReshare.Source.ValueType
+        source: Global___StatusAttribution.StatusReshare.Source.ValueType
         @property
-        def metadata(self) -> global___StatusAttribution.StatusReshare.Metadata: ...
+        def metadata(self) -> Global___StatusAttribution.StatusReshare.Metadata: ...
         def __init__(
             self,
             *,
-            source: global___StatusAttribution.StatusReshare.Source.ValueType | None = ...,
-            metadata: global___StatusAttribution.StatusReshare.Metadata | None = ...,
+            source: Global___StatusAttribution.StatusReshare.Source.ValueType | None = ...,
+            metadata: Global___StatusAttribution.StatusReshare.Metadata | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["metadata", b"metadata", "source", b"source"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["metadata", b"metadata", "source", b"source"]) -> None: ...
@@ -267,34 +271,34 @@ class StatusAttribution(google.protobuf.message.Message):
     AICREATEDATTRIBUTION_FIELD_NUMBER: builtins.int
     TYPE_FIELD_NUMBER: builtins.int
     ACTIONURL_FIELD_NUMBER: builtins.int
-    type: global___StatusAttribution.Type.ValueType
+    type: Global___StatusAttribution.Type.ValueType
     actionURL: builtins.str
     @property
-    def statusReshare(self) -> global___StatusAttribution.StatusReshare: ...
+    def statusReshare(self) -> Global___StatusAttribution.StatusReshare: ...
     @property
-    def externalShare(self) -> global___StatusAttribution.ExternalShare: ...
+    def externalShare(self) -> Global___StatusAttribution.ExternalShare: ...
     @property
-    def music(self) -> global___StatusAttribution.Music: ...
+    def music(self) -> Global___StatusAttribution.Music: ...
     @property
-    def groupStatus(self) -> global___StatusAttribution.GroupStatus: ...
+    def groupStatus(self) -> Global___StatusAttribution.GroupStatus: ...
     @property
-    def rlAttribution(self) -> global___StatusAttribution.RLAttribution: ...
+    def rlAttribution(self) -> Global___StatusAttribution.RLAttribution: ...
     @property
-    def aiCreatedAttribution(self) -> global___StatusAttribution.AiCreatedAttribution: ...
+    def aiCreatedAttribution(self) -> Global___StatusAttribution.AiCreatedAttribution: ...
     def __init__(
         self,
         *,
-        statusReshare: global___StatusAttribution.StatusReshare | None = ...,
-        externalShare: global___StatusAttribution.ExternalShare | None = ...,
-        music: global___StatusAttribution.Music | None = ...,
-        groupStatus: global___StatusAttribution.GroupStatus | None = ...,
-        rlAttribution: global___StatusAttribution.RLAttribution | None = ...,
-        aiCreatedAttribution: global___StatusAttribution.AiCreatedAttribution | None = ...,
-        type: global___StatusAttribution.Type.ValueType | None = ...,
+        statusReshare: Global___StatusAttribution.StatusReshare | None = ...,
+        externalShare: Global___StatusAttribution.ExternalShare | None = ...,
+        music: Global___StatusAttribution.Music | None = ...,
+        groupStatus: Global___StatusAttribution.GroupStatus | None = ...,
+        rlAttribution: Global___StatusAttribution.RLAttribution | None = ...,
+        aiCreatedAttribution: Global___StatusAttribution.AiCreatedAttribution | None = ...,
+        type: Global___StatusAttribution.Type.ValueType | None = ...,
         actionURL: builtins.str | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["actionURL", b"actionURL", "aiCreatedAttribution", b"aiCreatedAttribution", "attributionData", b"attributionData", "externalShare", b"externalShare", "groupStatus", b"groupStatus", "music", b"music", "rlAttribution", b"rlAttribution", "statusReshare", b"statusReshare", "type", b"type"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["actionURL", b"actionURL", "aiCreatedAttribution", b"aiCreatedAttribution", "attributionData", b"attributionData", "externalShare", b"externalShare", "groupStatus", b"groupStatus", "music", b"music", "rlAttribution", b"rlAttribution", "statusReshare", b"statusReshare", "type", b"type"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["attributionData", b"attributionData"]) -> typing.Literal["statusReshare", "externalShare", "music", "groupStatus", "rlAttribution", "aiCreatedAttribution"] | None: ...
 
-global___StatusAttribution = StatusAttribution
+Global___StatusAttribution: typing_extensions.TypeAlias = StatusAttribution

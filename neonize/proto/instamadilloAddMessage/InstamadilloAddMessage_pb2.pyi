@@ -31,19 +31,19 @@ class AddMessagePayload(google.protobuf.message.Message):
     CONTENT_FIELD_NUMBER: builtins.int
     METADATA_FIELD_NUMBER: builtins.int
     @property
-    def content(self) -> global___AddMessageContent: ...
+    def content(self) -> Global___AddMessageContent: ...
     @property
-    def metadata(self) -> global___AddMessageMetadata: ...
+    def metadata(self) -> Global___AddMessageMetadata: ...
     def __init__(
         self,
         *,
-        content: global___AddMessageContent | None = ...,
-        metadata: global___AddMessageMetadata | None = ...,
+        content: Global___AddMessageContent | None = ...,
+        metadata: Global___AddMessageMetadata | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["content", b"content", "metadata", b"metadata"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["content", b"content", "metadata", b"metadata"]) -> None: ...
 
-global___AddMessagePayload = AddMessagePayload
+Global___AddMessagePayload: typing_extensions.TypeAlias = AddMessagePayload
 
 @typing.final
 class AddMessageContent(google.protobuf.message.Message):
@@ -61,15 +61,15 @@ class AddMessageContent(google.protobuf.message.Message):
     @property
     def text(self) -> instamadilloCoreTypeText.InstamadilloCoreTypeText_pb2.Text: ...
     @property
-    def like(self) -> global___Like: ...
+    def like(self) -> Global___Like: ...
     @property
     def link(self) -> instamadilloCoreTypeLink.InstamadilloCoreTypeLink_pb2.Link: ...
     @property
-    def receiverFetchXma(self) -> global___ReceiverFetchXma: ...
+    def receiverFetchXma(self) -> Global___ReceiverFetchXma: ...
     @property
     def media(self) -> instamadilloCoreTypeMedia.InstamadilloCoreTypeMedia_pb2.Media: ...
     @property
-    def placeholder(self) -> global___Placeholder: ...
+    def placeholder(self) -> Global___Placeholder: ...
     @property
     def collection(self) -> instamadilloCoreTypeCollection.InstamadilloCoreTypeCollection_pb2.Collection: ...
     @property
@@ -80,11 +80,11 @@ class AddMessageContent(google.protobuf.message.Message):
         self,
         *,
         text: instamadilloCoreTypeText.InstamadilloCoreTypeText_pb2.Text | None = ...,
-        like: global___Like | None = ...,
+        like: Global___Like | None = ...,
         link: instamadilloCoreTypeLink.InstamadilloCoreTypeLink_pb2.Link | None = ...,
-        receiverFetchXma: global___ReceiverFetchXma | None = ...,
+        receiverFetchXma: Global___ReceiverFetchXma | None = ...,
         media: instamadilloCoreTypeMedia.InstamadilloCoreTypeMedia_pb2.Media | None = ...,
-        placeholder: global___Placeholder | None = ...,
+        placeholder: Global___Placeholder | None = ...,
         collection: instamadilloCoreTypeCollection.InstamadilloCoreTypeCollection_pb2.Collection | None = ...,
         adminMessage: instamadilloCoreTypeAdminMessage.InstamadilloCoreTypeAdminMessage_pb2.AdminMessage | None = ...,
         actionLog: instamadilloCoreTypeActionLog.InstamadilloCoreTypeActionLog_pb2.ActionLog | None = ...,
@@ -93,7 +93,7 @@ class AddMessageContent(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["actionLog", b"actionLog", "addMessageContent", b"addMessageContent", "adminMessage", b"adminMessage", "collection", b"collection", "like", b"like", "link", b"link", "media", b"media", "placeholder", b"placeholder", "receiverFetchXma", b"receiverFetchXma", "text", b"text"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["addMessageContent", b"addMessageContent"]) -> typing.Literal["text", "like", "link", "receiverFetchXma", "media", "placeholder", "collection", "adminMessage", "actionLog"] | None: ...
 
-global___AddMessageContent = AddMessageContent
+Global___AddMessageContent: typing_extensions.TypeAlias = AddMessageContent
 
 @typing.final
 class AddMessageMetadata(google.protobuf.message.Message):
@@ -106,26 +106,26 @@ class AddMessageMetadata(google.protobuf.message.Message):
     EPHEMERALITYPARAMS_FIELD_NUMBER: builtins.int
     sendSilently: builtins.bool
     @property
-    def privateReplyInfo(self) -> global___PrivateReplyInfo: ...
+    def privateReplyInfo(self) -> Global___PrivateReplyInfo: ...
     @property
-    def repliedToMessage(self) -> global___RepliedToMessage: ...
+    def repliedToMessage(self) -> Global___RepliedToMessage: ...
     @property
-    def forwardingParams(self) -> global___ForwardingParams: ...
+    def forwardingParams(self) -> Global___ForwardingParams: ...
     @property
-    def ephemeralityParams(self) -> global___EphemeralityParams: ...
+    def ephemeralityParams(self) -> Global___EphemeralityParams: ...
     def __init__(
         self,
         *,
         sendSilently: builtins.bool | None = ...,
-        privateReplyInfo: global___PrivateReplyInfo | None = ...,
-        repliedToMessage: global___RepliedToMessage | None = ...,
-        forwardingParams: global___ForwardingParams | None = ...,
-        ephemeralityParams: global___EphemeralityParams | None = ...,
+        privateReplyInfo: Global___PrivateReplyInfo | None = ...,
+        repliedToMessage: Global___RepliedToMessage | None = ...,
+        forwardingParams: Global___ForwardingParams | None = ...,
+        ephemeralityParams: Global___EphemeralityParams | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["ephemeralityParams", b"ephemeralityParams", "forwardingParams", b"forwardingParams", "privateReplyInfo", b"privateReplyInfo", "repliedToMessage", b"repliedToMessage", "sendSilently", b"sendSilently"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["ephemeralityParams", b"ephemeralityParams", "forwardingParams", b"forwardingParams", "privateReplyInfo", b"privateReplyInfo", "repliedToMessage", b"repliedToMessage", "sendSilently", b"sendSilently"]) -> None: ...
 
-global___AddMessageMetadata = AddMessageMetadata
+Global___AddMessageMetadata: typing_extensions.TypeAlias = AddMessageMetadata
 
 @typing.final
 class RepliedToMessage(google.protobuf.message.Message):
@@ -139,19 +139,19 @@ class RepliedToMessage(google.protobuf.message.Message):
     repliedToMessageWaServerTimeSec: builtins.str
     repliedToMessageCollectionItemID: builtins.str
     @property
-    def omMicroSecTS(self) -> global___OpenMessageMicroSecondTimestamp: ...
+    def omMicroSecTS(self) -> Global___OpenMessageMicroSecondTimestamp: ...
     def __init__(
         self,
         *,
         repliedToMessageOtid: builtins.str | None = ...,
         repliedToMessageWaServerTimeSec: builtins.str | None = ...,
         repliedToMessageCollectionItemID: builtins.str | None = ...,
-        omMicroSecTS: global___OpenMessageMicroSecondTimestamp | None = ...,
+        omMicroSecTS: Global___OpenMessageMicroSecondTimestamp | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["omMicroSecTS", b"omMicroSecTS", "repliedToMessageCollectionItemID", b"repliedToMessageCollectionItemID", "repliedToMessageOtid", b"repliedToMessageOtid", "repliedToMessageWaServerTimeSec", b"repliedToMessageWaServerTimeSec"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["omMicroSecTS", b"omMicroSecTS", "repliedToMessageCollectionItemID", b"repliedToMessageCollectionItemID", "repliedToMessageOtid", b"repliedToMessageOtid", "repliedToMessageWaServerTimeSec", b"repliedToMessageWaServerTimeSec"]) -> None: ...
 
-global___RepliedToMessage = RepliedToMessage
+Global___RepliedToMessage: typing_extensions.TypeAlias = RepliedToMessage
 
 @typing.final
 class OpenMessageMicroSecondTimestamp(google.protobuf.message.Message):
@@ -170,7 +170,7 @@ class OpenMessageMicroSecondTimestamp(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["microSecondsBits", b"microSecondsBits", "timestampMS", b"timestampMS"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["microSecondsBits", b"microSecondsBits", "timestampMS", b"timestampMS"]) -> None: ...
 
-global___OpenMessageMicroSecondTimestamp = OpenMessageMicroSecondTimestamp
+Global___OpenMessageMicroSecondTimestamp: typing_extensions.TypeAlias = OpenMessageMicroSecondTimestamp
 
 @typing.final
 class PrivateReplyInfo(google.protobuf.message.Message):
@@ -189,7 +189,7 @@ class PrivateReplyInfo(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["commentID", b"commentID", "postLink", b"postLink"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["commentID", b"commentID", "postLink", b"postLink"]) -> None: ...
 
-global___PrivateReplyInfo = PrivateReplyInfo
+Global___PrivateReplyInfo: typing_extensions.TypeAlias = PrivateReplyInfo
 
 @typing.final
 class ForwardingParams(google.protobuf.message.Message):
@@ -205,7 +205,7 @@ class ForwardingParams(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["forwardedThreadID", b"forwardedThreadID"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["forwardedThreadID", b"forwardedThreadID"]) -> None: ...
 
-global___ForwardingParams = ForwardingParams
+Global___ForwardingParams: typing_extensions.TypeAlias = ForwardingParams
 
 @typing.final
 class EphemeralityParams(google.protobuf.message.Message):
@@ -221,7 +221,7 @@ class EphemeralityParams(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["ephemeralDurationSec", b"ephemeralDurationSec"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["ephemeralDurationSec", b"ephemeralDurationSec"]) -> None: ...
 
-global___EphemeralityParams = EphemeralityParams
+Global___EphemeralityParams: typing_extensions.TypeAlias = EphemeralityParams
 
 @typing.final
 class Like(google.protobuf.message.Message):
@@ -231,7 +231,7 @@ class Like(google.protobuf.message.Message):
         self,
     ) -> None: ...
 
-global___Like = Like
+Global___Like: typing_extensions.TypeAlias = Like
 
 @typing.final
 class ReceiverFetchXma(google.protobuf.message.Message):
@@ -258,7 +258,7 @@ class ReceiverFetchXma(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["contentRef", b"contentRef", "media", b"media", "text", b"text", "xmaContentRef", b"xmaContentRef"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["contentRef", b"contentRef", "media", b"media", "text", b"text", "xmaContentRef", b"xmaContentRef"]) -> None: ...
 
-global___ReceiverFetchXma = ReceiverFetchXma
+Global___ReceiverFetchXma: typing_extensions.TypeAlias = ReceiverFetchXma
 
 @typing.final
 class Placeholder(google.protobuf.message.Message):
@@ -284,13 +284,13 @@ class Placeholder(google.protobuf.message.Message):
     PLACEHOLDER_TYPE_NOT_SUPPORTED_NOT_RECOVERABLE: Placeholder.Type.ValueType  # 4
 
     PLACEHOLDERTYPE_FIELD_NUMBER: builtins.int
-    placeholderType: global___Placeholder.Type.ValueType
+    placeholderType: Global___Placeholder.Type.ValueType
     def __init__(
         self,
         *,
-        placeholderType: global___Placeholder.Type.ValueType | None = ...,
+        placeholderType: Global___Placeholder.Type.ValueType | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["placeholderType", b"placeholderType"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["placeholderType", b"placeholderType"]) -> None: ...
 
-global___Placeholder = Placeholder
+Global___Placeholder: typing_extensions.TypeAlias = Placeholder

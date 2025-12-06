@@ -39,7 +39,7 @@ PAYLOAD_CREATOR_IGIOS: PayloadCreator.ValueType  # 1
 PAYLOAD_CREATOR_IG4A: PayloadCreator.ValueType  # 2
 PAYLOAD_CREATOR_WWW: PayloadCreator.ValueType  # 3
 PAYLOAD_CREATOR_IGLITE: PayloadCreator.ValueType  # 4
-global___PayloadCreator = PayloadCreator
+Global___PayloadCreator: typing_extensions.TypeAlias = PayloadCreator
 
 @typing.final
 class TransportPayload(google.protobuf.message.Message):
@@ -54,7 +54,7 @@ class TransportPayload(google.protobuf.message.Message):
     PAYLOADCREATOR_FIELD_NUMBER: builtins.int
     openEb: builtins.bool
     isE2EeAttributed: builtins.bool
-    payloadCreator: global___PayloadCreator.ValueType
+    payloadCreator: Global___PayloadCreator.ValueType
     @property
     def add(self) -> instamadilloAddMessage.InstamadilloAddMessage_pb2.AddMessagePayload: ...
     @property
@@ -62,23 +62,23 @@ class TransportPayload(google.protobuf.message.Message):
     @property
     def supplement(self) -> instamadilloSupplementMessage.InstamadilloSupplementMessage_pb2.SupplementMessagePayload: ...
     @property
-    def franking(self) -> global___Franking: ...
+    def franking(self) -> Global___Franking: ...
     def __init__(
         self,
         *,
         add: instamadilloAddMessage.InstamadilloAddMessage_pb2.AddMessagePayload | None = ...,
         delete: instamadilloDeleteMessage.InstamadilloDeleteMessage_pb2.DeleteMessagePayload | None = ...,
         supplement: instamadilloSupplementMessage.InstamadilloSupplementMessage_pb2.SupplementMessagePayload | None = ...,
-        franking: global___Franking | None = ...,
+        franking: Global___Franking | None = ...,
         openEb: builtins.bool | None = ...,
         isE2EeAttributed: builtins.bool | None = ...,
-        payloadCreator: global___PayloadCreator.ValueType | None = ...,
+        payloadCreator: Global___PayloadCreator.ValueType | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["add", b"add", "delete", b"delete", "franking", b"franking", "isE2EeAttributed", b"isE2EeAttributed", "openEb", b"openEb", "payloadCreator", b"payloadCreator", "supplement", b"supplement", "transportPayload", b"transportPayload"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["add", b"add", "delete", b"delete", "franking", b"franking", "isE2EeAttributed", b"isE2EeAttributed", "openEb", b"openEb", "payloadCreator", b"payloadCreator", "supplement", b"supplement", "transportPayload", b"transportPayload"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["transportPayload", b"transportPayload"]) -> typing.Literal["add", "delete", "supplement"] | None: ...
 
-global___TransportPayload = TransportPayload
+Global___TransportPayload: typing_extensions.TypeAlias = TransportPayload
 
 @typing.final
 class Franking(google.protobuf.message.Message):
@@ -97,4 +97,4 @@ class Franking(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["frankingKey", b"frankingKey", "frankingVersion", b"frankingVersion"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["frankingKey", b"frankingKey", "frankingVersion", b"frankingVersion"]) -> None: ...
 
-global___Franking = Franking
+Global___Franking: typing_extensions.TypeAlias = Franking

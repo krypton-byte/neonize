@@ -6,7 +6,13 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -16,17 +22,17 @@ class ActionLog(google.protobuf.message.Message):
 
     ACTIONLOGREACTION_FIELD_NUMBER: builtins.int
     @property
-    def actionLogReaction(self) -> global___ActionLogReaction: ...
+    def actionLogReaction(self) -> Global___ActionLogReaction: ...
     def __init__(
         self,
         *,
-        actionLogReaction: global___ActionLogReaction | None = ...,
+        actionLogReaction: Global___ActionLogReaction | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["actionLogReaction", b"actionLogReaction", "actionLogSubtype", b"actionLogSubtype"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["actionLogReaction", b"actionLogReaction", "actionLogSubtype", b"actionLogSubtype"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["actionLogSubtype", b"actionLogSubtype"]) -> typing.Literal["actionLogReaction"] | None: ...
 
-global___ActionLog = ActionLog
+Global___ActionLog: typing_extensions.TypeAlias = ActionLog
 
 @typing.final
 class ActionLogReaction(google.protobuf.message.Message):
@@ -42,4 +48,4 @@ class ActionLogReaction(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["emojiUnicode", b"emojiUnicode"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["emojiUnicode", b"emojiUnicode"]) -> None: ...
 
-global___ActionLogReaction = ActionLogReaction
+Global___ActionLogReaction: typing_extensions.TypeAlias = ActionLogReaction

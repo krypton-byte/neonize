@@ -101,6 +101,8 @@ class DeviceProps(google.protobuf.message.Message):
         SUPPORTGROUPHISTORY_FIELD_NUMBER: builtins.int
         ONDEMANDREADY_FIELD_NUMBER: builtins.int
         SUPPORTGUESTCHAT_FIELD_NUMBER: builtins.int
+        COMPLETEONDEMANDREADY_FIELD_NUMBER: builtins.int
+        THUMBNAILSYNCDAYSLIMIT_FIELD_NUMBER: builtins.int
         fullSyncDaysLimit: builtins.int
         fullSyncSizeMbLimit: builtins.int
         storageQuotaMb: builtins.int
@@ -118,6 +120,8 @@ class DeviceProps(google.protobuf.message.Message):
         supportGroupHistory: builtins.bool
         onDemandReady: builtins.bool
         supportGuestChat: builtins.bool
+        completeOnDemandReady: builtins.bool
+        thumbnailSyncDaysLimit: builtins.int
         def __init__(
             self,
             *,
@@ -138,9 +142,11 @@ class DeviceProps(google.protobuf.message.Message):
             supportGroupHistory: builtins.bool | None = ...,
             onDemandReady: builtins.bool | None = ...,
             supportGuestChat: builtins.bool | None = ...,
+            completeOnDemandReady: builtins.bool | None = ...,
+            thumbnailSyncDaysLimit: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["fullSyncDaysLimit", b"fullSyncDaysLimit", "fullSyncSizeMbLimit", b"fullSyncSizeMbLimit", "inlineInitialPayloadInE2EeMsg", b"inlineInitialPayloadInE2EeMsg", "onDemandReady", b"onDemandReady", "recentSyncDaysLimit", b"recentSyncDaysLimit", "storageQuotaMb", b"storageQuotaMb", "supportAddOnHistorySyncMigration", b"supportAddOnHistorySyncMigration", "supportBizHostedMsg", b"supportBizHostedMsg", "supportBotUserAgentChatHistory", b"supportBotUserAgentChatHistory", "supportCagReactionsAndPolls", b"supportCagReactionsAndPolls", "supportCallLogHistory", b"supportCallLogHistory", "supportFbidBotChatHistory", b"supportFbidBotChatHistory", "supportGroupHistory", b"supportGroupHistory", "supportGuestChat", b"supportGuestChat", "supportHostedGroupMsg", b"supportHostedGroupMsg", "supportMessageAssociation", b"supportMessageAssociation", "supportRecentSyncChunkMessageCountTuning", b"supportRecentSyncChunkMessageCountTuning"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["fullSyncDaysLimit", b"fullSyncDaysLimit", "fullSyncSizeMbLimit", b"fullSyncSizeMbLimit", "inlineInitialPayloadInE2EeMsg", b"inlineInitialPayloadInE2EeMsg", "onDemandReady", b"onDemandReady", "recentSyncDaysLimit", b"recentSyncDaysLimit", "storageQuotaMb", b"storageQuotaMb", "supportAddOnHistorySyncMigration", b"supportAddOnHistorySyncMigration", "supportBizHostedMsg", b"supportBizHostedMsg", "supportBotUserAgentChatHistory", b"supportBotUserAgentChatHistory", "supportCagReactionsAndPolls", b"supportCagReactionsAndPolls", "supportCallLogHistory", b"supportCallLogHistory", "supportFbidBotChatHistory", b"supportFbidBotChatHistory", "supportGroupHistory", b"supportGroupHistory", "supportGuestChat", b"supportGuestChat", "supportHostedGroupMsg", b"supportHostedGroupMsg", "supportMessageAssociation", b"supportMessageAssociation", "supportRecentSyncChunkMessageCountTuning", b"supportRecentSyncChunkMessageCountTuning"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["completeOnDemandReady", b"completeOnDemandReady", "fullSyncDaysLimit", b"fullSyncDaysLimit", "fullSyncSizeMbLimit", b"fullSyncSizeMbLimit", "inlineInitialPayloadInE2EeMsg", b"inlineInitialPayloadInE2EeMsg", "onDemandReady", b"onDemandReady", "recentSyncDaysLimit", b"recentSyncDaysLimit", "storageQuotaMb", b"storageQuotaMb", "supportAddOnHistorySyncMigration", b"supportAddOnHistorySyncMigration", "supportBizHostedMsg", b"supportBizHostedMsg", "supportBotUserAgentChatHistory", b"supportBotUserAgentChatHistory", "supportCagReactionsAndPolls", b"supportCagReactionsAndPolls", "supportCallLogHistory", b"supportCallLogHistory", "supportFbidBotChatHistory", b"supportFbidBotChatHistory", "supportGroupHistory", b"supportGroupHistory", "supportGuestChat", b"supportGuestChat", "supportHostedGroupMsg", b"supportHostedGroupMsg", "supportMessageAssociation", b"supportMessageAssociation", "supportRecentSyncChunkMessageCountTuning", b"supportRecentSyncChunkMessageCountTuning", "thumbnailSyncDaysLimit", b"thumbnailSyncDaysLimit"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["completeOnDemandReady", b"completeOnDemandReady", "fullSyncDaysLimit", b"fullSyncDaysLimit", "fullSyncSizeMbLimit", b"fullSyncSizeMbLimit", "inlineInitialPayloadInE2EeMsg", b"inlineInitialPayloadInE2EeMsg", "onDemandReady", b"onDemandReady", "recentSyncDaysLimit", b"recentSyncDaysLimit", "storageQuotaMb", b"storageQuotaMb", "supportAddOnHistorySyncMigration", b"supportAddOnHistorySyncMigration", "supportBizHostedMsg", b"supportBizHostedMsg", "supportBotUserAgentChatHistory", b"supportBotUserAgentChatHistory", "supportCagReactionsAndPolls", b"supportCagReactionsAndPolls", "supportCallLogHistory", b"supportCallLogHistory", "supportFbidBotChatHistory", b"supportFbidBotChatHistory", "supportGroupHistory", b"supportGroupHistory", "supportGuestChat", b"supportGuestChat", "supportHostedGroupMsg", b"supportHostedGroupMsg", "supportMessageAssociation", b"supportMessageAssociation", "supportRecentSyncChunkMessageCountTuning", b"supportRecentSyncChunkMessageCountTuning", "thumbnailSyncDaysLimit", b"thumbnailSyncDaysLimit"]) -> None: ...
 
     @typing.final
     class AppVersion(google.protobuf.message.Message):
@@ -174,25 +180,25 @@ class DeviceProps(google.protobuf.message.Message):
     REQUIREFULLSYNC_FIELD_NUMBER: builtins.int
     HISTORYSYNCCONFIG_FIELD_NUMBER: builtins.int
     os: builtins.str
-    platformType: global___DeviceProps.PlatformType.ValueType
+    platformType: Global___DeviceProps.PlatformType.ValueType
     requireFullSync: builtins.bool
     @property
-    def version(self) -> global___DeviceProps.AppVersion: ...
+    def version(self) -> Global___DeviceProps.AppVersion: ...
     @property
-    def historySyncConfig(self) -> global___DeviceProps.HistorySyncConfig: ...
+    def historySyncConfig(self) -> Global___DeviceProps.HistorySyncConfig: ...
     def __init__(
         self,
         *,
         os: builtins.str | None = ...,
-        version: global___DeviceProps.AppVersion | None = ...,
-        platformType: global___DeviceProps.PlatformType.ValueType | None = ...,
+        version: Global___DeviceProps.AppVersion | None = ...,
+        platformType: Global___DeviceProps.PlatformType.ValueType | None = ...,
         requireFullSync: builtins.bool | None = ...,
-        historySyncConfig: global___DeviceProps.HistorySyncConfig | None = ...,
+        historySyncConfig: Global___DeviceProps.HistorySyncConfig | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["historySyncConfig", b"historySyncConfig", "os", b"os", "platformType", b"platformType", "requireFullSync", b"requireFullSync", "version", b"version"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["historySyncConfig", b"historySyncConfig", "os", b"os", "platformType", b"platformType", "requireFullSync", b"requireFullSync", "version", b"version"]) -> None: ...
 
-global___DeviceProps = DeviceProps
+Global___DeviceProps: typing_extensions.TypeAlias = DeviceProps
 
 @typing.final
 class CompanionEphemeralIdentity(google.protobuf.message.Message):
@@ -202,19 +208,19 @@ class CompanionEphemeralIdentity(google.protobuf.message.Message):
     DEVICETYPE_FIELD_NUMBER: builtins.int
     REF_FIELD_NUMBER: builtins.int
     publicKey: builtins.bytes
-    deviceType: global___DeviceProps.PlatformType.ValueType
+    deviceType: Global___DeviceProps.PlatformType.ValueType
     ref: builtins.str
     def __init__(
         self,
         *,
         publicKey: builtins.bytes | None = ...,
-        deviceType: global___DeviceProps.PlatformType.ValueType | None = ...,
+        deviceType: Global___DeviceProps.PlatformType.ValueType | None = ...,
         ref: builtins.str | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["deviceType", b"deviceType", "publicKey", b"publicKey", "ref", b"ref"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["deviceType", b"deviceType", "publicKey", b"publicKey", "ref", b"ref"]) -> None: ...
 
-global___CompanionEphemeralIdentity = CompanionEphemeralIdentity
+Global___CompanionEphemeralIdentity: typing_extensions.TypeAlias = CompanionEphemeralIdentity
 
 @typing.final
 class CompanionCommitment(google.protobuf.message.Message):
@@ -230,7 +236,7 @@ class CompanionCommitment(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["hash", b"hash"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["hash", b"hash"]) -> None: ...
 
-global___CompanionCommitment = CompanionCommitment
+Global___CompanionCommitment: typing_extensions.TypeAlias = CompanionCommitment
 
 @typing.final
 class ProloguePayload(google.protobuf.message.Message):
@@ -240,17 +246,17 @@ class ProloguePayload(google.protobuf.message.Message):
     COMMITMENT_FIELD_NUMBER: builtins.int
     companionEphemeralIdentity: builtins.bytes
     @property
-    def commitment(self) -> global___CompanionCommitment: ...
+    def commitment(self) -> Global___CompanionCommitment: ...
     def __init__(
         self,
         *,
         companionEphemeralIdentity: builtins.bytes | None = ...,
-        commitment: global___CompanionCommitment | None = ...,
+        commitment: Global___CompanionCommitment | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["commitment", b"commitment", "companionEphemeralIdentity", b"companionEphemeralIdentity"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["commitment", b"commitment", "companionEphemeralIdentity", b"companionEphemeralIdentity"]) -> None: ...
 
-global___ProloguePayload = ProloguePayload
+Global___ProloguePayload: typing_extensions.TypeAlias = ProloguePayload
 
 @typing.final
 class PrimaryEphemeralIdentity(google.protobuf.message.Message):
@@ -269,7 +275,7 @@ class PrimaryEphemeralIdentity(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["nonce", b"nonce", "publicKey", b"publicKey"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["nonce", b"nonce", "publicKey", b"publicKey"]) -> None: ...
 
-global___PrimaryEphemeralIdentity = PrimaryEphemeralIdentity
+Global___PrimaryEphemeralIdentity: typing_extensions.TypeAlias = PrimaryEphemeralIdentity
 
 @typing.final
 class PairingRequest(google.protobuf.message.Message):
@@ -291,7 +297,7 @@ class PairingRequest(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["advSecret", b"advSecret", "companionIdentityKey", b"companionIdentityKey", "companionPublicKey", b"companionPublicKey"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["advSecret", b"advSecret", "companionIdentityKey", b"companionIdentityKey", "companionPublicKey", b"companionPublicKey"]) -> None: ...
 
-global___PairingRequest = PairingRequest
+Global___PairingRequest: typing_extensions.TypeAlias = PairingRequest
 
 @typing.final
 class EncryptedPairingRequest(google.protobuf.message.Message):
@@ -310,7 +316,7 @@ class EncryptedPairingRequest(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["IV", b"IV", "encryptedPayload", b"encryptedPayload"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["IV", b"IV", "encryptedPayload", b"encryptedPayload"]) -> None: ...
 
-global___EncryptedPairingRequest = EncryptedPairingRequest
+Global___EncryptedPairingRequest: typing_extensions.TypeAlias = EncryptedPairingRequest
 
 @typing.final
 class ClientPairingProps(google.protobuf.message.Message):
@@ -332,4 +338,4 @@ class ClientPairingProps(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["isChatDbLidMigrated", b"isChatDbLidMigrated", "isSyncdPureLidSession", b"isSyncdPureLidSession", "isSyncdSnapshotRecoveryEnabled", b"isSyncdSnapshotRecoveryEnabled"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["isChatDbLidMigrated", b"isChatDbLidMigrated", "isSyncdPureLidSession", b"isSyncdPureLidSession", "isSyncdSnapshotRecoveryEnabled", b"isSyncdSnapshotRecoveryEnabled"]) -> None: ...
 
-global___ClientPairingProps = ClientPairingProps
+Global___ClientPairingProps: typing_extensions.TypeAlias = ClientPairingProps

@@ -8,7 +8,13 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -32,7 +38,7 @@ class LIDMigrationMapping(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["assignedLid", b"assignedLid", "latestLid", b"latestLid", "pn", b"pn"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["assignedLid", b"assignedLid", "latestLid", b"latestLid", "pn", b"pn"]) -> None: ...
 
-global___LIDMigrationMapping = LIDMigrationMapping
+Global___LIDMigrationMapping: typing_extensions.TypeAlias = LIDMigrationMapping
 
 @typing.final
 class LIDMigrationMappingSyncPayload(google.protobuf.message.Message):
@@ -42,14 +48,14 @@ class LIDMigrationMappingSyncPayload(google.protobuf.message.Message):
     CHATDBMIGRATIONTIMESTAMP_FIELD_NUMBER: builtins.int
     chatDbMigrationTimestamp: builtins.int
     @property
-    def pnToLidMappings(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___LIDMigrationMapping]: ...
+    def pnToLidMappings(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___LIDMigrationMapping]: ...
     def __init__(
         self,
         *,
-        pnToLidMappings: collections.abc.Iterable[global___LIDMigrationMapping] | None = ...,
+        pnToLidMappings: collections.abc.Iterable[Global___LIDMigrationMapping] | None = ...,
         chatDbMigrationTimestamp: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["chatDbMigrationTimestamp", b"chatDbMigrationTimestamp"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["chatDbMigrationTimestamp", b"chatDbMigrationTimestamp", "pnToLidMappings", b"pnToLidMappings"]) -> None: ...
 
-global___LIDMigrationMappingSyncPayload = LIDMigrationMappingSyncPayload
+Global___LIDMigrationMappingSyncPayload: typing_extensions.TypeAlias = LIDMigrationMappingSyncPayload

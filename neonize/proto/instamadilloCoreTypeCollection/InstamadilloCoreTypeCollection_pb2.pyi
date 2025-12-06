@@ -9,7 +9,13 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
 import instamadilloCoreTypeMedia.InstamadilloCoreTypeMedia_pb2
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -31,4 +37,4 @@ class Collection(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["name", b"name"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["media", b"media", "name", b"name"]) -> None: ...
 
-global___Collection = Collection
+Global___Collection: typing_extensions.TypeAlias = Collection

@@ -172,12 +172,12 @@ class ClientPayload(google.protobuf.message.Message):
 
         DNSMETHOD_FIELD_NUMBER: builtins.int
         APPCACHED_FIELD_NUMBER: builtins.int
-        dnsMethod: global___ClientPayload.DNSSource.DNSResolutionMethod.ValueType
+        dnsMethod: Global___ClientPayload.DNSSource.DNSResolutionMethod.ValueType
         appCached: builtins.bool
         def __init__(
             self,
             *,
-            dnsMethod: global___ClientPayload.DNSSource.DNSResolutionMethod.ValueType | None = ...,
+            dnsMethod: Global___ClientPayload.DNSSource.DNSResolutionMethod.ValueType | None = ...,
             appCached: builtins.bool | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["appCached", b"appCached", "dnsMethod", b"dnsMethod"]) -> builtins.bool: ...
@@ -258,16 +258,16 @@ class ClientPayload(google.protobuf.message.Message):
         WEBSUBPLATFORM_FIELD_NUMBER: builtins.int
         refToken: builtins.str
         version: builtins.str
-        webSubPlatform: global___ClientPayload.WebInfo.WebSubPlatform.ValueType
+        webSubPlatform: Global___ClientPayload.WebInfo.WebSubPlatform.ValueType
         @property
-        def webdPayload(self) -> global___ClientPayload.WebInfo.WebdPayload: ...
+        def webdPayload(self) -> Global___ClientPayload.WebInfo.WebdPayload: ...
         def __init__(
             self,
             *,
             refToken: builtins.str | None = ...,
             version: builtins.str | None = ...,
-            webdPayload: global___ClientPayload.WebInfo.WebdPayload | None = ...,
-            webSubPlatform: global___ClientPayload.WebInfo.WebSubPlatform.ValueType | None = ...,
+            webdPayload: Global___ClientPayload.WebInfo.WebdPayload | None = ...,
+            webSubPlatform: Global___ClientPayload.WebInfo.WebSubPlatform.ValueType | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["refToken", b"refToken", "version", b"version", "webSubPlatform", b"webSubPlatform", "webdPayload", b"webdPayload"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["refToken", b"refToken", "version", b"version", "webSubPlatform", b"webSubPlatform", "webdPayload", b"webdPayload"]) -> None: ...
@@ -355,6 +355,7 @@ class ClientPayload(google.protobuf.message.Message):
             TEST: ClientPayload.UserAgent._Platform.ValueType  # 34
             SMART_GLASSES: ClientPayload.UserAgent._Platform.ValueType  # 35
             BLUE_VR: ClientPayload.UserAgent._Platform.ValueType  # 36
+            AR_WRIST: ClientPayload.UserAgent._Platform.ValueType  # 37
 
         class Platform(_Platform, metaclass=_PlatformEnumTypeWrapper): ...
         ANDROID: ClientPayload.UserAgent.Platform.ValueType  # 0
@@ -394,6 +395,7 @@ class ClientPayload(google.protobuf.message.Message):
         TEST: ClientPayload.UserAgent.Platform.ValueType  # 34
         SMART_GLASSES: ClientPayload.UserAgent.Platform.ValueType  # 35
         BLUE_VR: ClientPayload.UserAgent.Platform.ValueType  # 36
+        AR_WRIST: ClientPayload.UserAgent.Platform.ValueType  # 37
 
         @typing.final
         class AppVersion(google.protobuf.message.Message):
@@ -437,7 +439,7 @@ class ClientPayload(google.protobuf.message.Message):
         DEVICEEXPID_FIELD_NUMBER: builtins.int
         DEVICETYPE_FIELD_NUMBER: builtins.int
         DEVICEMODELTYPE_FIELD_NUMBER: builtins.int
-        platform: global___ClientPayload.UserAgent.Platform.ValueType
+        platform: Global___ClientPayload.UserAgent.Platform.ValueType
         mcc: builtins.str
         mnc: builtins.str
         osVersion: builtins.str
@@ -445,20 +447,20 @@ class ClientPayload(google.protobuf.message.Message):
         device: builtins.str
         osBuildNumber: builtins.str
         phoneID: builtins.str
-        releaseChannel: global___ClientPayload.UserAgent.ReleaseChannel.ValueType
+        releaseChannel: Global___ClientPayload.UserAgent.ReleaseChannel.ValueType
         localeLanguageIso6391: builtins.str
         localeCountryIso31661Alpha2: builtins.str
         deviceBoard: builtins.str
         deviceExpID: builtins.str
-        deviceType: global___ClientPayload.UserAgent.DeviceType.ValueType
+        deviceType: Global___ClientPayload.UserAgent.DeviceType.ValueType
         deviceModelType: builtins.str
         @property
-        def appVersion(self) -> global___ClientPayload.UserAgent.AppVersion: ...
+        def appVersion(self) -> Global___ClientPayload.UserAgent.AppVersion: ...
         def __init__(
             self,
             *,
-            platform: global___ClientPayload.UserAgent.Platform.ValueType | None = ...,
-            appVersion: global___ClientPayload.UserAgent.AppVersion | None = ...,
+            platform: Global___ClientPayload.UserAgent.Platform.ValueType | None = ...,
+            appVersion: Global___ClientPayload.UserAgent.AppVersion | None = ...,
             mcc: builtins.str | None = ...,
             mnc: builtins.str | None = ...,
             osVersion: builtins.str | None = ...,
@@ -466,12 +468,12 @@ class ClientPayload(google.protobuf.message.Message):
             device: builtins.str | None = ...,
             osBuildNumber: builtins.str | None = ...,
             phoneID: builtins.str | None = ...,
-            releaseChannel: global___ClientPayload.UserAgent.ReleaseChannel.ValueType | None = ...,
+            releaseChannel: Global___ClientPayload.UserAgent.ReleaseChannel.ValueType | None = ...,
             localeLanguageIso6391: builtins.str | None = ...,
             localeCountryIso31661Alpha2: builtins.str | None = ...,
             deviceBoard: builtins.str | None = ...,
             deviceExpID: builtins.str | None = ...,
-            deviceType: global___ClientPayload.UserAgent.DeviceType.ValueType | None = ...,
+            deviceType: Global___ClientPayload.UserAgent.DeviceType.ValueType | None = ...,
             deviceModelType: builtins.str | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["appVersion", b"appVersion", "device", b"device", "deviceBoard", b"deviceBoard", "deviceExpID", b"deviceExpID", "deviceModelType", b"deviceModelType", "deviceType", b"deviceType", "localeCountryIso31661Alpha2", b"localeCountryIso31661Alpha2", "localeLanguageIso6391", b"localeLanguageIso6391", "manufacturer", b"manufacturer", "mcc", b"mcc", "mnc", b"mnc", "osBuildNumber", b"osBuildNumber", "osVersion", b"osVersion", "phoneID", b"phoneID", "platform", b"platform", "releaseChannel", b"releaseChannel"]) -> builtins.bool: ...
@@ -571,74 +573,74 @@ class ClientPayload(google.protobuf.message.Message):
     pushName: builtins.str
     sessionID: builtins.int
     shortConnect: builtins.bool
-    connectType: global___ClientPayload.ConnectType.ValueType
-    connectReason: global___ClientPayload.ConnectReason.ValueType
+    connectType: Global___ClientPayload.ConnectType.ValueType
+    connectReason: Global___ClientPayload.ConnectReason.ValueType
     connectAttemptCount: builtins.int
     device: builtins.int
-    product: global___ClientPayload.Product.ValueType
+    product: Global___ClientPayload.Product.ValueType
     fbCat: builtins.bytes
     fbUserAgent: builtins.bytes
     oc: builtins.bool
     lc: builtins.int
-    iosAppExtension: global___ClientPayload.IOSAppExtension.ValueType
+    iosAppExtension: Global___ClientPayload.IOSAppExtension.ValueType
     fbAppID: builtins.int
     fbDeviceID: builtins.bytes
     pull: builtins.bool
     paddingBytes: builtins.bytes
     yearClass: builtins.int
     memClass: builtins.int
-    trafficAnonymization: global___ClientPayload.TrafficAnonymization.ValueType
+    trafficAnonymization: Global___ClientPayload.TrafficAnonymization.ValueType
     lidDbMigrated: builtins.bool
-    accountType: global___ClientPayload.AccountType.ValueType
+    accountType: Global___ClientPayload.AccountType.ValueType
     connectionSequenceInfo: builtins.int
     paaLink: builtins.bool
     preacksCount: builtins.int
     processingQueueSize: builtins.int
     @property
-    def userAgent(self) -> global___ClientPayload.UserAgent: ...
+    def userAgent(self) -> Global___ClientPayload.UserAgent: ...
     @property
-    def webInfo(self) -> global___ClientPayload.WebInfo: ...
+    def webInfo(self) -> Global___ClientPayload.WebInfo: ...
     @property
     def shards(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
-    def dnsSource(self) -> global___ClientPayload.DNSSource: ...
+    def dnsSource(self) -> Global___ClientPayload.DNSSource: ...
     @property
-    def devicePairingData(self) -> global___ClientPayload.DevicePairingRegistrationData: ...
+    def devicePairingData(self) -> Global___ClientPayload.DevicePairingRegistrationData: ...
     @property
-    def interopData(self) -> global___ClientPayload.InteropData: ...
+    def interopData(self) -> Global___ClientPayload.InteropData: ...
     def __init__(
         self,
         *,
         username: builtins.int | None = ...,
         passive: builtins.bool | None = ...,
-        userAgent: global___ClientPayload.UserAgent | None = ...,
-        webInfo: global___ClientPayload.WebInfo | None = ...,
+        userAgent: Global___ClientPayload.UserAgent | None = ...,
+        webInfo: Global___ClientPayload.WebInfo | None = ...,
         pushName: builtins.str | None = ...,
         sessionID: builtins.int | None = ...,
         shortConnect: builtins.bool | None = ...,
-        connectType: global___ClientPayload.ConnectType.ValueType | None = ...,
-        connectReason: global___ClientPayload.ConnectReason.ValueType | None = ...,
+        connectType: Global___ClientPayload.ConnectType.ValueType | None = ...,
+        connectReason: Global___ClientPayload.ConnectReason.ValueType | None = ...,
         shards: collections.abc.Iterable[builtins.int] | None = ...,
-        dnsSource: global___ClientPayload.DNSSource | None = ...,
+        dnsSource: Global___ClientPayload.DNSSource | None = ...,
         connectAttemptCount: builtins.int | None = ...,
         device: builtins.int | None = ...,
-        devicePairingData: global___ClientPayload.DevicePairingRegistrationData | None = ...,
-        product: global___ClientPayload.Product.ValueType | None = ...,
+        devicePairingData: Global___ClientPayload.DevicePairingRegistrationData | None = ...,
+        product: Global___ClientPayload.Product.ValueType | None = ...,
         fbCat: builtins.bytes | None = ...,
         fbUserAgent: builtins.bytes | None = ...,
         oc: builtins.bool | None = ...,
         lc: builtins.int | None = ...,
-        iosAppExtension: global___ClientPayload.IOSAppExtension.ValueType | None = ...,
+        iosAppExtension: Global___ClientPayload.IOSAppExtension.ValueType | None = ...,
         fbAppID: builtins.int | None = ...,
         fbDeviceID: builtins.bytes | None = ...,
         pull: builtins.bool | None = ...,
         paddingBytes: builtins.bytes | None = ...,
         yearClass: builtins.int | None = ...,
         memClass: builtins.int | None = ...,
-        interopData: global___ClientPayload.InteropData | None = ...,
-        trafficAnonymization: global___ClientPayload.TrafficAnonymization.ValueType | None = ...,
+        interopData: Global___ClientPayload.InteropData | None = ...,
+        trafficAnonymization: Global___ClientPayload.TrafficAnonymization.ValueType | None = ...,
         lidDbMigrated: builtins.bool | None = ...,
-        accountType: global___ClientPayload.AccountType.ValueType | None = ...,
+        accountType: Global___ClientPayload.AccountType.ValueType | None = ...,
         connectionSequenceInfo: builtins.int | None = ...,
         paaLink: builtins.bool | None = ...,
         preacksCount: builtins.int | None = ...,
@@ -647,7 +649,7 @@ class ClientPayload(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "passive", b"passive", "preacksCount", b"preacksCount", "processingQueueSize", b"processingQueueSize", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "passive", b"passive", "preacksCount", b"preacksCount", "processingQueueSize", b"processingQueueSize", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shards", b"shards", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> None: ...
 
-global___ClientPayload = ClientPayload
+Global___ClientPayload: typing_extensions.TypeAlias = ClientPayload
 
 @typing.final
 class HandshakeMessage(google.protobuf.message.Message):
@@ -726,19 +728,19 @@ class HandshakeMessage(google.protobuf.message.Message):
     SERVERHELLO_FIELD_NUMBER: builtins.int
     CLIENTFINISH_FIELD_NUMBER: builtins.int
     @property
-    def clientHello(self) -> global___HandshakeMessage.ClientHello: ...
+    def clientHello(self) -> Global___HandshakeMessage.ClientHello: ...
     @property
-    def serverHello(self) -> global___HandshakeMessage.ServerHello: ...
+    def serverHello(self) -> Global___HandshakeMessage.ServerHello: ...
     @property
-    def clientFinish(self) -> global___HandshakeMessage.ClientFinish: ...
+    def clientFinish(self) -> Global___HandshakeMessage.ClientFinish: ...
     def __init__(
         self,
         *,
-        clientHello: global___HandshakeMessage.ClientHello | None = ...,
-        serverHello: global___HandshakeMessage.ServerHello | None = ...,
-        clientFinish: global___HandshakeMessage.ClientFinish | None = ...,
+        clientHello: Global___HandshakeMessage.ClientHello | None = ...,
+        serverHello: Global___HandshakeMessage.ServerHello | None = ...,
+        clientFinish: Global___HandshakeMessage.ClientFinish | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["clientFinish", b"clientFinish", "clientHello", b"clientHello", "serverHello", b"serverHello"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["clientFinish", b"clientFinish", "clientHello", b"clientHello", "serverHello", b"serverHello"]) -> None: ...
 
-global___HandshakeMessage = HandshakeMessage
+Global___HandshakeMessage: typing_extensions.TypeAlias = HandshakeMessage

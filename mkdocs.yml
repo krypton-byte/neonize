@@ -1,0 +1,242 @@
+site_name: Neonize
+site_description: A powerful Python library for WhatsApp automation built on top of Whatsmeow - Enterprise-grade performance with Python's simplicity
+site_author: krypton-byte
+site_url: https://krypton-byte.github.io/neonize
+
+repo_name: krypton-byte/neonize
+repo_url: https://github.com/krypton-byte/neonize
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; 2024-2025 krypton-byte
+
+theme:
+  name: material
+  language: en
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  
+  font:
+    text: Inter
+    code: JetBrains Mono
+  
+  features:
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+    - search.share
+    - header.autohide
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/message-flash
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/krypton-byte/neonize
+      name: GitHub Repository
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/neonize/
+      name: PyPI Package
+    - icon: fontawesome/solid/heart
+      link: https://github.com/sponsors/krypton-byte
+      name: Sponsor this project
+  
+  version:
+    provider: mike
+  
+  analytics:
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: >-
+            Thanks for your feedback! Help us improve by opening an issue on GitHub.
+  
+  generator: false
+
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+      lang: en
+  
+  - mkdocstrings:
+      enabled: !ENV [ENABLE_MKDOCSTRINGS, true]
+      default_handler: python
+      handlers:
+        python:
+          paths: [neonize]
+          options:
+            docstring_style: sphinx
+            docstring_section_style: spacy
+            show_source: true
+            show_root_heading: true
+            show_root_toc_entry: true
+            show_object_full_path: false
+            show_category_heading: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            members_order: source
+            group_by_category: true
+            show_signature_annotations: true
+            separate_signature: true
+            line_length: 80
+            merge_init_into_class: true
+            show_if_no_docstring: false
+            inherited_members: false
+            filters:
+              - "!^_"
+  
+  - autorefs
+  
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  
+  - toc:
+      permalink: true
+      permalink_title: Anchor link to this section
+      toc_depth: 3
+  
+  - pymdownx.arithmatex:
+      generic: true
+  
+  - pymdownx.betterem:
+      smart_enable: all
+  
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.critic
+  - pymdownx.details
+  
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+      auto_title: true
+      linenums: true
+  
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.keys
+  - pymdownx.smartsymbols
+  
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+  
+  - pymdownx.tasklist:
+      custom_checkbox: true
+      clickable_checkbox: false
+  
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: krypton-byte
+      repo: neonize
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - getting-started/index.md
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quickstart.md
+    - Authentication: getting-started/authentication.md
+  - User Guide:
+    - user-guide/index.md
+    - Client Configuration: user-guide/client-configuration.md
+    - Sending Messages: user-guide/sending-messages.md
+    - Receiving Messages: user-guide/receiving-messages.md
+    - Event System: user-guide/event-system.md
+    - Media Handling: user-guide/media-handling.md
+    - Group Management: user-guide/group-management.md
+    - Contact Management: user-guide/contact-management.md
+    - Newsletter/Channel: user-guide/newsletter.md
+    - Advanced Features: user-guide/advanced-features.md
+  - Async Client:
+    - async/index.md
+    - Getting Started: async/quickstart.md
+    - Event Handling: async/events.md
+    - Best Practices: async/best-practices.md
+  - API Reference:
+    - api-reference/index.md
+    - Client: api-reference/client.md
+    - Async Client: api-reference/async-client.md
+    - Events: api-reference/events.md
+    - Types: api-reference/types.md
+    - Utils: api-reference/utils.md
+    - Exceptions: api-reference/exceptions.md
+  - Examples:
+    - examples/index.md
+    - Basic Bot: examples/basic-bot.md
+    - Async Bot: examples/async-bot.md
+    - Multi-Session: examples/multi-session.md
+    - Media Bot: examples/media-bot.md
+    - Group Bot: examples/group-bot.md
+  - Development:
+    - development/index.md
+    - Contributing: development/contributing.md
+    - Building from Source: development/building.md
+    - Testing: development/testing.md
+  - FAQ: faq.md
+  - Changelog: changelog.md
