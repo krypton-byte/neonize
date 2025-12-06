@@ -2,7 +2,7 @@ syntax = "proto2";
 import "waVnameCert/WAWebProtobufsVnameCert.proto";
 import "waE2E/WAWebProtobufsE2E.proto";
 import "waWeb/WAWebProtobufsWeb.proto";
-import "waSyncAction/WASyncAction.proto";
+import "waSyncAction/WAWebProtobufSyncAction.proto";
 import "waHistorySync/WAWebProtobufsHistorySync.proto";
 option go_package = "./defproto";
 package neonize;
@@ -541,7 +541,7 @@ message ResolveBusinessMessageLinkReturnFunction {
 message MutationInfo {
     repeated string Index = 1;
     required int32 Version = 2;
-    required WASyncAction.SyncActionValue Value = 3;
+    required WAWebProtobufSyncAction.SyncActionValue Value = 3;
 }
 message PatchInfo {
     enum WAPatchName {
