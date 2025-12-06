@@ -30,7 +30,7 @@ class HostedState(_HostedState, metaclass=_HostedStateEnumTypeWrapper): ...
 
 E2EE: HostedState.ValueType  # 0
 HOSTED: HostedState.ValueType  # 1
-global___HostedState = HostedState
+Global___HostedState: typing_extensions.TypeAlias = HostedState
 
 @typing.final
 class FingerprintData(google.protobuf.message.Message):
@@ -46,7 +46,7 @@ class FingerprintData(google.protobuf.message.Message):
     pnIdentifier: builtins.bytes
     lidIdentifier: builtins.bytes
     usernameIdentifier: builtins.bytes
-    hostedState: global___HostedState.ValueType
+    hostedState: Global___HostedState.ValueType
     hashedPublicKey: builtins.bytes
     def __init__(
         self,
@@ -55,13 +55,13 @@ class FingerprintData(google.protobuf.message.Message):
         pnIdentifier: builtins.bytes | None = ...,
         lidIdentifier: builtins.bytes | None = ...,
         usernameIdentifier: builtins.bytes | None = ...,
-        hostedState: global___HostedState.ValueType | None = ...,
+        hostedState: Global___HostedState.ValueType | None = ...,
         hashedPublicKey: builtins.bytes | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["hashedPublicKey", b"hashedPublicKey", "hostedState", b"hostedState", "lidIdentifier", b"lidIdentifier", "pnIdentifier", b"pnIdentifier", "publicKey", b"publicKey", "usernameIdentifier", b"usernameIdentifier"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["hashedPublicKey", b"hashedPublicKey", "hostedState", b"hostedState", "lidIdentifier", b"lidIdentifier", "pnIdentifier", b"pnIdentifier", "publicKey", b"publicKey", "usernameIdentifier", b"usernameIdentifier"]) -> None: ...
 
-global___FingerprintData = FingerprintData
+Global___FingerprintData: typing_extensions.TypeAlias = FingerprintData
 
 @typing.final
 class CombinedFingerprint(google.protobuf.message.Message):
@@ -72,17 +72,17 @@ class CombinedFingerprint(google.protobuf.message.Message):
     REMOTEFINGERPRINT_FIELD_NUMBER: builtins.int
     version: builtins.int
     @property
-    def localFingerprint(self) -> global___FingerprintData: ...
+    def localFingerprint(self) -> Global___FingerprintData: ...
     @property
-    def remoteFingerprint(self) -> global___FingerprintData: ...
+    def remoteFingerprint(self) -> Global___FingerprintData: ...
     def __init__(
         self,
         *,
         version: builtins.int | None = ...,
-        localFingerprint: global___FingerprintData | None = ...,
-        remoteFingerprint: global___FingerprintData | None = ...,
+        localFingerprint: Global___FingerprintData | None = ...,
+        remoteFingerprint: Global___FingerprintData | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["localFingerprint", b"localFingerprint", "remoteFingerprint", b"remoteFingerprint", "version", b"version"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["localFingerprint", b"localFingerprint", "remoteFingerprint", b"remoteFingerprint", "version", b"version"]) -> None: ...
 
-global___CombinedFingerprint = CombinedFingerprint
+Global___CombinedFingerprint: typing_extensions.TypeAlias = CombinedFingerprint

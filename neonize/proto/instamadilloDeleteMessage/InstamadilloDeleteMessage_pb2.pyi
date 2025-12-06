@@ -6,7 +6,13 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -24,4 +30,4 @@ class DeleteMessagePayload(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["messageOtid", b"messageOtid"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["messageOtid", b"messageOtid"]) -> None: ...
 
-global___DeleteMessagePayload = DeleteMessagePayload
+Global___DeleteMessagePayload: typing_extensions.TypeAlias = DeleteMessagePayload

@@ -8,7 +8,13 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -36,7 +42,7 @@ class ICDCIdentityList(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["seq", b"seq", "signingDeviceIndex", b"signingDeviceIndex", "timestamp", b"timestamp"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["devices", b"devices", "seq", b"seq", "signingDeviceIndex", b"signingDeviceIndex", "timestamp", b"timestamp"]) -> None: ...
 
-global___ICDCIdentityList = ICDCIdentityList
+Global___ICDCIdentityList: typing_extensions.TypeAlias = ICDCIdentityList
 
 @typing.final
 class SignedICDCIdentityList(google.protobuf.message.Message):
@@ -55,4 +61,4 @@ class SignedICDCIdentityList(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["details", b"details", "signature", b"signature"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["details", b"details", "signature", b"signature"]) -> None: ...
 
-global___SignedICDCIdentityList = SignedICDCIdentityList
+Global___SignedICDCIdentityList: typing_extensions.TypeAlias = SignedICDCIdentityList

@@ -53,14 +53,14 @@ class MessageApplication(google.protobuf.message.Message):
             remoteJID: builtins.str
             participant: builtins.str
             @property
-            def payload(self) -> global___MessageApplication.Payload: ...
+            def payload(self) -> Global___MessageApplication.Payload: ...
             def __init__(
                 self,
                 *,
                 stanzaID: builtins.str | None = ...,
                 remoteJID: builtins.str | None = ...,
                 participant: builtins.str | None = ...,
-                payload: global___MessageApplication.Payload | None = ...,
+                payload: Global___MessageApplication.Payload | None = ...,
             ) -> None: ...
             def HasField(self, field_name: typing.Literal["participant", b"participant", "payload", b"payload", "remoteJID", b"remoteJID", "stanzaID", b"stanzaID"]) -> builtins.bool: ...
             def ClearField(self, field_name: typing.Literal["participant", b"participant", "payload", b"payload", "remoteJID", b"remoteJID", "stanzaID", b"stanzaID"]) -> None: ...
@@ -73,12 +73,12 @@ class MessageApplication(google.protobuf.message.Message):
             EPHEMERALSETTING_FIELD_NUMBER: builtins.int
             chatJID: builtins.str
             @property
-            def ephemeralSetting(self) -> global___MessageApplication.EphemeralSetting: ...
+            def ephemeralSetting(self) -> Global___MessageApplication.EphemeralSetting: ...
             def __init__(
                 self,
                 *,
                 chatJID: builtins.str | None = ...,
-                ephemeralSetting: global___MessageApplication.EphemeralSetting | None = ...,
+                ephemeralSetting: Global___MessageApplication.EphemeralSetting | None = ...,
             ) -> None: ...
             def HasField(self, field_name: typing.Literal["chatJID", b"chatJID", "ephemeralSetting", b"ephemeralSetting"]) -> builtins.bool: ...
             def ClearField(self, field_name: typing.Literal["chatJID", b"chatJID", "ephemeralSetting", b"ephemeralSetting"]) -> None: ...
@@ -105,7 +105,7 @@ class MessageApplication(google.protobuf.message.Message):
         isForwarded: builtins.bool
         frankingKey: builtins.bytes
         frankingVersion: builtins.int
-        threadType: global___MessageApplication.Metadata.ThreadType.ValueType
+        threadType: Global___MessageApplication.Metadata.ThreadType.ValueType
         readonlyMetadataDataclass: builtins.str
         groupID: builtins.str
         groupSize: builtins.int
@@ -114,26 +114,26 @@ class MessageApplication(google.protobuf.message.Message):
         collapsibleID: builtins.str
         secondaryOtid: builtins.str
         @property
-        def chatEphemeralSetting(self) -> global___MessageApplication.EphemeralSetting: ...
+        def chatEphemeralSetting(self) -> Global___MessageApplication.EphemeralSetting: ...
         @property
-        def ephemeralSettingList(self) -> global___MessageApplication.Metadata.EphemeralSettingMap: ...
+        def ephemeralSettingList(self) -> Global___MessageApplication.Metadata.EphemeralSettingMap: ...
         @property
         def businessMetadata(self) -> waCommon.WACommon_pb2.SubProtocol: ...
         @property
-        def quotedMessage(self) -> global___MessageApplication.Metadata.QuotedMessage: ...
+        def quotedMessage(self) -> Global___MessageApplication.Metadata.QuotedMessage: ...
         def __init__(
             self,
             *,
-            chatEphemeralSetting: global___MessageApplication.EphemeralSetting | None = ...,
-            ephemeralSettingList: global___MessageApplication.Metadata.EphemeralSettingMap | None = ...,
+            chatEphemeralSetting: Global___MessageApplication.EphemeralSetting | None = ...,
+            ephemeralSettingList: Global___MessageApplication.Metadata.EphemeralSettingMap | None = ...,
             ephemeralSharedSecret: builtins.bytes | None = ...,
             forwardingScore: builtins.int | None = ...,
             isForwarded: builtins.bool | None = ...,
             businessMetadata: waCommon.WACommon_pb2.SubProtocol | None = ...,
             frankingKey: builtins.bytes | None = ...,
             frankingVersion: builtins.int | None = ...,
-            quotedMessage: global___MessageApplication.Metadata.QuotedMessage | None = ...,
-            threadType: global___MessageApplication.Metadata.ThreadType.ValueType | None = ...,
+            quotedMessage: Global___MessageApplication.Metadata.QuotedMessage | None = ...,
+            threadType: Global___MessageApplication.Metadata.ThreadType.ValueType | None = ...,
             readonlyMetadataDataclass: builtins.str | None = ...,
             groupID: builtins.str | None = ...,
             groupSize: builtins.int | None = ...,
@@ -155,20 +155,20 @@ class MessageApplication(google.protobuf.message.Message):
         APPLICATIONDATA_FIELD_NUMBER: builtins.int
         SUBPROTOCOL_FIELD_NUMBER: builtins.int
         @property
-        def coreContent(self) -> global___MessageApplication.Content: ...
+        def coreContent(self) -> Global___MessageApplication.Content: ...
         @property
-        def signal(self) -> global___MessageApplication.Signal: ...
+        def signal(self) -> Global___MessageApplication.Signal: ...
         @property
-        def applicationData(self) -> global___MessageApplication.ApplicationData: ...
+        def applicationData(self) -> Global___MessageApplication.ApplicationData: ...
         @property
-        def subProtocol(self) -> global___MessageApplication.SubProtocolPayload: ...
+        def subProtocol(self) -> Global___MessageApplication.SubProtocolPayload: ...
         def __init__(
             self,
             *,
-            coreContent: global___MessageApplication.Content | None = ...,
-            signal: global___MessageApplication.Signal | None = ...,
-            applicationData: global___MessageApplication.ApplicationData | None = ...,
-            subProtocol: global___MessageApplication.SubProtocolPayload | None = ...,
+            coreContent: Global___MessageApplication.Content | None = ...,
+            signal: Global___MessageApplication.Signal | None = ...,
+            applicationData: Global___MessageApplication.ApplicationData | None = ...,
+            subProtocol: Global___MessageApplication.SubProtocolPayload | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["applicationData", b"applicationData", "content", b"content", "coreContent", b"coreContent", "signal", b"signal", "subProtocol", b"subProtocol"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["applicationData", b"applicationData", "content", b"content", "coreContent", b"coreContent", "signal", b"signal", "subProtocol", b"subProtocol"]) -> None: ...
@@ -264,14 +264,14 @@ class MessageApplication(google.protobuf.message.Message):
         ISEPHEMERALSETTINGRESET_FIELD_NUMBER: builtins.int
         ephemeralExpiration: builtins.int
         ephemeralSettingTimestamp: builtins.int
-        ephemeralityType: global___MessageApplication.EphemeralSetting.EphemeralityType.ValueType
+        ephemeralityType: Global___MessageApplication.EphemeralSetting.EphemeralityType.ValueType
         isEphemeralSettingReset: builtins.bool
         def __init__(
             self,
             *,
             ephemeralExpiration: builtins.int | None = ...,
             ephemeralSettingTimestamp: builtins.int | None = ...,
-            ephemeralityType: global___MessageApplication.EphemeralSetting.EphemeralityType.ValueType | None = ...,
+            ephemeralityType: Global___MessageApplication.EphemeralSetting.EphemeralityType.ValueType | None = ...,
             isEphemeralSettingReset: builtins.bool | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralityType", b"ephemeralityType", "isEphemeralSettingReset", b"isEphemeralSettingReset"]) -> builtins.bool: ...
@@ -280,16 +280,16 @@ class MessageApplication(google.protobuf.message.Message):
     PAYLOAD_FIELD_NUMBER: builtins.int
     METADATA_FIELD_NUMBER: builtins.int
     @property
-    def payload(self) -> global___MessageApplication.Payload: ...
+    def payload(self) -> Global___MessageApplication.Payload: ...
     @property
-    def metadata(self) -> global___MessageApplication.Metadata: ...
+    def metadata(self) -> Global___MessageApplication.Metadata: ...
     def __init__(
         self,
         *,
-        payload: global___MessageApplication.Payload | None = ...,
-        metadata: global___MessageApplication.Metadata | None = ...,
+        payload: Global___MessageApplication.Payload | None = ...,
+        metadata: Global___MessageApplication.Metadata | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]) -> None: ...
 
-global___MessageApplication = MessageApplication
+Global___MessageApplication: typing_extensions.TypeAlias = MessageApplication

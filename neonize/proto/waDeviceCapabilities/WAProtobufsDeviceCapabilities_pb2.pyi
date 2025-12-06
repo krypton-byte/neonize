@@ -82,22 +82,22 @@ class DeviceCapabilities(google.protobuf.message.Message):
     LIDMIGRATION_FIELD_NUMBER: builtins.int
     BUSINESSBROADCAST_FIELD_NUMBER: builtins.int
     USERHASAVATAR_FIELD_NUMBER: builtins.int
-    chatLockSupportLevel: global___DeviceCapabilities.ChatLockSupportLevel.ValueType
+    chatLockSupportLevel: Global___DeviceCapabilities.ChatLockSupportLevel.ValueType
     @property
-    def lidMigration(self) -> global___DeviceCapabilities.LIDMigration: ...
+    def lidMigration(self) -> Global___DeviceCapabilities.LIDMigration: ...
     @property
-    def businessBroadcast(self) -> global___DeviceCapabilities.BusinessBroadcast: ...
+    def businessBroadcast(self) -> Global___DeviceCapabilities.BusinessBroadcast: ...
     @property
-    def userHasAvatar(self) -> global___DeviceCapabilities.UserHasAvatar: ...
+    def userHasAvatar(self) -> Global___DeviceCapabilities.UserHasAvatar: ...
     def __init__(
         self,
         *,
-        chatLockSupportLevel: global___DeviceCapabilities.ChatLockSupportLevel.ValueType | None = ...,
-        lidMigration: global___DeviceCapabilities.LIDMigration | None = ...,
-        businessBroadcast: global___DeviceCapabilities.BusinessBroadcast | None = ...,
-        userHasAvatar: global___DeviceCapabilities.UserHasAvatar | None = ...,
+        chatLockSupportLevel: Global___DeviceCapabilities.ChatLockSupportLevel.ValueType | None = ...,
+        lidMigration: Global___DeviceCapabilities.LIDMigration | None = ...,
+        businessBroadcast: Global___DeviceCapabilities.BusinessBroadcast | None = ...,
+        userHasAvatar: Global___DeviceCapabilities.UserHasAvatar | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["businessBroadcast", b"businessBroadcast", "chatLockSupportLevel", b"chatLockSupportLevel", "lidMigration", b"lidMigration", "userHasAvatar", b"userHasAvatar"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["businessBroadcast", b"businessBroadcast", "chatLockSupportLevel", b"chatLockSupportLevel", "lidMigration", b"lidMigration", "userHasAvatar", b"userHasAvatar"]) -> None: ...
 
-global___DeviceCapabilities = DeviceCapabilities
+Global___DeviceCapabilities: typing_extensions.TypeAlias = DeviceCapabilities

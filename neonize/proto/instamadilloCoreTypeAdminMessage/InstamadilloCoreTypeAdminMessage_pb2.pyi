@@ -23,17 +23,17 @@ class AdminMessage(google.protobuf.message.Message):
 
     DEVICEADMINMESSAGE_FIELD_NUMBER: builtins.int
     @property
-    def deviceAdminMessage(self) -> global___DeviceAdminMessage: ...
+    def deviceAdminMessage(self) -> Global___DeviceAdminMessage: ...
     def __init__(
         self,
         *,
-        deviceAdminMessage: global___DeviceAdminMessage | None = ...,
+        deviceAdminMessage: Global___DeviceAdminMessage | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["adminMessageSubtype", b"adminMessageSubtype", "deviceAdminMessage", b"deviceAdminMessage"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["adminMessageSubtype", b"adminMessageSubtype", "deviceAdminMessage", b"deviceAdminMessage"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["adminMessageSubtype", b"adminMessageSubtype"]) -> typing.Literal["deviceAdminMessage"] | None: ...
 
-global___AdminMessage = AdminMessage
+Global___AdminMessage: typing_extensions.TypeAlias = AdminMessage
 
 @typing.final
 class DeviceAdminMessage(google.protobuf.message.Message):
@@ -58,15 +58,15 @@ class DeviceAdminMessage(google.protobuf.message.Message):
 
     DEVICEADMINMESSAGETYPE_FIELD_NUMBER: builtins.int
     DEVICENAME_FIELD_NUMBER: builtins.int
-    deviceAdminMessageType: global___DeviceAdminMessage.Type.ValueType
+    deviceAdminMessageType: Global___DeviceAdminMessage.Type.ValueType
     deviceName: builtins.str
     def __init__(
         self,
         *,
-        deviceAdminMessageType: global___DeviceAdminMessage.Type.ValueType | None = ...,
+        deviceAdminMessageType: Global___DeviceAdminMessage.Type.ValueType | None = ...,
         deviceName: builtins.str | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["deviceAdminMessageType", b"deviceAdminMessageType", "deviceName", b"deviceName"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["deviceAdminMessageType", b"deviceAdminMessageType", "deviceName", b"deviceName"]) -> None: ...
 
-global___DeviceAdminMessage = DeviceAdminMessage
+Global___DeviceAdminMessage: typing_extensions.TypeAlias = DeviceAdminMessage

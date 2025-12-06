@@ -36,7 +36,7 @@ PJPEG_SCAN_CONFIGURATION_UNSPECIFIED: PjpegScanConfiguration.ValueType  # 0
 PJPEG_SCAN_CONFIGURATION_WA: PjpegScanConfiguration.ValueType  # 1
 PJPEG_SCAN_CONFIGURATION_E15: PjpegScanConfiguration.ValueType  # 2
 PJPEG_SCAN_CONFIGURATION_E35: PjpegScanConfiguration.ValueType  # 3
-global___PjpegScanConfiguration = PjpegScanConfiguration
+Global___PjpegScanConfiguration: typing_extensions.TypeAlias = PjpegScanConfiguration
 
 @typing.final
 class Media(google.protobuf.message.Message):
@@ -64,32 +64,32 @@ class Media(google.protobuf.message.Message):
     GIF_FIELD_NUMBER: builtins.int
     AVATARSTICKER_FIELD_NUMBER: builtins.int
     @property
-    def staticPhoto(self) -> global___StaticPhoto: ...
+    def staticPhoto(self) -> Global___StaticPhoto: ...
     @property
-    def voice(self) -> global___Voice: ...
+    def voice(self) -> Global___Voice: ...
     @property
-    def video(self) -> global___Video: ...
+    def video(self) -> Global___Video: ...
     @property
-    def raven(self) -> global___Raven: ...
+    def raven(self) -> Global___Raven: ...
     @property
-    def gif(self) -> global___Gif: ...
+    def gif(self) -> Global___Gif: ...
     @property
-    def avatarSticker(self) -> global___AvatarSticker: ...
+    def avatarSticker(self) -> Global___AvatarSticker: ...
     def __init__(
         self,
         *,
-        staticPhoto: global___StaticPhoto | None = ...,
-        voice: global___Voice | None = ...,
-        video: global___Video | None = ...,
-        raven: global___Raven | None = ...,
-        gif: global___Gif | None = ...,
-        avatarSticker: global___AvatarSticker | None = ...,
+        staticPhoto: Global___StaticPhoto | None = ...,
+        voice: Global___Voice | None = ...,
+        video: Global___Video | None = ...,
+        raven: Global___Raven | None = ...,
+        gif: Global___Gif | None = ...,
+        avatarSticker: Global___AvatarSticker | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["avatarSticker", b"avatarSticker", "gif", b"gif", "media", b"media", "raven", b"raven", "staticPhoto", b"staticPhoto", "video", b"video", "voice", b"voice"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["avatarSticker", b"avatarSticker", "gif", b"gif", "media", b"media", "raven", b"raven", "staticPhoto", b"staticPhoto", "video", b"video", "voice", b"voice"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["media", b"media"]) -> typing.Literal["staticPhoto", "voice", "video", "raven", "gif", "avatarSticker"] | None: ...
 
-global___Media = Media
+Global___Media: typing_extensions.TypeAlias = Media
 
 @typing.final
 class StaticPhoto(google.protobuf.message.Message):
@@ -103,27 +103,27 @@ class StaticPhoto(google.protobuf.message.Message):
     PJPEGSCANCONFIGURATION_FIELD_NUMBER: builtins.int
     height: builtins.int
     width: builtins.int
-    pjpegScanConfiguration: global___PjpegScanConfiguration.ValueType
+    pjpegScanConfiguration: Global___PjpegScanConfiguration.ValueType
     @property
-    def mediaTransport(self) -> global___CommonMediaTransport: ...
+    def mediaTransport(self) -> Global___CommonMediaTransport: ...
     @property
     def scanLengths(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
-    def thumbnail(self) -> global___Thumbnail: ...
+    def thumbnail(self) -> Global___Thumbnail: ...
     def __init__(
         self,
         *,
-        mediaTransport: global___CommonMediaTransport | None = ...,
+        mediaTransport: Global___CommonMediaTransport | None = ...,
         height: builtins.int | None = ...,
         width: builtins.int | None = ...,
         scanLengths: collections.abc.Iterable[builtins.int] | None = ...,
-        thumbnail: global___Thumbnail | None = ...,
-        pjpegScanConfiguration: global___PjpegScanConfiguration.ValueType | None = ...,
+        thumbnail: Global___Thumbnail | None = ...,
+        pjpegScanConfiguration: Global___PjpegScanConfiguration.ValueType | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["height", b"height", "mediaTransport", b"mediaTransport", "pjpegScanConfiguration", b"pjpegScanConfiguration", "thumbnail", b"thumbnail", "width", b"width"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["height", b"height", "mediaTransport", b"mediaTransport", "pjpegScanConfiguration", b"pjpegScanConfiguration", "scanLengths", b"scanLengths", "thumbnail", b"thumbnail", "width", b"width"]) -> None: ...
 
-global___StaticPhoto = StaticPhoto
+Global___StaticPhoto: typing_extensions.TypeAlias = StaticPhoto
 
 @typing.final
 class Voice(google.protobuf.message.Message):
@@ -136,13 +136,13 @@ class Voice(google.protobuf.message.Message):
     duration: builtins.int
     waveformSamplingFrequencyHz: builtins.int
     @property
-    def mediaTransport(self) -> global___CommonMediaTransport: ...
+    def mediaTransport(self) -> Global___CommonMediaTransport: ...
     @property
     def waveforms(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]: ...
     def __init__(
         self,
         *,
-        mediaTransport: global___CommonMediaTransport | None = ...,
+        mediaTransport: Global___CommonMediaTransport | None = ...,
         duration: builtins.int | None = ...,
         waveforms: collections.abc.Iterable[builtins.float] | None = ...,
         waveformSamplingFrequencyHz: builtins.int | None = ...,
@@ -150,7 +150,7 @@ class Voice(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["duration", b"duration", "mediaTransport", b"mediaTransport", "waveformSamplingFrequencyHz", b"waveformSamplingFrequencyHz"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["duration", b"duration", "mediaTransport", b"mediaTransport", "waveformSamplingFrequencyHz", b"waveformSamplingFrequencyHz", "waveforms", b"waveforms"]) -> None: ...
 
-global___Voice = Voice
+Global___Voice: typing_extensions.TypeAlias = Voice
 
 @typing.final
 class Video(google.protobuf.message.Message):
@@ -164,24 +164,24 @@ class Video(google.protobuf.message.Message):
     height: builtins.int
     width: builtins.int
     @property
-    def mediaTransport(self) -> global___CommonMediaTransport: ...
+    def mediaTransport(self) -> Global___CommonMediaTransport: ...
     @property
-    def thumbnail(self) -> global___Thumbnail: ...
+    def thumbnail(self) -> Global___Thumbnail: ...
     @property
-    def videoExtraMetadata(self) -> global___VideoExtraMetadata: ...
+    def videoExtraMetadata(self) -> Global___VideoExtraMetadata: ...
     def __init__(
         self,
         *,
-        mediaTransport: global___CommonMediaTransport | None = ...,
+        mediaTransport: Global___CommonMediaTransport | None = ...,
         height: builtins.int | None = ...,
         width: builtins.int | None = ...,
-        thumbnail: global___Thumbnail | None = ...,
-        videoExtraMetadata: global___VideoExtraMetadata | None = ...,
+        thumbnail: Global___Thumbnail | None = ...,
+        videoExtraMetadata: Global___VideoExtraMetadata | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["height", b"height", "mediaTransport", b"mediaTransport", "thumbnail", b"thumbnail", "videoExtraMetadata", b"videoExtraMetadata", "width", b"width"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["height", b"height", "mediaTransport", b"mediaTransport", "thumbnail", b"thumbnail", "videoExtraMetadata", b"videoExtraMetadata", "width", b"width"]) -> None: ...
 
-global___Video = Video
+Global___Video: typing_extensions.TypeAlias = Video
 
 @typing.final
 class Gif(google.protobuf.message.Message):
@@ -203,11 +203,11 @@ class Gif(google.protobuf.message.Message):
     gifSize: builtins.int
     isRandom: builtins.bool
     @property
-    def mediaTransport(self) -> global___CommonMediaTransport: ...
+    def mediaTransport(self) -> Global___CommonMediaTransport: ...
     def __init__(
         self,
         *,
-        mediaTransport: global___CommonMediaTransport | None = ...,
+        mediaTransport: Global___CommonMediaTransport | None = ...,
         height: builtins.int | None = ...,
         width: builtins.int | None = ...,
         isSticker: builtins.bool | None = ...,
@@ -219,7 +219,7 @@ class Gif(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["gifSize", b"gifSize", "gifURL", b"gifURL", "height", b"height", "isRandom", b"isRandom", "isSticker", b"isSticker", "mediaTransport", b"mediaTransport", "stickerID", b"stickerID", "width", b"width"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["gifSize", b"gifSize", "gifURL", b"gifURL", "height", b"height", "isRandom", b"isRandom", "isSticker", b"isSticker", "mediaTransport", b"mediaTransport", "stickerID", b"stickerID", "width", b"width"]) -> None: ...
 
-global___Gif = Gif
+Global___Gif: typing_extensions.TypeAlias = Gif
 
 @typing.final
 class AvatarSticker(google.protobuf.message.Message):
@@ -235,11 +235,11 @@ class AvatarSticker(google.protobuf.message.Message):
     stickerTemplate: builtins.str
     nuxType: builtins.int
     @property
-    def mediaTransport(self) -> global___CommonMediaTransport: ...
+    def mediaTransport(self) -> Global___CommonMediaTransport: ...
     def __init__(
         self,
         *,
-        mediaTransport: global___CommonMediaTransport | None = ...,
+        mediaTransport: Global___CommonMediaTransport | None = ...,
         isAnimated: builtins.bool | None = ...,
         stickerID: builtins.str | None = ...,
         stickerTemplate: builtins.str | None = ...,
@@ -248,7 +248,7 @@ class AvatarSticker(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["isAnimated", b"isAnimated", "mediaTransport", b"mediaTransport", "nuxType", b"nuxType", "stickerID", b"stickerID", "stickerTemplate", b"stickerTemplate"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["isAnimated", b"isAnimated", "mediaTransport", b"mediaTransport", "nuxType", b"nuxType", "stickerID", b"stickerID", "stickerTemplate", b"stickerTemplate"]) -> None: ...
 
-global___AvatarSticker = AvatarSticker
+Global___AvatarSticker: typing_extensions.TypeAlias = AvatarSticker
 
 @typing.final
 class Raven(google.protobuf.message.Message):
@@ -273,19 +273,19 @@ class Raven(google.protobuf.message.Message):
 
     VIEWMODE_FIELD_NUMBER: builtins.int
     CONTENT_FIELD_NUMBER: builtins.int
-    viewMode: global___Raven.ViewMode.ValueType
+    viewMode: Global___Raven.ViewMode.ValueType
     @property
-    def content(self) -> global___RavenContent: ...
+    def content(self) -> Global___RavenContent: ...
     def __init__(
         self,
         *,
-        viewMode: global___Raven.ViewMode.ValueType | None = ...,
-        content: global___RavenContent | None = ...,
+        viewMode: Global___Raven.ViewMode.ValueType | None = ...,
+        content: Global___RavenContent | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["content", b"content", "viewMode", b"viewMode"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["content", b"content", "viewMode", b"viewMode"]) -> None: ...
 
-global___Raven = Raven
+Global___Raven: typing_extensions.TypeAlias = Raven
 
 @typing.final
 class RavenContent(google.protobuf.message.Message):
@@ -294,20 +294,20 @@ class RavenContent(google.protobuf.message.Message):
     STATICPHOTO_FIELD_NUMBER: builtins.int
     VIDEO_FIELD_NUMBER: builtins.int
     @property
-    def staticPhoto(self) -> global___StaticPhoto: ...
+    def staticPhoto(self) -> Global___StaticPhoto: ...
     @property
-    def video(self) -> global___Video: ...
+    def video(self) -> Global___Video: ...
     def __init__(
         self,
         *,
-        staticPhoto: global___StaticPhoto | None = ...,
-        video: global___Video | None = ...,
+        staticPhoto: Global___StaticPhoto | None = ...,
+        video: Global___Video | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["ravenContent", b"ravenContent", "staticPhoto", b"staticPhoto", "video", b"video"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["ravenContent", b"ravenContent", "staticPhoto", b"staticPhoto", "video", b"video"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["ravenContent", b"ravenContent"]) -> typing.Literal["staticPhoto", "video"] | None: ...
 
-global___RavenContent = RavenContent
+Global___RavenContent: typing_extensions.TypeAlias = RavenContent
 
 @typing.final
 class Thumbnail(google.protobuf.message.Message):
@@ -319,18 +319,18 @@ class Thumbnail(google.protobuf.message.Message):
     height: builtins.int
     width: builtins.int
     @property
-    def mediaTransport(self) -> global___CommonMediaTransport: ...
+    def mediaTransport(self) -> Global___CommonMediaTransport: ...
     def __init__(
         self,
         *,
-        mediaTransport: global___CommonMediaTransport | None = ...,
+        mediaTransport: Global___CommonMediaTransport | None = ...,
         height: builtins.int | None = ...,
         width: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["height", b"height", "mediaTransport", b"mediaTransport", "width", b"width"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["height", b"height", "mediaTransport", b"mediaTransport", "width", b"width"]) -> None: ...
 
-global___Thumbnail = Thumbnail
+Global___Thumbnail: typing_extensions.TypeAlias = Thumbnail
 
 @typing.final
 class CommonMediaTransport(google.protobuf.message.Message):
@@ -373,7 +373,7 @@ class CommonMediaTransport(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "mediaID", b"mediaID", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "objectID", b"objectID", "sidecar", b"sidecar"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "mediaID", b"mediaID", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "objectID", b"objectID", "sidecar", b"sidecar"]) -> None: ...
 
-global___CommonMediaTransport = CommonMediaTransport
+Global___CommonMediaTransport: typing_extensions.TypeAlias = CommonMediaTransport
 
 @typing.final
 class VideoExtraMetadata(google.protobuf.message.Message):
@@ -389,4 +389,4 @@ class VideoExtraMetadata(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["uploadMosClientScore", b"uploadMosClientScore"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["uploadMosClientScore", b"uploadMosClientScore"]) -> None: ...
 
-global___VideoExtraMetadata = VideoExtraMetadata
+Global___VideoExtraMetadata: typing_extensions.TypeAlias = VideoExtraMetadata

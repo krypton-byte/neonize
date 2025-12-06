@@ -34,7 +34,7 @@ class FutureProofBehavior(_FutureProofBehavior, metaclass=_FutureProofBehaviorEn
 PLACEHOLDER: FutureProofBehavior.ValueType  # 0
 NO_PLACEHOLDER: FutureProofBehavior.ValueType  # 1
 IGNORE: FutureProofBehavior.ValueType  # 2
-global___FutureProofBehavior = FutureProofBehavior
+Global___FutureProofBehavior: typing_extensions.TypeAlias = FutureProofBehavior
 
 @typing.final
 class MessageKey(google.protobuf.message.Message):
@@ -59,7 +59,7 @@ class MessageKey(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["ID", b"ID", "fromMe", b"fromMe", "participant", b"participant", "remoteJID", b"remoteJID"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["ID", b"ID", "fromMe", b"fromMe", "participant", b"participant", "remoteJID", b"remoteJID"]) -> None: ...
 
-global___MessageKey = MessageKey
+Global___MessageKey: typing_extensions.TypeAlias = MessageKey
 
 @typing.final
 class Command(google.protobuf.message.Message):
@@ -86,14 +86,14 @@ class Command(google.protobuf.message.Message):
     OFFSET_FIELD_NUMBER: builtins.int
     LENGTH_FIELD_NUMBER: builtins.int
     VALIDATIONTOKEN_FIELD_NUMBER: builtins.int
-    commandType: global___Command.CommandType.ValueType
+    commandType: Global___Command.CommandType.ValueType
     offset: builtins.int
     length: builtins.int
     validationToken: builtins.str
     def __init__(
         self,
         *,
-        commandType: global___Command.CommandType.ValueType | None = ...,
+        commandType: Global___Command.CommandType.ValueType | None = ...,
         offset: builtins.int | None = ...,
         length: builtins.int | None = ...,
         validationToken: builtins.str | None = ...,
@@ -101,7 +101,7 @@ class Command(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["commandType", b"commandType", "length", b"length", "offset", b"offset", "validationToken", b"validationToken"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["commandType", b"commandType", "length", b"length", "offset", b"offset", "validationToken", b"validationToken"]) -> None: ...
 
-global___Command = Command
+Global___Command: typing_extensions.TypeAlias = Command
 
 @typing.final
 class Mention(google.protobuf.message.Message):
@@ -122,14 +122,14 @@ class Mention(google.protobuf.message.Message):
     MENTIONEDJID_FIELD_NUMBER: builtins.int
     OFFSET_FIELD_NUMBER: builtins.int
     LENGTH_FIELD_NUMBER: builtins.int
-    mentionType: global___Mention.MentionType.ValueType
+    mentionType: Global___Mention.MentionType.ValueType
     mentionedJID: builtins.str
     offset: builtins.int
     length: builtins.int
     def __init__(
         self,
         *,
-        mentionType: global___Mention.MentionType.ValueType | None = ...,
+        mentionType: Global___Mention.MentionType.ValueType | None = ...,
         mentionedJID: builtins.str | None = ...,
         offset: builtins.int | None = ...,
         length: builtins.int | None = ...,
@@ -137,7 +137,7 @@ class Mention(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["length", b"length", "mentionType", b"mentionType", "mentionedJID", b"mentionedJID", "offset", b"offset"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["length", b"length", "mentionType", b"mentionType", "mentionedJID", b"mentionedJID", "offset", b"offset"]) -> None: ...
 
-global___Mention = Mention
+Global___Mention: typing_extensions.TypeAlias = Mention
 
 @typing.final
 class MessageText(google.protobuf.message.Message):
@@ -151,21 +151,21 @@ class MessageText(google.protobuf.message.Message):
     @property
     def mentionedJID(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     @property
-    def commands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Command]: ...
+    def commands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___Command]: ...
     @property
-    def mentions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Mention]: ...
+    def mentions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___Mention]: ...
     def __init__(
         self,
         *,
         text: builtins.str | None = ...,
         mentionedJID: collections.abc.Iterable[builtins.str] | None = ...,
-        commands: collections.abc.Iterable[global___Command] | None = ...,
-        mentions: collections.abc.Iterable[global___Mention] | None = ...,
+        commands: collections.abc.Iterable[Global___Command] | None = ...,
+        mentions: collections.abc.Iterable[Global___Mention] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["text", b"text"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["commands", b"commands", "mentionedJID", b"mentionedJID", "mentions", b"mentions", "text", b"text"]) -> None: ...
 
-global___MessageText = MessageText
+Global___MessageText: typing_extensions.TypeAlias = MessageText
 
 @typing.final
 class SubProtocol(google.protobuf.message.Message):
@@ -184,7 +184,7 @@ class SubProtocol(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["payload", b"payload", "version", b"version"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["payload", b"payload", "version", b"version"]) -> None: ...
 
-global___SubProtocol = SubProtocol
+Global___SubProtocol: typing_extensions.TypeAlias = SubProtocol
 
 @typing.final
 class LimitSharing(google.protobuf.message.Message):
@@ -212,18 +212,18 @@ class LimitSharing(google.protobuf.message.Message):
     LIMITSHARINGSETTINGTIMESTAMP_FIELD_NUMBER: builtins.int
     INITIATEDBYME_FIELD_NUMBER: builtins.int
     sharingLimited: builtins.bool
-    trigger: global___LimitSharing.Trigger.ValueType
+    trigger: Global___LimitSharing.Trigger.ValueType
     limitSharingSettingTimestamp: builtins.int
     initiatedByMe: builtins.bool
     def __init__(
         self,
         *,
         sharingLimited: builtins.bool | None = ...,
-        trigger: global___LimitSharing.Trigger.ValueType | None = ...,
+        trigger: Global___LimitSharing.Trigger.ValueType | None = ...,
         limitSharingSettingTimestamp: builtins.int | None = ...,
         initiatedByMe: builtins.bool | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["initiatedByMe", b"initiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "sharingLimited", b"sharingLimited", "trigger", b"trigger"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["initiatedByMe", b"initiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "sharingLimited", b"sharingLimited", "trigger", b"trigger"]) -> None: ...
 
-global___LimitSharing = LimitSharing
+Global___LimitSharing: typing_extensions.TypeAlias = LimitSharing

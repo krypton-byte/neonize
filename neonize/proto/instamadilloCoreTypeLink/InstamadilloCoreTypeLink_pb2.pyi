@@ -9,7 +9,13 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
 import instamadilloCoreTypeMedia.InstamadilloCoreTypeMedia_pb2
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -21,17 +27,17 @@ class Link(google.protobuf.message.Message):
     LINKCONTEXT_FIELD_NUMBER: builtins.int
     text: builtins.str
     @property
-    def linkContext(self) -> global___LinkContext: ...
+    def linkContext(self) -> Global___LinkContext: ...
     def __init__(
         self,
         *,
         text: builtins.str | None = ...,
-        linkContext: global___LinkContext | None = ...,
+        linkContext: Global___LinkContext | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["linkContext", b"linkContext", "text", b"text"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["linkContext", b"linkContext", "text", b"text"]) -> None: ...
 
-global___Link = Link
+Global___Link: typing_extensions.TypeAlias = Link
 
 @typing.final
 class LinkContext(google.protobuf.message.Message):
@@ -51,7 +57,7 @@ class LinkContext(google.protobuf.message.Message):
     linkMusicPreviewURL: builtins.str
     linkPreviewBody: builtins.str
     @property
-    def linkImageURL(self) -> global___ImageUrl: ...
+    def linkImageURL(self) -> Global___ImageUrl: ...
     @property
     def linkMusicPreviewCountriesAllowed(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     @property
@@ -59,7 +65,7 @@ class LinkContext(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        linkImageURL: global___ImageUrl | None = ...,
+        linkImageURL: Global___ImageUrl | None = ...,
         linkPreviewTitle: builtins.str | None = ...,
         linkURL: builtins.str | None = ...,
         linkSummary: builtins.str | None = ...,
@@ -71,7 +77,7 @@ class LinkContext(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["linkImageURL", b"linkImageURL", "linkMusicPreviewURL", b"linkMusicPreviewURL", "linkPreviewBody", b"linkPreviewBody", "linkPreviewThumbnail", b"linkPreviewThumbnail", "linkPreviewTitle", b"linkPreviewTitle", "linkSummary", b"linkSummary", "linkURL", b"linkURL"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["linkImageURL", b"linkImageURL", "linkMusicPreviewCountriesAllowed", b"linkMusicPreviewCountriesAllowed", "linkMusicPreviewURL", b"linkMusicPreviewURL", "linkPreviewBody", b"linkPreviewBody", "linkPreviewThumbnail", b"linkPreviewThumbnail", "linkPreviewTitle", b"linkPreviewTitle", "linkSummary", b"linkSummary", "linkURL", b"linkURL"]) -> None: ...
 
-global___LinkContext = LinkContext
+Global___LinkContext: typing_extensions.TypeAlias = LinkContext
 
 @typing.final
 class ImageUrl(google.protobuf.message.Message):
@@ -93,4 +99,4 @@ class ImageUrl(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["URL", b"URL", "height", b"height", "width", b"width"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["URL", b"URL", "height", b"height", "width", b"width"]) -> None: ...
 
-global___ImageUrl = ImageUrl
+Global___ImageUrl: typing_extensions.TypeAlias = ImageUrl

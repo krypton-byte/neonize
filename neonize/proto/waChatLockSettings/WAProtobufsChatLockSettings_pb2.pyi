@@ -6,8 +6,14 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
+import sys
 import typing
 import waUserPassword.WAProtobufsUserPassword_pb2
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -29,4 +35,4 @@ class ChatLockSettings(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["hideLockedChats", b"hideLockedChats", "secretCode", b"secretCode"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["hideLockedChats", b"hideLockedChats", "secretCode", b"secretCode"]) -> None: ...
 
-global___ChatLockSettings = ChatLockSettings
+Global___ChatLockSettings: typing_extensions.TypeAlias = ChatLockSettings

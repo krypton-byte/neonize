@@ -45,11 +45,11 @@ class TransportEvent(google.protobuf.message.Message):
             CLEARED: TransportEvent.Event.IcdcAlert.Type.ValueType  # 2
 
             TYPE_FIELD_NUMBER: builtins.int
-            type: global___TransportEvent.Event.IcdcAlert.Type.ValueType
+            type: Global___TransportEvent.Event.IcdcAlert.Type.ValueType
             def __init__(
                 self,
                 *,
-                type: global___TransportEvent.Event.IcdcAlert.Type.ValueType | None = ...,
+                type: Global___TransportEvent.Event.IcdcAlert.Type.ValueType | None = ...,
             ) -> None: ...
             def HasField(self, field_name: typing.Literal["type", b"type"]) -> builtins.bool: ...
             def ClearField(self, field_name: typing.Literal["type", b"type"]) -> None: ...
@@ -79,14 +79,14 @@ class TransportEvent(google.protobuf.message.Message):
             DEVICENAME_FIELD_NUMBER: builtins.int
             DEVICEPLATFORM_FIELD_NUMBER: builtins.int
             DEVICEMODEL_FIELD_NUMBER: builtins.int
-            type: global___TransportEvent.Event.DeviceChange.Type.ValueType
+            type: Global___TransportEvent.Event.DeviceChange.Type.ValueType
             deviceName: builtins.str
             devicePlatform: builtins.str
             deviceModel: builtins.str
             def __init__(
                 self,
                 *,
-                type: global___TransportEvent.Event.DeviceChange.Type.ValueType | None = ...,
+                type: Global___TransportEvent.Event.DeviceChange.Type.ValueType | None = ...,
                 deviceName: builtins.str | None = ...,
                 devicePlatform: builtins.str | None = ...,
                 deviceModel: builtins.str | None = ...,
@@ -97,14 +97,14 @@ class TransportEvent(google.protobuf.message.Message):
         DEVICECHANGE_FIELD_NUMBER: builtins.int
         ICDCALERT_FIELD_NUMBER: builtins.int
         @property
-        def deviceChange(self) -> global___TransportEvent.Event.DeviceChange: ...
+        def deviceChange(self) -> Global___TransportEvent.Event.DeviceChange: ...
         @property
-        def icdcAlert(self) -> global___TransportEvent.Event.IcdcAlert: ...
+        def icdcAlert(self) -> Global___TransportEvent.Event.IcdcAlert: ...
         def __init__(
             self,
             *,
-            deviceChange: global___TransportEvent.Event.DeviceChange | None = ...,
-            icdcAlert: global___TransportEvent.Event.IcdcAlert | None = ...,
+            deviceChange: Global___TransportEvent.Event.DeviceChange | None = ...,
+            icdcAlert: Global___TransportEvent.Event.IcdcAlert | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["deviceChange", b"deviceChange", "event", b"event", "icdcAlert", b"icdcAlert"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["deviceChange", b"deviceChange", "event", b"event", "icdcAlert", b"icdcAlert"]) -> None: ...
@@ -128,11 +128,11 @@ class TransportEvent(google.protobuf.message.Message):
         UNAVAILABLE_MESSAGE: TransportEvent.Placeholder.Type.ValueType  # 2
 
         TYPE_FIELD_NUMBER: builtins.int
-        type: global___TransportEvent.Placeholder.Type.ValueType
+        type: Global___TransportEvent.Placeholder.Type.ValueType
         def __init__(
             self,
             *,
-            type: global___TransportEvent.Placeholder.Type.ValueType | None = ...,
+            type: Global___TransportEvent.Placeholder.Type.ValueType | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["type", b"type"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["type", b"type"]) -> None: ...
@@ -140,17 +140,17 @@ class TransportEvent(google.protobuf.message.Message):
     PLACEHOLDER_FIELD_NUMBER: builtins.int
     EVENT_FIELD_NUMBER: builtins.int
     @property
-    def placeholder(self) -> global___TransportEvent.Placeholder: ...
+    def placeholder(self) -> Global___TransportEvent.Placeholder: ...
     @property
-    def event(self) -> global___TransportEvent.Event: ...
+    def event(self) -> Global___TransportEvent.Event: ...
     def __init__(
         self,
         *,
-        placeholder: global___TransportEvent.Placeholder | None = ...,
-        event: global___TransportEvent.Event | None = ...,
+        placeholder: Global___TransportEvent.Placeholder | None = ...,
+        event: Global___TransportEvent.Event | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["content", b"content", "event", b"event", "placeholder", b"placeholder"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["content", b"content", "event", b"event", "placeholder", b"placeholder"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["placeholder", "event"] | None: ...
 
-global___TransportEvent = TransportEvent
+Global___TransportEvent: typing_extensions.TypeAlias = TransportEvent

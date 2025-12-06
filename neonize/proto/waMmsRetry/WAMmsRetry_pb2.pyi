@@ -44,20 +44,20 @@ class MediaRetryNotification(google.protobuf.message.Message):
     MESSAGESECRET_FIELD_NUMBER: builtins.int
     stanzaID: builtins.str
     directPath: builtins.str
-    result: global___MediaRetryNotification.ResultType.ValueType
+    result: Global___MediaRetryNotification.ResultType.ValueType
     messageSecret: builtins.bytes
     def __init__(
         self,
         *,
         stanzaID: builtins.str | None = ...,
         directPath: builtins.str | None = ...,
-        result: global___MediaRetryNotification.ResultType.ValueType | None = ...,
+        result: Global___MediaRetryNotification.ResultType.ValueType | None = ...,
         messageSecret: builtins.bytes | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["directPath", b"directPath", "messageSecret", b"messageSecret", "result", b"result", "stanzaID", b"stanzaID"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["directPath", b"directPath", "messageSecret", b"messageSecret", "result", b"result", "stanzaID", b"stanzaID"]) -> None: ...
 
-global___MediaRetryNotification = MediaRetryNotification
+Global___MediaRetryNotification: typing_extensions.TypeAlias = MediaRetryNotification
 
 @typing.final
 class ServerErrorReceipt(google.protobuf.message.Message):
@@ -73,4 +73,4 @@ class ServerErrorReceipt(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["stanzaID", b"stanzaID"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["stanzaID", b"stanzaID"]) -> None: ...
 
-global___ServerErrorReceipt = ServerErrorReceipt
+Global___ServerErrorReceipt: typing_extensions.TypeAlias = ServerErrorReceipt

@@ -27,6 +27,10 @@ dev = [
 ]
 docs = [
     "furo>=2024.8.6",
+    "mkdocs-material>=9.7.0",
+    "mkdocstrings>=1.0.0",
+    "mkdocstrings-python>=1.12.2",
+    "mkdocs-git-revision-date-localized-plugin>=1.3.0",
     "myst-parser>=4.0.0",
     "sphinx>=8.1.3",
     "sphinx-autodoc-typehints>=3.0.0",
@@ -40,6 +44,13 @@ download = {cmd = "uv run -m tools.download", help="Download goneonize from gith
 repack = {cmd = "uv run -m tools.repack", help="generate wheel with spesific os & arch"}
 proto = {cmd = "uv run -m tools.update_proto", help="update whatsapp proto files"}
 goneonize_changed = {cmd = "uv run -m tools.build_goneonize_decision", help = "This command to compares the latest release of goneonize"}
+
+# Documentation tasks
+docs-serve = {cmd = "mkdocs serve", help = "Start MkDocs development server with live reload"}
+docs-build = {cmd = "mkdocs build", help = "Build MkDocs documentation to site/ directory"}
+docs-deploy = {cmd = "mkdocs gh-deploy", help = "Deploy documentation to GitHub Pages"}
+docs-clean = {cmd = "rm -rf site/", help = "Clean built documentation"}
+docs-validate = {cmd = "mkdocs build --strict", help = "Build docs with strict validation"}
 
 [tool.uv.workspace]
 exclude = ["docs/","goneonize/"]

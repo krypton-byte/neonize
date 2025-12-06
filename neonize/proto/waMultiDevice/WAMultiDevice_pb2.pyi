@@ -8,7 +8,13 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -31,14 +37,14 @@ class MultiDevice(google.protobuf.message.Message):
         APPLICATIONDATA_FIELD_NUMBER: builtins.int
         SIGNAL_FIELD_NUMBER: builtins.int
         @property
-        def applicationData(self) -> global___MultiDevice.ApplicationData: ...
+        def applicationData(self) -> Global___MultiDevice.ApplicationData: ...
         @property
-        def signal(self) -> global___MultiDevice.Signal: ...
+        def signal(self) -> Global___MultiDevice.Signal: ...
         def __init__(
             self,
             *,
-            applicationData: global___MultiDevice.ApplicationData | None = ...,
-            signal: global___MultiDevice.Signal | None = ...,
+            applicationData: Global___MultiDevice.ApplicationData | None = ...,
+            signal: Global___MultiDevice.Signal | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["applicationData", b"applicationData", "payload", b"payload", "signal", b"signal"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["applicationData", b"applicationData", "payload", b"payload", "signal", b"signal"]) -> None: ...
@@ -54,11 +60,11 @@ class MultiDevice(google.protobuf.message.Message):
 
             KEYIDS_FIELD_NUMBER: builtins.int
             @property
-            def keyIDs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___MultiDevice.ApplicationData.AppStateSyncKeyId]: ...
+            def keyIDs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___MultiDevice.ApplicationData.AppStateSyncKeyId]: ...
             def __init__(
                 self,
                 *,
-                keyIDs: collections.abc.Iterable[global___MultiDevice.ApplicationData.AppStateSyncKeyId] | None = ...,
+                keyIDs: collections.abc.Iterable[Global___MultiDevice.ApplicationData.AppStateSyncKeyId] | None = ...,
             ) -> None: ...
             def ClearField(self, field_name: typing.Literal["keyIDs", b"keyIDs"]) -> None: ...
 
@@ -68,11 +74,11 @@ class MultiDevice(google.protobuf.message.Message):
 
             KEYS_FIELD_NUMBER: builtins.int
             @property
-            def keys(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___MultiDevice.ApplicationData.AppStateSyncKey]: ...
+            def keys(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___MultiDevice.ApplicationData.AppStateSyncKey]: ...
             def __init__(
                 self,
                 *,
-                keys: collections.abc.Iterable[global___MultiDevice.ApplicationData.AppStateSyncKey] | None = ...,
+                keys: collections.abc.Iterable[Global___MultiDevice.ApplicationData.AppStateSyncKey] | None = ...,
             ) -> None: ...
             def ClearField(self, field_name: typing.Literal["keys", b"keys"]) -> None: ...
 
@@ -111,12 +117,12 @@ class MultiDevice(google.protobuf.message.Message):
                 keyData: builtins.bytes
                 timestamp: builtins.int
                 @property
-                def fingerprint(self) -> global___MultiDevice.ApplicationData.AppStateSyncKey.AppStateSyncKeyData.AppStateSyncKeyFingerprint: ...
+                def fingerprint(self) -> Global___MultiDevice.ApplicationData.AppStateSyncKey.AppStateSyncKeyData.AppStateSyncKeyFingerprint: ...
                 def __init__(
                     self,
                     *,
                     keyData: builtins.bytes | None = ...,
-                    fingerprint: global___MultiDevice.ApplicationData.AppStateSyncKey.AppStateSyncKeyData.AppStateSyncKeyFingerprint | None = ...,
+                    fingerprint: Global___MultiDevice.ApplicationData.AppStateSyncKey.AppStateSyncKeyData.AppStateSyncKeyFingerprint | None = ...,
                     timestamp: builtins.int | None = ...,
                 ) -> None: ...
                 def HasField(self, field_name: typing.Literal["fingerprint", b"fingerprint", "keyData", b"keyData", "timestamp", b"timestamp"]) -> builtins.bool: ...
@@ -125,14 +131,14 @@ class MultiDevice(google.protobuf.message.Message):
             KEYID_FIELD_NUMBER: builtins.int
             KEYDATA_FIELD_NUMBER: builtins.int
             @property
-            def keyID(self) -> global___MultiDevice.ApplicationData.AppStateSyncKeyId: ...
+            def keyID(self) -> Global___MultiDevice.ApplicationData.AppStateSyncKeyId: ...
             @property
-            def keyData(self) -> global___MultiDevice.ApplicationData.AppStateSyncKey.AppStateSyncKeyData: ...
+            def keyData(self) -> Global___MultiDevice.ApplicationData.AppStateSyncKey.AppStateSyncKeyData: ...
             def __init__(
                 self,
                 *,
-                keyID: global___MultiDevice.ApplicationData.AppStateSyncKeyId | None = ...,
-                keyData: global___MultiDevice.ApplicationData.AppStateSyncKey.AppStateSyncKeyData | None = ...,
+                keyID: Global___MultiDevice.ApplicationData.AppStateSyncKeyId | None = ...,
+                keyData: Global___MultiDevice.ApplicationData.AppStateSyncKey.AppStateSyncKeyData | None = ...,
             ) -> None: ...
             def HasField(self, field_name: typing.Literal["keyData", b"keyData", "keyID", b"keyID"]) -> builtins.bool: ...
             def ClearField(self, field_name: typing.Literal["keyData", b"keyData", "keyID", b"keyID"]) -> None: ...
@@ -154,14 +160,14 @@ class MultiDevice(google.protobuf.message.Message):
         APPSTATESYNCKEYSHARE_FIELD_NUMBER: builtins.int
         APPSTATESYNCKEYREQUEST_FIELD_NUMBER: builtins.int
         @property
-        def appStateSyncKeyShare(self) -> global___MultiDevice.ApplicationData.AppStateSyncKeyShareMessage: ...
+        def appStateSyncKeyShare(self) -> Global___MultiDevice.ApplicationData.AppStateSyncKeyShareMessage: ...
         @property
-        def appStateSyncKeyRequest(self) -> global___MultiDevice.ApplicationData.AppStateSyncKeyRequestMessage: ...
+        def appStateSyncKeyRequest(self) -> Global___MultiDevice.ApplicationData.AppStateSyncKeyRequestMessage: ...
         def __init__(
             self,
             *,
-            appStateSyncKeyShare: global___MultiDevice.ApplicationData.AppStateSyncKeyShareMessage | None = ...,
-            appStateSyncKeyRequest: global___MultiDevice.ApplicationData.AppStateSyncKeyRequestMessage | None = ...,
+            appStateSyncKeyShare: Global___MultiDevice.ApplicationData.AppStateSyncKeyShareMessage | None = ...,
+            appStateSyncKeyRequest: Global___MultiDevice.ApplicationData.AppStateSyncKeyRequestMessage | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["appStateSyncKeyRequest", b"appStateSyncKeyRequest", "appStateSyncKeyShare", b"appStateSyncKeyShare", "applicationData", b"applicationData"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["appStateSyncKeyRequest", b"appStateSyncKeyRequest", "appStateSyncKeyShare", b"appStateSyncKeyShare", "applicationData", b"applicationData"]) -> None: ...
@@ -178,16 +184,16 @@ class MultiDevice(google.protobuf.message.Message):
     PAYLOAD_FIELD_NUMBER: builtins.int
     METADATA_FIELD_NUMBER: builtins.int
     @property
-    def payload(self) -> global___MultiDevice.Payload: ...
+    def payload(self) -> Global___MultiDevice.Payload: ...
     @property
-    def metadata(self) -> global___MultiDevice.Metadata: ...
+    def metadata(self) -> Global___MultiDevice.Metadata: ...
     def __init__(
         self,
         *,
-        payload: global___MultiDevice.Payload | None = ...,
-        metadata: global___MultiDevice.Metadata | None = ...,
+        payload: Global___MultiDevice.Payload | None = ...,
+        metadata: Global___MultiDevice.Metadata | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]) -> None: ...
 
-global___MultiDevice = MultiDevice
+Global___MultiDevice: typing_extensions.TypeAlias = MultiDevice

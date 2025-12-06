@@ -55,25 +55,25 @@ class Text(google.protobuf.message.Message):
     isSuggestedReply: builtins.bool
     postbackPayload: builtins.str
     @property
-    def powerUpData(self) -> global___PowerUpsData: ...
+    def powerUpData(self) -> Global___PowerUpsData: ...
     @property
-    def commands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CommandRangeData]: ...
+    def commands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___CommandRangeData]: ...
     @property
-    def animatedEmojiCharacterRanges(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AnimatedEmojiCharacterRange]: ...
+    def animatedEmojiCharacterRanges(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AnimatedEmojiCharacterRange]: ...
     def __init__(
         self,
         *,
         text: builtins.str | None = ...,
         isSuggestedReply: builtins.bool | None = ...,
         postbackPayload: builtins.str | None = ...,
-        powerUpData: global___PowerUpsData | None = ...,
-        commands: collections.abc.Iterable[global___CommandRangeData] | None = ...,
-        animatedEmojiCharacterRanges: collections.abc.Iterable[global___AnimatedEmojiCharacterRange] | None = ...,
+        powerUpData: Global___PowerUpsData | None = ...,
+        commands: collections.abc.Iterable[Global___CommandRangeData] | None = ...,
+        animatedEmojiCharacterRanges: collections.abc.Iterable[Global___AnimatedEmojiCharacterRange] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["isSuggestedReply", b"isSuggestedReply", "postbackPayload", b"postbackPayload", "powerUpData", b"powerUpData", "text", b"text"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["animatedEmojiCharacterRanges", b"animatedEmojiCharacterRanges", "commands", b"commands", "isSuggestedReply", b"isSuggestedReply", "postbackPayload", b"postbackPayload", "powerUpData", b"powerUpData", "text", b"text"]) -> None: ...
 
-global___Text = Text
+Global___Text: typing_extensions.TypeAlias = Text
 
 @typing.final
 class PowerUpsData(google.protobuf.message.Message):
@@ -93,7 +93,7 @@ class PowerUpsData(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["mediaAttachment", b"mediaAttachment", "style", b"style"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["mediaAttachment", b"mediaAttachment", "style", b"style"]) -> None: ...
 
-global___PowerUpsData = PowerUpsData
+Global___PowerUpsData: typing_extensions.TypeAlias = PowerUpsData
 
 @typing.final
 class CommandRangeData(google.protobuf.message.Message):
@@ -121,7 +121,7 @@ class CommandRangeData(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["FBID", b"FBID", "length", b"length", "offset", b"offset", "type", b"type", "userOrThreadFbid", b"userOrThreadFbid"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["FBID", b"FBID", "length", b"length", "offset", b"offset", "type", b"type", "userOrThreadFbid", b"userOrThreadFbid"]) -> None: ...
 
-global___CommandRangeData = CommandRangeData
+Global___CommandRangeData: typing_extensions.TypeAlias = CommandRangeData
 
 @typing.final
 class FormattedText(google.protobuf.message.Message):
@@ -132,18 +132,18 @@ class FormattedText(google.protobuf.message.Message):
     STYLE_FIELD_NUMBER: builtins.int
     offset: builtins.int
     length: builtins.int
-    style: global___Text.FormatStyle.ValueType
+    style: Global___Text.FormatStyle.ValueType
     def __init__(
         self,
         *,
         offset: builtins.int | None = ...,
         length: builtins.int | None = ...,
-        style: global___Text.FormatStyle.ValueType | None = ...,
+        style: Global___Text.FormatStyle.ValueType | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["length", b"length", "offset", b"offset", "style", b"style"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["length", b"length", "offset", b"offset", "style", b"style"]) -> None: ...
 
-global___FormattedText = FormattedText
+Global___FormattedText: typing_extensions.TypeAlias = FormattedText
 
 @typing.final
 class AnimatedEmojiCharacterRange(google.protobuf.message.Message):
@@ -162,4 +162,4 @@ class AnimatedEmojiCharacterRange(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["length", b"length", "offset", b"offset"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["length", b"length", "offset", b"offset"]) -> None: ...
 
-global___AnimatedEmojiCharacterRange = AnimatedEmojiCharacterRange
+Global___AnimatedEmojiCharacterRange: typing_extensions.TypeAlias = AnimatedEmojiCharacterRange

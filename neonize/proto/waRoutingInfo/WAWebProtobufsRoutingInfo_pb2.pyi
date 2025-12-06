@@ -8,7 +8,13 @@ import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -43,4 +49,4 @@ class RoutingInfo(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["debug", b"debug", "taskID", b"taskID", "tcpBbr", b"tcpBbr", "tcpKeepalive", b"tcpKeepalive"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["clusterID", b"clusterID", "debug", b"debug", "regionID", b"regionID", "taskID", b"taskID", "tcpBbr", b"tcpBbr", "tcpKeepalive", b"tcpKeepalive"]) -> None: ...
 
-global___RoutingInfo = RoutingInfo
+Global___RoutingInfo: typing_extensions.TypeAlias = RoutingInfo

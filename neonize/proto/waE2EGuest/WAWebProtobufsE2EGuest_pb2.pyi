@@ -6,7 +6,13 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
+import sys
 import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -22,12 +28,12 @@ class Message(google.protobuf.message.Message):
         CONTEXTINFO_FIELD_NUMBER: builtins.int
         text: builtins.str
         @property
-        def contextInfo(self) -> global___Message.ContextInfo: ...
+        def contextInfo(self) -> Global___Message.ContextInfo: ...
         def __init__(
             self,
             *,
             text: builtins.str | None = ...,
-            contextInfo: global___Message.ContextInfo | None = ...,
+            contextInfo: Global___Message.ContextInfo | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "text", b"text"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "text", b"text"]) -> None: ...
@@ -42,13 +48,13 @@ class Message(google.protobuf.message.Message):
         stanzaID: builtins.str
         participant: builtins.str
         @property
-        def quotedMessage(self) -> global___Message: ...
+        def quotedMessage(self) -> Global___Message: ...
         def __init__(
             self,
             *,
             stanzaID: builtins.str | None = ...,
             participant: builtins.str | None = ...,
-            quotedMessage: global___Message | None = ...,
+            quotedMessage: Global___Message | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["participant", b"participant", "quotedMessage", b"quotedMessage", "stanzaID", b"stanzaID"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["participant", b"participant", "quotedMessage", b"quotedMessage", "stanzaID", b"stanzaID"]) -> None: ...
@@ -58,20 +64,20 @@ class Message(google.protobuf.message.Message):
     MESSAGECONTEXTINFO_FIELD_NUMBER: builtins.int
     conversation: builtins.str
     @property
-    def extendedTextMessage(self) -> global___Message.ExtendedTextMessage: ...
+    def extendedTextMessage(self) -> Global___Message.ExtendedTextMessage: ...
     @property
-    def messageContextInfo(self) -> global___MessageContextInfo: ...
+    def messageContextInfo(self) -> Global___MessageContextInfo: ...
     def __init__(
         self,
         *,
         conversation: builtins.str | None = ...,
-        extendedTextMessage: global___Message.ExtendedTextMessage | None = ...,
-        messageContextInfo: global___MessageContextInfo | None = ...,
+        extendedTextMessage: Global___Message.ExtendedTextMessage | None = ...,
+        messageContextInfo: Global___MessageContextInfo | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["conversation", b"conversation", "extendedTextMessage", b"extendedTextMessage", "messageContextInfo", b"messageContextInfo"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["conversation", b"conversation", "extendedTextMessage", b"extendedTextMessage", "messageContextInfo", b"messageContextInfo"]) -> None: ...
 
-global___Message = Message
+Global___Message: typing_extensions.TypeAlias = Message
 
 @typing.final
 class MessageContextInfo(google.protobuf.message.Message):
@@ -87,4 +93,4 @@ class MessageContextInfo(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["messageSecret", b"messageSecret"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["messageSecret", b"messageSecret"]) -> None: ...
 
-global___MessageContextInfo = MessageContextInfo
+Global___MessageContextInfo: typing_extensions.TypeAlias = MessageContextInfo

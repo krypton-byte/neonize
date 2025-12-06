@@ -268,6 +268,10 @@ class WebMessageInfo(google.protobuf.message.Message):
         GROUP_MEMBER_LINK_MODE: WebMessageInfo._StubType.ValueType  # 217
         BIZ_AUTOMATICALLY_LABELED_CHAT_SYSTEM_MESSAGE: WebMessageInfo._StubType.ValueType  # 218
         PHONE_NUMBER_HIDING_CHAT_DEPRECATED_MESSAGE: WebMessageInfo._StubType.ValueType  # 219
+        QUARANTINED_MESSAGE: WebMessageInfo._StubType.ValueType  # 220
+        GROUP_MEMBER_SHARE_GROUP_HISTORY_MODE: WebMessageInfo._StubType.ValueType  # 221
+        GROUP_OPEN_BOT_ADDED: WebMessageInfo._StubType.ValueType  # 222
+        GROUP_TEE_BOT_ADDED: WebMessageInfo._StubType.ValueType  # 223
 
     class StubType(_StubType, metaclass=_StubTypeEnumTypeWrapper): ...
     UNKNOWN: WebMessageInfo.StubType.ValueType  # 0
@@ -490,6 +494,10 @@ class WebMessageInfo(google.protobuf.message.Message):
     GROUP_MEMBER_LINK_MODE: WebMessageInfo.StubType.ValueType  # 217
     BIZ_AUTOMATICALLY_LABELED_CHAT_SYSTEM_MESSAGE: WebMessageInfo.StubType.ValueType  # 218
     PHONE_NUMBER_HIDING_CHAT_DEPRECATED_MESSAGE: WebMessageInfo.StubType.ValueType  # 219
+    QUARANTINED_MESSAGE: WebMessageInfo.StubType.ValueType  # 220
+    GROUP_MEMBER_SHARE_GROUP_HISTORY_MODE: WebMessageInfo.StubType.ValueType  # 221
+    GROUP_OPEN_BOT_ADDED: WebMessageInfo.StubType.ValueType  # 222
+    GROUP_TEE_BOT_ADDED: WebMessageInfo.StubType.ValueType  # 223
 
     class _Status:
         ValueType = typing.NewType("ValueType", builtins.int)
@@ -577,8 +585,9 @@ class WebMessageInfo(google.protobuf.message.Message):
     GROUPHISTORYINDIVIDUALMESSAGEINFO_FIELD_NUMBER: builtins.int
     GROUPHISTORYBUNDLEINFO_FIELD_NUMBER: builtins.int
     INTERACTIVEMESSAGEADDITIONALMETADATA_FIELD_NUMBER: builtins.int
+    QUARANTINEDMESSAGE_FIELD_NUMBER: builtins.int
     messageTimestamp: builtins.int
-    status: global___WebMessageInfo.Status.ValueType
+    status: Global___WebMessageInfo.Status.ValueType
     participant: builtins.str
     messageC2STimestamp: builtins.int
     ignore: builtins.bool
@@ -589,14 +598,14 @@ class WebMessageInfo(google.protobuf.message.Message):
     multicast: builtins.bool
     urlText: builtins.bool
     urlNumber: builtins.bool
-    messageStubType: global___WebMessageInfo.StubType.ValueType
+    messageStubType: Global___WebMessageInfo.StubType.ValueType
     clearMedia: builtins.bool
     duration: builtins.int
     ephemeralStartTimestamp: builtins.int
     ephemeralDuration: builtins.int
     ephemeralOffToOn: builtins.bool
     ephemeralOutOfSync: builtins.bool
-    bizPrivacyStatus: global___WebMessageInfo.BizPrivacyStatus.ValueType
+    bizPrivacyStatus: Global___WebMessageInfo.BizPrivacyStatus.ValueType
     verifiedBizName: builtins.str
     futureproofData: builtins.bytes
     agentID: builtins.str
@@ -620,66 +629,68 @@ class WebMessageInfo(google.protobuf.message.Message):
     @property
     def labels(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     @property
-    def paymentInfo(self) -> global___PaymentInfo: ...
+    def paymentInfo(self) -> Global___PaymentInfo: ...
     @property
     def finalLiveLocation(self) -> waE2E.WAWebProtobufsE2E_pb2.LiveLocationMessage: ...
     @property
-    def quotedPaymentInfo(self) -> global___PaymentInfo: ...
+    def quotedPaymentInfo(self) -> Global___PaymentInfo: ...
     @property
-    def mediaData(self) -> global___MediaData: ...
+    def mediaData(self) -> Global___MediaData: ...
     @property
-    def photoChange(self) -> global___PhotoChange: ...
+    def photoChange(self) -> Global___PhotoChange: ...
     @property
-    def userReceipt(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UserReceipt]: ...
+    def userReceipt(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UserReceipt]: ...
     @property
-    def reactions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Reaction]: ...
+    def reactions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___Reaction]: ...
     @property
-    def quotedStickerData(self) -> global___MediaData: ...
+    def quotedStickerData(self) -> Global___MediaData: ...
     @property
-    def statusPsa(self) -> global___StatusPSA: ...
+    def statusPsa(self) -> Global___StatusPSA: ...
     @property
-    def pollUpdates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PollUpdate]: ...
+    def pollUpdates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PollUpdate]: ...
     @property
-    def pollAdditionalMetadata(self) -> global___PollAdditionalMetadata: ...
+    def pollAdditionalMetadata(self) -> Global___PollAdditionalMetadata: ...
     @property
-    def keepInChat(self) -> global___KeepInChat: ...
+    def keepInChat(self) -> Global___KeepInChat: ...
     @property
-    def pinInChat(self) -> global___PinInChat: ...
+    def pinInChat(self) -> Global___PinInChat: ...
     @property
-    def premiumMessageInfo(self) -> global___PremiumMessageInfo: ...
+    def premiumMessageInfo(self) -> Global___PremiumMessageInfo: ...
     @property
-    def commentMetadata(self) -> global___CommentMetadata: ...
+    def commentMetadata(self) -> Global___CommentMetadata: ...
     @property
-    def eventResponses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EventResponse]: ...
+    def eventResponses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___EventResponse]: ...
     @property
-    def reportingTokenInfo(self) -> global___ReportingTokenInfo: ...
+    def reportingTokenInfo(self) -> Global___ReportingTokenInfo: ...
     @property
-    def eventAdditionalMetadata(self) -> global___EventAdditionalMetadata: ...
+    def eventAdditionalMetadata(self) -> Global___EventAdditionalMetadata: ...
     @property
     def statusMentions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     @property
     def targetMessageID(self) -> waCommon.WACommon_pb2.MessageKey: ...
     @property
-    def messageAddOns(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___MessageAddOn]: ...
+    def messageAddOns(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___MessageAddOn]: ...
     @property
-    def statusMentionMessageInfo(self) -> global___StatusMentionMessage: ...
+    def statusMentionMessageInfo(self) -> Global___StatusMentionMessage: ...
     @property
     def statusMentionSources(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     @property
-    def supportAiCitations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Citation]: ...
+    def supportAiCitations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___Citation]: ...
     @property
-    def groupHistoryIndividualMessageInfo(self) -> global___GroupHistoryIndividualMessageInfo: ...
+    def groupHistoryIndividualMessageInfo(self) -> Global___GroupHistoryIndividualMessageInfo: ...
     @property
-    def groupHistoryBundleInfo(self) -> global___GroupHistoryBundleInfo: ...
+    def groupHistoryBundleInfo(self) -> Global___GroupHistoryBundleInfo: ...
     @property
-    def interactiveMessageAdditionalMetadata(self) -> global___InteractiveMessageAdditionalMetadata: ...
+    def interactiveMessageAdditionalMetadata(self) -> Global___InteractiveMessageAdditionalMetadata: ...
+    @property
+    def quarantinedMessage(self) -> Global___QuarantinedMessage: ...
     def __init__(
         self,
         *,
         key: waCommon.WACommon_pb2.MessageKey | None = ...,
         message: waE2E.WAWebProtobufsE2E_pb2.Message | None = ...,
         messageTimestamp: builtins.int | None = ...,
-        status: global___WebMessageInfo.Status.ValueType | None = ...,
+        status: Global___WebMessageInfo.Status.ValueType | None = ...,
         participant: builtins.str | None = ...,
         messageC2STimestamp: builtins.int | None = ...,
         ignore: builtins.bool | None = ...,
@@ -690,62 +701,63 @@ class WebMessageInfo(google.protobuf.message.Message):
         multicast: builtins.bool | None = ...,
         urlText: builtins.bool | None = ...,
         urlNumber: builtins.bool | None = ...,
-        messageStubType: global___WebMessageInfo.StubType.ValueType | None = ...,
+        messageStubType: Global___WebMessageInfo.StubType.ValueType | None = ...,
         clearMedia: builtins.bool | None = ...,
         messageStubParameters: collections.abc.Iterable[builtins.str] | None = ...,
         duration: builtins.int | None = ...,
         labels: collections.abc.Iterable[builtins.str] | None = ...,
-        paymentInfo: global___PaymentInfo | None = ...,
+        paymentInfo: Global___PaymentInfo | None = ...,
         finalLiveLocation: waE2E.WAWebProtobufsE2E_pb2.LiveLocationMessage | None = ...,
-        quotedPaymentInfo: global___PaymentInfo | None = ...,
+        quotedPaymentInfo: Global___PaymentInfo | None = ...,
         ephemeralStartTimestamp: builtins.int | None = ...,
         ephemeralDuration: builtins.int | None = ...,
         ephemeralOffToOn: builtins.bool | None = ...,
         ephemeralOutOfSync: builtins.bool | None = ...,
-        bizPrivacyStatus: global___WebMessageInfo.BizPrivacyStatus.ValueType | None = ...,
+        bizPrivacyStatus: Global___WebMessageInfo.BizPrivacyStatus.ValueType | None = ...,
         verifiedBizName: builtins.str | None = ...,
-        mediaData: global___MediaData | None = ...,
-        photoChange: global___PhotoChange | None = ...,
-        userReceipt: collections.abc.Iterable[global___UserReceipt] | None = ...,
-        reactions: collections.abc.Iterable[global___Reaction] | None = ...,
-        quotedStickerData: global___MediaData | None = ...,
+        mediaData: Global___MediaData | None = ...,
+        photoChange: Global___PhotoChange | None = ...,
+        userReceipt: collections.abc.Iterable[Global___UserReceipt] | None = ...,
+        reactions: collections.abc.Iterable[Global___Reaction] | None = ...,
+        quotedStickerData: Global___MediaData | None = ...,
         futureproofData: builtins.bytes | None = ...,
-        statusPsa: global___StatusPSA | None = ...,
-        pollUpdates: collections.abc.Iterable[global___PollUpdate] | None = ...,
-        pollAdditionalMetadata: global___PollAdditionalMetadata | None = ...,
+        statusPsa: Global___StatusPSA | None = ...,
+        pollUpdates: collections.abc.Iterable[Global___PollUpdate] | None = ...,
+        pollAdditionalMetadata: Global___PollAdditionalMetadata | None = ...,
         agentID: builtins.str | None = ...,
         statusAlreadyViewed: builtins.bool | None = ...,
         messageSecret: builtins.bytes | None = ...,
-        keepInChat: global___KeepInChat | None = ...,
+        keepInChat: Global___KeepInChat | None = ...,
         originalSelfAuthorUserJIDString: builtins.str | None = ...,
         revokeMessageTimestamp: builtins.int | None = ...,
-        pinInChat: global___PinInChat | None = ...,
-        premiumMessageInfo: global___PremiumMessageInfo | None = ...,
+        pinInChat: Global___PinInChat | None = ...,
+        premiumMessageInfo: Global___PremiumMessageInfo | None = ...,
         is1PBizBotMessage: builtins.bool | None = ...,
         isGroupHistoryMessage: builtins.bool | None = ...,
         botMessageInvokerJID: builtins.str | None = ...,
-        commentMetadata: global___CommentMetadata | None = ...,
-        eventResponses: collections.abc.Iterable[global___EventResponse] | None = ...,
-        reportingTokenInfo: global___ReportingTokenInfo | None = ...,
+        commentMetadata: Global___CommentMetadata | None = ...,
+        eventResponses: collections.abc.Iterable[Global___EventResponse] | None = ...,
+        reportingTokenInfo: Global___ReportingTokenInfo | None = ...,
         newsletterServerID: builtins.int | None = ...,
-        eventAdditionalMetadata: global___EventAdditionalMetadata | None = ...,
+        eventAdditionalMetadata: Global___EventAdditionalMetadata | None = ...,
         isMentionedInStatus: builtins.bool | None = ...,
         statusMentions: collections.abc.Iterable[builtins.str] | None = ...,
         targetMessageID: waCommon.WACommon_pb2.MessageKey | None = ...,
-        messageAddOns: collections.abc.Iterable[global___MessageAddOn] | None = ...,
-        statusMentionMessageInfo: global___StatusMentionMessage | None = ...,
+        messageAddOns: collections.abc.Iterable[Global___MessageAddOn] | None = ...,
+        statusMentionMessageInfo: Global___StatusMentionMessage | None = ...,
         isSupportAiMessage: builtins.bool | None = ...,
         statusMentionSources: collections.abc.Iterable[builtins.str] | None = ...,
-        supportAiCitations: collections.abc.Iterable[global___Citation] | None = ...,
+        supportAiCitations: collections.abc.Iterable[Global___Citation] | None = ...,
         botTargetID: builtins.str | None = ...,
-        groupHistoryIndividualMessageInfo: global___GroupHistoryIndividualMessageInfo | None = ...,
-        groupHistoryBundleInfo: global___GroupHistoryBundleInfo | None = ...,
-        interactiveMessageAdditionalMetadata: global___InteractiveMessageAdditionalMetadata | None = ...,
+        groupHistoryIndividualMessageInfo: Global___GroupHistoryIndividualMessageInfo | None = ...,
+        groupHistoryBundleInfo: Global___GroupHistoryBundleInfo | None = ...,
+        interactiveMessageAdditionalMetadata: Global___InteractiveMessageAdditionalMetadata | None = ...,
+        quarantinedMessage: Global___QuarantinedMessage | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusPsa", b"statusPsa", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "verifiedBizName", b"verifiedBizName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "eventResponses", b"eventResponses", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "labels", b"labels", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageAddOns", b"messageAddOns", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubParameters", b"messageStubParameters", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "pollUpdates", b"pollUpdates", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reactions", b"reactions", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusMentionSources", b"statusMentionSources", "statusMentions", b"statusMentions", "statusPsa", b"statusPsa", "supportAiCitations", b"supportAiCitations", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "userReceipt", b"userReceipt", "verifiedBizName", b"verifiedBizName"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quarantinedMessage", b"quarantinedMessage", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusPsa", b"statusPsa", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "verifiedBizName", b"verifiedBizName"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "eventResponses", b"eventResponses", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "labels", b"labels", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageAddOns", b"messageAddOns", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubParameters", b"messageStubParameters", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "pollUpdates", b"pollUpdates", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quarantinedMessage", b"quarantinedMessage", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reactions", b"reactions", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusMentionSources", b"statusMentionSources", "statusMentions", b"statusMentions", "statusPsa", b"statusPsa", "supportAiCitations", b"supportAiCitations", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "userReceipt", b"userReceipt", "verifiedBizName", b"verifiedBizName"]) -> None: ...
 
-global___WebMessageInfo = WebMessageInfo
+Global___WebMessageInfo: typing_extensions.TypeAlias = WebMessageInfo
 
 @typing.final
 class PaymentInfo(google.protobuf.message.Message):
@@ -883,15 +895,15 @@ class PaymentInfo(google.protobuf.message.Message):
     USENOVIFIATFORMAT_FIELD_NUMBER: builtins.int
     PRIMARYAMOUNT_FIELD_NUMBER: builtins.int
     EXCHANGEAMOUNT_FIELD_NUMBER: builtins.int
-    currencyDeprecated: global___PaymentInfo.Currency.ValueType
+    currencyDeprecated: Global___PaymentInfo.Currency.ValueType
     amount1000: builtins.int
     receiverJID: builtins.str
-    status: global___PaymentInfo.Status.ValueType
+    status: Global___PaymentInfo.Status.ValueType
     transactionTimestamp: builtins.int
     expiryTimestamp: builtins.int
     futureproofed: builtins.bool
     currency: builtins.str
-    txnStatus: global___PaymentInfo.TxnStatus.ValueType
+    txnStatus: Global___PaymentInfo.TxnStatus.ValueType
     useNoviFiatFormat: builtins.bool
     @property
     def requestMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
@@ -902,16 +914,16 @@ class PaymentInfo(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        currencyDeprecated: global___PaymentInfo.Currency.ValueType | None = ...,
+        currencyDeprecated: Global___PaymentInfo.Currency.ValueType | None = ...,
         amount1000: builtins.int | None = ...,
         receiverJID: builtins.str | None = ...,
-        status: global___PaymentInfo.Status.ValueType | None = ...,
+        status: Global___PaymentInfo.Status.ValueType | None = ...,
         transactionTimestamp: builtins.int | None = ...,
         requestMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
         expiryTimestamp: builtins.int | None = ...,
         futureproofed: builtins.bool | None = ...,
         currency: builtins.str | None = ...,
-        txnStatus: global___PaymentInfo.TxnStatus.ValueType | None = ...,
+        txnStatus: Global___PaymentInfo.TxnStatus.ValueType | None = ...,
         useNoviFiatFormat: builtins.bool | None = ...,
         primaryAmount: waE2E.WAWebProtobufsE2E_pb2.Money | None = ...,
         exchangeAmount: waE2E.WAWebProtobufsE2E_pb2.Money | None = ...,
@@ -919,7 +931,7 @@ class PaymentInfo(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["amount1000", b"amount1000", "currency", b"currency", "currencyDeprecated", b"currencyDeprecated", "exchangeAmount", b"exchangeAmount", "expiryTimestamp", b"expiryTimestamp", "futureproofed", b"futureproofed", "primaryAmount", b"primaryAmount", "receiverJID", b"receiverJID", "requestMessageKey", b"requestMessageKey", "status", b"status", "transactionTimestamp", b"transactionTimestamp", "txnStatus", b"txnStatus", "useNoviFiatFormat", b"useNoviFiatFormat"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["amount1000", b"amount1000", "currency", b"currency", "currencyDeprecated", b"currencyDeprecated", "exchangeAmount", b"exchangeAmount", "expiryTimestamp", b"expiryTimestamp", "futureproofed", b"futureproofed", "primaryAmount", b"primaryAmount", "receiverJID", b"receiverJID", "requestMessageKey", b"requestMessageKey", "status", b"status", "transactionTimestamp", b"transactionTimestamp", "txnStatus", b"txnStatus", "useNoviFiatFormat", b"useNoviFiatFormat"]) -> None: ...
 
-global___PaymentInfo = PaymentInfo
+Global___PaymentInfo: typing_extensions.TypeAlias = PaymentInfo
 
 @typing.final
 class WebFeatures(google.protobuf.message.Message):
@@ -987,104 +999,104 @@ class WebFeatures(google.protobuf.message.Message):
     DISAPPEARINGMODE_FIELD_NUMBER: builtins.int
     EXTERNALMDOPTINAVAILABLE_FIELD_NUMBER: builtins.int
     NODELETEMESSAGETIMELIMIT_FIELD_NUMBER: builtins.int
-    labelsDisplay: global___WebFeatures.Flag.ValueType
-    voipIndividualOutgoing: global___WebFeatures.Flag.ValueType
-    groupsV3: global___WebFeatures.Flag.ValueType
-    groupsV3Create: global___WebFeatures.Flag.ValueType
-    changeNumberV2: global___WebFeatures.Flag.ValueType
-    queryStatusV3Thumbnail: global___WebFeatures.Flag.ValueType
-    liveLocations: global___WebFeatures.Flag.ValueType
-    queryVname: global___WebFeatures.Flag.ValueType
-    voipIndividualIncoming: global___WebFeatures.Flag.ValueType
-    quickRepliesQuery: global___WebFeatures.Flag.ValueType
-    payments: global___WebFeatures.Flag.ValueType
-    stickerPackQuery: global___WebFeatures.Flag.ValueType
-    liveLocationsFinal: global___WebFeatures.Flag.ValueType
-    labelsEdit: global___WebFeatures.Flag.ValueType
-    mediaUpload: global___WebFeatures.Flag.ValueType
-    mediaUploadRichQuickReplies: global___WebFeatures.Flag.ValueType
-    vnameV2: global___WebFeatures.Flag.ValueType
-    videoPlaybackURL: global___WebFeatures.Flag.ValueType
-    statusRanking: global___WebFeatures.Flag.ValueType
-    voipIndividualVideo: global___WebFeatures.Flag.ValueType
-    thirdPartyStickers: global___WebFeatures.Flag.ValueType
-    frequentlyForwardedSetting: global___WebFeatures.Flag.ValueType
-    groupsV4JoinPermission: global___WebFeatures.Flag.ValueType
-    recentStickers: global___WebFeatures.Flag.ValueType
-    catalog: global___WebFeatures.Flag.ValueType
-    starredStickers: global___WebFeatures.Flag.ValueType
-    voipGroupCall: global___WebFeatures.Flag.ValueType
-    templateMessage: global___WebFeatures.Flag.ValueType
-    templateMessageInteractivity: global___WebFeatures.Flag.ValueType
-    ephemeralMessages: global___WebFeatures.Flag.ValueType
-    e2ENotificationSync: global___WebFeatures.Flag.ValueType
-    recentStickersV2: global___WebFeatures.Flag.ValueType
-    recentStickersV3: global___WebFeatures.Flag.ValueType
-    userNotice: global___WebFeatures.Flag.ValueType
-    support: global___WebFeatures.Flag.ValueType
-    groupUiiCleanup: global___WebFeatures.Flag.ValueType
-    groupDogfoodingInternalOnly: global___WebFeatures.Flag.ValueType
-    settingsSync: global___WebFeatures.Flag.ValueType
-    archiveV2: global___WebFeatures.Flag.ValueType
-    ephemeralAllowGroupMembers: global___WebFeatures.Flag.ValueType
-    ephemeral24HDuration: global___WebFeatures.Flag.ValueType
-    mdForceUpgrade: global___WebFeatures.Flag.ValueType
-    disappearingMode: global___WebFeatures.Flag.ValueType
-    externalMdOptInAvailable: global___WebFeatures.Flag.ValueType
-    noDeleteMessageTimeLimit: global___WebFeatures.Flag.ValueType
+    labelsDisplay: Global___WebFeatures.Flag.ValueType
+    voipIndividualOutgoing: Global___WebFeatures.Flag.ValueType
+    groupsV3: Global___WebFeatures.Flag.ValueType
+    groupsV3Create: Global___WebFeatures.Flag.ValueType
+    changeNumberV2: Global___WebFeatures.Flag.ValueType
+    queryStatusV3Thumbnail: Global___WebFeatures.Flag.ValueType
+    liveLocations: Global___WebFeatures.Flag.ValueType
+    queryVname: Global___WebFeatures.Flag.ValueType
+    voipIndividualIncoming: Global___WebFeatures.Flag.ValueType
+    quickRepliesQuery: Global___WebFeatures.Flag.ValueType
+    payments: Global___WebFeatures.Flag.ValueType
+    stickerPackQuery: Global___WebFeatures.Flag.ValueType
+    liveLocationsFinal: Global___WebFeatures.Flag.ValueType
+    labelsEdit: Global___WebFeatures.Flag.ValueType
+    mediaUpload: Global___WebFeatures.Flag.ValueType
+    mediaUploadRichQuickReplies: Global___WebFeatures.Flag.ValueType
+    vnameV2: Global___WebFeatures.Flag.ValueType
+    videoPlaybackURL: Global___WebFeatures.Flag.ValueType
+    statusRanking: Global___WebFeatures.Flag.ValueType
+    voipIndividualVideo: Global___WebFeatures.Flag.ValueType
+    thirdPartyStickers: Global___WebFeatures.Flag.ValueType
+    frequentlyForwardedSetting: Global___WebFeatures.Flag.ValueType
+    groupsV4JoinPermission: Global___WebFeatures.Flag.ValueType
+    recentStickers: Global___WebFeatures.Flag.ValueType
+    catalog: Global___WebFeatures.Flag.ValueType
+    starredStickers: Global___WebFeatures.Flag.ValueType
+    voipGroupCall: Global___WebFeatures.Flag.ValueType
+    templateMessage: Global___WebFeatures.Flag.ValueType
+    templateMessageInteractivity: Global___WebFeatures.Flag.ValueType
+    ephemeralMessages: Global___WebFeatures.Flag.ValueType
+    e2ENotificationSync: Global___WebFeatures.Flag.ValueType
+    recentStickersV2: Global___WebFeatures.Flag.ValueType
+    recentStickersV3: Global___WebFeatures.Flag.ValueType
+    userNotice: Global___WebFeatures.Flag.ValueType
+    support: Global___WebFeatures.Flag.ValueType
+    groupUiiCleanup: Global___WebFeatures.Flag.ValueType
+    groupDogfoodingInternalOnly: Global___WebFeatures.Flag.ValueType
+    settingsSync: Global___WebFeatures.Flag.ValueType
+    archiveV2: Global___WebFeatures.Flag.ValueType
+    ephemeralAllowGroupMembers: Global___WebFeatures.Flag.ValueType
+    ephemeral24HDuration: Global___WebFeatures.Flag.ValueType
+    mdForceUpgrade: Global___WebFeatures.Flag.ValueType
+    disappearingMode: Global___WebFeatures.Flag.ValueType
+    externalMdOptInAvailable: Global___WebFeatures.Flag.ValueType
+    noDeleteMessageTimeLimit: Global___WebFeatures.Flag.ValueType
     def __init__(
         self,
         *,
-        labelsDisplay: global___WebFeatures.Flag.ValueType | None = ...,
-        voipIndividualOutgoing: global___WebFeatures.Flag.ValueType | None = ...,
-        groupsV3: global___WebFeatures.Flag.ValueType | None = ...,
-        groupsV3Create: global___WebFeatures.Flag.ValueType | None = ...,
-        changeNumberV2: global___WebFeatures.Flag.ValueType | None = ...,
-        queryStatusV3Thumbnail: global___WebFeatures.Flag.ValueType | None = ...,
-        liveLocations: global___WebFeatures.Flag.ValueType | None = ...,
-        queryVname: global___WebFeatures.Flag.ValueType | None = ...,
-        voipIndividualIncoming: global___WebFeatures.Flag.ValueType | None = ...,
-        quickRepliesQuery: global___WebFeatures.Flag.ValueType | None = ...,
-        payments: global___WebFeatures.Flag.ValueType | None = ...,
-        stickerPackQuery: global___WebFeatures.Flag.ValueType | None = ...,
-        liveLocationsFinal: global___WebFeatures.Flag.ValueType | None = ...,
-        labelsEdit: global___WebFeatures.Flag.ValueType | None = ...,
-        mediaUpload: global___WebFeatures.Flag.ValueType | None = ...,
-        mediaUploadRichQuickReplies: global___WebFeatures.Flag.ValueType | None = ...,
-        vnameV2: global___WebFeatures.Flag.ValueType | None = ...,
-        videoPlaybackURL: global___WebFeatures.Flag.ValueType | None = ...,
-        statusRanking: global___WebFeatures.Flag.ValueType | None = ...,
-        voipIndividualVideo: global___WebFeatures.Flag.ValueType | None = ...,
-        thirdPartyStickers: global___WebFeatures.Flag.ValueType | None = ...,
-        frequentlyForwardedSetting: global___WebFeatures.Flag.ValueType | None = ...,
-        groupsV4JoinPermission: global___WebFeatures.Flag.ValueType | None = ...,
-        recentStickers: global___WebFeatures.Flag.ValueType | None = ...,
-        catalog: global___WebFeatures.Flag.ValueType | None = ...,
-        starredStickers: global___WebFeatures.Flag.ValueType | None = ...,
-        voipGroupCall: global___WebFeatures.Flag.ValueType | None = ...,
-        templateMessage: global___WebFeatures.Flag.ValueType | None = ...,
-        templateMessageInteractivity: global___WebFeatures.Flag.ValueType | None = ...,
-        ephemeralMessages: global___WebFeatures.Flag.ValueType | None = ...,
-        e2ENotificationSync: global___WebFeatures.Flag.ValueType | None = ...,
-        recentStickersV2: global___WebFeatures.Flag.ValueType | None = ...,
-        recentStickersV3: global___WebFeatures.Flag.ValueType | None = ...,
-        userNotice: global___WebFeatures.Flag.ValueType | None = ...,
-        support: global___WebFeatures.Flag.ValueType | None = ...,
-        groupUiiCleanup: global___WebFeatures.Flag.ValueType | None = ...,
-        groupDogfoodingInternalOnly: global___WebFeatures.Flag.ValueType | None = ...,
-        settingsSync: global___WebFeatures.Flag.ValueType | None = ...,
-        archiveV2: global___WebFeatures.Flag.ValueType | None = ...,
-        ephemeralAllowGroupMembers: global___WebFeatures.Flag.ValueType | None = ...,
-        ephemeral24HDuration: global___WebFeatures.Flag.ValueType | None = ...,
-        mdForceUpgrade: global___WebFeatures.Flag.ValueType | None = ...,
-        disappearingMode: global___WebFeatures.Flag.ValueType | None = ...,
-        externalMdOptInAvailable: global___WebFeatures.Flag.ValueType | None = ...,
-        noDeleteMessageTimeLimit: global___WebFeatures.Flag.ValueType | None = ...,
+        labelsDisplay: Global___WebFeatures.Flag.ValueType | None = ...,
+        voipIndividualOutgoing: Global___WebFeatures.Flag.ValueType | None = ...,
+        groupsV3: Global___WebFeatures.Flag.ValueType | None = ...,
+        groupsV3Create: Global___WebFeatures.Flag.ValueType | None = ...,
+        changeNumberV2: Global___WebFeatures.Flag.ValueType | None = ...,
+        queryStatusV3Thumbnail: Global___WebFeatures.Flag.ValueType | None = ...,
+        liveLocations: Global___WebFeatures.Flag.ValueType | None = ...,
+        queryVname: Global___WebFeatures.Flag.ValueType | None = ...,
+        voipIndividualIncoming: Global___WebFeatures.Flag.ValueType | None = ...,
+        quickRepliesQuery: Global___WebFeatures.Flag.ValueType | None = ...,
+        payments: Global___WebFeatures.Flag.ValueType | None = ...,
+        stickerPackQuery: Global___WebFeatures.Flag.ValueType | None = ...,
+        liveLocationsFinal: Global___WebFeatures.Flag.ValueType | None = ...,
+        labelsEdit: Global___WebFeatures.Flag.ValueType | None = ...,
+        mediaUpload: Global___WebFeatures.Flag.ValueType | None = ...,
+        mediaUploadRichQuickReplies: Global___WebFeatures.Flag.ValueType | None = ...,
+        vnameV2: Global___WebFeatures.Flag.ValueType | None = ...,
+        videoPlaybackURL: Global___WebFeatures.Flag.ValueType | None = ...,
+        statusRanking: Global___WebFeatures.Flag.ValueType | None = ...,
+        voipIndividualVideo: Global___WebFeatures.Flag.ValueType | None = ...,
+        thirdPartyStickers: Global___WebFeatures.Flag.ValueType | None = ...,
+        frequentlyForwardedSetting: Global___WebFeatures.Flag.ValueType | None = ...,
+        groupsV4JoinPermission: Global___WebFeatures.Flag.ValueType | None = ...,
+        recentStickers: Global___WebFeatures.Flag.ValueType | None = ...,
+        catalog: Global___WebFeatures.Flag.ValueType | None = ...,
+        starredStickers: Global___WebFeatures.Flag.ValueType | None = ...,
+        voipGroupCall: Global___WebFeatures.Flag.ValueType | None = ...,
+        templateMessage: Global___WebFeatures.Flag.ValueType | None = ...,
+        templateMessageInteractivity: Global___WebFeatures.Flag.ValueType | None = ...,
+        ephemeralMessages: Global___WebFeatures.Flag.ValueType | None = ...,
+        e2ENotificationSync: Global___WebFeatures.Flag.ValueType | None = ...,
+        recentStickersV2: Global___WebFeatures.Flag.ValueType | None = ...,
+        recentStickersV3: Global___WebFeatures.Flag.ValueType | None = ...,
+        userNotice: Global___WebFeatures.Flag.ValueType | None = ...,
+        support: Global___WebFeatures.Flag.ValueType | None = ...,
+        groupUiiCleanup: Global___WebFeatures.Flag.ValueType | None = ...,
+        groupDogfoodingInternalOnly: Global___WebFeatures.Flag.ValueType | None = ...,
+        settingsSync: Global___WebFeatures.Flag.ValueType | None = ...,
+        archiveV2: Global___WebFeatures.Flag.ValueType | None = ...,
+        ephemeralAllowGroupMembers: Global___WebFeatures.Flag.ValueType | None = ...,
+        ephemeral24HDuration: Global___WebFeatures.Flag.ValueType | None = ...,
+        mdForceUpgrade: Global___WebFeatures.Flag.ValueType | None = ...,
+        disappearingMode: Global___WebFeatures.Flag.ValueType | None = ...,
+        externalMdOptInAvailable: Global___WebFeatures.Flag.ValueType | None = ...,
+        noDeleteMessageTimeLimit: Global___WebFeatures.Flag.ValueType | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["archiveV2", b"archiveV2", "catalog", b"catalog", "changeNumberV2", b"changeNumberV2", "disappearingMode", b"disappearingMode", "e2ENotificationSync", b"e2ENotificationSync", "ephemeral24HDuration", b"ephemeral24HDuration", "ephemeralAllowGroupMembers", b"ephemeralAllowGroupMembers", "ephemeralMessages", b"ephemeralMessages", "externalMdOptInAvailable", b"externalMdOptInAvailable", "frequentlyForwardedSetting", b"frequentlyForwardedSetting", "groupDogfoodingInternalOnly", b"groupDogfoodingInternalOnly", "groupUiiCleanup", b"groupUiiCleanup", "groupsV3", b"groupsV3", "groupsV3Create", b"groupsV3Create", "groupsV4JoinPermission", b"groupsV4JoinPermission", "labelsDisplay", b"labelsDisplay", "labelsEdit", b"labelsEdit", "liveLocations", b"liveLocations", "liveLocationsFinal", b"liveLocationsFinal", "mdForceUpgrade", b"mdForceUpgrade", "mediaUpload", b"mediaUpload", "mediaUploadRichQuickReplies", b"mediaUploadRichQuickReplies", "noDeleteMessageTimeLimit", b"noDeleteMessageTimeLimit", "payments", b"payments", "queryStatusV3Thumbnail", b"queryStatusV3Thumbnail", "queryVname", b"queryVname", "quickRepliesQuery", b"quickRepliesQuery", "recentStickers", b"recentStickers", "recentStickersV2", b"recentStickersV2", "recentStickersV3", b"recentStickersV3", "settingsSync", b"settingsSync", "starredStickers", b"starredStickers", "statusRanking", b"statusRanking", "stickerPackQuery", b"stickerPackQuery", "support", b"support", "templateMessage", b"templateMessage", "templateMessageInteractivity", b"templateMessageInteractivity", "thirdPartyStickers", b"thirdPartyStickers", "userNotice", b"userNotice", "videoPlaybackURL", b"videoPlaybackURL", "vnameV2", b"vnameV2", "voipGroupCall", b"voipGroupCall", "voipIndividualIncoming", b"voipIndividualIncoming", "voipIndividualOutgoing", b"voipIndividualOutgoing", "voipIndividualVideo", b"voipIndividualVideo"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["archiveV2", b"archiveV2", "catalog", b"catalog", "changeNumberV2", b"changeNumberV2", "disappearingMode", b"disappearingMode", "e2ENotificationSync", b"e2ENotificationSync", "ephemeral24HDuration", b"ephemeral24HDuration", "ephemeralAllowGroupMembers", b"ephemeralAllowGroupMembers", "ephemeralMessages", b"ephemeralMessages", "externalMdOptInAvailable", b"externalMdOptInAvailable", "frequentlyForwardedSetting", b"frequentlyForwardedSetting", "groupDogfoodingInternalOnly", b"groupDogfoodingInternalOnly", "groupUiiCleanup", b"groupUiiCleanup", "groupsV3", b"groupsV3", "groupsV3Create", b"groupsV3Create", "groupsV4JoinPermission", b"groupsV4JoinPermission", "labelsDisplay", b"labelsDisplay", "labelsEdit", b"labelsEdit", "liveLocations", b"liveLocations", "liveLocationsFinal", b"liveLocationsFinal", "mdForceUpgrade", b"mdForceUpgrade", "mediaUpload", b"mediaUpload", "mediaUploadRichQuickReplies", b"mediaUploadRichQuickReplies", "noDeleteMessageTimeLimit", b"noDeleteMessageTimeLimit", "payments", b"payments", "queryStatusV3Thumbnail", b"queryStatusV3Thumbnail", "queryVname", b"queryVname", "quickRepliesQuery", b"quickRepliesQuery", "recentStickers", b"recentStickers", "recentStickersV2", b"recentStickersV2", "recentStickersV3", b"recentStickersV3", "settingsSync", b"settingsSync", "starredStickers", b"starredStickers", "statusRanking", b"statusRanking", "stickerPackQuery", b"stickerPackQuery", "support", b"support", "templateMessage", b"templateMessage", "templateMessageInteractivity", b"templateMessageInteractivity", "thirdPartyStickers", b"thirdPartyStickers", "userNotice", b"userNotice", "videoPlaybackURL", b"videoPlaybackURL", "vnameV2", b"vnameV2", "voipGroupCall", b"voipGroupCall", "voipIndividualIncoming", b"voipIndividualIncoming", "voipIndividualOutgoing", b"voipIndividualOutgoing", "voipIndividualVideo", b"voipIndividualVideo"]) -> None: ...
 
-global___WebFeatures = WebFeatures
+Global___WebFeatures: typing_extensions.TypeAlias = WebFeatures
 
 @typing.final
 class PinInChat(google.protobuf.message.Message):
@@ -1110,26 +1122,26 @@ class PinInChat(google.protobuf.message.Message):
     SENDERTIMESTAMPMS_FIELD_NUMBER: builtins.int
     SERVERTIMESTAMPMS_FIELD_NUMBER: builtins.int
     MESSAGEADDONCONTEXTINFO_FIELD_NUMBER: builtins.int
-    type: global___PinInChat.Type.ValueType
+    type: Global___PinInChat.Type.ValueType
     senderTimestampMS: builtins.int
     serverTimestampMS: builtins.int
     @property
     def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
     @property
-    def messageAddOnContextInfo(self) -> global___MessageAddOnContextInfo: ...
+    def messageAddOnContextInfo(self) -> Global___MessageAddOnContextInfo: ...
     def __init__(
         self,
         *,
-        type: global___PinInChat.Type.ValueType | None = ...,
+        type: Global___PinInChat.Type.ValueType | None = ...,
         key: waCommon.WACommon_pb2.MessageKey | None = ...,
         senderTimestampMS: builtins.int | None = ...,
         serverTimestampMS: builtins.int | None = ...,
-        messageAddOnContextInfo: global___MessageAddOnContextInfo | None = ...,
+        messageAddOnContextInfo: Global___MessageAddOnContextInfo | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["key", b"key", "messageAddOnContextInfo", b"messageAddOnContextInfo", "senderTimestampMS", b"senderTimestampMS", "serverTimestampMS", b"serverTimestampMS", "type", b"type"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["key", b"key", "messageAddOnContextInfo", b"messageAddOnContextInfo", "senderTimestampMS", b"senderTimestampMS", "serverTimestampMS", b"serverTimestampMS", "type", b"type"]) -> None: ...
 
-global___PinInChat = PinInChat
+Global___PinInChat: typing_extensions.TypeAlias = PinInChat
 
 @typing.final
 class MessageAddOn(google.protobuf.message.Message):
@@ -1162,34 +1174,34 @@ class MessageAddOn(google.protobuf.message.Message):
     ADDONCONTEXTINFO_FIELD_NUMBER: builtins.int
     MESSAGEADDONKEY_FIELD_NUMBER: builtins.int
     LEGACYMESSAGE_FIELD_NUMBER: builtins.int
-    messageAddOnType: global___MessageAddOn.MessageAddOnType.ValueType
+    messageAddOnType: Global___MessageAddOn.MessageAddOnType.ValueType
     senderTimestampMS: builtins.int
     serverTimestampMS: builtins.int
-    status: global___WebMessageInfo.Status.ValueType
+    status: Global___WebMessageInfo.Status.ValueType
     @property
     def messageAddOn(self) -> waE2E.WAWebProtobufsE2E_pb2.Message: ...
     @property
-    def addOnContextInfo(self) -> global___MessageAddOnContextInfo: ...
+    def addOnContextInfo(self) -> Global___MessageAddOnContextInfo: ...
     @property
     def messageAddOnKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
     @property
-    def legacyMessage(self) -> global___LegacyMessage: ...
+    def legacyMessage(self) -> Global___LegacyMessage: ...
     def __init__(
         self,
         *,
-        messageAddOnType: global___MessageAddOn.MessageAddOnType.ValueType | None = ...,
+        messageAddOnType: Global___MessageAddOn.MessageAddOnType.ValueType | None = ...,
         messageAddOn: waE2E.WAWebProtobufsE2E_pb2.Message | None = ...,
         senderTimestampMS: builtins.int | None = ...,
         serverTimestampMS: builtins.int | None = ...,
-        status: global___WebMessageInfo.Status.ValueType | None = ...,
-        addOnContextInfo: global___MessageAddOnContextInfo | None = ...,
+        status: Global___WebMessageInfo.Status.ValueType | None = ...,
+        addOnContextInfo: Global___MessageAddOnContextInfo | None = ...,
         messageAddOnKey: waCommon.WACommon_pb2.MessageKey | None = ...,
-        legacyMessage: global___LegacyMessage | None = ...,
+        legacyMessage: Global___LegacyMessage | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["addOnContextInfo", b"addOnContextInfo", "legacyMessage", b"legacyMessage", "messageAddOn", b"messageAddOn", "messageAddOnKey", b"messageAddOnKey", "messageAddOnType", b"messageAddOnType", "senderTimestampMS", b"senderTimestampMS", "serverTimestampMS", b"serverTimestampMS", "status", b"status"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["addOnContextInfo", b"addOnContextInfo", "legacyMessage", b"legacyMessage", "messageAddOn", b"messageAddOn", "messageAddOnKey", b"messageAddOnKey", "messageAddOnType", b"messageAddOnType", "senderTimestampMS", b"senderTimestampMS", "serverTimestampMS", b"serverTimestampMS", "status", b"status"]) -> None: ...
 
-global___MessageAddOn = MessageAddOn
+Global___MessageAddOn: typing_extensions.TypeAlias = MessageAddOn
 
 @typing.final
 class GroupHistoryBundleInfo(google.protobuf.message.Message):
@@ -1201,30 +1213,34 @@ class GroupHistoryBundleInfo(google.protobuf.message.Message):
 
     class _ProcessStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GroupHistoryBundleInfo._ProcessState.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        NOT_DOWNLOADED: GroupHistoryBundleInfo._ProcessState.ValueType  # 0
-        DOWNLOADED: GroupHistoryBundleInfo._ProcessState.ValueType  # 1
-        DOWNLOAD_FAILED: GroupHistoryBundleInfo._ProcessState.ValueType  # 2
+        NOT_INJECTED: GroupHistoryBundleInfo._ProcessState.ValueType  # 0
+        INJECTED: GroupHistoryBundleInfo._ProcessState.ValueType  # 1
+        INJECTED_PARTIAL: GroupHistoryBundleInfo._ProcessState.ValueType  # 2
+        INJECTION_FAILED: GroupHistoryBundleInfo._ProcessState.ValueType  # 3
+        INJECTION_FAILED_NO_RETRY: GroupHistoryBundleInfo._ProcessState.ValueType  # 4
 
     class ProcessState(_ProcessState, metaclass=_ProcessStateEnumTypeWrapper): ...
-    NOT_DOWNLOADED: GroupHistoryBundleInfo.ProcessState.ValueType  # 0
-    DOWNLOADED: GroupHistoryBundleInfo.ProcessState.ValueType  # 1
-    DOWNLOAD_FAILED: GroupHistoryBundleInfo.ProcessState.ValueType  # 2
+    NOT_INJECTED: GroupHistoryBundleInfo.ProcessState.ValueType  # 0
+    INJECTED: GroupHistoryBundleInfo.ProcessState.ValueType  # 1
+    INJECTED_PARTIAL: GroupHistoryBundleInfo.ProcessState.ValueType  # 2
+    INJECTION_FAILED: GroupHistoryBundleInfo.ProcessState.ValueType  # 3
+    INJECTION_FAILED_NO_RETRY: GroupHistoryBundleInfo.ProcessState.ValueType  # 4
 
     DEPRECATEDMESSAGEHISTORYBUNDLE_FIELD_NUMBER: builtins.int
     PROCESSSTATE_FIELD_NUMBER: builtins.int
-    processState: global___GroupHistoryBundleInfo.ProcessState.ValueType
+    processState: Global___GroupHistoryBundleInfo.ProcessState.ValueType
     @property
     def deprecatedMessageHistoryBundle(self) -> waE2E.WAWebProtobufsE2E_pb2.MessageHistoryBundle: ...
     def __init__(
         self,
         *,
         deprecatedMessageHistoryBundle: waE2E.WAWebProtobufsE2E_pb2.MessageHistoryBundle | None = ...,
-        processState: global___GroupHistoryBundleInfo.ProcessState.ValueType | None = ...,
+        processState: Global___GroupHistoryBundleInfo.ProcessState.ValueType | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["deprecatedMessageHistoryBundle", b"deprecatedMessageHistoryBundle", "processState", b"processState"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["deprecatedMessageHistoryBundle", b"deprecatedMessageHistoryBundle", "processState", b"processState"]) -> None: ...
 
-global___GroupHistoryBundleInfo = GroupHistoryBundleInfo
+Global___GroupHistoryBundleInfo: typing_extensions.TypeAlias = GroupHistoryBundleInfo
 
 @typing.final
 class CommentMetadata(google.protobuf.message.Message):
@@ -1244,7 +1260,7 @@ class CommentMetadata(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["commentParentKey", b"commentParentKey", "replyCount", b"replyCount"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["commentParentKey", b"commentParentKey", "replyCount", b"replyCount"]) -> None: ...
 
-global___CommentMetadata = CommentMetadata
+Global___CommentMetadata: typing_extensions.TypeAlias = CommentMetadata
 
 @typing.final
 class WebNotificationsInfo(google.protobuf.message.Message):
@@ -1258,19 +1274,19 @@ class WebNotificationsInfo(google.protobuf.message.Message):
     unreadChats: builtins.int
     notifyMessageCount: builtins.int
     @property
-    def notifyMessages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___WebMessageInfo]: ...
+    def notifyMessages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___WebMessageInfo]: ...
     def __init__(
         self,
         *,
         timestamp: builtins.int | None = ...,
         unreadChats: builtins.int | None = ...,
         notifyMessageCount: builtins.int | None = ...,
-        notifyMessages: collections.abc.Iterable[global___WebMessageInfo] | None = ...,
+        notifyMessages: collections.abc.Iterable[Global___WebMessageInfo] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["notifyMessageCount", b"notifyMessageCount", "timestamp", b"timestamp", "unreadChats", b"unreadChats"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["notifyMessageCount", b"notifyMessageCount", "notifyMessages", b"notifyMessages", "timestamp", b"timestamp", "unreadChats", b"unreadChats"]) -> None: ...
 
-global___WebNotificationsInfo = WebNotificationsInfo
+Global___WebNotificationsInfo: typing_extensions.TypeAlias = WebNotificationsInfo
 
 @typing.final
 class NotificationMessageInfo(google.protobuf.message.Message):
@@ -1297,7 +1313,7 @@ class NotificationMessageInfo(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["key", b"key", "message", b"message", "messageTimestamp", b"messageTimestamp", "participant", b"participant"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["key", b"key", "message", b"message", "messageTimestamp", b"messageTimestamp", "participant", b"participant"]) -> None: ...
 
-global___NotificationMessageInfo = NotificationMessageInfo
+Global___NotificationMessageInfo: typing_extensions.TypeAlias = NotificationMessageInfo
 
 @typing.final
 class ReportingTokenInfo(google.protobuf.message.Message):
@@ -1313,7 +1329,7 @@ class ReportingTokenInfo(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["reportingTag", b"reportingTag"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["reportingTag", b"reportingTag"]) -> None: ...
 
-global___ReportingTokenInfo = ReportingTokenInfo
+Global___ReportingTokenInfo: typing_extensions.TypeAlias = ReportingTokenInfo
 
 @typing.final
 class MediaData(google.protobuf.message.Message):
@@ -1329,7 +1345,7 @@ class MediaData(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["localPath", b"localPath"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["localPath", b"localPath"]) -> None: ...
 
-global___MediaData = MediaData
+Global___MediaData: typing_extensions.TypeAlias = MediaData
 
 @typing.final
 class PhotoChange(google.protobuf.message.Message):
@@ -1351,7 +1367,7 @@ class PhotoChange(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["newPhoto", b"newPhoto", "newPhotoID", b"newPhotoID", "oldPhoto", b"oldPhoto"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["newPhoto", b"newPhoto", "newPhotoID", b"newPhotoID", "oldPhoto", b"oldPhoto"]) -> None: ...
 
-global___PhotoChange = PhotoChange
+Global___PhotoChange: typing_extensions.TypeAlias = PhotoChange
 
 @typing.final
 class StatusPSA(google.protobuf.message.Message):
@@ -1370,7 +1386,7 @@ class StatusPSA(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["campaignExpirationTimestamp", b"campaignExpirationTimestamp", "campaignID", b"campaignID"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["campaignExpirationTimestamp", b"campaignExpirationTimestamp", "campaignID", b"campaignID"]) -> None: ...
 
-global___StatusPSA = StatusPSA
+Global___StatusPSA: typing_extensions.TypeAlias = StatusPSA
 
 @typing.final
 class UserReceipt(google.protobuf.message.Message):
@@ -1403,7 +1419,7 @@ class UserReceipt(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["playedTimestamp", b"playedTimestamp", "readTimestamp", b"readTimestamp", "receiptTimestamp", b"receiptTimestamp", "userJID", b"userJID"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["deliveredDeviceJID", b"deliveredDeviceJID", "pendingDeviceJID", b"pendingDeviceJID", "playedTimestamp", b"playedTimestamp", "readTimestamp", b"readTimestamp", "receiptTimestamp", b"receiptTimestamp", "userJID", b"userJID"]) -> None: ...
 
-global___UserReceipt = UserReceipt
+Global___UserReceipt: typing_extensions.TypeAlias = UserReceipt
 
 @typing.final
 class Reaction(google.protobuf.message.Message):
@@ -1432,7 +1448,7 @@ class Reaction(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["groupingKey", b"groupingKey", "key", b"key", "senderTimestampMS", b"senderTimestampMS", "text", b"text", "unread", b"unread"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["groupingKey", b"groupingKey", "key", b"key", "senderTimestampMS", b"senderTimestampMS", "text", b"text", "unread", b"unread"]) -> None: ...
 
-global___Reaction = Reaction
+Global___Reaction: typing_extensions.TypeAlias = Reaction
 
 @typing.final
 class PollUpdate(google.protobuf.message.Message):
@@ -1462,7 +1478,7 @@ class PollUpdate(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["pollUpdateMessageKey", b"pollUpdateMessageKey", "senderTimestampMS", b"senderTimestampMS", "serverTimestampMS", b"serverTimestampMS", "unread", b"unread", "vote", b"vote"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["pollUpdateMessageKey", b"pollUpdateMessageKey", "senderTimestampMS", b"senderTimestampMS", "serverTimestampMS", b"serverTimestampMS", "unread", b"unread", "vote", b"vote"]) -> None: ...
 
-global___PollUpdate = PollUpdate
+Global___PollUpdate: typing_extensions.TypeAlias = PollUpdate
 
 @typing.final
 class PollAdditionalMetadata(google.protobuf.message.Message):
@@ -1478,7 +1494,7 @@ class PollAdditionalMetadata(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["pollInvalidated", b"pollInvalidated"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["pollInvalidated", b"pollInvalidated"]) -> None: ...
 
-global___PollAdditionalMetadata = PollAdditionalMetadata
+Global___PollAdditionalMetadata: typing_extensions.TypeAlias = PollAdditionalMetadata
 
 @typing.final
 class InteractiveMessageAdditionalMetadata(google.protobuf.message.Message):
@@ -1494,7 +1510,7 @@ class InteractiveMessageAdditionalMetadata(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["isGalaxyFlowCompleted", b"isGalaxyFlowCompleted"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["isGalaxyFlowCompleted", b"isGalaxyFlowCompleted"]) -> None: ...
 
-global___InteractiveMessageAdditionalMetadata = InteractiveMessageAdditionalMetadata
+Global___InteractiveMessageAdditionalMetadata: typing_extensions.TypeAlias = InteractiveMessageAdditionalMetadata
 
 @typing.final
 class EventAdditionalMetadata(google.protobuf.message.Message):
@@ -1510,7 +1526,7 @@ class EventAdditionalMetadata(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["isStale", b"isStale"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["isStale", b"isStale"]) -> None: ...
 
-global___EventAdditionalMetadata = EventAdditionalMetadata
+Global___EventAdditionalMetadata: typing_extensions.TypeAlias = EventAdditionalMetadata
 
 @typing.final
 class KeepInChat(google.protobuf.message.Message):
@@ -1542,7 +1558,7 @@ class KeepInChat(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["clientTimestampMS", b"clientTimestampMS", "deviceJID", b"deviceJID", "keepType", b"keepType", "key", b"key", "serverTimestamp", b"serverTimestamp", "serverTimestampMS", b"serverTimestampMS"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["clientTimestampMS", b"clientTimestampMS", "deviceJID", b"deviceJID", "keepType", b"keepType", "key", b"key", "serverTimestamp", b"serverTimestamp", "serverTimestampMS", b"serverTimestampMS"]) -> None: ...
 
-global___KeepInChat = KeepInChat
+Global___KeepInChat: typing_extensions.TypeAlias = KeepInChat
 
 @typing.final
 class MessageAddOnContextInfo(google.protobuf.message.Message):
@@ -1561,7 +1577,7 @@ class MessageAddOnContextInfo(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["messageAddOnDurationInSecs", b"messageAddOnDurationInSecs", "messageAddOnExpiryType", b"messageAddOnExpiryType"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["messageAddOnDurationInSecs", b"messageAddOnDurationInSecs", "messageAddOnExpiryType", b"messageAddOnExpiryType"]) -> None: ...
 
-global___MessageAddOnContextInfo = MessageAddOnContextInfo
+Global___MessageAddOnContextInfo: typing_extensions.TypeAlias = MessageAddOnContextInfo
 
 @typing.final
 class PremiumMessageInfo(google.protobuf.message.Message):
@@ -1577,7 +1593,7 @@ class PremiumMessageInfo(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["serverCampaignID", b"serverCampaignID"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["serverCampaignID", b"serverCampaignID"]) -> None: ...
 
-global___PremiumMessageInfo = PremiumMessageInfo
+Global___PremiumMessageInfo: typing_extensions.TypeAlias = PremiumMessageInfo
 
 @typing.final
 class EventResponse(google.protobuf.message.Message):
@@ -1604,7 +1620,7 @@ class EventResponse(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["eventResponseMessage", b"eventResponseMessage", "eventResponseMessageKey", b"eventResponseMessageKey", "timestampMS", b"timestampMS", "unread", b"unread"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["eventResponseMessage", b"eventResponseMessage", "eventResponseMessageKey", b"eventResponseMessageKey", "timestampMS", b"timestampMS", "unread", b"unread"]) -> None: ...
 
-global___EventResponse = EventResponse
+Global___EventResponse: typing_extensions.TypeAlias = EventResponse
 
 @typing.final
 class LegacyMessage(google.protobuf.message.Message):
@@ -1625,7 +1641,7 @@ class LegacyMessage(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["eventResponseMessage", b"eventResponseMessage", "pollVote", b"pollVote"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["eventResponseMessage", b"eventResponseMessage", "pollVote", b"pollVote"]) -> None: ...
 
-global___LegacyMessage = LegacyMessage
+Global___LegacyMessage: typing_extensions.TypeAlias = LegacyMessage
 
 @typing.final
 class StatusMentionMessage(google.protobuf.message.Message):
@@ -1642,7 +1658,7 @@ class StatusMentionMessage(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["quotedStatus", b"quotedStatus"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["quotedStatus", b"quotedStatus"]) -> None: ...
 
-global___StatusMentionMessage = StatusMentionMessage
+Global___StatusMentionMessage: typing_extensions.TypeAlias = StatusMentionMessage
 
 @typing.final
 class Citation(google.protobuf.message.Message):
@@ -1667,21 +1683,43 @@ class Citation(google.protobuf.message.Message):
     def HasField(self, field_name: typing.Literal["cmsID", b"cmsID", "imageURL", b"imageURL", "subtitle", b"subtitle", "title", b"title"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["cmsID", b"cmsID", "imageURL", b"imageURL", "subtitle", b"subtitle", "title", b"title"]) -> None: ...
 
-global___Citation = Citation
+Global___Citation: typing_extensions.TypeAlias = Citation
 
 @typing.final
 class GroupHistoryIndividualMessageInfo(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     BUNDLEMESSAGEKEY_FIELD_NUMBER: builtins.int
+    EDITEDAFTERRECEIVEDASHISTORY_FIELD_NUMBER: builtins.int
+    editedAfterReceivedAsHistory: builtins.bool
     @property
     def bundleMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
         bundleMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+        editedAfterReceivedAsHistory: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["bundleMessageKey", b"bundleMessageKey"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["bundleMessageKey", b"bundleMessageKey"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["bundleMessageKey", b"bundleMessageKey", "editedAfterReceivedAsHistory", b"editedAfterReceivedAsHistory"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["bundleMessageKey", b"bundleMessageKey", "editedAfterReceivedAsHistory", b"editedAfterReceivedAsHistory"]) -> None: ...
 
-global___GroupHistoryIndividualMessageInfo = GroupHistoryIndividualMessageInfo
+Global___GroupHistoryIndividualMessageInfo: typing_extensions.TypeAlias = GroupHistoryIndividualMessageInfo
+
+@typing.final
+class QuarantinedMessage(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ORIGINALDATA_FIELD_NUMBER: builtins.int
+    EXTRACTEDTEXT_FIELD_NUMBER: builtins.int
+    originalData: builtins.bytes
+    extractedText: builtins.str
+    def __init__(
+        self,
+        *,
+        originalData: builtins.bytes | None = ...,
+        extractedText: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["extractedText", b"extractedText", "originalData", b"originalData"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["extractedText", b"extractedText", "originalData", b"originalData"]) -> None: ...
+
+Global___QuarantinedMessage: typing_extensions.TypeAlias = QuarantinedMessage

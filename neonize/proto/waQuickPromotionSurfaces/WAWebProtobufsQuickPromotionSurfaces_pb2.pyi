@@ -73,17 +73,17 @@ class QP(google.protobuf.message.Message):
         CLAUSETYPE_FIELD_NUMBER: builtins.int
         CLAUSES_FIELD_NUMBER: builtins.int
         FILTERS_FIELD_NUMBER: builtins.int
-        clauseType: global___QP.ClauseType.ValueType
+        clauseType: Global___QP.ClauseType.ValueType
         @property
-        def clauses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___QP.FilterClause]: ...
+        def clauses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___QP.FilterClause]: ...
         @property
-        def filters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___QP.Filter]: ...
+        def filters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___QP.Filter]: ...
         def __init__(
             self,
             *,
-            clauseType: global___QP.ClauseType.ValueType | None = ...,
-            clauses: collections.abc.Iterable[global___QP.FilterClause] | None = ...,
-            filters: collections.abc.Iterable[global___QP.Filter] | None = ...,
+            clauseType: Global___QP.ClauseType.ValueType | None = ...,
+            clauses: collections.abc.Iterable[Global___QP.FilterClause] | None = ...,
+            filters: collections.abc.Iterable[Global___QP.Filter] | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["clauseType", b"clauseType"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["clauseType", b"clauseType", "clauses", b"clauses", "filters", b"filters"]) -> None: ...
@@ -97,17 +97,17 @@ class QP(google.protobuf.message.Message):
         FILTERRESULT_FIELD_NUMBER: builtins.int
         CLIENTNOTSUPPORTEDCONFIG_FIELD_NUMBER: builtins.int
         filterName: builtins.str
-        filterResult: global___QP.FilterResult.ValueType
-        clientNotSupportedConfig: global___QP.FilterClientNotSupportedConfig.ValueType
+        filterResult: Global___QP.FilterResult.ValueType
+        clientNotSupportedConfig: Global___QP.FilterClientNotSupportedConfig.ValueType
         @property
-        def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___QP.FilterParameters]: ...
+        def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___QP.FilterParameters]: ...
         def __init__(
             self,
             *,
             filterName: builtins.str | None = ...,
-            parameters: collections.abc.Iterable[global___QP.FilterParameters] | None = ...,
-            filterResult: global___QP.FilterResult.ValueType | None = ...,
-            clientNotSupportedConfig: global___QP.FilterClientNotSupportedConfig.ValueType | None = ...,
+            parameters: collections.abc.Iterable[Global___QP.FilterParameters] | None = ...,
+            filterResult: Global___QP.FilterResult.ValueType | None = ...,
+            clientNotSupportedConfig: Global___QP.FilterClientNotSupportedConfig.ValueType | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["clientNotSupportedConfig", b"clientNotSupportedConfig", "filterName", b"filterName", "filterResult", b"filterResult"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["clientNotSupportedConfig", b"clientNotSupportedConfig", "filterName", b"filterName", "filterResult", b"filterResult", "parameters", b"parameters"]) -> None: ...
@@ -133,4 +133,4 @@ class QP(google.protobuf.message.Message):
         self,
     ) -> None: ...
 
-global___QP = QP
+Global___QP: typing_extensions.TypeAlias = QP
