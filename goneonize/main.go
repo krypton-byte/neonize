@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"strings"
 	"time"
+	"reflect"
 	"unsafe"
 
 	"github.com/krypton-byte/neonize/defproto"
@@ -26,6 +27,7 @@ import (
 	"go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/proto/waCompanionReg"
 	"go.mau.fi/whatsmeow/proto/waConsumerApplication"
+	waBinary "go.mau.fi/whatsmeow/binary"
 	waE2E "go.mau.fi/whatsmeow/proto/waE2E"
 	"go.mau.fi/whatsmeow/proto/waMsgApplication"
 	"go.mau.fi/whatsmeow/store"
@@ -69,6 +71,168 @@ func getByteByAddr(addr *C.uchar, size C.int) []byte {
 	// 	result = append(result, byte(value))
 	// }
 	// return result
+}
+
+func GetMessageType(msg *waE2E.Message) string {
+    v := reflect.ValueOf(msg).Elem()
+    t := v.Type()
+
+    for i := 0; i < v.NumField(); i++ {
+        f := v.Field(i)
+
+        if f.Kind() == reflect.Ptr && !f.IsNil() {
+            raw := t.Field(i).Name
+            base := strings.TrimSuffix(raw, "Message")
+            return strings.ToLower(base)
+        }
+    }
+
+    return "unknown"
+}
+
+// GenerateWABinary for create button
+func GenerateWABinary(ctx context.Context, to types.JID, msg *waE2E.Message) *[]waBinary.Node {
+	isPrivate := to.Server == types.DefaultUserServer
+	nodes := make([]waBinary.Node, 0)
+
+	switch GetMessageType(msg) {
+	case "interactive":
+		im := msg.InteractiveMessage
+		if im != nil {
+			if nfWrap, ok := im.InteractiveMessage.(*waE2E.InteractiveMessage_NativeFlowMessage_); ok {
+				nf := nfWrap.NativeFlowMessage
+				if nf != nil && len(nf.Buttons) > 0 {
+					for _, b := range nf.Buttons {
+						if b == nil || b.Name == nil {
+							continue
+						}
+
+						name := *b.Name
+
+						switch name {
+						case "review_and_pay", "payment_info":
+							nativeFlowName := "order_details"
+							if name == "payment_info" {
+								nativeFlowName = "payment_info"
+							}
+
+							bizNode := waBinary.Node{
+								Tag: "biz",
+								Attrs: waBinary.Attrs{
+									"native_flow_name": nativeFlowName,
+								},
+							}
+							nodes = append(nodes, bizNode)
+
+						case "mpm",
+							"cta_catalog",
+							"send_location",
+							"call_permission_request",
+							"wa_payment_transaction_details",
+							"automated_greeting_message_view_catalog":
+							bizNode := waBinary.Node{
+								Tag:   "biz",
+								Attrs: waBinary.Attrs{},
+								Content: []waBinary.Node{
+									{
+										Tag:   "interactive",
+										Attrs: waBinary.Attrs{"type": "native_flow", "v": "1"},
+										Content: []waBinary.Node{
+											{
+												Tag:   "native_flow",
+												Attrs: waBinary.Attrs{"v": "2", "name": name},
+											},
+										},
+									},
+								},
+							}
+							nodes = append(nodes, bizNode)
+
+						default:
+							bizNode := waBinary.Node{
+								Tag:   "biz",
+								Attrs: waBinary.Attrs{},
+								Content: []waBinary.Node{
+									{
+										Tag:   "interactive",
+										Attrs: waBinary.Attrs{"type": "native_flow", "v": "1"},
+										Content: []waBinary.Node{
+											{
+												Tag:   "native_flow",
+												Attrs: waBinary.Attrs{"v": "9", "name": "mixed"},
+											},
+										},
+									},
+								},
+							}
+							nodes = append(nodes, bizNode)
+						}
+
+						break
+					}
+				}
+			}
+		}
+
+		if isPrivate {
+			botNode := waBinary.Node{
+				Tag:   "bot",
+				Attrs: waBinary.Attrs{"biz_bot": "1"},
+			}
+			nodes = append(nodes, botNode)
+		}
+
+	case "list":
+		bizNode := waBinary.Node{
+			Tag:   "biz",
+			Attrs: waBinary.Attrs{},
+			Content: []waBinary.Node{
+				{
+					Tag:   "list",
+					Attrs: waBinary.Attrs{"v": "2", "type": "product_list"},
+				},
+			},
+		}
+		nodes = append(nodes, bizNode)
+
+	case "buttons":
+		bizNode := waBinary.Node{
+			Tag:   "biz",
+			Attrs: waBinary.Attrs{},
+			Content: []waBinary.Node{
+				{
+					Tag:   "interactive",
+					Attrs: waBinary.Attrs{"type": "native_flow", "v": "1"},
+					Content: []waBinary.Node{
+						{
+							Tag:   "native_flow",
+							Attrs: waBinary.Attrs{"v": "9", "name": "mixed"},
+						},
+					},
+				},
+			},
+		}
+		nodes = append(nodes, bizNode)
+
+		if isPrivate {
+			botNode := waBinary.Node{
+				Tag:   "bot",
+				Attrs: waBinary.Attrs{"biz_bot": "1"},
+			}
+			nodes = append(nodes, botNode)
+		}
+
+	default:
+		if isPrivate {
+			botNode := waBinary.Node{
+				Tag:   "bot",
+				Attrs: waBinary.Attrs{"biz_bot": "1"},
+			}
+			nodes = append(nodes, botNode)
+		}
+	}
+
+	return &nodes
 }
 
 //export GetPNFromLID
@@ -252,8 +416,11 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 		return_.Error = proto.String(err_message.Error())
 		return ProtoReturnV3(&return_)
 	}
+	// extra params 
+	extra := whatsmeow.SendRequestExtra{}
+	extra.AdditionalNodes = GenerateWABinary(context.Background(), utils.DecodeJidProto(&neonize_jid), &message)
 	// fmt.Println("SendMessage: Sending message to WhatsApp")
-	sendresponse, err := client.SendMessage(context.Background(), utils.DecodeJidProto(&neonize_jid), &message)
+	sendresponse, err := client.SendMessage(context.Background(), utils.DecodeJidProto(&neonize_jid), &message, extra)
 	if err != nil {
 		fmt.Println("SendMessage: Error sending message:", err.Error())
 		return_.Error = proto.String(err.Error())
