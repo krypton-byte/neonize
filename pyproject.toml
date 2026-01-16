@@ -20,6 +20,7 @@ dependencies = [
 HomePage = "https://github.com/krypton-byte/neonize"
 [dependency-groups]
 dev = [
+    "bump-my-version>=1.2.6",
     "mypy-protobuf>=3.6.0",
     "taskipy>=1.14.1",
     "types-requests>=2.32.0.20241016",
