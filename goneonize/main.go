@@ -18,16 +18,15 @@ import (
 	"fmt"
 	"strings"
 	"time"
-	"reflect"
 	"unsafe"
 
 	"github.com/krypton-byte/neonize/defproto"
 	"github.com/krypton-byte/neonize/utils"
 	_ "github.com/mattn/go-sqlite3"
 	"go.mau.fi/whatsmeow"
+	waBinary "go.mau.fi/whatsmeow/binary"
 	"go.mau.fi/whatsmeow/proto/waCompanionReg"
 	"go.mau.fi/whatsmeow/proto/waConsumerApplication"
-	waBinary "go.mau.fi/whatsmeow/binary"
 	waE2E "go.mau.fi/whatsmeow/proto/waE2E"
 	"go.mau.fi/whatsmeow/proto/waMsgApplication"
 	"go.mau.fi/whatsmeow/store"
@@ -73,7 +72,7 @@ func getByteByAddr(addr *C.uchar, size C.int) []byte {
 	// return result
 }
 
-// Get button type 
+// Get button type
 func getButtonTypeFromMessage(msg *waE2E.Message) string {
 	switch {
 	case msg.ViewOnceMessage != nil:
@@ -85,13 +84,14 @@ func getButtonTypeFromMessage(msg *waE2E.Message) string {
 	case msg.ButtonsMessage != nil:
 		return "buttons"
 	case msg.ListMessage != nil:
-		return "list"	
+		return "list"
 	case msg.InteractiveMessage != nil:
 		return "interactive"
 	default:
 		return ""
 	}
 }
+
 // GenerateWABinary for create button
 func GenerateWABinary(ctx context.Context, to types.JID, msg *waE2E.Message) *[]waBinary.Node {
 	isPrivate := to.Server == types.DefaultUserServer
@@ -418,7 +418,7 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 		return_.Error = proto.String(err_message.Error())
 		return ProtoReturnV3(&return_)
 	}
-	// extra params 
+	// extra params
 	extra := whatsmeow.SendRequestExtra{}
 	extra.AdditionalNodes = GenerateWABinary(context.Background(), utils.DecodeJidProto(&neonize_jid), &message)
 	// fmt.Println("SendMessage: Sending message to WhatsApp")
