@@ -1451,19 +1451,23 @@ class BusinessBroadcastListAction(google.protobuf.message.Message):
     DELETED_FIELD_NUMBER: builtins.int
     PARTICIPANTS_FIELD_NUMBER: builtins.int
     LISTNAME_FIELD_NUMBER: builtins.int
+    LABELIDS_FIELD_NUMBER: builtins.int
     deleted: builtins.bool
     listName: builtins.str
     @property
     def participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___BroadcastListParticipant]: ...
+    @property
+    def labelIDs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     def __init__(
         self,
         *,
         deleted: builtins.bool | None = ...,
         participants: collections.abc.Iterable[Global___BroadcastListParticipant] | None = ...,
         listName: builtins.str | None = ...,
+        labelIDs: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["deleted", b"deleted", "listName", b"listName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["deleted", b"deleted", "listName", b"listName", "participants", b"participants"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["deleted", b"deleted", "labelIDs", b"labelIDs", "listName", b"listName", "participants", b"participants"]) -> None: ...
 
 Global___BusinessBroadcastListAction: typing_extensions.TypeAlias = BusinessBroadcastListAction
 

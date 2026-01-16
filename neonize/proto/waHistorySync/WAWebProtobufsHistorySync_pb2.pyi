@@ -180,11 +180,13 @@ class Conversation(google.protobuf.message.Message):
         COMPLETE_BUT_MORE_MESSAGES_REMAIN_ON_PRIMARY: Conversation._EndOfHistoryTransferType.ValueType  # 0
         COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY: Conversation._EndOfHistoryTransferType.ValueType  # 1
         COMPLETE_ON_DEMAND_SYNC_BUT_MORE_MSG_REMAIN_ON_PRIMARY: Conversation._EndOfHistoryTransferType.ValueType  # 2
+        COMPLETE_ON_DEMAND_SYNC_WITH_MORE_MSG_ON_PRIMARY_BUT_NO_ACCESS: Conversation._EndOfHistoryTransferType.ValueType  # 3
 
     class EndOfHistoryTransferType(_EndOfHistoryTransferType, metaclass=_EndOfHistoryTransferTypeEnumTypeWrapper): ...
     COMPLETE_BUT_MORE_MESSAGES_REMAIN_ON_PRIMARY: Conversation.EndOfHistoryTransferType.ValueType  # 0
     COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY: Conversation.EndOfHistoryTransferType.ValueType  # 1
     COMPLETE_ON_DEMAND_SYNC_BUT_MORE_MSG_REMAIN_ON_PRIMARY: Conversation.EndOfHistoryTransferType.ValueType  # 2
+    COMPLETE_ON_DEMAND_SYNC_WITH_MORE_MSG_ON_PRIMARY_BUT_NO_ACCESS: Conversation.EndOfHistoryTransferType.ValueType  # 3
 
     ID_FIELD_NUMBER: builtins.int
     MESSAGES_FIELD_NUMBER: builtins.int
