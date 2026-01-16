@@ -55,6 +55,8 @@ jobs:
         repo-token: ${{ secrets.PAT }}
     - name: build
       run: |
+        git config user.name "krypton-byte"
+        git config user.email ${{ secrets.EMAIL }}
         update_neonize(){
           case "${{ inputs.version_type }}" in
             major)
@@ -141,6 +143,8 @@ jobs:
         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
     - name: build
       run: |
+        git config user.name "krypton-byte"
+        git config user.email ${{ secrets.EMAIL }}
         update_neonize(){
           case "${{ inputs.version_type }}" in
             major)
@@ -238,6 +242,8 @@ jobs:
       run: sudo apt update && sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
     - name: build
       run: |
+        git config user.name "krypton-byte"
+        git config user.email ${{ secrets.EMAIL }}
         update_neonize(){
             case "${{ inputs.version_type }}" in
               major)
@@ -330,6 +336,8 @@ jobs:
         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
     - name: build
       run: |
+        git config user.name "krypton-byte"
+        git config user.email ${{ secrets.EMAIL }}
         update_neonize(){
             case "${{ inputs.version_type }}" in
               major)
@@ -483,6 +491,8 @@ jobs:
         repo-token: ${{ secrets.PAT }}
     - name: install deps
       run: |
+        git config user.name "krypton-byte"
+        git config user.email ${{ secrets.EMAIL }}
         uv sync --dev
         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
         update_neonize(){
@@ -505,8 +515,6 @@ jobs:
         echo "TAG_NAME=$(uv run bump-my-version show current_version)" >> $GITHUB_ENV
         ls -R
         ls -lah sharedlib
-                  git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git push origin master
           git push tag 
