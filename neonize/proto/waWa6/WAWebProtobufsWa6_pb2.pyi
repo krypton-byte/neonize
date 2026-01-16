@@ -161,6 +161,8 @@ class ClientPayload(google.protobuf.message.Message):
             OVERRIDE: ClientPayload.DNSSource._DNSResolutionMethod.ValueType  # 3
             FALLBACK: ClientPayload.DNSSource._DNSResolutionMethod.ValueType  # 4
             MNS: ClientPayload.DNSSource._DNSResolutionMethod.ValueType  # 5
+            MNS_SECONDARY: ClientPayload.DNSSource._DNSResolutionMethod.ValueType  # 6
+            SOCKS_PROXY: ClientPayload.DNSSource._DNSResolutionMethod.ValueType  # 7
 
         class DNSResolutionMethod(_DNSResolutionMethod, metaclass=_DNSResolutionMethodEnumTypeWrapper): ...
         SYSTEM: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 0
@@ -169,6 +171,8 @@ class ClientPayload(google.protobuf.message.Message):
         OVERRIDE: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 3
         FALLBACK: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 4
         MNS: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 5
+        MNS_SECONDARY: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 6
+        SOCKS_PROXY: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 7
 
         DNSMETHOD_FIELD_NUMBER: builtins.int
         APPCACHED_FIELD_NUMBER: builtins.int
@@ -256,9 +260,13 @@ class ClientPayload(google.protobuf.message.Message):
         VERSION_FIELD_NUMBER: builtins.int
         WEBDPAYLOAD_FIELD_NUMBER: builtins.int
         WEBSUBPLATFORM_FIELD_NUMBER: builtins.int
+        BROWSER_FIELD_NUMBER: builtins.int
+        BROWSERVERSION_FIELD_NUMBER: builtins.int
         refToken: builtins.str
         version: builtins.str
         webSubPlatform: Global___ClientPayload.WebInfo.WebSubPlatform.ValueType
+        browser: builtins.str
+        browserVersion: builtins.str
         @property
         def webdPayload(self) -> Global___ClientPayload.WebInfo.WebdPayload: ...
         def __init__(
@@ -268,9 +276,11 @@ class ClientPayload(google.protobuf.message.Message):
             version: builtins.str | None = ...,
             webdPayload: Global___ClientPayload.WebInfo.WebdPayload | None = ...,
             webSubPlatform: Global___ClientPayload.WebInfo.WebSubPlatform.ValueType | None = ...,
+            browser: builtins.str | None = ...,
+            browserVersion: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["refToken", b"refToken", "version", b"version", "webSubPlatform", b"webSubPlatform", "webdPayload", b"webdPayload"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["refToken", b"refToken", "version", b"version", "webSubPlatform", b"webSubPlatform", "webdPayload", b"webdPayload"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["browser", b"browser", "browserVersion", b"browserVersion", "refToken", b"refToken", "version", b"version", "webSubPlatform", b"webSubPlatform", "webdPayload", b"webdPayload"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["browser", b"browser", "browserVersion", b"browserVersion", "refToken", b"refToken", "version", b"version", "webSubPlatform", b"webSubPlatform", "webdPayload", b"webdPayload"]) -> None: ...
 
     @typing.final
     class UserAgent(google.protobuf.message.Message):
