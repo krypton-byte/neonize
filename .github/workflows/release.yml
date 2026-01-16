@@ -3,25 +3,16 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      version_major:
-        description: Specify whether the major version (<major>.minor.patch.post) should be updated.
-        type: boolean
-        required: false
-        default: false
-      version_minor:
-        description: Specify whether the minor version (major.<minor>.patch.post) should be updated.
-        type: boolean
-        required: false
-        default: false
-      version_patch:
-        description: Specify whether the patch version (major.minor.<patch>.post) should be updated.
-        type: boolean
-        required: false
-      version_post:
-        description: Specify whether the post version (major.minor.patch.<post>) should be updated.
-        type: boolean
-        required: false
-        default: true
+      version_type:
+        description: "Type of release version bump"
+        required: true
+        type: choice
+        default: patch
+        options:
+          - major
+          - minor
+          - patch
+          - post
 
 env:
  UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
@@ -34,6 +25,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+        fetch-tags: true
     - uses: actions/setup-go@v4
       with:
         go-version: '^1.21.5'
@@ -53,7 +47,7 @@ jobs:
       run: |
         uv sync --dev
         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-        bash bump_version.sh
+        
     - name: Install Protoc
       uses: arduino/setup-protoc@v3
       with:
@@ -61,6 +55,22 @@ jobs:
         repo-token: ${{ secrets.PAT }}
     - name: build
       run: |
+        update_neonize(){
+          case "${{ inputs.version_type }}" in
+            major)
+              uv run bump-my-version bump patch 
+              ;;
+            minor)
+              uv run bump-my-version bump minor
+              ;;
+            patch)
+              uv run bump-my-version bump patch
+              ;;
+            post)
+              uv run bump-my-version bump post
+              ;;
+          esac
+        }
         # uv run task goneonize_changed
         export CGO_ENABLED=1
         wget https://dl.google.com/android/repository/android-ndk-r26b-linux.zip > /dev/null
@@ -72,25 +82,26 @@ jobs:
         export CXX=$(which aarch64-linux-android28-clang++)
         export GOOS=android
         export GOARCH=arm64
-        uv run task build all
+        update_neonize
+        uv run task build goneonize --smart
         #ARM
         export CC=$(which armv7a-linux-androideabi28-clang)
         export CXX=$(which armv7a-linux-androideabi28-clang++)
         export GOOS=android
         export GOARCH=arm
-        uv run task build goneonize
+        uv run task build goneonize --smart
         #AMD64/x86_64
         export CC=$(which x86_64-linux-android28-clang)
         export CXX=$(which x86_64-linux-android28-clang++)
         export GOOS=android
         export GOARCH=amd64
-        uv run task build goneonize
+        uv run task build goneonize --smart
         #386/686
         export CC=$(which i686-linux-android28-clang)
         export CXX=$(which i686-linux-android28-clang++)
         export GOOS=android
         export GOARCH=386
-        uv run task build goneonize
+        uv run task build goneonize --smart
       continue-on-error: true
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
@@ -101,6 +112,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+        fetch-tags: true
     - uses: actions/setup-go@v4
       with:
         go-version: '^1.21.5'
@@ -125,9 +139,24 @@ jobs:
       run: |
         uv sync --dev
         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-        bash bump_version.sh
     - name: build
       run: |
+        update_neonize(){
+          case "${{ inputs.version_type }}" in
+            major)
+              uv run bump-my-version bump patch 
+              ;;
+            minor)
+              uv run bump-my-version bump minor
+              ;;
+            patch)
+              uv run bump-my-version bump patch
+              ;;
+            post)
+              uv run bump-my-version bump post
+              ;;
+          esac
+        }
         # uv run task goneonize_changed
         mkdir LIBS
         export CGO_ENABLED=1
@@ -135,7 +164,8 @@ jobs:
         export GOOS=windows
         export GOARCH=amd64
         export CC="zig cc -target x86_64-windows"
-        uv run task build goneonize
+        update_neonize
+        uv run task build goneonize --smart
         uv build
         uv run task repack
         mv neonize/*.dll LIBS
@@ -143,7 +173,7 @@ jobs:
         export GOOS=windows
         export GOARCH=arm64
         export CC="zig cc -target aarch64-windows"
-        uv run task build goneonize
+        uv run task build goneonize --smart
         uv build
         uv run task repack
         mv neonize/*.dll LIBS
@@ -151,7 +181,7 @@ jobs:
         export GOOS=windows
         export GOARCH=386
         export CC="zig cc -target x86-windows"
-        uv run task build goneonize
+        uv run task build goneonize --smart
         uv build
         uv run task repack
         mv neonize/*.dll LIBS
@@ -159,7 +189,7 @@ jobs:
         export GOOS=linux
         export GOARCH=386
         export CC="zig cc -target x86-linux"
-        uv run task build goneonize
+        uv run task build goneonize --smart
         uv build
         uv run task repack
         mv neonize/*.so LIBS
@@ -178,6 +208,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+        fetch-tags: true
     - uses: actions/setup-go@v4
       with:
         go-version: '^1.21.5'
@@ -201,16 +234,32 @@ jobs:
       run: |
         uv sync --dev
         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-        bash bump_version.sh
     - name: Installing Dev Package
       run: sudo apt update && sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
     - name: build
       run: |
+        update_neonize(){
+            case "${{ inputs.version_type }}" in
+              major)
+                uv run bump-my-version bump patch 
+                ;;
+              minor)
+                uv run bump-my-version bump minor
+                ;;
+              patch)
+                uv run bump-my-version bump patch
+                ;;
+              post)
+                uv run bump-my-version bump post
+                ;;
+            esac
+          }
         # uv run task goneonize_changed
         mkdir LIBS
         #AMD64/X86_64
         export CGO_ENABLED=1
-        uv run task build all
+        update_neonize
+        uv run task build goneonize --smart
         uv build
         uv run task repack
         mv neonize/*.so LIBS
@@ -219,7 +268,7 @@ jobs:
         export GOARCH=arm64
         export CC=$(which aarch64-linux-gnu-gcc)
         export CXX=$(which aarch64-linux-gnu-cpp)
-        uv run task build goneonize
+        uv run task build goneonize --smart
         uv build
         uv run task repack
         mv neonize/*.so LIBS
@@ -228,14 +277,14 @@ jobs:
         export GOARCH=riscv64
         export CC=$(which riscv64-linux-gnu-gcc)
         export CXX=$(which riscv64-linux-gnu-cpp)
-        uv run task build goneonize
+        uv run task build goneonize --smart
         mv neonize/*.so LIBS
         #S390X
         export GOOS=linux
         export GOARCH=s390x
         export CC=$(which s390x-linux-gnu-gcc)
         export CXX=$(which s390x-linux-gnu-cpp)
-        uv run task build goneonize
+        uv run task build goneonize --smart
         uv build
         uv run task repack
         mv neonize/*.so LIBS
@@ -253,6 +302,9 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+        fetch-tags: true
     - uses: actions/setup-go@v4
       with:
         go-version: '^1.21.5'
@@ -276,9 +328,24 @@ jobs:
       run: |
         uv sync --dev
         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-        bash bump_version.sh
     - name: build
       run: |
+        update_neonize(){
+            case "${{ inputs.version_type }}" in
+              major)
+                uv run bump-my-version bump patch 
+                ;;
+              minor)
+                uv run bump-my-version bump minor
+                ;;
+              patch)
+                uv run bump-my-version bump patch
+                ;;
+              post)
+                uv run bump-my-version bump post
+                ;;
+            esac
+          }
         # uv run task goneonize_changed
         mkdir LIBS
         export PATH="/Users/runner/.local/bin:$PATH"
@@ -291,7 +358,8 @@ jobs:
         export GOARCH=amd64
         export CC=$(which clang)
         export CXX=$(which clang++)
-        uv run task build all
+        update_neonize
+        uv run task build goneonize --smart
         uv build
         uv run task repack
         mv neonize/*.dylib LIBS/
@@ -301,7 +369,7 @@ jobs:
         export GOARCH=arm64
         export CC=$(which clang)
         export CXX=$(which clang++)
-        uv run task build goneonize
+        uv run task build goneonize --smart
         uv build
         uv run task repack
         cp dist/*.whl LIBS/
@@ -392,6 +460,9 @@ jobs:
     needs: [android, zig, linux, darwin]
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+        fetch-tags: true
     - uses: actions/setup-python@v4
       with:
         python-version: "3.11"
@@ -414,11 +485,31 @@ jobs:
       run: |
         uv sync --dev
         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-        bash bump_version.sh
-        uv run task build proto
-        echo "TAG_NAME=$(uv run task version neonize)" >> $GITHUB_ENV
+        update_neonize(){
+            case "${{ inputs.version_type }}" in
+              major)
+                uv run bump-my-version bump patch 
+                ;;
+              minor)
+                uv run bump-my-version bump minor
+                ;;
+              patch)
+                uv run bump-my-version bump patch
+                ;;
+              post)
+                uv run bump-my-version bump post
+                ;;
+            esac
+          }
+        update_neonize
+        echo "TAG_NAME=$(uv run bump-my-version show current_version)" >> $GITHUB_ENV
         ls -R
         ls -lah sharedlib
+                  git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git push origin master
+          git push tag 
     - name: Upload shared library to draft release
       uses: softprops/action-gh-release@v1
       with:

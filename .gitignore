@@ -1,4 +1,5 @@
 # Neonize Dist
+sharedlib/
 goneonize/*.h
 *.lock
 
