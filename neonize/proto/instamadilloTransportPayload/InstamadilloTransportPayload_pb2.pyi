@@ -3,29 +3,29 @@
 isort:skip_file
 """
 
-import builtins
-import google.protobuf.descriptor
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import instamadilloAddMessage.InstamadilloAddMessage_pb2
-import instamadilloDeleteMessage.InstamadilloDeleteMessage_pb2
-import instamadilloSupplementMessage.InstamadilloSupplementMessage_pb2
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from instamadilloAddMessage import InstamadilloAddMessage_pb2 as _InstamadilloAddMessage_pb2
+from instamadilloDeleteMessage import InstamadilloDeleteMessage_pb2 as _InstamadilloDeleteMessage_pb2
+from instamadilloSupplementMessage import InstamadilloSupplementMessage_pb2 as _InstamadilloSupplementMessage_pb2
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _PayloadCreator:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _PayloadCreatorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PayloadCreator.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _PayloadCreatorEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_PayloadCreator.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     PAYLOAD_CREATOR_UNSPECIFIED: _PayloadCreator.ValueType  # 0
     PAYLOAD_CREATOR_IGIOS: _PayloadCreator.ValueType  # 1
     PAYLOAD_CREATOR_IG4A: _PayloadCreator.ValueType  # 2
@@ -39,62 +39,68 @@ PAYLOAD_CREATOR_IGIOS: PayloadCreator.ValueType  # 1
 PAYLOAD_CREATOR_IG4A: PayloadCreator.ValueType  # 2
 PAYLOAD_CREATOR_WWW: PayloadCreator.ValueType  # 3
 PAYLOAD_CREATOR_IGLITE: PayloadCreator.ValueType  # 4
-Global___PayloadCreator: typing_extensions.TypeAlias = PayloadCreator
+Global___PayloadCreator: _TypeAlias = PayloadCreator  # noqa: Y015
 
-@typing.final
-class TransportPayload(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class TransportPayload(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ADD_FIELD_NUMBER: builtins.int
-    DELETE_FIELD_NUMBER: builtins.int
-    SUPPLEMENT_FIELD_NUMBER: builtins.int
-    FRANKING_FIELD_NUMBER: builtins.int
-    OPENEB_FIELD_NUMBER: builtins.int
-    ISE2EEATTRIBUTED_FIELD_NUMBER: builtins.int
-    PAYLOADCREATOR_FIELD_NUMBER: builtins.int
-    openEb: builtins.bool
-    isE2EeAttributed: builtins.bool
+    ADD_FIELD_NUMBER: _builtins.int
+    DELETE_FIELD_NUMBER: _builtins.int
+    SUPPLEMENT_FIELD_NUMBER: _builtins.int
+    FRANKING_FIELD_NUMBER: _builtins.int
+    OPENEB_FIELD_NUMBER: _builtins.int
+    ISE2EEATTRIBUTED_FIELD_NUMBER: _builtins.int
+    PAYLOADCREATOR_FIELD_NUMBER: _builtins.int
+    openEb: _builtins.bool
+    isE2EeAttributed: _builtins.bool
     payloadCreator: Global___PayloadCreator.ValueType
-    @property
-    def add(self) -> instamadilloAddMessage.InstamadilloAddMessage_pb2.AddMessagePayload: ...
-    @property
-    def delete(self) -> instamadilloDeleteMessage.InstamadilloDeleteMessage_pb2.DeleteMessagePayload: ...
-    @property
-    def supplement(self) -> instamadilloSupplementMessage.InstamadilloSupplementMessage_pb2.SupplementMessagePayload: ...
-    @property
+    @_builtins.property
+    def add(self) -> _InstamadilloAddMessage_pb2.AddMessagePayload: ...
+    @_builtins.property
+    def delete(self) -> _InstamadilloDeleteMessage_pb2.DeleteMessagePayload: ...
+    @_builtins.property
+    def supplement(self) -> _InstamadilloSupplementMessage_pb2.SupplementMessagePayload: ...
+    @_builtins.property
     def franking(self) -> Global___Franking: ...
     def __init__(
         self,
         *,
-        add: instamadilloAddMessage.InstamadilloAddMessage_pb2.AddMessagePayload | None = ...,
-        delete: instamadilloDeleteMessage.InstamadilloDeleteMessage_pb2.DeleteMessagePayload | None = ...,
-        supplement: instamadilloSupplementMessage.InstamadilloSupplementMessage_pb2.SupplementMessagePayload | None = ...,
+        add: _InstamadilloAddMessage_pb2.AddMessagePayload | None = ...,
+        delete: _InstamadilloDeleteMessage_pb2.DeleteMessagePayload | None = ...,
+        supplement: _InstamadilloSupplementMessage_pb2.SupplementMessagePayload | None = ...,
         franking: Global___Franking | None = ...,
-        openEb: builtins.bool | None = ...,
-        isE2EeAttributed: builtins.bool | None = ...,
+        openEb: _builtins.bool | None = ...,
+        isE2EeAttributed: _builtins.bool | None = ...,
         payloadCreator: Global___PayloadCreator.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["add", b"add", "delete", b"delete", "franking", b"franking", "isE2EeAttributed", b"isE2EeAttributed", "openEb", b"openEb", "payloadCreator", b"payloadCreator", "supplement", b"supplement", "transportPayload", b"transportPayload"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["add", b"add", "delete", b"delete", "franking", b"franking", "isE2EeAttributed", b"isE2EeAttributed", "openEb", b"openEb", "payloadCreator", b"payloadCreator", "supplement", b"supplement", "transportPayload", b"transportPayload"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["transportPayload", b"transportPayload"]) -> typing.Literal["add", "delete", "supplement"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["add", b"add", "delete", b"delete", "franking", b"franking", "isE2EeAttributed", b"isE2EeAttributed", "openEb", b"openEb", "payloadCreator", b"payloadCreator", "supplement", b"supplement", "transportPayload", b"transportPayload"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["add", b"add", "delete", b"delete", "franking", b"franking", "isE2EeAttributed", b"isE2EeAttributed", "openEb", b"openEb", "payloadCreator", b"payloadCreator", "supplement", b"supplement", "transportPayload", b"transportPayload"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_transportPayload: _TypeAlias = _typing.Literal["add", "delete", "supplement"]  # noqa: Y015
+    _WhichOneofArgType_transportPayload: _TypeAlias = _typing.Literal["transportPayload", b"transportPayload"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_transportPayload) -> _WhichOneofReturnType_transportPayload | None: ...
 
-Global___TransportPayload: typing_extensions.TypeAlias = TransportPayload
+Global___TransportPayload: _TypeAlias = TransportPayload  # noqa: Y015
 
-@typing.final
-class Franking(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Franking(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    FRANKINGKEY_FIELD_NUMBER: builtins.int
-    FRANKINGVERSION_FIELD_NUMBER: builtins.int
-    frankingKey: builtins.bytes
-    frankingVersion: builtins.int
+    FRANKINGKEY_FIELD_NUMBER: _builtins.int
+    FRANKINGVERSION_FIELD_NUMBER: _builtins.int
+    frankingKey: _builtins.bytes
+    frankingVersion: _builtins.int
     def __init__(
         self,
         *,
-        frankingKey: builtins.bytes | None = ...,
-        frankingVersion: builtins.int | None = ...,
+        frankingKey: _builtins.bytes | None = ...,
+        frankingVersion: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["frankingKey", b"frankingKey", "frankingVersion", b"frankingVersion"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["frankingKey", b"frankingKey", "frankingVersion", b"frankingVersion"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["frankingKey", b"frankingKey", "frankingVersion", b"frankingVersion"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["frankingKey", b"frankingKey", "frankingVersion", b"frankingVersion"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___Franking: typing_extensions.TypeAlias = Franking
+Global___Franking: _TypeAlias = Franking  # noqa: Y015

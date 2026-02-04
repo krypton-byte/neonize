@@ -3,102 +3,110 @@
 isort:skip_file
 """
 
-import builtins
-import google.protobuf.descriptor
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from waArmadilloBackupCommon import WAArmadilloBackupCommon_pb2 as _WAArmadilloBackupCommon_pb2
+import builtins as _builtins
 import sys
-import typing
-import waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class BackupMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class BackupMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class Metadata(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Metadata(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        @typing.final
-        class FrankingMetadata(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class FrankingMetadata(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            FRANKINGTAG_FIELD_NUMBER: builtins.int
-            REPORTINGTAG_FIELD_NUMBER: builtins.int
-            frankingTag: builtins.bytes
-            reportingTag: builtins.bytes
+            FRANKINGTAG_FIELD_NUMBER: _builtins.int
+            REPORTINGTAG_FIELD_NUMBER: _builtins.int
+            frankingTag: _builtins.bytes
+            reportingTag: _builtins.bytes
             def __init__(
                 self,
                 *,
-                frankingTag: builtins.bytes | None = ...,
-                reportingTag: builtins.bytes | None = ...,
+                frankingTag: _builtins.bytes | None = ...,
+                reportingTag: _builtins.bytes | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["frankingTag", b"frankingTag", "reportingTag", b"reportingTag"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["frankingTag", b"frankingTag", "reportingTag", b"reportingTag"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["frankingTag", b"frankingTag", "reportingTag", b"reportingTag"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["frankingTag", b"frankingTag", "reportingTag", b"reportingTag"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        SENDERID_FIELD_NUMBER: builtins.int
-        MESSAGEID_FIELD_NUMBER: builtins.int
-        TIMESTAMPMS_FIELD_NUMBER: builtins.int
-        FRANKINGMETADATA_FIELD_NUMBER: builtins.int
-        PAYLOADVERSION_FIELD_NUMBER: builtins.int
-        FUTUREPROOFBEHAVIOR_FIELD_NUMBER: builtins.int
-        THREADTYPETAG_FIELD_NUMBER: builtins.int
-        CLIENTTIMESTAMPMS_FIELD_NUMBER: builtins.int
-        senderID: builtins.str
-        messageID: builtins.str
-        timestampMS: builtins.int
-        payloadVersion: builtins.int
-        futureProofBehavior: builtins.int
-        threadTypeTag: builtins.int
-        clientTimestampMS: builtins.int
-        @property
+        SENDERID_FIELD_NUMBER: _builtins.int
+        MESSAGEID_FIELD_NUMBER: _builtins.int
+        TIMESTAMPMS_FIELD_NUMBER: _builtins.int
+        FRANKINGMETADATA_FIELD_NUMBER: _builtins.int
+        PAYLOADVERSION_FIELD_NUMBER: _builtins.int
+        FUTUREPROOFBEHAVIOR_FIELD_NUMBER: _builtins.int
+        THREADTYPETAG_FIELD_NUMBER: _builtins.int
+        CLIENTTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+        senderID: _builtins.str
+        messageID: _builtins.str
+        timestampMS: _builtins.int
+        payloadVersion: _builtins.int
+        futureProofBehavior: _builtins.int
+        threadTypeTag: _builtins.int
+        clientTimestampMS: _builtins.int
+        @_builtins.property
         def frankingMetadata(self) -> Global___BackupMessage.Metadata.FrankingMetadata: ...
         def __init__(
             self,
             *,
-            senderID: builtins.str | None = ...,
-            messageID: builtins.str | None = ...,
-            timestampMS: builtins.int | None = ...,
+            senderID: _builtins.str | None = ...,
+            messageID: _builtins.str | None = ...,
+            timestampMS: _builtins.int | None = ...,
             frankingMetadata: Global___BackupMessage.Metadata.FrankingMetadata | None = ...,
-            payloadVersion: builtins.int | None = ...,
-            futureProofBehavior: builtins.int | None = ...,
-            threadTypeTag: builtins.int | None = ...,
-            clientTimestampMS: builtins.int | None = ...,
+            payloadVersion: _builtins.int | None = ...,
+            futureProofBehavior: _builtins.int | None = ...,
+            threadTypeTag: _builtins.int | None = ...,
+            clientTimestampMS: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["clientTimestampMS", b"clientTimestampMS", "frankingMetadata", b"frankingMetadata", "futureProofBehavior", b"futureProofBehavior", "messageID", b"messageID", "payloadVersion", b"payloadVersion", "senderID", b"senderID", "threadTypeTag", b"threadTypeTag", "timestampMS", b"timestampMS"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["clientTimestampMS", b"clientTimestampMS", "frankingMetadata", b"frankingMetadata", "futureProofBehavior", b"futureProofBehavior", "messageID", b"messageID", "payloadVersion", b"payloadVersion", "senderID", b"senderID", "threadTypeTag", b"threadTypeTag", "timestampMS", b"timestampMS"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["clientTimestampMS", b"clientTimestampMS", "frankingMetadata", b"frankingMetadata", "futureProofBehavior", b"futureProofBehavior", "messageID", b"messageID", "payloadVersion", b"payloadVersion", "senderID", b"senderID", "threadTypeTag", b"threadTypeTag", "timestampMS", b"timestampMS"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["clientTimestampMS", b"clientTimestampMS", "frankingMetadata", b"frankingMetadata", "futureProofBehavior", b"futureProofBehavior", "messageID", b"messageID", "payloadVersion", b"payloadVersion", "senderID", b"senderID", "threadTypeTag", b"threadTypeTag", "timestampMS", b"timestampMS"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    ENCRYPTEDTRANSPORTMESSAGE_FIELD_NUMBER: builtins.int
-    ENCRYPTEDTRANSPORTEVENT_FIELD_NUMBER: builtins.int
-    ENCRYPTEDTRANSPORTLOCALLYTRANSFORMEDMESSAGE_FIELD_NUMBER: builtins.int
-    MITRANSPORTADMINMESSAGE_FIELD_NUMBER: builtins.int
-    METADATA_FIELD_NUMBER: builtins.int
-    encryptedTransportMessage: builtins.bytes
-    @property
-    def encryptedTransportEvent(self) -> waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol: ...
-    @property
-    def encryptedTransportLocallyTransformedMessage(self) -> waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol: ...
-    @property
-    def miTransportAdminMessage(self) -> waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol: ...
-    @property
+    ENCRYPTEDTRANSPORTMESSAGE_FIELD_NUMBER: _builtins.int
+    ENCRYPTEDTRANSPORTEVENT_FIELD_NUMBER: _builtins.int
+    ENCRYPTEDTRANSPORTLOCALLYTRANSFORMEDMESSAGE_FIELD_NUMBER: _builtins.int
+    MITRANSPORTADMINMESSAGE_FIELD_NUMBER: _builtins.int
+    METADATA_FIELD_NUMBER: _builtins.int
+    encryptedTransportMessage: _builtins.bytes
+    @_builtins.property
+    def encryptedTransportEvent(self) -> _WAArmadilloBackupCommon_pb2.Subprotocol: ...
+    @_builtins.property
+    def encryptedTransportLocallyTransformedMessage(self) -> _WAArmadilloBackupCommon_pb2.Subprotocol: ...
+    @_builtins.property
+    def miTransportAdminMessage(self) -> _WAArmadilloBackupCommon_pb2.Subprotocol: ...
+    @_builtins.property
     def metadata(self) -> Global___BackupMessage.Metadata: ...
     def __init__(
         self,
         *,
-        encryptedTransportMessage: builtins.bytes | None = ...,
-        encryptedTransportEvent: waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol | None = ...,
-        encryptedTransportLocallyTransformedMessage: waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol | None = ...,
-        miTransportAdminMessage: waArmadilloBackupCommon.WAArmadilloBackupCommon_pb2.Subprotocol | None = ...,
+        encryptedTransportMessage: _builtins.bytes | None = ...,
+        encryptedTransportEvent: _WAArmadilloBackupCommon_pb2.Subprotocol | None = ...,
+        encryptedTransportLocallyTransformedMessage: _WAArmadilloBackupCommon_pb2.Subprotocol | None = ...,
+        miTransportAdminMessage: _WAArmadilloBackupCommon_pb2.Subprotocol | None = ...,
         metadata: Global___BackupMessage.Metadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["encryptedTransportEvent", b"encryptedTransportEvent", "encryptedTransportLocallyTransformedMessage", b"encryptedTransportLocallyTransformedMessage", "encryptedTransportMessage", b"encryptedTransportMessage", "metadata", b"metadata", "miTransportAdminMessage", b"miTransportAdminMessage", "payload", b"payload"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["encryptedTransportEvent", b"encryptedTransportEvent", "encryptedTransportLocallyTransformedMessage", b"encryptedTransportLocallyTransformedMessage", "encryptedTransportMessage", b"encryptedTransportMessage", "metadata", b"metadata", "miTransportAdminMessage", b"miTransportAdminMessage", "payload", b"payload"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["payload", b"payload"]) -> typing.Literal["encryptedTransportMessage", "encryptedTransportEvent", "encryptedTransportLocallyTransformedMessage", "miTransportAdminMessage"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["encryptedTransportEvent", b"encryptedTransportEvent", "encryptedTransportLocallyTransformedMessage", b"encryptedTransportLocallyTransformedMessage", "encryptedTransportMessage", b"encryptedTransportMessage", "metadata", b"metadata", "miTransportAdminMessage", b"miTransportAdminMessage", "payload", b"payload"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["encryptedTransportEvent", b"encryptedTransportEvent", "encryptedTransportLocallyTransformedMessage", b"encryptedTransportLocallyTransformedMessage", "encryptedTransportMessage", b"encryptedTransportMessage", "metadata", b"metadata", "miTransportAdminMessage", b"miTransportAdminMessage", "payload", b"payload"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_payload: _TypeAlias = _typing.Literal["encryptedTransportMessage", "encryptedTransportEvent", "encryptedTransportLocallyTransformedMessage", "miTransportAdminMessage"]  # noqa: Y015
+    _WhichOneofArgType_payload: _TypeAlias = _typing.Literal["payload", b"payload"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_payload) -> _WhichOneofReturnType_payload | None: ...
 
-Global___BackupMessage: typing_extensions.TypeAlias = BackupMessage
+Global___BackupMessage: _TypeAlias = BackupMessage  # noqa: Y015

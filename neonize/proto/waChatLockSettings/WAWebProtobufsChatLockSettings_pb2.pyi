@@ -3,36 +3,38 @@
 isort:skip_file
 """
 
-import builtins
-import google.protobuf.descriptor
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from waUserPassword import WAWebProtobufsUserPassword_pb2 as _WAWebProtobufsUserPassword_pb2
+import builtins as _builtins
 import sys
-import typing
-import waUserPassword.WAWebProtobufsUserPassword_pb2
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class ChatLockSettings(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ChatLockSettings(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    HIDELOCKEDCHATS_FIELD_NUMBER: builtins.int
-    SECRETCODE_FIELD_NUMBER: builtins.int
-    hideLockedChats: builtins.bool
-    @property
-    def secretCode(self) -> waUserPassword.WAWebProtobufsUserPassword_pb2.UserPassword: ...
+    HIDELOCKEDCHATS_FIELD_NUMBER: _builtins.int
+    SECRETCODE_FIELD_NUMBER: _builtins.int
+    hideLockedChats: _builtins.bool
+    @_builtins.property
+    def secretCode(self) -> _WAWebProtobufsUserPassword_pb2.UserPassword: ...
     def __init__(
         self,
         *,
-        hideLockedChats: builtins.bool | None = ...,
-        secretCode: waUserPassword.WAWebProtobufsUserPassword_pb2.UserPassword | None = ...,
+        hideLockedChats: _builtins.bool | None = ...,
+        secretCode: _WAWebProtobufsUserPassword_pb2.UserPassword | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["hideLockedChats", b"hideLockedChats", "secretCode", b"secretCode"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["hideLockedChats", b"hideLockedChats", "secretCode", b"secretCode"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["hideLockedChats", b"hideLockedChats", "secretCode", b"secretCode"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["hideLockedChats", b"hideLockedChats", "secretCode", b"secretCode"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ChatLockSettings: typing_extensions.TypeAlias = ChatLockSettings
+Global___ChatLockSettings: _TypeAlias = ChatLockSettings  # noqa: Y015

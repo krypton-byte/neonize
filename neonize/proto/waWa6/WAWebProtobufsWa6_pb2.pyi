@@ -3,32 +3,32 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class ClientPayload(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ClientPayload(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _TrafficAnonymization:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _TrafficAnonymizationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ClientPayload._TrafficAnonymization.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _TrafficAnonymizationEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ClientPayload._TrafficAnonymization.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         OFF: ClientPayload._TrafficAnonymization.ValueType  # 0
         STANDARD: ClientPayload._TrafficAnonymization.ValueType  # 1
 
@@ -37,11 +37,11 @@ class ClientPayload(google.protobuf.message.Message):
     STANDARD: ClientPayload.TrafficAnonymization.ValueType  # 1
 
     class _AccountType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _AccountTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ClientPayload._AccountType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _AccountTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ClientPayload._AccountType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         DEFAULT: ClientPayload._AccountType.ValueType  # 0
         GUEST: ClientPayload._AccountType.ValueType  # 1
 
@@ -50,11 +50,11 @@ class ClientPayload(google.protobuf.message.Message):
     GUEST: ClientPayload.AccountType.ValueType  # 1
 
     class _Product:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ProductEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ClientPayload._Product.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ProductEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ClientPayload._Product.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         WHATSAPP: ClientPayload._Product.ValueType  # 0
         MESSENGER: ClientPayload._Product.ValueType  # 1
         INTEROP: ClientPayload._Product.ValueType  # 2
@@ -69,11 +69,11 @@ class ClientPayload(google.protobuf.message.Message):
     WHATSAPP_LID: ClientPayload.Product.ValueType  # 4
 
     class _ConnectType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ConnectTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ClientPayload._ConnectType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ConnectTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ClientPayload._ConnectType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         CELLULAR_UNKNOWN: ClientPayload._ConnectType.ValueType  # 0
         WIFI_UNKNOWN: ClientPayload._ConnectType.ValueType  # 1
         CELLULAR_EDGE: ClientPayload._ConnectType.ValueType  # 100
@@ -108,11 +108,11 @@ class ClientPayload(google.protobuf.message.Message):
     CELLULAR_HSPAP: ClientPayload.ConnectType.ValueType  # 112
 
     class _ConnectReason:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ConnectReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ClientPayload._ConnectReason.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ConnectReasonEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ClientPayload._ConnectReason.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         PUSH: ClientPayload._ConnectReason.ValueType  # 0
         USER_ACTIVATED: ClientPayload._ConnectReason.ValueType  # 1
         SCHEDULED: ClientPayload._ConnectReason.ValueType  # 2
@@ -131,11 +131,11 @@ class ClientPayload(google.protobuf.message.Message):
     UNKNOWN: ClientPayload.ConnectReason.ValueType  # 6
 
     class _IOSAppExtension:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _IOSAppExtensionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ClientPayload._IOSAppExtension.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _IOSAppExtensionEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ClientPayload._IOSAppExtension.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         SHARE_EXTENSION: ClientPayload._IOSAppExtension.ValueType  # 0
         SERVICE_EXTENSION: ClientPayload._IOSAppExtension.ValueType  # 1
         INTENTS_EXTENSION: ClientPayload._IOSAppExtension.ValueType  # 2
@@ -145,16 +145,16 @@ class ClientPayload(google.protobuf.message.Message):
     SERVICE_EXTENSION: ClientPayload.IOSAppExtension.ValueType  # 1
     INTENTS_EXTENSION: ClientPayload.IOSAppExtension.ValueType  # 2
 
-    @typing.final
-    class DNSSource(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class DNSSource(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _DNSResolutionMethod:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _DNSResolutionMethodEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ClientPayload.DNSSource._DNSResolutionMethod.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _DNSResolutionMethodEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ClientPayload.DNSSource._DNSResolutionMethod.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             SYSTEM: ClientPayload.DNSSource._DNSResolutionMethod.ValueType  # 0
             GOOGLE: ClientPayload.DNSSource._DNSResolutionMethod.ValueType  # 1
             HARDCODED: ClientPayload.DNSSource._DNSResolutionMethod.ValueType  # 2
@@ -174,29 +174,31 @@ class ClientPayload(google.protobuf.message.Message):
         MNS_SECONDARY: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 6
         SOCKS_PROXY: ClientPayload.DNSSource.DNSResolutionMethod.ValueType  # 7
 
-        DNSMETHOD_FIELD_NUMBER: builtins.int
-        APPCACHED_FIELD_NUMBER: builtins.int
+        DNSMETHOD_FIELD_NUMBER: _builtins.int
+        APPCACHED_FIELD_NUMBER: _builtins.int
         dnsMethod: Global___ClientPayload.DNSSource.DNSResolutionMethod.ValueType
-        appCached: builtins.bool
+        appCached: _builtins.bool
         def __init__(
             self,
             *,
             dnsMethod: Global___ClientPayload.DNSSource.DNSResolutionMethod.ValueType | None = ...,
-            appCached: builtins.bool | None = ...,
+            appCached: _builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["appCached", b"appCached", "dnsMethod", b"dnsMethod"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["appCached", b"appCached", "dnsMethod", b"dnsMethod"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["appCached", b"appCached", "dnsMethod", b"dnsMethod"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["appCached", b"appCached", "dnsMethod", b"dnsMethod"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class WebInfo(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class WebInfo(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _WebSubPlatform:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _WebSubPlatformEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ClientPayload.WebInfo._WebSubPlatform.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _WebSubPlatformEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ClientPayload.WebInfo._WebSubPlatform.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             WEB_BROWSER: ClientPayload.WebInfo._WebSubPlatform.ValueType  # 0
             APP_STORE: ClientPayload.WebInfo._WebSubPlatform.ValueType  # 1
             WIN_STORE: ClientPayload.WebInfo._WebSubPlatform.ValueType  # 2
@@ -212,86 +214,90 @@ class ClientPayload(google.protobuf.message.Message):
         WIN32: ClientPayload.WebInfo.WebSubPlatform.ValueType  # 4
         WIN_HYBRID: ClientPayload.WebInfo.WebSubPlatform.ValueType  # 5
 
-        @typing.final
-        class WebdPayload(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class WebdPayload(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            USESPARTICIPANTINKEY_FIELD_NUMBER: builtins.int
-            SUPPORTSSTARREDMESSAGES_FIELD_NUMBER: builtins.int
-            SUPPORTSDOCUMENTMESSAGES_FIELD_NUMBER: builtins.int
-            SUPPORTSURLMESSAGES_FIELD_NUMBER: builtins.int
-            SUPPORTSMEDIARETRY_FIELD_NUMBER: builtins.int
-            SUPPORTSE2EIMAGE_FIELD_NUMBER: builtins.int
-            SUPPORTSE2EVIDEO_FIELD_NUMBER: builtins.int
-            SUPPORTSE2EAUDIO_FIELD_NUMBER: builtins.int
-            SUPPORTSE2EDOCUMENT_FIELD_NUMBER: builtins.int
-            DOCUMENTTYPES_FIELD_NUMBER: builtins.int
-            FEATURES_FIELD_NUMBER: builtins.int
-            usesParticipantInKey: builtins.bool
-            supportsStarredMessages: builtins.bool
-            supportsDocumentMessages: builtins.bool
-            supportsURLMessages: builtins.bool
-            supportsMediaRetry: builtins.bool
-            supportsE2EImage: builtins.bool
-            supportsE2EVideo: builtins.bool
-            supportsE2EAudio: builtins.bool
-            supportsE2EDocument: builtins.bool
-            documentTypes: builtins.str
-            features: builtins.bytes
+            USESPARTICIPANTINKEY_FIELD_NUMBER: _builtins.int
+            SUPPORTSSTARREDMESSAGES_FIELD_NUMBER: _builtins.int
+            SUPPORTSDOCUMENTMESSAGES_FIELD_NUMBER: _builtins.int
+            SUPPORTSURLMESSAGES_FIELD_NUMBER: _builtins.int
+            SUPPORTSMEDIARETRY_FIELD_NUMBER: _builtins.int
+            SUPPORTSE2EIMAGE_FIELD_NUMBER: _builtins.int
+            SUPPORTSE2EVIDEO_FIELD_NUMBER: _builtins.int
+            SUPPORTSE2EAUDIO_FIELD_NUMBER: _builtins.int
+            SUPPORTSE2EDOCUMENT_FIELD_NUMBER: _builtins.int
+            DOCUMENTTYPES_FIELD_NUMBER: _builtins.int
+            FEATURES_FIELD_NUMBER: _builtins.int
+            usesParticipantInKey: _builtins.bool
+            supportsStarredMessages: _builtins.bool
+            supportsDocumentMessages: _builtins.bool
+            supportsURLMessages: _builtins.bool
+            supportsMediaRetry: _builtins.bool
+            supportsE2EImage: _builtins.bool
+            supportsE2EVideo: _builtins.bool
+            supportsE2EAudio: _builtins.bool
+            supportsE2EDocument: _builtins.bool
+            documentTypes: _builtins.str
+            features: _builtins.bytes
             def __init__(
                 self,
                 *,
-                usesParticipantInKey: builtins.bool | None = ...,
-                supportsStarredMessages: builtins.bool | None = ...,
-                supportsDocumentMessages: builtins.bool | None = ...,
-                supportsURLMessages: builtins.bool | None = ...,
-                supportsMediaRetry: builtins.bool | None = ...,
-                supportsE2EImage: builtins.bool | None = ...,
-                supportsE2EVideo: builtins.bool | None = ...,
-                supportsE2EAudio: builtins.bool | None = ...,
-                supportsE2EDocument: builtins.bool | None = ...,
-                documentTypes: builtins.str | None = ...,
-                features: builtins.bytes | None = ...,
+                usesParticipantInKey: _builtins.bool | None = ...,
+                supportsStarredMessages: _builtins.bool | None = ...,
+                supportsDocumentMessages: _builtins.bool | None = ...,
+                supportsURLMessages: _builtins.bool | None = ...,
+                supportsMediaRetry: _builtins.bool | None = ...,
+                supportsE2EImage: _builtins.bool | None = ...,
+                supportsE2EVideo: _builtins.bool | None = ...,
+                supportsE2EAudio: _builtins.bool | None = ...,
+                supportsE2EDocument: _builtins.bool | None = ...,
+                documentTypes: _builtins.str | None = ...,
+                features: _builtins.bytes | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["documentTypes", b"documentTypes", "features", b"features", "supportsDocumentMessages", b"supportsDocumentMessages", "supportsE2EAudio", b"supportsE2EAudio", "supportsE2EDocument", b"supportsE2EDocument", "supportsE2EImage", b"supportsE2EImage", "supportsE2EVideo", b"supportsE2EVideo", "supportsMediaRetry", b"supportsMediaRetry", "supportsStarredMessages", b"supportsStarredMessages", "supportsURLMessages", b"supportsURLMessages", "usesParticipantInKey", b"usesParticipantInKey"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["documentTypes", b"documentTypes", "features", b"features", "supportsDocumentMessages", b"supportsDocumentMessages", "supportsE2EAudio", b"supportsE2EAudio", "supportsE2EDocument", b"supportsE2EDocument", "supportsE2EImage", b"supportsE2EImage", "supportsE2EVideo", b"supportsE2EVideo", "supportsMediaRetry", b"supportsMediaRetry", "supportsStarredMessages", b"supportsStarredMessages", "supportsURLMessages", b"supportsURLMessages", "usesParticipantInKey", b"usesParticipantInKey"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["documentTypes", b"documentTypes", "features", b"features", "supportsDocumentMessages", b"supportsDocumentMessages", "supportsE2EAudio", b"supportsE2EAudio", "supportsE2EDocument", b"supportsE2EDocument", "supportsE2EImage", b"supportsE2EImage", "supportsE2EVideo", b"supportsE2EVideo", "supportsMediaRetry", b"supportsMediaRetry", "supportsStarredMessages", b"supportsStarredMessages", "supportsURLMessages", b"supportsURLMessages", "usesParticipantInKey", b"usesParticipantInKey"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["documentTypes", b"documentTypes", "features", b"features", "supportsDocumentMessages", b"supportsDocumentMessages", "supportsE2EAudio", b"supportsE2EAudio", "supportsE2EDocument", b"supportsE2EDocument", "supportsE2EImage", b"supportsE2EImage", "supportsE2EVideo", b"supportsE2EVideo", "supportsMediaRetry", b"supportsMediaRetry", "supportsStarredMessages", b"supportsStarredMessages", "supportsURLMessages", b"supportsURLMessages", "usesParticipantInKey", b"usesParticipantInKey"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        REFTOKEN_FIELD_NUMBER: builtins.int
-        VERSION_FIELD_NUMBER: builtins.int
-        WEBDPAYLOAD_FIELD_NUMBER: builtins.int
-        WEBSUBPLATFORM_FIELD_NUMBER: builtins.int
-        BROWSER_FIELD_NUMBER: builtins.int
-        BROWSERVERSION_FIELD_NUMBER: builtins.int
-        refToken: builtins.str
-        version: builtins.str
+        REFTOKEN_FIELD_NUMBER: _builtins.int
+        VERSION_FIELD_NUMBER: _builtins.int
+        WEBDPAYLOAD_FIELD_NUMBER: _builtins.int
+        WEBSUBPLATFORM_FIELD_NUMBER: _builtins.int
+        BROWSER_FIELD_NUMBER: _builtins.int
+        BROWSERVERSION_FIELD_NUMBER: _builtins.int
+        refToken: _builtins.str
+        version: _builtins.str
         webSubPlatform: Global___ClientPayload.WebInfo.WebSubPlatform.ValueType
-        browser: builtins.str
-        browserVersion: builtins.str
-        @property
+        browser: _builtins.str
+        browserVersion: _builtins.str
+        @_builtins.property
         def webdPayload(self) -> Global___ClientPayload.WebInfo.WebdPayload: ...
         def __init__(
             self,
             *,
-            refToken: builtins.str | None = ...,
-            version: builtins.str | None = ...,
+            refToken: _builtins.str | None = ...,
+            version: _builtins.str | None = ...,
             webdPayload: Global___ClientPayload.WebInfo.WebdPayload | None = ...,
             webSubPlatform: Global___ClientPayload.WebInfo.WebSubPlatform.ValueType | None = ...,
-            browser: builtins.str | None = ...,
-            browserVersion: builtins.str | None = ...,
+            browser: _builtins.str | None = ...,
+            browserVersion: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["browser", b"browser", "browserVersion", b"browserVersion", "refToken", b"refToken", "version", b"version", "webSubPlatform", b"webSubPlatform", "webdPayload", b"webdPayload"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["browser", b"browser", "browserVersion", b"browserVersion", "refToken", b"refToken", "version", b"version", "webSubPlatform", b"webSubPlatform", "webdPayload", b"webdPayload"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["browser", b"browser", "browserVersion", b"browserVersion", "refToken", b"refToken", "version", b"version", "webSubPlatform", b"webSubPlatform", "webdPayload", b"webdPayload"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["browser", b"browser", "browserVersion", b"browserVersion", "refToken", b"refToken", "version", b"version", "webSubPlatform", b"webSubPlatform", "webdPayload", b"webdPayload"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class UserAgent(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class UserAgent(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _DeviceType:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _DeviceTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ClientPayload.UserAgent._DeviceType.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _DeviceTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ClientPayload.UserAgent._DeviceType.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             PHONE: ClientPayload.UserAgent._DeviceType.ValueType  # 0
             TABLET: ClientPayload.UserAgent._DeviceType.ValueType  # 1
             DESKTOP: ClientPayload.UserAgent._DeviceType.ValueType  # 2
@@ -306,11 +312,11 @@ class ClientPayload(google.protobuf.message.Message):
         VR: ClientPayload.UserAgent.DeviceType.ValueType  # 4
 
         class _ReleaseChannel:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _ReleaseChannelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ClientPayload.UserAgent._ReleaseChannel.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _ReleaseChannelEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ClientPayload.UserAgent._ReleaseChannel.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             RELEASE: ClientPayload.UserAgent._ReleaseChannel.ValueType  # 0
             BETA: ClientPayload.UserAgent._ReleaseChannel.ValueType  # 1
             ALPHA: ClientPayload.UserAgent._ReleaseChannel.ValueType  # 2
@@ -323,11 +329,11 @@ class ClientPayload(google.protobuf.message.Message):
         DEBUG: ClientPayload.UserAgent.ReleaseChannel.ValueType  # 3
 
         class _Platform:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _PlatformEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ClientPayload.UserAgent._Platform.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _PlatformEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ClientPayload.UserAgent._Platform.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             ANDROID: ClientPayload.UserAgent._Platform.ValueType  # 0
             IOS: ClientPayload.UserAgent._Platform.ValueType  # 1
             WINDOWS_PHONE: ClientPayload.UserAgent._Platform.ValueType  # 2
@@ -407,341 +413,357 @@ class ClientPayload(google.protobuf.message.Message):
         BLUE_VR: ClientPayload.UserAgent.Platform.ValueType  # 36
         AR_WRIST: ClientPayload.UserAgent.Platform.ValueType  # 37
 
-        @typing.final
-        class AppVersion(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class AppVersion(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            PRIMARY_FIELD_NUMBER: builtins.int
-            SECONDARY_FIELD_NUMBER: builtins.int
-            TERTIARY_FIELD_NUMBER: builtins.int
-            QUATERNARY_FIELD_NUMBER: builtins.int
-            QUINARY_FIELD_NUMBER: builtins.int
-            primary: builtins.int
-            secondary: builtins.int
-            tertiary: builtins.int
-            quaternary: builtins.int
-            quinary: builtins.int
+            PRIMARY_FIELD_NUMBER: _builtins.int
+            SECONDARY_FIELD_NUMBER: _builtins.int
+            TERTIARY_FIELD_NUMBER: _builtins.int
+            QUATERNARY_FIELD_NUMBER: _builtins.int
+            QUINARY_FIELD_NUMBER: _builtins.int
+            primary: _builtins.int
+            secondary: _builtins.int
+            tertiary: _builtins.int
+            quaternary: _builtins.int
+            quinary: _builtins.int
             def __init__(
                 self,
                 *,
-                primary: builtins.int | None = ...,
-                secondary: builtins.int | None = ...,
-                tertiary: builtins.int | None = ...,
-                quaternary: builtins.int | None = ...,
-                quinary: builtins.int | None = ...,
+                primary: _builtins.int | None = ...,
+                secondary: _builtins.int | None = ...,
+                tertiary: _builtins.int | None = ...,
+                quaternary: _builtins.int | None = ...,
+                quinary: _builtins.int | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["primary", b"primary", "quaternary", b"quaternary", "quinary", b"quinary", "secondary", b"secondary", "tertiary", b"tertiary"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["primary", b"primary", "quaternary", b"quaternary", "quinary", b"quinary", "secondary", b"secondary", "tertiary", b"tertiary"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["primary", b"primary", "quaternary", b"quaternary", "quinary", b"quinary", "secondary", b"secondary", "tertiary", b"tertiary"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["primary", b"primary", "quaternary", b"quaternary", "quinary", b"quinary", "secondary", b"secondary", "tertiary", b"tertiary"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        PLATFORM_FIELD_NUMBER: builtins.int
-        APPVERSION_FIELD_NUMBER: builtins.int
-        MCC_FIELD_NUMBER: builtins.int
-        MNC_FIELD_NUMBER: builtins.int
-        OSVERSION_FIELD_NUMBER: builtins.int
-        MANUFACTURER_FIELD_NUMBER: builtins.int
-        DEVICE_FIELD_NUMBER: builtins.int
-        OSBUILDNUMBER_FIELD_NUMBER: builtins.int
-        PHONEID_FIELD_NUMBER: builtins.int
-        RELEASECHANNEL_FIELD_NUMBER: builtins.int
-        LOCALELANGUAGEISO6391_FIELD_NUMBER: builtins.int
-        LOCALECOUNTRYISO31661ALPHA2_FIELD_NUMBER: builtins.int
-        DEVICEBOARD_FIELD_NUMBER: builtins.int
-        DEVICEEXPID_FIELD_NUMBER: builtins.int
-        DEVICETYPE_FIELD_NUMBER: builtins.int
-        DEVICEMODELTYPE_FIELD_NUMBER: builtins.int
+        PLATFORM_FIELD_NUMBER: _builtins.int
+        APPVERSION_FIELD_NUMBER: _builtins.int
+        MCC_FIELD_NUMBER: _builtins.int
+        MNC_FIELD_NUMBER: _builtins.int
+        OSVERSION_FIELD_NUMBER: _builtins.int
+        MANUFACTURER_FIELD_NUMBER: _builtins.int
+        DEVICE_FIELD_NUMBER: _builtins.int
+        OSBUILDNUMBER_FIELD_NUMBER: _builtins.int
+        PHONEID_FIELD_NUMBER: _builtins.int
+        RELEASECHANNEL_FIELD_NUMBER: _builtins.int
+        LOCALELANGUAGEISO6391_FIELD_NUMBER: _builtins.int
+        LOCALECOUNTRYISO31661ALPHA2_FIELD_NUMBER: _builtins.int
+        DEVICEBOARD_FIELD_NUMBER: _builtins.int
+        DEVICEEXPID_FIELD_NUMBER: _builtins.int
+        DEVICETYPE_FIELD_NUMBER: _builtins.int
+        DEVICEMODELTYPE_FIELD_NUMBER: _builtins.int
         platform: Global___ClientPayload.UserAgent.Platform.ValueType
-        mcc: builtins.str
-        mnc: builtins.str
-        osVersion: builtins.str
-        manufacturer: builtins.str
-        device: builtins.str
-        osBuildNumber: builtins.str
-        phoneID: builtins.str
+        mcc: _builtins.str
+        mnc: _builtins.str
+        osVersion: _builtins.str
+        manufacturer: _builtins.str
+        device: _builtins.str
+        osBuildNumber: _builtins.str
+        phoneID: _builtins.str
         releaseChannel: Global___ClientPayload.UserAgent.ReleaseChannel.ValueType
-        localeLanguageIso6391: builtins.str
-        localeCountryIso31661Alpha2: builtins.str
-        deviceBoard: builtins.str
-        deviceExpID: builtins.str
+        localeLanguageIso6391: _builtins.str
+        localeCountryIso31661Alpha2: _builtins.str
+        deviceBoard: _builtins.str
+        deviceExpID: _builtins.str
         deviceType: Global___ClientPayload.UserAgent.DeviceType.ValueType
-        deviceModelType: builtins.str
-        @property
+        deviceModelType: _builtins.str
+        @_builtins.property
         def appVersion(self) -> Global___ClientPayload.UserAgent.AppVersion: ...
         def __init__(
             self,
             *,
             platform: Global___ClientPayload.UserAgent.Platform.ValueType | None = ...,
             appVersion: Global___ClientPayload.UserAgent.AppVersion | None = ...,
-            mcc: builtins.str | None = ...,
-            mnc: builtins.str | None = ...,
-            osVersion: builtins.str | None = ...,
-            manufacturer: builtins.str | None = ...,
-            device: builtins.str | None = ...,
-            osBuildNumber: builtins.str | None = ...,
-            phoneID: builtins.str | None = ...,
+            mcc: _builtins.str | None = ...,
+            mnc: _builtins.str | None = ...,
+            osVersion: _builtins.str | None = ...,
+            manufacturer: _builtins.str | None = ...,
+            device: _builtins.str | None = ...,
+            osBuildNumber: _builtins.str | None = ...,
+            phoneID: _builtins.str | None = ...,
             releaseChannel: Global___ClientPayload.UserAgent.ReleaseChannel.ValueType | None = ...,
-            localeLanguageIso6391: builtins.str | None = ...,
-            localeCountryIso31661Alpha2: builtins.str | None = ...,
-            deviceBoard: builtins.str | None = ...,
-            deviceExpID: builtins.str | None = ...,
+            localeLanguageIso6391: _builtins.str | None = ...,
+            localeCountryIso31661Alpha2: _builtins.str | None = ...,
+            deviceBoard: _builtins.str | None = ...,
+            deviceExpID: _builtins.str | None = ...,
             deviceType: Global___ClientPayload.UserAgent.DeviceType.ValueType | None = ...,
-            deviceModelType: builtins.str | None = ...,
+            deviceModelType: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["appVersion", b"appVersion", "device", b"device", "deviceBoard", b"deviceBoard", "deviceExpID", b"deviceExpID", "deviceModelType", b"deviceModelType", "deviceType", b"deviceType", "localeCountryIso31661Alpha2", b"localeCountryIso31661Alpha2", "localeLanguageIso6391", b"localeLanguageIso6391", "manufacturer", b"manufacturer", "mcc", b"mcc", "mnc", b"mnc", "osBuildNumber", b"osBuildNumber", "osVersion", b"osVersion", "phoneID", b"phoneID", "platform", b"platform", "releaseChannel", b"releaseChannel"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["appVersion", b"appVersion", "device", b"device", "deviceBoard", b"deviceBoard", "deviceExpID", b"deviceExpID", "deviceModelType", b"deviceModelType", "deviceType", b"deviceType", "localeCountryIso31661Alpha2", b"localeCountryIso31661Alpha2", "localeLanguageIso6391", b"localeLanguageIso6391", "manufacturer", b"manufacturer", "mcc", b"mcc", "mnc", b"mnc", "osBuildNumber", b"osBuildNumber", "osVersion", b"osVersion", "phoneID", b"phoneID", "platform", b"platform", "releaseChannel", b"releaseChannel"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["appVersion", b"appVersion", "device", b"device", "deviceBoard", b"deviceBoard", "deviceExpID", b"deviceExpID", "deviceModelType", b"deviceModelType", "deviceType", b"deviceType", "localeCountryIso31661Alpha2", b"localeCountryIso31661Alpha2", "localeLanguageIso6391", b"localeLanguageIso6391", "manufacturer", b"manufacturer", "mcc", b"mcc", "mnc", b"mnc", "osBuildNumber", b"osBuildNumber", "osVersion", b"osVersion", "phoneID", b"phoneID", "platform", b"platform", "releaseChannel", b"releaseChannel"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["appVersion", b"appVersion", "device", b"device", "deviceBoard", b"deviceBoard", "deviceExpID", b"deviceExpID", "deviceModelType", b"deviceModelType", "deviceType", b"deviceType", "localeCountryIso31661Alpha2", b"localeCountryIso31661Alpha2", "localeLanguageIso6391", b"localeLanguageIso6391", "manufacturer", b"manufacturer", "mcc", b"mcc", "mnc", b"mnc", "osBuildNumber", b"osBuildNumber", "osVersion", b"osVersion", "phoneID", b"phoneID", "platform", b"platform", "releaseChannel", b"releaseChannel"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class InteropData(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class InteropData(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        ACCOUNTID_FIELD_NUMBER: builtins.int
-        TOKEN_FIELD_NUMBER: builtins.int
-        ENABLEREADRECEIPTS_FIELD_NUMBER: builtins.int
-        accountID: builtins.int
-        token: builtins.bytes
-        enableReadReceipts: builtins.bool
+        ACCOUNTID_FIELD_NUMBER: _builtins.int
+        TOKEN_FIELD_NUMBER: _builtins.int
+        ENABLEREADRECEIPTS_FIELD_NUMBER: _builtins.int
+        accountID: _builtins.int
+        token: _builtins.bytes
+        enableReadReceipts: _builtins.bool
         def __init__(
             self,
             *,
-            accountID: builtins.int | None = ...,
-            token: builtins.bytes | None = ...,
-            enableReadReceipts: builtins.bool | None = ...,
+            accountID: _builtins.int | None = ...,
+            token: _builtins.bytes | None = ...,
+            enableReadReceipts: _builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["accountID", b"accountID", "enableReadReceipts", b"enableReadReceipts", "token", b"token"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["accountID", b"accountID", "enableReadReceipts", b"enableReadReceipts", "token", b"token"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["accountID", b"accountID", "enableReadReceipts", b"enableReadReceipts", "token", b"token"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["accountID", b"accountID", "enableReadReceipts", b"enableReadReceipts", "token", b"token"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class DevicePairingRegistrationData(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class DevicePairingRegistrationData(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        EREGID_FIELD_NUMBER: builtins.int
-        EKEYTYPE_FIELD_NUMBER: builtins.int
-        EIDENT_FIELD_NUMBER: builtins.int
-        ESKEYID_FIELD_NUMBER: builtins.int
-        ESKEYVAL_FIELD_NUMBER: builtins.int
-        ESKEYSIG_FIELD_NUMBER: builtins.int
-        BUILDHASH_FIELD_NUMBER: builtins.int
-        DEVICEPROPS_FIELD_NUMBER: builtins.int
-        eRegid: builtins.bytes
-        eKeytype: builtins.bytes
-        eIdent: builtins.bytes
-        eSkeyID: builtins.bytes
-        eSkeyVal: builtins.bytes
-        eSkeySig: builtins.bytes
-        buildHash: builtins.bytes
-        deviceProps: builtins.bytes
+        EREGID_FIELD_NUMBER: _builtins.int
+        EKEYTYPE_FIELD_NUMBER: _builtins.int
+        EIDENT_FIELD_NUMBER: _builtins.int
+        ESKEYID_FIELD_NUMBER: _builtins.int
+        ESKEYVAL_FIELD_NUMBER: _builtins.int
+        ESKEYSIG_FIELD_NUMBER: _builtins.int
+        BUILDHASH_FIELD_NUMBER: _builtins.int
+        DEVICEPROPS_FIELD_NUMBER: _builtins.int
+        eRegid: _builtins.bytes
+        eKeytype: _builtins.bytes
+        eIdent: _builtins.bytes
+        eSkeyID: _builtins.bytes
+        eSkeyVal: _builtins.bytes
+        eSkeySig: _builtins.bytes
+        buildHash: _builtins.bytes
+        deviceProps: _builtins.bytes
         def __init__(
             self,
             *,
-            eRegid: builtins.bytes | None = ...,
-            eKeytype: builtins.bytes | None = ...,
-            eIdent: builtins.bytes | None = ...,
-            eSkeyID: builtins.bytes | None = ...,
-            eSkeyVal: builtins.bytes | None = ...,
-            eSkeySig: builtins.bytes | None = ...,
-            buildHash: builtins.bytes | None = ...,
-            deviceProps: builtins.bytes | None = ...,
+            eRegid: _builtins.bytes | None = ...,
+            eKeytype: _builtins.bytes | None = ...,
+            eIdent: _builtins.bytes | None = ...,
+            eSkeyID: _builtins.bytes | None = ...,
+            eSkeyVal: _builtins.bytes | None = ...,
+            eSkeySig: _builtins.bytes | None = ...,
+            buildHash: _builtins.bytes | None = ...,
+            deviceProps: _builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["buildHash", b"buildHash", "deviceProps", b"deviceProps", "eIdent", b"eIdent", "eKeytype", b"eKeytype", "eRegid", b"eRegid", "eSkeyID", b"eSkeyID", "eSkeySig", b"eSkeySig", "eSkeyVal", b"eSkeyVal"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["buildHash", b"buildHash", "deviceProps", b"deviceProps", "eIdent", b"eIdent", "eKeytype", b"eKeytype", "eRegid", b"eRegid", "eSkeyID", b"eSkeyID", "eSkeySig", b"eSkeySig", "eSkeyVal", b"eSkeyVal"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["buildHash", b"buildHash", "deviceProps", b"deviceProps", "eIdent", b"eIdent", "eKeytype", b"eKeytype", "eRegid", b"eRegid", "eSkeyID", b"eSkeyID", "eSkeySig", b"eSkeySig", "eSkeyVal", b"eSkeyVal"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["buildHash", b"buildHash", "deviceProps", b"deviceProps", "eIdent", b"eIdent", "eKeytype", b"eKeytype", "eRegid", b"eRegid", "eSkeyID", b"eSkeyID", "eSkeySig", b"eSkeySig", "eSkeyVal", b"eSkeyVal"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    USERNAME_FIELD_NUMBER: builtins.int
-    PASSIVE_FIELD_NUMBER: builtins.int
-    USERAGENT_FIELD_NUMBER: builtins.int
-    WEBINFO_FIELD_NUMBER: builtins.int
-    PUSHNAME_FIELD_NUMBER: builtins.int
-    SESSIONID_FIELD_NUMBER: builtins.int
-    SHORTCONNECT_FIELD_NUMBER: builtins.int
-    CONNECTTYPE_FIELD_NUMBER: builtins.int
-    CONNECTREASON_FIELD_NUMBER: builtins.int
-    SHARDS_FIELD_NUMBER: builtins.int
-    DNSSOURCE_FIELD_NUMBER: builtins.int
-    CONNECTATTEMPTCOUNT_FIELD_NUMBER: builtins.int
-    DEVICE_FIELD_NUMBER: builtins.int
-    DEVICEPAIRINGDATA_FIELD_NUMBER: builtins.int
-    PRODUCT_FIELD_NUMBER: builtins.int
-    FBCAT_FIELD_NUMBER: builtins.int
-    FBUSERAGENT_FIELD_NUMBER: builtins.int
-    OC_FIELD_NUMBER: builtins.int
-    LC_FIELD_NUMBER: builtins.int
-    IOSAPPEXTENSION_FIELD_NUMBER: builtins.int
-    FBAPPID_FIELD_NUMBER: builtins.int
-    FBDEVICEID_FIELD_NUMBER: builtins.int
-    PULL_FIELD_NUMBER: builtins.int
-    PADDINGBYTES_FIELD_NUMBER: builtins.int
-    YEARCLASS_FIELD_NUMBER: builtins.int
-    MEMCLASS_FIELD_NUMBER: builtins.int
-    INTEROPDATA_FIELD_NUMBER: builtins.int
-    TRAFFICANONYMIZATION_FIELD_NUMBER: builtins.int
-    LIDDBMIGRATED_FIELD_NUMBER: builtins.int
-    ACCOUNTTYPE_FIELD_NUMBER: builtins.int
-    CONNECTIONSEQUENCEINFO_FIELD_NUMBER: builtins.int
-    PAALINK_FIELD_NUMBER: builtins.int
-    PREACKSCOUNT_FIELD_NUMBER: builtins.int
-    PROCESSINGQUEUESIZE_FIELD_NUMBER: builtins.int
-    username: builtins.int
-    passive: builtins.bool
-    pushName: builtins.str
-    sessionID: builtins.int
-    shortConnect: builtins.bool
+    USERNAME_FIELD_NUMBER: _builtins.int
+    PASSIVE_FIELD_NUMBER: _builtins.int
+    USERAGENT_FIELD_NUMBER: _builtins.int
+    WEBINFO_FIELD_NUMBER: _builtins.int
+    PUSHNAME_FIELD_NUMBER: _builtins.int
+    SESSIONID_FIELD_NUMBER: _builtins.int
+    SHORTCONNECT_FIELD_NUMBER: _builtins.int
+    CONNECTTYPE_FIELD_NUMBER: _builtins.int
+    CONNECTREASON_FIELD_NUMBER: _builtins.int
+    SHARDS_FIELD_NUMBER: _builtins.int
+    DNSSOURCE_FIELD_NUMBER: _builtins.int
+    CONNECTATTEMPTCOUNT_FIELD_NUMBER: _builtins.int
+    DEVICE_FIELD_NUMBER: _builtins.int
+    DEVICEPAIRINGDATA_FIELD_NUMBER: _builtins.int
+    PRODUCT_FIELD_NUMBER: _builtins.int
+    FBCAT_FIELD_NUMBER: _builtins.int
+    FBUSERAGENT_FIELD_NUMBER: _builtins.int
+    OC_FIELD_NUMBER: _builtins.int
+    LC_FIELD_NUMBER: _builtins.int
+    IOSAPPEXTENSION_FIELD_NUMBER: _builtins.int
+    FBAPPID_FIELD_NUMBER: _builtins.int
+    FBDEVICEID_FIELD_NUMBER: _builtins.int
+    PULL_FIELD_NUMBER: _builtins.int
+    PADDINGBYTES_FIELD_NUMBER: _builtins.int
+    YEARCLASS_FIELD_NUMBER: _builtins.int
+    MEMCLASS_FIELD_NUMBER: _builtins.int
+    INTEROPDATA_FIELD_NUMBER: _builtins.int
+    TRAFFICANONYMIZATION_FIELD_NUMBER: _builtins.int
+    LIDDBMIGRATED_FIELD_NUMBER: _builtins.int
+    ACCOUNTTYPE_FIELD_NUMBER: _builtins.int
+    CONNECTIONSEQUENCEINFO_FIELD_NUMBER: _builtins.int
+    PAALINK_FIELD_NUMBER: _builtins.int
+    PREACKSCOUNT_FIELD_NUMBER: _builtins.int
+    PROCESSINGQUEUESIZE_FIELD_NUMBER: _builtins.int
+    username: _builtins.int
+    passive: _builtins.bool
+    pushName: _builtins.str
+    sessionID: _builtins.int
+    shortConnect: _builtins.bool
     connectType: Global___ClientPayload.ConnectType.ValueType
     connectReason: Global___ClientPayload.ConnectReason.ValueType
-    connectAttemptCount: builtins.int
-    device: builtins.int
+    connectAttemptCount: _builtins.int
+    device: _builtins.int
     product: Global___ClientPayload.Product.ValueType
-    fbCat: builtins.bytes
-    fbUserAgent: builtins.bytes
-    oc: builtins.bool
-    lc: builtins.int
+    fbCat: _builtins.bytes
+    fbUserAgent: _builtins.bytes
+    oc: _builtins.bool
+    lc: _builtins.int
     iosAppExtension: Global___ClientPayload.IOSAppExtension.ValueType
-    fbAppID: builtins.int
-    fbDeviceID: builtins.bytes
-    pull: builtins.bool
-    paddingBytes: builtins.bytes
-    yearClass: builtins.int
-    memClass: builtins.int
+    fbAppID: _builtins.int
+    fbDeviceID: _builtins.bytes
+    pull: _builtins.bool
+    paddingBytes: _builtins.bytes
+    yearClass: _builtins.int
+    memClass: _builtins.int
     trafficAnonymization: Global___ClientPayload.TrafficAnonymization.ValueType
-    lidDbMigrated: builtins.bool
+    lidDbMigrated: _builtins.bool
     accountType: Global___ClientPayload.AccountType.ValueType
-    connectionSequenceInfo: builtins.int
-    paaLink: builtins.bool
-    preacksCount: builtins.int
-    processingQueueSize: builtins.int
-    @property
+    connectionSequenceInfo: _builtins.int
+    paaLink: _builtins.bool
+    preacksCount: _builtins.int
+    processingQueueSize: _builtins.int
+    @_builtins.property
     def userAgent(self) -> Global___ClientPayload.UserAgent: ...
-    @property
+    @_builtins.property
     def webInfo(self) -> Global___ClientPayload.WebInfo: ...
-    @property
-    def shards(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
+    @_builtins.property
+    def shards(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
     def dnsSource(self) -> Global___ClientPayload.DNSSource: ...
-    @property
+    @_builtins.property
     def devicePairingData(self) -> Global___ClientPayload.DevicePairingRegistrationData: ...
-    @property
+    @_builtins.property
     def interopData(self) -> Global___ClientPayload.InteropData: ...
     def __init__(
         self,
         *,
-        username: builtins.int | None = ...,
-        passive: builtins.bool | None = ...,
+        username: _builtins.int | None = ...,
+        passive: _builtins.bool | None = ...,
         userAgent: Global___ClientPayload.UserAgent | None = ...,
         webInfo: Global___ClientPayload.WebInfo | None = ...,
-        pushName: builtins.str | None = ...,
-        sessionID: builtins.int | None = ...,
-        shortConnect: builtins.bool | None = ...,
+        pushName: _builtins.str | None = ...,
+        sessionID: _builtins.int | None = ...,
+        shortConnect: _builtins.bool | None = ...,
         connectType: Global___ClientPayload.ConnectType.ValueType | None = ...,
         connectReason: Global___ClientPayload.ConnectReason.ValueType | None = ...,
-        shards: collections.abc.Iterable[builtins.int] | None = ...,
+        shards: _abc.Iterable[_builtins.int] | None = ...,
         dnsSource: Global___ClientPayload.DNSSource | None = ...,
-        connectAttemptCount: builtins.int | None = ...,
-        device: builtins.int | None = ...,
+        connectAttemptCount: _builtins.int | None = ...,
+        device: _builtins.int | None = ...,
         devicePairingData: Global___ClientPayload.DevicePairingRegistrationData | None = ...,
         product: Global___ClientPayload.Product.ValueType | None = ...,
-        fbCat: builtins.bytes | None = ...,
-        fbUserAgent: builtins.bytes | None = ...,
-        oc: builtins.bool | None = ...,
-        lc: builtins.int | None = ...,
+        fbCat: _builtins.bytes | None = ...,
+        fbUserAgent: _builtins.bytes | None = ...,
+        oc: _builtins.bool | None = ...,
+        lc: _builtins.int | None = ...,
         iosAppExtension: Global___ClientPayload.IOSAppExtension.ValueType | None = ...,
-        fbAppID: builtins.int | None = ...,
-        fbDeviceID: builtins.bytes | None = ...,
-        pull: builtins.bool | None = ...,
-        paddingBytes: builtins.bytes | None = ...,
-        yearClass: builtins.int | None = ...,
-        memClass: builtins.int | None = ...,
+        fbAppID: _builtins.int | None = ...,
+        fbDeviceID: _builtins.bytes | None = ...,
+        pull: _builtins.bool | None = ...,
+        paddingBytes: _builtins.bytes | None = ...,
+        yearClass: _builtins.int | None = ...,
+        memClass: _builtins.int | None = ...,
         interopData: Global___ClientPayload.InteropData | None = ...,
         trafficAnonymization: Global___ClientPayload.TrafficAnonymization.ValueType | None = ...,
-        lidDbMigrated: builtins.bool | None = ...,
+        lidDbMigrated: _builtins.bool | None = ...,
         accountType: Global___ClientPayload.AccountType.ValueType | None = ...,
-        connectionSequenceInfo: builtins.int | None = ...,
-        paaLink: builtins.bool | None = ...,
-        preacksCount: builtins.int | None = ...,
-        processingQueueSize: builtins.int | None = ...,
+        connectionSequenceInfo: _builtins.int | None = ...,
+        paaLink: _builtins.bool | None = ...,
+        preacksCount: _builtins.int | None = ...,
+        processingQueueSize: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "passive", b"passive", "preacksCount", b"preacksCount", "processingQueueSize", b"processingQueueSize", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "passive", b"passive", "preacksCount", b"preacksCount", "processingQueueSize", b"processingQueueSize", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shards", b"shards", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "passive", b"passive", "preacksCount", b"preacksCount", "processingQueueSize", b"processingQueueSize", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "passive", b"passive", "preacksCount", b"preacksCount", "processingQueueSize", b"processingQueueSize", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shards", b"shards", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ClientPayload: typing_extensions.TypeAlias = ClientPayload
+Global___ClientPayload: _TypeAlias = ClientPayload  # noqa: Y015
 
-@typing.final
-class HandshakeMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class HandshakeMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class ClientFinish(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ClientFinish(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        STATIC_FIELD_NUMBER: builtins.int
-        PAYLOAD_FIELD_NUMBER: builtins.int
-        EXTENDEDCIPHERTEXT_FIELD_NUMBER: builtins.int
-        static: builtins.bytes
-        payload: builtins.bytes
-        extendedCiphertext: builtins.bytes
+        STATIC_FIELD_NUMBER: _builtins.int
+        PAYLOAD_FIELD_NUMBER: _builtins.int
+        EXTENDEDCIPHERTEXT_FIELD_NUMBER: _builtins.int
+        static: _builtins.bytes
+        payload: _builtins.bytes
+        extendedCiphertext: _builtins.bytes
         def __init__(
             self,
             *,
-            static: builtins.bytes | None = ...,
-            payload: builtins.bytes | None = ...,
-            extendedCiphertext: builtins.bytes | None = ...,
+            static: _builtins.bytes | None = ...,
+            payload: _builtins.bytes | None = ...,
+            extendedCiphertext: _builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ServerHello(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ServerHello(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        EPHEMERAL_FIELD_NUMBER: builtins.int
-        STATIC_FIELD_NUMBER: builtins.int
-        PAYLOAD_FIELD_NUMBER: builtins.int
-        EXTENDEDSTATIC_FIELD_NUMBER: builtins.int
-        ephemeral: builtins.bytes
-        static: builtins.bytes
-        payload: builtins.bytes
-        extendedStatic: builtins.bytes
+        EPHEMERAL_FIELD_NUMBER: _builtins.int
+        STATIC_FIELD_NUMBER: _builtins.int
+        PAYLOAD_FIELD_NUMBER: _builtins.int
+        EXTENDEDSTATIC_FIELD_NUMBER: _builtins.int
+        ephemeral: _builtins.bytes
+        static: _builtins.bytes
+        payload: _builtins.bytes
+        extendedStatic: _builtins.bytes
         def __init__(
             self,
             *,
-            ephemeral: builtins.bytes | None = ...,
-            static: builtins.bytes | None = ...,
-            payload: builtins.bytes | None = ...,
-            extendedStatic: builtins.bytes | None = ...,
+            ephemeral: _builtins.bytes | None = ...,
+            static: _builtins.bytes | None = ...,
+            payload: _builtins.bytes | None = ...,
+            extendedStatic: _builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["ephemeral", b"ephemeral", "extendedStatic", b"extendedStatic", "payload", b"payload", "static", b"static"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["ephemeral", b"ephemeral", "extendedStatic", b"extendedStatic", "payload", b"payload", "static", b"static"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["ephemeral", b"ephemeral", "extendedStatic", b"extendedStatic", "payload", b"payload", "static", b"static"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["ephemeral", b"ephemeral", "extendedStatic", b"extendedStatic", "payload", b"payload", "static", b"static"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ClientHello(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ClientHello(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        EPHEMERAL_FIELD_NUMBER: builtins.int
-        STATIC_FIELD_NUMBER: builtins.int
-        PAYLOAD_FIELD_NUMBER: builtins.int
-        USEEXTENDED_FIELD_NUMBER: builtins.int
-        EXTENDEDCIPHERTEXT_FIELD_NUMBER: builtins.int
-        ephemeral: builtins.bytes
-        static: builtins.bytes
-        payload: builtins.bytes
-        useExtended: builtins.bool
-        extendedCiphertext: builtins.bytes
+        EPHEMERAL_FIELD_NUMBER: _builtins.int
+        STATIC_FIELD_NUMBER: _builtins.int
+        PAYLOAD_FIELD_NUMBER: _builtins.int
+        USEEXTENDED_FIELD_NUMBER: _builtins.int
+        EXTENDEDCIPHERTEXT_FIELD_NUMBER: _builtins.int
+        ephemeral: _builtins.bytes
+        static: _builtins.bytes
+        payload: _builtins.bytes
+        useExtended: _builtins.bool
+        extendedCiphertext: _builtins.bytes
         def __init__(
             self,
             *,
-            ephemeral: builtins.bytes | None = ...,
-            static: builtins.bytes | None = ...,
-            payload: builtins.bytes | None = ...,
-            useExtended: builtins.bool | None = ...,
-            extendedCiphertext: builtins.bytes | None = ...,
+            ephemeral: _builtins.bytes | None = ...,
+            static: _builtins.bytes | None = ...,
+            payload: _builtins.bytes | None = ...,
+            useExtended: _builtins.bool | None = ...,
+            extendedCiphertext: _builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["ephemeral", b"ephemeral", "extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static", "useExtended", b"useExtended"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["ephemeral", b"ephemeral", "extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static", "useExtended", b"useExtended"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["ephemeral", b"ephemeral", "extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static", "useExtended", b"useExtended"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["ephemeral", b"ephemeral", "extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static", "useExtended", b"useExtended"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    CLIENTHELLO_FIELD_NUMBER: builtins.int
-    SERVERHELLO_FIELD_NUMBER: builtins.int
-    CLIENTFINISH_FIELD_NUMBER: builtins.int
-    @property
+    CLIENTHELLO_FIELD_NUMBER: _builtins.int
+    SERVERHELLO_FIELD_NUMBER: _builtins.int
+    CLIENTFINISH_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def clientHello(self) -> Global___HandshakeMessage.ClientHello: ...
-    @property
+    @_builtins.property
     def serverHello(self) -> Global___HandshakeMessage.ServerHello: ...
-    @property
+    @_builtins.property
     def clientFinish(self) -> Global___HandshakeMessage.ClientFinish: ...
     def __init__(
         self,
@@ -750,7 +772,9 @@ class HandshakeMessage(google.protobuf.message.Message):
         serverHello: Global___HandshakeMessage.ServerHello | None = ...,
         clientFinish: Global___HandshakeMessage.ClientFinish | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["clientFinish", b"clientFinish", "clientHello", b"clientHello", "serverHello", b"serverHello"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["clientFinish", b"clientFinish", "clientHello", b"clientHello", "serverHello", b"serverHello"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["clientFinish", b"clientFinish", "clientHello", b"clientHello", "serverHello", b"serverHello"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["clientFinish", b"clientFinish", "clientHello", b"clientHello", "serverHello", b"serverHello"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___HandshakeMessage: typing_extensions.TypeAlias = HandshakeMessage
+Global___HandshakeMessage: _TypeAlias = HandshakeMessage  # noqa: Y015
