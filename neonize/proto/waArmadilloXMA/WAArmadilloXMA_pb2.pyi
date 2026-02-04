@@ -3,33 +3,33 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from waCommon import WACommon_pb2 as _WACommon_pb2
+import builtins as _builtins
 import sys
-import typing
-import waCommon.WACommon_pb2
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class ExtendedContentMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ExtendedContentMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _XmaDataclassType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _XmaDataclassTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExtendedContentMessage._XmaDataclassType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _XmaDataclassTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ExtendedContentMessage._XmaDataclassType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         SENDER_COPY: ExtendedContentMessage._XmaDataclassType.ValueType  # 0
         SERVER: ExtendedContentMessage._XmaDataclassType.ValueType  # 1
         SIGNED_CLIENT: ExtendedContentMessage._XmaDataclassType.ValueType  # 2
@@ -40,11 +40,11 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     SIGNED_CLIENT: ExtendedContentMessage.XmaDataclassType.ValueType  # 2
 
     class _OverlayIconGlyph:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _OverlayIconGlyphEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExtendedContentMessage._OverlayIconGlyph.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _OverlayIconGlyphEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ExtendedContentMessage._OverlayIconGlyph.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         INFO: ExtendedContentMessage._OverlayIconGlyph.ValueType  # 0
         EYE_OFF: ExtendedContentMessage._OverlayIconGlyph.ValueType  # 1
         NEWS_OFF: ExtendedContentMessage._OverlayIconGlyph.ValueType  # 2
@@ -69,22 +69,22 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     WARNING_SCREENS: ExtendedContentMessage.OverlayIconGlyph.ValueType  # 9
 
     class _CtaButtonType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _CtaButtonTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExtendedContentMessage._CtaButtonType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _CtaButtonTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ExtendedContentMessage._CtaButtonType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         OPEN_NATIVE: ExtendedContentMessage._CtaButtonType.ValueType  # 11
 
     class CtaButtonType(_CtaButtonType, metaclass=_CtaButtonTypeEnumTypeWrapper): ...
     OPEN_NATIVE: ExtendedContentMessage.CtaButtonType.ValueType  # 11
 
     class _XmaLayoutType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _XmaLayoutTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExtendedContentMessage._XmaLayoutType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _XmaLayoutTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ExtendedContentMessage._XmaLayoutType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         SINGLE: ExtendedContentMessage._XmaLayoutType.ValueType  # 0
         HSCROLL: ExtendedContentMessage._XmaLayoutType.ValueType  # 1
         PORTRAIT: ExtendedContentMessage._XmaLayoutType.ValueType  # 3
@@ -101,11 +101,11 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     GRID: ExtendedContentMessage.XmaLayoutType.ValueType  # 16
 
     class _ExtendedContentType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ExtendedContentTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExtendedContentMessage._ExtendedContentType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ExtendedContentTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ExtendedContentMessage._ExtendedContentType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNSUPPORTED: ExtendedContentMessage._ExtendedContentType.ValueType  # 0
         IG_STORY_PHOTO_MENTION: ExtendedContentMessage._ExtendedContentType.ValueType  # 4
         IG_SINGLE_IMAGE_POST_SHARE: ExtendedContentMessage._ExtendedContentType.ValueType  # 9
@@ -265,135 +265,139 @@ class ExtendedContentMessage(google.protobuf.message.Message):
     MSG_RECEIVER_FETCH_FALLBACK: ExtendedContentMessage.ExtendedContentType.ValueType  # 3025
     DATACLASS_SENDER_COPY: ExtendedContentMessage.ExtendedContentType.ValueType  # 4000
 
-    @typing.final
-    class CTA(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class CTA(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        BUTTONTYPE_FIELD_NUMBER: builtins.int
-        TITLE_FIELD_NUMBER: builtins.int
-        ACTIONURL_FIELD_NUMBER: builtins.int
-        NATIVEURL_FIELD_NUMBER: builtins.int
-        CTATYPE_FIELD_NUMBER: builtins.int
-        ACTIONCONTENTBLOB_FIELD_NUMBER: builtins.int
+        BUTTONTYPE_FIELD_NUMBER: _builtins.int
+        TITLE_FIELD_NUMBER: _builtins.int
+        ACTIONURL_FIELD_NUMBER: _builtins.int
+        NATIVEURL_FIELD_NUMBER: _builtins.int
+        CTATYPE_FIELD_NUMBER: _builtins.int
+        ACTIONCONTENTBLOB_FIELD_NUMBER: _builtins.int
         buttonType: Global___ExtendedContentMessage.CtaButtonType.ValueType
-        title: builtins.str
-        actionURL: builtins.str
-        nativeURL: builtins.str
-        ctaType: builtins.str
-        actionContentBlob: builtins.str
+        title: _builtins.str
+        actionURL: _builtins.str
+        nativeURL: _builtins.str
+        ctaType: _builtins.str
+        actionContentBlob: _builtins.str
         def __init__(
             self,
             *,
             buttonType: Global___ExtendedContentMessage.CtaButtonType.ValueType | None = ...,
-            title: builtins.str | None = ...,
-            actionURL: builtins.str | None = ...,
-            nativeURL: builtins.str | None = ...,
-            ctaType: builtins.str | None = ...,
-            actionContentBlob: builtins.str | None = ...,
+            title: _builtins.str | None = ...,
+            actionURL: _builtins.str | None = ...,
+            nativeURL: _builtins.str | None = ...,
+            ctaType: _builtins.str | None = ...,
+            actionContentBlob: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["actionContentBlob", b"actionContentBlob", "actionURL", b"actionURL", "buttonType", b"buttonType", "ctaType", b"ctaType", "nativeURL", b"nativeURL", "title", b"title"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["actionContentBlob", b"actionContentBlob", "actionURL", b"actionURL", "buttonType", b"buttonType", "ctaType", b"ctaType", "nativeURL", b"nativeURL", "title", b"title"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["actionContentBlob", b"actionContentBlob", "actionURL", b"actionURL", "buttonType", b"buttonType", "ctaType", b"ctaType", "nativeURL", b"nativeURL", "title", b"title"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["actionContentBlob", b"actionContentBlob", "actionURL", b"actionURL", "buttonType", b"buttonType", "ctaType", b"ctaType", "nativeURL", b"nativeURL", "title", b"title"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    ASSOCIATEDMESSAGE_FIELD_NUMBER: builtins.int
-    TARGETTYPE_FIELD_NUMBER: builtins.int
-    TARGETUSERNAME_FIELD_NUMBER: builtins.int
-    TARGETID_FIELD_NUMBER: builtins.int
-    TARGETEXPIRINGATSEC_FIELD_NUMBER: builtins.int
-    XMALAYOUTTYPE_FIELD_NUMBER: builtins.int
-    CTAS_FIELD_NUMBER: builtins.int
-    PREVIEWS_FIELD_NUMBER: builtins.int
-    TITLETEXT_FIELD_NUMBER: builtins.int
-    SUBTITLETEXT_FIELD_NUMBER: builtins.int
-    MAXTITLENUMOFLINES_FIELD_NUMBER: builtins.int
-    MAXSUBTITLENUMOFLINES_FIELD_NUMBER: builtins.int
-    FAVICON_FIELD_NUMBER: builtins.int
-    HEADERIMAGE_FIELD_NUMBER: builtins.int
-    HEADERTITLE_FIELD_NUMBER: builtins.int
-    OVERLAYICONGLYPH_FIELD_NUMBER: builtins.int
-    OVERLAYTITLE_FIELD_NUMBER: builtins.int
-    OVERLAYDESCRIPTION_FIELD_NUMBER: builtins.int
-    SENTWITHMESSAGEID_FIELD_NUMBER: builtins.int
-    MESSAGETEXT_FIELD_NUMBER: builtins.int
-    HEADERSUBTITLE_FIELD_NUMBER: builtins.int
-    XMADATACLASS_FIELD_NUMBER: builtins.int
-    CONTENTREF_FIELD_NUMBER: builtins.int
-    MENTIONEDJID_FIELD_NUMBER: builtins.int
-    COMMANDS_FIELD_NUMBER: builtins.int
-    MENTIONS_FIELD_NUMBER: builtins.int
-    XMADATACLASSTYPE_FIELD_NUMBER: builtins.int
-    SIGNEDXMADATACLASSVALIDATION_FIELD_NUMBER: builtins.int
-    FEATURESHAREDSESSIONID_FIELD_NUMBER: builtins.int
+    ASSOCIATEDMESSAGE_FIELD_NUMBER: _builtins.int
+    TARGETTYPE_FIELD_NUMBER: _builtins.int
+    TARGETUSERNAME_FIELD_NUMBER: _builtins.int
+    TARGETID_FIELD_NUMBER: _builtins.int
+    TARGETEXPIRINGATSEC_FIELD_NUMBER: _builtins.int
+    XMALAYOUTTYPE_FIELD_NUMBER: _builtins.int
+    CTAS_FIELD_NUMBER: _builtins.int
+    PREVIEWS_FIELD_NUMBER: _builtins.int
+    TITLETEXT_FIELD_NUMBER: _builtins.int
+    SUBTITLETEXT_FIELD_NUMBER: _builtins.int
+    MAXTITLENUMOFLINES_FIELD_NUMBER: _builtins.int
+    MAXSUBTITLENUMOFLINES_FIELD_NUMBER: _builtins.int
+    FAVICON_FIELD_NUMBER: _builtins.int
+    HEADERIMAGE_FIELD_NUMBER: _builtins.int
+    HEADERTITLE_FIELD_NUMBER: _builtins.int
+    OVERLAYICONGLYPH_FIELD_NUMBER: _builtins.int
+    OVERLAYTITLE_FIELD_NUMBER: _builtins.int
+    OVERLAYDESCRIPTION_FIELD_NUMBER: _builtins.int
+    SENTWITHMESSAGEID_FIELD_NUMBER: _builtins.int
+    MESSAGETEXT_FIELD_NUMBER: _builtins.int
+    HEADERSUBTITLE_FIELD_NUMBER: _builtins.int
+    XMADATACLASS_FIELD_NUMBER: _builtins.int
+    CONTENTREF_FIELD_NUMBER: _builtins.int
+    MENTIONEDJID_FIELD_NUMBER: _builtins.int
+    COMMANDS_FIELD_NUMBER: _builtins.int
+    MENTIONS_FIELD_NUMBER: _builtins.int
+    XMADATACLASSTYPE_FIELD_NUMBER: _builtins.int
+    SIGNEDXMADATACLASSVALIDATION_FIELD_NUMBER: _builtins.int
+    FEATURESHAREDSESSIONID_FIELD_NUMBER: _builtins.int
     targetType: Global___ExtendedContentMessage.ExtendedContentType.ValueType
-    targetUsername: builtins.str
-    targetID: builtins.str
-    targetExpiringAtSec: builtins.int
+    targetUsername: _builtins.str
+    targetID: _builtins.str
+    targetExpiringAtSec: _builtins.int
     xmaLayoutType: Global___ExtendedContentMessage.XmaLayoutType.ValueType
-    titleText: builtins.str
-    subtitleText: builtins.str
-    maxTitleNumOfLines: builtins.int
-    maxSubtitleNumOfLines: builtins.int
-    headerTitle: builtins.str
+    titleText: _builtins.str
+    subtitleText: _builtins.str
+    maxTitleNumOfLines: _builtins.int
+    maxSubtitleNumOfLines: _builtins.int
+    headerTitle: _builtins.str
     overlayIconGlyph: Global___ExtendedContentMessage.OverlayIconGlyph.ValueType
-    overlayTitle: builtins.str
-    overlayDescription: builtins.str
-    sentWithMessageID: builtins.str
-    messageText: builtins.str
-    headerSubtitle: builtins.str
-    xmaDataclass: builtins.str
-    contentRef: builtins.str
+    overlayTitle: _builtins.str
+    overlayDescription: _builtins.str
+    sentWithMessageID: _builtins.str
+    messageText: _builtins.str
+    headerSubtitle: _builtins.str
+    xmaDataclass: _builtins.str
+    contentRef: _builtins.str
     xmaDataclassType: Global___ExtendedContentMessage.XmaDataclassType.ValueType
-    signedXmaDataclassValidation: builtins.str
-    featureSharedSessionID: builtins.str
-    @property
-    def associatedMessage(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-    @property
-    def ctas(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ExtendedContentMessage.CTA]: ...
-    @property
-    def previews(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[waCommon.WACommon_pb2.SubProtocol]: ...
-    @property
-    def favicon(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-    @property
-    def headerImage(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-    @property
-    def mentionedJID(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
-    @property
-    def commands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[waCommon.WACommon_pb2.Command]: ...
-    @property
-    def mentions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[waCommon.WACommon_pb2.Mention]: ...
+    signedXmaDataclassValidation: _builtins.str
+    featureSharedSessionID: _builtins.str
+    @_builtins.property
+    def associatedMessage(self) -> _WACommon_pb2.SubProtocol: ...
+    @_builtins.property
+    def ctas(self) -> _containers.RepeatedCompositeFieldContainer[Global___ExtendedContentMessage.CTA]: ...
+    @_builtins.property
+    def previews(self) -> _containers.RepeatedCompositeFieldContainer[_WACommon_pb2.SubProtocol]: ...
+    @_builtins.property
+    def favicon(self) -> _WACommon_pb2.SubProtocol: ...
+    @_builtins.property
+    def headerImage(self) -> _WACommon_pb2.SubProtocol: ...
+    @_builtins.property
+    def mentionedJID(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
+    @_builtins.property
+    def commands(self) -> _containers.RepeatedCompositeFieldContainer[_WACommon_pb2.Command]: ...
+    @_builtins.property
+    def mentions(self) -> _containers.RepeatedCompositeFieldContainer[_WACommon_pb2.Mention]: ...
     def __init__(
         self,
         *,
-        associatedMessage: waCommon.WACommon_pb2.SubProtocol | None = ...,
+        associatedMessage: _WACommon_pb2.SubProtocol | None = ...,
         targetType: Global___ExtendedContentMessage.ExtendedContentType.ValueType | None = ...,
-        targetUsername: builtins.str | None = ...,
-        targetID: builtins.str | None = ...,
-        targetExpiringAtSec: builtins.int | None = ...,
+        targetUsername: _builtins.str | None = ...,
+        targetID: _builtins.str | None = ...,
+        targetExpiringAtSec: _builtins.int | None = ...,
         xmaLayoutType: Global___ExtendedContentMessage.XmaLayoutType.ValueType | None = ...,
-        ctas: collections.abc.Iterable[Global___ExtendedContentMessage.CTA] | None = ...,
-        previews: collections.abc.Iterable[waCommon.WACommon_pb2.SubProtocol] | None = ...,
-        titleText: builtins.str | None = ...,
-        subtitleText: builtins.str | None = ...,
-        maxTitleNumOfLines: builtins.int | None = ...,
-        maxSubtitleNumOfLines: builtins.int | None = ...,
-        favicon: waCommon.WACommon_pb2.SubProtocol | None = ...,
-        headerImage: waCommon.WACommon_pb2.SubProtocol | None = ...,
-        headerTitle: builtins.str | None = ...,
+        ctas: _abc.Iterable[Global___ExtendedContentMessage.CTA] | None = ...,
+        previews: _abc.Iterable[_WACommon_pb2.SubProtocol] | None = ...,
+        titleText: _builtins.str | None = ...,
+        subtitleText: _builtins.str | None = ...,
+        maxTitleNumOfLines: _builtins.int | None = ...,
+        maxSubtitleNumOfLines: _builtins.int | None = ...,
+        favicon: _WACommon_pb2.SubProtocol | None = ...,
+        headerImage: _WACommon_pb2.SubProtocol | None = ...,
+        headerTitle: _builtins.str | None = ...,
         overlayIconGlyph: Global___ExtendedContentMessage.OverlayIconGlyph.ValueType | None = ...,
-        overlayTitle: builtins.str | None = ...,
-        overlayDescription: builtins.str | None = ...,
-        sentWithMessageID: builtins.str | None = ...,
-        messageText: builtins.str | None = ...,
-        headerSubtitle: builtins.str | None = ...,
-        xmaDataclass: builtins.str | None = ...,
-        contentRef: builtins.str | None = ...,
-        mentionedJID: collections.abc.Iterable[builtins.str] | None = ...,
-        commands: collections.abc.Iterable[waCommon.WACommon_pb2.Command] | None = ...,
-        mentions: collections.abc.Iterable[waCommon.WACommon_pb2.Mention] | None = ...,
+        overlayTitle: _builtins.str | None = ...,
+        overlayDescription: _builtins.str | None = ...,
+        sentWithMessageID: _builtins.str | None = ...,
+        messageText: _builtins.str | None = ...,
+        headerSubtitle: _builtins.str | None = ...,
+        xmaDataclass: _builtins.str | None = ...,
+        contentRef: _builtins.str | None = ...,
+        mentionedJID: _abc.Iterable[_builtins.str] | None = ...,
+        commands: _abc.Iterable[_WACommon_pb2.Command] | None = ...,
+        mentions: _abc.Iterable[_WACommon_pb2.Mention] | None = ...,
         xmaDataclassType: Global___ExtendedContentMessage.XmaDataclassType.ValueType | None = ...,
-        signedXmaDataclassValidation: builtins.str | None = ...,
-        featureSharedSessionID: builtins.str | None = ...,
+        signedXmaDataclassValidation: _builtins.str | None = ...,
+        featureSharedSessionID: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["associatedMessage", b"associatedMessage", "contentRef", b"contentRef", "favicon", b"favicon", "featureSharedSessionID", b"featureSharedSessionID", "headerImage", b"headerImage", "headerSubtitle", b"headerSubtitle", "headerTitle", b"headerTitle", "maxSubtitleNumOfLines", b"maxSubtitleNumOfLines", "maxTitleNumOfLines", b"maxTitleNumOfLines", "messageText", b"messageText", "overlayDescription", b"overlayDescription", "overlayIconGlyph", b"overlayIconGlyph", "overlayTitle", b"overlayTitle", "sentWithMessageID", b"sentWithMessageID", "signedXmaDataclassValidation", b"signedXmaDataclassValidation", "subtitleText", b"subtitleText", "targetExpiringAtSec", b"targetExpiringAtSec", "targetID", b"targetID", "targetType", b"targetType", "targetUsername", b"targetUsername", "titleText", b"titleText", "xmaDataclass", b"xmaDataclass", "xmaDataclassType", b"xmaDataclassType", "xmaLayoutType", b"xmaLayoutType"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["associatedMessage", b"associatedMessage", "commands", b"commands", "contentRef", b"contentRef", "ctas", b"ctas", "favicon", b"favicon", "featureSharedSessionID", b"featureSharedSessionID", "headerImage", b"headerImage", "headerSubtitle", b"headerSubtitle", "headerTitle", b"headerTitle", "maxSubtitleNumOfLines", b"maxSubtitleNumOfLines", "maxTitleNumOfLines", b"maxTitleNumOfLines", "mentionedJID", b"mentionedJID", "mentions", b"mentions", "messageText", b"messageText", "overlayDescription", b"overlayDescription", "overlayIconGlyph", b"overlayIconGlyph", "overlayTitle", b"overlayTitle", "previews", b"previews", "sentWithMessageID", b"sentWithMessageID", "signedXmaDataclassValidation", b"signedXmaDataclassValidation", "subtitleText", b"subtitleText", "targetExpiringAtSec", b"targetExpiringAtSec", "targetID", b"targetID", "targetType", b"targetType", "targetUsername", b"targetUsername", "titleText", b"titleText", "xmaDataclass", b"xmaDataclass", "xmaDataclassType", b"xmaDataclassType", "xmaLayoutType", b"xmaLayoutType"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["associatedMessage", b"associatedMessage", "contentRef", b"contentRef", "favicon", b"favicon", "featureSharedSessionID", b"featureSharedSessionID", "headerImage", b"headerImage", "headerSubtitle", b"headerSubtitle", "headerTitle", b"headerTitle", "maxSubtitleNumOfLines", b"maxSubtitleNumOfLines", "maxTitleNumOfLines", b"maxTitleNumOfLines", "messageText", b"messageText", "overlayDescription", b"overlayDescription", "overlayIconGlyph", b"overlayIconGlyph", "overlayTitle", b"overlayTitle", "sentWithMessageID", b"sentWithMessageID", "signedXmaDataclassValidation", b"signedXmaDataclassValidation", "subtitleText", b"subtitleText", "targetExpiringAtSec", b"targetExpiringAtSec", "targetID", b"targetID", "targetType", b"targetType", "targetUsername", b"targetUsername", "titleText", b"titleText", "xmaDataclass", b"xmaDataclass", "xmaDataclassType", b"xmaDataclassType", "xmaLayoutType", b"xmaLayoutType"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["associatedMessage", b"associatedMessage", "commands", b"commands", "contentRef", b"contentRef", "ctas", b"ctas", "favicon", b"favicon", "featureSharedSessionID", b"featureSharedSessionID", "headerImage", b"headerImage", "headerSubtitle", b"headerSubtitle", "headerTitle", b"headerTitle", "maxSubtitleNumOfLines", b"maxSubtitleNumOfLines", "maxTitleNumOfLines", b"maxTitleNumOfLines", "mentionedJID", b"mentionedJID", "mentions", b"mentions", "messageText", b"messageText", "overlayDescription", b"overlayDescription", "overlayIconGlyph", b"overlayIconGlyph", "overlayTitle", b"overlayTitle", "previews", b"previews", "sentWithMessageID", b"sentWithMessageID", "signedXmaDataclassValidation", b"signedXmaDataclassValidation", "subtitleText", b"subtitleText", "targetExpiringAtSec", b"targetExpiringAtSec", "targetID", b"targetID", "targetType", b"targetType", "targetUsername", b"targetUsername", "titleText", b"titleText", "xmaDataclass", b"xmaDataclass", "xmaDataclassType", b"xmaDataclassType", "xmaLayoutType", b"xmaLayoutType"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ExtendedContentMessage: typing_extensions.TypeAlias = ExtendedContentMessage
+Global___ExtendedContentMessage: _TypeAlias = ExtendedContentMessage  # noqa: Y015

@@ -3,100 +3,106 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import instamadilloCoreTypeMedia.InstamadilloCoreTypeMedia_pb2
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import containers as _containers
+from instamadilloCoreTypeMedia import InstamadilloCoreTypeMedia_pb2 as _InstamadilloCoreTypeMedia_pb2
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class Link(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Link(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TEXT_FIELD_NUMBER: builtins.int
-    LINKCONTEXT_FIELD_NUMBER: builtins.int
-    text: builtins.str
-    @property
+    TEXT_FIELD_NUMBER: _builtins.int
+    LINKCONTEXT_FIELD_NUMBER: _builtins.int
+    text: _builtins.str
+    @_builtins.property
     def linkContext(self) -> Global___LinkContext: ...
     def __init__(
         self,
         *,
-        text: builtins.str | None = ...,
+        text: _builtins.str | None = ...,
         linkContext: Global___LinkContext | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["linkContext", b"linkContext", "text", b"text"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["linkContext", b"linkContext", "text", b"text"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["linkContext", b"linkContext", "text", b"text"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["linkContext", b"linkContext", "text", b"text"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___Link: typing_extensions.TypeAlias = Link
+Global___Link: _TypeAlias = Link  # noqa: Y015
 
-@typing.final
-class LinkContext(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class LinkContext(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    LINKIMAGEURL_FIELD_NUMBER: builtins.int
-    LINKPREVIEWTITLE_FIELD_NUMBER: builtins.int
-    LINKURL_FIELD_NUMBER: builtins.int
-    LINKSUMMARY_FIELD_NUMBER: builtins.int
-    LINKMUSICPREVIEWURL_FIELD_NUMBER: builtins.int
-    LINKMUSICPREVIEWCOUNTRIESALLOWED_FIELD_NUMBER: builtins.int
-    LINKPREVIEWTHUMBNAIL_FIELD_NUMBER: builtins.int
-    LINKPREVIEWBODY_FIELD_NUMBER: builtins.int
-    linkPreviewTitle: builtins.str
-    linkURL: builtins.str
-    linkSummary: builtins.str
-    linkMusicPreviewURL: builtins.str
-    linkPreviewBody: builtins.str
-    @property
+    LINKIMAGEURL_FIELD_NUMBER: _builtins.int
+    LINKPREVIEWTITLE_FIELD_NUMBER: _builtins.int
+    LINKURL_FIELD_NUMBER: _builtins.int
+    LINKSUMMARY_FIELD_NUMBER: _builtins.int
+    LINKMUSICPREVIEWURL_FIELD_NUMBER: _builtins.int
+    LINKMUSICPREVIEWCOUNTRIESALLOWED_FIELD_NUMBER: _builtins.int
+    LINKPREVIEWTHUMBNAIL_FIELD_NUMBER: _builtins.int
+    LINKPREVIEWBODY_FIELD_NUMBER: _builtins.int
+    linkPreviewTitle: _builtins.str
+    linkURL: _builtins.str
+    linkSummary: _builtins.str
+    linkMusicPreviewURL: _builtins.str
+    linkPreviewBody: _builtins.str
+    @_builtins.property
     def linkImageURL(self) -> Global___ImageUrl: ...
-    @property
-    def linkMusicPreviewCountriesAllowed(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
-    @property
-    def linkPreviewThumbnail(self) -> instamadilloCoreTypeMedia.InstamadilloCoreTypeMedia_pb2.Thumbnail: ...
+    @_builtins.property
+    def linkMusicPreviewCountriesAllowed(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
+    @_builtins.property
+    def linkPreviewThumbnail(self) -> _InstamadilloCoreTypeMedia_pb2.Thumbnail: ...
     def __init__(
         self,
         *,
         linkImageURL: Global___ImageUrl | None = ...,
-        linkPreviewTitle: builtins.str | None = ...,
-        linkURL: builtins.str | None = ...,
-        linkSummary: builtins.str | None = ...,
-        linkMusicPreviewURL: builtins.str | None = ...,
-        linkMusicPreviewCountriesAllowed: collections.abc.Iterable[builtins.str] | None = ...,
-        linkPreviewThumbnail: instamadilloCoreTypeMedia.InstamadilloCoreTypeMedia_pb2.Thumbnail | None = ...,
-        linkPreviewBody: builtins.str | None = ...,
+        linkPreviewTitle: _builtins.str | None = ...,
+        linkURL: _builtins.str | None = ...,
+        linkSummary: _builtins.str | None = ...,
+        linkMusicPreviewURL: _builtins.str | None = ...,
+        linkMusicPreviewCountriesAllowed: _abc.Iterable[_builtins.str] | None = ...,
+        linkPreviewThumbnail: _InstamadilloCoreTypeMedia_pb2.Thumbnail | None = ...,
+        linkPreviewBody: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["linkImageURL", b"linkImageURL", "linkMusicPreviewURL", b"linkMusicPreviewURL", "linkPreviewBody", b"linkPreviewBody", "linkPreviewThumbnail", b"linkPreviewThumbnail", "linkPreviewTitle", b"linkPreviewTitle", "linkSummary", b"linkSummary", "linkURL", b"linkURL"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["linkImageURL", b"linkImageURL", "linkMusicPreviewCountriesAllowed", b"linkMusicPreviewCountriesAllowed", "linkMusicPreviewURL", b"linkMusicPreviewURL", "linkPreviewBody", b"linkPreviewBody", "linkPreviewThumbnail", b"linkPreviewThumbnail", "linkPreviewTitle", b"linkPreviewTitle", "linkSummary", b"linkSummary", "linkURL", b"linkURL"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["linkImageURL", b"linkImageURL", "linkMusicPreviewURL", b"linkMusicPreviewURL", "linkPreviewBody", b"linkPreviewBody", "linkPreviewThumbnail", b"linkPreviewThumbnail", "linkPreviewTitle", b"linkPreviewTitle", "linkSummary", b"linkSummary", "linkURL", b"linkURL"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["linkImageURL", b"linkImageURL", "linkMusicPreviewCountriesAllowed", b"linkMusicPreviewCountriesAllowed", "linkMusicPreviewURL", b"linkMusicPreviewURL", "linkPreviewBody", b"linkPreviewBody", "linkPreviewThumbnail", b"linkPreviewThumbnail", "linkPreviewTitle", b"linkPreviewTitle", "linkSummary", b"linkSummary", "linkURL", b"linkURL"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___LinkContext: typing_extensions.TypeAlias = LinkContext
+Global___LinkContext: _TypeAlias = LinkContext  # noqa: Y015
 
-@typing.final
-class ImageUrl(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ImageUrl(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    URL_FIELD_NUMBER: builtins.int
-    WIDTH_FIELD_NUMBER: builtins.int
-    HEIGHT_FIELD_NUMBER: builtins.int
-    URL: builtins.str
-    width: builtins.int
-    height: builtins.int
+    URL_FIELD_NUMBER: _builtins.int
+    WIDTH_FIELD_NUMBER: _builtins.int
+    HEIGHT_FIELD_NUMBER: _builtins.int
+    URL: _builtins.str
+    width: _builtins.int
+    height: _builtins.int
     def __init__(
         self,
         *,
-        URL: builtins.str | None = ...,
-        width: builtins.int | None = ...,
-        height: builtins.int | None = ...,
+        URL: _builtins.str | None = ...,
+        width: _builtins.int | None = ...,
+        height: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["URL", b"URL", "height", b"height", "width", b"width"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["URL", b"URL", "height", b"height", "width", b"width"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "height", b"height", "width", b"width"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "height", b"height", "width", b"width"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ImageUrl: typing_extensions.TypeAlias = ImageUrl
+Global___ImageUrl: _TypeAlias = ImageUrl  # noqa: Y015

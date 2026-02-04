@@ -3,38 +3,38 @@
 isort:skip_file
 """
 
-import builtins
-import google.protobuf.descriptor
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class TransportEvent(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class TransportEvent(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class Event(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Event(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        @typing.final
-        class IcdcAlert(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class IcdcAlert(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
             class _Type:
-                ValueType = typing.NewType("ValueType", builtins.int)
-                V: typing_extensions.TypeAlias = ValueType
+                ValueType = _typing.NewType("ValueType", _builtins.int)
+                V: _TypeAlias = ValueType  # noqa: Y015
 
-            class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TransportEvent.Event.IcdcAlert._Type.ValueType], builtins.type):
-                DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+            class _TypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[TransportEvent.Event.IcdcAlert._Type.ValueType], _builtins.type):
+                DESCRIPTOR: _descriptor.EnumDescriptor
                 NONE: TransportEvent.Event.IcdcAlert._Type.ValueType  # 0
                 DETECTED: TransportEvent.Event.IcdcAlert._Type.ValueType  # 1
                 CLEARED: TransportEvent.Event.IcdcAlert._Type.ValueType  # 2
@@ -44,26 +44,28 @@ class TransportEvent(google.protobuf.message.Message):
             DETECTED: TransportEvent.Event.IcdcAlert.Type.ValueType  # 1
             CLEARED: TransportEvent.Event.IcdcAlert.Type.ValueType  # 2
 
-            TYPE_FIELD_NUMBER: builtins.int
+            TYPE_FIELD_NUMBER: _builtins.int
             type: Global___TransportEvent.Event.IcdcAlert.Type.ValueType
             def __init__(
                 self,
                 *,
                 type: Global___TransportEvent.Event.IcdcAlert.Type.ValueType | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["type", b"type"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["type", b"type"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["type", b"type"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["type", b"type"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        @typing.final
-        class DeviceChange(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class DeviceChange(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
             class _Type:
-                ValueType = typing.NewType("ValueType", builtins.int)
-                V: typing_extensions.TypeAlias = ValueType
+                ValueType = _typing.NewType("ValueType", _builtins.int)
+                V: _TypeAlias = ValueType  # noqa: Y015
 
-            class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TransportEvent.Event.DeviceChange._Type.ValueType], builtins.type):
-                DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+            class _TypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[TransportEvent.Event.DeviceChange._Type.ValueType], _builtins.type):
+                DESCRIPTOR: _descriptor.EnumDescriptor
                 NONE: TransportEvent.Event.DeviceChange._Type.ValueType  # 0
                 ADDED: TransportEvent.Event.DeviceChange._Type.ValueType  # 1
                 REMOVED: TransportEvent.Event.DeviceChange._Type.ValueType  # 2
@@ -75,30 +77,32 @@ class TransportEvent(google.protobuf.message.Message):
             REMOVED: TransportEvent.Event.DeviceChange.Type.ValueType  # 2
             REPLACED: TransportEvent.Event.DeviceChange.Type.ValueType  # 3
 
-            TYPE_FIELD_NUMBER: builtins.int
-            DEVICENAME_FIELD_NUMBER: builtins.int
-            DEVICEPLATFORM_FIELD_NUMBER: builtins.int
-            DEVICEMODEL_FIELD_NUMBER: builtins.int
+            TYPE_FIELD_NUMBER: _builtins.int
+            DEVICENAME_FIELD_NUMBER: _builtins.int
+            DEVICEPLATFORM_FIELD_NUMBER: _builtins.int
+            DEVICEMODEL_FIELD_NUMBER: _builtins.int
             type: Global___TransportEvent.Event.DeviceChange.Type.ValueType
-            deviceName: builtins.str
-            devicePlatform: builtins.str
-            deviceModel: builtins.str
+            deviceName: _builtins.str
+            devicePlatform: _builtins.str
+            deviceModel: _builtins.str
             def __init__(
                 self,
                 *,
                 type: Global___TransportEvent.Event.DeviceChange.Type.ValueType | None = ...,
-                deviceName: builtins.str | None = ...,
-                devicePlatform: builtins.str | None = ...,
-                deviceModel: builtins.str | None = ...,
+                deviceName: _builtins.str | None = ...,
+                devicePlatform: _builtins.str | None = ...,
+                deviceModel: _builtins.str | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["deviceModel", b"deviceModel", "deviceName", b"deviceName", "devicePlatform", b"devicePlatform", "type", b"type"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["deviceModel", b"deviceModel", "deviceName", b"deviceName", "devicePlatform", b"devicePlatform", "type", b"type"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["deviceModel", b"deviceModel", "deviceName", b"deviceName", "devicePlatform", b"devicePlatform", "type", b"type"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["deviceModel", b"deviceModel", "deviceName", b"deviceName", "devicePlatform", b"devicePlatform", "type", b"type"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        DEVICECHANGE_FIELD_NUMBER: builtins.int
-        ICDCALERT_FIELD_NUMBER: builtins.int
-        @property
+        DEVICECHANGE_FIELD_NUMBER: _builtins.int
+        ICDCALERT_FIELD_NUMBER: _builtins.int
+        @_builtins.property
         def deviceChange(self) -> Global___TransportEvent.Event.DeviceChange: ...
-        @property
+        @_builtins.property
         def icdcAlert(self) -> Global___TransportEvent.Event.IcdcAlert: ...
         def __init__(
             self,
@@ -106,20 +110,24 @@ class TransportEvent(google.protobuf.message.Message):
             deviceChange: Global___TransportEvent.Event.DeviceChange | None = ...,
             icdcAlert: Global___TransportEvent.Event.IcdcAlert | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["deviceChange", b"deviceChange", "event", b"event", "icdcAlert", b"icdcAlert"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["deviceChange", b"deviceChange", "event", b"event", "icdcAlert", b"icdcAlert"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["event", b"event"]) -> typing.Literal["deviceChange", "icdcAlert"] | None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["deviceChange", b"deviceChange", "event", b"event", "icdcAlert", b"icdcAlert"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["deviceChange", b"deviceChange", "event", b"event", "icdcAlert", b"icdcAlert"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        _WhichOneofReturnType_event: _TypeAlias = _typing.Literal["deviceChange", "icdcAlert"]  # noqa: Y015
+        _WhichOneofArgType_event: _TypeAlias = _typing.Literal["event", b"event"]  # noqa: Y015
+        def WhichOneof(self, oneof_group: _WhichOneofArgType_event) -> _WhichOneofReturnType_event | None: ...
 
-    @typing.final
-    class Placeholder(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Placeholder(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _Type:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TransportEvent.Placeholder._Type.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _TypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[TransportEvent.Placeholder._Type.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             DECRYPTION_FAILURE: TransportEvent.Placeholder._Type.ValueType  # 1
             UNAVAILABLE_MESSAGE: TransportEvent.Placeholder._Type.ValueType  # 2
 
@@ -127,21 +135,23 @@ class TransportEvent(google.protobuf.message.Message):
         DECRYPTION_FAILURE: TransportEvent.Placeholder.Type.ValueType  # 1
         UNAVAILABLE_MESSAGE: TransportEvent.Placeholder.Type.ValueType  # 2
 
-        TYPE_FIELD_NUMBER: builtins.int
+        TYPE_FIELD_NUMBER: _builtins.int
         type: Global___TransportEvent.Placeholder.Type.ValueType
         def __init__(
             self,
             *,
             type: Global___TransportEvent.Placeholder.Type.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["type", b"type"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["type", b"type"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["type", b"type"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["type", b"type"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    PLACEHOLDER_FIELD_NUMBER: builtins.int
-    EVENT_FIELD_NUMBER: builtins.int
-    @property
+    PLACEHOLDER_FIELD_NUMBER: _builtins.int
+    EVENT_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def placeholder(self) -> Global___TransportEvent.Placeholder: ...
-    @property
+    @_builtins.property
     def event(self) -> Global___TransportEvent.Event: ...
     def __init__(
         self,
@@ -149,8 +159,12 @@ class TransportEvent(google.protobuf.message.Message):
         placeholder: Global___TransportEvent.Placeholder | None = ...,
         event: Global___TransportEvent.Event | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["content", b"content", "event", b"event", "placeholder", b"placeholder"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["content", b"content", "event", b"event", "placeholder", b"placeholder"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["placeholder", "event"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["content", b"content", "event", b"event", "placeholder", b"placeholder"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["content", b"content", "event", b"event", "placeholder", b"placeholder"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_content: _TypeAlias = _typing.Literal["placeholder", "event"]  # noqa: Y015
+    _WhichOneofArgType_content: _TypeAlias = _typing.Literal["content", b"content"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_content) -> _WhichOneofReturnType_content | None: ...
 
-Global___TransportEvent: typing_extensions.TypeAlias = TransportEvent
+Global___TransportEvent: _TypeAlias = TransportEvent  # noqa: Y015

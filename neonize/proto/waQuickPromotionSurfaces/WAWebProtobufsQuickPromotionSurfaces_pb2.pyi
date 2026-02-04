@@ -3,32 +3,32 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class QP(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class QP(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _FilterResult:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _FilterResultEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[QP._FilterResult.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _FilterResultEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[QP._FilterResult.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         TRUE: QP._FilterResult.ValueType  # 1
         FALSE: QP._FilterResult.ValueType  # 2
         UNKNOWN: QP._FilterResult.ValueType  # 3
@@ -39,11 +39,11 @@ class QP(google.protobuf.message.Message):
     UNKNOWN: QP.FilterResult.ValueType  # 3
 
     class _FilterClientNotSupportedConfig:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _FilterClientNotSupportedConfigEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[QP._FilterClientNotSupportedConfig.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _FilterClientNotSupportedConfigEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[QP._FilterClientNotSupportedConfig.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         PASS_BY_DEFAULT: QP._FilterClientNotSupportedConfig.ValueType  # 1
         FAIL_BY_DEFAULT: QP._FilterClientNotSupportedConfig.ValueType  # 2
 
@@ -52,11 +52,11 @@ class QP(google.protobuf.message.Message):
     FAIL_BY_DEFAULT: QP.FilterClientNotSupportedConfig.ValueType  # 2
 
     class _ClauseType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ClauseTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[QP._ClauseType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ClauseTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[QP._ClauseType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         AND: QP._ClauseType.ValueType  # 1
         OR: QP._ClauseType.ValueType  # 2
         NOR: QP._ClauseType.ValueType  # 3
@@ -66,71 +66,77 @@ class QP(google.protobuf.message.Message):
     OR: QP.ClauseType.ValueType  # 2
     NOR: QP.ClauseType.ValueType  # 3
 
-    @typing.final
-    class FilterClause(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class FilterClause(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        CLAUSETYPE_FIELD_NUMBER: builtins.int
-        CLAUSES_FIELD_NUMBER: builtins.int
-        FILTERS_FIELD_NUMBER: builtins.int
+        CLAUSETYPE_FIELD_NUMBER: _builtins.int
+        CLAUSES_FIELD_NUMBER: _builtins.int
+        FILTERS_FIELD_NUMBER: _builtins.int
         clauseType: Global___QP.ClauseType.ValueType
-        @property
-        def clauses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___QP.FilterClause]: ...
-        @property
-        def filters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___QP.Filter]: ...
+        @_builtins.property
+        def clauses(self) -> _containers.RepeatedCompositeFieldContainer[Global___QP.FilterClause]: ...
+        @_builtins.property
+        def filters(self) -> _containers.RepeatedCompositeFieldContainer[Global___QP.Filter]: ...
         def __init__(
             self,
             *,
             clauseType: Global___QP.ClauseType.ValueType | None = ...,
-            clauses: collections.abc.Iterable[Global___QP.FilterClause] | None = ...,
-            filters: collections.abc.Iterable[Global___QP.Filter] | None = ...,
+            clauses: _abc.Iterable[Global___QP.FilterClause] | None = ...,
+            filters: _abc.Iterable[Global___QP.Filter] | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["clauseType", b"clauseType"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["clauseType", b"clauseType", "clauses", b"clauses", "filters", b"filters"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["clauseType", b"clauseType"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["clauseType", b"clauseType", "clauses", b"clauses", "filters", b"filters"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class Filter(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Filter(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        FILTERNAME_FIELD_NUMBER: builtins.int
-        PARAMETERS_FIELD_NUMBER: builtins.int
-        FILTERRESULT_FIELD_NUMBER: builtins.int
-        CLIENTNOTSUPPORTEDCONFIG_FIELD_NUMBER: builtins.int
-        filterName: builtins.str
+        FILTERNAME_FIELD_NUMBER: _builtins.int
+        PARAMETERS_FIELD_NUMBER: _builtins.int
+        FILTERRESULT_FIELD_NUMBER: _builtins.int
+        CLIENTNOTSUPPORTEDCONFIG_FIELD_NUMBER: _builtins.int
+        filterName: _builtins.str
         filterResult: Global___QP.FilterResult.ValueType
         clientNotSupportedConfig: Global___QP.FilterClientNotSupportedConfig.ValueType
-        @property
-        def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___QP.FilterParameters]: ...
+        @_builtins.property
+        def parameters(self) -> _containers.RepeatedCompositeFieldContainer[Global___QP.FilterParameters]: ...
         def __init__(
             self,
             *,
-            filterName: builtins.str | None = ...,
-            parameters: collections.abc.Iterable[Global___QP.FilterParameters] | None = ...,
+            filterName: _builtins.str | None = ...,
+            parameters: _abc.Iterable[Global___QP.FilterParameters] | None = ...,
             filterResult: Global___QP.FilterResult.ValueType | None = ...,
             clientNotSupportedConfig: Global___QP.FilterClientNotSupportedConfig.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["clientNotSupportedConfig", b"clientNotSupportedConfig", "filterName", b"filterName", "filterResult", b"filterResult"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["clientNotSupportedConfig", b"clientNotSupportedConfig", "filterName", b"filterName", "filterResult", b"filterResult", "parameters", b"parameters"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["clientNotSupportedConfig", b"clientNotSupportedConfig", "filterName", b"filterName", "filterResult", b"filterResult"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["clientNotSupportedConfig", b"clientNotSupportedConfig", "filterName", b"filterName", "filterResult", b"filterResult", "parameters", b"parameters"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class FilterParameters(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class FilterParameters(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
         def __init__(
             self,
             *,
-            key: builtins.str | None = ...,
-            value: builtins.str | None = ...,
+            key: _builtins.str | None = ...,
+            value: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
     def __init__(
         self,
     ) -> None: ...
 
-Global___QP: typing_extensions.TypeAlias = QP
+Global___QP: _TypeAlias = QP  # noqa: Y015

@@ -3,63 +3,65 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from waCommon import WACommon_pb2 as _WACommon_pb2
+import builtins as _builtins
 import sys
-import typing
-import waCommon.WACommon_pb2
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class MessageTransport(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MessageTransport(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class Payload(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Payload(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        APPLICATIONPAYLOAD_FIELD_NUMBER: builtins.int
-        FUTUREPROOF_FIELD_NUMBER: builtins.int
-        futureProof: waCommon.WACommon_pb2.FutureProofBehavior.ValueType
-        @property
-        def applicationPayload(self) -> waCommon.WACommon_pb2.SubProtocol: ...
+        APPLICATIONPAYLOAD_FIELD_NUMBER: _builtins.int
+        FUTUREPROOF_FIELD_NUMBER: _builtins.int
+        futureProof: _WACommon_pb2.FutureProofBehavior.ValueType
+        @_builtins.property
+        def applicationPayload(self) -> _WACommon_pb2.SubProtocol: ...
         def __init__(
             self,
             *,
-            applicationPayload: waCommon.WACommon_pb2.SubProtocol | None = ...,
-            futureProof: waCommon.WACommon_pb2.FutureProofBehavior.ValueType | None = ...,
+            applicationPayload: _WACommon_pb2.SubProtocol | None = ...,
+            futureProof: _WACommon_pb2.FutureProofBehavior.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["applicationPayload", b"applicationPayload", "futureProof", b"futureProof"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["applicationPayload", b"applicationPayload", "futureProof", b"futureProof"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["applicationPayload", b"applicationPayload", "futureProof", b"futureProof"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["applicationPayload", b"applicationPayload", "futureProof", b"futureProof"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class Protocol(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Protocol(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        @typing.final
-        class Ancillary(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class Ancillary(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            @typing.final
-            class BackupDirective(google.protobuf.message.Message):
-                DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            @_typing.final
+            class BackupDirective(_message.Message):
+                DESCRIPTOR: _descriptor.Descriptor
 
                 class _ActionType:
-                    ValueType = typing.NewType("ValueType", builtins.int)
-                    V: typing_extensions.TypeAlias = ValueType
+                    ValueType = _typing.NewType("ValueType", _builtins.int)
+                    V: _TypeAlias = ValueType  # noqa: Y015
 
-                class _ActionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[MessageTransport.Protocol.Ancillary.BackupDirective._ActionType.ValueType], builtins.type):
-                    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+                class _ActionTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[MessageTransport.Protocol.Ancillary.BackupDirective._ActionType.ValueType], _builtins.type):
+                    DESCRIPTOR: _descriptor.EnumDescriptor
                     NOOP: MessageTransport.Protocol.Ancillary.BackupDirective._ActionType.ValueType  # 0
                     UPSERT: MessageTransport.Protocol.Ancillary.BackupDirective._ActionType.ValueType  # 1
                     DELETE: MessageTransport.Protocol.Ancillary.BackupDirective._ActionType.ValueType  # 2
@@ -71,98 +73,106 @@ class MessageTransport(google.protobuf.message.Message):
                 DELETE: MessageTransport.Protocol.Ancillary.BackupDirective.ActionType.ValueType  # 2
                 UPSERT_AND_DELETE: MessageTransport.Protocol.Ancillary.BackupDirective.ActionType.ValueType  # 3
 
-                MESSAGEID_FIELD_NUMBER: builtins.int
-                ACTIONTYPE_FIELD_NUMBER: builtins.int
-                SUPPLEMENTALKEY_FIELD_NUMBER: builtins.int
-                messageID: builtins.str
+                MESSAGEID_FIELD_NUMBER: _builtins.int
+                ACTIONTYPE_FIELD_NUMBER: _builtins.int
+                SUPPLEMENTALKEY_FIELD_NUMBER: _builtins.int
+                messageID: _builtins.str
                 actionType: Global___MessageTransport.Protocol.Ancillary.BackupDirective.ActionType.ValueType
-                supplementalKey: builtins.str
+                supplementalKey: _builtins.str
                 def __init__(
                     self,
                     *,
-                    messageID: builtins.str | None = ...,
+                    messageID: _builtins.str | None = ...,
                     actionType: Global___MessageTransport.Protocol.Ancillary.BackupDirective.ActionType.ValueType | None = ...,
-                    supplementalKey: builtins.str | None = ...,
+                    supplementalKey: _builtins.str | None = ...,
                 ) -> None: ...
-                def HasField(self, field_name: typing.Literal["actionType", b"actionType", "messageID", b"messageID", "supplementalKey", b"supplementalKey"]) -> builtins.bool: ...
-                def ClearField(self, field_name: typing.Literal["actionType", b"actionType", "messageID", b"messageID", "supplementalKey", b"supplementalKey"]) -> None: ...
+                _HasFieldArgType: _TypeAlias = _typing.Literal["actionType", b"actionType", "messageID", b"messageID", "supplementalKey", b"supplementalKey"]  # noqa: Y015
+                def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+                _ClearFieldArgType: _TypeAlias = _typing.Literal["actionType", b"actionType", "messageID", b"messageID", "supplementalKey", b"supplementalKey"]  # noqa: Y015
+                def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-            @typing.final
-            class ICDCParticipantDevices(google.protobuf.message.Message):
-                DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            @_typing.final
+            class ICDCParticipantDevices(_message.Message):
+                DESCRIPTOR: _descriptor.Descriptor
 
-                @typing.final
-                class ICDCIdentityListDescription(google.protobuf.message.Message):
-                    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+                @_typing.final
+                class ICDCIdentityListDescription(_message.Message):
+                    DESCRIPTOR: _descriptor.Descriptor
 
-                    SEQ_FIELD_NUMBER: builtins.int
-                    SIGNINGDEVICE_FIELD_NUMBER: builtins.int
-                    UNKNOWNDEVICES_FIELD_NUMBER: builtins.int
-                    UNKNOWNDEVICEIDS_FIELD_NUMBER: builtins.int
-                    seq: builtins.int
-                    signingDevice: builtins.bytes
-                    @property
-                    def unknownDevices(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bytes]: ...
-                    @property
-                    def unknownDeviceIDs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+                    SEQ_FIELD_NUMBER: _builtins.int
+                    SIGNINGDEVICE_FIELD_NUMBER: _builtins.int
+                    UNKNOWNDEVICES_FIELD_NUMBER: _builtins.int
+                    UNKNOWNDEVICEIDS_FIELD_NUMBER: _builtins.int
+                    seq: _builtins.int
+                    signingDevice: _builtins.bytes
+                    @_builtins.property
+                    def unknownDevices(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bytes]: ...
+                    @_builtins.property
+                    def unknownDeviceIDs(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
                     def __init__(
                         self,
                         *,
-                        seq: builtins.int | None = ...,
-                        signingDevice: builtins.bytes | None = ...,
-                        unknownDevices: collections.abc.Iterable[builtins.bytes] | None = ...,
-                        unknownDeviceIDs: collections.abc.Iterable[builtins.int] | None = ...,
+                        seq: _builtins.int | None = ...,
+                        signingDevice: _builtins.bytes | None = ...,
+                        unknownDevices: _abc.Iterable[_builtins.bytes] | None = ...,
+                        unknownDeviceIDs: _abc.Iterable[_builtins.int] | None = ...,
                     ) -> None: ...
-                    def HasField(self, field_name: typing.Literal["seq", b"seq", "signingDevice", b"signingDevice"]) -> builtins.bool: ...
-                    def ClearField(self, field_name: typing.Literal["seq", b"seq", "signingDevice", b"signingDevice", "unknownDeviceIDs", b"unknownDeviceIDs", "unknownDevices", b"unknownDevices"]) -> None: ...
+                    _HasFieldArgType: _TypeAlias = _typing.Literal["seq", b"seq", "signingDevice", b"signingDevice"]  # noqa: Y015
+                    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+                    _ClearFieldArgType: _TypeAlias = _typing.Literal["seq", b"seq", "signingDevice", b"signingDevice", "unknownDeviceIDs", b"unknownDeviceIDs", "unknownDevices", b"unknownDevices"]  # noqa: Y015
+                    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-                SENDERIDENTITY_FIELD_NUMBER: builtins.int
-                RECIPIENTIDENTITIES_FIELD_NUMBER: builtins.int
-                RECIPIENTUSERJIDS_FIELD_NUMBER: builtins.int
-                @property
+                SENDERIDENTITY_FIELD_NUMBER: _builtins.int
+                RECIPIENTIDENTITIES_FIELD_NUMBER: _builtins.int
+                RECIPIENTUSERJIDS_FIELD_NUMBER: _builtins.int
+                @_builtins.property
                 def senderIdentity(self) -> Global___MessageTransport.Protocol.Ancillary.ICDCParticipantDevices.ICDCIdentityListDescription: ...
-                @property
-                def recipientIdentities(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___MessageTransport.Protocol.Ancillary.ICDCParticipantDevices.ICDCIdentityListDescription]: ...
-                @property
-                def recipientUserJIDs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+                @_builtins.property
+                def recipientIdentities(self) -> _containers.RepeatedCompositeFieldContainer[Global___MessageTransport.Protocol.Ancillary.ICDCParticipantDevices.ICDCIdentityListDescription]: ...
+                @_builtins.property
+                def recipientUserJIDs(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
                 def __init__(
                     self,
                     *,
                     senderIdentity: Global___MessageTransport.Protocol.Ancillary.ICDCParticipantDevices.ICDCIdentityListDescription | None = ...,
-                    recipientIdentities: collections.abc.Iterable[Global___MessageTransport.Protocol.Ancillary.ICDCParticipantDevices.ICDCIdentityListDescription] | None = ...,
-                    recipientUserJIDs: collections.abc.Iterable[builtins.str] | None = ...,
+                    recipientIdentities: _abc.Iterable[Global___MessageTransport.Protocol.Ancillary.ICDCParticipantDevices.ICDCIdentityListDescription] | None = ...,
+                    recipientUserJIDs: _abc.Iterable[_builtins.str] | None = ...,
                 ) -> None: ...
-                def HasField(self, field_name: typing.Literal["senderIdentity", b"senderIdentity"]) -> builtins.bool: ...
-                def ClearField(self, field_name: typing.Literal["recipientIdentities", b"recipientIdentities", "recipientUserJIDs", b"recipientUserJIDs", "senderIdentity", b"senderIdentity"]) -> None: ...
+                _HasFieldArgType: _TypeAlias = _typing.Literal["senderIdentity", b"senderIdentity"]  # noqa: Y015
+                def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+                _ClearFieldArgType: _TypeAlias = _typing.Literal["recipientIdentities", b"recipientIdentities", "recipientUserJIDs", b"recipientUserJIDs", "senderIdentity", b"senderIdentity"]  # noqa: Y015
+                def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-            @typing.final
-            class SenderKeyDistributionMessage(google.protobuf.message.Message):
-                DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            @_typing.final
+            class SenderKeyDistributionMessage(_message.Message):
+                DESCRIPTOR: _descriptor.Descriptor
 
-                GROUPID_FIELD_NUMBER: builtins.int
-                AXOLOTLSENDERKEYDISTRIBUTIONMESSAGE_FIELD_NUMBER: builtins.int
-                groupID: builtins.str
-                axolotlSenderKeyDistributionMessage: builtins.bytes
+                GROUPID_FIELD_NUMBER: _builtins.int
+                AXOLOTLSENDERKEYDISTRIBUTIONMESSAGE_FIELD_NUMBER: _builtins.int
+                groupID: _builtins.str
+                axolotlSenderKeyDistributionMessage: _builtins.bytes
                 def __init__(
                     self,
                     *,
-                    groupID: builtins.str | None = ...,
-                    axolotlSenderKeyDistributionMessage: builtins.bytes | None = ...,
+                    groupID: _builtins.str | None = ...,
+                    axolotlSenderKeyDistributionMessage: _builtins.bytes | None = ...,
                 ) -> None: ...
-                def HasField(self, field_name: typing.Literal["axolotlSenderKeyDistributionMessage", b"axolotlSenderKeyDistributionMessage", "groupID", b"groupID"]) -> builtins.bool: ...
-                def ClearField(self, field_name: typing.Literal["axolotlSenderKeyDistributionMessage", b"axolotlSenderKeyDistributionMessage", "groupID", b"groupID"]) -> None: ...
+                _HasFieldArgType: _TypeAlias = _typing.Literal["axolotlSenderKeyDistributionMessage", b"axolotlSenderKeyDistributionMessage", "groupID", b"groupID"]  # noqa: Y015
+                def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+                _ClearFieldArgType: _TypeAlias = _typing.Literal["axolotlSenderKeyDistributionMessage", b"axolotlSenderKeyDistributionMessage", "groupID", b"groupID"]  # noqa: Y015
+                def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-            SKDM_FIELD_NUMBER: builtins.int
-            DEVICELISTMETADATA_FIELD_NUMBER: builtins.int
-            ICDC_FIELD_NUMBER: builtins.int
-            BACKUPDIRECTIVE_FIELD_NUMBER: builtins.int
-            @property
+            SKDM_FIELD_NUMBER: _builtins.int
+            DEVICELISTMETADATA_FIELD_NUMBER: _builtins.int
+            ICDC_FIELD_NUMBER: _builtins.int
+            BACKUPDIRECTIVE_FIELD_NUMBER: _builtins.int
+            @_builtins.property
             def skdm(self) -> Global___MessageTransport.Protocol.Ancillary.SenderKeyDistributionMessage: ...
-            @property
+            @_builtins.property
             def deviceListMetadata(self) -> Global___DeviceListMetadata: ...
-            @property
+            @_builtins.property
             def icdc(self) -> Global___MessageTransport.Protocol.Ancillary.ICDCParticipantDevices: ...
-            @property
+            @_builtins.property
             def backupDirective(self) -> Global___MessageTransport.Protocol.Ancillary.BackupDirective: ...
             def __init__(
                 self,
@@ -172,49 +182,55 @@ class MessageTransport(google.protobuf.message.Message):
                 icdc: Global___MessageTransport.Protocol.Ancillary.ICDCParticipantDevices | None = ...,
                 backupDirective: Global___MessageTransport.Protocol.Ancillary.BackupDirective | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["backupDirective", b"backupDirective", "deviceListMetadata", b"deviceListMetadata", "icdc", b"icdc", "skdm", b"skdm"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["backupDirective", b"backupDirective", "deviceListMetadata", b"deviceListMetadata", "icdc", b"icdc", "skdm", b"skdm"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["backupDirective", b"backupDirective", "deviceListMetadata", b"deviceListMetadata", "icdc", b"icdc", "skdm", b"skdm"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["backupDirective", b"backupDirective", "deviceListMetadata", b"deviceListMetadata", "icdc", b"icdc", "skdm", b"skdm"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        @typing.final
-        class Integral(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class Integral(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            @typing.final
-            class DeviceSentMessage(google.protobuf.message.Message):
-                DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            @_typing.final
+            class DeviceSentMessage(_message.Message):
+                DESCRIPTOR: _descriptor.Descriptor
 
-                DESTINATIONJID_FIELD_NUMBER: builtins.int
-                PHASH_FIELD_NUMBER: builtins.int
-                destinationJID: builtins.str
-                phash: builtins.str
+                DESTINATIONJID_FIELD_NUMBER: _builtins.int
+                PHASH_FIELD_NUMBER: _builtins.int
+                destinationJID: _builtins.str
+                phash: _builtins.str
                 def __init__(
                     self,
                     *,
-                    destinationJID: builtins.str | None = ...,
-                    phash: builtins.str | None = ...,
+                    destinationJID: _builtins.str | None = ...,
+                    phash: _builtins.str | None = ...,
                 ) -> None: ...
-                def HasField(self, field_name: typing.Literal["destinationJID", b"destinationJID", "phash", b"phash"]) -> builtins.bool: ...
-                def ClearField(self, field_name: typing.Literal["destinationJID", b"destinationJID", "phash", b"phash"]) -> None: ...
+                _HasFieldArgType: _TypeAlias = _typing.Literal["destinationJID", b"destinationJID", "phash", b"phash"]  # noqa: Y015
+                def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+                _ClearFieldArgType: _TypeAlias = _typing.Literal["destinationJID", b"destinationJID", "phash", b"phash"]  # noqa: Y015
+                def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-            PADDING_FIELD_NUMBER: builtins.int
-            DSM_FIELD_NUMBER: builtins.int
-            padding: builtins.bytes
-            @property
+            PADDING_FIELD_NUMBER: _builtins.int
+            DSM_FIELD_NUMBER: _builtins.int
+            padding: _builtins.bytes
+            @_builtins.property
             def DSM(self) -> Global___MessageTransport.Protocol.Integral.DeviceSentMessage: ...
             def __init__(
                 self,
                 *,
-                padding: builtins.bytes | None = ...,
+                padding: _builtins.bytes | None = ...,
                 DSM: Global___MessageTransport.Protocol.Integral.DeviceSentMessage | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["DSM", b"DSM", "padding", b"padding"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["DSM", b"DSM", "padding", b"padding"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["DSM", b"DSM", "padding", b"padding"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["DSM", b"DSM", "padding", b"padding"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        INTEGRAL_FIELD_NUMBER: builtins.int
-        ANCILLARY_FIELD_NUMBER: builtins.int
-        @property
+        INTEGRAL_FIELD_NUMBER: _builtins.int
+        ANCILLARY_FIELD_NUMBER: _builtins.int
+        @_builtins.property
         def integral(self) -> Global___MessageTransport.Protocol.Integral: ...
-        @property
+        @_builtins.property
         def ancillary(self) -> Global___MessageTransport.Protocol.Ancillary: ...
         def __init__(
             self,
@@ -222,14 +238,16 @@ class MessageTransport(google.protobuf.message.Message):
             integral: Global___MessageTransport.Protocol.Integral | None = ...,
             ancillary: Global___MessageTransport.Protocol.Ancillary | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["ancillary", b"ancillary", "integral", b"integral"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["ancillary", b"ancillary", "integral", b"integral"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["ancillary", b"ancillary", "integral", b"integral"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    PAYLOAD_FIELD_NUMBER: builtins.int
-    PROTOCOL_FIELD_NUMBER: builtins.int
-    @property
+    PAYLOAD_FIELD_NUMBER: _builtins.int
+    PROTOCOL_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def payload(self) -> Global___MessageTransport.Payload: ...
-    @property
+    @_builtins.property
     def protocol(self) -> Global___MessageTransport.Protocol: ...
     def __init__(
         self,
@@ -237,32 +255,36 @@ class MessageTransport(google.protobuf.message.Message):
         payload: Global___MessageTransport.Payload | None = ...,
         protocol: Global___MessageTransport.Protocol | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["payload", b"payload", "protocol", b"protocol"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["payload", b"payload", "protocol", b"protocol"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["payload", b"payload", "protocol", b"protocol"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["payload", b"payload", "protocol", b"protocol"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___MessageTransport: typing_extensions.TypeAlias = MessageTransport
+Global___MessageTransport: _TypeAlias = MessageTransport  # noqa: Y015
 
-@typing.final
-class DeviceListMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DeviceListMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SENDERKEYHASH_FIELD_NUMBER: builtins.int
-    SENDERTIMESTAMP_FIELD_NUMBER: builtins.int
-    RECIPIENTKEYHASH_FIELD_NUMBER: builtins.int
-    RECIPIENTTIMESTAMP_FIELD_NUMBER: builtins.int
-    senderKeyHash: builtins.bytes
-    senderTimestamp: builtins.int
-    recipientKeyHash: builtins.bytes
-    recipientTimestamp: builtins.int
+    SENDERKEYHASH_FIELD_NUMBER: _builtins.int
+    SENDERTIMESTAMP_FIELD_NUMBER: _builtins.int
+    RECIPIENTKEYHASH_FIELD_NUMBER: _builtins.int
+    RECIPIENTTIMESTAMP_FIELD_NUMBER: _builtins.int
+    senderKeyHash: _builtins.bytes
+    senderTimestamp: _builtins.int
+    recipientKeyHash: _builtins.bytes
+    recipientTimestamp: _builtins.int
     def __init__(
         self,
         *,
-        senderKeyHash: builtins.bytes | None = ...,
-        senderTimestamp: builtins.int | None = ...,
-        recipientKeyHash: builtins.bytes | None = ...,
-        recipientTimestamp: builtins.int | None = ...,
+        senderKeyHash: _builtins.bytes | None = ...,
+        senderTimestamp: _builtins.int | None = ...,
+        recipientKeyHash: _builtins.bytes | None = ...,
+        recipientTimestamp: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["recipientKeyHash", b"recipientKeyHash", "recipientTimestamp", b"recipientTimestamp", "senderKeyHash", b"senderKeyHash", "senderTimestamp", b"senderTimestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["recipientKeyHash", b"recipientKeyHash", "recipientTimestamp", b"recipientTimestamp", "senderKeyHash", b"senderKeyHash", "senderTimestamp", b"senderTimestamp"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["recipientKeyHash", b"recipientKeyHash", "recipientTimestamp", b"recipientTimestamp", "senderKeyHash", b"senderKeyHash", "senderTimestamp", b"senderTimestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["recipientKeyHash", b"recipientKeyHash", "recipientTimestamp", b"recipientTimestamp", "senderKeyHash", b"senderKeyHash", "senderTimestamp", b"senderTimestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___DeviceListMetadata: typing_extensions.TypeAlias = DeviceListMetadata
+Global___DeviceListMetadata: _TypeAlias = DeviceListMetadata  # noqa: Y015

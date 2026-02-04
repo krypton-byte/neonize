@@ -3,32 +3,32 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class UserPassword(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class UserPassword(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Transformer:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _TransformerEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[UserPassword._Transformer.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _TransformerEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[UserPassword._Transformer.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         NONE: UserPassword._Transformer.ValueType  # 0
         PBKDF2_HMAC_SHA512: UserPassword._Transformer.ValueType  # 1
         PBKDF2_HMAC_SHA384: UserPassword._Transformer.ValueType  # 2
@@ -39,11 +39,11 @@ class UserPassword(google.protobuf.message.Message):
     PBKDF2_HMAC_SHA384: UserPassword.Transformer.ValueType  # 2
 
     class _Encoding:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _EncodingEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[UserPassword._Encoding.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _EncodingEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[UserPassword._Encoding.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UTF8: UserPassword._Encoding.ValueType  # 0
         UTF8_BROKEN: UserPassword._Encoding.ValueType  # 1
 
@@ -51,60 +51,68 @@ class UserPassword(google.protobuf.message.Message):
     UTF8: UserPassword.Encoding.ValueType  # 0
     UTF8_BROKEN: UserPassword.Encoding.ValueType  # 1
 
-    @typing.final
-    class TransformerArg(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class TransformerArg(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        @typing.final
-        class Value(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class Value(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            ASBLOB_FIELD_NUMBER: builtins.int
-            ASUNSIGNEDINTEGER_FIELD_NUMBER: builtins.int
-            asBlob: builtins.bytes
-            asUnsignedInteger: builtins.int
+            ASBLOB_FIELD_NUMBER: _builtins.int
+            ASUNSIGNEDINTEGER_FIELD_NUMBER: _builtins.int
+            asBlob: _builtins.bytes
+            asUnsignedInteger: _builtins.int
             def __init__(
                 self,
                 *,
-                asBlob: builtins.bytes | None = ...,
-                asUnsignedInteger: builtins.int | None = ...,
+                asBlob: _builtins.bytes | None = ...,
+                asUnsignedInteger: _builtins.int | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["asBlob", b"asBlob", "asUnsignedInteger", b"asUnsignedInteger", "value", b"value"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["asBlob", b"asBlob", "asUnsignedInteger", b"asUnsignedInteger", "value", b"value"]) -> None: ...
-            def WhichOneof(self, oneof_group: typing.Literal["value", b"value"]) -> typing.Literal["asBlob", "asUnsignedInteger"] | None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["asBlob", b"asBlob", "asUnsignedInteger", b"asUnsignedInteger", "value", b"value"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["asBlob", b"asBlob", "asUnsignedInteger", b"asUnsignedInteger", "value", b"value"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            _WhichOneofReturnType_value: _TypeAlias = _typing.Literal["asBlob", "asUnsignedInteger"]  # noqa: Y015
+            _WhichOneofArgType_value: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+            def WhichOneof(self, oneof_group: _WhichOneofArgType_value) -> _WhichOneofReturnType_value | None: ...
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        @property
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        @_builtins.property
         def value(self) -> Global___UserPassword.TransformerArg.Value: ...
         def __init__(
             self,
             *,
-            key: builtins.str | None = ...,
+            key: _builtins.str | None = ...,
             value: Global___UserPassword.TransformerArg.Value | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    ENCODING_FIELD_NUMBER: builtins.int
-    TRANSFORMER_FIELD_NUMBER: builtins.int
-    TRANSFORMERARG_FIELD_NUMBER: builtins.int
-    TRANSFORMEDDATA_FIELD_NUMBER: builtins.int
+    ENCODING_FIELD_NUMBER: _builtins.int
+    TRANSFORMER_FIELD_NUMBER: _builtins.int
+    TRANSFORMERARG_FIELD_NUMBER: _builtins.int
+    TRANSFORMEDDATA_FIELD_NUMBER: _builtins.int
     encoding: Global___UserPassword.Encoding.ValueType
     transformer: Global___UserPassword.Transformer.ValueType
-    transformedData: builtins.bytes
-    @property
-    def transformerArg(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UserPassword.TransformerArg]: ...
+    transformedData: _builtins.bytes
+    @_builtins.property
+    def transformerArg(self) -> _containers.RepeatedCompositeFieldContainer[Global___UserPassword.TransformerArg]: ...
     def __init__(
         self,
         *,
         encoding: Global___UserPassword.Encoding.ValueType | None = ...,
         transformer: Global___UserPassword.Transformer.ValueType | None = ...,
-        transformerArg: collections.abc.Iterable[Global___UserPassword.TransformerArg] | None = ...,
-        transformedData: builtins.bytes | None = ...,
+        transformerArg: _abc.Iterable[Global___UserPassword.TransformerArg] | None = ...,
+        transformedData: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["encoding", b"encoding", "transformedData", b"transformedData", "transformer", b"transformer"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["encoding", b"encoding", "transformedData", b"transformedData", "transformer", b"transformer", "transformerArg", b"transformerArg"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["encoding", b"encoding", "transformedData", b"transformedData", "transformer", b"transformer"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["encoding", b"encoding", "transformedData", b"transformedData", "transformer", b"transformer", "transformerArg", b"transformerArg"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___UserPassword: typing_extensions.TypeAlias = UserPassword
+Global___UserPassword: _TypeAlias = UserPassword  # noqa: Y015
