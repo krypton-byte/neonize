@@ -3,26 +3,26 @@
 isort:skip_file
 """
 
-import builtins
-import google.protobuf.descriptor
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _HostedState:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _HostedStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_HostedState.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _HostedStateEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_HostedState.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     E2EE: _HostedState.ValueType  # 0
     HOSTED: _HostedState.ValueType  # 1
 
@@ -30,59 +30,63 @@ class HostedState(_HostedState, metaclass=_HostedStateEnumTypeWrapper): ...
 
 E2EE: HostedState.ValueType  # 0
 HOSTED: HostedState.ValueType  # 1
-Global___HostedState: typing_extensions.TypeAlias = HostedState
+Global___HostedState: _TypeAlias = HostedState  # noqa: Y015
 
-@typing.final
-class FingerprintData(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class FingerprintData(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PUBLICKEY_FIELD_NUMBER: builtins.int
-    PNIDENTIFIER_FIELD_NUMBER: builtins.int
-    LIDIDENTIFIER_FIELD_NUMBER: builtins.int
-    USERNAMEIDENTIFIER_FIELD_NUMBER: builtins.int
-    HOSTEDSTATE_FIELD_NUMBER: builtins.int
-    HASHEDPUBLICKEY_FIELD_NUMBER: builtins.int
-    publicKey: builtins.bytes
-    pnIdentifier: builtins.bytes
-    lidIdentifier: builtins.bytes
-    usernameIdentifier: builtins.bytes
+    PUBLICKEY_FIELD_NUMBER: _builtins.int
+    PNIDENTIFIER_FIELD_NUMBER: _builtins.int
+    LIDIDENTIFIER_FIELD_NUMBER: _builtins.int
+    USERNAMEIDENTIFIER_FIELD_NUMBER: _builtins.int
+    HOSTEDSTATE_FIELD_NUMBER: _builtins.int
+    HASHEDPUBLICKEY_FIELD_NUMBER: _builtins.int
+    publicKey: _builtins.bytes
+    pnIdentifier: _builtins.bytes
+    lidIdentifier: _builtins.bytes
+    usernameIdentifier: _builtins.bytes
     hostedState: Global___HostedState.ValueType
-    hashedPublicKey: builtins.bytes
+    hashedPublicKey: _builtins.bytes
     def __init__(
         self,
         *,
-        publicKey: builtins.bytes | None = ...,
-        pnIdentifier: builtins.bytes | None = ...,
-        lidIdentifier: builtins.bytes | None = ...,
-        usernameIdentifier: builtins.bytes | None = ...,
+        publicKey: _builtins.bytes | None = ...,
+        pnIdentifier: _builtins.bytes | None = ...,
+        lidIdentifier: _builtins.bytes | None = ...,
+        usernameIdentifier: _builtins.bytes | None = ...,
         hostedState: Global___HostedState.ValueType | None = ...,
-        hashedPublicKey: builtins.bytes | None = ...,
+        hashedPublicKey: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["hashedPublicKey", b"hashedPublicKey", "hostedState", b"hostedState", "lidIdentifier", b"lidIdentifier", "pnIdentifier", b"pnIdentifier", "publicKey", b"publicKey", "usernameIdentifier", b"usernameIdentifier"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["hashedPublicKey", b"hashedPublicKey", "hostedState", b"hostedState", "lidIdentifier", b"lidIdentifier", "pnIdentifier", b"pnIdentifier", "publicKey", b"publicKey", "usernameIdentifier", b"usernameIdentifier"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["hashedPublicKey", b"hashedPublicKey", "hostedState", b"hostedState", "lidIdentifier", b"lidIdentifier", "pnIdentifier", b"pnIdentifier", "publicKey", b"publicKey", "usernameIdentifier", b"usernameIdentifier"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["hashedPublicKey", b"hashedPublicKey", "hostedState", b"hostedState", "lidIdentifier", b"lidIdentifier", "pnIdentifier", b"pnIdentifier", "publicKey", b"publicKey", "usernameIdentifier", b"usernameIdentifier"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___FingerprintData: typing_extensions.TypeAlias = FingerprintData
+Global___FingerprintData: _TypeAlias = FingerprintData  # noqa: Y015
 
-@typing.final
-class CombinedFingerprint(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class CombinedFingerprint(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VERSION_FIELD_NUMBER: builtins.int
-    LOCALFINGERPRINT_FIELD_NUMBER: builtins.int
-    REMOTEFINGERPRINT_FIELD_NUMBER: builtins.int
-    version: builtins.int
-    @property
+    VERSION_FIELD_NUMBER: _builtins.int
+    LOCALFINGERPRINT_FIELD_NUMBER: _builtins.int
+    REMOTEFINGERPRINT_FIELD_NUMBER: _builtins.int
+    version: _builtins.int
+    @_builtins.property
     def localFingerprint(self) -> Global___FingerprintData: ...
-    @property
+    @_builtins.property
     def remoteFingerprint(self) -> Global___FingerprintData: ...
     def __init__(
         self,
         *,
-        version: builtins.int | None = ...,
+        version: _builtins.int | None = ...,
         localFingerprint: Global___FingerprintData | None = ...,
         remoteFingerprint: Global___FingerprintData | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["localFingerprint", b"localFingerprint", "remoteFingerprint", b"remoteFingerprint", "version", b"version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["localFingerprint", b"localFingerprint", "remoteFingerprint", b"remoteFingerprint", "version", b"version"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["localFingerprint", b"localFingerprint", "remoteFingerprint", b"remoteFingerprint", "version", b"version"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["localFingerprint", b"localFingerprint", "remoteFingerprint", b"remoteFingerprint", "version", b"version"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___CombinedFingerprint: typing_extensions.TypeAlias = CombinedFingerprint
+Global___CombinedFingerprint: _TypeAlias = CombinedFingerprint  # noqa: Y015

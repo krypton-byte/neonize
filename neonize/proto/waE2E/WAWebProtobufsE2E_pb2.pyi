@@ -3,34 +3,34 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from waAICommon import WAAICommon_pb2 as _WAAICommon_pb2
+from waAdv import WAAdv_pb2 as _WAAdv_pb2
+from waCommon import WACommon_pb2 as _WACommon_pb2
+from waCompanionReg import WACompanionReg_pb2 as _WACompanionReg_pb2
+from waMmsRetry import WAMmsRetry_pb2 as _WAMmsRetry_pb2
+from waStatusAttributions import WAStatusAttributions_pb2 as _WAStatusAttributions_pb2
+import builtins as _builtins
 import sys
-import typing
-import waAICommon.WAAICommon_pb2
-import waAdv.WAAdv_pb2
-import waCommon.WACommon_pb2
-import waCompanionReg.WACompanionReg_pb2
-import waMmsRetry.WAMmsRetry_pb2
-import waStatusAttributions.WAStatusAttributions_pb2
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _PollType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _PollTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PollType.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _PollTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_PollType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     POLL: _PollType.ValueType  # 0
     QUIZ: _PollType.ValueType  # 1
 
@@ -38,14 +38,14 @@ class PollType(_PollType, metaclass=_PollTypeEnumTypeWrapper): ...
 
 POLL: PollType.ValueType  # 0
 QUIZ: PollType.ValueType  # 1
-Global___PollType: typing_extensions.TypeAlias = PollType
+Global___PollType: _TypeAlias = PollType  # noqa: Y015
 
 class _PollContentType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _PollContentTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PollContentType.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _PollContentTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_PollContentType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     UNKNOWN_POLL_CONTENT_TYPE: _PollContentType.ValueType  # 0
     TEXT: _PollContentType.ValueType  # 1
     IMAGE: _PollContentType.ValueType  # 2
@@ -55,14 +55,14 @@ class PollContentType(_PollContentType, metaclass=_PollContentTypeEnumTypeWrappe
 UNKNOWN_POLL_CONTENT_TYPE: PollContentType.ValueType  # 0
 TEXT: PollContentType.ValueType  # 1
 IMAGE: PollContentType.ValueType  # 2
-Global___PollContentType: typing_extensions.TypeAlias = PollContentType
+Global___PollContentType: _TypeAlias = PollContentType  # noqa: Y015
 
 class _PeerDataOperationRequestType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _PeerDataOperationRequestTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PeerDataOperationRequestType.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _PeerDataOperationRequestTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_PeerDataOperationRequestType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     UPLOAD_STICKER: _PeerDataOperationRequestType.ValueType  # 0
     SEND_RECENT_STICKER_BOOTSTRAP: _PeerDataOperationRequestType.ValueType  # 1
     GENERATE_LINK_PREVIEW: _PeerDataOperationRequestType.ValueType  # 2
@@ -90,14 +90,14 @@ COMPANION_SYNCD_SNAPSHOT_FATAL_RECOVERY: PeerDataOperationRequestType.ValueType 
 COMPANION_CANONICAL_USER_NONCE_FETCH: PeerDataOperationRequestType.ValueType  # 9
 HISTORY_SYNC_CHUNK_RETRY: PeerDataOperationRequestType.ValueType  # 10
 GALAXY_FLOW_ACTION: PeerDataOperationRequestType.ValueType  # 11
-Global___PeerDataOperationRequestType: typing_extensions.TypeAlias = PeerDataOperationRequestType
+Global___PeerDataOperationRequestType: _TypeAlias = PeerDataOperationRequestType  # noqa: Y015
 
 class _HistorySyncType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _HistorySyncTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_HistorySyncType.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _HistorySyncTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_HistorySyncType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     INITIAL_BOOTSTRAP: _HistorySyncType.ValueType  # 0
     INITIAL_STATUS_V3: _HistorySyncType.ValueType  # 1
     FULL: _HistorySyncType.ValueType  # 2
@@ -119,14 +119,14 @@ NON_BLOCKING_DATA: HistorySyncType.ValueType  # 5
 ON_DEMAND: HistorySyncType.ValueType  # 6
 NO_HISTORY: HistorySyncType.ValueType  # 7
 MESSAGE_ACCESS_STATUS: HistorySyncType.ValueType  # 8
-Global___HistorySyncType: typing_extensions.TypeAlias = HistorySyncType
+Global___HistorySyncType: _TypeAlias = HistorySyncType  # noqa: Y015
 
 class _MediaKeyDomain:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _MediaKeyDomainEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_MediaKeyDomain.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _MediaKeyDomainEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_MediaKeyDomain.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     UNSET: _MediaKeyDomain.ValueType  # 0
     E2EE_CHAT: _MediaKeyDomain.ValueType  # 1
     STATUS: _MediaKeyDomain.ValueType  # 2
@@ -140,14 +140,14 @@ E2EE_CHAT: MediaKeyDomain.ValueType  # 1
 STATUS: MediaKeyDomain.ValueType  # 2
 CAPI: MediaKeyDomain.ValueType  # 3
 BOT: MediaKeyDomain.ValueType  # 4
-Global___MediaKeyDomain: typing_extensions.TypeAlias = MediaKeyDomain
+Global___MediaKeyDomain: _TypeAlias = MediaKeyDomain  # noqa: Y015
 
 class _WebLinkRenderConfig:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _WebLinkRenderConfigEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WebLinkRenderConfig.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _WebLinkRenderConfigEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_WebLinkRenderConfig.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     WEBVIEW: _WebLinkRenderConfig.ValueType  # 0
     SYSTEM: _WebLinkRenderConfig.ValueType  # 1
 
@@ -155,14 +155,14 @@ class WebLinkRenderConfig(_WebLinkRenderConfig, metaclass=_WebLinkRenderConfigEn
 
 WEBVIEW: WebLinkRenderConfig.ValueType  # 0
 SYSTEM: WebLinkRenderConfig.ValueType  # 1
-Global___WebLinkRenderConfig: typing_extensions.TypeAlias = WebLinkRenderConfig
+Global___WebLinkRenderConfig: _TypeAlias = WebLinkRenderConfig  # noqa: Y015
 
 class _KeepType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _KeepTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_KeepType.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _KeepTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_KeepType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     UNKNOWN_KEEP_TYPE: _KeepType.ValueType  # 0
     KEEP_FOR_ALL: _KeepType.ValueType  # 1
     UNDO_KEEP_FOR_ALL: _KeepType.ValueType  # 2
@@ -172,18 +172,18 @@ class KeepType(_KeepType, metaclass=_KeepTypeEnumTypeWrapper): ...
 UNKNOWN_KEEP_TYPE: KeepType.ValueType  # 0
 KEEP_FOR_ALL: KeepType.ValueType  # 1
 UNDO_KEEP_FOR_ALL: KeepType.ValueType  # 2
-Global___KeepType: typing_extensions.TypeAlias = KeepType
+Global___KeepType: _TypeAlias = KeepType  # noqa: Y015
 
-@typing.final
-class StickerPackMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class StickerPackMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _StickerPackOrigin:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _StickerPackOriginEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[StickerPackMessage._StickerPackOrigin.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _StickerPackOriginEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[StickerPackMessage._StickerPackOrigin.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         FIRST_PARTY: StickerPackMessage._StickerPackOrigin.ValueType  # 0
         THIRD_PARTY: StickerPackMessage._StickerPackOrigin.ValueType  # 1
         USER_CREATED: StickerPackMessage._StickerPackOrigin.ValueType  # 2
@@ -193,150 +193,156 @@ class StickerPackMessage(google.protobuf.message.Message):
     THIRD_PARTY: StickerPackMessage.StickerPackOrigin.ValueType  # 1
     USER_CREATED: StickerPackMessage.StickerPackOrigin.ValueType  # 2
 
-    @typing.final
-    class Sticker(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Sticker(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        FILENAME_FIELD_NUMBER: builtins.int
-        ISANIMATED_FIELD_NUMBER: builtins.int
-        EMOJIS_FIELD_NUMBER: builtins.int
-        ACCESSIBILITYLABEL_FIELD_NUMBER: builtins.int
-        ISLOTTIE_FIELD_NUMBER: builtins.int
-        MIMETYPE_FIELD_NUMBER: builtins.int
-        fileName: builtins.str
-        isAnimated: builtins.bool
-        accessibilityLabel: builtins.str
-        isLottie: builtins.bool
-        mimetype: builtins.str
-        @property
-        def emojis(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+        FILENAME_FIELD_NUMBER: _builtins.int
+        ISANIMATED_FIELD_NUMBER: _builtins.int
+        EMOJIS_FIELD_NUMBER: _builtins.int
+        ACCESSIBILITYLABEL_FIELD_NUMBER: _builtins.int
+        ISLOTTIE_FIELD_NUMBER: _builtins.int
+        MIMETYPE_FIELD_NUMBER: _builtins.int
+        fileName: _builtins.str
+        isAnimated: _builtins.bool
+        accessibilityLabel: _builtins.str
+        isLottie: _builtins.bool
+        mimetype: _builtins.str
+        @_builtins.property
+        def emojis(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
         def __init__(
             self,
             *,
-            fileName: builtins.str | None = ...,
-            isAnimated: builtins.bool | None = ...,
-            emojis: collections.abc.Iterable[builtins.str] | None = ...,
-            accessibilityLabel: builtins.str | None = ...,
-            isLottie: builtins.bool | None = ...,
-            mimetype: builtins.str | None = ...,
+            fileName: _builtins.str | None = ...,
+            isAnimated: _builtins.bool | None = ...,
+            emojis: _abc.Iterable[_builtins.str] | None = ...,
+            accessibilityLabel: _builtins.str | None = ...,
+            isLottie: _builtins.bool | None = ...,
+            mimetype: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["accessibilityLabel", b"accessibilityLabel", "fileName", b"fileName", "isAnimated", b"isAnimated", "isLottie", b"isLottie", "mimetype", b"mimetype"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["accessibilityLabel", b"accessibilityLabel", "emojis", b"emojis", "fileName", b"fileName", "isAnimated", b"isAnimated", "isLottie", b"isLottie", "mimetype", b"mimetype"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["accessibilityLabel", b"accessibilityLabel", "fileName", b"fileName", "isAnimated", b"isAnimated", "isLottie", b"isLottie", "mimetype", b"mimetype"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["accessibilityLabel", b"accessibilityLabel", "emojis", b"emojis", "fileName", b"fileName", "isAnimated", b"isAnimated", "isLottie", b"isLottie", "mimetype", b"mimetype"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    STICKERPACKID_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    PUBLISHER_FIELD_NUMBER: builtins.int
-    STICKERS_FIELD_NUMBER: builtins.int
-    FILELENGTH_FIELD_NUMBER: builtins.int
-    FILESHA256_FIELD_NUMBER: builtins.int
-    FILEENCSHA256_FIELD_NUMBER: builtins.int
-    MEDIAKEY_FIELD_NUMBER: builtins.int
-    DIRECTPATH_FIELD_NUMBER: builtins.int
-    CAPTION_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    PACKDESCRIPTION_FIELD_NUMBER: builtins.int
-    MEDIAKEYTIMESTAMP_FIELD_NUMBER: builtins.int
-    TRAYICONFILENAME_FIELD_NUMBER: builtins.int
-    THUMBNAILDIRECTPATH_FIELD_NUMBER: builtins.int
-    THUMBNAILSHA256_FIELD_NUMBER: builtins.int
-    THUMBNAILENCSHA256_FIELD_NUMBER: builtins.int
-    THUMBNAILHEIGHT_FIELD_NUMBER: builtins.int
-    THUMBNAILWIDTH_FIELD_NUMBER: builtins.int
-    IMAGEDATAHASH_FIELD_NUMBER: builtins.int
-    STICKERPACKSIZE_FIELD_NUMBER: builtins.int
-    STICKERPACKORIGIN_FIELD_NUMBER: builtins.int
-    stickerPackID: builtins.str
-    name: builtins.str
-    publisher: builtins.str
-    fileLength: builtins.int
-    fileSHA256: builtins.bytes
-    fileEncSHA256: builtins.bytes
-    mediaKey: builtins.bytes
-    directPath: builtins.str
-    caption: builtins.str
-    packDescription: builtins.str
-    mediaKeyTimestamp: builtins.int
-    trayIconFileName: builtins.str
-    thumbnailDirectPath: builtins.str
-    thumbnailSHA256: builtins.bytes
-    thumbnailEncSHA256: builtins.bytes
-    thumbnailHeight: builtins.int
-    thumbnailWidth: builtins.int
-    imageDataHash: builtins.str
-    stickerPackSize: builtins.int
+    STICKERPACKID_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    PUBLISHER_FIELD_NUMBER: _builtins.int
+    STICKERS_FIELD_NUMBER: _builtins.int
+    FILELENGTH_FIELD_NUMBER: _builtins.int
+    FILESHA256_FIELD_NUMBER: _builtins.int
+    FILEENCSHA256_FIELD_NUMBER: _builtins.int
+    MEDIAKEY_FIELD_NUMBER: _builtins.int
+    DIRECTPATH_FIELD_NUMBER: _builtins.int
+    CAPTION_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    PACKDESCRIPTION_FIELD_NUMBER: _builtins.int
+    MEDIAKEYTIMESTAMP_FIELD_NUMBER: _builtins.int
+    TRAYICONFILENAME_FIELD_NUMBER: _builtins.int
+    THUMBNAILDIRECTPATH_FIELD_NUMBER: _builtins.int
+    THUMBNAILSHA256_FIELD_NUMBER: _builtins.int
+    THUMBNAILENCSHA256_FIELD_NUMBER: _builtins.int
+    THUMBNAILHEIGHT_FIELD_NUMBER: _builtins.int
+    THUMBNAILWIDTH_FIELD_NUMBER: _builtins.int
+    IMAGEDATAHASH_FIELD_NUMBER: _builtins.int
+    STICKERPACKSIZE_FIELD_NUMBER: _builtins.int
+    STICKERPACKORIGIN_FIELD_NUMBER: _builtins.int
+    stickerPackID: _builtins.str
+    name: _builtins.str
+    publisher: _builtins.str
+    fileLength: _builtins.int
+    fileSHA256: _builtins.bytes
+    fileEncSHA256: _builtins.bytes
+    mediaKey: _builtins.bytes
+    directPath: _builtins.str
+    caption: _builtins.str
+    packDescription: _builtins.str
+    mediaKeyTimestamp: _builtins.int
+    trayIconFileName: _builtins.str
+    thumbnailDirectPath: _builtins.str
+    thumbnailSHA256: _builtins.bytes
+    thumbnailEncSHA256: _builtins.bytes
+    thumbnailHeight: _builtins.int
+    thumbnailWidth: _builtins.int
+    imageDataHash: _builtins.str
+    stickerPackSize: _builtins.int
     stickerPackOrigin: Global___StickerPackMessage.StickerPackOrigin.ValueType
-    @property
-    def stickers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___StickerPackMessage.Sticker]: ...
-    @property
+    @_builtins.property
+    def stickers(self) -> _containers.RepeatedCompositeFieldContainer[Global___StickerPackMessage.Sticker]: ...
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        stickerPackID: builtins.str | None = ...,
-        name: builtins.str | None = ...,
-        publisher: builtins.str | None = ...,
-        stickers: collections.abc.Iterable[Global___StickerPackMessage.Sticker] | None = ...,
-        fileLength: builtins.int | None = ...,
-        fileSHA256: builtins.bytes | None = ...,
-        fileEncSHA256: builtins.bytes | None = ...,
-        mediaKey: builtins.bytes | None = ...,
-        directPath: builtins.str | None = ...,
-        caption: builtins.str | None = ...,
+        stickerPackID: _builtins.str | None = ...,
+        name: _builtins.str | None = ...,
+        publisher: _builtins.str | None = ...,
+        stickers: _abc.Iterable[Global___StickerPackMessage.Sticker] | None = ...,
+        fileLength: _builtins.int | None = ...,
+        fileSHA256: _builtins.bytes | None = ...,
+        fileEncSHA256: _builtins.bytes | None = ...,
+        mediaKey: _builtins.bytes | None = ...,
+        directPath: _builtins.str | None = ...,
+        caption: _builtins.str | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
-        packDescription: builtins.str | None = ...,
-        mediaKeyTimestamp: builtins.int | None = ...,
-        trayIconFileName: builtins.str | None = ...,
-        thumbnailDirectPath: builtins.str | None = ...,
-        thumbnailSHA256: builtins.bytes | None = ...,
-        thumbnailEncSHA256: builtins.bytes | None = ...,
-        thumbnailHeight: builtins.int | None = ...,
-        thumbnailWidth: builtins.int | None = ...,
-        imageDataHash: builtins.str | None = ...,
-        stickerPackSize: builtins.int | None = ...,
+        packDescription: _builtins.str | None = ...,
+        mediaKeyTimestamp: _builtins.int | None = ...,
+        trayIconFileName: _builtins.str | None = ...,
+        thumbnailDirectPath: _builtins.str | None = ...,
+        thumbnailSHA256: _builtins.bytes | None = ...,
+        thumbnailEncSHA256: _builtins.bytes | None = ...,
+        thumbnailHeight: _builtins.int | None = ...,
+        thumbnailWidth: _builtins.int | None = ...,
+        imageDataHash: _builtins.str | None = ...,
+        stickerPackSize: _builtins.int | None = ...,
         stickerPackOrigin: Global___StickerPackMessage.StickerPackOrigin.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "imageDataHash", b"imageDataHash", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "name", b"name", "packDescription", b"packDescription", "publisher", b"publisher", "stickerPackID", b"stickerPackID", "stickerPackOrigin", b"stickerPackOrigin", "stickerPackSize", b"stickerPackSize", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "trayIconFileName", b"trayIconFileName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "imageDataHash", b"imageDataHash", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "name", b"name", "packDescription", b"packDescription", "publisher", b"publisher", "stickerPackID", b"stickerPackID", "stickerPackOrigin", b"stickerPackOrigin", "stickerPackSize", b"stickerPackSize", "stickers", b"stickers", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "trayIconFileName", b"trayIconFileName"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "imageDataHash", b"imageDataHash", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "name", b"name", "packDescription", b"packDescription", "publisher", b"publisher", "stickerPackID", b"stickerPackID", "stickerPackOrigin", b"stickerPackOrigin", "stickerPackSize", b"stickerPackSize", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "trayIconFileName", b"trayIconFileName"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "imageDataHash", b"imageDataHash", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "name", b"name", "packDescription", b"packDescription", "publisher", b"publisher", "stickerPackID", b"stickerPackID", "stickerPackOrigin", b"stickerPackOrigin", "stickerPackSize", b"stickerPackSize", "stickers", b"stickers", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "trayIconFileName", b"trayIconFileName"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___StickerPackMessage: typing_extensions.TypeAlias = StickerPackMessage
+Global___StickerPackMessage: _TypeAlias = StickerPackMessage  # noqa: Y015
 
-@typing.final
-class PlaceholderMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PlaceholderMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _PlaceholderType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _PlaceholderTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PlaceholderMessage._PlaceholderType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _PlaceholderTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[PlaceholderMessage._PlaceholderType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         MASK_LINKED_DEVICES: PlaceholderMessage._PlaceholderType.ValueType  # 0
 
     class PlaceholderType(_PlaceholderType, metaclass=_PlaceholderTypeEnumTypeWrapper): ...
     MASK_LINKED_DEVICES: PlaceholderMessage.PlaceholderType.ValueType  # 0
 
-    TYPE_FIELD_NUMBER: builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
     type: Global___PlaceholderMessage.PlaceholderType.ValueType
     def __init__(
         self,
         *,
         type: Global___PlaceholderMessage.PlaceholderType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["type", b"type"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["type", b"type"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["type", b"type"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PlaceholderMessage: typing_extensions.TypeAlias = PlaceholderMessage
+Global___PlaceholderMessage: _TypeAlias = PlaceholderMessage  # noqa: Y015
 
-@typing.final
-class BCallMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class BCallMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _MediaType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _MediaTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BCallMessage._MediaType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _MediaTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[BCallMessage._MediaType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: BCallMessage._MediaType.ValueType  # 0
         AUDIO: BCallMessage._MediaType.ValueType  # 1
         VIDEO: BCallMessage._MediaType.ValueType  # 2
@@ -346,37 +352,39 @@ class BCallMessage(google.protobuf.message.Message):
     AUDIO: BCallMessage.MediaType.ValueType  # 1
     VIDEO: BCallMessage.MediaType.ValueType  # 2
 
-    SESSIONID_FIELD_NUMBER: builtins.int
-    MEDIATYPE_FIELD_NUMBER: builtins.int
-    MASTERKEY_FIELD_NUMBER: builtins.int
-    CAPTION_FIELD_NUMBER: builtins.int
-    sessionID: builtins.str
+    SESSIONID_FIELD_NUMBER: _builtins.int
+    MEDIATYPE_FIELD_NUMBER: _builtins.int
+    MASTERKEY_FIELD_NUMBER: _builtins.int
+    CAPTION_FIELD_NUMBER: _builtins.int
+    sessionID: _builtins.str
     mediaType: Global___BCallMessage.MediaType.ValueType
-    masterKey: builtins.bytes
-    caption: builtins.str
+    masterKey: _builtins.bytes
+    caption: _builtins.str
     def __init__(
         self,
         *,
-        sessionID: builtins.str | None = ...,
+        sessionID: _builtins.str | None = ...,
         mediaType: Global___BCallMessage.MediaType.ValueType | None = ...,
-        masterKey: builtins.bytes | None = ...,
-        caption: builtins.str | None = ...,
+        masterKey: _builtins.bytes | None = ...,
+        caption: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["caption", b"caption", "masterKey", b"masterKey", "mediaType", b"mediaType", "sessionID", b"sessionID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["caption", b"caption", "masterKey", b"masterKey", "mediaType", b"mediaType", "sessionID", b"sessionID"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["caption", b"caption", "masterKey", b"masterKey", "mediaType", b"mediaType", "sessionID", b"sessionID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["caption", b"caption", "masterKey", b"masterKey", "mediaType", b"mediaType", "sessionID", b"sessionID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___BCallMessage: typing_extensions.TypeAlias = BCallMessage
+Global___BCallMessage: _TypeAlias = BCallMessage  # noqa: Y015
 
-@typing.final
-class CallLogMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class CallLogMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _CallOutcome:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _CallOutcomeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CallLogMessage._CallOutcome.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _CallOutcomeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[CallLogMessage._CallOutcome.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         CONNECTED: CallLogMessage._CallOutcome.ValueType  # 0
         MISSED: CallLogMessage._CallOutcome.ValueType  # 1
         FAILED: CallLogMessage._CallOutcome.ValueType  # 2
@@ -397,11 +405,11 @@ class CallLogMessage(google.protobuf.message.Message):
     SILENCED_UNKNOWN_CALLER: CallLogMessage.CallOutcome.ValueType  # 7
 
     class _CallType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _CallTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CallLogMessage._CallType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _CallTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[CallLogMessage._CallType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         REGULAR: CallLogMessage._CallType.ValueType  # 0
         SCHEDULED_CALL: CallLogMessage._CallType.ValueType  # 1
         VOICE_CHAT: CallLogMessage._CallType.ValueType  # 2
@@ -411,58 +419,62 @@ class CallLogMessage(google.protobuf.message.Message):
     SCHEDULED_CALL: CallLogMessage.CallType.ValueType  # 1
     VOICE_CHAT: CallLogMessage.CallType.ValueType  # 2
 
-    @typing.final
-    class CallParticipant(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class CallParticipant(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        JID_FIELD_NUMBER: builtins.int
-        CALLOUTCOME_FIELD_NUMBER: builtins.int
-        JID: builtins.str
+        JID_FIELD_NUMBER: _builtins.int
+        CALLOUTCOME_FIELD_NUMBER: _builtins.int
+        JID: _builtins.str
         callOutcome: Global___CallLogMessage.CallOutcome.ValueType
         def __init__(
             self,
             *,
-            JID: builtins.str | None = ...,
+            JID: _builtins.str | None = ...,
             callOutcome: Global___CallLogMessage.CallOutcome.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["JID", b"JID", "callOutcome", b"callOutcome"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["JID", b"JID", "callOutcome", b"callOutcome"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["JID", b"JID", "callOutcome", b"callOutcome"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["JID", b"JID", "callOutcome", b"callOutcome"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    ISVIDEO_FIELD_NUMBER: builtins.int
-    CALLOUTCOME_FIELD_NUMBER: builtins.int
-    DURATIONSECS_FIELD_NUMBER: builtins.int
-    CALLTYPE_FIELD_NUMBER: builtins.int
-    PARTICIPANTS_FIELD_NUMBER: builtins.int
-    isVideo: builtins.bool
+    ISVIDEO_FIELD_NUMBER: _builtins.int
+    CALLOUTCOME_FIELD_NUMBER: _builtins.int
+    DURATIONSECS_FIELD_NUMBER: _builtins.int
+    CALLTYPE_FIELD_NUMBER: _builtins.int
+    PARTICIPANTS_FIELD_NUMBER: _builtins.int
+    isVideo: _builtins.bool
     callOutcome: Global___CallLogMessage.CallOutcome.ValueType
-    durationSecs: builtins.int
+    durationSecs: _builtins.int
     callType: Global___CallLogMessage.CallType.ValueType
-    @property
-    def participants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___CallLogMessage.CallParticipant]: ...
+    @_builtins.property
+    def participants(self) -> _containers.RepeatedCompositeFieldContainer[Global___CallLogMessage.CallParticipant]: ...
     def __init__(
         self,
         *,
-        isVideo: builtins.bool | None = ...,
+        isVideo: _builtins.bool | None = ...,
         callOutcome: Global___CallLogMessage.CallOutcome.ValueType | None = ...,
-        durationSecs: builtins.int | None = ...,
+        durationSecs: _builtins.int | None = ...,
         callType: Global___CallLogMessage.CallType.ValueType | None = ...,
-        participants: collections.abc.Iterable[Global___CallLogMessage.CallParticipant] | None = ...,
+        participants: _abc.Iterable[Global___CallLogMessage.CallParticipant] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["callOutcome", b"callOutcome", "callType", b"callType", "durationSecs", b"durationSecs", "isVideo", b"isVideo"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["callOutcome", b"callOutcome", "callType", b"callType", "durationSecs", b"durationSecs", "isVideo", b"isVideo", "participants", b"participants"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["callOutcome", b"callOutcome", "callType", b"callType", "durationSecs", b"durationSecs", "isVideo", b"isVideo"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["callOutcome", b"callOutcome", "callType", b"callType", "durationSecs", b"durationSecs", "isVideo", b"isVideo", "participants", b"participants"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___CallLogMessage: typing_extensions.TypeAlias = CallLogMessage
+Global___CallLogMessage: _TypeAlias = CallLogMessage  # noqa: Y015
 
-@typing.final
-class ScheduledCallEditMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ScheduledCallEditMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _EditType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _EditTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ScheduledCallEditMessage._EditType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _EditTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ScheduledCallEditMessage._EditType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: ScheduledCallEditMessage._EditType.ValueType  # 0
         CANCEL: ScheduledCallEditMessage._EditType.ValueType  # 1
 
@@ -470,32 +482,34 @@ class ScheduledCallEditMessage(google.protobuf.message.Message):
     UNKNOWN: ScheduledCallEditMessage.EditType.ValueType  # 0
     CANCEL: ScheduledCallEditMessage.EditType.ValueType  # 1
 
-    KEY_FIELD_NUMBER: builtins.int
-    EDITTYPE_FIELD_NUMBER: builtins.int
+    KEY_FIELD_NUMBER: _builtins.int
+    EDITTYPE_FIELD_NUMBER: _builtins.int
     editType: Global___ScheduledCallEditMessage.EditType.ValueType
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    @_builtins.property
+    def key(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        key: waCommon.WACommon_pb2.MessageKey | None = ...,
+        key: _WACommon_pb2.MessageKey | None = ...,
         editType: Global___ScheduledCallEditMessage.EditType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["editType", b"editType", "key", b"key"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["editType", b"editType", "key", b"key"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["editType", b"editType", "key", b"key"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["editType", b"editType", "key", b"key"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ScheduledCallEditMessage: typing_extensions.TypeAlias = ScheduledCallEditMessage
+Global___ScheduledCallEditMessage: _TypeAlias = ScheduledCallEditMessage  # noqa: Y015
 
-@typing.final
-class ScheduledCallCreationMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ScheduledCallCreationMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _CallType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _CallTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ScheduledCallCreationMessage._CallType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _CallTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ScheduledCallCreationMessage._CallType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: ScheduledCallCreationMessage._CallType.ValueType  # 0
         VOICE: ScheduledCallCreationMessage._CallType.ValueType  # 1
         VIDEO: ScheduledCallCreationMessage._CallType.ValueType  # 2
@@ -505,34 +519,36 @@ class ScheduledCallCreationMessage(google.protobuf.message.Message):
     VOICE: ScheduledCallCreationMessage.CallType.ValueType  # 1
     VIDEO: ScheduledCallCreationMessage.CallType.ValueType  # 2
 
-    SCHEDULEDTIMESTAMPMS_FIELD_NUMBER: builtins.int
-    CALLTYPE_FIELD_NUMBER: builtins.int
-    TITLE_FIELD_NUMBER: builtins.int
-    scheduledTimestampMS: builtins.int
+    SCHEDULEDTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+    CALLTYPE_FIELD_NUMBER: _builtins.int
+    TITLE_FIELD_NUMBER: _builtins.int
+    scheduledTimestampMS: _builtins.int
     callType: Global___ScheduledCallCreationMessage.CallType.ValueType
-    title: builtins.str
+    title: _builtins.str
     def __init__(
         self,
         *,
-        scheduledTimestampMS: builtins.int | None = ...,
+        scheduledTimestampMS: _builtins.int | None = ...,
         callType: Global___ScheduledCallCreationMessage.CallType.ValueType | None = ...,
-        title: builtins.str | None = ...,
+        title: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["callType", b"callType", "scheduledTimestampMS", b"scheduledTimestampMS", "title", b"title"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["callType", b"callType", "scheduledTimestampMS", b"scheduledTimestampMS", "title", b"title"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["callType", b"callType", "scheduledTimestampMS", b"scheduledTimestampMS", "title", b"title"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["callType", b"callType", "scheduledTimestampMS", b"scheduledTimestampMS", "title", b"title"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ScheduledCallCreationMessage: typing_extensions.TypeAlias = ScheduledCallCreationMessage
+Global___ScheduledCallCreationMessage: _TypeAlias = ScheduledCallCreationMessage  # noqa: Y015
 
-@typing.final
-class EventResponseMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class EventResponseMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _EventResponseType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _EventResponseTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[EventResponseMessage._EventResponseType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _EventResponseTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[EventResponseMessage._EventResponseType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: EventResponseMessage._EventResponseType.ValueType  # 0
         GOING: EventResponseMessage._EventResponseType.ValueType  # 1
         NOT_GOING: EventResponseMessage._EventResponseType.ValueType  # 2
@@ -544,34 +560,36 @@ class EventResponseMessage(google.protobuf.message.Message):
     NOT_GOING: EventResponseMessage.EventResponseType.ValueType  # 2
     MAYBE: EventResponseMessage.EventResponseType.ValueType  # 3
 
-    RESPONSE_FIELD_NUMBER: builtins.int
-    TIMESTAMPMS_FIELD_NUMBER: builtins.int
-    EXTRAGUESTCOUNT_FIELD_NUMBER: builtins.int
+    RESPONSE_FIELD_NUMBER: _builtins.int
+    TIMESTAMPMS_FIELD_NUMBER: _builtins.int
+    EXTRAGUESTCOUNT_FIELD_NUMBER: _builtins.int
     response: Global___EventResponseMessage.EventResponseType.ValueType
-    timestampMS: builtins.int
-    extraGuestCount: builtins.int
+    timestampMS: _builtins.int
+    extraGuestCount: _builtins.int
     def __init__(
         self,
         *,
         response: Global___EventResponseMessage.EventResponseType.ValueType | None = ...,
-        timestampMS: builtins.int | None = ...,
-        extraGuestCount: builtins.int | None = ...,
+        timestampMS: _builtins.int | None = ...,
+        extraGuestCount: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["extraGuestCount", b"extraGuestCount", "response", b"response", "timestampMS", b"timestampMS"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["extraGuestCount", b"extraGuestCount", "response", b"response", "timestampMS", b"timestampMS"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["extraGuestCount", b"extraGuestCount", "response", b"response", "timestampMS", b"timestampMS"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["extraGuestCount", b"extraGuestCount", "response", b"response", "timestampMS", b"timestampMS"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___EventResponseMessage: typing_extensions.TypeAlias = EventResponseMessage
+Global___EventResponseMessage: _TypeAlias = EventResponseMessage  # noqa: Y015
 
-@typing.final
-class PinInChatMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PinInChatMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Type:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PinInChatMessage._Type.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _TypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[PinInChatMessage._Type.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN_TYPE: PinInChatMessage._Type.ValueType  # 0
         PIN_FOR_ALL: PinInChatMessage._Type.ValueType  # 1
         UNPIN_FOR_ALL: PinInChatMessage._Type.ValueType  # 2
@@ -581,35 +599,37 @@ class PinInChatMessage(google.protobuf.message.Message):
     PIN_FOR_ALL: PinInChatMessage.Type.ValueType  # 1
     UNPIN_FOR_ALL: PinInChatMessage.Type.ValueType  # 2
 
-    KEY_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
-    SENDERTIMESTAMPMS_FIELD_NUMBER: builtins.int
+    KEY_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    SENDERTIMESTAMPMS_FIELD_NUMBER: _builtins.int
     type: Global___PinInChatMessage.Type.ValueType
-    senderTimestampMS: builtins.int
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    senderTimestampMS: _builtins.int
+    @_builtins.property
+    def key(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        key: waCommon.WACommon_pb2.MessageKey | None = ...,
+        key: _WACommon_pb2.MessageKey | None = ...,
         type: Global___PinInChatMessage.Type.ValueType | None = ...,
-        senderTimestampMS: builtins.int | None = ...,
+        senderTimestampMS: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["key", b"key", "senderTimestampMS", b"senderTimestampMS", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["key", b"key", "senderTimestampMS", b"senderTimestampMS", "type", b"type"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "senderTimestampMS", b"senderTimestampMS", "type", b"type"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "senderTimestampMS", b"senderTimestampMS", "type", b"type"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PinInChatMessage: typing_extensions.TypeAlias = PinInChatMessage
+Global___PinInChatMessage: _TypeAlias = PinInChatMessage  # noqa: Y015
 
-@typing.final
-class StatusStickerInteractionMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class StatusStickerInteractionMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _StatusStickerType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _StatusStickerTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[StatusStickerInteractionMessage._StatusStickerType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _StatusStickerTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[StatusStickerInteractionMessage._StatusStickerType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: StatusStickerInteractionMessage._StatusStickerType.ValueType  # 0
         REACTION: StatusStickerInteractionMessage._StatusStickerType.ValueType  # 1
 
@@ -617,35 +637,37 @@ class StatusStickerInteractionMessage(google.protobuf.message.Message):
     UNKNOWN: StatusStickerInteractionMessage.StatusStickerType.ValueType  # 0
     REACTION: StatusStickerInteractionMessage.StatusStickerType.ValueType  # 1
 
-    KEY_FIELD_NUMBER: builtins.int
-    STICKERKEY_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
-    stickerKey: builtins.str
+    KEY_FIELD_NUMBER: _builtins.int
+    STICKERKEY_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    stickerKey: _builtins.str
     type: Global___StatusStickerInteractionMessage.StatusStickerType.ValueType
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    @_builtins.property
+    def key(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        key: waCommon.WACommon_pb2.MessageKey | None = ...,
-        stickerKey: builtins.str | None = ...,
+        key: _WACommon_pb2.MessageKey | None = ...,
+        stickerKey: _builtins.str | None = ...,
         type: Global___StatusStickerInteractionMessage.StatusStickerType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["key", b"key", "stickerKey", b"stickerKey", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["key", b"key", "stickerKey", b"stickerKey", "type", b"type"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "stickerKey", b"stickerKey", "type", b"type"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "stickerKey", b"stickerKey", "type", b"type"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___StatusStickerInteractionMessage: typing_extensions.TypeAlias = StatusStickerInteractionMessage
+Global___StatusStickerInteractionMessage: _TypeAlias = StatusStickerInteractionMessage  # noqa: Y015
 
-@typing.final
-class ButtonsResponseMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ButtonsResponseMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Type:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ButtonsResponseMessage._Type.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _TypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ButtonsResponseMessage._Type.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: ButtonsResponseMessage._Type.ValueType  # 0
         DISPLAY_TEXT: ButtonsResponseMessage._Type.ValueType  # 1
 
@@ -653,39 +675,43 @@ class ButtonsResponseMessage(google.protobuf.message.Message):
     UNKNOWN: ButtonsResponseMessage.Type.ValueType  # 0
     DISPLAY_TEXT: ButtonsResponseMessage.Type.ValueType  # 1
 
-    SELECTEDDISPLAYTEXT_FIELD_NUMBER: builtins.int
-    SELECTEDBUTTONID_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
-    selectedDisplayText: builtins.str
-    selectedButtonID: builtins.str
+    SELECTEDDISPLAYTEXT_FIELD_NUMBER: _builtins.int
+    SELECTEDBUTTONID_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    selectedDisplayText: _builtins.str
+    selectedButtonID: _builtins.str
     type: Global___ButtonsResponseMessage.Type.ValueType
-    @property
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        selectedDisplayText: builtins.str | None = ...,
-        selectedButtonID: builtins.str | None = ...,
+        selectedDisplayText: _builtins.str | None = ...,
+        selectedButtonID: _builtins.str | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
         type: Global___ButtonsResponseMessage.Type.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "response", b"response", "selectedButtonID", b"selectedButtonID", "selectedDisplayText", b"selectedDisplayText", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "response", b"response", "selectedButtonID", b"selectedButtonID", "selectedDisplayText", b"selectedDisplayText", "type", b"type"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["response", b"response"]) -> typing.Literal["selectedDisplayText"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "response", b"response", "selectedButtonID", b"selectedButtonID", "selectedDisplayText", b"selectedDisplayText", "type", b"type"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "response", b"response", "selectedButtonID", b"selectedButtonID", "selectedDisplayText", b"selectedDisplayText", "type", b"type"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_response: _TypeAlias = _typing.Literal["selectedDisplayText"]  # noqa: Y015
+    _WhichOneofArgType_response: _TypeAlias = _typing.Literal["response", b"response"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_response) -> _WhichOneofReturnType_response | None: ...
 
-Global___ButtonsResponseMessage: typing_extensions.TypeAlias = ButtonsResponseMessage
+Global___ButtonsResponseMessage: _TypeAlias = ButtonsResponseMessage  # noqa: Y015
 
-@typing.final
-class ButtonsMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ButtonsMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _HeaderType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _HeaderTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ButtonsMessage._HeaderType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _HeaderTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ButtonsMessage._HeaderType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: ButtonsMessage._HeaderType.ValueType  # 0
         EMPTY: ButtonsMessage._HeaderType.ValueType  # 1
         TEXT: ButtonsMessage._HeaderType.ValueType  # 2
@@ -703,16 +729,16 @@ class ButtonsMessage(google.protobuf.message.Message):
     VIDEO: ButtonsMessage.HeaderType.ValueType  # 5
     LOCATION: ButtonsMessage.HeaderType.ValueType  # 6
 
-    @typing.final
-    class Button(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Button(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _Type:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ButtonsMessage.Button._Type.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _TypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ButtonsMessage.Button._Type.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             UNKNOWN: ButtonsMessage.Button._Type.ValueType  # 0
             RESPONSE: ButtonsMessage.Button._Type.ValueType  # 1
             NATIVE_FLOW: ButtonsMessage.Button._Type.ValueType  # 2
@@ -722,114 +748,124 @@ class ButtonsMessage(google.protobuf.message.Message):
         RESPONSE: ButtonsMessage.Button.Type.ValueType  # 1
         NATIVE_FLOW: ButtonsMessage.Button.Type.ValueType  # 2
 
-        @typing.final
-        class NativeFlowInfo(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class NativeFlowInfo(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            NAME_FIELD_NUMBER: builtins.int
-            PARAMSJSON_FIELD_NUMBER: builtins.int
-            name: builtins.str
-            paramsJSON: builtins.str
+            NAME_FIELD_NUMBER: _builtins.int
+            PARAMSJSON_FIELD_NUMBER: _builtins.int
+            name: _builtins.str
+            paramsJSON: _builtins.str
             def __init__(
                 self,
                 *,
-                name: builtins.str | None = ...,
-                paramsJSON: builtins.str | None = ...,
+                name: _builtins.str | None = ...,
+                paramsJSON: _builtins.str | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["name", b"name", "paramsJSON", b"paramsJSON"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["name", b"name", "paramsJSON", b"paramsJSON"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "paramsJSON", b"paramsJSON"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "paramsJSON", b"paramsJSON"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        @typing.final
-        class ButtonText(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class ButtonText(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            DISPLAYTEXT_FIELD_NUMBER: builtins.int
-            displayText: builtins.str
+            DISPLAYTEXT_FIELD_NUMBER: _builtins.int
+            displayText: _builtins.str
             def __init__(
                 self,
                 *,
-                displayText: builtins.str | None = ...,
+                displayText: _builtins.str | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["displayText", b"displayText"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["displayText", b"displayText"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["displayText", b"displayText"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["displayText", b"displayText"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        BUTTONID_FIELD_NUMBER: builtins.int
-        BUTTONTEXT_FIELD_NUMBER: builtins.int
-        TYPE_FIELD_NUMBER: builtins.int
-        NATIVEFLOWINFO_FIELD_NUMBER: builtins.int
-        buttonID: builtins.str
+        BUTTONID_FIELD_NUMBER: _builtins.int
+        BUTTONTEXT_FIELD_NUMBER: _builtins.int
+        TYPE_FIELD_NUMBER: _builtins.int
+        NATIVEFLOWINFO_FIELD_NUMBER: _builtins.int
+        buttonID: _builtins.str
         type: Global___ButtonsMessage.Button.Type.ValueType
-        @property
+        @_builtins.property
         def buttonText(self) -> Global___ButtonsMessage.Button.ButtonText: ...
-        @property
+        @_builtins.property
         def nativeFlowInfo(self) -> Global___ButtonsMessage.Button.NativeFlowInfo: ...
         def __init__(
             self,
             *,
-            buttonID: builtins.str | None = ...,
+            buttonID: _builtins.str | None = ...,
             buttonText: Global___ButtonsMessage.Button.ButtonText | None = ...,
             type: Global___ButtonsMessage.Button.Type.ValueType | None = ...,
             nativeFlowInfo: Global___ButtonsMessage.Button.NativeFlowInfo | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["buttonID", b"buttonID", "buttonText", b"buttonText", "nativeFlowInfo", b"nativeFlowInfo", "type", b"type"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["buttonID", b"buttonID", "buttonText", b"buttonText", "nativeFlowInfo", b"nativeFlowInfo", "type", b"type"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["buttonID", b"buttonID", "buttonText", b"buttonText", "nativeFlowInfo", b"nativeFlowInfo", "type", b"type"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["buttonID", b"buttonID", "buttonText", b"buttonText", "nativeFlowInfo", b"nativeFlowInfo", "type", b"type"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    TEXT_FIELD_NUMBER: builtins.int
-    DOCUMENTMESSAGE_FIELD_NUMBER: builtins.int
-    IMAGEMESSAGE_FIELD_NUMBER: builtins.int
-    VIDEOMESSAGE_FIELD_NUMBER: builtins.int
-    LOCATIONMESSAGE_FIELD_NUMBER: builtins.int
-    CONTENTTEXT_FIELD_NUMBER: builtins.int
-    FOOTERTEXT_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    BUTTONS_FIELD_NUMBER: builtins.int
-    HEADERTYPE_FIELD_NUMBER: builtins.int
-    text: builtins.str
-    contentText: builtins.str
-    footerText: builtins.str
+    TEXT_FIELD_NUMBER: _builtins.int
+    DOCUMENTMESSAGE_FIELD_NUMBER: _builtins.int
+    IMAGEMESSAGE_FIELD_NUMBER: _builtins.int
+    VIDEOMESSAGE_FIELD_NUMBER: _builtins.int
+    LOCATIONMESSAGE_FIELD_NUMBER: _builtins.int
+    CONTENTTEXT_FIELD_NUMBER: _builtins.int
+    FOOTERTEXT_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    BUTTONS_FIELD_NUMBER: _builtins.int
+    HEADERTYPE_FIELD_NUMBER: _builtins.int
+    text: _builtins.str
+    contentText: _builtins.str
+    footerText: _builtins.str
     headerType: Global___ButtonsMessage.HeaderType.ValueType
-    @property
+    @_builtins.property
     def documentMessage(self) -> Global___DocumentMessage: ...
-    @property
+    @_builtins.property
     def imageMessage(self) -> Global___ImageMessage: ...
-    @property
+    @_builtins.property
     def videoMessage(self) -> Global___VideoMessage: ...
-    @property
+    @_builtins.property
     def locationMessage(self) -> Global___LocationMessage: ...
-    @property
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
-    @property
-    def buttons(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ButtonsMessage.Button]: ...
+    @_builtins.property
+    def buttons(self) -> _containers.RepeatedCompositeFieldContainer[Global___ButtonsMessage.Button]: ...
     def __init__(
         self,
         *,
-        text: builtins.str | None = ...,
+        text: _builtins.str | None = ...,
         documentMessage: Global___DocumentMessage | None = ...,
         imageMessage: Global___ImageMessage | None = ...,
         videoMessage: Global___VideoMessage | None = ...,
         locationMessage: Global___LocationMessage | None = ...,
-        contentText: builtins.str | None = ...,
-        footerText: builtins.str | None = ...,
+        contentText: _builtins.str | None = ...,
+        footerText: _builtins.str | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
-        buttons: collections.abc.Iterable[Global___ButtonsMessage.Button] | None = ...,
+        buttons: _abc.Iterable[Global___ButtonsMessage.Button] | None = ...,
         headerType: Global___ButtonsMessage.HeaderType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contentText", b"contentText", "contextInfo", b"contextInfo", "documentMessage", b"documentMessage", "footerText", b"footerText", "header", b"header", "headerType", b"headerType", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "text", b"text", "videoMessage", b"videoMessage"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["buttons", b"buttons", "contentText", b"contentText", "contextInfo", b"contextInfo", "documentMessage", b"documentMessage", "footerText", b"footerText", "header", b"header", "headerType", b"headerType", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "text", b"text", "videoMessage", b"videoMessage"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["header", b"header"]) -> typing.Literal["text", "documentMessage", "imageMessage", "videoMessage", "locationMessage"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contentText", b"contentText", "contextInfo", b"contextInfo", "documentMessage", b"documentMessage", "footerText", b"footerText", "header", b"header", "headerType", b"headerType", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "text", b"text", "videoMessage", b"videoMessage"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["buttons", b"buttons", "contentText", b"contentText", "contextInfo", b"contextInfo", "documentMessage", b"documentMessage", "footerText", b"footerText", "header", b"header", "headerType", b"headerType", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "text", b"text", "videoMessage", b"videoMessage"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_header: _TypeAlias = _typing.Literal["text", "documentMessage", "imageMessage", "videoMessage", "locationMessage"]  # noqa: Y015
+    _WhichOneofArgType_header: _TypeAlias = _typing.Literal["header", b"header"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_header) -> _WhichOneofReturnType_header | None: ...
 
-Global___ButtonsMessage: typing_extensions.TypeAlias = ButtonsMessage
+Global___ButtonsMessage: _TypeAlias = ButtonsMessage  # noqa: Y015
 
-@typing.final
-class SecretEncryptedMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class SecretEncryptedMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _SecretEncType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _SecretEncTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SecretEncryptedMessage._SecretEncType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _SecretEncTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[SecretEncryptedMessage._SecretEncType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: SecretEncryptedMessage._SecretEncType.ValueType  # 0
         EVENT_EDIT: SecretEncryptedMessage._SecretEncType.ValueType  # 1
         MESSAGE_EDIT: SecretEncryptedMessage._SecretEncType.ValueType  # 2
@@ -839,38 +875,40 @@ class SecretEncryptedMessage(google.protobuf.message.Message):
     EVENT_EDIT: SecretEncryptedMessage.SecretEncType.ValueType  # 1
     MESSAGE_EDIT: SecretEncryptedMessage.SecretEncType.ValueType  # 2
 
-    TARGETMESSAGEKEY_FIELD_NUMBER: builtins.int
-    ENCPAYLOAD_FIELD_NUMBER: builtins.int
-    ENCIV_FIELD_NUMBER: builtins.int
-    SECRETENCTYPE_FIELD_NUMBER: builtins.int
-    encPayload: builtins.bytes
-    encIV: builtins.bytes
+    TARGETMESSAGEKEY_FIELD_NUMBER: _builtins.int
+    ENCPAYLOAD_FIELD_NUMBER: _builtins.int
+    ENCIV_FIELD_NUMBER: _builtins.int
+    SECRETENCTYPE_FIELD_NUMBER: _builtins.int
+    encPayload: _builtins.bytes
+    encIV: _builtins.bytes
     secretEncType: Global___SecretEncryptedMessage.SecretEncType.ValueType
-    @property
-    def targetMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    @_builtins.property
+    def targetMessageKey(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        targetMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
-        encPayload: builtins.bytes | None = ...,
-        encIV: builtins.bytes | None = ...,
+        targetMessageKey: _WACommon_pb2.MessageKey | None = ...,
+        encPayload: _builtins.bytes | None = ...,
+        encIV: _builtins.bytes | None = ...,
         secretEncType: Global___SecretEncryptedMessage.SecretEncType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "secretEncType", b"secretEncType", "targetMessageKey", b"targetMessageKey"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "secretEncType", b"secretEncType", "targetMessageKey", b"targetMessageKey"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "secretEncType", b"secretEncType", "targetMessageKey", b"targetMessageKey"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "secretEncType", b"secretEncType", "targetMessageKey", b"targetMessageKey"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___SecretEncryptedMessage: typing_extensions.TypeAlias = SecretEncryptedMessage
+Global___SecretEncryptedMessage: _TypeAlias = SecretEncryptedMessage  # noqa: Y015
 
-@typing.final
-class GroupInviteMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class GroupInviteMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _GroupType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _GroupTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GroupInviteMessage._GroupType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _GroupTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[GroupInviteMessage._GroupType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         DEFAULT: GroupInviteMessage._GroupType.ValueType  # 0
         PARENT: GroupInviteMessage._GroupType.ValueType  # 1
 
@@ -878,54 +916,56 @@ class GroupInviteMessage(google.protobuf.message.Message):
     DEFAULT: GroupInviteMessage.GroupType.ValueType  # 0
     PARENT: GroupInviteMessage.GroupType.ValueType  # 1
 
-    GROUPJID_FIELD_NUMBER: builtins.int
-    INVITECODE_FIELD_NUMBER: builtins.int
-    INVITEEXPIRATION_FIELD_NUMBER: builtins.int
-    GROUPNAME_FIELD_NUMBER: builtins.int
-    JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-    CAPTION_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    GROUPTYPE_FIELD_NUMBER: builtins.int
-    groupJID: builtins.str
-    inviteCode: builtins.str
-    inviteExpiration: builtins.int
-    groupName: builtins.str
-    JPEGThumbnail: builtins.bytes
-    caption: builtins.str
+    GROUPJID_FIELD_NUMBER: _builtins.int
+    INVITECODE_FIELD_NUMBER: _builtins.int
+    INVITEEXPIRATION_FIELD_NUMBER: _builtins.int
+    GROUPNAME_FIELD_NUMBER: _builtins.int
+    JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+    CAPTION_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    GROUPTYPE_FIELD_NUMBER: _builtins.int
+    groupJID: _builtins.str
+    inviteCode: _builtins.str
+    inviteExpiration: _builtins.int
+    groupName: _builtins.str
+    JPEGThumbnail: _builtins.bytes
+    caption: _builtins.str
     groupType: Global___GroupInviteMessage.GroupType.ValueType
-    @property
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        groupJID: builtins.str | None = ...,
-        inviteCode: builtins.str | None = ...,
-        inviteExpiration: builtins.int | None = ...,
-        groupName: builtins.str | None = ...,
-        JPEGThumbnail: builtins.bytes | None = ...,
-        caption: builtins.str | None = ...,
+        groupJID: _builtins.str | None = ...,
+        inviteCode: _builtins.str | None = ...,
+        inviteExpiration: _builtins.int | None = ...,
+        groupName: _builtins.str | None = ...,
+        JPEGThumbnail: _builtins.bytes | None = ...,
+        caption: _builtins.str | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
         groupType: Global___GroupInviteMessage.GroupType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "contextInfo", b"contextInfo", "groupJID", b"groupJID", "groupName", b"groupName", "groupType", b"groupType", "inviteCode", b"inviteCode", "inviteExpiration", b"inviteExpiration"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "contextInfo", b"contextInfo", "groupJID", b"groupJID", "groupName", b"groupName", "groupType", b"groupType", "inviteCode", b"inviteCode", "inviteExpiration", b"inviteExpiration"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "contextInfo", b"contextInfo", "groupJID", b"groupJID", "groupName", b"groupName", "groupType", b"groupType", "inviteCode", b"inviteCode", "inviteExpiration", b"inviteExpiration"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "contextInfo", b"contextInfo", "groupJID", b"groupJID", "groupName", b"groupName", "groupType", b"groupType", "inviteCode", b"inviteCode", "inviteExpiration", b"inviteExpiration"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___GroupInviteMessage: typing_extensions.TypeAlias = GroupInviteMessage
+Global___GroupInviteMessage: _TypeAlias = GroupInviteMessage  # noqa: Y015
 
-@typing.final
-class InteractiveResponseMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class InteractiveResponseMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class Body(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Body(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _Format:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _FormatEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[InteractiveResponseMessage.Body._Format.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _FormatEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[InteractiveResponseMessage.Body._Format.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             DEFAULT: InteractiveResponseMessage.Body._Format.ValueType  # 0
             EXTENSIONS_1: InteractiveResponseMessage.Body._Format.ValueType  # 1
 
@@ -933,47 +973,51 @@ class InteractiveResponseMessage(google.protobuf.message.Message):
         DEFAULT: InteractiveResponseMessage.Body.Format.ValueType  # 0
         EXTENSIONS_1: InteractiveResponseMessage.Body.Format.ValueType  # 1
 
-        TEXT_FIELD_NUMBER: builtins.int
-        FORMAT_FIELD_NUMBER: builtins.int
-        text: builtins.str
+        TEXT_FIELD_NUMBER: _builtins.int
+        FORMAT_FIELD_NUMBER: _builtins.int
+        text: _builtins.str
         format: Global___InteractiveResponseMessage.Body.Format.ValueType
         def __init__(
             self,
             *,
-            text: builtins.str | None = ...,
+            text: _builtins.str | None = ...,
             format: Global___InteractiveResponseMessage.Body.Format.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["format", b"format", "text", b"text"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["format", b"format", "text", b"text"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["format", b"format", "text", b"text"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["format", b"format", "text", b"text"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class NativeFlowResponseMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class NativeFlowResponseMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        NAME_FIELD_NUMBER: builtins.int
-        PARAMSJSON_FIELD_NUMBER: builtins.int
-        VERSION_FIELD_NUMBER: builtins.int
-        name: builtins.str
-        paramsJSON: builtins.str
-        version: builtins.int
+        NAME_FIELD_NUMBER: _builtins.int
+        PARAMSJSON_FIELD_NUMBER: _builtins.int
+        VERSION_FIELD_NUMBER: _builtins.int
+        name: _builtins.str
+        paramsJSON: _builtins.str
+        version: _builtins.int
         def __init__(
             self,
             *,
-            name: builtins.str | None = ...,
-            paramsJSON: builtins.str | None = ...,
-            version: builtins.int | None = ...,
+            name: _builtins.str | None = ...,
+            paramsJSON: _builtins.str | None = ...,
+            version: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["name", b"name", "paramsJSON", b"paramsJSON", "version", b"version"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["name", b"name", "paramsJSON", b"paramsJSON", "version", b"version"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "paramsJSON", b"paramsJSON", "version", b"version"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "paramsJSON", b"paramsJSON", "version", b"version"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    NATIVEFLOWRESPONSEMESSAGE_FIELD_NUMBER: builtins.int
-    BODY_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    @property
+    NATIVEFLOWRESPONSEMESSAGE_FIELD_NUMBER: _builtins.int
+    BODY_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def nativeFlowResponseMessage(self) -> Global___InteractiveResponseMessage.NativeFlowResponseMessage: ...
-    @property
+    @_builtins.property
     def body(self) -> Global___InteractiveResponseMessage.Body: ...
-    @property
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
@@ -982,26 +1026,30 @@ class InteractiveResponseMessage(google.protobuf.message.Message):
         body: Global___InteractiveResponseMessage.Body | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["body", b"body", "contextInfo", b"contextInfo", "interactiveResponseMessage", b"interactiveResponseMessage", "nativeFlowResponseMessage", b"nativeFlowResponseMessage"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["body", b"body", "contextInfo", b"contextInfo", "interactiveResponseMessage", b"interactiveResponseMessage", "nativeFlowResponseMessage", b"nativeFlowResponseMessage"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["interactiveResponseMessage", b"interactiveResponseMessage"]) -> typing.Literal["nativeFlowResponseMessage"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["body", b"body", "contextInfo", b"contextInfo", "interactiveResponseMessage", b"interactiveResponseMessage", "nativeFlowResponseMessage", b"nativeFlowResponseMessage"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["body", b"body", "contextInfo", b"contextInfo", "interactiveResponseMessage", b"interactiveResponseMessage", "nativeFlowResponseMessage", b"nativeFlowResponseMessage"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_interactiveResponseMessage: _TypeAlias = _typing.Literal["nativeFlowResponseMessage"]  # noqa: Y015
+    _WhichOneofArgType_interactiveResponseMessage: _TypeAlias = _typing.Literal["interactiveResponseMessage", b"interactiveResponseMessage"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_interactiveResponseMessage) -> _WhichOneofReturnType_interactiveResponseMessage | None: ...
 
-Global___InteractiveResponseMessage: typing_extensions.TypeAlias = InteractiveResponseMessage
+Global___InteractiveResponseMessage: _TypeAlias = InteractiveResponseMessage  # noqa: Y015
 
-@typing.final
-class InteractiveMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class InteractiveMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class CarouselMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class CarouselMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _CarouselCardType:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _CarouselCardTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[InteractiveMessage.CarouselMessage._CarouselCardType.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _CarouselCardTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[InteractiveMessage.CarouselMessage._CarouselCardType.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             UNKNOWN: InteractiveMessage.CarouselMessage._CarouselCardType.ValueType  # 0
             HSCROLL_CARDS: InteractiveMessage.CarouselMessage._CarouselCardType.ValueType  # 1
             ALBUM_IMAGE: InteractiveMessage.CarouselMessage._CarouselCardType.ValueType  # 2
@@ -1011,33 +1059,35 @@ class InteractiveMessage(google.protobuf.message.Message):
         HSCROLL_CARDS: InteractiveMessage.CarouselMessage.CarouselCardType.ValueType  # 1
         ALBUM_IMAGE: InteractiveMessage.CarouselMessage.CarouselCardType.ValueType  # 2
 
-        CARDS_FIELD_NUMBER: builtins.int
-        MESSAGEVERSION_FIELD_NUMBER: builtins.int
-        CAROUSELCARDTYPE_FIELD_NUMBER: builtins.int
-        messageVersion: builtins.int
+        CARDS_FIELD_NUMBER: _builtins.int
+        MESSAGEVERSION_FIELD_NUMBER: _builtins.int
+        CAROUSELCARDTYPE_FIELD_NUMBER: _builtins.int
+        messageVersion: _builtins.int
         carouselCardType: Global___InteractiveMessage.CarouselMessage.CarouselCardType.ValueType
-        @property
-        def cards(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___InteractiveMessage]: ...
+        @_builtins.property
+        def cards(self) -> _containers.RepeatedCompositeFieldContainer[Global___InteractiveMessage]: ...
         def __init__(
             self,
             *,
-            cards: collections.abc.Iterable[Global___InteractiveMessage] | None = ...,
-            messageVersion: builtins.int | None = ...,
+            cards: _abc.Iterable[Global___InteractiveMessage] | None = ...,
+            messageVersion: _builtins.int | None = ...,
             carouselCardType: Global___InteractiveMessage.CarouselMessage.CarouselCardType.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["carouselCardType", b"carouselCardType", "messageVersion", b"messageVersion"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["cards", b"cards", "carouselCardType", b"carouselCardType", "messageVersion", b"messageVersion"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["carouselCardType", b"carouselCardType", "messageVersion", b"messageVersion"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["cards", b"cards", "carouselCardType", b"carouselCardType", "messageVersion", b"messageVersion"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ShopMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ShopMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _Surface:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _SurfaceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[InteractiveMessage.ShopMessage._Surface.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _SurfaceEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[InteractiveMessage.ShopMessage._Surface.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             UNKNOWN_SURFACE: InteractiveMessage.ShopMessage._Surface.ValueType  # 0
             FB: InteractiveMessage.ShopMessage._Surface.ValueType  # 1
             IG: InteractiveMessage.ShopMessage._Surface.ValueType  # 2
@@ -1049,186 +1099,204 @@ class InteractiveMessage(google.protobuf.message.Message):
         IG: InteractiveMessage.ShopMessage.Surface.ValueType  # 2
         WA: InteractiveMessage.ShopMessage.Surface.ValueType  # 3
 
-        ID_FIELD_NUMBER: builtins.int
-        SURFACE_FIELD_NUMBER: builtins.int
-        MESSAGEVERSION_FIELD_NUMBER: builtins.int
-        ID: builtins.str
+        ID_FIELD_NUMBER: _builtins.int
+        SURFACE_FIELD_NUMBER: _builtins.int
+        MESSAGEVERSION_FIELD_NUMBER: _builtins.int
+        ID: _builtins.str
         surface: Global___InteractiveMessage.ShopMessage.Surface.ValueType
-        messageVersion: builtins.int
+        messageVersion: _builtins.int
         def __init__(
             self,
             *,
-            ID: builtins.str | None = ...,
+            ID: _builtins.str | None = ...,
             surface: Global___InteractiveMessage.ShopMessage.Surface.ValueType | None = ...,
-            messageVersion: builtins.int | None = ...,
+            messageVersion: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["ID", b"ID", "messageVersion", b"messageVersion", "surface", b"surface"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["ID", b"ID", "messageVersion", b"messageVersion", "surface", b"surface"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "messageVersion", b"messageVersion", "surface", b"surface"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "messageVersion", b"messageVersion", "surface", b"surface"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class NativeFlowMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class NativeFlowMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        @typing.final
-        class NativeFlowButton(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class NativeFlowButton(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            NAME_FIELD_NUMBER: builtins.int
-            BUTTONPARAMSJSON_FIELD_NUMBER: builtins.int
-            name: builtins.str
-            buttonParamsJSON: builtins.str
+            NAME_FIELD_NUMBER: _builtins.int
+            BUTTONPARAMSJSON_FIELD_NUMBER: _builtins.int
+            name: _builtins.str
+            buttonParamsJSON: _builtins.str
             def __init__(
                 self,
                 *,
-                name: builtins.str | None = ...,
-                buttonParamsJSON: builtins.str | None = ...,
+                name: _builtins.str | None = ...,
+                buttonParamsJSON: _builtins.str | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["buttonParamsJSON", b"buttonParamsJSON", "name", b"name"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["buttonParamsJSON", b"buttonParamsJSON", "name", b"name"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["buttonParamsJSON", b"buttonParamsJSON", "name", b"name"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["buttonParamsJSON", b"buttonParamsJSON", "name", b"name"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        BUTTONS_FIELD_NUMBER: builtins.int
-        MESSAGEPARAMSJSON_FIELD_NUMBER: builtins.int
-        MESSAGEVERSION_FIELD_NUMBER: builtins.int
-        messageParamsJSON: builtins.str
-        messageVersion: builtins.int
-        @property
-        def buttons(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___InteractiveMessage.NativeFlowMessage.NativeFlowButton]: ...
+        BUTTONS_FIELD_NUMBER: _builtins.int
+        MESSAGEPARAMSJSON_FIELD_NUMBER: _builtins.int
+        MESSAGEVERSION_FIELD_NUMBER: _builtins.int
+        messageParamsJSON: _builtins.str
+        messageVersion: _builtins.int
+        @_builtins.property
+        def buttons(self) -> _containers.RepeatedCompositeFieldContainer[Global___InteractiveMessage.NativeFlowMessage.NativeFlowButton]: ...
         def __init__(
             self,
             *,
-            buttons: collections.abc.Iterable[Global___InteractiveMessage.NativeFlowMessage.NativeFlowButton] | None = ...,
-            messageParamsJSON: builtins.str | None = ...,
-            messageVersion: builtins.int | None = ...,
+            buttons: _abc.Iterable[Global___InteractiveMessage.NativeFlowMessage.NativeFlowButton] | None = ...,
+            messageParamsJSON: _builtins.str | None = ...,
+            messageVersion: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["messageParamsJSON", b"messageParamsJSON", "messageVersion", b"messageVersion"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["buttons", b"buttons", "messageParamsJSON", b"messageParamsJSON", "messageVersion", b"messageVersion"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["messageParamsJSON", b"messageParamsJSON", "messageVersion", b"messageVersion"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["buttons", b"buttons", "messageParamsJSON", b"messageParamsJSON", "messageVersion", b"messageVersion"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class CollectionMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class CollectionMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        BIZJID_FIELD_NUMBER: builtins.int
-        ID_FIELD_NUMBER: builtins.int
-        MESSAGEVERSION_FIELD_NUMBER: builtins.int
-        bizJID: builtins.str
-        ID: builtins.str
-        messageVersion: builtins.int
+        BIZJID_FIELD_NUMBER: _builtins.int
+        ID_FIELD_NUMBER: _builtins.int
+        MESSAGEVERSION_FIELD_NUMBER: _builtins.int
+        bizJID: _builtins.str
+        ID: _builtins.str
+        messageVersion: _builtins.int
         def __init__(
             self,
             *,
-            bizJID: builtins.str | None = ...,
-            ID: builtins.str | None = ...,
-            messageVersion: builtins.int | None = ...,
+            bizJID: _builtins.str | None = ...,
+            ID: _builtins.str | None = ...,
+            messageVersion: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["ID", b"ID", "bizJID", b"bizJID", "messageVersion", b"messageVersion"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["ID", b"ID", "bizJID", b"bizJID", "messageVersion", b"messageVersion"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "bizJID", b"bizJID", "messageVersion", b"messageVersion"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "bizJID", b"bizJID", "messageVersion", b"messageVersion"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class Footer(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Footer(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        AUDIOMESSAGE_FIELD_NUMBER: builtins.int
-        TEXT_FIELD_NUMBER: builtins.int
-        HASMEDIAATTACHMENT_FIELD_NUMBER: builtins.int
-        text: builtins.str
-        hasMediaAttachment: builtins.bool
-        @property
+        AUDIOMESSAGE_FIELD_NUMBER: _builtins.int
+        TEXT_FIELD_NUMBER: _builtins.int
+        HASMEDIAATTACHMENT_FIELD_NUMBER: _builtins.int
+        text: _builtins.str
+        hasMediaAttachment: _builtins.bool
+        @_builtins.property
         def audioMessage(self) -> Global___AudioMessage: ...
         def __init__(
             self,
             *,
             audioMessage: Global___AudioMessage | None = ...,
-            text: builtins.str | None = ...,
-            hasMediaAttachment: builtins.bool | None = ...,
+            text: _builtins.str | None = ...,
+            hasMediaAttachment: _builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["audioMessage", b"audioMessage", "hasMediaAttachment", b"hasMediaAttachment", "media", b"media", "text", b"text"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["audioMessage", b"audioMessage", "hasMediaAttachment", b"hasMediaAttachment", "media", b"media", "text", b"text"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["media", b"media"]) -> typing.Literal["audioMessage"] | None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["audioMessage", b"audioMessage", "hasMediaAttachment", b"hasMediaAttachment", "media", b"media", "text", b"text"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["audioMessage", b"audioMessage", "hasMediaAttachment", b"hasMediaAttachment", "media", b"media", "text", b"text"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        _WhichOneofReturnType_media: _TypeAlias = _typing.Literal["audioMessage"]  # noqa: Y015
+        _WhichOneofArgType_media: _TypeAlias = _typing.Literal["media", b"media"]  # noqa: Y015
+        def WhichOneof(self, oneof_group: _WhichOneofArgType_media) -> _WhichOneofReturnType_media | None: ...
 
-    @typing.final
-    class Body(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Body(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        TEXT_FIELD_NUMBER: builtins.int
-        text: builtins.str
+        TEXT_FIELD_NUMBER: _builtins.int
+        text: _builtins.str
         def __init__(
             self,
             *,
-            text: builtins.str | None = ...,
+            text: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["text", b"text"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["text", b"text"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["text", b"text"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["text", b"text"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class Header(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Header(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        DOCUMENTMESSAGE_FIELD_NUMBER: builtins.int
-        IMAGEMESSAGE_FIELD_NUMBER: builtins.int
-        JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-        VIDEOMESSAGE_FIELD_NUMBER: builtins.int
-        LOCATIONMESSAGE_FIELD_NUMBER: builtins.int
-        PRODUCTMESSAGE_FIELD_NUMBER: builtins.int
-        TITLE_FIELD_NUMBER: builtins.int
-        SUBTITLE_FIELD_NUMBER: builtins.int
-        HASMEDIAATTACHMENT_FIELD_NUMBER: builtins.int
-        JPEGThumbnail: builtins.bytes
-        title: builtins.str
-        subtitle: builtins.str
-        hasMediaAttachment: builtins.bool
-        @property
+        DOCUMENTMESSAGE_FIELD_NUMBER: _builtins.int
+        IMAGEMESSAGE_FIELD_NUMBER: _builtins.int
+        JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+        VIDEOMESSAGE_FIELD_NUMBER: _builtins.int
+        LOCATIONMESSAGE_FIELD_NUMBER: _builtins.int
+        PRODUCTMESSAGE_FIELD_NUMBER: _builtins.int
+        TITLE_FIELD_NUMBER: _builtins.int
+        SUBTITLE_FIELD_NUMBER: _builtins.int
+        HASMEDIAATTACHMENT_FIELD_NUMBER: _builtins.int
+        JPEGThumbnail: _builtins.bytes
+        title: _builtins.str
+        subtitle: _builtins.str
+        hasMediaAttachment: _builtins.bool
+        @_builtins.property
         def documentMessage(self) -> Global___DocumentMessage: ...
-        @property
+        @_builtins.property
         def imageMessage(self) -> Global___ImageMessage: ...
-        @property
+        @_builtins.property
         def videoMessage(self) -> Global___VideoMessage: ...
-        @property
+        @_builtins.property
         def locationMessage(self) -> Global___LocationMessage: ...
-        @property
+        @_builtins.property
         def productMessage(self) -> Global___ProductMessage: ...
         def __init__(
             self,
             *,
             documentMessage: Global___DocumentMessage | None = ...,
             imageMessage: Global___ImageMessage | None = ...,
-            JPEGThumbnail: builtins.bytes | None = ...,
+            JPEGThumbnail: _builtins.bytes | None = ...,
             videoMessage: Global___VideoMessage | None = ...,
             locationMessage: Global___LocationMessage | None = ...,
             productMessage: Global___ProductMessage | None = ...,
-            title: builtins.str | None = ...,
-            subtitle: builtins.str | None = ...,
-            hasMediaAttachment: builtins.bool | None = ...,
+            title: _builtins.str | None = ...,
+            subtitle: _builtins.str | None = ...,
+            hasMediaAttachment: _builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "documentMessage", b"documentMessage", "hasMediaAttachment", b"hasMediaAttachment", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "media", b"media", "productMessage", b"productMessage", "subtitle", b"subtitle", "title", b"title", "videoMessage", b"videoMessage"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "documentMessage", b"documentMessage", "hasMediaAttachment", b"hasMediaAttachment", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "media", b"media", "productMessage", b"productMessage", "subtitle", b"subtitle", "title", b"title", "videoMessage", b"videoMessage"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["media", b"media"]) -> typing.Literal["documentMessage", "imageMessage", "JPEGThumbnail", "videoMessage", "locationMessage", "productMessage"] | None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "documentMessage", b"documentMessage", "hasMediaAttachment", b"hasMediaAttachment", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "media", b"media", "productMessage", b"productMessage", "subtitle", b"subtitle", "title", b"title", "videoMessage", b"videoMessage"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "documentMessage", b"documentMessage", "hasMediaAttachment", b"hasMediaAttachment", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "media", b"media", "productMessage", b"productMessage", "subtitle", b"subtitle", "title", b"title", "videoMessage", b"videoMessage"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        _WhichOneofReturnType_media: _TypeAlias = _typing.Literal["documentMessage", "imageMessage", "JPEGThumbnail", "videoMessage", "locationMessage", "productMessage"]  # noqa: Y015
+        _WhichOneofArgType_media: _TypeAlias = _typing.Literal["media", b"media"]  # noqa: Y015
+        def WhichOneof(self, oneof_group: _WhichOneofArgType_media) -> _WhichOneofReturnType_media | None: ...
 
-    SHOPSTOREFRONTMESSAGE_FIELD_NUMBER: builtins.int
-    COLLECTIONMESSAGE_FIELD_NUMBER: builtins.int
-    NATIVEFLOWMESSAGE_FIELD_NUMBER: builtins.int
-    CAROUSELMESSAGE_FIELD_NUMBER: builtins.int
-    HEADER_FIELD_NUMBER: builtins.int
-    BODY_FIELD_NUMBER: builtins.int
-    FOOTER_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    URLTRACKINGMAP_FIELD_NUMBER: builtins.int
-    @property
+    SHOPSTOREFRONTMESSAGE_FIELD_NUMBER: _builtins.int
+    COLLECTIONMESSAGE_FIELD_NUMBER: _builtins.int
+    NATIVEFLOWMESSAGE_FIELD_NUMBER: _builtins.int
+    CAROUSELMESSAGE_FIELD_NUMBER: _builtins.int
+    HEADER_FIELD_NUMBER: _builtins.int
+    BODY_FIELD_NUMBER: _builtins.int
+    FOOTER_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    URLTRACKINGMAP_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def shopStorefrontMessage(self) -> Global___InteractiveMessage.ShopMessage: ...
-    @property
+    @_builtins.property
     def collectionMessage(self) -> Global___InteractiveMessage.CollectionMessage: ...
-    @property
+    @_builtins.property
     def nativeFlowMessage(self) -> Global___InteractiveMessage.NativeFlowMessage: ...
-    @property
+    @_builtins.property
     def carouselMessage(self) -> Global___InteractiveMessage.CarouselMessage: ...
-    @property
+    @_builtins.property
     def header(self) -> Global___InteractiveMessage.Header: ...
-    @property
+    @_builtins.property
     def body(self) -> Global___InteractiveMessage.Body: ...
-    @property
+    @_builtins.property
     def footer(self) -> Global___InteractiveMessage.Footer: ...
-    @property
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
-    @property
+    @_builtins.property
     def urlTrackingMap(self) -> Global___UrlTrackingMap: ...
     def __init__(
         self,
@@ -1243,22 +1311,26 @@ class InteractiveMessage(google.protobuf.message.Message):
         contextInfo: Global___ContextInfo | None = ...,
         urlTrackingMap: Global___UrlTrackingMap | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["body", b"body", "carouselMessage", b"carouselMessage", "collectionMessage", b"collectionMessage", "contextInfo", b"contextInfo", "footer", b"footer", "header", b"header", "interactiveMessage", b"interactiveMessage", "nativeFlowMessage", b"nativeFlowMessage", "shopStorefrontMessage", b"shopStorefrontMessage", "urlTrackingMap", b"urlTrackingMap"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["body", b"body", "carouselMessage", b"carouselMessage", "collectionMessage", b"collectionMessage", "contextInfo", b"contextInfo", "footer", b"footer", "header", b"header", "interactiveMessage", b"interactiveMessage", "nativeFlowMessage", b"nativeFlowMessage", "shopStorefrontMessage", b"shopStorefrontMessage", "urlTrackingMap", b"urlTrackingMap"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["interactiveMessage", b"interactiveMessage"]) -> typing.Literal["shopStorefrontMessage", "collectionMessage", "nativeFlowMessage", "carouselMessage"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["body", b"body", "carouselMessage", b"carouselMessage", "collectionMessage", b"collectionMessage", "contextInfo", b"contextInfo", "footer", b"footer", "header", b"header", "interactiveMessage", b"interactiveMessage", "nativeFlowMessage", b"nativeFlowMessage", "shopStorefrontMessage", b"shopStorefrontMessage", "urlTrackingMap", b"urlTrackingMap"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["body", b"body", "carouselMessage", b"carouselMessage", "collectionMessage", b"collectionMessage", "contextInfo", b"contextInfo", "footer", b"footer", "header", b"header", "interactiveMessage", b"interactiveMessage", "nativeFlowMessage", b"nativeFlowMessage", "shopStorefrontMessage", b"shopStorefrontMessage", "urlTrackingMap", b"urlTrackingMap"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_interactiveMessage: _TypeAlias = _typing.Literal["shopStorefrontMessage", "collectionMessage", "nativeFlowMessage", "carouselMessage"]  # noqa: Y015
+    _WhichOneofArgType_interactiveMessage: _TypeAlias = _typing.Literal["interactiveMessage", b"interactiveMessage"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_interactiveMessage) -> _WhichOneofReturnType_interactiveMessage | None: ...
 
-Global___InteractiveMessage: typing_extensions.TypeAlias = InteractiveMessage
+Global___InteractiveMessage: _TypeAlias = InteractiveMessage  # noqa: Y015
 
-@typing.final
-class ListResponseMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ListResponseMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _ListType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ListTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ListResponseMessage._ListType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ListTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ListResponseMessage._ListType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: ListResponseMessage._ListType.ValueType  # 0
         SINGLE_SELECT: ListResponseMessage._ListType.ValueType  # 1
 
@@ -1266,56 +1338,60 @@ class ListResponseMessage(google.protobuf.message.Message):
     UNKNOWN: ListResponseMessage.ListType.ValueType  # 0
     SINGLE_SELECT: ListResponseMessage.ListType.ValueType  # 1
 
-    @typing.final
-    class SingleSelectReply(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class SingleSelectReply(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        SELECTEDROWID_FIELD_NUMBER: builtins.int
-        selectedRowID: builtins.str
+        SELECTEDROWID_FIELD_NUMBER: _builtins.int
+        selectedRowID: _builtins.str
         def __init__(
             self,
             *,
-            selectedRowID: builtins.str | None = ...,
+            selectedRowID: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["selectedRowID", b"selectedRowID"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["selectedRowID", b"selectedRowID"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["selectedRowID", b"selectedRowID"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["selectedRowID", b"selectedRowID"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    TITLE_FIELD_NUMBER: builtins.int
-    LISTTYPE_FIELD_NUMBER: builtins.int
-    SINGLESELECTREPLY_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    DESCRIPTION_FIELD_NUMBER: builtins.int
-    title: builtins.str
+    TITLE_FIELD_NUMBER: _builtins.int
+    LISTTYPE_FIELD_NUMBER: _builtins.int
+    SINGLESELECTREPLY_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    title: _builtins.str
     listType: Global___ListResponseMessage.ListType.ValueType
-    description: builtins.str
-    @property
+    description: _builtins.str
+    @_builtins.property
     def singleSelectReply(self) -> Global___ListResponseMessage.SingleSelectReply: ...
-    @property
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        title: builtins.str | None = ...,
+        title: _builtins.str | None = ...,
         listType: Global___ListResponseMessage.ListType.ValueType | None = ...,
         singleSelectReply: Global___ListResponseMessage.SingleSelectReply | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
-        description: builtins.str | None = ...,
+        description: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "description", b"description", "listType", b"listType", "singleSelectReply", b"singleSelectReply", "title", b"title"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "description", b"description", "listType", b"listType", "singleSelectReply", b"singleSelectReply", "title", b"title"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "description", b"description", "listType", b"listType", "singleSelectReply", b"singleSelectReply", "title", b"title"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "description", b"description", "listType", b"listType", "singleSelectReply", b"singleSelectReply", "title", b"title"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ListResponseMessage: typing_extensions.TypeAlias = ListResponseMessage
+Global___ListResponseMessage: _TypeAlias = ListResponseMessage  # noqa: Y015
 
-@typing.final
-class ListMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ListMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _ListType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ListTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ListMessage._ListType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ListTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ListMessage._ListType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: ListMessage._ListType.ValueType  # 0
         SINGLE_SELECT: ListMessage._ListType.ValueType  # 1
         PRODUCT_LIST: ListMessage._ListType.ValueType  # 2
@@ -1325,172 +1401,186 @@ class ListMessage(google.protobuf.message.Message):
     SINGLE_SELECT: ListMessage.ListType.ValueType  # 1
     PRODUCT_LIST: ListMessage.ListType.ValueType  # 2
 
-    @typing.final
-    class ProductListInfo(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ProductListInfo(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        PRODUCTSECTIONS_FIELD_NUMBER: builtins.int
-        HEADERIMAGE_FIELD_NUMBER: builtins.int
-        BUSINESSOWNERJID_FIELD_NUMBER: builtins.int
-        businessOwnerJID: builtins.str
-        @property
-        def productSections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ListMessage.ProductSection]: ...
-        @property
+        PRODUCTSECTIONS_FIELD_NUMBER: _builtins.int
+        HEADERIMAGE_FIELD_NUMBER: _builtins.int
+        BUSINESSOWNERJID_FIELD_NUMBER: _builtins.int
+        businessOwnerJID: _builtins.str
+        @_builtins.property
+        def productSections(self) -> _containers.RepeatedCompositeFieldContainer[Global___ListMessage.ProductSection]: ...
+        @_builtins.property
         def headerImage(self) -> Global___ListMessage.ProductListHeaderImage: ...
         def __init__(
             self,
             *,
-            productSections: collections.abc.Iterable[Global___ListMessage.ProductSection] | None = ...,
+            productSections: _abc.Iterable[Global___ListMessage.ProductSection] | None = ...,
             headerImage: Global___ListMessage.ProductListHeaderImage | None = ...,
-            businessOwnerJID: builtins.str | None = ...,
+            businessOwnerJID: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["businessOwnerJID", b"businessOwnerJID", "headerImage", b"headerImage"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["businessOwnerJID", b"businessOwnerJID", "headerImage", b"headerImage", "productSections", b"productSections"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["businessOwnerJID", b"businessOwnerJID", "headerImage", b"headerImage"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["businessOwnerJID", b"businessOwnerJID", "headerImage", b"headerImage", "productSections", b"productSections"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ProductListHeaderImage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ProductListHeaderImage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        PRODUCTID_FIELD_NUMBER: builtins.int
-        JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-        productID: builtins.str
-        JPEGThumbnail: builtins.bytes
+        PRODUCTID_FIELD_NUMBER: _builtins.int
+        JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+        productID: _builtins.str
+        JPEGThumbnail: _builtins.bytes
         def __init__(
             self,
             *,
-            productID: builtins.str | None = ...,
-            JPEGThumbnail: builtins.bytes | None = ...,
+            productID: _builtins.str | None = ...,
+            JPEGThumbnail: _builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "productID", b"productID"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "productID", b"productID"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "productID", b"productID"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "productID", b"productID"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ProductSection(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ProductSection(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        TITLE_FIELD_NUMBER: builtins.int
-        PRODUCTS_FIELD_NUMBER: builtins.int
-        title: builtins.str
-        @property
-        def products(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ListMessage.Product]: ...
+        TITLE_FIELD_NUMBER: _builtins.int
+        PRODUCTS_FIELD_NUMBER: _builtins.int
+        title: _builtins.str
+        @_builtins.property
+        def products(self) -> _containers.RepeatedCompositeFieldContainer[Global___ListMessage.Product]: ...
         def __init__(
             self,
             *,
-            title: builtins.str | None = ...,
-            products: collections.abc.Iterable[Global___ListMessage.Product] | None = ...,
+            title: _builtins.str | None = ...,
+            products: _abc.Iterable[Global___ListMessage.Product] | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["title", b"title"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["products", b"products", "title", b"title"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["title", b"title"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["products", b"products", "title", b"title"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class Product(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Product(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        PRODUCTID_FIELD_NUMBER: builtins.int
-        productID: builtins.str
+        PRODUCTID_FIELD_NUMBER: _builtins.int
+        productID: _builtins.str
         def __init__(
             self,
             *,
-            productID: builtins.str | None = ...,
+            productID: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["productID", b"productID"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["productID", b"productID"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["productID", b"productID"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["productID", b"productID"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class Section(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Section(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        TITLE_FIELD_NUMBER: builtins.int
-        ROWS_FIELD_NUMBER: builtins.int
-        title: builtins.str
-        @property
-        def rows(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ListMessage.Row]: ...
+        TITLE_FIELD_NUMBER: _builtins.int
+        ROWS_FIELD_NUMBER: _builtins.int
+        title: _builtins.str
+        @_builtins.property
+        def rows(self) -> _containers.RepeatedCompositeFieldContainer[Global___ListMessage.Row]: ...
         def __init__(
             self,
             *,
-            title: builtins.str | None = ...,
-            rows: collections.abc.Iterable[Global___ListMessage.Row] | None = ...,
+            title: _builtins.str | None = ...,
+            rows: _abc.Iterable[Global___ListMessage.Row] | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["title", b"title"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["rows", b"rows", "title", b"title"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["title", b"title"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["rows", b"rows", "title", b"title"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class Row(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Row(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        TITLE_FIELD_NUMBER: builtins.int
-        DESCRIPTION_FIELD_NUMBER: builtins.int
-        ROWID_FIELD_NUMBER: builtins.int
-        title: builtins.str
-        description: builtins.str
-        rowID: builtins.str
+        TITLE_FIELD_NUMBER: _builtins.int
+        DESCRIPTION_FIELD_NUMBER: _builtins.int
+        ROWID_FIELD_NUMBER: _builtins.int
+        title: _builtins.str
+        description: _builtins.str
+        rowID: _builtins.str
         def __init__(
             self,
             *,
-            title: builtins.str | None = ...,
-            description: builtins.str | None = ...,
-            rowID: builtins.str | None = ...,
+            title: _builtins.str | None = ...,
+            description: _builtins.str | None = ...,
+            rowID: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["description", b"description", "rowID", b"rowID", "title", b"title"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["description", b"description", "rowID", b"rowID", "title", b"title"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["description", b"description", "rowID", b"rowID", "title", b"title"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["description", b"description", "rowID", b"rowID", "title", b"title"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    TITLE_FIELD_NUMBER: builtins.int
-    DESCRIPTION_FIELD_NUMBER: builtins.int
-    BUTTONTEXT_FIELD_NUMBER: builtins.int
-    LISTTYPE_FIELD_NUMBER: builtins.int
-    SECTIONS_FIELD_NUMBER: builtins.int
-    PRODUCTLISTINFO_FIELD_NUMBER: builtins.int
-    FOOTERTEXT_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    title: builtins.str
-    description: builtins.str
-    buttonText: builtins.str
+    TITLE_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    BUTTONTEXT_FIELD_NUMBER: _builtins.int
+    LISTTYPE_FIELD_NUMBER: _builtins.int
+    SECTIONS_FIELD_NUMBER: _builtins.int
+    PRODUCTLISTINFO_FIELD_NUMBER: _builtins.int
+    FOOTERTEXT_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    title: _builtins.str
+    description: _builtins.str
+    buttonText: _builtins.str
     listType: Global___ListMessage.ListType.ValueType
-    footerText: builtins.str
-    @property
-    def sections(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ListMessage.Section]: ...
-    @property
+    footerText: _builtins.str
+    @_builtins.property
+    def sections(self) -> _containers.RepeatedCompositeFieldContainer[Global___ListMessage.Section]: ...
+    @_builtins.property
     def productListInfo(self) -> Global___ListMessage.ProductListInfo: ...
-    @property
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        title: builtins.str | None = ...,
-        description: builtins.str | None = ...,
-        buttonText: builtins.str | None = ...,
+        title: _builtins.str | None = ...,
+        description: _builtins.str | None = ...,
+        buttonText: _builtins.str | None = ...,
         listType: Global___ListMessage.ListType.ValueType | None = ...,
-        sections: collections.abc.Iterable[Global___ListMessage.Section] | None = ...,
+        sections: _abc.Iterable[Global___ListMessage.Section] | None = ...,
         productListInfo: Global___ListMessage.ProductListInfo | None = ...,
-        footerText: builtins.str | None = ...,
+        footerText: _builtins.str | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["buttonText", b"buttonText", "contextInfo", b"contextInfo", "description", b"description", "footerText", b"footerText", "listType", b"listType", "productListInfo", b"productListInfo", "title", b"title"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["buttonText", b"buttonText", "contextInfo", b"contextInfo", "description", b"description", "footerText", b"footerText", "listType", b"listType", "productListInfo", b"productListInfo", "sections", b"sections", "title", b"title"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["buttonText", b"buttonText", "contextInfo", b"contextInfo", "description", b"description", "footerText", b"footerText", "listType", b"listType", "productListInfo", b"productListInfo", "title", b"title"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["buttonText", b"buttonText", "contextInfo", b"contextInfo", "description", b"description", "footerText", b"footerText", "listType", b"listType", "productListInfo", b"productListInfo", "sections", b"sections", "title", b"title"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ListMessage: typing_extensions.TypeAlias = ListMessage
+Global___ListMessage: _TypeAlias = ListMessage  # noqa: Y015
 
-@typing.final
-class OrderMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class OrderMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _OrderSurface:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _OrderSurfaceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OrderMessage._OrderSurface.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _OrderSurfaceEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[OrderMessage._OrderSurface.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         CATALOG: OrderMessage._OrderSurface.ValueType  # 1
 
     class OrderSurface(_OrderSurface, metaclass=_OrderSurfaceEnumTypeWrapper): ...
     CATALOG: OrderMessage.OrderSurface.ValueType  # 1
 
     class _OrderStatus:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _OrderStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OrderMessage._OrderStatus.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _OrderStatusEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[OrderMessage._OrderStatus.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         INQUIRY: OrderMessage._OrderStatus.ValueType  # 1
         ACCEPTED: OrderMessage._OrderStatus.ValueType  # 2
         DECLINED: OrderMessage._OrderStatus.ValueType  # 3
@@ -1500,109 +1590,113 @@ class OrderMessage(google.protobuf.message.Message):
     ACCEPTED: OrderMessage.OrderStatus.ValueType  # 2
     DECLINED: OrderMessage.OrderStatus.ValueType  # 3
 
-    ORDERID_FIELD_NUMBER: builtins.int
-    THUMBNAIL_FIELD_NUMBER: builtins.int
-    ITEMCOUNT_FIELD_NUMBER: builtins.int
-    STATUS_FIELD_NUMBER: builtins.int
-    SURFACE_FIELD_NUMBER: builtins.int
-    MESSAGE_FIELD_NUMBER: builtins.int
-    ORDERTITLE_FIELD_NUMBER: builtins.int
-    SELLERJID_FIELD_NUMBER: builtins.int
-    TOKEN_FIELD_NUMBER: builtins.int
-    TOTALAMOUNT1000_FIELD_NUMBER: builtins.int
-    TOTALCURRENCYCODE_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    MESSAGEVERSION_FIELD_NUMBER: builtins.int
-    ORDERREQUESTMESSAGEID_FIELD_NUMBER: builtins.int
-    CATALOGTYPE_FIELD_NUMBER: builtins.int
-    orderID: builtins.str
-    thumbnail: builtins.bytes
-    itemCount: builtins.int
+    ORDERID_FIELD_NUMBER: _builtins.int
+    THUMBNAIL_FIELD_NUMBER: _builtins.int
+    ITEMCOUNT_FIELD_NUMBER: _builtins.int
+    STATUS_FIELD_NUMBER: _builtins.int
+    SURFACE_FIELD_NUMBER: _builtins.int
+    MESSAGE_FIELD_NUMBER: _builtins.int
+    ORDERTITLE_FIELD_NUMBER: _builtins.int
+    SELLERJID_FIELD_NUMBER: _builtins.int
+    TOKEN_FIELD_NUMBER: _builtins.int
+    TOTALAMOUNT1000_FIELD_NUMBER: _builtins.int
+    TOTALCURRENCYCODE_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    MESSAGEVERSION_FIELD_NUMBER: _builtins.int
+    ORDERREQUESTMESSAGEID_FIELD_NUMBER: _builtins.int
+    CATALOGTYPE_FIELD_NUMBER: _builtins.int
+    orderID: _builtins.str
+    thumbnail: _builtins.bytes
+    itemCount: _builtins.int
     status: Global___OrderMessage.OrderStatus.ValueType
     surface: Global___OrderMessage.OrderSurface.ValueType
-    message: builtins.str
-    orderTitle: builtins.str
-    sellerJID: builtins.str
-    token: builtins.str
-    totalAmount1000: builtins.int
-    totalCurrencyCode: builtins.str
-    messageVersion: builtins.int
-    catalogType: builtins.str
-    @property
+    message: _builtins.str
+    orderTitle: _builtins.str
+    sellerJID: _builtins.str
+    token: _builtins.str
+    totalAmount1000: _builtins.int
+    totalCurrencyCode: _builtins.str
+    messageVersion: _builtins.int
+    catalogType: _builtins.str
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
-    @property
-    def orderRequestMessageID(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    @_builtins.property
+    def orderRequestMessageID(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        orderID: builtins.str | None = ...,
-        thumbnail: builtins.bytes | None = ...,
-        itemCount: builtins.int | None = ...,
+        orderID: _builtins.str | None = ...,
+        thumbnail: _builtins.bytes | None = ...,
+        itemCount: _builtins.int | None = ...,
         status: Global___OrderMessage.OrderStatus.ValueType | None = ...,
         surface: Global___OrderMessage.OrderSurface.ValueType | None = ...,
-        message: builtins.str | None = ...,
-        orderTitle: builtins.str | None = ...,
-        sellerJID: builtins.str | None = ...,
-        token: builtins.str | None = ...,
-        totalAmount1000: builtins.int | None = ...,
-        totalCurrencyCode: builtins.str | None = ...,
+        message: _builtins.str | None = ...,
+        orderTitle: _builtins.str | None = ...,
+        sellerJID: _builtins.str | None = ...,
+        token: _builtins.str | None = ...,
+        totalAmount1000: _builtins.int | None = ...,
+        totalCurrencyCode: _builtins.str | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
-        messageVersion: builtins.int | None = ...,
-        orderRequestMessageID: waCommon.WACommon_pb2.MessageKey | None = ...,
-        catalogType: builtins.str | None = ...,
+        messageVersion: _builtins.int | None = ...,
+        orderRequestMessageID: _WACommon_pb2.MessageKey | None = ...,
+        catalogType: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["catalogType", b"catalogType", "contextInfo", b"contextInfo", "itemCount", b"itemCount", "message", b"message", "messageVersion", b"messageVersion", "orderID", b"orderID", "orderRequestMessageID", b"orderRequestMessageID", "orderTitle", b"orderTitle", "sellerJID", b"sellerJID", "status", b"status", "surface", b"surface", "thumbnail", b"thumbnail", "token", b"token", "totalAmount1000", b"totalAmount1000", "totalCurrencyCode", b"totalCurrencyCode"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["catalogType", b"catalogType", "contextInfo", b"contextInfo", "itemCount", b"itemCount", "message", b"message", "messageVersion", b"messageVersion", "orderID", b"orderID", "orderRequestMessageID", b"orderRequestMessageID", "orderTitle", b"orderTitle", "sellerJID", b"sellerJID", "status", b"status", "surface", b"surface", "thumbnail", b"thumbnail", "token", b"token", "totalAmount1000", b"totalAmount1000", "totalCurrencyCode", b"totalCurrencyCode"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["catalogType", b"catalogType", "contextInfo", b"contextInfo", "itemCount", b"itemCount", "message", b"message", "messageVersion", b"messageVersion", "orderID", b"orderID", "orderRequestMessageID", b"orderRequestMessageID", "orderTitle", b"orderTitle", "sellerJID", b"sellerJID", "status", b"status", "surface", b"surface", "thumbnail", b"thumbnail", "token", b"token", "totalAmount1000", b"totalAmount1000", "totalCurrencyCode", b"totalCurrencyCode"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["catalogType", b"catalogType", "contextInfo", b"contextInfo", "itemCount", b"itemCount", "message", b"message", "messageVersion", b"messageVersion", "orderID", b"orderID", "orderRequestMessageID", b"orderRequestMessageID", "orderTitle", b"orderTitle", "sellerJID", b"sellerJID", "status", b"status", "surface", b"surface", "thumbnail", b"thumbnail", "token", b"token", "totalAmount1000", b"totalAmount1000", "totalCurrencyCode", b"totalCurrencyCode"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___OrderMessage: typing_extensions.TypeAlias = OrderMessage
+Global___OrderMessage: _TypeAlias = OrderMessage  # noqa: Y015
 
-@typing.final
-class StatusQuotedMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class StatusQuotedMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _StatusQuotedMessageType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _StatusQuotedMessageTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[StatusQuotedMessage._StatusQuotedMessageType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _StatusQuotedMessageTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[StatusQuotedMessage._StatusQuotedMessageType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         QUESTION_ANSWER: StatusQuotedMessage._StatusQuotedMessageType.ValueType  # 1
 
     class StatusQuotedMessageType(_StatusQuotedMessageType, metaclass=_StatusQuotedMessageTypeEnumTypeWrapper): ...
     QUESTION_ANSWER: StatusQuotedMessage.StatusQuotedMessageType.ValueType  # 1
 
-    TYPE_FIELD_NUMBER: builtins.int
-    TEXT_FIELD_NUMBER: builtins.int
-    THUMBNAIL_FIELD_NUMBER: builtins.int
-    ORIGINALSTATUSID_FIELD_NUMBER: builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    TEXT_FIELD_NUMBER: _builtins.int
+    THUMBNAIL_FIELD_NUMBER: _builtins.int
+    ORIGINALSTATUSID_FIELD_NUMBER: _builtins.int
     type: Global___StatusQuotedMessage.StatusQuotedMessageType.ValueType
-    text: builtins.str
-    thumbnail: builtins.bytes
-    @property
-    def originalStatusID(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    text: _builtins.str
+    thumbnail: _builtins.bytes
+    @_builtins.property
+    def originalStatusID(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
         type: Global___StatusQuotedMessage.StatusQuotedMessageType.ValueType | None = ...,
-        text: builtins.str | None = ...,
-        thumbnail: builtins.bytes | None = ...,
-        originalStatusID: waCommon.WACommon_pb2.MessageKey | None = ...,
+        text: _builtins.str | None = ...,
+        thumbnail: _builtins.bytes | None = ...,
+        originalStatusID: _WACommon_pb2.MessageKey | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["originalStatusID", b"originalStatusID", "text", b"text", "thumbnail", b"thumbnail", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["originalStatusID", b"originalStatusID", "text", b"text", "thumbnail", b"thumbnail", "type", b"type"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["originalStatusID", b"originalStatusID", "text", b"text", "thumbnail", b"thumbnail", "type", b"type"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["originalStatusID", b"originalStatusID", "text", b"text", "thumbnail", b"thumbnail", "type", b"type"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___StatusQuotedMessage: typing_extensions.TypeAlias = StatusQuotedMessage
+Global___StatusQuotedMessage: _TypeAlias = StatusQuotedMessage  # noqa: Y015
 
-@typing.final
-class PaymentInviteMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PaymentInviteMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _ServiceType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ServiceTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PaymentInviteMessage._ServiceType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ServiceTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[PaymentInviteMessage._ServiceType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: PaymentInviteMessage._ServiceType.ValueType  # 0
         FBPAY: PaymentInviteMessage._ServiceType.ValueType  # 1
         NOVI: PaymentInviteMessage._ServiceType.ValueType  # 2
@@ -1614,43 +1708,48 @@ class PaymentInviteMessage(google.protobuf.message.Message):
     NOVI: PaymentInviteMessage.ServiceType.ValueType  # 2
     UPI: PaymentInviteMessage.ServiceType.ValueType  # 3
 
-    SERVICETYPE_FIELD_NUMBER: builtins.int
-    EXPIRYTIMESTAMP_FIELD_NUMBER: builtins.int
+    SERVICETYPE_FIELD_NUMBER: _builtins.int
+    EXPIRYTIMESTAMP_FIELD_NUMBER: _builtins.int
+    INCENTIVEELIGIBLE_FIELD_NUMBER: _builtins.int
     serviceType: Global___PaymentInviteMessage.ServiceType.ValueType
-    expiryTimestamp: builtins.int
+    expiryTimestamp: _builtins.int
+    incentiveEligible: _builtins.bool
     def __init__(
         self,
         *,
         serviceType: Global___PaymentInviteMessage.ServiceType.ValueType | None = ...,
-        expiryTimestamp: builtins.int | None = ...,
+        expiryTimestamp: _builtins.int | None = ...,
+        incentiveEligible: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["expiryTimestamp", b"expiryTimestamp", "serviceType", b"serviceType"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["expiryTimestamp", b"expiryTimestamp", "serviceType", b"serviceType"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["expiryTimestamp", b"expiryTimestamp", "incentiveEligible", b"incentiveEligible", "serviceType", b"serviceType"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["expiryTimestamp", b"expiryTimestamp", "incentiveEligible", b"incentiveEligible", "serviceType", b"serviceType"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PaymentInviteMessage: typing_extensions.TypeAlias = PaymentInviteMessage
+Global___PaymentInviteMessage: _TypeAlias = PaymentInviteMessage  # noqa: Y015
 
-@typing.final
-class HighlyStructuredMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class HighlyStructuredMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class HSMLocalizableParameter(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class HSMLocalizableParameter(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        @typing.final
-        class HSMDateTime(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class HSMDateTime(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            @typing.final
-            class HSMDateTimeComponent(google.protobuf.message.Message):
-                DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            @_typing.final
+            class HSMDateTimeComponent(_message.Message):
+                DESCRIPTOR: _descriptor.Descriptor
 
                 class _CalendarType:
-                    ValueType = typing.NewType("ValueType", builtins.int)
-                    V: typing_extensions.TypeAlias = ValueType
+                    ValueType = _typing.NewType("ValueType", _builtins.int)
+                    V: _TypeAlias = ValueType  # noqa: Y015
 
-                class _CalendarTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent._CalendarType.ValueType], builtins.type):
-                    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+                class _CalendarTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent._CalendarType.ValueType], _builtins.type):
+                    DESCRIPTOR: _descriptor.EnumDescriptor
                     GREGORIAN: HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent._CalendarType.ValueType  # 1
                     SOLAR_HIJRI: HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent._CalendarType.ValueType  # 2
 
@@ -1659,11 +1758,11 @@ class HighlyStructuredMessage(google.protobuf.message.Message):
                 SOLAR_HIJRI: HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent.CalendarType.ValueType  # 2
 
                 class _DayOfWeekType:
-                    ValueType = typing.NewType("ValueType", builtins.int)
-                    V: typing_extensions.TypeAlias = ValueType
+                    ValueType = _typing.NewType("ValueType", _builtins.int)
+                    V: _TypeAlias = ValueType  # noqa: Y015
 
-                class _DayOfWeekTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent._DayOfWeekType.ValueType], builtins.type):
-                    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+                class _DayOfWeekTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent._DayOfWeekType.ValueType], _builtins.type):
+                    DESCRIPTOR: _descriptor.EnumDescriptor
                     MONDAY: HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent._DayOfWeekType.ValueType  # 1
                     TUESDAY: HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent._DayOfWeekType.ValueType  # 2
                     WEDNESDAY: HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent._DayOfWeekType.ValueType  # 3
@@ -1681,53 +1780,57 @@ class HighlyStructuredMessage(google.protobuf.message.Message):
                 SATURDAY: HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent.DayOfWeekType.ValueType  # 6
                 SUNDAY: HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent.DayOfWeekType.ValueType  # 7
 
-                DAYOFWEEK_FIELD_NUMBER: builtins.int
-                YEAR_FIELD_NUMBER: builtins.int
-                MONTH_FIELD_NUMBER: builtins.int
-                DAYOFMONTH_FIELD_NUMBER: builtins.int
-                HOUR_FIELD_NUMBER: builtins.int
-                MINUTE_FIELD_NUMBER: builtins.int
-                CALENDAR_FIELD_NUMBER: builtins.int
+                DAYOFWEEK_FIELD_NUMBER: _builtins.int
+                YEAR_FIELD_NUMBER: _builtins.int
+                MONTH_FIELD_NUMBER: _builtins.int
+                DAYOFMONTH_FIELD_NUMBER: _builtins.int
+                HOUR_FIELD_NUMBER: _builtins.int
+                MINUTE_FIELD_NUMBER: _builtins.int
+                CALENDAR_FIELD_NUMBER: _builtins.int
                 dayOfWeek: Global___HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent.DayOfWeekType.ValueType
-                year: builtins.int
-                month: builtins.int
-                dayOfMonth: builtins.int
-                hour: builtins.int
-                minute: builtins.int
+                year: _builtins.int
+                month: _builtins.int
+                dayOfMonth: _builtins.int
+                hour: _builtins.int
+                minute: _builtins.int
                 calendar: Global___HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent.CalendarType.ValueType
                 def __init__(
                     self,
                     *,
                     dayOfWeek: Global___HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent.DayOfWeekType.ValueType | None = ...,
-                    year: builtins.int | None = ...,
-                    month: builtins.int | None = ...,
-                    dayOfMonth: builtins.int | None = ...,
-                    hour: builtins.int | None = ...,
-                    minute: builtins.int | None = ...,
+                    year: _builtins.int | None = ...,
+                    month: _builtins.int | None = ...,
+                    dayOfMonth: _builtins.int | None = ...,
+                    hour: _builtins.int | None = ...,
+                    minute: _builtins.int | None = ...,
                     calendar: Global___HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent.CalendarType.ValueType | None = ...,
                 ) -> None: ...
-                def HasField(self, field_name: typing.Literal["calendar", b"calendar", "dayOfMonth", b"dayOfMonth", "dayOfWeek", b"dayOfWeek", "hour", b"hour", "minute", b"minute", "month", b"month", "year", b"year"]) -> builtins.bool: ...
-                def ClearField(self, field_name: typing.Literal["calendar", b"calendar", "dayOfMonth", b"dayOfMonth", "dayOfWeek", b"dayOfWeek", "hour", b"hour", "minute", b"minute", "month", b"month", "year", b"year"]) -> None: ...
+                _HasFieldArgType: _TypeAlias = _typing.Literal["calendar", b"calendar", "dayOfMonth", b"dayOfMonth", "dayOfWeek", b"dayOfWeek", "hour", b"hour", "minute", b"minute", "month", b"month", "year", b"year"]  # noqa: Y015
+                def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+                _ClearFieldArgType: _TypeAlias = _typing.Literal["calendar", b"calendar", "dayOfMonth", b"dayOfMonth", "dayOfWeek", b"dayOfWeek", "hour", b"hour", "minute", b"minute", "month", b"month", "year", b"year"]  # noqa: Y015
+                def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-            @typing.final
-            class HSMDateTimeUnixEpoch(google.protobuf.message.Message):
-                DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            @_typing.final
+            class HSMDateTimeUnixEpoch(_message.Message):
+                DESCRIPTOR: _descriptor.Descriptor
 
-                TIMESTAMP_FIELD_NUMBER: builtins.int
-                timestamp: builtins.int
+                TIMESTAMP_FIELD_NUMBER: _builtins.int
+                timestamp: _builtins.int
                 def __init__(
                     self,
                     *,
-                    timestamp: builtins.int | None = ...,
+                    timestamp: _builtins.int | None = ...,
                 ) -> None: ...
-                def HasField(self, field_name: typing.Literal["timestamp", b"timestamp"]) -> builtins.bool: ...
-                def ClearField(self, field_name: typing.Literal["timestamp", b"timestamp"]) -> None: ...
+                _HasFieldArgType: _TypeAlias = _typing.Literal["timestamp", b"timestamp"]  # noqa: Y015
+                def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+                _ClearFieldArgType: _TypeAlias = _typing.Literal["timestamp", b"timestamp"]  # noqa: Y015
+                def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-            COMPONENT_FIELD_NUMBER: builtins.int
-            UNIXEPOCH_FIELD_NUMBER: builtins.int
-            @property
+            COMPONENT_FIELD_NUMBER: _builtins.int
+            UNIXEPOCH_FIELD_NUMBER: _builtins.int
+            @_builtins.property
             def component(self) -> Global___HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent: ...
-            @property
+            @_builtins.property
             def unixEpoch(self) -> Global___HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeUnixEpoch: ...
             def __init__(
                 self,
@@ -1735,99 +1838,111 @@ class HighlyStructuredMessage(google.protobuf.message.Message):
                 component: Global___HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeComponent | None = ...,
                 unixEpoch: Global___HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime.HSMDateTimeUnixEpoch | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["component", b"component", "datetimeOneof", b"datetimeOneof", "unixEpoch", b"unixEpoch"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["component", b"component", "datetimeOneof", b"datetimeOneof", "unixEpoch", b"unixEpoch"]) -> None: ...
-            def WhichOneof(self, oneof_group: typing.Literal["datetimeOneof", b"datetimeOneof"]) -> typing.Literal["component", "unixEpoch"] | None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["component", b"component", "datetimeOneof", b"datetimeOneof", "unixEpoch", b"unixEpoch"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["component", b"component", "datetimeOneof", b"datetimeOneof", "unixEpoch", b"unixEpoch"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            _WhichOneofReturnType_datetimeOneof: _TypeAlias = _typing.Literal["component", "unixEpoch"]  # noqa: Y015
+            _WhichOneofArgType_datetimeOneof: _TypeAlias = _typing.Literal["datetimeOneof", b"datetimeOneof"]  # noqa: Y015
+            def WhichOneof(self, oneof_group: _WhichOneofArgType_datetimeOneof) -> _WhichOneofReturnType_datetimeOneof | None: ...
 
-        @typing.final
-        class HSMCurrency(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class HSMCurrency(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            CURRENCYCODE_FIELD_NUMBER: builtins.int
-            AMOUNT1000_FIELD_NUMBER: builtins.int
-            currencyCode: builtins.str
-            amount1000: builtins.int
+            CURRENCYCODE_FIELD_NUMBER: _builtins.int
+            AMOUNT1000_FIELD_NUMBER: _builtins.int
+            currencyCode: _builtins.str
+            amount1000: _builtins.int
             def __init__(
                 self,
                 *,
-                currencyCode: builtins.str | None = ...,
-                amount1000: builtins.int | None = ...,
+                currencyCode: _builtins.str | None = ...,
+                amount1000: _builtins.int | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["amount1000", b"amount1000", "currencyCode", b"currencyCode"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["amount1000", b"amount1000", "currencyCode", b"currencyCode"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["amount1000", b"amount1000", "currencyCode", b"currencyCode"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["amount1000", b"amount1000", "currencyCode", b"currencyCode"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        CURRENCY_FIELD_NUMBER: builtins.int
-        DATETIME_FIELD_NUMBER: builtins.int
-        DEFAULT_FIELD_NUMBER: builtins.int
-        default: builtins.str
-        @property
+        CURRENCY_FIELD_NUMBER: _builtins.int
+        DATETIME_FIELD_NUMBER: _builtins.int
+        DEFAULT_FIELD_NUMBER: _builtins.int
+        default: _builtins.str
+        @_builtins.property
         def currency(self) -> Global___HighlyStructuredMessage.HSMLocalizableParameter.HSMCurrency: ...
-        @property
+        @_builtins.property
         def dateTime(self) -> Global___HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime: ...
         def __init__(
             self,
             *,
             currency: Global___HighlyStructuredMessage.HSMLocalizableParameter.HSMCurrency | None = ...,
             dateTime: Global___HighlyStructuredMessage.HSMLocalizableParameter.HSMDateTime | None = ...,
-            default: builtins.str | None = ...,
+            default: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["currency", b"currency", "dateTime", b"dateTime", "default", b"default", "paramOneof", b"paramOneof"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["currency", b"currency", "dateTime", b"dateTime", "default", b"default", "paramOneof", b"paramOneof"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["paramOneof", b"paramOneof"]) -> typing.Literal["currency", "dateTime"] | None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["currency", b"currency", "dateTime", b"dateTime", "default", b"default", "paramOneof", b"paramOneof"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["currency", b"currency", "dateTime", b"dateTime", "default", b"default", "paramOneof", b"paramOneof"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        _WhichOneofReturnType_paramOneof: _TypeAlias = _typing.Literal["currency", "dateTime"]  # noqa: Y015
+        _WhichOneofArgType_paramOneof: _TypeAlias = _typing.Literal["paramOneof", b"paramOneof"]  # noqa: Y015
+        def WhichOneof(self, oneof_group: _WhichOneofArgType_paramOneof) -> _WhichOneofReturnType_paramOneof | None: ...
 
-    NAMESPACE_FIELD_NUMBER: builtins.int
-    ELEMENTNAME_FIELD_NUMBER: builtins.int
-    PARAMS_FIELD_NUMBER: builtins.int
-    FALLBACKLG_FIELD_NUMBER: builtins.int
-    FALLBACKLC_FIELD_NUMBER: builtins.int
-    LOCALIZABLEPARAMS_FIELD_NUMBER: builtins.int
-    DETERMINISTICLG_FIELD_NUMBER: builtins.int
-    DETERMINISTICLC_FIELD_NUMBER: builtins.int
-    HYDRATEDHSM_FIELD_NUMBER: builtins.int
-    namespace: builtins.str
-    elementName: builtins.str
-    fallbackLg: builtins.str
-    fallbackLc: builtins.str
-    deterministicLg: builtins.str
-    deterministicLc: builtins.str
-    @property
-    def params(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
-    @property
-    def localizableParams(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___HighlyStructuredMessage.HSMLocalizableParameter]: ...
-    @property
+    NAMESPACE_FIELD_NUMBER: _builtins.int
+    ELEMENTNAME_FIELD_NUMBER: _builtins.int
+    PARAMS_FIELD_NUMBER: _builtins.int
+    FALLBACKLG_FIELD_NUMBER: _builtins.int
+    FALLBACKLC_FIELD_NUMBER: _builtins.int
+    LOCALIZABLEPARAMS_FIELD_NUMBER: _builtins.int
+    DETERMINISTICLG_FIELD_NUMBER: _builtins.int
+    DETERMINISTICLC_FIELD_NUMBER: _builtins.int
+    HYDRATEDHSM_FIELD_NUMBER: _builtins.int
+    namespace: _builtins.str
+    elementName: _builtins.str
+    fallbackLg: _builtins.str
+    fallbackLc: _builtins.str
+    deterministicLg: _builtins.str
+    deterministicLc: _builtins.str
+    @_builtins.property
+    def params(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
+    @_builtins.property
+    def localizableParams(self) -> _containers.RepeatedCompositeFieldContainer[Global___HighlyStructuredMessage.HSMLocalizableParameter]: ...
+    @_builtins.property
     def hydratedHsm(self) -> Global___TemplateMessage: ...
     def __init__(
         self,
         *,
-        namespace: builtins.str | None = ...,
-        elementName: builtins.str | None = ...,
-        params: collections.abc.Iterable[builtins.str] | None = ...,
-        fallbackLg: builtins.str | None = ...,
-        fallbackLc: builtins.str | None = ...,
-        localizableParams: collections.abc.Iterable[Global___HighlyStructuredMessage.HSMLocalizableParameter] | None = ...,
-        deterministicLg: builtins.str | None = ...,
-        deterministicLc: builtins.str | None = ...,
+        namespace: _builtins.str | None = ...,
+        elementName: _builtins.str | None = ...,
+        params: _abc.Iterable[_builtins.str] | None = ...,
+        fallbackLg: _builtins.str | None = ...,
+        fallbackLc: _builtins.str | None = ...,
+        localizableParams: _abc.Iterable[Global___HighlyStructuredMessage.HSMLocalizableParameter] | None = ...,
+        deterministicLg: _builtins.str | None = ...,
+        deterministicLc: _builtins.str | None = ...,
         hydratedHsm: Global___TemplateMessage | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["deterministicLc", b"deterministicLc", "deterministicLg", b"deterministicLg", "elementName", b"elementName", "fallbackLc", b"fallbackLc", "fallbackLg", b"fallbackLg", "hydratedHsm", b"hydratedHsm", "namespace", b"namespace"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["deterministicLc", b"deterministicLc", "deterministicLg", b"deterministicLg", "elementName", b"elementName", "fallbackLc", b"fallbackLc", "fallbackLg", b"fallbackLg", "hydratedHsm", b"hydratedHsm", "localizableParams", b"localizableParams", "namespace", b"namespace", "params", b"params"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["deterministicLc", b"deterministicLc", "deterministicLg", b"deterministicLg", "elementName", b"elementName", "fallbackLc", b"fallbackLc", "fallbackLg", b"fallbackLg", "hydratedHsm", b"hydratedHsm", "namespace", b"namespace"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["deterministicLc", b"deterministicLc", "deterministicLg", b"deterministicLg", "elementName", b"elementName", "fallbackLc", b"fallbackLc", "fallbackLg", b"fallbackLg", "hydratedHsm", b"hydratedHsm", "localizableParams", b"localizableParams", "namespace", b"namespace", "params", b"params"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___HighlyStructuredMessage: typing_extensions.TypeAlias = HighlyStructuredMessage
+Global___HighlyStructuredMessage: _TypeAlias = HighlyStructuredMessage  # noqa: Y015
 
-@typing.final
-class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PeerDataOperationRequestResponseMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class PeerDataOperationResult(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class PeerDataOperationResult(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _HistorySyncChunkRetryResponseCode:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _HistorySyncChunkRetryResponseCodeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PeerDataOperationRequestResponseMessage.PeerDataOperationResult._HistorySyncChunkRetryResponseCode.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _HistorySyncChunkRetryResponseCodeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[PeerDataOperationRequestResponseMessage.PeerDataOperationResult._HistorySyncChunkRetryResponseCode.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             GENERATION_ERROR: PeerDataOperationRequestResponseMessage.PeerDataOperationResult._HistorySyncChunkRetryResponseCode.ValueType  # 1
             CHUNK_CONSUMED: PeerDataOperationRequestResponseMessage.PeerDataOperationResult._HistorySyncChunkRetryResponseCode.ValueType  # 2
             TIMEOUT: PeerDataOperationRequestResponseMessage.PeerDataOperationResult._HistorySyncChunkRetryResponseCode.ValueType  # 3
@@ -1844,11 +1959,11 @@ class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
         DUPLICATED_REQUEST: PeerDataOperationRequestResponseMessage.PeerDataOperationResult.HistorySyncChunkRetryResponseCode.ValueType  # 6
 
         class _FullHistorySyncOnDemandResponseCode:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _FullHistorySyncOnDemandResponseCodeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PeerDataOperationRequestResponseMessage.PeerDataOperationResult._FullHistorySyncOnDemandResponseCode.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _FullHistorySyncOnDemandResponseCodeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[PeerDataOperationRequestResponseMessage.PeerDataOperationResult._FullHistorySyncOnDemandResponseCode.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             REQUEST_SUCCESS: PeerDataOperationRequestResponseMessage.PeerDataOperationResult._FullHistorySyncOnDemandResponseCode.ValueType  # 0
             REQUEST_TIME_EXPIRED: PeerDataOperationRequestResponseMessage.PeerDataOperationResult._FullHistorySyncOnDemandResponseCode.ValueType  # 1
             DECLINED_SHARING_HISTORY: PeerDataOperationRequestResponseMessage.PeerDataOperationResult._FullHistorySyncOnDemandResponseCode.ValueType  # 2
@@ -1866,108 +1981,118 @@ class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
         ERROR_HOSTED_DEVICE_NOT_CONNECTED: PeerDataOperationRequestResponseMessage.PeerDataOperationResult.FullHistorySyncOnDemandResponseCode.ValueType  # 5
         ERROR_HOSTED_DEVICE_LOGIN_TIME_NOT_SET: PeerDataOperationRequestResponseMessage.PeerDataOperationResult.FullHistorySyncOnDemandResponseCode.ValueType  # 6
 
-        @typing.final
-        class HistorySyncChunkRetryResponse(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class HistorySyncChunkRetryResponse(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            SYNCTYPE_FIELD_NUMBER: builtins.int
-            CHUNKORDER_FIELD_NUMBER: builtins.int
-            REQUESTID_FIELD_NUMBER: builtins.int
-            RESPONSECODE_FIELD_NUMBER: builtins.int
-            CANRECOVER_FIELD_NUMBER: builtins.int
+            SYNCTYPE_FIELD_NUMBER: _builtins.int
+            CHUNKORDER_FIELD_NUMBER: _builtins.int
+            REQUESTID_FIELD_NUMBER: _builtins.int
+            RESPONSECODE_FIELD_NUMBER: _builtins.int
+            CANRECOVER_FIELD_NUMBER: _builtins.int
             syncType: Global___HistorySyncType.ValueType
-            chunkOrder: builtins.int
-            requestID: builtins.str
+            chunkOrder: _builtins.int
+            requestID: _builtins.str
             responseCode: Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.HistorySyncChunkRetryResponseCode.ValueType
-            canRecover: builtins.bool
+            canRecover: _builtins.bool
             def __init__(
                 self,
                 *,
                 syncType: Global___HistorySyncType.ValueType | None = ...,
-                chunkOrder: builtins.int | None = ...,
-                requestID: builtins.str | None = ...,
+                chunkOrder: _builtins.int | None = ...,
+                requestID: _builtins.str | None = ...,
                 responseCode: Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.HistorySyncChunkRetryResponseCode.ValueType | None = ...,
-                canRecover: builtins.bool | None = ...,
+                canRecover: _builtins.bool | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["canRecover", b"canRecover", "chunkOrder", b"chunkOrder", "requestID", b"requestID", "responseCode", b"responseCode", "syncType", b"syncType"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["canRecover", b"canRecover", "chunkOrder", b"chunkOrder", "requestID", b"requestID", "responseCode", b"responseCode", "syncType", b"syncType"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["canRecover", b"canRecover", "chunkOrder", b"chunkOrder", "requestID", b"requestID", "responseCode", b"responseCode", "syncType", b"syncType"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["canRecover", b"canRecover", "chunkOrder", b"chunkOrder", "requestID", b"requestID", "responseCode", b"responseCode", "syncType", b"syncType"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        @typing.final
-        class SyncDSnapshotFatalRecoveryResponse(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class SyncDSnapshotFatalRecoveryResponse(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            COLLECTIONSNAPSHOT_FIELD_NUMBER: builtins.int
-            ISCOMPRESSED_FIELD_NUMBER: builtins.int
-            collectionSnapshot: builtins.bytes
-            isCompressed: builtins.bool
+            COLLECTIONSNAPSHOT_FIELD_NUMBER: _builtins.int
+            ISCOMPRESSED_FIELD_NUMBER: _builtins.int
+            collectionSnapshot: _builtins.bytes
+            isCompressed: _builtins.bool
             def __init__(
                 self,
                 *,
-                collectionSnapshot: builtins.bytes | None = ...,
-                isCompressed: builtins.bool | None = ...,
+                collectionSnapshot: _builtins.bytes | None = ...,
+                isCompressed: _builtins.bool | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["collectionSnapshot", b"collectionSnapshot", "isCompressed", b"isCompressed"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["collectionSnapshot", b"collectionSnapshot", "isCompressed", b"isCompressed"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["collectionSnapshot", b"collectionSnapshot", "isCompressed", b"isCompressed"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["collectionSnapshot", b"collectionSnapshot", "isCompressed", b"isCompressed"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        @typing.final
-        class CompanionCanonicalUserNonceFetchResponse(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class CompanionCanonicalUserNonceFetchResponse(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            NONCE_FIELD_NUMBER: builtins.int
-            WAFBID_FIELD_NUMBER: builtins.int
-            FORCEREFRESH_FIELD_NUMBER: builtins.int
-            nonce: builtins.str
-            waFbid: builtins.str
-            forceRefresh: builtins.bool
+            NONCE_FIELD_NUMBER: _builtins.int
+            WAFBID_FIELD_NUMBER: _builtins.int
+            FORCEREFRESH_FIELD_NUMBER: _builtins.int
+            nonce: _builtins.str
+            waFbid: _builtins.str
+            forceRefresh: _builtins.bool
             def __init__(
                 self,
                 *,
-                nonce: builtins.str | None = ...,
-                waFbid: builtins.str | None = ...,
-                forceRefresh: builtins.bool | None = ...,
+                nonce: _builtins.str | None = ...,
+                waFbid: _builtins.str | None = ...,
+                forceRefresh: _builtins.bool | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["forceRefresh", b"forceRefresh", "nonce", b"nonce", "waFbid", b"waFbid"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["forceRefresh", b"forceRefresh", "nonce", b"nonce", "waFbid", b"waFbid"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["forceRefresh", b"forceRefresh", "nonce", b"nonce", "waFbid", b"waFbid"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["forceRefresh", b"forceRefresh", "nonce", b"nonce", "waFbid", b"waFbid"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        @typing.final
-        class CompanionMetaNonceFetchResponse(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class CompanionMetaNonceFetchResponse(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            NONCE_FIELD_NUMBER: builtins.int
-            nonce: builtins.str
+            NONCE_FIELD_NUMBER: _builtins.int
+            nonce: _builtins.str
             def __init__(
                 self,
                 *,
-                nonce: builtins.str | None = ...,
+                nonce: _builtins.str | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["nonce", b"nonce"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["nonce", b"nonce"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["nonce", b"nonce"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["nonce", b"nonce"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        @typing.final
-        class WaffleNonceFetchResponse(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class WaffleNonceFetchResponse(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            NONCE_FIELD_NUMBER: builtins.int
-            WAENTFBID_FIELD_NUMBER: builtins.int
-            nonce: builtins.str
-            waEntFbid: builtins.str
+            NONCE_FIELD_NUMBER: _builtins.int
+            WAENTFBID_FIELD_NUMBER: _builtins.int
+            nonce: _builtins.str
+            waEntFbid: _builtins.str
             def __init__(
                 self,
                 *,
-                nonce: builtins.str | None = ...,
-                waEntFbid: builtins.str | None = ...,
+                nonce: _builtins.str | None = ...,
+                waEntFbid: _builtins.str | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["nonce", b"nonce", "waEntFbid", b"waEntFbid"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["nonce", b"nonce", "waEntFbid", b"waEntFbid"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["nonce", b"nonce", "waEntFbid", b"waEntFbid"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["nonce", b"nonce", "waEntFbid", b"waEntFbid"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        @typing.final
-        class FullHistorySyncOnDemandRequestResponse(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class FullHistorySyncOnDemandRequestResponse(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            REQUESTMETADATA_FIELD_NUMBER: builtins.int
-            RESPONSECODE_FIELD_NUMBER: builtins.int
+            REQUESTMETADATA_FIELD_NUMBER: _builtins.int
+            RESPONSECODE_FIELD_NUMBER: _builtins.int
             responseCode: Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.FullHistorySyncOnDemandResponseCode.ValueType
-            @property
+            @_builtins.property
             def requestMetadata(self) -> Global___FullHistorySyncOnDemandRequestMetadata: ...
             def __init__(
                 self,
@@ -1975,142 +2100,152 @@ class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
                 requestMetadata: Global___FullHistorySyncOnDemandRequestMetadata | None = ...,
                 responseCode: Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.FullHistorySyncOnDemandResponseCode.ValueType | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["requestMetadata", b"requestMetadata", "responseCode", b"responseCode"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["requestMetadata", b"requestMetadata", "responseCode", b"responseCode"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["requestMetadata", b"requestMetadata", "responseCode", b"responseCode"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["requestMetadata", b"requestMetadata", "responseCode", b"responseCode"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        @typing.final
-        class PlaceholderMessageResendResponse(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class PlaceholderMessageResendResponse(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            WEBMESSAGEINFOBYTES_FIELD_NUMBER: builtins.int
-            webMessageInfoBytes: builtins.bytes
+            WEBMESSAGEINFOBYTES_FIELD_NUMBER: _builtins.int
+            webMessageInfoBytes: _builtins.bytes
             def __init__(
                 self,
                 *,
-                webMessageInfoBytes: builtins.bytes | None = ...,
+                webMessageInfoBytes: _builtins.bytes | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["webMessageInfoBytes", b"webMessageInfoBytes"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["webMessageInfoBytes", b"webMessageInfoBytes"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["webMessageInfoBytes", b"webMessageInfoBytes"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["webMessageInfoBytes", b"webMessageInfoBytes"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        @typing.final
-        class LinkPreviewResponse(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class LinkPreviewResponse(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            @typing.final
-            class PaymentLinkPreviewMetadata(google.protobuf.message.Message):
-                DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            @_typing.final
+            class PaymentLinkPreviewMetadata(_message.Message):
+                DESCRIPTOR: _descriptor.Descriptor
 
-                ISBUSINESSVERIFIED_FIELD_NUMBER: builtins.int
-                PROVIDERNAME_FIELD_NUMBER: builtins.int
-                isBusinessVerified: builtins.bool
-                providerName: builtins.str
+                ISBUSINESSVERIFIED_FIELD_NUMBER: _builtins.int
+                PROVIDERNAME_FIELD_NUMBER: _builtins.int
+                isBusinessVerified: _builtins.bool
+                providerName: _builtins.str
                 def __init__(
                     self,
                     *,
-                    isBusinessVerified: builtins.bool | None = ...,
-                    providerName: builtins.str | None = ...,
+                    isBusinessVerified: _builtins.bool | None = ...,
+                    providerName: _builtins.str | None = ...,
                 ) -> None: ...
-                def HasField(self, field_name: typing.Literal["isBusinessVerified", b"isBusinessVerified", "providerName", b"providerName"]) -> builtins.bool: ...
-                def ClearField(self, field_name: typing.Literal["isBusinessVerified", b"isBusinessVerified", "providerName", b"providerName"]) -> None: ...
+                _HasFieldArgType: _TypeAlias = _typing.Literal["isBusinessVerified", b"isBusinessVerified", "providerName", b"providerName"]  # noqa: Y015
+                def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+                _ClearFieldArgType: _TypeAlias = _typing.Literal["isBusinessVerified", b"isBusinessVerified", "providerName", b"providerName"]  # noqa: Y015
+                def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-            @typing.final
-            class LinkPreviewHighQualityThumbnail(google.protobuf.message.Message):
-                DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            @_typing.final
+            class LinkPreviewHighQualityThumbnail(_message.Message):
+                DESCRIPTOR: _descriptor.Descriptor
 
-                DIRECTPATH_FIELD_NUMBER: builtins.int
-                THUMBHASH_FIELD_NUMBER: builtins.int
-                ENCTHUMBHASH_FIELD_NUMBER: builtins.int
-                MEDIAKEY_FIELD_NUMBER: builtins.int
-                MEDIAKEYTIMESTAMPMS_FIELD_NUMBER: builtins.int
-                THUMBWIDTH_FIELD_NUMBER: builtins.int
-                THUMBHEIGHT_FIELD_NUMBER: builtins.int
-                directPath: builtins.str
-                thumbHash: builtins.str
-                encThumbHash: builtins.str
-                mediaKey: builtins.bytes
-                mediaKeyTimestampMS: builtins.int
-                thumbWidth: builtins.int
-                thumbHeight: builtins.int
+                DIRECTPATH_FIELD_NUMBER: _builtins.int
+                THUMBHASH_FIELD_NUMBER: _builtins.int
+                ENCTHUMBHASH_FIELD_NUMBER: _builtins.int
+                MEDIAKEY_FIELD_NUMBER: _builtins.int
+                MEDIAKEYTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+                THUMBWIDTH_FIELD_NUMBER: _builtins.int
+                THUMBHEIGHT_FIELD_NUMBER: _builtins.int
+                directPath: _builtins.str
+                thumbHash: _builtins.str
+                encThumbHash: _builtins.str
+                mediaKey: _builtins.bytes
+                mediaKeyTimestampMS: _builtins.int
+                thumbWidth: _builtins.int
+                thumbHeight: _builtins.int
                 def __init__(
                     self,
                     *,
-                    directPath: builtins.str | None = ...,
-                    thumbHash: builtins.str | None = ...,
-                    encThumbHash: builtins.str | None = ...,
-                    mediaKey: builtins.bytes | None = ...,
-                    mediaKeyTimestampMS: builtins.int | None = ...,
-                    thumbWidth: builtins.int | None = ...,
-                    thumbHeight: builtins.int | None = ...,
+                    directPath: _builtins.str | None = ...,
+                    thumbHash: _builtins.str | None = ...,
+                    encThumbHash: _builtins.str | None = ...,
+                    mediaKey: _builtins.bytes | None = ...,
+                    mediaKeyTimestampMS: _builtins.int | None = ...,
+                    thumbWidth: _builtins.int | None = ...,
+                    thumbHeight: _builtins.int | None = ...,
                 ) -> None: ...
-                def HasField(self, field_name: typing.Literal["directPath", b"directPath", "encThumbHash", b"encThumbHash", "mediaKey", b"mediaKey", "mediaKeyTimestampMS", b"mediaKeyTimestampMS", "thumbHash", b"thumbHash", "thumbHeight", b"thumbHeight", "thumbWidth", b"thumbWidth"]) -> builtins.bool: ...
-                def ClearField(self, field_name: typing.Literal["directPath", b"directPath", "encThumbHash", b"encThumbHash", "mediaKey", b"mediaKey", "mediaKeyTimestampMS", b"mediaKeyTimestampMS", "thumbHash", b"thumbHash", "thumbHeight", b"thumbHeight", "thumbWidth", b"thumbWidth"]) -> None: ...
+                _HasFieldArgType: _TypeAlias = _typing.Literal["directPath", b"directPath", "encThumbHash", b"encThumbHash", "mediaKey", b"mediaKey", "mediaKeyTimestampMS", b"mediaKeyTimestampMS", "thumbHash", b"thumbHash", "thumbHeight", b"thumbHeight", "thumbWidth", b"thumbWidth"]  # noqa: Y015
+                def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+                _ClearFieldArgType: _TypeAlias = _typing.Literal["directPath", b"directPath", "encThumbHash", b"encThumbHash", "mediaKey", b"mediaKey", "mediaKeyTimestampMS", b"mediaKeyTimestampMS", "thumbHash", b"thumbHash", "thumbHeight", b"thumbHeight", "thumbWidth", b"thumbWidth"]  # noqa: Y015
+                def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-            URL_FIELD_NUMBER: builtins.int
-            TITLE_FIELD_NUMBER: builtins.int
-            DESCRIPTION_FIELD_NUMBER: builtins.int
-            THUMBDATA_FIELD_NUMBER: builtins.int
-            MATCHTEXT_FIELD_NUMBER: builtins.int
-            PREVIEWTYPE_FIELD_NUMBER: builtins.int
-            HQTHUMBNAIL_FIELD_NUMBER: builtins.int
-            PREVIEWMETADATA_FIELD_NUMBER: builtins.int
-            URL: builtins.str
-            title: builtins.str
-            description: builtins.str
-            thumbData: builtins.bytes
-            matchText: builtins.str
-            previewType: builtins.str
-            @property
+            URL_FIELD_NUMBER: _builtins.int
+            TITLE_FIELD_NUMBER: _builtins.int
+            DESCRIPTION_FIELD_NUMBER: _builtins.int
+            THUMBDATA_FIELD_NUMBER: _builtins.int
+            MATCHTEXT_FIELD_NUMBER: _builtins.int
+            PREVIEWTYPE_FIELD_NUMBER: _builtins.int
+            HQTHUMBNAIL_FIELD_NUMBER: _builtins.int
+            PREVIEWMETADATA_FIELD_NUMBER: _builtins.int
+            URL: _builtins.str
+            title: _builtins.str
+            description: _builtins.str
+            thumbData: _builtins.bytes
+            matchText: _builtins.str
+            previewType: _builtins.str
+            @_builtins.property
             def hqThumbnail(self) -> Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.LinkPreviewResponse.LinkPreviewHighQualityThumbnail: ...
-            @property
+            @_builtins.property
             def previewMetadata(self) -> Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.LinkPreviewResponse.PaymentLinkPreviewMetadata: ...
             def __init__(
                 self,
                 *,
-                URL: builtins.str | None = ...,
-                title: builtins.str | None = ...,
-                description: builtins.str | None = ...,
-                thumbData: builtins.bytes | None = ...,
-                matchText: builtins.str | None = ...,
-                previewType: builtins.str | None = ...,
+                URL: _builtins.str | None = ...,
+                title: _builtins.str | None = ...,
+                description: _builtins.str | None = ...,
+                thumbData: _builtins.bytes | None = ...,
+                matchText: _builtins.str | None = ...,
+                previewType: _builtins.str | None = ...,
                 hqThumbnail: Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.LinkPreviewResponse.LinkPreviewHighQualityThumbnail | None = ...,
                 previewMetadata: Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.LinkPreviewResponse.PaymentLinkPreviewMetadata | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["URL", b"URL", "description", b"description", "hqThumbnail", b"hqThumbnail", "matchText", b"matchText", "previewMetadata", b"previewMetadata", "previewType", b"previewType", "thumbData", b"thumbData", "title", b"title"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["URL", b"URL", "description", b"description", "hqThumbnail", b"hqThumbnail", "matchText", b"matchText", "previewMetadata", b"previewMetadata", "previewType", b"previewType", "thumbData", b"thumbData", "title", b"title"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "description", b"description", "hqThumbnail", b"hqThumbnail", "matchText", b"matchText", "previewMetadata", b"previewMetadata", "previewType", b"previewType", "thumbData", b"thumbData", "title", b"title"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "description", b"description", "hqThumbnail", b"hqThumbnail", "matchText", b"matchText", "previewMetadata", b"previewMetadata", "previewType", b"previewType", "thumbData", b"thumbData", "title", b"title"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        MEDIAUPLOADRESULT_FIELD_NUMBER: builtins.int
-        STICKERMESSAGE_FIELD_NUMBER: builtins.int
-        LINKPREVIEWRESPONSE_FIELD_NUMBER: builtins.int
-        PLACEHOLDERMESSAGERESENDRESPONSE_FIELD_NUMBER: builtins.int
-        WAFFLENONCEFETCHREQUESTRESPONSE_FIELD_NUMBER: builtins.int
-        FULLHISTORYSYNCONDEMANDREQUESTRESPONSE_FIELD_NUMBER: builtins.int
-        COMPANIONMETANONCEFETCHREQUESTRESPONSE_FIELD_NUMBER: builtins.int
-        SYNCDSNAPSHOTFATALRECOVERYRESPONSE_FIELD_NUMBER: builtins.int
-        COMPANIONCANONICALUSERNONCEFETCHREQUESTRESPONSE_FIELD_NUMBER: builtins.int
-        HISTORYSYNCCHUNKRETRYRESPONSE_FIELD_NUMBER: builtins.int
-        mediaUploadResult: waMmsRetry.WAMmsRetry_pb2.MediaRetryNotification.ResultType.ValueType
-        @property
+        MEDIAUPLOADRESULT_FIELD_NUMBER: _builtins.int
+        STICKERMESSAGE_FIELD_NUMBER: _builtins.int
+        LINKPREVIEWRESPONSE_FIELD_NUMBER: _builtins.int
+        PLACEHOLDERMESSAGERESENDRESPONSE_FIELD_NUMBER: _builtins.int
+        WAFFLENONCEFETCHREQUESTRESPONSE_FIELD_NUMBER: _builtins.int
+        FULLHISTORYSYNCONDEMANDREQUESTRESPONSE_FIELD_NUMBER: _builtins.int
+        COMPANIONMETANONCEFETCHREQUESTRESPONSE_FIELD_NUMBER: _builtins.int
+        SYNCDSNAPSHOTFATALRECOVERYRESPONSE_FIELD_NUMBER: _builtins.int
+        COMPANIONCANONICALUSERNONCEFETCHREQUESTRESPONSE_FIELD_NUMBER: _builtins.int
+        HISTORYSYNCCHUNKRETRYRESPONSE_FIELD_NUMBER: _builtins.int
+        mediaUploadResult: _WAMmsRetry_pb2.MediaRetryNotification.ResultType.ValueType
+        @_builtins.property
         def stickerMessage(self) -> Global___StickerMessage: ...
-        @property
+        @_builtins.property
         def linkPreviewResponse(self) -> Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.LinkPreviewResponse: ...
-        @property
+        @_builtins.property
         def placeholderMessageResendResponse(self) -> Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.PlaceholderMessageResendResponse: ...
-        @property
+        @_builtins.property
         def waffleNonceFetchRequestResponse(self) -> Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.WaffleNonceFetchResponse: ...
-        @property
+        @_builtins.property
         def fullHistorySyncOnDemandRequestResponse(self) -> Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.FullHistorySyncOnDemandRequestResponse: ...
-        @property
+        @_builtins.property
         def companionMetaNonceFetchRequestResponse(self) -> Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.CompanionMetaNonceFetchResponse: ...
-        @property
+        @_builtins.property
         def syncdSnapshotFatalRecoveryResponse(self) -> Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.SyncDSnapshotFatalRecoveryResponse: ...
-        @property
+        @_builtins.property
         def companionCanonicalUserNonceFetchRequestResponse(self) -> Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.CompanionCanonicalUserNonceFetchResponse: ...
-        @property
+        @_builtins.property
         def historySyncChunkRetryResponse(self) -> Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.HistorySyncChunkRetryResponse: ...
         def __init__(
             self,
             *,
-            mediaUploadResult: waMmsRetry.WAMmsRetry_pb2.MediaRetryNotification.ResultType.ValueType | None = ...,
+            mediaUploadResult: _WAMmsRetry_pb2.MediaRetryNotification.ResultType.ValueType | None = ...,
             stickerMessage: Global___StickerMessage | None = ...,
             linkPreviewResponse: Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.LinkPreviewResponse | None = ...,
             placeholderMessageResendResponse: Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.PlaceholderMessageResendResponse | None = ...,
@@ -2121,251 +2256,273 @@ class PeerDataOperationRequestResponseMessage(google.protobuf.message.Message):
             companionCanonicalUserNonceFetchRequestResponse: Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.CompanionCanonicalUserNonceFetchResponse | None = ...,
             historySyncChunkRetryResponse: Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult.HistorySyncChunkRetryResponse | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["companionCanonicalUserNonceFetchRequestResponse", b"companionCanonicalUserNonceFetchRequestResponse", "companionMetaNonceFetchRequestResponse", b"companionMetaNonceFetchRequestResponse", "fullHistorySyncOnDemandRequestResponse", b"fullHistorySyncOnDemandRequestResponse", "historySyncChunkRetryResponse", b"historySyncChunkRetryResponse", "linkPreviewResponse", b"linkPreviewResponse", "mediaUploadResult", b"mediaUploadResult", "placeholderMessageResendResponse", b"placeholderMessageResendResponse", "stickerMessage", b"stickerMessage", "syncdSnapshotFatalRecoveryResponse", b"syncdSnapshotFatalRecoveryResponse", "waffleNonceFetchRequestResponse", b"waffleNonceFetchRequestResponse"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["companionCanonicalUserNonceFetchRequestResponse", b"companionCanonicalUserNonceFetchRequestResponse", "companionMetaNonceFetchRequestResponse", b"companionMetaNonceFetchRequestResponse", "fullHistorySyncOnDemandRequestResponse", b"fullHistorySyncOnDemandRequestResponse", "historySyncChunkRetryResponse", b"historySyncChunkRetryResponse", "linkPreviewResponse", b"linkPreviewResponse", "mediaUploadResult", b"mediaUploadResult", "placeholderMessageResendResponse", b"placeholderMessageResendResponse", "stickerMessage", b"stickerMessage", "syncdSnapshotFatalRecoveryResponse", b"syncdSnapshotFatalRecoveryResponse", "waffleNonceFetchRequestResponse", b"waffleNonceFetchRequestResponse"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["companionCanonicalUserNonceFetchRequestResponse", b"companionCanonicalUserNonceFetchRequestResponse", "companionMetaNonceFetchRequestResponse", b"companionMetaNonceFetchRequestResponse", "fullHistorySyncOnDemandRequestResponse", b"fullHistorySyncOnDemandRequestResponse", "historySyncChunkRetryResponse", b"historySyncChunkRetryResponse", "linkPreviewResponse", b"linkPreviewResponse", "mediaUploadResult", b"mediaUploadResult", "placeholderMessageResendResponse", b"placeholderMessageResendResponse", "stickerMessage", b"stickerMessage", "syncdSnapshotFatalRecoveryResponse", b"syncdSnapshotFatalRecoveryResponse", "waffleNonceFetchRequestResponse", b"waffleNonceFetchRequestResponse"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["companionCanonicalUserNonceFetchRequestResponse", b"companionCanonicalUserNonceFetchRequestResponse", "companionMetaNonceFetchRequestResponse", b"companionMetaNonceFetchRequestResponse", "fullHistorySyncOnDemandRequestResponse", b"fullHistorySyncOnDemandRequestResponse", "historySyncChunkRetryResponse", b"historySyncChunkRetryResponse", "linkPreviewResponse", b"linkPreviewResponse", "mediaUploadResult", b"mediaUploadResult", "placeholderMessageResendResponse", b"placeholderMessageResendResponse", "stickerMessage", b"stickerMessage", "syncdSnapshotFatalRecoveryResponse", b"syncdSnapshotFatalRecoveryResponse", "waffleNonceFetchRequestResponse", b"waffleNonceFetchRequestResponse"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    PEERDATAOPERATIONREQUESTTYPE_FIELD_NUMBER: builtins.int
-    STANZAID_FIELD_NUMBER: builtins.int
-    PEERDATAOPERATIONRESULT_FIELD_NUMBER: builtins.int
+    PEERDATAOPERATIONREQUESTTYPE_FIELD_NUMBER: _builtins.int
+    STANZAID_FIELD_NUMBER: _builtins.int
+    PEERDATAOPERATIONRESULT_FIELD_NUMBER: _builtins.int
     peerDataOperationRequestType: Global___PeerDataOperationRequestType.ValueType
-    stanzaID: builtins.str
-    @property
-    def peerDataOperationResult(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult]: ...
+    stanzaID: _builtins.str
+    @_builtins.property
+    def peerDataOperationResult(self) -> _containers.RepeatedCompositeFieldContainer[Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult]: ...
     def __init__(
         self,
         *,
         peerDataOperationRequestType: Global___PeerDataOperationRequestType.ValueType | None = ...,
-        stanzaID: builtins.str | None = ...,
-        peerDataOperationResult: collections.abc.Iterable[Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult] | None = ...,
+        stanzaID: _builtins.str | None = ...,
+        peerDataOperationResult: _abc.Iterable[Global___PeerDataOperationRequestResponseMessage.PeerDataOperationResult] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["peerDataOperationRequestType", b"peerDataOperationRequestType", "stanzaID", b"stanzaID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["peerDataOperationRequestType", b"peerDataOperationRequestType", "peerDataOperationResult", b"peerDataOperationResult", "stanzaID", b"stanzaID"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["peerDataOperationRequestType", b"peerDataOperationRequestType", "stanzaID", b"stanzaID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["peerDataOperationRequestType", b"peerDataOperationRequestType", "peerDataOperationResult", b"peerDataOperationResult", "stanzaID", b"stanzaID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PeerDataOperationRequestResponseMessage: typing_extensions.TypeAlias = PeerDataOperationRequestResponseMessage
+Global___PeerDataOperationRequestResponseMessage: _TypeAlias = PeerDataOperationRequestResponseMessage  # noqa: Y015
 
-@typing.final
-class PeerDataOperationRequestMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PeerDataOperationRequestMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class GalaxyFlowAction(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class GalaxyFlowAction(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _GalaxyFlowActionType:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _GalaxyFlowActionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PeerDataOperationRequestMessage.GalaxyFlowAction._GalaxyFlowActionType.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _GalaxyFlowActionTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[PeerDataOperationRequestMessage.GalaxyFlowAction._GalaxyFlowActionType.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             NOTIFY_LAUNCH: PeerDataOperationRequestMessage.GalaxyFlowAction._GalaxyFlowActionType.ValueType  # 1
 
         class GalaxyFlowActionType(_GalaxyFlowActionType, metaclass=_GalaxyFlowActionTypeEnumTypeWrapper): ...
         NOTIFY_LAUNCH: PeerDataOperationRequestMessage.GalaxyFlowAction.GalaxyFlowActionType.ValueType  # 1
 
-        TYPE_FIELD_NUMBER: builtins.int
-        FLOWID_FIELD_NUMBER: builtins.int
-        STANZAID_FIELD_NUMBER: builtins.int
+        TYPE_FIELD_NUMBER: _builtins.int
+        FLOWID_FIELD_NUMBER: _builtins.int
+        STANZAID_FIELD_NUMBER: _builtins.int
         type: Global___PeerDataOperationRequestMessage.GalaxyFlowAction.GalaxyFlowActionType.ValueType
-        flowID: builtins.str
-        stanzaID: builtins.str
+        flowID: _builtins.str
+        stanzaID: _builtins.str
         def __init__(
             self,
             *,
             type: Global___PeerDataOperationRequestMessage.GalaxyFlowAction.GalaxyFlowActionType.ValueType | None = ...,
-            flowID: builtins.str | None = ...,
-            stanzaID: builtins.str | None = ...,
+            flowID: _builtins.str | None = ...,
+            stanzaID: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["flowID", b"flowID", "stanzaID", b"stanzaID", "type", b"type"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["flowID", b"flowID", "stanzaID", b"stanzaID", "type", b"type"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["flowID", b"flowID", "stanzaID", b"stanzaID", "type", b"type"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["flowID", b"flowID", "stanzaID", b"stanzaID", "type", b"type"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class HistorySyncChunkRetryRequest(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class HistorySyncChunkRetryRequest(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        SYNCTYPE_FIELD_NUMBER: builtins.int
-        CHUNKORDER_FIELD_NUMBER: builtins.int
-        CHUNKNOTIFICATIONID_FIELD_NUMBER: builtins.int
-        REGENERATECHUNK_FIELD_NUMBER: builtins.int
+        SYNCTYPE_FIELD_NUMBER: _builtins.int
+        CHUNKORDER_FIELD_NUMBER: _builtins.int
+        CHUNKNOTIFICATIONID_FIELD_NUMBER: _builtins.int
+        REGENERATECHUNK_FIELD_NUMBER: _builtins.int
         syncType: Global___HistorySyncType.ValueType
-        chunkOrder: builtins.int
-        chunkNotificationID: builtins.str
-        regenerateChunk: builtins.bool
+        chunkOrder: _builtins.int
+        chunkNotificationID: _builtins.str
+        regenerateChunk: _builtins.bool
         def __init__(
             self,
             *,
             syncType: Global___HistorySyncType.ValueType | None = ...,
-            chunkOrder: builtins.int | None = ...,
-            chunkNotificationID: builtins.str | None = ...,
-            regenerateChunk: builtins.bool | None = ...,
+            chunkOrder: _builtins.int | None = ...,
+            chunkNotificationID: _builtins.str | None = ...,
+            regenerateChunk: _builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["chunkNotificationID", b"chunkNotificationID", "chunkOrder", b"chunkOrder", "regenerateChunk", b"regenerateChunk", "syncType", b"syncType"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["chunkNotificationID", b"chunkNotificationID", "chunkOrder", b"chunkOrder", "regenerateChunk", b"regenerateChunk", "syncType", b"syncType"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["chunkNotificationID", b"chunkNotificationID", "chunkOrder", b"chunkOrder", "regenerateChunk", b"regenerateChunk", "syncType", b"syncType"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["chunkNotificationID", b"chunkNotificationID", "chunkOrder", b"chunkOrder", "regenerateChunk", b"regenerateChunk", "syncType", b"syncType"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class SyncDCollectionFatalRecoveryRequest(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class SyncDCollectionFatalRecoveryRequest(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        COLLECTIONNAME_FIELD_NUMBER: builtins.int
-        TIMESTAMP_FIELD_NUMBER: builtins.int
-        collectionName: builtins.str
-        timestamp: builtins.int
+        COLLECTIONNAME_FIELD_NUMBER: _builtins.int
+        TIMESTAMP_FIELD_NUMBER: _builtins.int
+        collectionName: _builtins.str
+        timestamp: _builtins.int
         def __init__(
             self,
             *,
-            collectionName: builtins.str | None = ...,
-            timestamp: builtins.int | None = ...,
+            collectionName: _builtins.str | None = ...,
+            timestamp: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["collectionName", b"collectionName", "timestamp", b"timestamp"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["collectionName", b"collectionName", "timestamp", b"timestamp"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["collectionName", b"collectionName", "timestamp", b"timestamp"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["collectionName", b"collectionName", "timestamp", b"timestamp"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class PlaceholderMessageResendRequest(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class PlaceholderMessageResendRequest(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        MESSAGEKEY_FIELD_NUMBER: builtins.int
-        @property
-        def messageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
+        MESSAGEKEY_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def messageKey(self) -> _WACommon_pb2.MessageKey: ...
         def __init__(
             self,
             *,
-            messageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+            messageKey: _WACommon_pb2.MessageKey | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["messageKey", b"messageKey"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["messageKey", b"messageKey"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["messageKey", b"messageKey"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["messageKey", b"messageKey"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class FullHistorySyncOnDemandRequest(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class FullHistorySyncOnDemandRequest(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        REQUESTMETADATA_FIELD_NUMBER: builtins.int
-        HISTORYSYNCCONFIG_FIELD_NUMBER: builtins.int
-        @property
+        REQUESTMETADATA_FIELD_NUMBER: _builtins.int
+        HISTORYSYNCCONFIG_FIELD_NUMBER: _builtins.int
+        @_builtins.property
         def requestMetadata(self) -> Global___FullHistorySyncOnDemandRequestMetadata: ...
-        @property
-        def historySyncConfig(self) -> waCompanionReg.WACompanionReg_pb2.DeviceProps.HistorySyncConfig: ...
+        @_builtins.property
+        def historySyncConfig(self) -> _WACompanionReg_pb2.DeviceProps.HistorySyncConfig: ...
         def __init__(
             self,
             *,
             requestMetadata: Global___FullHistorySyncOnDemandRequestMetadata | None = ...,
-            historySyncConfig: waCompanionReg.WACompanionReg_pb2.DeviceProps.HistorySyncConfig | None = ...,
+            historySyncConfig: _WACompanionReg_pb2.DeviceProps.HistorySyncConfig | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["historySyncConfig", b"historySyncConfig", "requestMetadata", b"requestMetadata"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["historySyncConfig", b"historySyncConfig", "requestMetadata", b"requestMetadata"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["historySyncConfig", b"historySyncConfig", "requestMetadata", b"requestMetadata"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["historySyncConfig", b"historySyncConfig", "requestMetadata", b"requestMetadata"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class HistorySyncOnDemandRequest(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class HistorySyncOnDemandRequest(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        CHATJID_FIELD_NUMBER: builtins.int
-        OLDESTMSGID_FIELD_NUMBER: builtins.int
-        OLDESTMSGFROMME_FIELD_NUMBER: builtins.int
-        ONDEMANDMSGCOUNT_FIELD_NUMBER: builtins.int
-        OLDESTMSGTIMESTAMPMS_FIELD_NUMBER: builtins.int
-        ACCOUNTLID_FIELD_NUMBER: builtins.int
-        chatJID: builtins.str
-        oldestMsgID: builtins.str
-        oldestMsgFromMe: builtins.bool
-        onDemandMsgCount: builtins.int
-        oldestMsgTimestampMS: builtins.int
-        accountLid: builtins.str
+        CHATJID_FIELD_NUMBER: _builtins.int
+        OLDESTMSGID_FIELD_NUMBER: _builtins.int
+        OLDESTMSGFROMME_FIELD_NUMBER: _builtins.int
+        ONDEMANDMSGCOUNT_FIELD_NUMBER: _builtins.int
+        OLDESTMSGTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+        ACCOUNTLID_FIELD_NUMBER: _builtins.int
+        chatJID: _builtins.str
+        oldestMsgID: _builtins.str
+        oldestMsgFromMe: _builtins.bool
+        onDemandMsgCount: _builtins.int
+        oldestMsgTimestampMS: _builtins.int
+        accountLid: _builtins.str
         def __init__(
             self,
             *,
-            chatJID: builtins.str | None = ...,
-            oldestMsgID: builtins.str | None = ...,
-            oldestMsgFromMe: builtins.bool | None = ...,
-            onDemandMsgCount: builtins.int | None = ...,
-            oldestMsgTimestampMS: builtins.int | None = ...,
-            accountLid: builtins.str | None = ...,
+            chatJID: _builtins.str | None = ...,
+            oldestMsgID: _builtins.str | None = ...,
+            oldestMsgFromMe: _builtins.bool | None = ...,
+            onDemandMsgCount: _builtins.int | None = ...,
+            oldestMsgTimestampMS: _builtins.int | None = ...,
+            accountLid: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["accountLid", b"accountLid", "chatJID", b"chatJID", "oldestMsgFromMe", b"oldestMsgFromMe", "oldestMsgID", b"oldestMsgID", "oldestMsgTimestampMS", b"oldestMsgTimestampMS", "onDemandMsgCount", b"onDemandMsgCount"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["accountLid", b"accountLid", "chatJID", b"chatJID", "oldestMsgFromMe", b"oldestMsgFromMe", "oldestMsgID", b"oldestMsgID", "oldestMsgTimestampMS", b"oldestMsgTimestampMS", "onDemandMsgCount", b"onDemandMsgCount"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["accountLid", b"accountLid", "chatJID", b"chatJID", "oldestMsgFromMe", b"oldestMsgFromMe", "oldestMsgID", b"oldestMsgID", "oldestMsgTimestampMS", b"oldestMsgTimestampMS", "onDemandMsgCount", b"onDemandMsgCount"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["accountLid", b"accountLid", "chatJID", b"chatJID", "oldestMsgFromMe", b"oldestMsgFromMe", "oldestMsgID", b"oldestMsgID", "oldestMsgTimestampMS", b"oldestMsgTimestampMS", "onDemandMsgCount", b"onDemandMsgCount"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class RequestUrlPreview(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class RequestUrlPreview(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        URL_FIELD_NUMBER: builtins.int
-        INCLUDEHQTHUMBNAIL_FIELD_NUMBER: builtins.int
-        URL: builtins.str
-        includeHqThumbnail: builtins.bool
+        URL_FIELD_NUMBER: _builtins.int
+        INCLUDEHQTHUMBNAIL_FIELD_NUMBER: _builtins.int
+        URL: _builtins.str
+        includeHqThumbnail: _builtins.bool
         def __init__(
             self,
             *,
-            URL: builtins.str | None = ...,
-            includeHqThumbnail: builtins.bool | None = ...,
+            URL: _builtins.str | None = ...,
+            includeHqThumbnail: _builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["URL", b"URL", "includeHqThumbnail", b"includeHqThumbnail"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["URL", b"URL", "includeHqThumbnail", b"includeHqThumbnail"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "includeHqThumbnail", b"includeHqThumbnail"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "includeHqThumbnail", b"includeHqThumbnail"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class RequestStickerReupload(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class RequestStickerReupload(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        FILESHA256_FIELD_NUMBER: builtins.int
-        fileSHA256: builtins.str
+        FILESHA256_FIELD_NUMBER: _builtins.int
+        fileSHA256: _builtins.str
         def __init__(
             self,
             *,
-            fileSHA256: builtins.str | None = ...,
+            fileSHA256: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["fileSHA256", b"fileSHA256"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["fileSHA256", b"fileSHA256"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["fileSHA256", b"fileSHA256"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["fileSHA256", b"fileSHA256"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    PEERDATAOPERATIONREQUESTTYPE_FIELD_NUMBER: builtins.int
-    REQUESTSTICKERREUPLOAD_FIELD_NUMBER: builtins.int
-    REQUESTURLPREVIEW_FIELD_NUMBER: builtins.int
-    HISTORYSYNCONDEMANDREQUEST_FIELD_NUMBER: builtins.int
-    PLACEHOLDERMESSAGERESENDREQUEST_FIELD_NUMBER: builtins.int
-    FULLHISTORYSYNCONDEMANDREQUEST_FIELD_NUMBER: builtins.int
-    SYNCDCOLLECTIONFATALRECOVERYREQUEST_FIELD_NUMBER: builtins.int
-    HISTORYSYNCCHUNKRETRYREQUEST_FIELD_NUMBER: builtins.int
-    GALAXYFLOWACTION_FIELD_NUMBER: builtins.int
+    PEERDATAOPERATIONREQUESTTYPE_FIELD_NUMBER: _builtins.int
+    REQUESTSTICKERREUPLOAD_FIELD_NUMBER: _builtins.int
+    REQUESTURLPREVIEW_FIELD_NUMBER: _builtins.int
+    HISTORYSYNCONDEMANDREQUEST_FIELD_NUMBER: _builtins.int
+    PLACEHOLDERMESSAGERESENDREQUEST_FIELD_NUMBER: _builtins.int
+    FULLHISTORYSYNCONDEMANDREQUEST_FIELD_NUMBER: _builtins.int
+    SYNCDCOLLECTIONFATALRECOVERYREQUEST_FIELD_NUMBER: _builtins.int
+    HISTORYSYNCCHUNKRETRYREQUEST_FIELD_NUMBER: _builtins.int
+    GALAXYFLOWACTION_FIELD_NUMBER: _builtins.int
     peerDataOperationRequestType: Global___PeerDataOperationRequestType.ValueType
-    @property
-    def requestStickerReupload(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PeerDataOperationRequestMessage.RequestStickerReupload]: ...
-    @property
-    def requestURLPreview(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PeerDataOperationRequestMessage.RequestUrlPreview]: ...
-    @property
+    @_builtins.property
+    def requestStickerReupload(self) -> _containers.RepeatedCompositeFieldContainer[Global___PeerDataOperationRequestMessage.RequestStickerReupload]: ...
+    @_builtins.property
+    def requestURLPreview(self) -> _containers.RepeatedCompositeFieldContainer[Global___PeerDataOperationRequestMessage.RequestUrlPreview]: ...
+    @_builtins.property
     def historySyncOnDemandRequest(self) -> Global___PeerDataOperationRequestMessage.HistorySyncOnDemandRequest: ...
-    @property
-    def placeholderMessageResendRequest(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PeerDataOperationRequestMessage.PlaceholderMessageResendRequest]: ...
-    @property
+    @_builtins.property
+    def placeholderMessageResendRequest(self) -> _containers.RepeatedCompositeFieldContainer[Global___PeerDataOperationRequestMessage.PlaceholderMessageResendRequest]: ...
+    @_builtins.property
     def fullHistorySyncOnDemandRequest(self) -> Global___PeerDataOperationRequestMessage.FullHistorySyncOnDemandRequest: ...
-    @property
+    @_builtins.property
     def syncdCollectionFatalRecoveryRequest(self) -> Global___PeerDataOperationRequestMessage.SyncDCollectionFatalRecoveryRequest: ...
-    @property
+    @_builtins.property
     def historySyncChunkRetryRequest(self) -> Global___PeerDataOperationRequestMessage.HistorySyncChunkRetryRequest: ...
-    @property
+    @_builtins.property
     def galaxyFlowAction(self) -> Global___PeerDataOperationRequestMessage.GalaxyFlowAction: ...
     def __init__(
         self,
         *,
         peerDataOperationRequestType: Global___PeerDataOperationRequestType.ValueType | None = ...,
-        requestStickerReupload: collections.abc.Iterable[Global___PeerDataOperationRequestMessage.RequestStickerReupload] | None = ...,
-        requestURLPreview: collections.abc.Iterable[Global___PeerDataOperationRequestMessage.RequestUrlPreview] | None = ...,
+        requestStickerReupload: _abc.Iterable[Global___PeerDataOperationRequestMessage.RequestStickerReupload] | None = ...,
+        requestURLPreview: _abc.Iterable[Global___PeerDataOperationRequestMessage.RequestUrlPreview] | None = ...,
         historySyncOnDemandRequest: Global___PeerDataOperationRequestMessage.HistorySyncOnDemandRequest | None = ...,
-        placeholderMessageResendRequest: collections.abc.Iterable[Global___PeerDataOperationRequestMessage.PlaceholderMessageResendRequest] | None = ...,
+        placeholderMessageResendRequest: _abc.Iterable[Global___PeerDataOperationRequestMessage.PlaceholderMessageResendRequest] | None = ...,
         fullHistorySyncOnDemandRequest: Global___PeerDataOperationRequestMessage.FullHistorySyncOnDemandRequest | None = ...,
         syncdCollectionFatalRecoveryRequest: Global___PeerDataOperationRequestMessage.SyncDCollectionFatalRecoveryRequest | None = ...,
         historySyncChunkRetryRequest: Global___PeerDataOperationRequestMessage.HistorySyncChunkRetryRequest | None = ...,
         galaxyFlowAction: Global___PeerDataOperationRequestMessage.GalaxyFlowAction | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["fullHistorySyncOnDemandRequest", b"fullHistorySyncOnDemandRequest", "galaxyFlowAction", b"galaxyFlowAction", "historySyncChunkRetryRequest", b"historySyncChunkRetryRequest", "historySyncOnDemandRequest", b"historySyncOnDemandRequest", "peerDataOperationRequestType", b"peerDataOperationRequestType", "syncdCollectionFatalRecoveryRequest", b"syncdCollectionFatalRecoveryRequest"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["fullHistorySyncOnDemandRequest", b"fullHistorySyncOnDemandRequest", "galaxyFlowAction", b"galaxyFlowAction", "historySyncChunkRetryRequest", b"historySyncChunkRetryRequest", "historySyncOnDemandRequest", b"historySyncOnDemandRequest", "peerDataOperationRequestType", b"peerDataOperationRequestType", "placeholderMessageResendRequest", b"placeholderMessageResendRequest", "requestStickerReupload", b"requestStickerReupload", "requestURLPreview", b"requestURLPreview", "syncdCollectionFatalRecoveryRequest", b"syncdCollectionFatalRecoveryRequest"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["fullHistorySyncOnDemandRequest", b"fullHistorySyncOnDemandRequest", "galaxyFlowAction", b"galaxyFlowAction", "historySyncChunkRetryRequest", b"historySyncChunkRetryRequest", "historySyncOnDemandRequest", b"historySyncOnDemandRequest", "peerDataOperationRequestType", b"peerDataOperationRequestType", "syncdCollectionFatalRecoveryRequest", b"syncdCollectionFatalRecoveryRequest"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["fullHistorySyncOnDemandRequest", b"fullHistorySyncOnDemandRequest", "galaxyFlowAction", b"galaxyFlowAction", "historySyncChunkRetryRequest", b"historySyncChunkRetryRequest", "historySyncOnDemandRequest", b"historySyncOnDemandRequest", "peerDataOperationRequestType", b"peerDataOperationRequestType", "placeholderMessageResendRequest", b"placeholderMessageResendRequest", "requestStickerReupload", b"requestStickerReupload", "requestURLPreview", b"requestURLPreview", "syncdCollectionFatalRecoveryRequest", b"syncdCollectionFatalRecoveryRequest"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PeerDataOperationRequestMessage: typing_extensions.TypeAlias = PeerDataOperationRequestMessage
+Global___PeerDataOperationRequestMessage: _TypeAlias = PeerDataOperationRequestMessage  # noqa: Y015
 
-@typing.final
-class RequestWelcomeMessageMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class RequestWelcomeMessageMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _LocalChatState:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _LocalChatStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RequestWelcomeMessageMetadata._LocalChatState.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _LocalChatStateEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[RequestWelcomeMessageMetadata._LocalChatState.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         EMPTY: RequestWelcomeMessageMetadata._LocalChatState.ValueType  # 0
         NON_EMPTY: RequestWelcomeMessageMetadata._LocalChatState.ValueType  # 1
 
@@ -2373,28 +2530,30 @@ class RequestWelcomeMessageMetadata(google.protobuf.message.Message):
     EMPTY: RequestWelcomeMessageMetadata.LocalChatState.ValueType  # 0
     NON_EMPTY: RequestWelcomeMessageMetadata.LocalChatState.ValueType  # 1
 
-    LOCALCHATSTATE_FIELD_NUMBER: builtins.int
+    LOCALCHATSTATE_FIELD_NUMBER: _builtins.int
     localChatState: Global___RequestWelcomeMessageMetadata.LocalChatState.ValueType
     def __init__(
         self,
         *,
         localChatState: Global___RequestWelcomeMessageMetadata.LocalChatState.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["localChatState", b"localChatState"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["localChatState", b"localChatState"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["localChatState", b"localChatState"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["localChatState", b"localChatState"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___RequestWelcomeMessageMetadata: typing_extensions.TypeAlias = RequestWelcomeMessageMetadata
+Global___RequestWelcomeMessageMetadata: _TypeAlias = RequestWelcomeMessageMetadata  # noqa: Y015
 
-@typing.final
-class ProtocolMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ProtocolMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Type:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ProtocolMessage._Type.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _TypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ProtocolMessage._Type.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         REVOKE: ProtocolMessage._Type.ValueType  # 0
         EPHEMERAL_SETTING: ProtocolMessage._Type.ValueType  # 3
         EPHEMERAL_SYNC_RESPONSE: ProtocolMessage._Type.ValueType  # 4
@@ -2450,79 +2609,79 @@ class ProtocolMessage(google.protobuf.message.Message):
     AI_QUERY_FANOUT: ProtocolMessage.Type.ValueType  # 29
     GROUP_MEMBER_LABEL_CHANGE: ProtocolMessage.Type.ValueType  # 30
 
-    KEY_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
-    EPHEMERALEXPIRATION_FIELD_NUMBER: builtins.int
-    EPHEMERALSETTINGTIMESTAMP_FIELD_NUMBER: builtins.int
-    HISTORYSYNCNOTIFICATION_FIELD_NUMBER: builtins.int
-    APPSTATESYNCKEYSHARE_FIELD_NUMBER: builtins.int
-    APPSTATESYNCKEYREQUEST_FIELD_NUMBER: builtins.int
-    INITIALSECURITYNOTIFICATIONSETTINGSYNC_FIELD_NUMBER: builtins.int
-    APPSTATEFATALEXCEPTIONNOTIFICATION_FIELD_NUMBER: builtins.int
-    DISAPPEARINGMODE_FIELD_NUMBER: builtins.int
-    EDITEDMESSAGE_FIELD_NUMBER: builtins.int
-    TIMESTAMPMS_FIELD_NUMBER: builtins.int
-    PEERDATAOPERATIONREQUESTMESSAGE_FIELD_NUMBER: builtins.int
-    PEERDATAOPERATIONREQUESTRESPONSEMESSAGE_FIELD_NUMBER: builtins.int
-    BOTFEEDBACKMESSAGE_FIELD_NUMBER: builtins.int
-    INVOKERJID_FIELD_NUMBER: builtins.int
-    REQUESTWELCOMEMESSAGEMETADATA_FIELD_NUMBER: builtins.int
-    MEDIANOTIFYMESSAGE_FIELD_NUMBER: builtins.int
-    CLOUDAPITHREADCONTROLNOTIFICATION_FIELD_NUMBER: builtins.int
-    LIDMIGRATIONMAPPINGSYNCMESSAGE_FIELD_NUMBER: builtins.int
-    LIMITSHARING_FIELD_NUMBER: builtins.int
-    AIPSIMETADATA_FIELD_NUMBER: builtins.int
-    AIQUERYFANOUT_FIELD_NUMBER: builtins.int
-    MEMBERLABEL_FIELD_NUMBER: builtins.int
+    KEY_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    EPHEMERALEXPIRATION_FIELD_NUMBER: _builtins.int
+    EPHEMERALSETTINGTIMESTAMP_FIELD_NUMBER: _builtins.int
+    HISTORYSYNCNOTIFICATION_FIELD_NUMBER: _builtins.int
+    APPSTATESYNCKEYSHARE_FIELD_NUMBER: _builtins.int
+    APPSTATESYNCKEYREQUEST_FIELD_NUMBER: _builtins.int
+    INITIALSECURITYNOTIFICATIONSETTINGSYNC_FIELD_NUMBER: _builtins.int
+    APPSTATEFATALEXCEPTIONNOTIFICATION_FIELD_NUMBER: _builtins.int
+    DISAPPEARINGMODE_FIELD_NUMBER: _builtins.int
+    EDITEDMESSAGE_FIELD_NUMBER: _builtins.int
+    TIMESTAMPMS_FIELD_NUMBER: _builtins.int
+    PEERDATAOPERATIONREQUESTMESSAGE_FIELD_NUMBER: _builtins.int
+    PEERDATAOPERATIONREQUESTRESPONSEMESSAGE_FIELD_NUMBER: _builtins.int
+    BOTFEEDBACKMESSAGE_FIELD_NUMBER: _builtins.int
+    INVOKERJID_FIELD_NUMBER: _builtins.int
+    REQUESTWELCOMEMESSAGEMETADATA_FIELD_NUMBER: _builtins.int
+    MEDIANOTIFYMESSAGE_FIELD_NUMBER: _builtins.int
+    CLOUDAPITHREADCONTROLNOTIFICATION_FIELD_NUMBER: _builtins.int
+    LIDMIGRATIONMAPPINGSYNCMESSAGE_FIELD_NUMBER: _builtins.int
+    LIMITSHARING_FIELD_NUMBER: _builtins.int
+    AIPSIMETADATA_FIELD_NUMBER: _builtins.int
+    AIQUERYFANOUT_FIELD_NUMBER: _builtins.int
+    MEMBERLABEL_FIELD_NUMBER: _builtins.int
     type: Global___ProtocolMessage.Type.ValueType
-    ephemeralExpiration: builtins.int
-    ephemeralSettingTimestamp: builtins.int
-    timestampMS: builtins.int
-    invokerJID: builtins.str
-    aiPsiMetadata: builtins.bytes
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
-    @property
+    ephemeralExpiration: _builtins.int
+    ephemeralSettingTimestamp: _builtins.int
+    timestampMS: _builtins.int
+    invokerJID: _builtins.str
+    aiPsiMetadata: _builtins.bytes
+    @_builtins.property
+    def key(self) -> _WACommon_pb2.MessageKey: ...
+    @_builtins.property
     def historySyncNotification(self) -> Global___HistorySyncNotification: ...
-    @property
+    @_builtins.property
     def appStateSyncKeyShare(self) -> Global___AppStateSyncKeyShare: ...
-    @property
+    @_builtins.property
     def appStateSyncKeyRequest(self) -> Global___AppStateSyncKeyRequest: ...
-    @property
+    @_builtins.property
     def initialSecurityNotificationSettingSync(self) -> Global___InitialSecurityNotificationSettingSync: ...
-    @property
+    @_builtins.property
     def appStateFatalExceptionNotification(self) -> Global___AppStateFatalExceptionNotification: ...
-    @property
+    @_builtins.property
     def disappearingMode(self) -> Global___DisappearingMode: ...
-    @property
+    @_builtins.property
     def editedMessage(self) -> Global___Message: ...
-    @property
+    @_builtins.property
     def peerDataOperationRequestMessage(self) -> Global___PeerDataOperationRequestMessage: ...
-    @property
+    @_builtins.property
     def peerDataOperationRequestResponseMessage(self) -> Global___PeerDataOperationRequestResponseMessage: ...
-    @property
-    def botFeedbackMessage(self) -> waAICommon.WAAICommon_pb2.BotFeedbackMessage: ...
-    @property
+    @_builtins.property
+    def botFeedbackMessage(self) -> _WAAICommon_pb2.BotFeedbackMessage: ...
+    @_builtins.property
     def requestWelcomeMessageMetadata(self) -> Global___RequestWelcomeMessageMetadata: ...
-    @property
+    @_builtins.property
     def mediaNotifyMessage(self) -> Global___MediaNotifyMessage: ...
-    @property
+    @_builtins.property
     def cloudApiThreadControlNotification(self) -> Global___CloudAPIThreadControlNotification: ...
-    @property
+    @_builtins.property
     def lidMigrationMappingSyncMessage(self) -> Global___LIDMigrationMappingSyncMessage: ...
-    @property
-    def limitSharing(self) -> waCommon.WACommon_pb2.LimitSharing: ...
-    @property
+    @_builtins.property
+    def limitSharing(self) -> _WACommon_pb2.LimitSharing: ...
+    @_builtins.property
     def aiQueryFanout(self) -> Global___AIQueryFanout: ...
-    @property
+    @_builtins.property
     def memberLabel(self) -> Global___MemberLabel: ...
     def __init__(
         self,
         *,
-        key: waCommon.WACommon_pb2.MessageKey | None = ...,
+        key: _WACommon_pb2.MessageKey | None = ...,
         type: Global___ProtocolMessage.Type.ValueType | None = ...,
-        ephemeralExpiration: builtins.int | None = ...,
-        ephemeralSettingTimestamp: builtins.int | None = ...,
+        ephemeralExpiration: _builtins.int | None = ...,
+        ephemeralSettingTimestamp: _builtins.int | None = ...,
         historySyncNotification: Global___HistorySyncNotification | None = ...,
         appStateSyncKeyShare: Global___AppStateSyncKeyShare | None = ...,
         appStateSyncKeyRequest: Global___AppStateSyncKeyRequest | None = ...,
@@ -2530,35 +2689,37 @@ class ProtocolMessage(google.protobuf.message.Message):
         appStateFatalExceptionNotification: Global___AppStateFatalExceptionNotification | None = ...,
         disappearingMode: Global___DisappearingMode | None = ...,
         editedMessage: Global___Message | None = ...,
-        timestampMS: builtins.int | None = ...,
+        timestampMS: _builtins.int | None = ...,
         peerDataOperationRequestMessage: Global___PeerDataOperationRequestMessage | None = ...,
         peerDataOperationRequestResponseMessage: Global___PeerDataOperationRequestResponseMessage | None = ...,
-        botFeedbackMessage: waAICommon.WAAICommon_pb2.BotFeedbackMessage | None = ...,
-        invokerJID: builtins.str | None = ...,
+        botFeedbackMessage: _WAAICommon_pb2.BotFeedbackMessage | None = ...,
+        invokerJID: _builtins.str | None = ...,
         requestWelcomeMessageMetadata: Global___RequestWelcomeMessageMetadata | None = ...,
         mediaNotifyMessage: Global___MediaNotifyMessage | None = ...,
         cloudApiThreadControlNotification: Global___CloudAPIThreadControlNotification | None = ...,
         lidMigrationMappingSyncMessage: Global___LIDMigrationMappingSyncMessage | None = ...,
-        limitSharing: waCommon.WACommon_pb2.LimitSharing | None = ...,
-        aiPsiMetadata: builtins.bytes | None = ...,
+        limitSharing: _WACommon_pb2.LimitSharing | None = ...,
+        aiPsiMetadata: _builtins.bytes | None = ...,
         aiQueryFanout: Global___AIQueryFanout | None = ...,
         memberLabel: Global___MemberLabel | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["aiPsiMetadata", b"aiPsiMetadata", "aiQueryFanout", b"aiQueryFanout", "appStateFatalExceptionNotification", b"appStateFatalExceptionNotification", "appStateSyncKeyRequest", b"appStateSyncKeyRequest", "appStateSyncKeyShare", b"appStateSyncKeyShare", "botFeedbackMessage", b"botFeedbackMessage", "cloudApiThreadControlNotification", b"cloudApiThreadControlNotification", "disappearingMode", b"disappearingMode", "editedMessage", b"editedMessage", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "historySyncNotification", b"historySyncNotification", "initialSecurityNotificationSettingSync", b"initialSecurityNotificationSettingSync", "invokerJID", b"invokerJID", "key", b"key", "lidMigrationMappingSyncMessage", b"lidMigrationMappingSyncMessage", "limitSharing", b"limitSharing", "mediaNotifyMessage", b"mediaNotifyMessage", "memberLabel", b"memberLabel", "peerDataOperationRequestMessage", b"peerDataOperationRequestMessage", "peerDataOperationRequestResponseMessage", b"peerDataOperationRequestResponseMessage", "requestWelcomeMessageMetadata", b"requestWelcomeMessageMetadata", "timestampMS", b"timestampMS", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["aiPsiMetadata", b"aiPsiMetadata", "aiQueryFanout", b"aiQueryFanout", "appStateFatalExceptionNotification", b"appStateFatalExceptionNotification", "appStateSyncKeyRequest", b"appStateSyncKeyRequest", "appStateSyncKeyShare", b"appStateSyncKeyShare", "botFeedbackMessage", b"botFeedbackMessage", "cloudApiThreadControlNotification", b"cloudApiThreadControlNotification", "disappearingMode", b"disappearingMode", "editedMessage", b"editedMessage", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "historySyncNotification", b"historySyncNotification", "initialSecurityNotificationSettingSync", b"initialSecurityNotificationSettingSync", "invokerJID", b"invokerJID", "key", b"key", "lidMigrationMappingSyncMessage", b"lidMigrationMappingSyncMessage", "limitSharing", b"limitSharing", "mediaNotifyMessage", b"mediaNotifyMessage", "memberLabel", b"memberLabel", "peerDataOperationRequestMessage", b"peerDataOperationRequestMessage", "peerDataOperationRequestResponseMessage", b"peerDataOperationRequestResponseMessage", "requestWelcomeMessageMetadata", b"requestWelcomeMessageMetadata", "timestampMS", b"timestampMS", "type", b"type"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["aiPsiMetadata", b"aiPsiMetadata", "aiQueryFanout", b"aiQueryFanout", "appStateFatalExceptionNotification", b"appStateFatalExceptionNotification", "appStateSyncKeyRequest", b"appStateSyncKeyRequest", "appStateSyncKeyShare", b"appStateSyncKeyShare", "botFeedbackMessage", b"botFeedbackMessage", "cloudApiThreadControlNotification", b"cloudApiThreadControlNotification", "disappearingMode", b"disappearingMode", "editedMessage", b"editedMessage", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "historySyncNotification", b"historySyncNotification", "initialSecurityNotificationSettingSync", b"initialSecurityNotificationSettingSync", "invokerJID", b"invokerJID", "key", b"key", "lidMigrationMappingSyncMessage", b"lidMigrationMappingSyncMessage", "limitSharing", b"limitSharing", "mediaNotifyMessage", b"mediaNotifyMessage", "memberLabel", b"memberLabel", "peerDataOperationRequestMessage", b"peerDataOperationRequestMessage", "peerDataOperationRequestResponseMessage", b"peerDataOperationRequestResponseMessage", "requestWelcomeMessageMetadata", b"requestWelcomeMessageMetadata", "timestampMS", b"timestampMS", "type", b"type"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["aiPsiMetadata", b"aiPsiMetadata", "aiQueryFanout", b"aiQueryFanout", "appStateFatalExceptionNotification", b"appStateFatalExceptionNotification", "appStateSyncKeyRequest", b"appStateSyncKeyRequest", "appStateSyncKeyShare", b"appStateSyncKeyShare", "botFeedbackMessage", b"botFeedbackMessage", "cloudApiThreadControlNotification", b"cloudApiThreadControlNotification", "disappearingMode", b"disappearingMode", "editedMessage", b"editedMessage", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "historySyncNotification", b"historySyncNotification", "initialSecurityNotificationSettingSync", b"initialSecurityNotificationSettingSync", "invokerJID", b"invokerJID", "key", b"key", "lidMigrationMappingSyncMessage", b"lidMigrationMappingSyncMessage", "limitSharing", b"limitSharing", "mediaNotifyMessage", b"mediaNotifyMessage", "memberLabel", b"memberLabel", "peerDataOperationRequestMessage", b"peerDataOperationRequestMessage", "peerDataOperationRequestResponseMessage", b"peerDataOperationRequestResponseMessage", "requestWelcomeMessageMetadata", b"requestWelcomeMessageMetadata", "timestampMS", b"timestampMS", "type", b"type"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ProtocolMessage: typing_extensions.TypeAlias = ProtocolMessage
+Global___ProtocolMessage: _TypeAlias = ProtocolMessage  # noqa: Y015
 
-@typing.final
-class CloudAPIThreadControlNotification(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class CloudAPIThreadControlNotification(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _CloudAPIThreadControl:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _CloudAPIThreadControlEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CloudAPIThreadControlNotification._CloudAPIThreadControl.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _CloudAPIThreadControlEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[CloudAPIThreadControlNotification._CloudAPIThreadControl.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: CloudAPIThreadControlNotification._CloudAPIThreadControl.ValueType  # 0
         CONTROL_PASSED: CloudAPIThreadControlNotification._CloudAPIThreadControl.ValueType  # 1
         CONTROL_TAKEN: CloudAPIThreadControlNotification._CloudAPIThreadControl.ValueType  # 2
@@ -2568,61 +2729,65 @@ class CloudAPIThreadControlNotification(google.protobuf.message.Message):
     CONTROL_PASSED: CloudAPIThreadControlNotification.CloudAPIThreadControl.ValueType  # 1
     CONTROL_TAKEN: CloudAPIThreadControlNotification.CloudAPIThreadControl.ValueType  # 2
 
-    @typing.final
-    class CloudAPIThreadControlNotificationContent(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class CloudAPIThreadControlNotificationContent(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        HANDOFFNOTIFICATIONTEXT_FIELD_NUMBER: builtins.int
-        EXTRAJSON_FIELD_NUMBER: builtins.int
-        handoffNotificationText: builtins.str
-        extraJSON: builtins.str
+        HANDOFFNOTIFICATIONTEXT_FIELD_NUMBER: _builtins.int
+        EXTRAJSON_FIELD_NUMBER: _builtins.int
+        handoffNotificationText: _builtins.str
+        extraJSON: _builtins.str
         def __init__(
             self,
             *,
-            handoffNotificationText: builtins.str | None = ...,
-            extraJSON: builtins.str | None = ...,
+            handoffNotificationText: _builtins.str | None = ...,
+            extraJSON: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["extraJSON", b"extraJSON", "handoffNotificationText", b"handoffNotificationText"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["extraJSON", b"extraJSON", "handoffNotificationText", b"handoffNotificationText"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["extraJSON", b"extraJSON", "handoffNotificationText", b"handoffNotificationText"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["extraJSON", b"extraJSON", "handoffNotificationText", b"handoffNotificationText"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    STATUS_FIELD_NUMBER: builtins.int
-    SENDERNOTIFICATIONTIMESTAMPMS_FIELD_NUMBER: builtins.int
-    CONSUMERLID_FIELD_NUMBER: builtins.int
-    CONSUMERPHONENUMBER_FIELD_NUMBER: builtins.int
-    NOTIFICATIONCONTENT_FIELD_NUMBER: builtins.int
-    SHOULDSUPPRESSNOTIFICATION_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: _builtins.int
+    SENDERNOTIFICATIONTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+    CONSUMERLID_FIELD_NUMBER: _builtins.int
+    CONSUMERPHONENUMBER_FIELD_NUMBER: _builtins.int
+    NOTIFICATIONCONTENT_FIELD_NUMBER: _builtins.int
+    SHOULDSUPPRESSNOTIFICATION_FIELD_NUMBER: _builtins.int
     status: Global___CloudAPIThreadControlNotification.CloudAPIThreadControl.ValueType
-    senderNotificationTimestampMS: builtins.int
-    consumerLid: builtins.str
-    consumerPhoneNumber: builtins.str
-    shouldSuppressNotification: builtins.bool
-    @property
+    senderNotificationTimestampMS: _builtins.int
+    consumerLid: _builtins.str
+    consumerPhoneNumber: _builtins.str
+    shouldSuppressNotification: _builtins.bool
+    @_builtins.property
     def notificationContent(self) -> Global___CloudAPIThreadControlNotification.CloudAPIThreadControlNotificationContent: ...
     def __init__(
         self,
         *,
         status: Global___CloudAPIThreadControlNotification.CloudAPIThreadControl.ValueType | None = ...,
-        senderNotificationTimestampMS: builtins.int | None = ...,
-        consumerLid: builtins.str | None = ...,
-        consumerPhoneNumber: builtins.str | None = ...,
+        senderNotificationTimestampMS: _builtins.int | None = ...,
+        consumerLid: _builtins.str | None = ...,
+        consumerPhoneNumber: _builtins.str | None = ...,
         notificationContent: Global___CloudAPIThreadControlNotification.CloudAPIThreadControlNotificationContent | None = ...,
-        shouldSuppressNotification: builtins.bool | None = ...,
+        shouldSuppressNotification: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["consumerLid", b"consumerLid", "consumerPhoneNumber", b"consumerPhoneNumber", "notificationContent", b"notificationContent", "senderNotificationTimestampMS", b"senderNotificationTimestampMS", "shouldSuppressNotification", b"shouldSuppressNotification", "status", b"status"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["consumerLid", b"consumerLid", "consumerPhoneNumber", b"consumerPhoneNumber", "notificationContent", b"notificationContent", "senderNotificationTimestampMS", b"senderNotificationTimestampMS", "shouldSuppressNotification", b"shouldSuppressNotification", "status", b"status"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["consumerLid", b"consumerLid", "consumerPhoneNumber", b"consumerPhoneNumber", "notificationContent", b"notificationContent", "senderNotificationTimestampMS", b"senderNotificationTimestampMS", "shouldSuppressNotification", b"shouldSuppressNotification", "status", b"status"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["consumerLid", b"consumerLid", "consumerPhoneNumber", b"consumerPhoneNumber", "notificationContent", b"notificationContent", "senderNotificationTimestampMS", b"senderNotificationTimestampMS", "shouldSuppressNotification", b"shouldSuppressNotification", "status", b"status"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___CloudAPIThreadControlNotification: typing_extensions.TypeAlias = CloudAPIThreadControlNotification
+Global___CloudAPIThreadControlNotification: _TypeAlias = CloudAPIThreadControlNotification  # noqa: Y015
 
-@typing.final
-class VideoMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class VideoMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _VideoSourceType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _VideoSourceTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[VideoMessage._VideoSourceType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _VideoSourceTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[VideoMessage._VideoSourceType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         USER_VIDEO: VideoMessage._VideoSourceType.ValueType  # 0
         AI_GENERATED: VideoMessage._VideoSourceType.ValueType  # 1
 
@@ -2631,11 +2796,11 @@ class VideoMessage(google.protobuf.message.Message):
     AI_GENERATED: VideoMessage.VideoSourceType.ValueType  # 1
 
     class _Attribution:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _AttributionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[VideoMessage._Attribution.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _AttributionEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[VideoMessage._Attribution.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         NONE: VideoMessage._Attribution.ValueType  # 0
         GIPHY: VideoMessage._Attribution.ValueType  # 1
         TENOR: VideoMessage._Attribution.ValueType  # 2
@@ -2647,122 +2812,124 @@ class VideoMessage(google.protobuf.message.Message):
     TENOR: VideoMessage.Attribution.ValueType  # 2
     KLIPY: VideoMessage.Attribution.ValueType  # 3
 
-    URL_FIELD_NUMBER: builtins.int
-    MIMETYPE_FIELD_NUMBER: builtins.int
-    FILESHA256_FIELD_NUMBER: builtins.int
-    FILELENGTH_FIELD_NUMBER: builtins.int
-    SECONDS_FIELD_NUMBER: builtins.int
-    MEDIAKEY_FIELD_NUMBER: builtins.int
-    CAPTION_FIELD_NUMBER: builtins.int
-    GIFPLAYBACK_FIELD_NUMBER: builtins.int
-    HEIGHT_FIELD_NUMBER: builtins.int
-    WIDTH_FIELD_NUMBER: builtins.int
-    FILEENCSHA256_FIELD_NUMBER: builtins.int
-    INTERACTIVEANNOTATIONS_FIELD_NUMBER: builtins.int
-    DIRECTPATH_FIELD_NUMBER: builtins.int
-    MEDIAKEYTIMESTAMP_FIELD_NUMBER: builtins.int
-    JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    STREAMINGSIDECAR_FIELD_NUMBER: builtins.int
-    GIFATTRIBUTION_FIELD_NUMBER: builtins.int
-    VIEWONCE_FIELD_NUMBER: builtins.int
-    THUMBNAILDIRECTPATH_FIELD_NUMBER: builtins.int
-    THUMBNAILSHA256_FIELD_NUMBER: builtins.int
-    THUMBNAILENCSHA256_FIELD_NUMBER: builtins.int
-    STATICURL_FIELD_NUMBER: builtins.int
-    ANNOTATIONS_FIELD_NUMBER: builtins.int
-    ACCESSIBILITYLABEL_FIELD_NUMBER: builtins.int
-    PROCESSEDVIDEOS_FIELD_NUMBER: builtins.int
-    EXTERNALSHAREFULLVIDEODURATIONINSECONDS_FIELD_NUMBER: builtins.int
-    MOTIONPHOTOPRESENTATIONOFFSETMS_FIELD_NUMBER: builtins.int
-    METADATAURL_FIELD_NUMBER: builtins.int
-    VIDEOSOURCETYPE_FIELD_NUMBER: builtins.int
-    MEDIAKEYDOMAIN_FIELD_NUMBER: builtins.int
-    URL: builtins.str
-    mimetype: builtins.str
-    fileSHA256: builtins.bytes
-    fileLength: builtins.int
-    seconds: builtins.int
-    mediaKey: builtins.bytes
-    caption: builtins.str
-    gifPlayback: builtins.bool
-    height: builtins.int
-    width: builtins.int
-    fileEncSHA256: builtins.bytes
-    directPath: builtins.str
-    mediaKeyTimestamp: builtins.int
-    JPEGThumbnail: builtins.bytes
-    streamingSidecar: builtins.bytes
+    URL_FIELD_NUMBER: _builtins.int
+    MIMETYPE_FIELD_NUMBER: _builtins.int
+    FILESHA256_FIELD_NUMBER: _builtins.int
+    FILELENGTH_FIELD_NUMBER: _builtins.int
+    SECONDS_FIELD_NUMBER: _builtins.int
+    MEDIAKEY_FIELD_NUMBER: _builtins.int
+    CAPTION_FIELD_NUMBER: _builtins.int
+    GIFPLAYBACK_FIELD_NUMBER: _builtins.int
+    HEIGHT_FIELD_NUMBER: _builtins.int
+    WIDTH_FIELD_NUMBER: _builtins.int
+    FILEENCSHA256_FIELD_NUMBER: _builtins.int
+    INTERACTIVEANNOTATIONS_FIELD_NUMBER: _builtins.int
+    DIRECTPATH_FIELD_NUMBER: _builtins.int
+    MEDIAKEYTIMESTAMP_FIELD_NUMBER: _builtins.int
+    JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    STREAMINGSIDECAR_FIELD_NUMBER: _builtins.int
+    GIFATTRIBUTION_FIELD_NUMBER: _builtins.int
+    VIEWONCE_FIELD_NUMBER: _builtins.int
+    THUMBNAILDIRECTPATH_FIELD_NUMBER: _builtins.int
+    THUMBNAILSHA256_FIELD_NUMBER: _builtins.int
+    THUMBNAILENCSHA256_FIELD_NUMBER: _builtins.int
+    STATICURL_FIELD_NUMBER: _builtins.int
+    ANNOTATIONS_FIELD_NUMBER: _builtins.int
+    ACCESSIBILITYLABEL_FIELD_NUMBER: _builtins.int
+    PROCESSEDVIDEOS_FIELD_NUMBER: _builtins.int
+    EXTERNALSHAREFULLVIDEODURATIONINSECONDS_FIELD_NUMBER: _builtins.int
+    MOTIONPHOTOPRESENTATIONOFFSETMS_FIELD_NUMBER: _builtins.int
+    METADATAURL_FIELD_NUMBER: _builtins.int
+    VIDEOSOURCETYPE_FIELD_NUMBER: _builtins.int
+    MEDIAKEYDOMAIN_FIELD_NUMBER: _builtins.int
+    URL: _builtins.str
+    mimetype: _builtins.str
+    fileSHA256: _builtins.bytes
+    fileLength: _builtins.int
+    seconds: _builtins.int
+    mediaKey: _builtins.bytes
+    caption: _builtins.str
+    gifPlayback: _builtins.bool
+    height: _builtins.int
+    width: _builtins.int
+    fileEncSHA256: _builtins.bytes
+    directPath: _builtins.str
+    mediaKeyTimestamp: _builtins.int
+    JPEGThumbnail: _builtins.bytes
+    streamingSidecar: _builtins.bytes
     gifAttribution: Global___VideoMessage.Attribution.ValueType
-    viewOnce: builtins.bool
-    thumbnailDirectPath: builtins.str
-    thumbnailSHA256: builtins.bytes
-    thumbnailEncSHA256: builtins.bytes
-    staticURL: builtins.str
-    accessibilityLabel: builtins.str
-    externalShareFullVideoDurationInSeconds: builtins.int
-    motionPhotoPresentationOffsetMS: builtins.int
-    metadataURL: builtins.str
+    viewOnce: _builtins.bool
+    thumbnailDirectPath: _builtins.str
+    thumbnailSHA256: _builtins.bytes
+    thumbnailEncSHA256: _builtins.bytes
+    staticURL: _builtins.str
+    accessibilityLabel: _builtins.str
+    externalShareFullVideoDurationInSeconds: _builtins.int
+    motionPhotoPresentationOffsetMS: _builtins.int
+    metadataURL: _builtins.str
     videoSourceType: Global___VideoMessage.VideoSourceType.ValueType
     mediaKeyDomain: Global___MediaKeyDomain.ValueType
-    @property
-    def interactiveAnnotations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___InteractiveAnnotation]: ...
-    @property
+    @_builtins.property
+    def interactiveAnnotations(self) -> _containers.RepeatedCompositeFieldContainer[Global___InteractiveAnnotation]: ...
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
-    @property
-    def annotations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___InteractiveAnnotation]: ...
-    @property
-    def processedVideos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ProcessedVideo]: ...
+    @_builtins.property
+    def annotations(self) -> _containers.RepeatedCompositeFieldContainer[Global___InteractiveAnnotation]: ...
+    @_builtins.property
+    def processedVideos(self) -> _containers.RepeatedCompositeFieldContainer[Global___ProcessedVideo]: ...
     def __init__(
         self,
         *,
-        URL: builtins.str | None = ...,
-        mimetype: builtins.str | None = ...,
-        fileSHA256: builtins.bytes | None = ...,
-        fileLength: builtins.int | None = ...,
-        seconds: builtins.int | None = ...,
-        mediaKey: builtins.bytes | None = ...,
-        caption: builtins.str | None = ...,
-        gifPlayback: builtins.bool | None = ...,
-        height: builtins.int | None = ...,
-        width: builtins.int | None = ...,
-        fileEncSHA256: builtins.bytes | None = ...,
-        interactiveAnnotations: collections.abc.Iterable[Global___InteractiveAnnotation] | None = ...,
-        directPath: builtins.str | None = ...,
-        mediaKeyTimestamp: builtins.int | None = ...,
-        JPEGThumbnail: builtins.bytes | None = ...,
+        URL: _builtins.str | None = ...,
+        mimetype: _builtins.str | None = ...,
+        fileSHA256: _builtins.bytes | None = ...,
+        fileLength: _builtins.int | None = ...,
+        seconds: _builtins.int | None = ...,
+        mediaKey: _builtins.bytes | None = ...,
+        caption: _builtins.str | None = ...,
+        gifPlayback: _builtins.bool | None = ...,
+        height: _builtins.int | None = ...,
+        width: _builtins.int | None = ...,
+        fileEncSHA256: _builtins.bytes | None = ...,
+        interactiveAnnotations: _abc.Iterable[Global___InteractiveAnnotation] | None = ...,
+        directPath: _builtins.str | None = ...,
+        mediaKeyTimestamp: _builtins.int | None = ...,
+        JPEGThumbnail: _builtins.bytes | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
-        streamingSidecar: builtins.bytes | None = ...,
+        streamingSidecar: _builtins.bytes | None = ...,
         gifAttribution: Global___VideoMessage.Attribution.ValueType | None = ...,
-        viewOnce: builtins.bool | None = ...,
-        thumbnailDirectPath: builtins.str | None = ...,
-        thumbnailSHA256: builtins.bytes | None = ...,
-        thumbnailEncSHA256: builtins.bytes | None = ...,
-        staticURL: builtins.str | None = ...,
-        annotations: collections.abc.Iterable[Global___InteractiveAnnotation] | None = ...,
-        accessibilityLabel: builtins.str | None = ...,
-        processedVideos: collections.abc.Iterable[Global___ProcessedVideo] | None = ...,
-        externalShareFullVideoDurationInSeconds: builtins.int | None = ...,
-        motionPhotoPresentationOffsetMS: builtins.int | None = ...,
-        metadataURL: builtins.str | None = ...,
+        viewOnce: _builtins.bool | None = ...,
+        thumbnailDirectPath: _builtins.str | None = ...,
+        thumbnailSHA256: _builtins.bytes | None = ...,
+        thumbnailEncSHA256: _builtins.bytes | None = ...,
+        staticURL: _builtins.str | None = ...,
+        annotations: _abc.Iterable[Global___InteractiveAnnotation] | None = ...,
+        accessibilityLabel: _builtins.str | None = ...,
+        processedVideos: _abc.Iterable[Global___ProcessedVideo] | None = ...,
+        externalShareFullVideoDurationInSeconds: _builtins.int | None = ...,
+        motionPhotoPresentationOffsetMS: _builtins.int | None = ...,
+        metadataURL: _builtins.str | None = ...,
         videoSourceType: Global___VideoMessage.VideoSourceType.ValueType | None = ...,
         mediaKeyDomain: Global___MediaKeyDomain.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "externalShareFullVideoDurationInSeconds", b"externalShareFullVideoDurationInSeconds", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "gifAttribution", b"gifAttribution", "gifPlayback", b"gifPlayback", "height", b"height", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "metadataURL", b"metadataURL", "mimetype", b"mimetype", "motionPhotoPresentationOffsetMS", b"motionPhotoPresentationOffsetMS", "seconds", b"seconds", "staticURL", b"staticURL", "streamingSidecar", b"streamingSidecar", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailSHA256", b"thumbnailSHA256", "videoSourceType", b"videoSourceType", "viewOnce", b"viewOnce", "width", b"width"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "annotations", b"annotations", "caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "externalShareFullVideoDurationInSeconds", b"externalShareFullVideoDurationInSeconds", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "gifAttribution", b"gifAttribution", "gifPlayback", b"gifPlayback", "height", b"height", "interactiveAnnotations", b"interactiveAnnotations", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "metadataURL", b"metadataURL", "mimetype", b"mimetype", "motionPhotoPresentationOffsetMS", b"motionPhotoPresentationOffsetMS", "processedVideos", b"processedVideos", "seconds", b"seconds", "staticURL", b"staticURL", "streamingSidecar", b"streamingSidecar", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailSHA256", b"thumbnailSHA256", "videoSourceType", b"videoSourceType", "viewOnce", b"viewOnce", "width", b"width"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "externalShareFullVideoDurationInSeconds", b"externalShareFullVideoDurationInSeconds", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "gifAttribution", b"gifAttribution", "gifPlayback", b"gifPlayback", "height", b"height", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "metadataURL", b"metadataURL", "mimetype", b"mimetype", "motionPhotoPresentationOffsetMS", b"motionPhotoPresentationOffsetMS", "seconds", b"seconds", "staticURL", b"staticURL", "streamingSidecar", b"streamingSidecar", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailSHA256", b"thumbnailSHA256", "videoSourceType", b"videoSourceType", "viewOnce", b"viewOnce", "width", b"width"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "annotations", b"annotations", "caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "externalShareFullVideoDurationInSeconds", b"externalShareFullVideoDurationInSeconds", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "gifAttribution", b"gifAttribution", "gifPlayback", b"gifPlayback", "height", b"height", "interactiveAnnotations", b"interactiveAnnotations", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "metadataURL", b"metadataURL", "mimetype", b"mimetype", "motionPhotoPresentationOffsetMS", b"motionPhotoPresentationOffsetMS", "processedVideos", b"processedVideos", "seconds", b"seconds", "staticURL", b"staticURL", "streamingSidecar", b"streamingSidecar", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailSHA256", b"thumbnailSHA256", "videoSourceType", b"videoSourceType", "viewOnce", b"viewOnce", "width", b"width"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___VideoMessage: typing_extensions.TypeAlias = VideoMessage
+Global___VideoMessage: _TypeAlias = VideoMessage  # noqa: Y015
 
-@typing.final
-class ExtendedTextMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ExtendedTextMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _InviteLinkGroupType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _InviteLinkGroupTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExtendedTextMessage._InviteLinkGroupType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _InviteLinkGroupTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ExtendedTextMessage._InviteLinkGroupType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         DEFAULT: ExtendedTextMessage._InviteLinkGroupType.ValueType  # 0
         PARENT: ExtendedTextMessage._InviteLinkGroupType.ValueType  # 1
         SUB: ExtendedTextMessage._InviteLinkGroupType.ValueType  # 2
@@ -2775,11 +2942,11 @@ class ExtendedTextMessage(google.protobuf.message.Message):
     DEFAULT_SUB: ExtendedTextMessage.InviteLinkGroupType.ValueType  # 3
 
     class _PreviewType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _PreviewTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExtendedTextMessage._PreviewType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _PreviewTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ExtendedTextMessage._PreviewType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         NONE: ExtendedTextMessage._PreviewType.ValueType  # 0
         VIDEO: ExtendedTextMessage._PreviewType.ValueType  # 1
         PLACEHOLDER: ExtendedTextMessage._PreviewType.ValueType  # 4
@@ -2796,11 +2963,11 @@ class ExtendedTextMessage(google.protobuf.message.Message):
     PROFILE: ExtendedTextMessage.PreviewType.ValueType  # 7
 
     class _FontType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _FontTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExtendedTextMessage._FontType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _FontTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ExtendedTextMessage._FontType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         SYSTEM: ExtendedTextMessage._FontType.ValueType  # 0
         SYSTEM_TEXT: ExtendedTextMessage._FontType.ValueType  # 1
         FB_SCRIPT: ExtendedTextMessage._FontType.ValueType  # 2
@@ -2820,128 +2987,130 @@ class ExtendedTextMessage(google.protobuf.message.Message):
     EXO2_EXTRABOLD: ExtendedTextMessage.FontType.ValueType  # 9
     COURIERPRIME_BOLD: ExtendedTextMessage.FontType.ValueType  # 10
 
-    TEXT_FIELD_NUMBER: builtins.int
-    MATCHEDTEXT_FIELD_NUMBER: builtins.int
-    DESCRIPTION_FIELD_NUMBER: builtins.int
-    TITLE_FIELD_NUMBER: builtins.int
-    TEXTARGB_FIELD_NUMBER: builtins.int
-    BACKGROUNDARGB_FIELD_NUMBER: builtins.int
-    FONT_FIELD_NUMBER: builtins.int
-    PREVIEWTYPE_FIELD_NUMBER: builtins.int
-    JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    DONOTPLAYINLINE_FIELD_NUMBER: builtins.int
-    THUMBNAILDIRECTPATH_FIELD_NUMBER: builtins.int
-    THUMBNAILSHA256_FIELD_NUMBER: builtins.int
-    THUMBNAILENCSHA256_FIELD_NUMBER: builtins.int
-    MEDIAKEY_FIELD_NUMBER: builtins.int
-    MEDIAKEYTIMESTAMP_FIELD_NUMBER: builtins.int
-    THUMBNAILHEIGHT_FIELD_NUMBER: builtins.int
-    THUMBNAILWIDTH_FIELD_NUMBER: builtins.int
-    INVITELINKGROUPTYPE_FIELD_NUMBER: builtins.int
-    INVITELINKPARENTGROUPSUBJECTV2_FIELD_NUMBER: builtins.int
-    INVITELINKPARENTGROUPTHUMBNAILV2_FIELD_NUMBER: builtins.int
-    INVITELINKGROUPTYPEV2_FIELD_NUMBER: builtins.int
-    VIEWONCE_FIELD_NUMBER: builtins.int
-    VIDEOHEIGHT_FIELD_NUMBER: builtins.int
-    VIDEOWIDTH_FIELD_NUMBER: builtins.int
-    FAVICONMMSMETADATA_FIELD_NUMBER: builtins.int
-    LINKPREVIEWMETADATA_FIELD_NUMBER: builtins.int
-    PAYMENTLINKMETADATA_FIELD_NUMBER: builtins.int
-    ENDCARDTILES_FIELD_NUMBER: builtins.int
-    VIDEOCONTENTURL_FIELD_NUMBER: builtins.int
-    MUSICMETADATA_FIELD_NUMBER: builtins.int
-    PAYMENTEXTENDEDMETADATA_FIELD_NUMBER: builtins.int
-    text: builtins.str
-    matchedText: builtins.str
-    description: builtins.str
-    title: builtins.str
-    textArgb: builtins.int
-    backgroundArgb: builtins.int
+    TEXT_FIELD_NUMBER: _builtins.int
+    MATCHEDTEXT_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    TITLE_FIELD_NUMBER: _builtins.int
+    TEXTARGB_FIELD_NUMBER: _builtins.int
+    BACKGROUNDARGB_FIELD_NUMBER: _builtins.int
+    FONT_FIELD_NUMBER: _builtins.int
+    PREVIEWTYPE_FIELD_NUMBER: _builtins.int
+    JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    DONOTPLAYINLINE_FIELD_NUMBER: _builtins.int
+    THUMBNAILDIRECTPATH_FIELD_NUMBER: _builtins.int
+    THUMBNAILSHA256_FIELD_NUMBER: _builtins.int
+    THUMBNAILENCSHA256_FIELD_NUMBER: _builtins.int
+    MEDIAKEY_FIELD_NUMBER: _builtins.int
+    MEDIAKEYTIMESTAMP_FIELD_NUMBER: _builtins.int
+    THUMBNAILHEIGHT_FIELD_NUMBER: _builtins.int
+    THUMBNAILWIDTH_FIELD_NUMBER: _builtins.int
+    INVITELINKGROUPTYPE_FIELD_NUMBER: _builtins.int
+    INVITELINKPARENTGROUPSUBJECTV2_FIELD_NUMBER: _builtins.int
+    INVITELINKPARENTGROUPTHUMBNAILV2_FIELD_NUMBER: _builtins.int
+    INVITELINKGROUPTYPEV2_FIELD_NUMBER: _builtins.int
+    VIEWONCE_FIELD_NUMBER: _builtins.int
+    VIDEOHEIGHT_FIELD_NUMBER: _builtins.int
+    VIDEOWIDTH_FIELD_NUMBER: _builtins.int
+    FAVICONMMSMETADATA_FIELD_NUMBER: _builtins.int
+    LINKPREVIEWMETADATA_FIELD_NUMBER: _builtins.int
+    PAYMENTLINKMETADATA_FIELD_NUMBER: _builtins.int
+    ENDCARDTILES_FIELD_NUMBER: _builtins.int
+    VIDEOCONTENTURL_FIELD_NUMBER: _builtins.int
+    MUSICMETADATA_FIELD_NUMBER: _builtins.int
+    PAYMENTEXTENDEDMETADATA_FIELD_NUMBER: _builtins.int
+    text: _builtins.str
+    matchedText: _builtins.str
+    description: _builtins.str
+    title: _builtins.str
+    textArgb: _builtins.int
+    backgroundArgb: _builtins.int
     font: Global___ExtendedTextMessage.FontType.ValueType
     previewType: Global___ExtendedTextMessage.PreviewType.ValueType
-    JPEGThumbnail: builtins.bytes
-    doNotPlayInline: builtins.bool
-    thumbnailDirectPath: builtins.str
-    thumbnailSHA256: builtins.bytes
-    thumbnailEncSHA256: builtins.bytes
-    mediaKey: builtins.bytes
-    mediaKeyTimestamp: builtins.int
-    thumbnailHeight: builtins.int
-    thumbnailWidth: builtins.int
+    JPEGThumbnail: _builtins.bytes
+    doNotPlayInline: _builtins.bool
+    thumbnailDirectPath: _builtins.str
+    thumbnailSHA256: _builtins.bytes
+    thumbnailEncSHA256: _builtins.bytes
+    mediaKey: _builtins.bytes
+    mediaKeyTimestamp: _builtins.int
+    thumbnailHeight: _builtins.int
+    thumbnailWidth: _builtins.int
     inviteLinkGroupType: Global___ExtendedTextMessage.InviteLinkGroupType.ValueType
-    inviteLinkParentGroupSubjectV2: builtins.str
-    inviteLinkParentGroupThumbnailV2: builtins.bytes
+    inviteLinkParentGroupSubjectV2: _builtins.str
+    inviteLinkParentGroupThumbnailV2: _builtins.bytes
     inviteLinkGroupTypeV2: Global___ExtendedTextMessage.InviteLinkGroupType.ValueType
-    viewOnce: builtins.bool
-    videoHeight: builtins.int
-    videoWidth: builtins.int
-    videoContentURL: builtins.str
-    @property
+    viewOnce: _builtins.bool
+    videoHeight: _builtins.int
+    videoWidth: _builtins.int
+    videoContentURL: _builtins.str
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
-    @property
+    @_builtins.property
     def faviconMMSMetadata(self) -> Global___MMSThumbnailMetadata: ...
-    @property
+    @_builtins.property
     def linkPreviewMetadata(self) -> Global___LinkPreviewMetadata: ...
-    @property
+    @_builtins.property
     def paymentLinkMetadata(self) -> Global___PaymentLinkMetadata: ...
-    @property
-    def endCardTiles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___VideoEndCard]: ...
-    @property
+    @_builtins.property
+    def endCardTiles(self) -> _containers.RepeatedCompositeFieldContainer[Global___VideoEndCard]: ...
+    @_builtins.property
     def musicMetadata(self) -> Global___EmbeddedMusic: ...
-    @property
+    @_builtins.property
     def paymentExtendedMetadata(self) -> Global___PaymentExtendedMetadata: ...
     def __init__(
         self,
         *,
-        text: builtins.str | None = ...,
-        matchedText: builtins.str | None = ...,
-        description: builtins.str | None = ...,
-        title: builtins.str | None = ...,
-        textArgb: builtins.int | None = ...,
-        backgroundArgb: builtins.int | None = ...,
+        text: _builtins.str | None = ...,
+        matchedText: _builtins.str | None = ...,
+        description: _builtins.str | None = ...,
+        title: _builtins.str | None = ...,
+        textArgb: _builtins.int | None = ...,
+        backgroundArgb: _builtins.int | None = ...,
         font: Global___ExtendedTextMessage.FontType.ValueType | None = ...,
         previewType: Global___ExtendedTextMessage.PreviewType.ValueType | None = ...,
-        JPEGThumbnail: builtins.bytes | None = ...,
+        JPEGThumbnail: _builtins.bytes | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
-        doNotPlayInline: builtins.bool | None = ...,
-        thumbnailDirectPath: builtins.str | None = ...,
-        thumbnailSHA256: builtins.bytes | None = ...,
-        thumbnailEncSHA256: builtins.bytes | None = ...,
-        mediaKey: builtins.bytes | None = ...,
-        mediaKeyTimestamp: builtins.int | None = ...,
-        thumbnailHeight: builtins.int | None = ...,
-        thumbnailWidth: builtins.int | None = ...,
+        doNotPlayInline: _builtins.bool | None = ...,
+        thumbnailDirectPath: _builtins.str | None = ...,
+        thumbnailSHA256: _builtins.bytes | None = ...,
+        thumbnailEncSHA256: _builtins.bytes | None = ...,
+        mediaKey: _builtins.bytes | None = ...,
+        mediaKeyTimestamp: _builtins.int | None = ...,
+        thumbnailHeight: _builtins.int | None = ...,
+        thumbnailWidth: _builtins.int | None = ...,
         inviteLinkGroupType: Global___ExtendedTextMessage.InviteLinkGroupType.ValueType | None = ...,
-        inviteLinkParentGroupSubjectV2: builtins.str | None = ...,
-        inviteLinkParentGroupThumbnailV2: builtins.bytes | None = ...,
+        inviteLinkParentGroupSubjectV2: _builtins.str | None = ...,
+        inviteLinkParentGroupThumbnailV2: _builtins.bytes | None = ...,
         inviteLinkGroupTypeV2: Global___ExtendedTextMessage.InviteLinkGroupType.ValueType | None = ...,
-        viewOnce: builtins.bool | None = ...,
-        videoHeight: builtins.int | None = ...,
-        videoWidth: builtins.int | None = ...,
+        viewOnce: _builtins.bool | None = ...,
+        videoHeight: _builtins.int | None = ...,
+        videoWidth: _builtins.int | None = ...,
         faviconMMSMetadata: Global___MMSThumbnailMetadata | None = ...,
         linkPreviewMetadata: Global___LinkPreviewMetadata | None = ...,
         paymentLinkMetadata: Global___PaymentLinkMetadata | None = ...,
-        endCardTiles: collections.abc.Iterable[Global___VideoEndCard] | None = ...,
-        videoContentURL: builtins.str | None = ...,
+        endCardTiles: _abc.Iterable[Global___VideoEndCard] | None = ...,
+        videoContentURL: _builtins.str | None = ...,
         musicMetadata: Global___EmbeddedMusic | None = ...,
         paymentExtendedMetadata: Global___PaymentExtendedMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "backgroundArgb", b"backgroundArgb", "contextInfo", b"contextInfo", "description", b"description", "doNotPlayInline", b"doNotPlayInline", "faviconMMSMetadata", b"faviconMMSMetadata", "font", b"font", "inviteLinkGroupType", b"inviteLinkGroupType", "inviteLinkGroupTypeV2", b"inviteLinkGroupTypeV2", "inviteLinkParentGroupSubjectV2", b"inviteLinkParentGroupSubjectV2", "inviteLinkParentGroupThumbnailV2", b"inviteLinkParentGroupThumbnailV2", "linkPreviewMetadata", b"linkPreviewMetadata", "matchedText", b"matchedText", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "musicMetadata", b"musicMetadata", "paymentExtendedMetadata", b"paymentExtendedMetadata", "paymentLinkMetadata", b"paymentLinkMetadata", "previewType", b"previewType", "text", b"text", "textArgb", b"textArgb", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "title", b"title", "videoContentURL", b"videoContentURL", "videoHeight", b"videoHeight", "videoWidth", b"videoWidth", "viewOnce", b"viewOnce"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "backgroundArgb", b"backgroundArgb", "contextInfo", b"contextInfo", "description", b"description", "doNotPlayInline", b"doNotPlayInline", "endCardTiles", b"endCardTiles", "faviconMMSMetadata", b"faviconMMSMetadata", "font", b"font", "inviteLinkGroupType", b"inviteLinkGroupType", "inviteLinkGroupTypeV2", b"inviteLinkGroupTypeV2", "inviteLinkParentGroupSubjectV2", b"inviteLinkParentGroupSubjectV2", "inviteLinkParentGroupThumbnailV2", b"inviteLinkParentGroupThumbnailV2", "linkPreviewMetadata", b"linkPreviewMetadata", "matchedText", b"matchedText", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "musicMetadata", b"musicMetadata", "paymentExtendedMetadata", b"paymentExtendedMetadata", "paymentLinkMetadata", b"paymentLinkMetadata", "previewType", b"previewType", "text", b"text", "textArgb", b"textArgb", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "title", b"title", "videoContentURL", b"videoContentURL", "videoHeight", b"videoHeight", "videoWidth", b"videoWidth", "viewOnce", b"viewOnce"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "backgroundArgb", b"backgroundArgb", "contextInfo", b"contextInfo", "description", b"description", "doNotPlayInline", b"doNotPlayInline", "faviconMMSMetadata", b"faviconMMSMetadata", "font", b"font", "inviteLinkGroupType", b"inviteLinkGroupType", "inviteLinkGroupTypeV2", b"inviteLinkGroupTypeV2", "inviteLinkParentGroupSubjectV2", b"inviteLinkParentGroupSubjectV2", "inviteLinkParentGroupThumbnailV2", b"inviteLinkParentGroupThumbnailV2", "linkPreviewMetadata", b"linkPreviewMetadata", "matchedText", b"matchedText", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "musicMetadata", b"musicMetadata", "paymentExtendedMetadata", b"paymentExtendedMetadata", "paymentLinkMetadata", b"paymentLinkMetadata", "previewType", b"previewType", "text", b"text", "textArgb", b"textArgb", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "title", b"title", "videoContentURL", b"videoContentURL", "videoHeight", b"videoHeight", "videoWidth", b"videoWidth", "viewOnce", b"viewOnce"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "backgroundArgb", b"backgroundArgb", "contextInfo", b"contextInfo", "description", b"description", "doNotPlayInline", b"doNotPlayInline", "endCardTiles", b"endCardTiles", "faviconMMSMetadata", b"faviconMMSMetadata", "font", b"font", "inviteLinkGroupType", b"inviteLinkGroupType", "inviteLinkGroupTypeV2", b"inviteLinkGroupTypeV2", "inviteLinkParentGroupSubjectV2", b"inviteLinkParentGroupSubjectV2", "inviteLinkParentGroupThumbnailV2", b"inviteLinkParentGroupThumbnailV2", "linkPreviewMetadata", b"linkPreviewMetadata", "matchedText", b"matchedText", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "musicMetadata", b"musicMetadata", "paymentExtendedMetadata", b"paymentExtendedMetadata", "paymentLinkMetadata", b"paymentLinkMetadata", "previewType", b"previewType", "text", b"text", "textArgb", b"textArgb", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "title", b"title", "videoContentURL", b"videoContentURL", "videoHeight", b"videoHeight", "videoWidth", b"videoWidth", "viewOnce", b"viewOnce"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ExtendedTextMessage: typing_extensions.TypeAlias = ExtendedTextMessage
+Global___ExtendedTextMessage: _TypeAlias = ExtendedTextMessage  # noqa: Y015
 
-@typing.final
-class LinkPreviewMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class LinkPreviewMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _SocialMediaPostType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _SocialMediaPostTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LinkPreviewMetadata._SocialMediaPostType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _SocialMediaPostTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[LinkPreviewMetadata._SocialMediaPostType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         NONE: LinkPreviewMetadata._SocialMediaPostType.ValueType  # 0
         REEL: LinkPreviewMetadata._SocialMediaPostType.ValueType  # 1
         LIVE_VIDEO: LinkPreviewMetadata._SocialMediaPostType.ValueType  # 2
@@ -2957,59 +3126,61 @@ class LinkPreviewMetadata(google.protobuf.message.Message):
     SINGLE_IMAGE: LinkPreviewMetadata.SocialMediaPostType.ValueType  # 4
     CAROUSEL: LinkPreviewMetadata.SocialMediaPostType.ValueType  # 5
 
-    PAYMENTLINKMETADATA_FIELD_NUMBER: builtins.int
-    URLMETADATA_FIELD_NUMBER: builtins.int
-    FBEXPERIMENTID_FIELD_NUMBER: builtins.int
-    LINKMEDIADURATION_FIELD_NUMBER: builtins.int
-    SOCIALMEDIAPOSTTYPE_FIELD_NUMBER: builtins.int
-    LINKINLINEVIDEOMUTED_FIELD_NUMBER: builtins.int
-    VIDEOCONTENTURL_FIELD_NUMBER: builtins.int
-    MUSICMETADATA_FIELD_NUMBER: builtins.int
-    VIDEOCONTENTCAPTION_FIELD_NUMBER: builtins.int
-    fbExperimentID: builtins.int
-    linkMediaDuration: builtins.int
+    PAYMENTLINKMETADATA_FIELD_NUMBER: _builtins.int
+    URLMETADATA_FIELD_NUMBER: _builtins.int
+    FBEXPERIMENTID_FIELD_NUMBER: _builtins.int
+    LINKMEDIADURATION_FIELD_NUMBER: _builtins.int
+    SOCIALMEDIAPOSTTYPE_FIELD_NUMBER: _builtins.int
+    LINKINLINEVIDEOMUTED_FIELD_NUMBER: _builtins.int
+    VIDEOCONTENTURL_FIELD_NUMBER: _builtins.int
+    MUSICMETADATA_FIELD_NUMBER: _builtins.int
+    VIDEOCONTENTCAPTION_FIELD_NUMBER: _builtins.int
+    fbExperimentID: _builtins.int
+    linkMediaDuration: _builtins.int
     socialMediaPostType: Global___LinkPreviewMetadata.SocialMediaPostType.ValueType
-    linkInlineVideoMuted: builtins.bool
-    videoContentURL: builtins.str
-    videoContentCaption: builtins.str
-    @property
+    linkInlineVideoMuted: _builtins.bool
+    videoContentURL: _builtins.str
+    videoContentCaption: _builtins.str
+    @_builtins.property
     def paymentLinkMetadata(self) -> Global___PaymentLinkMetadata: ...
-    @property
+    @_builtins.property
     def urlMetadata(self) -> Global___URLMetadata: ...
-    @property
+    @_builtins.property
     def musicMetadata(self) -> Global___EmbeddedMusic: ...
     def __init__(
         self,
         *,
         paymentLinkMetadata: Global___PaymentLinkMetadata | None = ...,
         urlMetadata: Global___URLMetadata | None = ...,
-        fbExperimentID: builtins.int | None = ...,
-        linkMediaDuration: builtins.int | None = ...,
+        fbExperimentID: _builtins.int | None = ...,
+        linkMediaDuration: _builtins.int | None = ...,
         socialMediaPostType: Global___LinkPreviewMetadata.SocialMediaPostType.ValueType | None = ...,
-        linkInlineVideoMuted: builtins.bool | None = ...,
-        videoContentURL: builtins.str | None = ...,
+        linkInlineVideoMuted: _builtins.bool | None = ...,
+        videoContentURL: _builtins.str | None = ...,
         musicMetadata: Global___EmbeddedMusic | None = ...,
-        videoContentCaption: builtins.str | None = ...,
+        videoContentCaption: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["fbExperimentID", b"fbExperimentID", "linkInlineVideoMuted", b"linkInlineVideoMuted", "linkMediaDuration", b"linkMediaDuration", "musicMetadata", b"musicMetadata", "paymentLinkMetadata", b"paymentLinkMetadata", "socialMediaPostType", b"socialMediaPostType", "urlMetadata", b"urlMetadata", "videoContentCaption", b"videoContentCaption", "videoContentURL", b"videoContentURL"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["fbExperimentID", b"fbExperimentID", "linkInlineVideoMuted", b"linkInlineVideoMuted", "linkMediaDuration", b"linkMediaDuration", "musicMetadata", b"musicMetadata", "paymentLinkMetadata", b"paymentLinkMetadata", "socialMediaPostType", b"socialMediaPostType", "urlMetadata", b"urlMetadata", "videoContentCaption", b"videoContentCaption", "videoContentURL", b"videoContentURL"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["fbExperimentID", b"fbExperimentID", "linkInlineVideoMuted", b"linkInlineVideoMuted", "linkMediaDuration", b"linkMediaDuration", "musicMetadata", b"musicMetadata", "paymentLinkMetadata", b"paymentLinkMetadata", "socialMediaPostType", b"socialMediaPostType", "urlMetadata", b"urlMetadata", "videoContentCaption", b"videoContentCaption", "videoContentURL", b"videoContentURL"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["fbExperimentID", b"fbExperimentID", "linkInlineVideoMuted", b"linkInlineVideoMuted", "linkMediaDuration", b"linkMediaDuration", "musicMetadata", b"musicMetadata", "paymentLinkMetadata", b"paymentLinkMetadata", "socialMediaPostType", b"socialMediaPostType", "urlMetadata", b"urlMetadata", "videoContentCaption", b"videoContentCaption", "videoContentURL", b"videoContentURL"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___LinkPreviewMetadata: typing_extensions.TypeAlias = LinkPreviewMetadata
+Global___LinkPreviewMetadata: _TypeAlias = LinkPreviewMetadata  # noqa: Y015
 
-@typing.final
-class PaymentLinkMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PaymentLinkMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class PaymentLinkHeader(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class PaymentLinkHeader(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _PaymentLinkHeaderType:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _PaymentLinkHeaderTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PaymentLinkMetadata.PaymentLinkHeader._PaymentLinkHeaderType.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _PaymentLinkHeaderTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[PaymentLinkMetadata.PaymentLinkHeader._PaymentLinkHeaderType.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             LINK_PREVIEW: PaymentLinkMetadata.PaymentLinkHeader._PaymentLinkHeaderType.ValueType  # 0
             ORDER: PaymentLinkMetadata.PaymentLinkHeader._PaymentLinkHeaderType.ValueType  # 1
 
@@ -3017,52 +3188,58 @@ class PaymentLinkMetadata(google.protobuf.message.Message):
         LINK_PREVIEW: PaymentLinkMetadata.PaymentLinkHeader.PaymentLinkHeaderType.ValueType  # 0
         ORDER: PaymentLinkMetadata.PaymentLinkHeader.PaymentLinkHeaderType.ValueType  # 1
 
-        HEADERTYPE_FIELD_NUMBER: builtins.int
+        HEADERTYPE_FIELD_NUMBER: _builtins.int
         headerType: Global___PaymentLinkMetadata.PaymentLinkHeader.PaymentLinkHeaderType.ValueType
         def __init__(
             self,
             *,
             headerType: Global___PaymentLinkMetadata.PaymentLinkHeader.PaymentLinkHeaderType.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["headerType", b"headerType"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["headerType", b"headerType"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["headerType", b"headerType"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["headerType", b"headerType"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class PaymentLinkProvider(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class PaymentLinkProvider(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        PARAMSJSON_FIELD_NUMBER: builtins.int
-        paramsJSON: builtins.str
+        PARAMSJSON_FIELD_NUMBER: _builtins.int
+        paramsJSON: _builtins.str
         def __init__(
             self,
             *,
-            paramsJSON: builtins.str | None = ...,
+            paramsJSON: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["paramsJSON", b"paramsJSON"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["paramsJSON", b"paramsJSON"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["paramsJSON", b"paramsJSON"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["paramsJSON", b"paramsJSON"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class PaymentLinkButton(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class PaymentLinkButton(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        DISPLAYTEXT_FIELD_NUMBER: builtins.int
-        displayText: builtins.str
+        DISPLAYTEXT_FIELD_NUMBER: _builtins.int
+        displayText: _builtins.str
         def __init__(
             self,
             *,
-            displayText: builtins.str | None = ...,
+            displayText: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["displayText", b"displayText"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["displayText", b"displayText"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["displayText", b"displayText"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["displayText", b"displayText"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    BUTTON_FIELD_NUMBER: builtins.int
-    HEADER_FIELD_NUMBER: builtins.int
-    PROVIDER_FIELD_NUMBER: builtins.int
-    @property
+    BUTTON_FIELD_NUMBER: _builtins.int
+    HEADER_FIELD_NUMBER: _builtins.int
+    PROVIDER_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def button(self) -> Global___PaymentLinkMetadata.PaymentLinkButton: ...
-    @property
+    @_builtins.property
     def header(self) -> Global___PaymentLinkMetadata.PaymentLinkHeader: ...
-    @property
+    @_builtins.property
     def provider(self) -> Global___PaymentLinkMetadata.PaymentLinkProvider: ...
     def __init__(
         self,
@@ -3071,21 +3248,23 @@ class PaymentLinkMetadata(google.protobuf.message.Message):
         header: Global___PaymentLinkMetadata.PaymentLinkHeader | None = ...,
         provider: Global___PaymentLinkMetadata.PaymentLinkProvider | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["button", b"button", "header", b"header", "provider", b"provider"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["button", b"button", "header", b"header", "provider", b"provider"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["button", b"button", "header", b"header", "provider", b"provider"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["button", b"button", "header", b"header", "provider", b"provider"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PaymentLinkMetadata: typing_extensions.TypeAlias = PaymentLinkMetadata
+Global___PaymentLinkMetadata: _TypeAlias = PaymentLinkMetadata  # noqa: Y015
 
-@typing.final
-class StatusNotificationMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class StatusNotificationMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _StatusNotificationType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _StatusNotificationTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[StatusNotificationMessage._StatusNotificationType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _StatusNotificationTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[StatusNotificationMessage._StatusNotificationType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: StatusNotificationMessage._StatusNotificationType.ValueType  # 0
         STATUS_ADD_YOURS: StatusNotificationMessage._StatusNotificationType.ValueType  # 1
         STATUS_RESHARE: StatusNotificationMessage._StatusNotificationType.ValueType  # 2
@@ -3097,36 +3276,38 @@ class StatusNotificationMessage(google.protobuf.message.Message):
     STATUS_RESHARE: StatusNotificationMessage.StatusNotificationType.ValueType  # 2
     STATUS_QUESTION_ANSWER_RESHARE: StatusNotificationMessage.StatusNotificationType.ValueType  # 3
 
-    RESPONSEMESSAGEKEY_FIELD_NUMBER: builtins.int
-    ORIGINALMESSAGEKEY_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
+    RESPONSEMESSAGEKEY_FIELD_NUMBER: _builtins.int
+    ORIGINALMESSAGEKEY_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
     type: Global___StatusNotificationMessage.StatusNotificationType.ValueType
-    @property
-    def responseMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
-    @property
-    def originalMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    @_builtins.property
+    def responseMessageKey(self) -> _WACommon_pb2.MessageKey: ...
+    @_builtins.property
+    def originalMessageKey(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        responseMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
-        originalMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+        responseMessageKey: _WACommon_pb2.MessageKey | None = ...,
+        originalMessageKey: _WACommon_pb2.MessageKey | None = ...,
         type: Global___StatusNotificationMessage.StatusNotificationType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["originalMessageKey", b"originalMessageKey", "responseMessageKey", b"responseMessageKey", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["originalMessageKey", b"originalMessageKey", "responseMessageKey", b"responseMessageKey", "type", b"type"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["originalMessageKey", b"originalMessageKey", "responseMessageKey", b"responseMessageKey", "type", b"type"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["originalMessageKey", b"originalMessageKey", "responseMessageKey", b"responseMessageKey", "type", b"type"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___StatusNotificationMessage: typing_extensions.TypeAlias = StatusNotificationMessage
+Global___StatusNotificationMessage: _TypeAlias = StatusNotificationMessage  # noqa: Y015
 
-@typing.final
-class InvoiceMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class InvoiceMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _AttachmentType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _AttachmentTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[InvoiceMessage._AttachmentType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _AttachmentTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[InvoiceMessage._AttachmentType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         IMAGE: InvoiceMessage._AttachmentType.ValueType  # 0
         PDF: InvoiceMessage._AttachmentType.ValueType  # 1
 
@@ -3134,55 +3315,57 @@ class InvoiceMessage(google.protobuf.message.Message):
     IMAGE: InvoiceMessage.AttachmentType.ValueType  # 0
     PDF: InvoiceMessage.AttachmentType.ValueType  # 1
 
-    NOTE_FIELD_NUMBER: builtins.int
-    TOKEN_FIELD_NUMBER: builtins.int
-    ATTACHMENTTYPE_FIELD_NUMBER: builtins.int
-    ATTACHMENTMIMETYPE_FIELD_NUMBER: builtins.int
-    ATTACHMENTMEDIAKEY_FIELD_NUMBER: builtins.int
-    ATTACHMENTMEDIAKEYTIMESTAMP_FIELD_NUMBER: builtins.int
-    ATTACHMENTFILESHA256_FIELD_NUMBER: builtins.int
-    ATTACHMENTFILEENCSHA256_FIELD_NUMBER: builtins.int
-    ATTACHMENTDIRECTPATH_FIELD_NUMBER: builtins.int
-    ATTACHMENTJPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-    note: builtins.str
-    token: builtins.str
+    NOTE_FIELD_NUMBER: _builtins.int
+    TOKEN_FIELD_NUMBER: _builtins.int
+    ATTACHMENTTYPE_FIELD_NUMBER: _builtins.int
+    ATTACHMENTMIMETYPE_FIELD_NUMBER: _builtins.int
+    ATTACHMENTMEDIAKEY_FIELD_NUMBER: _builtins.int
+    ATTACHMENTMEDIAKEYTIMESTAMP_FIELD_NUMBER: _builtins.int
+    ATTACHMENTFILESHA256_FIELD_NUMBER: _builtins.int
+    ATTACHMENTFILEENCSHA256_FIELD_NUMBER: _builtins.int
+    ATTACHMENTDIRECTPATH_FIELD_NUMBER: _builtins.int
+    ATTACHMENTJPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+    note: _builtins.str
+    token: _builtins.str
     attachmentType: Global___InvoiceMessage.AttachmentType.ValueType
-    attachmentMimetype: builtins.str
-    attachmentMediaKey: builtins.bytes
-    attachmentMediaKeyTimestamp: builtins.int
-    attachmentFileSHA256: builtins.bytes
-    attachmentFileEncSHA256: builtins.bytes
-    attachmentDirectPath: builtins.str
-    attachmentJPEGThumbnail: builtins.bytes
+    attachmentMimetype: _builtins.str
+    attachmentMediaKey: _builtins.bytes
+    attachmentMediaKeyTimestamp: _builtins.int
+    attachmentFileSHA256: _builtins.bytes
+    attachmentFileEncSHA256: _builtins.bytes
+    attachmentDirectPath: _builtins.str
+    attachmentJPEGThumbnail: _builtins.bytes
     def __init__(
         self,
         *,
-        note: builtins.str | None = ...,
-        token: builtins.str | None = ...,
+        note: _builtins.str | None = ...,
+        token: _builtins.str | None = ...,
         attachmentType: Global___InvoiceMessage.AttachmentType.ValueType | None = ...,
-        attachmentMimetype: builtins.str | None = ...,
-        attachmentMediaKey: builtins.bytes | None = ...,
-        attachmentMediaKeyTimestamp: builtins.int | None = ...,
-        attachmentFileSHA256: builtins.bytes | None = ...,
-        attachmentFileEncSHA256: builtins.bytes | None = ...,
-        attachmentDirectPath: builtins.str | None = ...,
-        attachmentJPEGThumbnail: builtins.bytes | None = ...,
+        attachmentMimetype: _builtins.str | None = ...,
+        attachmentMediaKey: _builtins.bytes | None = ...,
+        attachmentMediaKeyTimestamp: _builtins.int | None = ...,
+        attachmentFileSHA256: _builtins.bytes | None = ...,
+        attachmentFileEncSHA256: _builtins.bytes | None = ...,
+        attachmentDirectPath: _builtins.str | None = ...,
+        attachmentJPEGThumbnail: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["attachmentDirectPath", b"attachmentDirectPath", "attachmentFileEncSHA256", b"attachmentFileEncSHA256", "attachmentFileSHA256", b"attachmentFileSHA256", "attachmentJPEGThumbnail", b"attachmentJPEGThumbnail", "attachmentMediaKey", b"attachmentMediaKey", "attachmentMediaKeyTimestamp", b"attachmentMediaKeyTimestamp", "attachmentMimetype", b"attachmentMimetype", "attachmentType", b"attachmentType", "note", b"note", "token", b"token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["attachmentDirectPath", b"attachmentDirectPath", "attachmentFileEncSHA256", b"attachmentFileEncSHA256", "attachmentFileSHA256", b"attachmentFileSHA256", "attachmentJPEGThumbnail", b"attachmentJPEGThumbnail", "attachmentMediaKey", b"attachmentMediaKey", "attachmentMediaKeyTimestamp", b"attachmentMediaKeyTimestamp", "attachmentMimetype", b"attachmentMimetype", "attachmentType", b"attachmentType", "note", b"note", "token", b"token"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["attachmentDirectPath", b"attachmentDirectPath", "attachmentFileEncSHA256", b"attachmentFileEncSHA256", "attachmentFileSHA256", b"attachmentFileSHA256", "attachmentJPEGThumbnail", b"attachmentJPEGThumbnail", "attachmentMediaKey", b"attachmentMediaKey", "attachmentMediaKeyTimestamp", b"attachmentMediaKeyTimestamp", "attachmentMimetype", b"attachmentMimetype", "attachmentType", b"attachmentType", "note", b"note", "token", b"token"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["attachmentDirectPath", b"attachmentDirectPath", "attachmentFileEncSHA256", b"attachmentFileEncSHA256", "attachmentFileSHA256", b"attachmentFileSHA256", "attachmentJPEGThumbnail", b"attachmentJPEGThumbnail", "attachmentMediaKey", b"attachmentMediaKey", "attachmentMediaKeyTimestamp", b"attachmentMediaKeyTimestamp", "attachmentMimetype", b"attachmentMimetype", "attachmentType", b"attachmentType", "note", b"note", "token", b"token"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___InvoiceMessage: typing_extensions.TypeAlias = InvoiceMessage
+Global___InvoiceMessage: _TypeAlias = InvoiceMessage  # noqa: Y015
 
-@typing.final
-class ImageMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ImageMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _ImageSourceType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ImageSourceTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ImageMessage._ImageSourceType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ImageSourceTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ImageMessage._ImageSourceType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         USER_IMAGE: ImageMessage._ImageSourceType.ValueType  # 0
         AI_GENERATED: ImageMessage._ImageSourceType.ValueType  # 1
         AI_MODIFIED: ImageMessage._ImageSourceType.ValueType  # 2
@@ -3194,122 +3377,124 @@ class ImageMessage(google.protobuf.message.Message):
     AI_MODIFIED: ImageMessage.ImageSourceType.ValueType  # 2
     RASTERIZED_TEXT_STATUS: ImageMessage.ImageSourceType.ValueType  # 3
 
-    URL_FIELD_NUMBER: builtins.int
-    MIMETYPE_FIELD_NUMBER: builtins.int
-    CAPTION_FIELD_NUMBER: builtins.int
-    FILESHA256_FIELD_NUMBER: builtins.int
-    FILELENGTH_FIELD_NUMBER: builtins.int
-    HEIGHT_FIELD_NUMBER: builtins.int
-    WIDTH_FIELD_NUMBER: builtins.int
-    MEDIAKEY_FIELD_NUMBER: builtins.int
-    FILEENCSHA256_FIELD_NUMBER: builtins.int
-    INTERACTIVEANNOTATIONS_FIELD_NUMBER: builtins.int
-    DIRECTPATH_FIELD_NUMBER: builtins.int
-    MEDIAKEYTIMESTAMP_FIELD_NUMBER: builtins.int
-    JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    FIRSTSCANSIDECAR_FIELD_NUMBER: builtins.int
-    FIRSTSCANLENGTH_FIELD_NUMBER: builtins.int
-    EXPERIMENTGROUPID_FIELD_NUMBER: builtins.int
-    SCANSSIDECAR_FIELD_NUMBER: builtins.int
-    SCANLENGTHS_FIELD_NUMBER: builtins.int
-    MIDQUALITYFILESHA256_FIELD_NUMBER: builtins.int
-    MIDQUALITYFILEENCSHA256_FIELD_NUMBER: builtins.int
-    VIEWONCE_FIELD_NUMBER: builtins.int
-    THUMBNAILDIRECTPATH_FIELD_NUMBER: builtins.int
-    THUMBNAILSHA256_FIELD_NUMBER: builtins.int
-    THUMBNAILENCSHA256_FIELD_NUMBER: builtins.int
-    STATICURL_FIELD_NUMBER: builtins.int
-    ANNOTATIONS_FIELD_NUMBER: builtins.int
-    IMAGESOURCETYPE_FIELD_NUMBER: builtins.int
-    ACCESSIBILITYLABEL_FIELD_NUMBER: builtins.int
-    MEDIAKEYDOMAIN_FIELD_NUMBER: builtins.int
-    QRURL_FIELD_NUMBER: builtins.int
-    URL: builtins.str
-    mimetype: builtins.str
-    caption: builtins.str
-    fileSHA256: builtins.bytes
-    fileLength: builtins.int
-    height: builtins.int
-    width: builtins.int
-    mediaKey: builtins.bytes
-    fileEncSHA256: builtins.bytes
-    directPath: builtins.str
-    mediaKeyTimestamp: builtins.int
-    JPEGThumbnail: builtins.bytes
-    firstScanSidecar: builtins.bytes
-    firstScanLength: builtins.int
-    experimentGroupID: builtins.int
-    scansSidecar: builtins.bytes
-    midQualityFileSHA256: builtins.bytes
-    midQualityFileEncSHA256: builtins.bytes
-    viewOnce: builtins.bool
-    thumbnailDirectPath: builtins.str
-    thumbnailSHA256: builtins.bytes
-    thumbnailEncSHA256: builtins.bytes
-    staticURL: builtins.str
+    URL_FIELD_NUMBER: _builtins.int
+    MIMETYPE_FIELD_NUMBER: _builtins.int
+    CAPTION_FIELD_NUMBER: _builtins.int
+    FILESHA256_FIELD_NUMBER: _builtins.int
+    FILELENGTH_FIELD_NUMBER: _builtins.int
+    HEIGHT_FIELD_NUMBER: _builtins.int
+    WIDTH_FIELD_NUMBER: _builtins.int
+    MEDIAKEY_FIELD_NUMBER: _builtins.int
+    FILEENCSHA256_FIELD_NUMBER: _builtins.int
+    INTERACTIVEANNOTATIONS_FIELD_NUMBER: _builtins.int
+    DIRECTPATH_FIELD_NUMBER: _builtins.int
+    MEDIAKEYTIMESTAMP_FIELD_NUMBER: _builtins.int
+    JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    FIRSTSCANSIDECAR_FIELD_NUMBER: _builtins.int
+    FIRSTSCANLENGTH_FIELD_NUMBER: _builtins.int
+    EXPERIMENTGROUPID_FIELD_NUMBER: _builtins.int
+    SCANSSIDECAR_FIELD_NUMBER: _builtins.int
+    SCANLENGTHS_FIELD_NUMBER: _builtins.int
+    MIDQUALITYFILESHA256_FIELD_NUMBER: _builtins.int
+    MIDQUALITYFILEENCSHA256_FIELD_NUMBER: _builtins.int
+    VIEWONCE_FIELD_NUMBER: _builtins.int
+    THUMBNAILDIRECTPATH_FIELD_NUMBER: _builtins.int
+    THUMBNAILSHA256_FIELD_NUMBER: _builtins.int
+    THUMBNAILENCSHA256_FIELD_NUMBER: _builtins.int
+    STATICURL_FIELD_NUMBER: _builtins.int
+    ANNOTATIONS_FIELD_NUMBER: _builtins.int
+    IMAGESOURCETYPE_FIELD_NUMBER: _builtins.int
+    ACCESSIBILITYLABEL_FIELD_NUMBER: _builtins.int
+    MEDIAKEYDOMAIN_FIELD_NUMBER: _builtins.int
+    QRURL_FIELD_NUMBER: _builtins.int
+    URL: _builtins.str
+    mimetype: _builtins.str
+    caption: _builtins.str
+    fileSHA256: _builtins.bytes
+    fileLength: _builtins.int
+    height: _builtins.int
+    width: _builtins.int
+    mediaKey: _builtins.bytes
+    fileEncSHA256: _builtins.bytes
+    directPath: _builtins.str
+    mediaKeyTimestamp: _builtins.int
+    JPEGThumbnail: _builtins.bytes
+    firstScanSidecar: _builtins.bytes
+    firstScanLength: _builtins.int
+    experimentGroupID: _builtins.int
+    scansSidecar: _builtins.bytes
+    midQualityFileSHA256: _builtins.bytes
+    midQualityFileEncSHA256: _builtins.bytes
+    viewOnce: _builtins.bool
+    thumbnailDirectPath: _builtins.str
+    thumbnailSHA256: _builtins.bytes
+    thumbnailEncSHA256: _builtins.bytes
+    staticURL: _builtins.str
     imageSourceType: Global___ImageMessage.ImageSourceType.ValueType
-    accessibilityLabel: builtins.str
+    accessibilityLabel: _builtins.str
     mediaKeyDomain: Global___MediaKeyDomain.ValueType
-    qrURL: builtins.str
-    @property
-    def interactiveAnnotations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___InteractiveAnnotation]: ...
-    @property
+    qrURL: _builtins.str
+    @_builtins.property
+    def interactiveAnnotations(self) -> _containers.RepeatedCompositeFieldContainer[Global___InteractiveAnnotation]: ...
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
-    @property
-    def scanLengths(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def annotations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___InteractiveAnnotation]: ...
+    @_builtins.property
+    def scanLengths(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    def annotations(self) -> _containers.RepeatedCompositeFieldContainer[Global___InteractiveAnnotation]: ...
     def __init__(
         self,
         *,
-        URL: builtins.str | None = ...,
-        mimetype: builtins.str | None = ...,
-        caption: builtins.str | None = ...,
-        fileSHA256: builtins.bytes | None = ...,
-        fileLength: builtins.int | None = ...,
-        height: builtins.int | None = ...,
-        width: builtins.int | None = ...,
-        mediaKey: builtins.bytes | None = ...,
-        fileEncSHA256: builtins.bytes | None = ...,
-        interactiveAnnotations: collections.abc.Iterable[Global___InteractiveAnnotation] | None = ...,
-        directPath: builtins.str | None = ...,
-        mediaKeyTimestamp: builtins.int | None = ...,
-        JPEGThumbnail: builtins.bytes | None = ...,
+        URL: _builtins.str | None = ...,
+        mimetype: _builtins.str | None = ...,
+        caption: _builtins.str | None = ...,
+        fileSHA256: _builtins.bytes | None = ...,
+        fileLength: _builtins.int | None = ...,
+        height: _builtins.int | None = ...,
+        width: _builtins.int | None = ...,
+        mediaKey: _builtins.bytes | None = ...,
+        fileEncSHA256: _builtins.bytes | None = ...,
+        interactiveAnnotations: _abc.Iterable[Global___InteractiveAnnotation] | None = ...,
+        directPath: _builtins.str | None = ...,
+        mediaKeyTimestamp: _builtins.int | None = ...,
+        JPEGThumbnail: _builtins.bytes | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
-        firstScanSidecar: builtins.bytes | None = ...,
-        firstScanLength: builtins.int | None = ...,
-        experimentGroupID: builtins.int | None = ...,
-        scansSidecar: builtins.bytes | None = ...,
-        scanLengths: collections.abc.Iterable[builtins.int] | None = ...,
-        midQualityFileSHA256: builtins.bytes | None = ...,
-        midQualityFileEncSHA256: builtins.bytes | None = ...,
-        viewOnce: builtins.bool | None = ...,
-        thumbnailDirectPath: builtins.str | None = ...,
-        thumbnailSHA256: builtins.bytes | None = ...,
-        thumbnailEncSHA256: builtins.bytes | None = ...,
-        staticURL: builtins.str | None = ...,
-        annotations: collections.abc.Iterable[Global___InteractiveAnnotation] | None = ...,
+        firstScanSidecar: _builtins.bytes | None = ...,
+        firstScanLength: _builtins.int | None = ...,
+        experimentGroupID: _builtins.int | None = ...,
+        scansSidecar: _builtins.bytes | None = ...,
+        scanLengths: _abc.Iterable[_builtins.int] | None = ...,
+        midQualityFileSHA256: _builtins.bytes | None = ...,
+        midQualityFileEncSHA256: _builtins.bytes | None = ...,
+        viewOnce: _builtins.bool | None = ...,
+        thumbnailDirectPath: _builtins.str | None = ...,
+        thumbnailSHA256: _builtins.bytes | None = ...,
+        thumbnailEncSHA256: _builtins.bytes | None = ...,
+        staticURL: _builtins.str | None = ...,
+        annotations: _abc.Iterable[Global___InteractiveAnnotation] | None = ...,
         imageSourceType: Global___ImageMessage.ImageSourceType.ValueType | None = ...,
-        accessibilityLabel: builtins.str | None = ...,
+        accessibilityLabel: _builtins.str | None = ...,
         mediaKeyDomain: Global___MediaKeyDomain.ValueType | None = ...,
-        qrURL: builtins.str | None = ...,
+        qrURL: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "experimentGroupID", b"experimentGroupID", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "firstScanLength", b"firstScanLength", "firstScanSidecar", b"firstScanSidecar", "height", b"height", "imageSourceType", b"imageSourceType", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "midQualityFileEncSHA256", b"midQualityFileEncSHA256", "midQualityFileSHA256", b"midQualityFileSHA256", "mimetype", b"mimetype", "qrURL", b"qrURL", "scansSidecar", b"scansSidecar", "staticURL", b"staticURL", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailSHA256", b"thumbnailSHA256", "viewOnce", b"viewOnce", "width", b"width"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "annotations", b"annotations", "caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "experimentGroupID", b"experimentGroupID", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "firstScanLength", b"firstScanLength", "firstScanSidecar", b"firstScanSidecar", "height", b"height", "imageSourceType", b"imageSourceType", "interactiveAnnotations", b"interactiveAnnotations", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "midQualityFileEncSHA256", b"midQualityFileEncSHA256", "midQualityFileSHA256", b"midQualityFileSHA256", "mimetype", b"mimetype", "qrURL", b"qrURL", "scanLengths", b"scanLengths", "scansSidecar", b"scansSidecar", "staticURL", b"staticURL", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailSHA256", b"thumbnailSHA256", "viewOnce", b"viewOnce", "width", b"width"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "experimentGroupID", b"experimentGroupID", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "firstScanLength", b"firstScanLength", "firstScanSidecar", b"firstScanSidecar", "height", b"height", "imageSourceType", b"imageSourceType", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "midQualityFileEncSHA256", b"midQualityFileEncSHA256", "midQualityFileSHA256", b"midQualityFileSHA256", "mimetype", b"mimetype", "qrURL", b"qrURL", "scansSidecar", b"scansSidecar", "staticURL", b"staticURL", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailSHA256", b"thumbnailSHA256", "viewOnce", b"viewOnce", "width", b"width"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "annotations", b"annotations", "caption", b"caption", "contextInfo", b"contextInfo", "directPath", b"directPath", "experimentGroupID", b"experimentGroupID", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "firstScanLength", b"firstScanLength", "firstScanSidecar", b"firstScanSidecar", "height", b"height", "imageSourceType", b"imageSourceType", "interactiveAnnotations", b"interactiveAnnotations", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "midQualityFileEncSHA256", b"midQualityFileEncSHA256", "midQualityFileSHA256", b"midQualityFileSHA256", "mimetype", b"mimetype", "qrURL", b"qrURL", "scanLengths", b"scanLengths", "scansSidecar", b"scansSidecar", "staticURL", b"staticURL", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailSHA256", b"thumbnailSHA256", "viewOnce", b"viewOnce", "width", b"width"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ImageMessage: typing_extensions.TypeAlias = ImageMessage
+Global___ImageMessage: _TypeAlias = ImageMessage  # noqa: Y015
 
-@typing.final
-class ContextInfo(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ContextInfo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _QuotedType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _QuotedTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo._QuotedType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _QuotedTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ContextInfo._QuotedType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         EXPLICIT: ContextInfo._QuotedType.ValueType  # 0
         AUTO: ContextInfo._QuotedType.ValueType  # 1
 
@@ -3318,11 +3503,11 @@ class ContextInfo(google.protobuf.message.Message):
     AUTO: ContextInfo.QuotedType.ValueType  # 1
 
     class _ForwardOrigin:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ForwardOriginEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo._ForwardOrigin.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ForwardOriginEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ContextInfo._ForwardOrigin.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: ContextInfo._ForwardOrigin.ValueType  # 0
         CHAT: ContextInfo._ForwardOrigin.ValueType  # 1
         STATUS: ContextInfo._ForwardOrigin.ValueType  # 2
@@ -3339,11 +3524,11 @@ class ContextInfo(google.protobuf.message.Message):
     UGC: ContextInfo.ForwardOrigin.ValueType  # 5
 
     class _StatusSourceType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _StatusSourceTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo._StatusSourceType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _StatusSourceTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ContextInfo._StatusSourceType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         IMAGE: ContextInfo._StatusSourceType.ValueType  # 0
         VIDEO: ContextInfo._StatusSourceType.ValueType  # 1
         GIF: ContextInfo._StatusSourceType.ValueType  # 2
@@ -3360,11 +3545,11 @@ class ContextInfo(google.protobuf.message.Message):
     MUSIC_STANDALONE: ContextInfo.StatusSourceType.ValueType  # 5
 
     class _PairedMediaType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _PairedMediaTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo._PairedMediaType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _PairedMediaTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ContextInfo._PairedMediaType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         NOT_PAIRED_MEDIA: ContextInfo._PairedMediaType.ValueType  # 0
         SD_VIDEO_PARENT: ContextInfo._PairedMediaType.ValueType  # 1
         HD_VIDEO_CHILD: ContextInfo._PairedMediaType.ValueType  # 2
@@ -3387,11 +3572,11 @@ class ContextInfo(google.protobuf.message.Message):
     HEVC_VIDEO_CHILD: ContextInfo.PairedMediaType.ValueType  # 8
 
     class _StatusAttributionType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _StatusAttributionTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo._StatusAttributionType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _StatusAttributionTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ContextInfo._StatusAttributionType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         NONE: ContextInfo._StatusAttributionType.ValueType  # 0
         RESHARED_FROM_MENTION: ContextInfo._StatusAttributionType.ValueType  # 1
         RESHARED_FROM_POST: ContextInfo._StatusAttributionType.ValueType  # 2
@@ -3405,16 +3590,16 @@ class ContextInfo(google.protobuf.message.Message):
     RESHARED_FROM_POST_MANY_TIMES: ContextInfo.StatusAttributionType.ValueType  # 3
     FORWARDED_FROM_STATUS: ContextInfo.StatusAttributionType.ValueType  # 4
 
-    @typing.final
-    class StatusAudienceMetadata(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class StatusAudienceMetadata(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _AudienceType:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _AudienceTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo.StatusAudienceMetadata._AudienceType.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _AudienceTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ContextInfo.StatusAudienceMetadata._AudienceType.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             UNKNOWN: ContextInfo.StatusAudienceMetadata._AudienceType.ValueType  # 0
             CLOSE_FRIENDS: ContextInfo.StatusAudienceMetadata._AudienceType.ValueType  # 1
 
@@ -3422,26 +3607,34 @@ class ContextInfo(google.protobuf.message.Message):
         UNKNOWN: ContextInfo.StatusAudienceMetadata.AudienceType.ValueType  # 0
         CLOSE_FRIENDS: ContextInfo.StatusAudienceMetadata.AudienceType.ValueType  # 1
 
-        AUDIENCETYPE_FIELD_NUMBER: builtins.int
+        AUDIENCETYPE_FIELD_NUMBER: _builtins.int
+        LISTNAME_FIELD_NUMBER: _builtins.int
+        LISTEMOJI_FIELD_NUMBER: _builtins.int
         audienceType: Global___ContextInfo.StatusAudienceMetadata.AudienceType.ValueType
+        listName: _builtins.str
+        listEmoji: _builtins.str
         def __init__(
             self,
             *,
             audienceType: Global___ContextInfo.StatusAudienceMetadata.AudienceType.ValueType | None = ...,
+            listName: _builtins.str | None = ...,
+            listEmoji: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["audienceType", b"audienceType"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["audienceType", b"audienceType"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["audienceType", b"audienceType", "listEmoji", b"listEmoji", "listName", b"listName"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["audienceType", b"audienceType", "listEmoji", b"listEmoji", "listName", b"listName"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class DataSharingContext(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class DataSharingContext(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _DataSharingFlags:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _DataSharingFlagsEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo.DataSharingContext._DataSharingFlags.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _DataSharingFlagsEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ContextInfo.DataSharingContext._DataSharingFlags.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             SHOW_MM_DISCLOSURE_ON_CLICK: ContextInfo.DataSharingContext._DataSharingFlags.ValueType  # 1
             SHOW_MM_DISCLOSURE_ON_READ: ContextInfo.DataSharingContext._DataSharingFlags.ValueType  # 2
 
@@ -3449,63 +3642,67 @@ class ContextInfo(google.protobuf.message.Message):
         SHOW_MM_DISCLOSURE_ON_CLICK: ContextInfo.DataSharingContext.DataSharingFlags.ValueType  # 1
         SHOW_MM_DISCLOSURE_ON_READ: ContextInfo.DataSharingContext.DataSharingFlags.ValueType  # 2
 
-        @typing.final
-        class Parameters(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class Parameters(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            KEY_FIELD_NUMBER: builtins.int
-            STRINGDATA_FIELD_NUMBER: builtins.int
-            INTDATA_FIELD_NUMBER: builtins.int
-            FLOATDATA_FIELD_NUMBER: builtins.int
-            CONTENTS_FIELD_NUMBER: builtins.int
-            key: builtins.str
-            stringData: builtins.str
-            intData: builtins.int
-            floatData: builtins.float
-            @property
+            KEY_FIELD_NUMBER: _builtins.int
+            STRINGDATA_FIELD_NUMBER: _builtins.int
+            INTDATA_FIELD_NUMBER: _builtins.int
+            FLOATDATA_FIELD_NUMBER: _builtins.int
+            CONTENTS_FIELD_NUMBER: _builtins.int
+            key: _builtins.str
+            stringData: _builtins.str
+            intData: _builtins.int
+            floatData: _builtins.float
+            @_builtins.property
             def contents(self) -> Global___ContextInfo.DataSharingContext.Parameters: ...
             def __init__(
                 self,
                 *,
-                key: builtins.str | None = ...,
-                stringData: builtins.str | None = ...,
-                intData: builtins.int | None = ...,
-                floatData: builtins.float | None = ...,
+                key: _builtins.str | None = ...,
+                stringData: _builtins.str | None = ...,
+                intData: _builtins.int | None = ...,
+                floatData: _builtins.float | None = ...,
                 contents: Global___ContextInfo.DataSharingContext.Parameters | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["contents", b"contents", "floatData", b"floatData", "intData", b"intData", "key", b"key", "stringData", b"stringData"]) -> builtins.bool: ...
-            def ClearField(self, field_name: typing.Literal["contents", b"contents", "floatData", b"floatData", "intData", b"intData", "key", b"key", "stringData", b"stringData"]) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["contents", b"contents", "floatData", b"floatData", "intData", b"intData", "key", b"key", "stringData", b"stringData"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["contents", b"contents", "floatData", b"floatData", "intData", b"intData", "key", b"key", "stringData", b"stringData"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-        SHOWMMDISCLOSURE_FIELD_NUMBER: builtins.int
-        ENCRYPTEDSIGNALTOKENCONSENTED_FIELD_NUMBER: builtins.int
-        PARAMETERS_FIELD_NUMBER: builtins.int
-        DATASHARINGFLAGS_FIELD_NUMBER: builtins.int
-        showMmDisclosure: builtins.bool
-        encryptedSignalTokenConsented: builtins.str
-        dataSharingFlags: builtins.int
-        @property
-        def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ContextInfo.DataSharingContext.Parameters]: ...
+        SHOWMMDISCLOSURE_FIELD_NUMBER: _builtins.int
+        ENCRYPTEDSIGNALTOKENCONSENTED_FIELD_NUMBER: _builtins.int
+        PARAMETERS_FIELD_NUMBER: _builtins.int
+        DATASHARINGFLAGS_FIELD_NUMBER: _builtins.int
+        showMmDisclosure: _builtins.bool
+        encryptedSignalTokenConsented: _builtins.str
+        dataSharingFlags: _builtins.int
+        @_builtins.property
+        def parameters(self) -> _containers.RepeatedCompositeFieldContainer[Global___ContextInfo.DataSharingContext.Parameters]: ...
         def __init__(
             self,
             *,
-            showMmDisclosure: builtins.bool | None = ...,
-            encryptedSignalTokenConsented: builtins.str | None = ...,
-            parameters: collections.abc.Iterable[Global___ContextInfo.DataSharingContext.Parameters] | None = ...,
-            dataSharingFlags: builtins.int | None = ...,
+            showMmDisclosure: _builtins.bool | None = ...,
+            encryptedSignalTokenConsented: _builtins.str | None = ...,
+            parameters: _abc.Iterable[Global___ContextInfo.DataSharingContext.Parameters] | None = ...,
+            dataSharingFlags: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["dataSharingFlags", b"dataSharingFlags", "encryptedSignalTokenConsented", b"encryptedSignalTokenConsented", "showMmDisclosure", b"showMmDisclosure"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["dataSharingFlags", b"dataSharingFlags", "encryptedSignalTokenConsented", b"encryptedSignalTokenConsented", "parameters", b"parameters", "showMmDisclosure", b"showMmDisclosure"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["dataSharingFlags", b"dataSharingFlags", "encryptedSignalTokenConsented", b"encryptedSignalTokenConsented", "showMmDisclosure", b"showMmDisclosure"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["dataSharingFlags", b"dataSharingFlags", "encryptedSignalTokenConsented", b"encryptedSignalTokenConsented", "parameters", b"parameters", "showMmDisclosure", b"showMmDisclosure"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ForwardedNewsletterMessageInfo(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ForwardedNewsletterMessageInfo(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _ContentType:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _ContentTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo.ForwardedNewsletterMessageInfo._ContentType.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _ContentTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ContextInfo.ForwardedNewsletterMessageInfo._ContentType.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             UPDATE: ContextInfo.ForwardedNewsletterMessageInfo._ContentType.ValueType  # 1
             UPDATE_CARD: ContextInfo.ForwardedNewsletterMessageInfo._ContentType.ValueType  # 2
             LINK_CARD: ContextInfo.ForwardedNewsletterMessageInfo._ContentType.ValueType  # 3
@@ -3515,41 +3712,43 @@ class ContextInfo(google.protobuf.message.Message):
         UPDATE_CARD: ContextInfo.ForwardedNewsletterMessageInfo.ContentType.ValueType  # 2
         LINK_CARD: ContextInfo.ForwardedNewsletterMessageInfo.ContentType.ValueType  # 3
 
-        NEWSLETTERJID_FIELD_NUMBER: builtins.int
-        SERVERMESSAGEID_FIELD_NUMBER: builtins.int
-        NEWSLETTERNAME_FIELD_NUMBER: builtins.int
-        CONTENTTYPE_FIELD_NUMBER: builtins.int
-        ACCESSIBILITYTEXT_FIELD_NUMBER: builtins.int
-        PROFILENAME_FIELD_NUMBER: builtins.int
-        newsletterJID: builtins.str
-        serverMessageID: builtins.int
-        newsletterName: builtins.str
+        NEWSLETTERJID_FIELD_NUMBER: _builtins.int
+        SERVERMESSAGEID_FIELD_NUMBER: _builtins.int
+        NEWSLETTERNAME_FIELD_NUMBER: _builtins.int
+        CONTENTTYPE_FIELD_NUMBER: _builtins.int
+        ACCESSIBILITYTEXT_FIELD_NUMBER: _builtins.int
+        PROFILENAME_FIELD_NUMBER: _builtins.int
+        newsletterJID: _builtins.str
+        serverMessageID: _builtins.int
+        newsletterName: _builtins.str
         contentType: Global___ContextInfo.ForwardedNewsletterMessageInfo.ContentType.ValueType
-        accessibilityText: builtins.str
-        profileName: builtins.str
+        accessibilityText: _builtins.str
+        profileName: _builtins.str
         def __init__(
             self,
             *,
-            newsletterJID: builtins.str | None = ...,
-            serverMessageID: builtins.int | None = ...,
-            newsletterName: builtins.str | None = ...,
+            newsletterJID: _builtins.str | None = ...,
+            serverMessageID: _builtins.int | None = ...,
+            newsletterName: _builtins.str | None = ...,
             contentType: Global___ContextInfo.ForwardedNewsletterMessageInfo.ContentType.ValueType | None = ...,
-            accessibilityText: builtins.str | None = ...,
-            profileName: builtins.str | None = ...,
+            accessibilityText: _builtins.str | None = ...,
+            profileName: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["accessibilityText", b"accessibilityText", "contentType", b"contentType", "newsletterJID", b"newsletterJID", "newsletterName", b"newsletterName", "profileName", b"profileName", "serverMessageID", b"serverMessageID"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["accessibilityText", b"accessibilityText", "contentType", b"contentType", "newsletterJID", b"newsletterJID", "newsletterName", b"newsletterName", "profileName", b"profileName", "serverMessageID", b"serverMessageID"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["accessibilityText", b"accessibilityText", "contentType", b"contentType", "newsletterJID", b"newsletterJID", "newsletterName", b"newsletterName", "profileName", b"profileName", "serverMessageID", b"serverMessageID"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["accessibilityText", b"accessibilityText", "contentType", b"contentType", "newsletterJID", b"newsletterJID", "newsletterName", b"newsletterName", "profileName", b"profileName", "serverMessageID", b"serverMessageID"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ExternalAdReplyInfo(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ExternalAdReplyInfo(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _AdType:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _AdTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo.ExternalAdReplyInfo._AdType.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _AdTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ContextInfo.ExternalAdReplyInfo._AdType.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             CTWA: ContextInfo.ExternalAdReplyInfo._AdType.ValueType  # 0
             CAWC: ContextInfo.ExternalAdReplyInfo._AdType.ValueType  # 1
 
@@ -3558,11 +3757,11 @@ class ContextInfo(google.protobuf.message.Message):
         CAWC: ContextInfo.ExternalAdReplyInfo.AdType.ValueType  # 1
 
         class _MediaType:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _MediaTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo.ExternalAdReplyInfo._MediaType.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _MediaTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ContextInfo.ExternalAdReplyInfo._MediaType.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             NONE: ContextInfo.ExternalAdReplyInfo._MediaType.ValueType  # 0
             IMAGE: ContextInfo.ExternalAdReplyInfo._MediaType.ValueType  # 1
             VIDEO: ContextInfo.ExternalAdReplyInfo._MediaType.ValueType  # 2
@@ -3572,104 +3771,106 @@ class ContextInfo(google.protobuf.message.Message):
         IMAGE: ContextInfo.ExternalAdReplyInfo.MediaType.ValueType  # 1
         VIDEO: ContextInfo.ExternalAdReplyInfo.MediaType.ValueType  # 2
 
-        TITLE_FIELD_NUMBER: builtins.int
-        BODY_FIELD_NUMBER: builtins.int
-        MEDIATYPE_FIELD_NUMBER: builtins.int
-        THUMBNAILURL_FIELD_NUMBER: builtins.int
-        MEDIAURL_FIELD_NUMBER: builtins.int
-        THUMBNAIL_FIELD_NUMBER: builtins.int
-        SOURCETYPE_FIELD_NUMBER: builtins.int
-        SOURCEID_FIELD_NUMBER: builtins.int
-        SOURCEURL_FIELD_NUMBER: builtins.int
-        CONTAINSAUTOREPLY_FIELD_NUMBER: builtins.int
-        RENDERLARGERTHUMBNAIL_FIELD_NUMBER: builtins.int
-        SHOWADATTRIBUTION_FIELD_NUMBER: builtins.int
-        CTWACLID_FIELD_NUMBER: builtins.int
-        REF_FIELD_NUMBER: builtins.int
-        CLICKTOWHATSAPPCALL_FIELD_NUMBER: builtins.int
-        ADCONTEXTPREVIEWDISMISSED_FIELD_NUMBER: builtins.int
-        SOURCEAPP_FIELD_NUMBER: builtins.int
-        AUTOMATEDGREETINGMESSAGESHOWN_FIELD_NUMBER: builtins.int
-        GREETINGMESSAGEBODY_FIELD_NUMBER: builtins.int
-        CTAPAYLOAD_FIELD_NUMBER: builtins.int
-        DISABLENUDGE_FIELD_NUMBER: builtins.int
-        ORIGINALIMAGEURL_FIELD_NUMBER: builtins.int
-        AUTOMATEDGREETINGMESSAGECTATYPE_FIELD_NUMBER: builtins.int
-        WTWAADFORMAT_FIELD_NUMBER: builtins.int
-        ADTYPE_FIELD_NUMBER: builtins.int
-        WTWAWEBSITEURL_FIELD_NUMBER: builtins.int
-        ADPREVIEWURL_FIELD_NUMBER: builtins.int
-        title: builtins.str
-        body: builtins.str
+        TITLE_FIELD_NUMBER: _builtins.int
+        BODY_FIELD_NUMBER: _builtins.int
+        MEDIATYPE_FIELD_NUMBER: _builtins.int
+        THUMBNAILURL_FIELD_NUMBER: _builtins.int
+        MEDIAURL_FIELD_NUMBER: _builtins.int
+        THUMBNAIL_FIELD_NUMBER: _builtins.int
+        SOURCETYPE_FIELD_NUMBER: _builtins.int
+        SOURCEID_FIELD_NUMBER: _builtins.int
+        SOURCEURL_FIELD_NUMBER: _builtins.int
+        CONTAINSAUTOREPLY_FIELD_NUMBER: _builtins.int
+        RENDERLARGERTHUMBNAIL_FIELD_NUMBER: _builtins.int
+        SHOWADATTRIBUTION_FIELD_NUMBER: _builtins.int
+        CTWACLID_FIELD_NUMBER: _builtins.int
+        REF_FIELD_NUMBER: _builtins.int
+        CLICKTOWHATSAPPCALL_FIELD_NUMBER: _builtins.int
+        ADCONTEXTPREVIEWDISMISSED_FIELD_NUMBER: _builtins.int
+        SOURCEAPP_FIELD_NUMBER: _builtins.int
+        AUTOMATEDGREETINGMESSAGESHOWN_FIELD_NUMBER: _builtins.int
+        GREETINGMESSAGEBODY_FIELD_NUMBER: _builtins.int
+        CTAPAYLOAD_FIELD_NUMBER: _builtins.int
+        DISABLENUDGE_FIELD_NUMBER: _builtins.int
+        ORIGINALIMAGEURL_FIELD_NUMBER: _builtins.int
+        AUTOMATEDGREETINGMESSAGECTATYPE_FIELD_NUMBER: _builtins.int
+        WTWAADFORMAT_FIELD_NUMBER: _builtins.int
+        ADTYPE_FIELD_NUMBER: _builtins.int
+        WTWAWEBSITEURL_FIELD_NUMBER: _builtins.int
+        ADPREVIEWURL_FIELD_NUMBER: _builtins.int
+        title: _builtins.str
+        body: _builtins.str
         mediaType: Global___ContextInfo.ExternalAdReplyInfo.MediaType.ValueType
-        thumbnailURL: builtins.str
-        mediaURL: builtins.str
-        thumbnail: builtins.bytes
-        sourceType: builtins.str
-        sourceID: builtins.str
-        sourceURL: builtins.str
-        containsAutoReply: builtins.bool
-        renderLargerThumbnail: builtins.bool
-        showAdAttribution: builtins.bool
-        ctwaClid: builtins.str
-        ref: builtins.str
-        clickToWhatsappCall: builtins.bool
-        adContextPreviewDismissed: builtins.bool
-        sourceApp: builtins.str
-        automatedGreetingMessageShown: builtins.bool
-        greetingMessageBody: builtins.str
-        ctaPayload: builtins.str
-        disableNudge: builtins.bool
-        originalImageURL: builtins.str
-        automatedGreetingMessageCtaType: builtins.str
-        wtwaAdFormat: builtins.bool
+        thumbnailURL: _builtins.str
+        mediaURL: _builtins.str
+        thumbnail: _builtins.bytes
+        sourceType: _builtins.str
+        sourceID: _builtins.str
+        sourceURL: _builtins.str
+        containsAutoReply: _builtins.bool
+        renderLargerThumbnail: _builtins.bool
+        showAdAttribution: _builtins.bool
+        ctwaClid: _builtins.str
+        ref: _builtins.str
+        clickToWhatsappCall: _builtins.bool
+        adContextPreviewDismissed: _builtins.bool
+        sourceApp: _builtins.str
+        automatedGreetingMessageShown: _builtins.bool
+        greetingMessageBody: _builtins.str
+        ctaPayload: _builtins.str
+        disableNudge: _builtins.bool
+        originalImageURL: _builtins.str
+        automatedGreetingMessageCtaType: _builtins.str
+        wtwaAdFormat: _builtins.bool
         adType: Global___ContextInfo.ExternalAdReplyInfo.AdType.ValueType
-        wtwaWebsiteURL: builtins.str
-        adPreviewURL: builtins.str
+        wtwaWebsiteURL: _builtins.str
+        adPreviewURL: _builtins.str
         def __init__(
             self,
             *,
-            title: builtins.str | None = ...,
-            body: builtins.str | None = ...,
+            title: _builtins.str | None = ...,
+            body: _builtins.str | None = ...,
             mediaType: Global___ContextInfo.ExternalAdReplyInfo.MediaType.ValueType | None = ...,
-            thumbnailURL: builtins.str | None = ...,
-            mediaURL: builtins.str | None = ...,
-            thumbnail: builtins.bytes | None = ...,
-            sourceType: builtins.str | None = ...,
-            sourceID: builtins.str | None = ...,
-            sourceURL: builtins.str | None = ...,
-            containsAutoReply: builtins.bool | None = ...,
-            renderLargerThumbnail: builtins.bool | None = ...,
-            showAdAttribution: builtins.bool | None = ...,
-            ctwaClid: builtins.str | None = ...,
-            ref: builtins.str | None = ...,
-            clickToWhatsappCall: builtins.bool | None = ...,
-            adContextPreviewDismissed: builtins.bool | None = ...,
-            sourceApp: builtins.str | None = ...,
-            automatedGreetingMessageShown: builtins.bool | None = ...,
-            greetingMessageBody: builtins.str | None = ...,
-            ctaPayload: builtins.str | None = ...,
-            disableNudge: builtins.bool | None = ...,
-            originalImageURL: builtins.str | None = ...,
-            automatedGreetingMessageCtaType: builtins.str | None = ...,
-            wtwaAdFormat: builtins.bool | None = ...,
+            thumbnailURL: _builtins.str | None = ...,
+            mediaURL: _builtins.str | None = ...,
+            thumbnail: _builtins.bytes | None = ...,
+            sourceType: _builtins.str | None = ...,
+            sourceID: _builtins.str | None = ...,
+            sourceURL: _builtins.str | None = ...,
+            containsAutoReply: _builtins.bool | None = ...,
+            renderLargerThumbnail: _builtins.bool | None = ...,
+            showAdAttribution: _builtins.bool | None = ...,
+            ctwaClid: _builtins.str | None = ...,
+            ref: _builtins.str | None = ...,
+            clickToWhatsappCall: _builtins.bool | None = ...,
+            adContextPreviewDismissed: _builtins.bool | None = ...,
+            sourceApp: _builtins.str | None = ...,
+            automatedGreetingMessageShown: _builtins.bool | None = ...,
+            greetingMessageBody: _builtins.str | None = ...,
+            ctaPayload: _builtins.str | None = ...,
+            disableNudge: _builtins.bool | None = ...,
+            originalImageURL: _builtins.str | None = ...,
+            automatedGreetingMessageCtaType: _builtins.str | None = ...,
+            wtwaAdFormat: _builtins.bool | None = ...,
             adType: Global___ContextInfo.ExternalAdReplyInfo.AdType.ValueType | None = ...,
-            wtwaWebsiteURL: builtins.str | None = ...,
-            adPreviewURL: builtins.str | None = ...,
+            wtwaWebsiteURL: _builtins.str | None = ...,
+            adPreviewURL: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["adContextPreviewDismissed", b"adContextPreviewDismissed", "adPreviewURL", b"adPreviewURL", "adType", b"adType", "automatedGreetingMessageCtaType", b"automatedGreetingMessageCtaType", "automatedGreetingMessageShown", b"automatedGreetingMessageShown", "body", b"body", "clickToWhatsappCall", b"clickToWhatsappCall", "containsAutoReply", b"containsAutoReply", "ctaPayload", b"ctaPayload", "ctwaClid", b"ctwaClid", "disableNudge", b"disableNudge", "greetingMessageBody", b"greetingMessageBody", "mediaType", b"mediaType", "mediaURL", b"mediaURL", "originalImageURL", b"originalImageURL", "ref", b"ref", "renderLargerThumbnail", b"renderLargerThumbnail", "showAdAttribution", b"showAdAttribution", "sourceApp", b"sourceApp", "sourceID", b"sourceID", "sourceType", b"sourceType", "sourceURL", b"sourceURL", "thumbnail", b"thumbnail", "thumbnailURL", b"thumbnailURL", "title", b"title", "wtwaAdFormat", b"wtwaAdFormat", "wtwaWebsiteURL", b"wtwaWebsiteURL"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["adContextPreviewDismissed", b"adContextPreviewDismissed", "adPreviewURL", b"adPreviewURL", "adType", b"adType", "automatedGreetingMessageCtaType", b"automatedGreetingMessageCtaType", "automatedGreetingMessageShown", b"automatedGreetingMessageShown", "body", b"body", "clickToWhatsappCall", b"clickToWhatsappCall", "containsAutoReply", b"containsAutoReply", "ctaPayload", b"ctaPayload", "ctwaClid", b"ctwaClid", "disableNudge", b"disableNudge", "greetingMessageBody", b"greetingMessageBody", "mediaType", b"mediaType", "mediaURL", b"mediaURL", "originalImageURL", b"originalImageURL", "ref", b"ref", "renderLargerThumbnail", b"renderLargerThumbnail", "showAdAttribution", b"showAdAttribution", "sourceApp", b"sourceApp", "sourceID", b"sourceID", "sourceType", b"sourceType", "sourceURL", b"sourceURL", "thumbnail", b"thumbnail", "thumbnailURL", b"thumbnailURL", "title", b"title", "wtwaAdFormat", b"wtwaAdFormat", "wtwaWebsiteURL", b"wtwaWebsiteURL"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["adContextPreviewDismissed", b"adContextPreviewDismissed", "adPreviewURL", b"adPreviewURL", "adType", b"adType", "automatedGreetingMessageCtaType", b"automatedGreetingMessageCtaType", "automatedGreetingMessageShown", b"automatedGreetingMessageShown", "body", b"body", "clickToWhatsappCall", b"clickToWhatsappCall", "containsAutoReply", b"containsAutoReply", "ctaPayload", b"ctaPayload", "ctwaClid", b"ctwaClid", "disableNudge", b"disableNudge", "greetingMessageBody", b"greetingMessageBody", "mediaType", b"mediaType", "mediaURL", b"mediaURL", "originalImageURL", b"originalImageURL", "ref", b"ref", "renderLargerThumbnail", b"renderLargerThumbnail", "showAdAttribution", b"showAdAttribution", "sourceApp", b"sourceApp", "sourceID", b"sourceID", "sourceType", b"sourceType", "sourceURL", b"sourceURL", "thumbnail", b"thumbnail", "thumbnailURL", b"thumbnailURL", "title", b"title", "wtwaAdFormat", b"wtwaAdFormat", "wtwaWebsiteURL", b"wtwaWebsiteURL"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["adContextPreviewDismissed", b"adContextPreviewDismissed", "adPreviewURL", b"adPreviewURL", "adType", b"adType", "automatedGreetingMessageCtaType", b"automatedGreetingMessageCtaType", "automatedGreetingMessageShown", b"automatedGreetingMessageShown", "body", b"body", "clickToWhatsappCall", b"clickToWhatsappCall", "containsAutoReply", b"containsAutoReply", "ctaPayload", b"ctaPayload", "ctwaClid", b"ctwaClid", "disableNudge", b"disableNudge", "greetingMessageBody", b"greetingMessageBody", "mediaType", b"mediaType", "mediaURL", b"mediaURL", "originalImageURL", b"originalImageURL", "ref", b"ref", "renderLargerThumbnail", b"renderLargerThumbnail", "showAdAttribution", b"showAdAttribution", "sourceApp", b"sourceApp", "sourceID", b"sourceID", "sourceType", b"sourceType", "sourceURL", b"sourceURL", "thumbnail", b"thumbnail", "thumbnailURL", b"thumbnailURL", "title", b"title", "wtwaAdFormat", b"wtwaAdFormat", "wtwaWebsiteURL", b"wtwaWebsiteURL"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class AdReplyInfo(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class AdReplyInfo(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _MediaType:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _MediaTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ContextInfo.AdReplyInfo._MediaType.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _MediaTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ContextInfo.AdReplyInfo._MediaType.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             NONE: ContextInfo.AdReplyInfo._MediaType.ValueType  # 0
             IMAGE: ContextInfo.AdReplyInfo._MediaType.ValueType  # 1
             VIDEO: ContextInfo.AdReplyInfo._MediaType.ValueType  # 2
@@ -3679,308 +3880,320 @@ class ContextInfo(google.protobuf.message.Message):
         IMAGE: ContextInfo.AdReplyInfo.MediaType.ValueType  # 1
         VIDEO: ContextInfo.AdReplyInfo.MediaType.ValueType  # 2
 
-        ADVERTISERNAME_FIELD_NUMBER: builtins.int
-        MEDIATYPE_FIELD_NUMBER: builtins.int
-        JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-        CAPTION_FIELD_NUMBER: builtins.int
-        advertiserName: builtins.str
+        ADVERTISERNAME_FIELD_NUMBER: _builtins.int
+        MEDIATYPE_FIELD_NUMBER: _builtins.int
+        JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+        CAPTION_FIELD_NUMBER: _builtins.int
+        advertiserName: _builtins.str
         mediaType: Global___ContextInfo.AdReplyInfo.MediaType.ValueType
-        JPEGThumbnail: builtins.bytes
-        caption: builtins.str
+        JPEGThumbnail: _builtins.bytes
+        caption: _builtins.str
         def __init__(
             self,
             *,
-            advertiserName: builtins.str | None = ...,
+            advertiserName: _builtins.str | None = ...,
             mediaType: Global___ContextInfo.AdReplyInfo.MediaType.ValueType | None = ...,
-            JPEGThumbnail: builtins.bytes | None = ...,
-            caption: builtins.str | None = ...,
+            JPEGThumbnail: _builtins.bytes | None = ...,
+            caption: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "advertiserName", b"advertiserName", "caption", b"caption", "mediaType", b"mediaType"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "advertiserName", b"advertiserName", "caption", b"caption", "mediaType", b"mediaType"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "advertiserName", b"advertiserName", "caption", b"caption", "mediaType", b"mediaType"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "advertiserName", b"advertiserName", "caption", b"caption", "mediaType", b"mediaType"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class FeatureEligibilities(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class FeatureEligibilities(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        CANNOTBEREACTEDTO_FIELD_NUMBER: builtins.int
-        CANNOTBERANKED_FIELD_NUMBER: builtins.int
-        CANREQUESTFEEDBACK_FIELD_NUMBER: builtins.int
-        CANBERESHARED_FIELD_NUMBER: builtins.int
-        CANRECEIVEMULTIREACT_FIELD_NUMBER: builtins.int
-        cannotBeReactedTo: builtins.bool
-        cannotBeRanked: builtins.bool
-        canRequestFeedback: builtins.bool
-        canBeReshared: builtins.bool
-        canReceiveMultiReact: builtins.bool
+        CANNOTBEREACTEDTO_FIELD_NUMBER: _builtins.int
+        CANNOTBERANKED_FIELD_NUMBER: _builtins.int
+        CANREQUESTFEEDBACK_FIELD_NUMBER: _builtins.int
+        CANBERESHARED_FIELD_NUMBER: _builtins.int
+        CANRECEIVEMULTIREACT_FIELD_NUMBER: _builtins.int
+        cannotBeReactedTo: _builtins.bool
+        cannotBeRanked: _builtins.bool
+        canRequestFeedback: _builtins.bool
+        canBeReshared: _builtins.bool
+        canReceiveMultiReact: _builtins.bool
         def __init__(
             self,
             *,
-            cannotBeReactedTo: builtins.bool | None = ...,
-            cannotBeRanked: builtins.bool | None = ...,
-            canRequestFeedback: builtins.bool | None = ...,
-            canBeReshared: builtins.bool | None = ...,
-            canReceiveMultiReact: builtins.bool | None = ...,
+            cannotBeReactedTo: _builtins.bool | None = ...,
+            cannotBeRanked: _builtins.bool | None = ...,
+            canRequestFeedback: _builtins.bool | None = ...,
+            canBeReshared: _builtins.bool | None = ...,
+            canReceiveMultiReact: _builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["canBeReshared", b"canBeReshared", "canReceiveMultiReact", b"canReceiveMultiReact", "canRequestFeedback", b"canRequestFeedback", "cannotBeRanked", b"cannotBeRanked", "cannotBeReactedTo", b"cannotBeReactedTo"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["canBeReshared", b"canBeReshared", "canReceiveMultiReact", b"canReceiveMultiReact", "canRequestFeedback", b"canRequestFeedback", "cannotBeRanked", b"cannotBeRanked", "cannotBeReactedTo", b"cannotBeReactedTo"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["canBeReshared", b"canBeReshared", "canReceiveMultiReact", b"canReceiveMultiReact", "canRequestFeedback", b"canRequestFeedback", "cannotBeRanked", b"cannotBeRanked", "cannotBeReactedTo", b"cannotBeReactedTo"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["canBeReshared", b"canBeReshared", "canReceiveMultiReact", b"canReceiveMultiReact", "canRequestFeedback", b"canRequestFeedback", "cannotBeRanked", b"cannotBeRanked", "cannotBeReactedTo", b"cannotBeReactedTo"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class QuestionReplyQuotedMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class QuestionReplyQuotedMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        SERVERQUESTIONID_FIELD_NUMBER: builtins.int
-        QUOTEDQUESTION_FIELD_NUMBER: builtins.int
-        QUOTEDRESPONSE_FIELD_NUMBER: builtins.int
-        serverQuestionID: builtins.int
-        @property
+        SERVERQUESTIONID_FIELD_NUMBER: _builtins.int
+        QUOTEDQUESTION_FIELD_NUMBER: _builtins.int
+        QUOTEDRESPONSE_FIELD_NUMBER: _builtins.int
+        serverQuestionID: _builtins.int
+        @_builtins.property
         def quotedQuestion(self) -> Global___Message: ...
-        @property
+        @_builtins.property
         def quotedResponse(self) -> Global___Message: ...
         def __init__(
             self,
             *,
-            serverQuestionID: builtins.int | None = ...,
+            serverQuestionID: _builtins.int | None = ...,
             quotedQuestion: Global___Message | None = ...,
             quotedResponse: Global___Message | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["quotedQuestion", b"quotedQuestion", "quotedResponse", b"quotedResponse", "serverQuestionID", b"serverQuestionID"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["quotedQuestion", b"quotedQuestion", "quotedResponse", b"quotedResponse", "serverQuestionID", b"serverQuestionID"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["quotedQuestion", b"quotedQuestion", "quotedResponse", b"quotedResponse", "serverQuestionID", b"serverQuestionID"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["quotedQuestion", b"quotedQuestion", "quotedResponse", b"quotedResponse", "serverQuestionID", b"serverQuestionID"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class UTMInfo(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class UTMInfo(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        UTMSOURCE_FIELD_NUMBER: builtins.int
-        UTMCAMPAIGN_FIELD_NUMBER: builtins.int
-        utmSource: builtins.str
-        utmCampaign: builtins.str
+        UTMSOURCE_FIELD_NUMBER: _builtins.int
+        UTMCAMPAIGN_FIELD_NUMBER: _builtins.int
+        utmSource: _builtins.str
+        utmCampaign: _builtins.str
         def __init__(
             self,
             *,
-            utmSource: builtins.str | None = ...,
-            utmCampaign: builtins.str | None = ...,
+            utmSource: _builtins.str | None = ...,
+            utmCampaign: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["utmCampaign", b"utmCampaign", "utmSource", b"utmSource"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["utmCampaign", b"utmCampaign", "utmSource", b"utmSource"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["utmCampaign", b"utmCampaign", "utmSource", b"utmSource"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["utmCampaign", b"utmCampaign", "utmSource", b"utmSource"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class BusinessMessageForwardInfo(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class BusinessMessageForwardInfo(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        BUSINESSOWNERJID_FIELD_NUMBER: builtins.int
-        businessOwnerJID: builtins.str
+        BUSINESSOWNERJID_FIELD_NUMBER: _builtins.int
+        businessOwnerJID: _builtins.str
         def __init__(
             self,
             *,
-            businessOwnerJID: builtins.str | None = ...,
+            businessOwnerJID: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["businessOwnerJID", b"businessOwnerJID"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["businessOwnerJID", b"businessOwnerJID"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["businessOwnerJID", b"businessOwnerJID"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["businessOwnerJID", b"businessOwnerJID"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    STANZAID_FIELD_NUMBER: builtins.int
-    PARTICIPANT_FIELD_NUMBER: builtins.int
-    QUOTEDMESSAGE_FIELD_NUMBER: builtins.int
-    REMOTEJID_FIELD_NUMBER: builtins.int
-    MENTIONEDJID_FIELD_NUMBER: builtins.int
-    CONVERSIONSOURCE_FIELD_NUMBER: builtins.int
-    CONVERSIONDATA_FIELD_NUMBER: builtins.int
-    CONVERSIONDELAYSECONDS_FIELD_NUMBER: builtins.int
-    FORWARDINGSCORE_FIELD_NUMBER: builtins.int
-    ISFORWARDED_FIELD_NUMBER: builtins.int
-    QUOTEDAD_FIELD_NUMBER: builtins.int
-    PLACEHOLDERKEY_FIELD_NUMBER: builtins.int
-    EXPIRATION_FIELD_NUMBER: builtins.int
-    EPHEMERALSETTINGTIMESTAMP_FIELD_NUMBER: builtins.int
-    EPHEMERALSHAREDSECRET_FIELD_NUMBER: builtins.int
-    EXTERNALADREPLY_FIELD_NUMBER: builtins.int
-    ENTRYPOINTCONVERSIONSOURCE_FIELD_NUMBER: builtins.int
-    ENTRYPOINTCONVERSIONAPP_FIELD_NUMBER: builtins.int
-    ENTRYPOINTCONVERSIONDELAYSECONDS_FIELD_NUMBER: builtins.int
-    DISAPPEARINGMODE_FIELD_NUMBER: builtins.int
-    ACTIONLINK_FIELD_NUMBER: builtins.int
-    GROUPSUBJECT_FIELD_NUMBER: builtins.int
-    PARENTGROUPJID_FIELD_NUMBER: builtins.int
-    TRUSTBANNERTYPE_FIELD_NUMBER: builtins.int
-    TRUSTBANNERACTION_FIELD_NUMBER: builtins.int
-    ISSAMPLED_FIELD_NUMBER: builtins.int
-    GROUPMENTIONS_FIELD_NUMBER: builtins.int
-    UTM_FIELD_NUMBER: builtins.int
-    FORWARDEDNEWSLETTERMESSAGEINFO_FIELD_NUMBER: builtins.int
-    BUSINESSMESSAGEFORWARDINFO_FIELD_NUMBER: builtins.int
-    SMBCLIENTCAMPAIGNID_FIELD_NUMBER: builtins.int
-    SMBSERVERCAMPAIGNID_FIELD_NUMBER: builtins.int
-    DATASHARINGCONTEXT_FIELD_NUMBER: builtins.int
-    ALWAYSSHOWADATTRIBUTION_FIELD_NUMBER: builtins.int
-    FEATUREELIGIBILITIES_FIELD_NUMBER: builtins.int
-    ENTRYPOINTCONVERSIONEXTERNALSOURCE_FIELD_NUMBER: builtins.int
-    ENTRYPOINTCONVERSIONEXTERNALMEDIUM_FIELD_NUMBER: builtins.int
-    CTWASIGNALS_FIELD_NUMBER: builtins.int
-    CTWAPAYLOAD_FIELD_NUMBER: builtins.int
-    FORWARDEDAIBOTMESSAGEINFO_FIELD_NUMBER: builtins.int
-    STATUSATTRIBUTIONTYPE_FIELD_NUMBER: builtins.int
-    URLTRACKINGMAP_FIELD_NUMBER: builtins.int
-    PAIREDMEDIATYPE_FIELD_NUMBER: builtins.int
-    RANKINGVERSION_FIELD_NUMBER: builtins.int
-    MEMBERLABEL_FIELD_NUMBER: builtins.int
-    ISQUESTION_FIELD_NUMBER: builtins.int
-    STATUSSOURCETYPE_FIELD_NUMBER: builtins.int
-    STATUSATTRIBUTIONS_FIELD_NUMBER: builtins.int
-    ISGROUPSTATUS_FIELD_NUMBER: builtins.int
-    FORWARDORIGIN_FIELD_NUMBER: builtins.int
-    QUESTIONREPLYQUOTEDMESSAGE_FIELD_NUMBER: builtins.int
-    STATUSAUDIENCEMETADATA_FIELD_NUMBER: builtins.int
-    NONJIDMENTIONS_FIELD_NUMBER: builtins.int
-    QUOTEDTYPE_FIELD_NUMBER: builtins.int
-    BOTMESSAGESHARINGINFO_FIELD_NUMBER: builtins.int
-    stanzaID: builtins.str
-    participant: builtins.str
-    remoteJID: builtins.str
-    conversionSource: builtins.str
-    conversionData: builtins.bytes
-    conversionDelaySeconds: builtins.int
-    forwardingScore: builtins.int
-    isForwarded: builtins.bool
-    expiration: builtins.int
-    ephemeralSettingTimestamp: builtins.int
-    ephemeralSharedSecret: builtins.bytes
-    entryPointConversionSource: builtins.str
-    entryPointConversionApp: builtins.str
-    entryPointConversionDelaySeconds: builtins.int
-    groupSubject: builtins.str
-    parentGroupJID: builtins.str
-    trustBannerType: builtins.str
-    trustBannerAction: builtins.int
-    isSampled: builtins.bool
-    smbClientCampaignID: builtins.str
-    smbServerCampaignID: builtins.str
-    alwaysShowAdAttribution: builtins.bool
-    entryPointConversionExternalSource: builtins.str
-    entryPointConversionExternalMedium: builtins.str
-    ctwaSignals: builtins.str
-    ctwaPayload: builtins.bytes
+    STANZAID_FIELD_NUMBER: _builtins.int
+    PARTICIPANT_FIELD_NUMBER: _builtins.int
+    QUOTEDMESSAGE_FIELD_NUMBER: _builtins.int
+    REMOTEJID_FIELD_NUMBER: _builtins.int
+    MENTIONEDJID_FIELD_NUMBER: _builtins.int
+    CONVERSIONSOURCE_FIELD_NUMBER: _builtins.int
+    CONVERSIONDATA_FIELD_NUMBER: _builtins.int
+    CONVERSIONDELAYSECONDS_FIELD_NUMBER: _builtins.int
+    FORWARDINGSCORE_FIELD_NUMBER: _builtins.int
+    ISFORWARDED_FIELD_NUMBER: _builtins.int
+    QUOTEDAD_FIELD_NUMBER: _builtins.int
+    PLACEHOLDERKEY_FIELD_NUMBER: _builtins.int
+    EXPIRATION_FIELD_NUMBER: _builtins.int
+    EPHEMERALSETTINGTIMESTAMP_FIELD_NUMBER: _builtins.int
+    EPHEMERALSHAREDSECRET_FIELD_NUMBER: _builtins.int
+    EXTERNALADREPLY_FIELD_NUMBER: _builtins.int
+    ENTRYPOINTCONVERSIONSOURCE_FIELD_NUMBER: _builtins.int
+    ENTRYPOINTCONVERSIONAPP_FIELD_NUMBER: _builtins.int
+    ENTRYPOINTCONVERSIONDELAYSECONDS_FIELD_NUMBER: _builtins.int
+    DISAPPEARINGMODE_FIELD_NUMBER: _builtins.int
+    ACTIONLINK_FIELD_NUMBER: _builtins.int
+    GROUPSUBJECT_FIELD_NUMBER: _builtins.int
+    PARENTGROUPJID_FIELD_NUMBER: _builtins.int
+    TRUSTBANNERTYPE_FIELD_NUMBER: _builtins.int
+    TRUSTBANNERACTION_FIELD_NUMBER: _builtins.int
+    ISSAMPLED_FIELD_NUMBER: _builtins.int
+    GROUPMENTIONS_FIELD_NUMBER: _builtins.int
+    UTM_FIELD_NUMBER: _builtins.int
+    FORWARDEDNEWSLETTERMESSAGEINFO_FIELD_NUMBER: _builtins.int
+    BUSINESSMESSAGEFORWARDINFO_FIELD_NUMBER: _builtins.int
+    SMBCLIENTCAMPAIGNID_FIELD_NUMBER: _builtins.int
+    SMBSERVERCAMPAIGNID_FIELD_NUMBER: _builtins.int
+    DATASHARINGCONTEXT_FIELD_NUMBER: _builtins.int
+    ALWAYSSHOWADATTRIBUTION_FIELD_NUMBER: _builtins.int
+    FEATUREELIGIBILITIES_FIELD_NUMBER: _builtins.int
+    ENTRYPOINTCONVERSIONEXTERNALSOURCE_FIELD_NUMBER: _builtins.int
+    ENTRYPOINTCONVERSIONEXTERNALMEDIUM_FIELD_NUMBER: _builtins.int
+    CTWASIGNALS_FIELD_NUMBER: _builtins.int
+    CTWAPAYLOAD_FIELD_NUMBER: _builtins.int
+    FORWARDEDAIBOTMESSAGEINFO_FIELD_NUMBER: _builtins.int
+    STATUSATTRIBUTIONTYPE_FIELD_NUMBER: _builtins.int
+    URLTRACKINGMAP_FIELD_NUMBER: _builtins.int
+    PAIREDMEDIATYPE_FIELD_NUMBER: _builtins.int
+    RANKINGVERSION_FIELD_NUMBER: _builtins.int
+    MEMBERLABEL_FIELD_NUMBER: _builtins.int
+    ISQUESTION_FIELD_NUMBER: _builtins.int
+    STATUSSOURCETYPE_FIELD_NUMBER: _builtins.int
+    STATUSATTRIBUTIONS_FIELD_NUMBER: _builtins.int
+    ISGROUPSTATUS_FIELD_NUMBER: _builtins.int
+    FORWARDORIGIN_FIELD_NUMBER: _builtins.int
+    QUESTIONREPLYQUOTEDMESSAGE_FIELD_NUMBER: _builtins.int
+    STATUSAUDIENCEMETADATA_FIELD_NUMBER: _builtins.int
+    NONJIDMENTIONS_FIELD_NUMBER: _builtins.int
+    QUOTEDTYPE_FIELD_NUMBER: _builtins.int
+    BOTMESSAGESHARINGINFO_FIELD_NUMBER: _builtins.int
+    stanzaID: _builtins.str
+    participant: _builtins.str
+    remoteJID: _builtins.str
+    conversionSource: _builtins.str
+    conversionData: _builtins.bytes
+    conversionDelaySeconds: _builtins.int
+    forwardingScore: _builtins.int
+    isForwarded: _builtins.bool
+    expiration: _builtins.int
+    ephemeralSettingTimestamp: _builtins.int
+    ephemeralSharedSecret: _builtins.bytes
+    entryPointConversionSource: _builtins.str
+    entryPointConversionApp: _builtins.str
+    entryPointConversionDelaySeconds: _builtins.int
+    groupSubject: _builtins.str
+    parentGroupJID: _builtins.str
+    trustBannerType: _builtins.str
+    trustBannerAction: _builtins.int
+    isSampled: _builtins.bool
+    smbClientCampaignID: _builtins.str
+    smbServerCampaignID: _builtins.str
+    alwaysShowAdAttribution: _builtins.bool
+    entryPointConversionExternalSource: _builtins.str
+    entryPointConversionExternalMedium: _builtins.str
+    ctwaSignals: _builtins.str
+    ctwaPayload: _builtins.bytes
     statusAttributionType: Global___ContextInfo.StatusAttributionType.ValueType
     pairedMediaType: Global___ContextInfo.PairedMediaType.ValueType
-    rankingVersion: builtins.int
-    isQuestion: builtins.bool
+    rankingVersion: _builtins.int
+    isQuestion: _builtins.bool
     statusSourceType: Global___ContextInfo.StatusSourceType.ValueType
-    isGroupStatus: builtins.bool
+    isGroupStatus: _builtins.bool
     forwardOrigin: Global___ContextInfo.ForwardOrigin.ValueType
-    nonJIDMentions: builtins.int
+    nonJIDMentions: _builtins.int
     quotedType: Global___ContextInfo.QuotedType.ValueType
-    @property
+    @_builtins.property
     def quotedMessage(self) -> Global___Message: ...
-    @property
-    def mentionedJID(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
-    @property
+    @_builtins.property
+    def mentionedJID(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
+    @_builtins.property
     def quotedAd(self) -> Global___ContextInfo.AdReplyInfo: ...
-    @property
-    def placeholderKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
-    @property
+    @_builtins.property
+    def placeholderKey(self) -> _WACommon_pb2.MessageKey: ...
+    @_builtins.property
     def externalAdReply(self) -> Global___ContextInfo.ExternalAdReplyInfo: ...
-    @property
+    @_builtins.property
     def disappearingMode(self) -> Global___DisappearingMode: ...
-    @property
+    @_builtins.property
     def actionLink(self) -> Global___ActionLink: ...
-    @property
-    def groupMentions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___GroupMention]: ...
-    @property
+    @_builtins.property
+    def groupMentions(self) -> _containers.RepeatedCompositeFieldContainer[Global___GroupMention]: ...
+    @_builtins.property
     def utm(self) -> Global___ContextInfo.UTMInfo: ...
-    @property
+    @_builtins.property
     def forwardedNewsletterMessageInfo(self) -> Global___ContextInfo.ForwardedNewsletterMessageInfo: ...
-    @property
+    @_builtins.property
     def businessMessageForwardInfo(self) -> Global___ContextInfo.BusinessMessageForwardInfo: ...
-    @property
+    @_builtins.property
     def dataSharingContext(self) -> Global___ContextInfo.DataSharingContext: ...
-    @property
+    @_builtins.property
     def featureEligibilities(self) -> Global___ContextInfo.FeatureEligibilities: ...
-    @property
-    def forwardedAiBotMessageInfo(self) -> waAICommon.WAAICommon_pb2.ForwardedAIBotMessageInfo: ...
-    @property
+    @_builtins.property
+    def forwardedAiBotMessageInfo(self) -> _WAAICommon_pb2.ForwardedAIBotMessageInfo: ...
+    @_builtins.property
     def urlTrackingMap(self) -> Global___UrlTrackingMap: ...
-    @property
+    @_builtins.property
     def memberLabel(self) -> Global___MemberLabel: ...
-    @property
-    def statusAttributions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[waStatusAttributions.WAStatusAttributions_pb2.StatusAttribution]: ...
-    @property
+    @_builtins.property
+    def statusAttributions(self) -> _containers.RepeatedCompositeFieldContainer[_WAStatusAttributions_pb2.StatusAttribution]: ...
+    @_builtins.property
     def questionReplyQuotedMessage(self) -> Global___ContextInfo.QuestionReplyQuotedMessage: ...
-    @property
+    @_builtins.property
     def statusAudienceMetadata(self) -> Global___ContextInfo.StatusAudienceMetadata: ...
-    @property
-    def botMessageSharingInfo(self) -> waAICommon.WAAICommon_pb2.BotMessageSharingInfo: ...
+    @_builtins.property
+    def botMessageSharingInfo(self) -> _WAAICommon_pb2.BotMessageSharingInfo: ...
     def __init__(
         self,
         *,
-        stanzaID: builtins.str | None = ...,
-        participant: builtins.str | None = ...,
+        stanzaID: _builtins.str | None = ...,
+        participant: _builtins.str | None = ...,
         quotedMessage: Global___Message | None = ...,
-        remoteJID: builtins.str | None = ...,
-        mentionedJID: collections.abc.Iterable[builtins.str] | None = ...,
-        conversionSource: builtins.str | None = ...,
-        conversionData: builtins.bytes | None = ...,
-        conversionDelaySeconds: builtins.int | None = ...,
-        forwardingScore: builtins.int | None = ...,
-        isForwarded: builtins.bool | None = ...,
+        remoteJID: _builtins.str | None = ...,
+        mentionedJID: _abc.Iterable[_builtins.str] | None = ...,
+        conversionSource: _builtins.str | None = ...,
+        conversionData: _builtins.bytes | None = ...,
+        conversionDelaySeconds: _builtins.int | None = ...,
+        forwardingScore: _builtins.int | None = ...,
+        isForwarded: _builtins.bool | None = ...,
         quotedAd: Global___ContextInfo.AdReplyInfo | None = ...,
-        placeholderKey: waCommon.WACommon_pb2.MessageKey | None = ...,
-        expiration: builtins.int | None = ...,
-        ephemeralSettingTimestamp: builtins.int | None = ...,
-        ephemeralSharedSecret: builtins.bytes | None = ...,
+        placeholderKey: _WACommon_pb2.MessageKey | None = ...,
+        expiration: _builtins.int | None = ...,
+        ephemeralSettingTimestamp: _builtins.int | None = ...,
+        ephemeralSharedSecret: _builtins.bytes | None = ...,
         externalAdReply: Global___ContextInfo.ExternalAdReplyInfo | None = ...,
-        entryPointConversionSource: builtins.str | None = ...,
-        entryPointConversionApp: builtins.str | None = ...,
-        entryPointConversionDelaySeconds: builtins.int | None = ...,
+        entryPointConversionSource: _builtins.str | None = ...,
+        entryPointConversionApp: _builtins.str | None = ...,
+        entryPointConversionDelaySeconds: _builtins.int | None = ...,
         disappearingMode: Global___DisappearingMode | None = ...,
         actionLink: Global___ActionLink | None = ...,
-        groupSubject: builtins.str | None = ...,
-        parentGroupJID: builtins.str | None = ...,
-        trustBannerType: builtins.str | None = ...,
-        trustBannerAction: builtins.int | None = ...,
-        isSampled: builtins.bool | None = ...,
-        groupMentions: collections.abc.Iterable[Global___GroupMention] | None = ...,
+        groupSubject: _builtins.str | None = ...,
+        parentGroupJID: _builtins.str | None = ...,
+        trustBannerType: _builtins.str | None = ...,
+        trustBannerAction: _builtins.int | None = ...,
+        isSampled: _builtins.bool | None = ...,
+        groupMentions: _abc.Iterable[Global___GroupMention] | None = ...,
         utm: Global___ContextInfo.UTMInfo | None = ...,
         forwardedNewsletterMessageInfo: Global___ContextInfo.ForwardedNewsletterMessageInfo | None = ...,
         businessMessageForwardInfo: Global___ContextInfo.BusinessMessageForwardInfo | None = ...,
-        smbClientCampaignID: builtins.str | None = ...,
-        smbServerCampaignID: builtins.str | None = ...,
+        smbClientCampaignID: _builtins.str | None = ...,
+        smbServerCampaignID: _builtins.str | None = ...,
         dataSharingContext: Global___ContextInfo.DataSharingContext | None = ...,
-        alwaysShowAdAttribution: builtins.bool | None = ...,
+        alwaysShowAdAttribution: _builtins.bool | None = ...,
         featureEligibilities: Global___ContextInfo.FeatureEligibilities | None = ...,
-        entryPointConversionExternalSource: builtins.str | None = ...,
-        entryPointConversionExternalMedium: builtins.str | None = ...,
-        ctwaSignals: builtins.str | None = ...,
-        ctwaPayload: builtins.bytes | None = ...,
-        forwardedAiBotMessageInfo: waAICommon.WAAICommon_pb2.ForwardedAIBotMessageInfo | None = ...,
+        entryPointConversionExternalSource: _builtins.str | None = ...,
+        entryPointConversionExternalMedium: _builtins.str | None = ...,
+        ctwaSignals: _builtins.str | None = ...,
+        ctwaPayload: _builtins.bytes | None = ...,
+        forwardedAiBotMessageInfo: _WAAICommon_pb2.ForwardedAIBotMessageInfo | None = ...,
         statusAttributionType: Global___ContextInfo.StatusAttributionType.ValueType | None = ...,
         urlTrackingMap: Global___UrlTrackingMap | None = ...,
         pairedMediaType: Global___ContextInfo.PairedMediaType.ValueType | None = ...,
-        rankingVersion: builtins.int | None = ...,
+        rankingVersion: _builtins.int | None = ...,
         memberLabel: Global___MemberLabel | None = ...,
-        isQuestion: builtins.bool | None = ...,
+        isQuestion: _builtins.bool | None = ...,
         statusSourceType: Global___ContextInfo.StatusSourceType.ValueType | None = ...,
-        statusAttributions: collections.abc.Iterable[waStatusAttributions.WAStatusAttributions_pb2.StatusAttribution] | None = ...,
-        isGroupStatus: builtins.bool | None = ...,
+        statusAttributions: _abc.Iterable[_WAStatusAttributions_pb2.StatusAttribution] | None = ...,
+        isGroupStatus: _builtins.bool | None = ...,
         forwardOrigin: Global___ContextInfo.ForwardOrigin.ValueType | None = ...,
         questionReplyQuotedMessage: Global___ContextInfo.QuestionReplyQuotedMessage | None = ...,
         statusAudienceMetadata: Global___ContextInfo.StatusAudienceMetadata | None = ...,
-        nonJIDMentions: builtins.int | None = ...,
+        nonJIDMentions: _builtins.int | None = ...,
         quotedType: Global___ContextInfo.QuotedType.ValueType | None = ...,
-        botMessageSharingInfo: waAICommon.WAAICommon_pb2.BotMessageSharingInfo | None = ...,
+        botMessageSharingInfo: _WAAICommon_pb2.BotMessageSharingInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["actionLink", b"actionLink", "alwaysShowAdAttribution", b"alwaysShowAdAttribution", "botMessageSharingInfo", b"botMessageSharingInfo", "businessMessageForwardInfo", b"businessMessageForwardInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "dataSharingContext", b"dataSharingContext", "disappearingMode", b"disappearingMode", "entryPointConversionApp", b"entryPointConversionApp", "entryPointConversionDelaySeconds", b"entryPointConversionDelaySeconds", "entryPointConversionExternalMedium", b"entryPointConversionExternalMedium", "entryPointConversionExternalSource", b"entryPointConversionExternalSource", "entryPointConversionSource", b"entryPointConversionSource", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralSharedSecret", b"ephemeralSharedSecret", "expiration", b"expiration", "externalAdReply", b"externalAdReply", "featureEligibilities", b"featureEligibilities", "forwardOrigin", b"forwardOrigin", "forwardedAiBotMessageInfo", b"forwardedAiBotMessageInfo", "forwardedNewsletterMessageInfo", b"forwardedNewsletterMessageInfo", "forwardingScore", b"forwardingScore", "groupSubject", b"groupSubject", "isForwarded", b"isForwarded", "isGroupStatus", b"isGroupStatus", "isQuestion", b"isQuestion", "isSampled", b"isSampled", "memberLabel", b"memberLabel", "nonJIDMentions", b"nonJIDMentions", "pairedMediaType", b"pairedMediaType", "parentGroupJID", b"parentGroupJID", "participant", b"participant", "placeholderKey", b"placeholderKey", "questionReplyQuotedMessage", b"questionReplyQuotedMessage", "quotedAd", b"quotedAd", "quotedMessage", b"quotedMessage", "quotedType", b"quotedType", "rankingVersion", b"rankingVersion", "remoteJID", b"remoteJID", "smbClientCampaignID", b"smbClientCampaignID", "smbServerCampaignID", b"smbServerCampaignID", "stanzaID", b"stanzaID", "statusAttributionType", b"statusAttributionType", "statusAudienceMetadata", b"statusAudienceMetadata", "statusSourceType", b"statusSourceType", "trustBannerAction", b"trustBannerAction", "trustBannerType", b"trustBannerType", "urlTrackingMap", b"urlTrackingMap", "utm", b"utm"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["actionLink", b"actionLink", "alwaysShowAdAttribution", b"alwaysShowAdAttribution", "botMessageSharingInfo", b"botMessageSharingInfo", "businessMessageForwardInfo", b"businessMessageForwardInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "dataSharingContext", b"dataSharingContext", "disappearingMode", b"disappearingMode", "entryPointConversionApp", b"entryPointConversionApp", "entryPointConversionDelaySeconds", b"entryPointConversionDelaySeconds", "entryPointConversionExternalMedium", b"entryPointConversionExternalMedium", "entryPointConversionExternalSource", b"entryPointConversionExternalSource", "entryPointConversionSource", b"entryPointConversionSource", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralSharedSecret", b"ephemeralSharedSecret", "expiration", b"expiration", "externalAdReply", b"externalAdReply", "featureEligibilities", b"featureEligibilities", "forwardOrigin", b"forwardOrigin", "forwardedAiBotMessageInfo", b"forwardedAiBotMessageInfo", "forwardedNewsletterMessageInfo", b"forwardedNewsletterMessageInfo", "forwardingScore", b"forwardingScore", "groupMentions", b"groupMentions", "groupSubject", b"groupSubject", "isForwarded", b"isForwarded", "isGroupStatus", b"isGroupStatus", "isQuestion", b"isQuestion", "isSampled", b"isSampled", "memberLabel", b"memberLabel", "mentionedJID", b"mentionedJID", "nonJIDMentions", b"nonJIDMentions", "pairedMediaType", b"pairedMediaType", "parentGroupJID", b"parentGroupJID", "participant", b"participant", "placeholderKey", b"placeholderKey", "questionReplyQuotedMessage", b"questionReplyQuotedMessage", "quotedAd", b"quotedAd", "quotedMessage", b"quotedMessage", "quotedType", b"quotedType", "rankingVersion", b"rankingVersion", "remoteJID", b"remoteJID", "smbClientCampaignID", b"smbClientCampaignID", "smbServerCampaignID", b"smbServerCampaignID", "stanzaID", b"stanzaID", "statusAttributionType", b"statusAttributionType", "statusAttributions", b"statusAttributions", "statusAudienceMetadata", b"statusAudienceMetadata", "statusSourceType", b"statusSourceType", "trustBannerAction", b"trustBannerAction", "trustBannerType", b"trustBannerType", "urlTrackingMap", b"urlTrackingMap", "utm", b"utm"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["actionLink", b"actionLink", "alwaysShowAdAttribution", b"alwaysShowAdAttribution", "botMessageSharingInfo", b"botMessageSharingInfo", "businessMessageForwardInfo", b"businessMessageForwardInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "dataSharingContext", b"dataSharingContext", "disappearingMode", b"disappearingMode", "entryPointConversionApp", b"entryPointConversionApp", "entryPointConversionDelaySeconds", b"entryPointConversionDelaySeconds", "entryPointConversionExternalMedium", b"entryPointConversionExternalMedium", "entryPointConversionExternalSource", b"entryPointConversionExternalSource", "entryPointConversionSource", b"entryPointConversionSource", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralSharedSecret", b"ephemeralSharedSecret", "expiration", b"expiration", "externalAdReply", b"externalAdReply", "featureEligibilities", b"featureEligibilities", "forwardOrigin", b"forwardOrigin", "forwardedAiBotMessageInfo", b"forwardedAiBotMessageInfo", "forwardedNewsletterMessageInfo", b"forwardedNewsletterMessageInfo", "forwardingScore", b"forwardingScore", "groupSubject", b"groupSubject", "isForwarded", b"isForwarded", "isGroupStatus", b"isGroupStatus", "isQuestion", b"isQuestion", "isSampled", b"isSampled", "memberLabel", b"memberLabel", "nonJIDMentions", b"nonJIDMentions", "pairedMediaType", b"pairedMediaType", "parentGroupJID", b"parentGroupJID", "participant", b"participant", "placeholderKey", b"placeholderKey", "questionReplyQuotedMessage", b"questionReplyQuotedMessage", "quotedAd", b"quotedAd", "quotedMessage", b"quotedMessage", "quotedType", b"quotedType", "rankingVersion", b"rankingVersion", "remoteJID", b"remoteJID", "smbClientCampaignID", b"smbClientCampaignID", "smbServerCampaignID", b"smbServerCampaignID", "stanzaID", b"stanzaID", "statusAttributionType", b"statusAttributionType", "statusAudienceMetadata", b"statusAudienceMetadata", "statusSourceType", b"statusSourceType", "trustBannerAction", b"trustBannerAction", "trustBannerType", b"trustBannerType", "urlTrackingMap", b"urlTrackingMap", "utm", b"utm"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["actionLink", b"actionLink", "alwaysShowAdAttribution", b"alwaysShowAdAttribution", "botMessageSharingInfo", b"botMessageSharingInfo", "businessMessageForwardInfo", b"businessMessageForwardInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "dataSharingContext", b"dataSharingContext", "disappearingMode", b"disappearingMode", "entryPointConversionApp", b"entryPointConversionApp", "entryPointConversionDelaySeconds", b"entryPointConversionDelaySeconds", "entryPointConversionExternalMedium", b"entryPointConversionExternalMedium", "entryPointConversionExternalSource", b"entryPointConversionExternalSource", "entryPointConversionSource", b"entryPointConversionSource", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "ephemeralSharedSecret", b"ephemeralSharedSecret", "expiration", b"expiration", "externalAdReply", b"externalAdReply", "featureEligibilities", b"featureEligibilities", "forwardOrigin", b"forwardOrigin", "forwardedAiBotMessageInfo", b"forwardedAiBotMessageInfo", "forwardedNewsletterMessageInfo", b"forwardedNewsletterMessageInfo", "forwardingScore", b"forwardingScore", "groupMentions", b"groupMentions", "groupSubject", b"groupSubject", "isForwarded", b"isForwarded", "isGroupStatus", b"isGroupStatus", "isQuestion", b"isQuestion", "isSampled", b"isSampled", "memberLabel", b"memberLabel", "mentionedJID", b"mentionedJID", "nonJIDMentions", b"nonJIDMentions", "pairedMediaType", b"pairedMediaType", "parentGroupJID", b"parentGroupJID", "participant", b"participant", "placeholderKey", b"placeholderKey", "questionReplyQuotedMessage", b"questionReplyQuotedMessage", "quotedAd", b"quotedAd", "quotedMessage", b"quotedMessage", "quotedType", b"quotedType", "rankingVersion", b"rankingVersion", "remoteJID", b"remoteJID", "smbClientCampaignID", b"smbClientCampaignID", "smbServerCampaignID", b"smbServerCampaignID", "stanzaID", b"stanzaID", "statusAttributionType", b"statusAttributionType", "statusAttributions", b"statusAttributions", "statusAudienceMetadata", b"statusAudienceMetadata", "statusSourceType", b"statusSourceType", "trustBannerAction", b"trustBannerAction", "trustBannerType", b"trustBannerType", "urlTrackingMap", b"urlTrackingMap", "utm", b"utm"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ContextInfo: typing_extensions.TypeAlias = ContextInfo
+Global___ContextInfo: _TypeAlias = ContextInfo  # noqa: Y015
 
-@typing.final
-class MessageAssociation(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MessageAssociation(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _AssociationType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _AssociationTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[MessageAssociation._AssociationType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _AssociationTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[MessageAssociation._AssociationType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: MessageAssociation._AssociationType.ValueType  # 0
         MEDIA_ALBUM: MessageAssociation._AssociationType.ValueType  # 1
         BOT_PLUGIN: MessageAssociation._AssociationType.ValueType  # 2
@@ -4024,35 +4237,37 @@ class MessageAssociation(google.protobuf.message.Message):
     STATUS_REACTION: MessageAssociation.AssociationType.ValueType  # 18
     HEVC_VIDEO_DUAL_UPLOAD: MessageAssociation.AssociationType.ValueType  # 19
 
-    ASSOCIATIONTYPE_FIELD_NUMBER: builtins.int
-    PARENTMESSAGEKEY_FIELD_NUMBER: builtins.int
-    MESSAGEINDEX_FIELD_NUMBER: builtins.int
+    ASSOCIATIONTYPE_FIELD_NUMBER: _builtins.int
+    PARENTMESSAGEKEY_FIELD_NUMBER: _builtins.int
+    MESSAGEINDEX_FIELD_NUMBER: _builtins.int
     associationType: Global___MessageAssociation.AssociationType.ValueType
-    messageIndex: builtins.int
-    @property
-    def parentMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    messageIndex: _builtins.int
+    @_builtins.property
+    def parentMessageKey(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
         associationType: Global___MessageAssociation.AssociationType.ValueType | None = ...,
-        parentMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
-        messageIndex: builtins.int | None = ...,
+        parentMessageKey: _WACommon_pb2.MessageKey | None = ...,
+        messageIndex: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["associationType", b"associationType", "messageIndex", b"messageIndex", "parentMessageKey", b"parentMessageKey"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["associationType", b"associationType", "messageIndex", b"messageIndex", "parentMessageKey", b"parentMessageKey"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["associationType", b"associationType", "messageIndex", b"messageIndex", "parentMessageKey", b"parentMessageKey"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["associationType", b"associationType", "messageIndex", b"messageIndex", "parentMessageKey", b"parentMessageKey"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___MessageAssociation: typing_extensions.TypeAlias = MessageAssociation
+Global___MessageAssociation: _TypeAlias = MessageAssociation  # noqa: Y015
 
-@typing.final
-class ThreadID(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ThreadID(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _ThreadType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ThreadTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ThreadID._ThreadType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ThreadTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ThreadID._ThreadType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: ThreadID._ThreadType.ValueType  # 0
         VIEW_REPLIES: ThreadID._ThreadType.ValueType  # 1
         AI_THREAD: ThreadID._ThreadType.ValueType  # 2
@@ -4062,32 +4277,34 @@ class ThreadID(google.protobuf.message.Message):
     VIEW_REPLIES: ThreadID.ThreadType.ValueType  # 1
     AI_THREAD: ThreadID.ThreadType.ValueType  # 2
 
-    THREADTYPE_FIELD_NUMBER: builtins.int
-    THREADKEY_FIELD_NUMBER: builtins.int
+    THREADTYPE_FIELD_NUMBER: _builtins.int
+    THREADKEY_FIELD_NUMBER: _builtins.int
     threadType: Global___ThreadID.ThreadType.ValueType
-    @property
-    def threadKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    @_builtins.property
+    def threadKey(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
         threadType: Global___ThreadID.ThreadType.ValueType | None = ...,
-        threadKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+        threadKey: _WACommon_pb2.MessageKey | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["threadKey", b"threadKey", "threadType", b"threadType"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["threadKey", b"threadKey", "threadType", b"threadType"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["threadKey", b"threadKey", "threadType", b"threadType"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["threadKey", b"threadKey", "threadType", b"threadType"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ThreadID: typing_extensions.TypeAlias = ThreadID
+Global___ThreadID: _TypeAlias = ThreadID  # noqa: Y015
 
-@typing.final
-class MessageContextInfo(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MessageContextInfo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _MessageAddonExpiryType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _MessageAddonExpiryTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[MessageContextInfo._MessageAddonExpiryType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _MessageAddonExpiryTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[MessageContextInfo._MessageAddonExpiryType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         STATIC: MessageContextInfo._MessageAddonExpiryType.ValueType  # 1
         DEPENDENT_ON_PARENT: MessageContextInfo._MessageAddonExpiryType.ValueType  # 2
 
@@ -4095,79 +4312,81 @@ class MessageContextInfo(google.protobuf.message.Message):
     STATIC: MessageContextInfo.MessageAddonExpiryType.ValueType  # 1
     DEPENDENT_ON_PARENT: MessageContextInfo.MessageAddonExpiryType.ValueType  # 2
 
-    DEVICELISTMETADATA_FIELD_NUMBER: builtins.int
-    DEVICELISTMETADATAVERSION_FIELD_NUMBER: builtins.int
-    MESSAGESECRET_FIELD_NUMBER: builtins.int
-    PADDINGBYTES_FIELD_NUMBER: builtins.int
-    MESSAGEADDONDURATIONINSECS_FIELD_NUMBER: builtins.int
-    BOTMESSAGESECRET_FIELD_NUMBER: builtins.int
-    BOTMETADATA_FIELD_NUMBER: builtins.int
-    REPORTINGTOKENVERSION_FIELD_NUMBER: builtins.int
-    MESSAGEADDONEXPIRYTYPE_FIELD_NUMBER: builtins.int
-    MESSAGEASSOCIATION_FIELD_NUMBER: builtins.int
-    CAPICREATEDGROUP_FIELD_NUMBER: builtins.int
-    SUPPORTPAYLOAD_FIELD_NUMBER: builtins.int
-    LIMITSHARING_FIELD_NUMBER: builtins.int
-    LIMITSHARINGV2_FIELD_NUMBER: builtins.int
-    THREADID_FIELD_NUMBER: builtins.int
-    WEBLINKRENDERCONFIG_FIELD_NUMBER: builtins.int
-    deviceListMetadataVersion: builtins.int
-    messageSecret: builtins.bytes
-    paddingBytes: builtins.bytes
-    messageAddOnDurationInSecs: builtins.int
-    botMessageSecret: builtins.bytes
-    reportingTokenVersion: builtins.int
+    DEVICELISTMETADATA_FIELD_NUMBER: _builtins.int
+    DEVICELISTMETADATAVERSION_FIELD_NUMBER: _builtins.int
+    MESSAGESECRET_FIELD_NUMBER: _builtins.int
+    PADDINGBYTES_FIELD_NUMBER: _builtins.int
+    MESSAGEADDONDURATIONINSECS_FIELD_NUMBER: _builtins.int
+    BOTMESSAGESECRET_FIELD_NUMBER: _builtins.int
+    BOTMETADATA_FIELD_NUMBER: _builtins.int
+    REPORTINGTOKENVERSION_FIELD_NUMBER: _builtins.int
+    MESSAGEADDONEXPIRYTYPE_FIELD_NUMBER: _builtins.int
+    MESSAGEASSOCIATION_FIELD_NUMBER: _builtins.int
+    CAPICREATEDGROUP_FIELD_NUMBER: _builtins.int
+    SUPPORTPAYLOAD_FIELD_NUMBER: _builtins.int
+    LIMITSHARING_FIELD_NUMBER: _builtins.int
+    LIMITSHARINGV2_FIELD_NUMBER: _builtins.int
+    THREADID_FIELD_NUMBER: _builtins.int
+    WEBLINKRENDERCONFIG_FIELD_NUMBER: _builtins.int
+    deviceListMetadataVersion: _builtins.int
+    messageSecret: _builtins.bytes
+    paddingBytes: _builtins.bytes
+    messageAddOnDurationInSecs: _builtins.int
+    botMessageSecret: _builtins.bytes
+    reportingTokenVersion: _builtins.int
     messageAddOnExpiryType: Global___MessageContextInfo.MessageAddonExpiryType.ValueType
-    capiCreatedGroup: builtins.bool
-    supportPayload: builtins.str
+    capiCreatedGroup: _builtins.bool
+    supportPayload: _builtins.str
     weblinkRenderConfig: Global___WebLinkRenderConfig.ValueType
-    @property
+    @_builtins.property
     def deviceListMetadata(self) -> Global___DeviceListMetadata: ...
-    @property
-    def botMetadata(self) -> waAICommon.WAAICommon_pb2.BotMetadata: ...
-    @property
+    @_builtins.property
+    def botMetadata(self) -> _WAAICommon_pb2.BotMetadata: ...
+    @_builtins.property
     def messageAssociation(self) -> Global___MessageAssociation: ...
-    @property
-    def limitSharing(self) -> waCommon.WACommon_pb2.LimitSharing: ...
-    @property
-    def limitSharingV2(self) -> waCommon.WACommon_pb2.LimitSharing: ...
-    @property
-    def threadID(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ThreadID]: ...
+    @_builtins.property
+    def limitSharing(self) -> _WACommon_pb2.LimitSharing: ...
+    @_builtins.property
+    def limitSharingV2(self) -> _WACommon_pb2.LimitSharing: ...
+    @_builtins.property
+    def threadID(self) -> _containers.RepeatedCompositeFieldContainer[Global___ThreadID]: ...
     def __init__(
         self,
         *,
         deviceListMetadata: Global___DeviceListMetadata | None = ...,
-        deviceListMetadataVersion: builtins.int | None = ...,
-        messageSecret: builtins.bytes | None = ...,
-        paddingBytes: builtins.bytes | None = ...,
-        messageAddOnDurationInSecs: builtins.int | None = ...,
-        botMessageSecret: builtins.bytes | None = ...,
-        botMetadata: waAICommon.WAAICommon_pb2.BotMetadata | None = ...,
-        reportingTokenVersion: builtins.int | None = ...,
+        deviceListMetadataVersion: _builtins.int | None = ...,
+        messageSecret: _builtins.bytes | None = ...,
+        paddingBytes: _builtins.bytes | None = ...,
+        messageAddOnDurationInSecs: _builtins.int | None = ...,
+        botMessageSecret: _builtins.bytes | None = ...,
+        botMetadata: _WAAICommon_pb2.BotMetadata | None = ...,
+        reportingTokenVersion: _builtins.int | None = ...,
         messageAddOnExpiryType: Global___MessageContextInfo.MessageAddonExpiryType.ValueType | None = ...,
         messageAssociation: Global___MessageAssociation | None = ...,
-        capiCreatedGroup: builtins.bool | None = ...,
-        supportPayload: builtins.str | None = ...,
-        limitSharing: waCommon.WACommon_pb2.LimitSharing | None = ...,
-        limitSharingV2: waCommon.WACommon_pb2.LimitSharing | None = ...,
-        threadID: collections.abc.Iterable[Global___ThreadID] | None = ...,
+        capiCreatedGroup: _builtins.bool | None = ...,
+        supportPayload: _builtins.str | None = ...,
+        limitSharing: _WACommon_pb2.LimitSharing | None = ...,
+        limitSharingV2: _WACommon_pb2.LimitSharing | None = ...,
+        threadID: _abc.Iterable[Global___ThreadID] | None = ...,
         weblinkRenderConfig: Global___WebLinkRenderConfig.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["botMessageSecret", b"botMessageSecret", "botMetadata", b"botMetadata", "capiCreatedGroup", b"capiCreatedGroup", "deviceListMetadata", b"deviceListMetadata", "deviceListMetadataVersion", b"deviceListMetadataVersion", "limitSharing", b"limitSharing", "limitSharingV2", b"limitSharingV2", "messageAddOnDurationInSecs", b"messageAddOnDurationInSecs", "messageAddOnExpiryType", b"messageAddOnExpiryType", "messageAssociation", b"messageAssociation", "messageSecret", b"messageSecret", "paddingBytes", b"paddingBytes", "reportingTokenVersion", b"reportingTokenVersion", "supportPayload", b"supportPayload", "weblinkRenderConfig", b"weblinkRenderConfig"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["botMessageSecret", b"botMessageSecret", "botMetadata", b"botMetadata", "capiCreatedGroup", b"capiCreatedGroup", "deviceListMetadata", b"deviceListMetadata", "deviceListMetadataVersion", b"deviceListMetadataVersion", "limitSharing", b"limitSharing", "limitSharingV2", b"limitSharingV2", "messageAddOnDurationInSecs", b"messageAddOnDurationInSecs", "messageAddOnExpiryType", b"messageAddOnExpiryType", "messageAssociation", b"messageAssociation", "messageSecret", b"messageSecret", "paddingBytes", b"paddingBytes", "reportingTokenVersion", b"reportingTokenVersion", "supportPayload", b"supportPayload", "threadID", b"threadID", "weblinkRenderConfig", b"weblinkRenderConfig"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["botMessageSecret", b"botMessageSecret", "botMetadata", b"botMetadata", "capiCreatedGroup", b"capiCreatedGroup", "deviceListMetadata", b"deviceListMetadata", "deviceListMetadataVersion", b"deviceListMetadataVersion", "limitSharing", b"limitSharing", "limitSharingV2", b"limitSharingV2", "messageAddOnDurationInSecs", b"messageAddOnDurationInSecs", "messageAddOnExpiryType", b"messageAddOnExpiryType", "messageAssociation", b"messageAssociation", "messageSecret", b"messageSecret", "paddingBytes", b"paddingBytes", "reportingTokenVersion", b"reportingTokenVersion", "supportPayload", b"supportPayload", "weblinkRenderConfig", b"weblinkRenderConfig"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["botMessageSecret", b"botMessageSecret", "botMetadata", b"botMetadata", "capiCreatedGroup", b"capiCreatedGroup", "deviceListMetadata", b"deviceListMetadata", "deviceListMetadataVersion", b"deviceListMetadataVersion", "limitSharing", b"limitSharing", "limitSharingV2", b"limitSharingV2", "messageAddOnDurationInSecs", b"messageAddOnDurationInSecs", "messageAddOnExpiryType", b"messageAddOnExpiryType", "messageAssociation", b"messageAssociation", "messageSecret", b"messageSecret", "paddingBytes", b"paddingBytes", "reportingTokenVersion", b"reportingTokenVersion", "supportPayload", b"supportPayload", "threadID", b"threadID", "weblinkRenderConfig", b"weblinkRenderConfig"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___MessageContextInfo: typing_extensions.TypeAlias = MessageContextInfo
+Global___MessageContextInfo: _TypeAlias = MessageContextInfo  # noqa: Y015
 
-@typing.final
-class InteractiveAnnotation(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class InteractiveAnnotation(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _StatusLinkType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _StatusLinkTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[InteractiveAnnotation._StatusLinkType.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _StatusLinkTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[InteractiveAnnotation._StatusLinkType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         RASTERIZED_LINK_PREVIEW: InteractiveAnnotation._StatusLinkType.ValueType  # 1
         RASTERIZED_LINK_TRUNCATED: InteractiveAnnotation._StatusLinkType.ValueType  # 2
         RASTERIZED_LINK_FULL_URL: InteractiveAnnotation._StatusLinkType.ValueType  # 3
@@ -4177,59 +4396,63 @@ class InteractiveAnnotation(google.protobuf.message.Message):
     RASTERIZED_LINK_TRUNCATED: InteractiveAnnotation.StatusLinkType.ValueType  # 2
     RASTERIZED_LINK_FULL_URL: InteractiveAnnotation.StatusLinkType.ValueType  # 3
 
-    LOCATION_FIELD_NUMBER: builtins.int
-    NEWSLETTER_FIELD_NUMBER: builtins.int
-    EMBEDDEDACTION_FIELD_NUMBER: builtins.int
-    TAPACTION_FIELD_NUMBER: builtins.int
-    POLYGONVERTICES_FIELD_NUMBER: builtins.int
-    SHOULDSKIPCONFIRMATION_FIELD_NUMBER: builtins.int
-    EMBEDDEDCONTENT_FIELD_NUMBER: builtins.int
-    STATUSLINKTYPE_FIELD_NUMBER: builtins.int
-    embeddedAction: builtins.bool
-    shouldSkipConfirmation: builtins.bool
+    LOCATION_FIELD_NUMBER: _builtins.int
+    NEWSLETTER_FIELD_NUMBER: _builtins.int
+    EMBEDDEDACTION_FIELD_NUMBER: _builtins.int
+    TAPACTION_FIELD_NUMBER: _builtins.int
+    POLYGONVERTICES_FIELD_NUMBER: _builtins.int
+    SHOULDSKIPCONFIRMATION_FIELD_NUMBER: _builtins.int
+    EMBEDDEDCONTENT_FIELD_NUMBER: _builtins.int
+    STATUSLINKTYPE_FIELD_NUMBER: _builtins.int
+    embeddedAction: _builtins.bool
+    shouldSkipConfirmation: _builtins.bool
     statusLinkType: Global___InteractiveAnnotation.StatusLinkType.ValueType
-    @property
+    @_builtins.property
     def location(self) -> Global___Location: ...
-    @property
+    @_builtins.property
     def newsletter(self) -> Global___ContextInfo.ForwardedNewsletterMessageInfo: ...
-    @property
+    @_builtins.property
     def tapAction(self) -> Global___TapLinkAction: ...
-    @property
-    def polygonVertices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___Point]: ...
-    @property
+    @_builtins.property
+    def polygonVertices(self) -> _containers.RepeatedCompositeFieldContainer[Global___Point]: ...
+    @_builtins.property
     def embeddedContent(self) -> Global___EmbeddedContent: ...
     def __init__(
         self,
         *,
         location: Global___Location | None = ...,
         newsletter: Global___ContextInfo.ForwardedNewsletterMessageInfo | None = ...,
-        embeddedAction: builtins.bool | None = ...,
+        embeddedAction: _builtins.bool | None = ...,
         tapAction: Global___TapLinkAction | None = ...,
-        polygonVertices: collections.abc.Iterable[Global___Point] | None = ...,
-        shouldSkipConfirmation: builtins.bool | None = ...,
+        polygonVertices: _abc.Iterable[Global___Point] | None = ...,
+        shouldSkipConfirmation: _builtins.bool | None = ...,
         embeddedContent: Global___EmbeddedContent | None = ...,
         statusLinkType: Global___InteractiveAnnotation.StatusLinkType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["action", b"action", "embeddedAction", b"embeddedAction", "embeddedContent", b"embeddedContent", "location", b"location", "newsletter", b"newsletter", "shouldSkipConfirmation", b"shouldSkipConfirmation", "statusLinkType", b"statusLinkType", "tapAction", b"tapAction"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["action", b"action", "embeddedAction", b"embeddedAction", "embeddedContent", b"embeddedContent", "location", b"location", "newsletter", b"newsletter", "polygonVertices", b"polygonVertices", "shouldSkipConfirmation", b"shouldSkipConfirmation", "statusLinkType", b"statusLinkType", "tapAction", b"tapAction"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["action", b"action"]) -> typing.Literal["location", "newsletter", "embeddedAction", "tapAction"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["action", b"action", "embeddedAction", b"embeddedAction", "embeddedContent", b"embeddedContent", "location", b"location", "newsletter", b"newsletter", "shouldSkipConfirmation", b"shouldSkipConfirmation", "statusLinkType", b"statusLinkType", "tapAction", b"tapAction"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["action", b"action", "embeddedAction", b"embeddedAction", "embeddedContent", b"embeddedContent", "location", b"location", "newsletter", b"newsletter", "polygonVertices", b"polygonVertices", "shouldSkipConfirmation", b"shouldSkipConfirmation", "statusLinkType", b"statusLinkType", "tapAction", b"tapAction"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_action: _TypeAlias = _typing.Literal["location", "newsletter", "embeddedAction", "tapAction"]  # noqa: Y015
+    _WhichOneofArgType_action: _TypeAlias = _typing.Literal["action", b"action"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_action) -> _WhichOneofReturnType_action | None: ...
 
-Global___InteractiveAnnotation: typing_extensions.TypeAlias = InteractiveAnnotation
+Global___InteractiveAnnotation: _TypeAlias = InteractiveAnnotation  # noqa: Y015
 
-@typing.final
-class HydratedTemplateButton(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class HydratedTemplateButton(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class HydratedURLButton(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class HydratedURLButton(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _WebviewPresentationType:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _WebviewPresentationTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HydratedTemplateButton.HydratedURLButton._WebviewPresentationType.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _WebviewPresentationTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[HydratedTemplateButton.HydratedURLButton._WebviewPresentationType.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             FULL: HydratedTemplateButton.HydratedURLButton._WebviewPresentationType.ValueType  # 1
             TALL: HydratedTemplateButton.HydratedURLButton._WebviewPresentationType.ValueType  # 2
             COMPACT: HydratedTemplateButton.HydratedURLButton._WebviewPresentationType.ValueType  # 3
@@ -4239,69 +4462,75 @@ class HydratedTemplateButton(google.protobuf.message.Message):
         TALL: HydratedTemplateButton.HydratedURLButton.WebviewPresentationType.ValueType  # 2
         COMPACT: HydratedTemplateButton.HydratedURLButton.WebviewPresentationType.ValueType  # 3
 
-        DISPLAYTEXT_FIELD_NUMBER: builtins.int
-        URL_FIELD_NUMBER: builtins.int
-        CONSENTEDUSERSURL_FIELD_NUMBER: builtins.int
-        WEBVIEWPRESENTATION_FIELD_NUMBER: builtins.int
-        displayText: builtins.str
-        URL: builtins.str
-        consentedUsersURL: builtins.str
+        DISPLAYTEXT_FIELD_NUMBER: _builtins.int
+        URL_FIELD_NUMBER: _builtins.int
+        CONSENTEDUSERSURL_FIELD_NUMBER: _builtins.int
+        WEBVIEWPRESENTATION_FIELD_NUMBER: _builtins.int
+        displayText: _builtins.str
+        URL: _builtins.str
+        consentedUsersURL: _builtins.str
         webviewPresentation: Global___HydratedTemplateButton.HydratedURLButton.WebviewPresentationType.ValueType
         def __init__(
             self,
             *,
-            displayText: builtins.str | None = ...,
-            URL: builtins.str | None = ...,
-            consentedUsersURL: builtins.str | None = ...,
+            displayText: _builtins.str | None = ...,
+            URL: _builtins.str | None = ...,
+            consentedUsersURL: _builtins.str | None = ...,
             webviewPresentation: Global___HydratedTemplateButton.HydratedURLButton.WebviewPresentationType.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["URL", b"URL", "consentedUsersURL", b"consentedUsersURL", "displayText", b"displayText", "webviewPresentation", b"webviewPresentation"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["URL", b"URL", "consentedUsersURL", b"consentedUsersURL", "displayText", b"displayText", "webviewPresentation", b"webviewPresentation"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "consentedUsersURL", b"consentedUsersURL", "displayText", b"displayText", "webviewPresentation", b"webviewPresentation"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "consentedUsersURL", b"consentedUsersURL", "displayText", b"displayText", "webviewPresentation", b"webviewPresentation"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class HydratedCallButton(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class HydratedCallButton(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        DISPLAYTEXT_FIELD_NUMBER: builtins.int
-        PHONENUMBER_FIELD_NUMBER: builtins.int
-        displayText: builtins.str
-        phoneNumber: builtins.str
+        DISPLAYTEXT_FIELD_NUMBER: _builtins.int
+        PHONENUMBER_FIELD_NUMBER: _builtins.int
+        displayText: _builtins.str
+        phoneNumber: _builtins.str
         def __init__(
             self,
             *,
-            displayText: builtins.str | None = ...,
-            phoneNumber: builtins.str | None = ...,
+            displayText: _builtins.str | None = ...,
+            phoneNumber: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["displayText", b"displayText", "phoneNumber", b"phoneNumber"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["displayText", b"displayText", "phoneNumber", b"phoneNumber"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["displayText", b"displayText", "phoneNumber", b"phoneNumber"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["displayText", b"displayText", "phoneNumber", b"phoneNumber"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class HydratedQuickReplyButton(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class HydratedQuickReplyButton(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        DISPLAYTEXT_FIELD_NUMBER: builtins.int
-        ID_FIELD_NUMBER: builtins.int
-        displayText: builtins.str
-        ID: builtins.str
+        DISPLAYTEXT_FIELD_NUMBER: _builtins.int
+        ID_FIELD_NUMBER: _builtins.int
+        displayText: _builtins.str
+        ID: _builtins.str
         def __init__(
             self,
             *,
-            displayText: builtins.str | None = ...,
-            ID: builtins.str | None = ...,
+            displayText: _builtins.str | None = ...,
+            ID: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["ID", b"ID", "displayText", b"displayText"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["ID", b"ID", "displayText", b"displayText"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "displayText", b"displayText"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "displayText", b"displayText"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    QUICKREPLYBUTTON_FIELD_NUMBER: builtins.int
-    URLBUTTON_FIELD_NUMBER: builtins.int
-    CALLBUTTON_FIELD_NUMBER: builtins.int
-    INDEX_FIELD_NUMBER: builtins.int
-    index: builtins.int
-    @property
+    QUICKREPLYBUTTON_FIELD_NUMBER: _builtins.int
+    URLBUTTON_FIELD_NUMBER: _builtins.int
+    CALLBUTTON_FIELD_NUMBER: _builtins.int
+    INDEX_FIELD_NUMBER: _builtins.int
+    index: _builtins.int
+    @_builtins.property
     def quickReplyButton(self) -> Global___HydratedTemplateButton.HydratedQuickReplyButton: ...
-    @property
+    @_builtins.property
     def urlButton(self) -> Global___HydratedTemplateButton.HydratedURLButton: ...
-    @property
+    @_builtins.property
     def callButton(self) -> Global___HydratedTemplateButton.HydratedCallButton: ...
     def __init__(
         self,
@@ -4309,24 +4538,28 @@ class HydratedTemplateButton(google.protobuf.message.Message):
         quickReplyButton: Global___HydratedTemplateButton.HydratedQuickReplyButton | None = ...,
         urlButton: Global___HydratedTemplateButton.HydratedURLButton | None = ...,
         callButton: Global___HydratedTemplateButton.HydratedCallButton | None = ...,
-        index: builtins.int | None = ...,
+        index: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["callButton", b"callButton", "hydratedButton", b"hydratedButton", "index", b"index", "quickReplyButton", b"quickReplyButton", "urlButton", b"urlButton"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["callButton", b"callButton", "hydratedButton", b"hydratedButton", "index", b"index", "quickReplyButton", b"quickReplyButton", "urlButton", b"urlButton"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["hydratedButton", b"hydratedButton"]) -> typing.Literal["quickReplyButton", "urlButton", "callButton"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["callButton", b"callButton", "hydratedButton", b"hydratedButton", "index", b"index", "quickReplyButton", b"quickReplyButton", "urlButton", b"urlButton"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["callButton", b"callButton", "hydratedButton", b"hydratedButton", "index", b"index", "quickReplyButton", b"quickReplyButton", "urlButton", b"urlButton"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_hydratedButton: _TypeAlias = _typing.Literal["quickReplyButton", "urlButton", "callButton"]  # noqa: Y015
+    _WhichOneofArgType_hydratedButton: _TypeAlias = _typing.Literal["hydratedButton", b"hydratedButton"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_hydratedButton) -> _WhichOneofReturnType_hydratedButton | None: ...
 
-Global___HydratedTemplateButton: typing_extensions.TypeAlias = HydratedTemplateButton
+Global___HydratedTemplateButton: _TypeAlias = HydratedTemplateButton  # noqa: Y015
 
-@typing.final
-class PaymentBackground(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PaymentBackground(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Type:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PaymentBackground._Type.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _TypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[PaymentBackground._Type.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: PaymentBackground._Type.ValueType  # 0
         DEFAULT: PaymentBackground._Type.ValueType  # 1
 
@@ -4334,82 +4567,86 @@ class PaymentBackground(google.protobuf.message.Message):
     UNKNOWN: PaymentBackground.Type.ValueType  # 0
     DEFAULT: PaymentBackground.Type.ValueType  # 1
 
-    @typing.final
-    class MediaData(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class MediaData(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        MEDIAKEY_FIELD_NUMBER: builtins.int
-        MEDIAKEYTIMESTAMP_FIELD_NUMBER: builtins.int
-        FILESHA256_FIELD_NUMBER: builtins.int
-        FILEENCSHA256_FIELD_NUMBER: builtins.int
-        DIRECTPATH_FIELD_NUMBER: builtins.int
-        mediaKey: builtins.bytes
-        mediaKeyTimestamp: builtins.int
-        fileSHA256: builtins.bytes
-        fileEncSHA256: builtins.bytes
-        directPath: builtins.str
+        MEDIAKEY_FIELD_NUMBER: _builtins.int
+        MEDIAKEYTIMESTAMP_FIELD_NUMBER: _builtins.int
+        FILESHA256_FIELD_NUMBER: _builtins.int
+        FILEENCSHA256_FIELD_NUMBER: _builtins.int
+        DIRECTPATH_FIELD_NUMBER: _builtins.int
+        mediaKey: _builtins.bytes
+        mediaKeyTimestamp: _builtins.int
+        fileSHA256: _builtins.bytes
+        fileEncSHA256: _builtins.bytes
+        directPath: _builtins.str
         def __init__(
             self,
             *,
-            mediaKey: builtins.bytes | None = ...,
-            mediaKeyTimestamp: builtins.int | None = ...,
-            fileSHA256: builtins.bytes | None = ...,
-            fileEncSHA256: builtins.bytes | None = ...,
-            directPath: builtins.str | None = ...,
+            mediaKey: _builtins.bytes | None = ...,
+            mediaKeyTimestamp: _builtins.int | None = ...,
+            fileSHA256: _builtins.bytes | None = ...,
+            fileEncSHA256: _builtins.bytes | None = ...,
+            directPath: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    ID_FIELD_NUMBER: builtins.int
-    FILELENGTH_FIELD_NUMBER: builtins.int
-    WIDTH_FIELD_NUMBER: builtins.int
-    HEIGHT_FIELD_NUMBER: builtins.int
-    MIMETYPE_FIELD_NUMBER: builtins.int
-    PLACEHOLDERARGB_FIELD_NUMBER: builtins.int
-    TEXTARGB_FIELD_NUMBER: builtins.int
-    SUBTEXTARGB_FIELD_NUMBER: builtins.int
-    MEDIADATA_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
-    ID: builtins.str
-    fileLength: builtins.int
-    width: builtins.int
-    height: builtins.int
-    mimetype: builtins.str
-    placeholderArgb: builtins.int
-    textArgb: builtins.int
-    subtextArgb: builtins.int
+    ID_FIELD_NUMBER: _builtins.int
+    FILELENGTH_FIELD_NUMBER: _builtins.int
+    WIDTH_FIELD_NUMBER: _builtins.int
+    HEIGHT_FIELD_NUMBER: _builtins.int
+    MIMETYPE_FIELD_NUMBER: _builtins.int
+    PLACEHOLDERARGB_FIELD_NUMBER: _builtins.int
+    TEXTARGB_FIELD_NUMBER: _builtins.int
+    SUBTEXTARGB_FIELD_NUMBER: _builtins.int
+    MEDIADATA_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    ID: _builtins.str
+    fileLength: _builtins.int
+    width: _builtins.int
+    height: _builtins.int
+    mimetype: _builtins.str
+    placeholderArgb: _builtins.int
+    textArgb: _builtins.int
+    subtextArgb: _builtins.int
     type: Global___PaymentBackground.Type.ValueType
-    @property
+    @_builtins.property
     def mediaData(self) -> Global___PaymentBackground.MediaData: ...
     def __init__(
         self,
         *,
-        ID: builtins.str | None = ...,
-        fileLength: builtins.int | None = ...,
-        width: builtins.int | None = ...,
-        height: builtins.int | None = ...,
-        mimetype: builtins.str | None = ...,
-        placeholderArgb: builtins.int | None = ...,
-        textArgb: builtins.int | None = ...,
-        subtextArgb: builtins.int | None = ...,
+        ID: _builtins.str | None = ...,
+        fileLength: _builtins.int | None = ...,
+        width: _builtins.int | None = ...,
+        height: _builtins.int | None = ...,
+        mimetype: _builtins.str | None = ...,
+        placeholderArgb: _builtins.int | None = ...,
+        textArgb: _builtins.int | None = ...,
+        subtextArgb: _builtins.int | None = ...,
         mediaData: Global___PaymentBackground.MediaData | None = ...,
         type: Global___PaymentBackground.Type.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ID", b"ID", "fileLength", b"fileLength", "height", b"height", "mediaData", b"mediaData", "mimetype", b"mimetype", "placeholderArgb", b"placeholderArgb", "subtextArgb", b"subtextArgb", "textArgb", b"textArgb", "type", b"type", "width", b"width"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["ID", b"ID", "fileLength", b"fileLength", "height", b"height", "mediaData", b"mediaData", "mimetype", b"mimetype", "placeholderArgb", b"placeholderArgb", "subtextArgb", b"subtextArgb", "textArgb", b"textArgb", "type", b"type", "width", b"width"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "fileLength", b"fileLength", "height", b"height", "mediaData", b"mediaData", "mimetype", b"mimetype", "placeholderArgb", b"placeholderArgb", "subtextArgb", b"subtextArgb", "textArgb", b"textArgb", "type", b"type", "width", b"width"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "fileLength", b"fileLength", "height", b"height", "mediaData", b"mediaData", "mimetype", b"mimetype", "placeholderArgb", b"placeholderArgb", "subtextArgb", b"subtextArgb", "textArgb", b"textArgb", "type", b"type", "width", b"width"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PaymentBackground: typing_extensions.TypeAlias = PaymentBackground
+Global___PaymentBackground: _TypeAlias = PaymentBackground  # noqa: Y015
 
-@typing.final
-class DisappearingMode(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DisappearingMode(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Trigger:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _TriggerEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DisappearingMode._Trigger.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _TriggerEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[DisappearingMode._Trigger.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: DisappearingMode._Trigger.ValueType  # 0
         CHAT_SETTING: DisappearingMode._Trigger.ValueType  # 1
         ACCOUNT_SETTING: DisappearingMode._Trigger.ValueType  # 2
@@ -4426,11 +4663,11 @@ class DisappearingMode(google.protobuf.message.Message):
     UNKNOWN_GROUPS: DisappearingMode.Trigger.ValueType  # 5
 
     class _Initiator:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _InitiatorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DisappearingMode._Initiator.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _InitiatorEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[DisappearingMode._Initiator.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         CHANGED_IN_CHAT: DisappearingMode._Initiator.ValueType  # 0
         INITIATED_BY_ME: DisappearingMode._Initiator.ValueType  # 1
         INITIATED_BY_OTHER: DisappearingMode._Initiator.ValueType  # 2
@@ -4442,37 +4679,39 @@ class DisappearingMode(google.protobuf.message.Message):
     INITIATED_BY_OTHER: DisappearingMode.Initiator.ValueType  # 2
     BIZ_UPGRADE_FB_HOSTING: DisappearingMode.Initiator.ValueType  # 3
 
-    INITIATOR_FIELD_NUMBER: builtins.int
-    TRIGGER_FIELD_NUMBER: builtins.int
-    INITIATORDEVICEJID_FIELD_NUMBER: builtins.int
-    INITIATEDBYME_FIELD_NUMBER: builtins.int
+    INITIATOR_FIELD_NUMBER: _builtins.int
+    TRIGGER_FIELD_NUMBER: _builtins.int
+    INITIATORDEVICEJID_FIELD_NUMBER: _builtins.int
+    INITIATEDBYME_FIELD_NUMBER: _builtins.int
     initiator: Global___DisappearingMode.Initiator.ValueType
     trigger: Global___DisappearingMode.Trigger.ValueType
-    initiatorDeviceJID: builtins.str
-    initiatedByMe: builtins.bool
+    initiatorDeviceJID: _builtins.str
+    initiatedByMe: _builtins.bool
     def __init__(
         self,
         *,
         initiator: Global___DisappearingMode.Initiator.ValueType | None = ...,
         trigger: Global___DisappearingMode.Trigger.ValueType | None = ...,
-        initiatorDeviceJID: builtins.str | None = ...,
-        initiatedByMe: builtins.bool | None = ...,
+        initiatorDeviceJID: _builtins.str | None = ...,
+        initiatedByMe: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["initiatedByMe", b"initiatedByMe", "initiator", b"initiator", "initiatorDeviceJID", b"initiatorDeviceJID", "trigger", b"trigger"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["initiatedByMe", b"initiatedByMe", "initiator", b"initiator", "initiatorDeviceJID", b"initiatorDeviceJID", "trigger", b"trigger"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["initiatedByMe", b"initiatedByMe", "initiator", b"initiator", "initiatorDeviceJID", b"initiatorDeviceJID", "trigger", b"trigger"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["initiatedByMe", b"initiatedByMe", "initiator", b"initiator", "initiatorDeviceJID", b"initiatorDeviceJID", "trigger", b"trigger"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___DisappearingMode: typing_extensions.TypeAlias = DisappearingMode
+Global___DisappearingMode: _TypeAlias = DisappearingMode  # noqa: Y015
 
-@typing.final
-class ProcessedVideo(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ProcessedVideo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _VideoQuality:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _VideoQualityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ProcessedVideo._VideoQuality.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _VideoQualityEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ProcessedVideo._VideoQuality.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNDEFINED: ProcessedVideo._VideoQuality.ValueType  # 0
         LOW: ProcessedVideo._VideoQuality.ValueType  # 1
         MID: ProcessedVideo._VideoQuality.ValueType  # 2
@@ -4484,335 +4723,340 @@ class ProcessedVideo(google.protobuf.message.Message):
     MID: ProcessedVideo.VideoQuality.ValueType  # 2
     HIGH: ProcessedVideo.VideoQuality.ValueType  # 3
 
-    DIRECTPATH_FIELD_NUMBER: builtins.int
-    FILESHA256_FIELD_NUMBER: builtins.int
-    HEIGHT_FIELD_NUMBER: builtins.int
-    WIDTH_FIELD_NUMBER: builtins.int
-    FILELENGTH_FIELD_NUMBER: builtins.int
-    BITRATE_FIELD_NUMBER: builtins.int
-    QUALITY_FIELD_NUMBER: builtins.int
-    CAPABILITIES_FIELD_NUMBER: builtins.int
-    directPath: builtins.str
-    fileSHA256: builtins.bytes
-    height: builtins.int
-    width: builtins.int
-    fileLength: builtins.int
-    bitrate: builtins.int
+    DIRECTPATH_FIELD_NUMBER: _builtins.int
+    FILESHA256_FIELD_NUMBER: _builtins.int
+    HEIGHT_FIELD_NUMBER: _builtins.int
+    WIDTH_FIELD_NUMBER: _builtins.int
+    FILELENGTH_FIELD_NUMBER: _builtins.int
+    BITRATE_FIELD_NUMBER: _builtins.int
+    QUALITY_FIELD_NUMBER: _builtins.int
+    CAPABILITIES_FIELD_NUMBER: _builtins.int
+    directPath: _builtins.str
+    fileSHA256: _builtins.bytes
+    height: _builtins.int
+    width: _builtins.int
+    fileLength: _builtins.int
+    bitrate: _builtins.int
     quality: Global___ProcessedVideo.VideoQuality.ValueType
-    @property
-    def capabilities(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    @_builtins.property
+    def capabilities(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
     def __init__(
         self,
         *,
-        directPath: builtins.str | None = ...,
-        fileSHA256: builtins.bytes | None = ...,
-        height: builtins.int | None = ...,
-        width: builtins.int | None = ...,
-        fileLength: builtins.int | None = ...,
-        bitrate: builtins.int | None = ...,
+        directPath: _builtins.str | None = ...,
+        fileSHA256: _builtins.bytes | None = ...,
+        height: _builtins.int | None = ...,
+        width: _builtins.int | None = ...,
+        fileLength: _builtins.int | None = ...,
+        bitrate: _builtins.int | None = ...,
         quality: Global___ProcessedVideo.VideoQuality.ValueType | None = ...,
-        capabilities: collections.abc.Iterable[builtins.str] | None = ...,
+        capabilities: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["bitrate", b"bitrate", "directPath", b"directPath", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "height", b"height", "quality", b"quality", "width", b"width"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["bitrate", b"bitrate", "capabilities", b"capabilities", "directPath", b"directPath", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "height", b"height", "quality", b"quality", "width", b"width"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["bitrate", b"bitrate", "directPath", b"directPath", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "height", b"height", "quality", b"quality", "width", b"width"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["bitrate", b"bitrate", "capabilities", b"capabilities", "directPath", b"directPath", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "height", b"height", "quality", b"quality", "width", b"width"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ProcessedVideo: typing_extensions.TypeAlias = ProcessedVideo
+Global___ProcessedVideo: _TypeAlias = ProcessedVideo  # noqa: Y015
 
-@typing.final
-class Message(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Message(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CONVERSATION_FIELD_NUMBER: builtins.int
-    SENDERKEYDISTRIBUTIONMESSAGE_FIELD_NUMBER: builtins.int
-    IMAGEMESSAGE_FIELD_NUMBER: builtins.int
-    CONTACTMESSAGE_FIELD_NUMBER: builtins.int
-    LOCATIONMESSAGE_FIELD_NUMBER: builtins.int
-    EXTENDEDTEXTMESSAGE_FIELD_NUMBER: builtins.int
-    DOCUMENTMESSAGE_FIELD_NUMBER: builtins.int
-    AUDIOMESSAGE_FIELD_NUMBER: builtins.int
-    VIDEOMESSAGE_FIELD_NUMBER: builtins.int
-    CALL_FIELD_NUMBER: builtins.int
-    CHAT_FIELD_NUMBER: builtins.int
-    PROTOCOLMESSAGE_FIELD_NUMBER: builtins.int
-    CONTACTSARRAYMESSAGE_FIELD_NUMBER: builtins.int
-    HIGHLYSTRUCTUREDMESSAGE_FIELD_NUMBER: builtins.int
-    FASTRATCHETKEYSENDERKEYDISTRIBUTIONMESSAGE_FIELD_NUMBER: builtins.int
-    SENDPAYMENTMESSAGE_FIELD_NUMBER: builtins.int
-    LIVELOCATIONMESSAGE_FIELD_NUMBER: builtins.int
-    REQUESTPAYMENTMESSAGE_FIELD_NUMBER: builtins.int
-    DECLINEPAYMENTREQUESTMESSAGE_FIELD_NUMBER: builtins.int
-    CANCELPAYMENTREQUESTMESSAGE_FIELD_NUMBER: builtins.int
-    TEMPLATEMESSAGE_FIELD_NUMBER: builtins.int
-    STICKERMESSAGE_FIELD_NUMBER: builtins.int
-    GROUPINVITEMESSAGE_FIELD_NUMBER: builtins.int
-    TEMPLATEBUTTONREPLYMESSAGE_FIELD_NUMBER: builtins.int
-    PRODUCTMESSAGE_FIELD_NUMBER: builtins.int
-    DEVICESENTMESSAGE_FIELD_NUMBER: builtins.int
-    MESSAGECONTEXTINFO_FIELD_NUMBER: builtins.int
-    LISTMESSAGE_FIELD_NUMBER: builtins.int
-    VIEWONCEMESSAGE_FIELD_NUMBER: builtins.int
-    ORDERMESSAGE_FIELD_NUMBER: builtins.int
-    LISTRESPONSEMESSAGE_FIELD_NUMBER: builtins.int
-    EPHEMERALMESSAGE_FIELD_NUMBER: builtins.int
-    INVOICEMESSAGE_FIELD_NUMBER: builtins.int
-    BUTTONSMESSAGE_FIELD_NUMBER: builtins.int
-    BUTTONSRESPONSEMESSAGE_FIELD_NUMBER: builtins.int
-    PAYMENTINVITEMESSAGE_FIELD_NUMBER: builtins.int
-    INTERACTIVEMESSAGE_FIELD_NUMBER: builtins.int
-    REACTIONMESSAGE_FIELD_NUMBER: builtins.int
-    STICKERSYNCRMRMESSAGE_FIELD_NUMBER: builtins.int
-    INTERACTIVERESPONSEMESSAGE_FIELD_NUMBER: builtins.int
-    POLLCREATIONMESSAGE_FIELD_NUMBER: builtins.int
-    POLLUPDATEMESSAGE_FIELD_NUMBER: builtins.int
-    KEEPINCHATMESSAGE_FIELD_NUMBER: builtins.int
-    DOCUMENTWITHCAPTIONMESSAGE_FIELD_NUMBER: builtins.int
-    REQUESTPHONENUMBERMESSAGE_FIELD_NUMBER: builtins.int
-    VIEWONCEMESSAGEV2_FIELD_NUMBER: builtins.int
-    ENCREACTIONMESSAGE_FIELD_NUMBER: builtins.int
-    EDITEDMESSAGE_FIELD_NUMBER: builtins.int
-    VIEWONCEMESSAGEV2EXTENSION_FIELD_NUMBER: builtins.int
-    POLLCREATIONMESSAGEV2_FIELD_NUMBER: builtins.int
-    SCHEDULEDCALLCREATIONMESSAGE_FIELD_NUMBER: builtins.int
-    GROUPMENTIONEDMESSAGE_FIELD_NUMBER: builtins.int
-    PININCHATMESSAGE_FIELD_NUMBER: builtins.int
-    POLLCREATIONMESSAGEV3_FIELD_NUMBER: builtins.int
-    SCHEDULEDCALLEDITMESSAGE_FIELD_NUMBER: builtins.int
-    PTVMESSAGE_FIELD_NUMBER: builtins.int
-    BOTINVOKEMESSAGE_FIELD_NUMBER: builtins.int
-    CALLLOGMESSSAGE_FIELD_NUMBER: builtins.int
-    MESSAGEHISTORYBUNDLE_FIELD_NUMBER: builtins.int
-    ENCCOMMENTMESSAGE_FIELD_NUMBER: builtins.int
-    BCALLMESSAGE_FIELD_NUMBER: builtins.int
-    LOTTIESTICKERMESSAGE_FIELD_NUMBER: builtins.int
-    EVENTMESSAGE_FIELD_NUMBER: builtins.int
-    ENCEVENTRESPONSEMESSAGE_FIELD_NUMBER: builtins.int
-    COMMENTMESSAGE_FIELD_NUMBER: builtins.int
-    NEWSLETTERADMININVITEMESSAGE_FIELD_NUMBER: builtins.int
-    PLACEHOLDERMESSAGE_FIELD_NUMBER: builtins.int
-    SECRETENCRYPTEDMESSAGE_FIELD_NUMBER: builtins.int
-    ALBUMMESSAGE_FIELD_NUMBER: builtins.int
-    EVENTCOVERIMAGE_FIELD_NUMBER: builtins.int
-    STICKERPACKMESSAGE_FIELD_NUMBER: builtins.int
-    STATUSMENTIONMESSAGE_FIELD_NUMBER: builtins.int
-    POLLRESULTSNAPSHOTMESSAGE_FIELD_NUMBER: builtins.int
-    POLLCREATIONOPTIONIMAGEMESSAGE_FIELD_NUMBER: builtins.int
-    ASSOCIATEDCHILDMESSAGE_FIELD_NUMBER: builtins.int
-    GROUPSTATUSMENTIONMESSAGE_FIELD_NUMBER: builtins.int
-    POLLCREATIONMESSAGEV4_FIELD_NUMBER: builtins.int
-    STATUSADDYOURS_FIELD_NUMBER: builtins.int
-    GROUPSTATUSMESSAGE_FIELD_NUMBER: builtins.int
-    RICHRESPONSEMESSAGE_FIELD_NUMBER: builtins.int
-    STATUSNOTIFICATIONMESSAGE_FIELD_NUMBER: builtins.int
-    LIMITSHARINGMESSAGE_FIELD_NUMBER: builtins.int
-    BOTTASKMESSAGE_FIELD_NUMBER: builtins.int
-    QUESTIONMESSAGE_FIELD_NUMBER: builtins.int
-    MESSAGEHISTORYNOTICE_FIELD_NUMBER: builtins.int
-    GROUPSTATUSMESSAGEV2_FIELD_NUMBER: builtins.int
-    BOTFORWARDEDMESSAGE_FIELD_NUMBER: builtins.int
-    STATUSQUESTIONANSWERMESSAGE_FIELD_NUMBER: builtins.int
-    QUESTIONREPLYMESSAGE_FIELD_NUMBER: builtins.int
-    QUESTIONRESPONSEMESSAGE_FIELD_NUMBER: builtins.int
-    STATUSQUOTEDMESSAGE_FIELD_NUMBER: builtins.int
-    STATUSSTICKERINTERACTIONMESSAGE_FIELD_NUMBER: builtins.int
-    POLLCREATIONMESSAGEV5_FIELD_NUMBER: builtins.int
-    NEWSLETTERFOLLOWERINVITEMESSAGEV2_FIELD_NUMBER: builtins.int
-    POLLRESULTSNAPSHOTMESSAGEV3_FIELD_NUMBER: builtins.int
-    NEWSLETTERADMINPROFILEMESSAGE_FIELD_NUMBER: builtins.int
-    conversation: builtins.str
-    @property
+    CONVERSATION_FIELD_NUMBER: _builtins.int
+    SENDERKEYDISTRIBUTIONMESSAGE_FIELD_NUMBER: _builtins.int
+    IMAGEMESSAGE_FIELD_NUMBER: _builtins.int
+    CONTACTMESSAGE_FIELD_NUMBER: _builtins.int
+    LOCATIONMESSAGE_FIELD_NUMBER: _builtins.int
+    EXTENDEDTEXTMESSAGE_FIELD_NUMBER: _builtins.int
+    DOCUMENTMESSAGE_FIELD_NUMBER: _builtins.int
+    AUDIOMESSAGE_FIELD_NUMBER: _builtins.int
+    VIDEOMESSAGE_FIELD_NUMBER: _builtins.int
+    CALL_FIELD_NUMBER: _builtins.int
+    CHAT_FIELD_NUMBER: _builtins.int
+    PROTOCOLMESSAGE_FIELD_NUMBER: _builtins.int
+    CONTACTSARRAYMESSAGE_FIELD_NUMBER: _builtins.int
+    HIGHLYSTRUCTUREDMESSAGE_FIELD_NUMBER: _builtins.int
+    FASTRATCHETKEYSENDERKEYDISTRIBUTIONMESSAGE_FIELD_NUMBER: _builtins.int
+    SENDPAYMENTMESSAGE_FIELD_NUMBER: _builtins.int
+    LIVELOCATIONMESSAGE_FIELD_NUMBER: _builtins.int
+    REQUESTPAYMENTMESSAGE_FIELD_NUMBER: _builtins.int
+    DECLINEPAYMENTREQUESTMESSAGE_FIELD_NUMBER: _builtins.int
+    CANCELPAYMENTREQUESTMESSAGE_FIELD_NUMBER: _builtins.int
+    TEMPLATEMESSAGE_FIELD_NUMBER: _builtins.int
+    STICKERMESSAGE_FIELD_NUMBER: _builtins.int
+    GROUPINVITEMESSAGE_FIELD_NUMBER: _builtins.int
+    TEMPLATEBUTTONREPLYMESSAGE_FIELD_NUMBER: _builtins.int
+    PRODUCTMESSAGE_FIELD_NUMBER: _builtins.int
+    DEVICESENTMESSAGE_FIELD_NUMBER: _builtins.int
+    MESSAGECONTEXTINFO_FIELD_NUMBER: _builtins.int
+    LISTMESSAGE_FIELD_NUMBER: _builtins.int
+    VIEWONCEMESSAGE_FIELD_NUMBER: _builtins.int
+    ORDERMESSAGE_FIELD_NUMBER: _builtins.int
+    LISTRESPONSEMESSAGE_FIELD_NUMBER: _builtins.int
+    EPHEMERALMESSAGE_FIELD_NUMBER: _builtins.int
+    INVOICEMESSAGE_FIELD_NUMBER: _builtins.int
+    BUTTONSMESSAGE_FIELD_NUMBER: _builtins.int
+    BUTTONSRESPONSEMESSAGE_FIELD_NUMBER: _builtins.int
+    PAYMENTINVITEMESSAGE_FIELD_NUMBER: _builtins.int
+    INTERACTIVEMESSAGE_FIELD_NUMBER: _builtins.int
+    REACTIONMESSAGE_FIELD_NUMBER: _builtins.int
+    STICKERSYNCRMRMESSAGE_FIELD_NUMBER: _builtins.int
+    INTERACTIVERESPONSEMESSAGE_FIELD_NUMBER: _builtins.int
+    POLLCREATIONMESSAGE_FIELD_NUMBER: _builtins.int
+    POLLUPDATEMESSAGE_FIELD_NUMBER: _builtins.int
+    KEEPINCHATMESSAGE_FIELD_NUMBER: _builtins.int
+    DOCUMENTWITHCAPTIONMESSAGE_FIELD_NUMBER: _builtins.int
+    REQUESTPHONENUMBERMESSAGE_FIELD_NUMBER: _builtins.int
+    VIEWONCEMESSAGEV2_FIELD_NUMBER: _builtins.int
+    ENCREACTIONMESSAGE_FIELD_NUMBER: _builtins.int
+    EDITEDMESSAGE_FIELD_NUMBER: _builtins.int
+    VIEWONCEMESSAGEV2EXTENSION_FIELD_NUMBER: _builtins.int
+    POLLCREATIONMESSAGEV2_FIELD_NUMBER: _builtins.int
+    SCHEDULEDCALLCREATIONMESSAGE_FIELD_NUMBER: _builtins.int
+    GROUPMENTIONEDMESSAGE_FIELD_NUMBER: _builtins.int
+    PININCHATMESSAGE_FIELD_NUMBER: _builtins.int
+    POLLCREATIONMESSAGEV3_FIELD_NUMBER: _builtins.int
+    SCHEDULEDCALLEDITMESSAGE_FIELD_NUMBER: _builtins.int
+    PTVMESSAGE_FIELD_NUMBER: _builtins.int
+    BOTINVOKEMESSAGE_FIELD_NUMBER: _builtins.int
+    CALLLOGMESSSAGE_FIELD_NUMBER: _builtins.int
+    MESSAGEHISTORYBUNDLE_FIELD_NUMBER: _builtins.int
+    ENCCOMMENTMESSAGE_FIELD_NUMBER: _builtins.int
+    BCALLMESSAGE_FIELD_NUMBER: _builtins.int
+    LOTTIESTICKERMESSAGE_FIELD_NUMBER: _builtins.int
+    EVENTMESSAGE_FIELD_NUMBER: _builtins.int
+    ENCEVENTRESPONSEMESSAGE_FIELD_NUMBER: _builtins.int
+    COMMENTMESSAGE_FIELD_NUMBER: _builtins.int
+    NEWSLETTERADMININVITEMESSAGE_FIELD_NUMBER: _builtins.int
+    PLACEHOLDERMESSAGE_FIELD_NUMBER: _builtins.int
+    SECRETENCRYPTEDMESSAGE_FIELD_NUMBER: _builtins.int
+    ALBUMMESSAGE_FIELD_NUMBER: _builtins.int
+    EVENTCOVERIMAGE_FIELD_NUMBER: _builtins.int
+    STICKERPACKMESSAGE_FIELD_NUMBER: _builtins.int
+    STATUSMENTIONMESSAGE_FIELD_NUMBER: _builtins.int
+    POLLRESULTSNAPSHOTMESSAGE_FIELD_NUMBER: _builtins.int
+    POLLCREATIONOPTIONIMAGEMESSAGE_FIELD_NUMBER: _builtins.int
+    ASSOCIATEDCHILDMESSAGE_FIELD_NUMBER: _builtins.int
+    GROUPSTATUSMENTIONMESSAGE_FIELD_NUMBER: _builtins.int
+    POLLCREATIONMESSAGEV4_FIELD_NUMBER: _builtins.int
+    STATUSADDYOURS_FIELD_NUMBER: _builtins.int
+    GROUPSTATUSMESSAGE_FIELD_NUMBER: _builtins.int
+    RICHRESPONSEMESSAGE_FIELD_NUMBER: _builtins.int
+    STATUSNOTIFICATIONMESSAGE_FIELD_NUMBER: _builtins.int
+    LIMITSHARINGMESSAGE_FIELD_NUMBER: _builtins.int
+    BOTTASKMESSAGE_FIELD_NUMBER: _builtins.int
+    QUESTIONMESSAGE_FIELD_NUMBER: _builtins.int
+    MESSAGEHISTORYNOTICE_FIELD_NUMBER: _builtins.int
+    GROUPSTATUSMESSAGEV2_FIELD_NUMBER: _builtins.int
+    BOTFORWARDEDMESSAGE_FIELD_NUMBER: _builtins.int
+    STATUSQUESTIONANSWERMESSAGE_FIELD_NUMBER: _builtins.int
+    QUESTIONREPLYMESSAGE_FIELD_NUMBER: _builtins.int
+    QUESTIONRESPONSEMESSAGE_FIELD_NUMBER: _builtins.int
+    STATUSQUOTEDMESSAGE_FIELD_NUMBER: _builtins.int
+    STATUSSTICKERINTERACTIONMESSAGE_FIELD_NUMBER: _builtins.int
+    POLLCREATIONMESSAGEV5_FIELD_NUMBER: _builtins.int
+    NEWSLETTERFOLLOWERINVITEMESSAGEV2_FIELD_NUMBER: _builtins.int
+    POLLRESULTSNAPSHOTMESSAGEV3_FIELD_NUMBER: _builtins.int
+    NEWSLETTERADMINPROFILEMESSAGE_FIELD_NUMBER: _builtins.int
+    NEWSLETTERADMINPROFILEMESSAGEV2_FIELD_NUMBER: _builtins.int
+    conversation: _builtins.str
+    @_builtins.property
     def senderKeyDistributionMessage(self) -> Global___SenderKeyDistributionMessage: ...
-    @property
+    @_builtins.property
     def imageMessage(self) -> Global___ImageMessage: ...
-    @property
+    @_builtins.property
     def contactMessage(self) -> Global___ContactMessage: ...
-    @property
+    @_builtins.property
     def locationMessage(self) -> Global___LocationMessage: ...
-    @property
+    @_builtins.property
     def extendedTextMessage(self) -> Global___ExtendedTextMessage: ...
-    @property
+    @_builtins.property
     def documentMessage(self) -> Global___DocumentMessage: ...
-    @property
+    @_builtins.property
     def audioMessage(self) -> Global___AudioMessage: ...
-    @property
+    @_builtins.property
     def videoMessage(self) -> Global___VideoMessage: ...
-    @property
+    @_builtins.property
     def call(self) -> Global___Call: ...
-    @property
+    @_builtins.property
     def chat(self) -> Global___Chat: ...
-    @property
+    @_builtins.property
     def protocolMessage(self) -> Global___ProtocolMessage: ...
-    @property
+    @_builtins.property
     def contactsArrayMessage(self) -> Global___ContactsArrayMessage: ...
-    @property
+    @_builtins.property
     def highlyStructuredMessage(self) -> Global___HighlyStructuredMessage: ...
-    @property
+    @_builtins.property
     def fastRatchetKeySenderKeyDistributionMessage(self) -> Global___SenderKeyDistributionMessage: ...
-    @property
+    @_builtins.property
     def sendPaymentMessage(self) -> Global___SendPaymentMessage: ...
-    @property
+    @_builtins.property
     def liveLocationMessage(self) -> Global___LiveLocationMessage: ...
-    @property
+    @_builtins.property
     def requestPaymentMessage(self) -> Global___RequestPaymentMessage: ...
-    @property
+    @_builtins.property
     def declinePaymentRequestMessage(self) -> Global___DeclinePaymentRequestMessage: ...
-    @property
+    @_builtins.property
     def cancelPaymentRequestMessage(self) -> Global___CancelPaymentRequestMessage: ...
-    @property
+    @_builtins.property
     def templateMessage(self) -> Global___TemplateMessage: ...
-    @property
+    @_builtins.property
     def stickerMessage(self) -> Global___StickerMessage: ...
-    @property
+    @_builtins.property
     def groupInviteMessage(self) -> Global___GroupInviteMessage: ...
-    @property
+    @_builtins.property
     def templateButtonReplyMessage(self) -> Global___TemplateButtonReplyMessage: ...
-    @property
+    @_builtins.property
     def productMessage(self) -> Global___ProductMessage: ...
-    @property
+    @_builtins.property
     def deviceSentMessage(self) -> Global___DeviceSentMessage: ...
-    @property
+    @_builtins.property
     def messageContextInfo(self) -> Global___MessageContextInfo: ...
-    @property
+    @_builtins.property
     def listMessage(self) -> Global___ListMessage: ...
-    @property
+    @_builtins.property
     def viewOnceMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def orderMessage(self) -> Global___OrderMessage: ...
-    @property
+    @_builtins.property
     def listResponseMessage(self) -> Global___ListResponseMessage: ...
-    @property
+    @_builtins.property
     def ephemeralMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def invoiceMessage(self) -> Global___InvoiceMessage: ...
-    @property
+    @_builtins.property
     def buttonsMessage(self) -> Global___ButtonsMessage: ...
-    @property
+    @_builtins.property
     def buttonsResponseMessage(self) -> Global___ButtonsResponseMessage: ...
-    @property
+    @_builtins.property
     def paymentInviteMessage(self) -> Global___PaymentInviteMessage: ...
-    @property
+    @_builtins.property
     def interactiveMessage(self) -> Global___InteractiveMessage: ...
-    @property
+    @_builtins.property
     def reactionMessage(self) -> Global___ReactionMessage: ...
-    @property
+    @_builtins.property
     def stickerSyncRmrMessage(self) -> Global___StickerSyncRMRMessage: ...
-    @property
+    @_builtins.property
     def interactiveResponseMessage(self) -> Global___InteractiveResponseMessage: ...
-    @property
+    @_builtins.property
     def pollCreationMessage(self) -> Global___PollCreationMessage: ...
-    @property
+    @_builtins.property
     def pollUpdateMessage(self) -> Global___PollUpdateMessage: ...
-    @property
+    @_builtins.property
     def keepInChatMessage(self) -> Global___KeepInChatMessage: ...
-    @property
+    @_builtins.property
     def documentWithCaptionMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def requestPhoneNumberMessage(self) -> Global___RequestPhoneNumberMessage: ...
-    @property
+    @_builtins.property
     def viewOnceMessageV2(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def encReactionMessage(self) -> Global___EncReactionMessage: ...
-    @property
+    @_builtins.property
     def editedMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def viewOnceMessageV2Extension(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def pollCreationMessageV2(self) -> Global___PollCreationMessage: ...
-    @property
+    @_builtins.property
     def scheduledCallCreationMessage(self) -> Global___ScheduledCallCreationMessage: ...
-    @property
+    @_builtins.property
     def groupMentionedMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def pinInChatMessage(self) -> Global___PinInChatMessage: ...
-    @property
+    @_builtins.property
     def pollCreationMessageV3(self) -> Global___PollCreationMessage: ...
-    @property
+    @_builtins.property
     def scheduledCallEditMessage(self) -> Global___ScheduledCallEditMessage: ...
-    @property
+    @_builtins.property
     def ptvMessage(self) -> Global___VideoMessage: ...
-    @property
+    @_builtins.property
     def botInvokeMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def callLogMesssage(self) -> Global___CallLogMessage: ...
-    @property
+    @_builtins.property
     def messageHistoryBundle(self) -> Global___MessageHistoryBundle: ...
-    @property
+    @_builtins.property
     def encCommentMessage(self) -> Global___EncCommentMessage: ...
-    @property
+    @_builtins.property
     def bcallMessage(self) -> Global___BCallMessage: ...
-    @property
+    @_builtins.property
     def lottieStickerMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def eventMessage(self) -> Global___EventMessage: ...
-    @property
+    @_builtins.property
     def encEventResponseMessage(self) -> Global___EncEventResponseMessage: ...
-    @property
+    @_builtins.property
     def commentMessage(self) -> Global___CommentMessage: ...
-    @property
+    @_builtins.property
     def newsletterAdminInviteMessage(self) -> Global___NewsletterAdminInviteMessage: ...
-    @property
+    @_builtins.property
     def placeholderMessage(self) -> Global___PlaceholderMessage: ...
-    @property
+    @_builtins.property
     def secretEncryptedMessage(self) -> Global___SecretEncryptedMessage: ...
-    @property
+    @_builtins.property
     def albumMessage(self) -> Global___AlbumMessage: ...
-    @property
+    @_builtins.property
     def eventCoverImage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def stickerPackMessage(self) -> Global___StickerPackMessage: ...
-    @property
+    @_builtins.property
     def statusMentionMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def pollResultSnapshotMessage(self) -> Global___PollResultSnapshotMessage: ...
-    @property
+    @_builtins.property
     def pollCreationOptionImageMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def associatedChildMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def groupStatusMentionMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def pollCreationMessageV4(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def statusAddYours(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def groupStatusMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def richResponseMessage(self) -> Global___AIRichResponseMessage: ...
-    @property
+    @_builtins.property
     def statusNotificationMessage(self) -> Global___StatusNotificationMessage: ...
-    @property
+    @_builtins.property
     def limitSharingMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def botTaskMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def questionMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def messageHistoryNotice(self) -> Global___MessageHistoryNotice: ...
-    @property
+    @_builtins.property
     def groupStatusMessageV2(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def botForwardedMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def statusQuestionAnswerMessage(self) -> Global___StatusQuestionAnswerMessage: ...
-    @property
+    @_builtins.property
     def questionReplyMessage(self) -> Global___FutureProofMessage: ...
-    @property
+    @_builtins.property
     def questionResponseMessage(self) -> Global___QuestionResponseMessage: ...
-    @property
+    @_builtins.property
     def statusQuotedMessage(self) -> Global___StatusQuotedMessage: ...
-    @property
+    @_builtins.property
     def statusStickerInteractionMessage(self) -> Global___StatusStickerInteractionMessage: ...
-    @property
+    @_builtins.property
     def pollCreationMessageV5(self) -> Global___PollCreationMessage: ...
-    @property
+    @_builtins.property
     def newsletterFollowerInviteMessageV2(self) -> Global___NewsletterFollowerInviteMessage: ...
-    @property
+    @_builtins.property
     def pollResultSnapshotMessageV3(self) -> Global___PollResultSnapshotMessage: ...
-    @property
+    @_builtins.property
     def newsletterAdminProfileMessage(self) -> Global___FutureProofMessage: ...
+    @_builtins.property
+    def newsletterAdminProfileMessageV2(self) -> Global___FutureProofMessage: ...
     def __init__(
         self,
         *,
-        conversation: builtins.str | None = ...,
+        conversation: _builtins.str | None = ...,
         senderKeyDistributionMessage: Global___SenderKeyDistributionMessage | None = ...,
         imageMessage: Global___ImageMessage | None = ...,
         contactMessage: Global___ContactMessage | None = ...,
@@ -4908,67 +5152,74 @@ class Message(google.protobuf.message.Message):
         newsletterFollowerInviteMessageV2: Global___NewsletterFollowerInviteMessage | None = ...,
         pollResultSnapshotMessageV3: Global___PollResultSnapshotMessage | None = ...,
         newsletterAdminProfileMessage: Global___FutureProofMessage | None = ...,
+        newsletterAdminProfileMessageV2: Global___FutureProofMessage | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["albumMessage", b"albumMessage", "associatedChildMessage", b"associatedChildMessage", "audioMessage", b"audioMessage", "bcallMessage", b"bcallMessage", "botForwardedMessage", b"botForwardedMessage", "botInvokeMessage", b"botInvokeMessage", "botTaskMessage", b"botTaskMessage", "buttonsMessage", b"buttonsMessage", "buttonsResponseMessage", b"buttonsResponseMessage", "call", b"call", "callLogMesssage", b"callLogMesssage", "cancelPaymentRequestMessage", b"cancelPaymentRequestMessage", "chat", b"chat", "commentMessage", b"commentMessage", "contactMessage", b"contactMessage", "contactsArrayMessage", b"contactsArrayMessage", "conversation", b"conversation", "declinePaymentRequestMessage", b"declinePaymentRequestMessage", "deviceSentMessage", b"deviceSentMessage", "documentMessage", b"documentMessage", "documentWithCaptionMessage", b"documentWithCaptionMessage", "editedMessage", b"editedMessage", "encCommentMessage", b"encCommentMessage", "encEventResponseMessage", b"encEventResponseMessage", "encReactionMessage", b"encReactionMessage", "ephemeralMessage", b"ephemeralMessage", "eventCoverImage", b"eventCoverImage", "eventMessage", b"eventMessage", "extendedTextMessage", b"extendedTextMessage", "fastRatchetKeySenderKeyDistributionMessage", b"fastRatchetKeySenderKeyDistributionMessage", "groupInviteMessage", b"groupInviteMessage", "groupMentionedMessage", b"groupMentionedMessage", "groupStatusMentionMessage", b"groupStatusMentionMessage", "groupStatusMessage", b"groupStatusMessage", "groupStatusMessageV2", b"groupStatusMessageV2", "highlyStructuredMessage", b"highlyStructuredMessage", "imageMessage", b"imageMessage", "interactiveMessage", b"interactiveMessage", "interactiveResponseMessage", b"interactiveResponseMessage", "invoiceMessage", b"invoiceMessage", "keepInChatMessage", b"keepInChatMessage", "limitSharingMessage", b"limitSharingMessage", "listMessage", b"listMessage", "listResponseMessage", b"listResponseMessage", "liveLocationMessage", b"liveLocationMessage", "locationMessage", b"locationMessage", "lottieStickerMessage", b"lottieStickerMessage", "messageContextInfo", b"messageContextInfo", "messageHistoryBundle", b"messageHistoryBundle", "messageHistoryNotice", b"messageHistoryNotice", "newsletterAdminInviteMessage", b"newsletterAdminInviteMessage", "newsletterAdminProfileMessage", b"newsletterAdminProfileMessage", "newsletterFollowerInviteMessageV2", b"newsletterFollowerInviteMessageV2", "orderMessage", b"orderMessage", "paymentInviteMessage", b"paymentInviteMessage", "pinInChatMessage", b"pinInChatMessage", "placeholderMessage", b"placeholderMessage", "pollCreationMessage", b"pollCreationMessage", "pollCreationMessageV2", b"pollCreationMessageV2", "pollCreationMessageV3", b"pollCreationMessageV3", "pollCreationMessageV4", b"pollCreationMessageV4", "pollCreationMessageV5", b"pollCreationMessageV5", "pollCreationOptionImageMessage", b"pollCreationOptionImageMessage", "pollResultSnapshotMessage", b"pollResultSnapshotMessage", "pollResultSnapshotMessageV3", b"pollResultSnapshotMessageV3", "pollUpdateMessage", b"pollUpdateMessage", "productMessage", b"productMessage", "protocolMessage", b"protocolMessage", "ptvMessage", b"ptvMessage", "questionMessage", b"questionMessage", "questionReplyMessage", b"questionReplyMessage", "questionResponseMessage", b"questionResponseMessage", "reactionMessage", b"reactionMessage", "requestPaymentMessage", b"requestPaymentMessage", "requestPhoneNumberMessage", b"requestPhoneNumberMessage", "richResponseMessage", b"richResponseMessage", "scheduledCallCreationMessage", b"scheduledCallCreationMessage", "scheduledCallEditMessage", b"scheduledCallEditMessage", "secretEncryptedMessage", b"secretEncryptedMessage", "sendPaymentMessage", b"sendPaymentMessage", "senderKeyDistributionMessage", b"senderKeyDistributionMessage", "statusAddYours", b"statusAddYours", "statusMentionMessage", b"statusMentionMessage", "statusNotificationMessage", b"statusNotificationMessage", "statusQuestionAnswerMessage", b"statusQuestionAnswerMessage", "statusQuotedMessage", b"statusQuotedMessage", "statusStickerInteractionMessage", b"statusStickerInteractionMessage", "stickerMessage", b"stickerMessage", "stickerPackMessage", b"stickerPackMessage", "stickerSyncRmrMessage", b"stickerSyncRmrMessage", "templateButtonReplyMessage", b"templateButtonReplyMessage", "templateMessage", b"templateMessage", "videoMessage", b"videoMessage", "viewOnceMessage", b"viewOnceMessage", "viewOnceMessageV2", b"viewOnceMessageV2", "viewOnceMessageV2Extension", b"viewOnceMessageV2Extension"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["albumMessage", b"albumMessage", "associatedChildMessage", b"associatedChildMessage", "audioMessage", b"audioMessage", "bcallMessage", b"bcallMessage", "botForwardedMessage", b"botForwardedMessage", "botInvokeMessage", b"botInvokeMessage", "botTaskMessage", b"botTaskMessage", "buttonsMessage", b"buttonsMessage", "buttonsResponseMessage", b"buttonsResponseMessage", "call", b"call", "callLogMesssage", b"callLogMesssage", "cancelPaymentRequestMessage", b"cancelPaymentRequestMessage", "chat", b"chat", "commentMessage", b"commentMessage", "contactMessage", b"contactMessage", "contactsArrayMessage", b"contactsArrayMessage", "conversation", b"conversation", "declinePaymentRequestMessage", b"declinePaymentRequestMessage", "deviceSentMessage", b"deviceSentMessage", "documentMessage", b"documentMessage", "documentWithCaptionMessage", b"documentWithCaptionMessage", "editedMessage", b"editedMessage", "encCommentMessage", b"encCommentMessage", "encEventResponseMessage", b"encEventResponseMessage", "encReactionMessage", b"encReactionMessage", "ephemeralMessage", b"ephemeralMessage", "eventCoverImage", b"eventCoverImage", "eventMessage", b"eventMessage", "extendedTextMessage", b"extendedTextMessage", "fastRatchetKeySenderKeyDistributionMessage", b"fastRatchetKeySenderKeyDistributionMessage", "groupInviteMessage", b"groupInviteMessage", "groupMentionedMessage", b"groupMentionedMessage", "groupStatusMentionMessage", b"groupStatusMentionMessage", "groupStatusMessage", b"groupStatusMessage", "groupStatusMessageV2", b"groupStatusMessageV2", "highlyStructuredMessage", b"highlyStructuredMessage", "imageMessage", b"imageMessage", "interactiveMessage", b"interactiveMessage", "interactiveResponseMessage", b"interactiveResponseMessage", "invoiceMessage", b"invoiceMessage", "keepInChatMessage", b"keepInChatMessage", "limitSharingMessage", b"limitSharingMessage", "listMessage", b"listMessage", "listResponseMessage", b"listResponseMessage", "liveLocationMessage", b"liveLocationMessage", "locationMessage", b"locationMessage", "lottieStickerMessage", b"lottieStickerMessage", "messageContextInfo", b"messageContextInfo", "messageHistoryBundle", b"messageHistoryBundle", "messageHistoryNotice", b"messageHistoryNotice", "newsletterAdminInviteMessage", b"newsletterAdminInviteMessage", "newsletterAdminProfileMessage", b"newsletterAdminProfileMessage", "newsletterFollowerInviteMessageV2", b"newsletterFollowerInviteMessageV2", "orderMessage", b"orderMessage", "paymentInviteMessage", b"paymentInviteMessage", "pinInChatMessage", b"pinInChatMessage", "placeholderMessage", b"placeholderMessage", "pollCreationMessage", b"pollCreationMessage", "pollCreationMessageV2", b"pollCreationMessageV2", "pollCreationMessageV3", b"pollCreationMessageV3", "pollCreationMessageV4", b"pollCreationMessageV4", "pollCreationMessageV5", b"pollCreationMessageV5", "pollCreationOptionImageMessage", b"pollCreationOptionImageMessage", "pollResultSnapshotMessage", b"pollResultSnapshotMessage", "pollResultSnapshotMessageV3", b"pollResultSnapshotMessageV3", "pollUpdateMessage", b"pollUpdateMessage", "productMessage", b"productMessage", "protocolMessage", b"protocolMessage", "ptvMessage", b"ptvMessage", "questionMessage", b"questionMessage", "questionReplyMessage", b"questionReplyMessage", "questionResponseMessage", b"questionResponseMessage", "reactionMessage", b"reactionMessage", "requestPaymentMessage", b"requestPaymentMessage", "requestPhoneNumberMessage", b"requestPhoneNumberMessage", "richResponseMessage", b"richResponseMessage", "scheduledCallCreationMessage", b"scheduledCallCreationMessage", "scheduledCallEditMessage", b"scheduledCallEditMessage", "secretEncryptedMessage", b"secretEncryptedMessage", "sendPaymentMessage", b"sendPaymentMessage", "senderKeyDistributionMessage", b"senderKeyDistributionMessage", "statusAddYours", b"statusAddYours", "statusMentionMessage", b"statusMentionMessage", "statusNotificationMessage", b"statusNotificationMessage", "statusQuestionAnswerMessage", b"statusQuestionAnswerMessage", "statusQuotedMessage", b"statusQuotedMessage", "statusStickerInteractionMessage", b"statusStickerInteractionMessage", "stickerMessage", b"stickerMessage", "stickerPackMessage", b"stickerPackMessage", "stickerSyncRmrMessage", b"stickerSyncRmrMessage", "templateButtonReplyMessage", b"templateButtonReplyMessage", "templateMessage", b"templateMessage", "videoMessage", b"videoMessage", "viewOnceMessage", b"viewOnceMessage", "viewOnceMessageV2", b"viewOnceMessageV2", "viewOnceMessageV2Extension", b"viewOnceMessageV2Extension"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["albumMessage", b"albumMessage", "associatedChildMessage", b"associatedChildMessage", "audioMessage", b"audioMessage", "bcallMessage", b"bcallMessage", "botForwardedMessage", b"botForwardedMessage", "botInvokeMessage", b"botInvokeMessage", "botTaskMessage", b"botTaskMessage", "buttonsMessage", b"buttonsMessage", "buttonsResponseMessage", b"buttonsResponseMessage", "call", b"call", "callLogMesssage", b"callLogMesssage", "cancelPaymentRequestMessage", b"cancelPaymentRequestMessage", "chat", b"chat", "commentMessage", b"commentMessage", "contactMessage", b"contactMessage", "contactsArrayMessage", b"contactsArrayMessage", "conversation", b"conversation", "declinePaymentRequestMessage", b"declinePaymentRequestMessage", "deviceSentMessage", b"deviceSentMessage", "documentMessage", b"documentMessage", "documentWithCaptionMessage", b"documentWithCaptionMessage", "editedMessage", b"editedMessage", "encCommentMessage", b"encCommentMessage", "encEventResponseMessage", b"encEventResponseMessage", "encReactionMessage", b"encReactionMessage", "ephemeralMessage", b"ephemeralMessage", "eventCoverImage", b"eventCoverImage", "eventMessage", b"eventMessage", "extendedTextMessage", b"extendedTextMessage", "fastRatchetKeySenderKeyDistributionMessage", b"fastRatchetKeySenderKeyDistributionMessage", "groupInviteMessage", b"groupInviteMessage", "groupMentionedMessage", b"groupMentionedMessage", "groupStatusMentionMessage", b"groupStatusMentionMessage", "groupStatusMessage", b"groupStatusMessage", "groupStatusMessageV2", b"groupStatusMessageV2", "highlyStructuredMessage", b"highlyStructuredMessage", "imageMessage", b"imageMessage", "interactiveMessage", b"interactiveMessage", "interactiveResponseMessage", b"interactiveResponseMessage", "invoiceMessage", b"invoiceMessage", "keepInChatMessage", b"keepInChatMessage", "limitSharingMessage", b"limitSharingMessage", "listMessage", b"listMessage", "listResponseMessage", b"listResponseMessage", "liveLocationMessage", b"liveLocationMessage", "locationMessage", b"locationMessage", "lottieStickerMessage", b"lottieStickerMessage", "messageContextInfo", b"messageContextInfo", "messageHistoryBundle", b"messageHistoryBundle", "messageHistoryNotice", b"messageHistoryNotice", "newsletterAdminInviteMessage", b"newsletterAdminInviteMessage", "newsletterAdminProfileMessage", b"newsletterAdminProfileMessage", "newsletterAdminProfileMessageV2", b"newsletterAdminProfileMessageV2", "newsletterFollowerInviteMessageV2", b"newsletterFollowerInviteMessageV2", "orderMessage", b"orderMessage", "paymentInviteMessage", b"paymentInviteMessage", "pinInChatMessage", b"pinInChatMessage", "placeholderMessage", b"placeholderMessage", "pollCreationMessage", b"pollCreationMessage", "pollCreationMessageV2", b"pollCreationMessageV2", "pollCreationMessageV3", b"pollCreationMessageV3", "pollCreationMessageV4", b"pollCreationMessageV4", "pollCreationMessageV5", b"pollCreationMessageV5", "pollCreationOptionImageMessage", b"pollCreationOptionImageMessage", "pollResultSnapshotMessage", b"pollResultSnapshotMessage", "pollResultSnapshotMessageV3", b"pollResultSnapshotMessageV3", "pollUpdateMessage", b"pollUpdateMessage", "productMessage", b"productMessage", "protocolMessage", b"protocolMessage", "ptvMessage", b"ptvMessage", "questionMessage", b"questionMessage", "questionReplyMessage", b"questionReplyMessage", "questionResponseMessage", b"questionResponseMessage", "reactionMessage", b"reactionMessage", "requestPaymentMessage", b"requestPaymentMessage", "requestPhoneNumberMessage", b"requestPhoneNumberMessage", "richResponseMessage", b"richResponseMessage", "scheduledCallCreationMessage", b"scheduledCallCreationMessage", "scheduledCallEditMessage", b"scheduledCallEditMessage", "secretEncryptedMessage", b"secretEncryptedMessage", "sendPaymentMessage", b"sendPaymentMessage", "senderKeyDistributionMessage", b"senderKeyDistributionMessage", "statusAddYours", b"statusAddYours", "statusMentionMessage", b"statusMentionMessage", "statusNotificationMessage", b"statusNotificationMessage", "statusQuestionAnswerMessage", b"statusQuestionAnswerMessage", "statusQuotedMessage", b"statusQuotedMessage", "statusStickerInteractionMessage", b"statusStickerInteractionMessage", "stickerMessage", b"stickerMessage", "stickerPackMessage", b"stickerPackMessage", "stickerSyncRmrMessage", b"stickerSyncRmrMessage", "templateButtonReplyMessage", b"templateButtonReplyMessage", "templateMessage", b"templateMessage", "videoMessage", b"videoMessage", "viewOnceMessage", b"viewOnceMessage", "viewOnceMessageV2", b"viewOnceMessageV2", "viewOnceMessageV2Extension", b"viewOnceMessageV2Extension"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["albumMessage", b"albumMessage", "associatedChildMessage", b"associatedChildMessage", "audioMessage", b"audioMessage", "bcallMessage", b"bcallMessage", "botForwardedMessage", b"botForwardedMessage", "botInvokeMessage", b"botInvokeMessage", "botTaskMessage", b"botTaskMessage", "buttonsMessage", b"buttonsMessage", "buttonsResponseMessage", b"buttonsResponseMessage", "call", b"call", "callLogMesssage", b"callLogMesssage", "cancelPaymentRequestMessage", b"cancelPaymentRequestMessage", "chat", b"chat", "commentMessage", b"commentMessage", "contactMessage", b"contactMessage", "contactsArrayMessage", b"contactsArrayMessage", "conversation", b"conversation", "declinePaymentRequestMessage", b"declinePaymentRequestMessage", "deviceSentMessage", b"deviceSentMessage", "documentMessage", b"documentMessage", "documentWithCaptionMessage", b"documentWithCaptionMessage", "editedMessage", b"editedMessage", "encCommentMessage", b"encCommentMessage", "encEventResponseMessage", b"encEventResponseMessage", "encReactionMessage", b"encReactionMessage", "ephemeralMessage", b"ephemeralMessage", "eventCoverImage", b"eventCoverImage", "eventMessage", b"eventMessage", "extendedTextMessage", b"extendedTextMessage", "fastRatchetKeySenderKeyDistributionMessage", b"fastRatchetKeySenderKeyDistributionMessage", "groupInviteMessage", b"groupInviteMessage", "groupMentionedMessage", b"groupMentionedMessage", "groupStatusMentionMessage", b"groupStatusMentionMessage", "groupStatusMessage", b"groupStatusMessage", "groupStatusMessageV2", b"groupStatusMessageV2", "highlyStructuredMessage", b"highlyStructuredMessage", "imageMessage", b"imageMessage", "interactiveMessage", b"interactiveMessage", "interactiveResponseMessage", b"interactiveResponseMessage", "invoiceMessage", b"invoiceMessage", "keepInChatMessage", b"keepInChatMessage", "limitSharingMessage", b"limitSharingMessage", "listMessage", b"listMessage", "listResponseMessage", b"listResponseMessage", "liveLocationMessage", b"liveLocationMessage", "locationMessage", b"locationMessage", "lottieStickerMessage", b"lottieStickerMessage", "messageContextInfo", b"messageContextInfo", "messageHistoryBundle", b"messageHistoryBundle", "messageHistoryNotice", b"messageHistoryNotice", "newsletterAdminInviteMessage", b"newsletterAdminInviteMessage", "newsletterAdminProfileMessage", b"newsletterAdminProfileMessage", "newsletterAdminProfileMessageV2", b"newsletterAdminProfileMessageV2", "newsletterFollowerInviteMessageV2", b"newsletterFollowerInviteMessageV2", "orderMessage", b"orderMessage", "paymentInviteMessage", b"paymentInviteMessage", "pinInChatMessage", b"pinInChatMessage", "placeholderMessage", b"placeholderMessage", "pollCreationMessage", b"pollCreationMessage", "pollCreationMessageV2", b"pollCreationMessageV2", "pollCreationMessageV3", b"pollCreationMessageV3", "pollCreationMessageV4", b"pollCreationMessageV4", "pollCreationMessageV5", b"pollCreationMessageV5", "pollCreationOptionImageMessage", b"pollCreationOptionImageMessage", "pollResultSnapshotMessage", b"pollResultSnapshotMessage", "pollResultSnapshotMessageV3", b"pollResultSnapshotMessageV3", "pollUpdateMessage", b"pollUpdateMessage", "productMessage", b"productMessage", "protocolMessage", b"protocolMessage", "ptvMessage", b"ptvMessage", "questionMessage", b"questionMessage", "questionReplyMessage", b"questionReplyMessage", "questionResponseMessage", b"questionResponseMessage", "reactionMessage", b"reactionMessage", "requestPaymentMessage", b"requestPaymentMessage", "requestPhoneNumberMessage", b"requestPhoneNumberMessage", "richResponseMessage", b"richResponseMessage", "scheduledCallCreationMessage", b"scheduledCallCreationMessage", "scheduledCallEditMessage", b"scheduledCallEditMessage", "secretEncryptedMessage", b"secretEncryptedMessage", "sendPaymentMessage", b"sendPaymentMessage", "senderKeyDistributionMessage", b"senderKeyDistributionMessage", "statusAddYours", b"statusAddYours", "statusMentionMessage", b"statusMentionMessage", "statusNotificationMessage", b"statusNotificationMessage", "statusQuestionAnswerMessage", b"statusQuestionAnswerMessage", "statusQuotedMessage", b"statusQuotedMessage", "statusStickerInteractionMessage", b"statusStickerInteractionMessage", "stickerMessage", b"stickerMessage", "stickerPackMessage", b"stickerPackMessage", "stickerSyncRmrMessage", b"stickerSyncRmrMessage", "templateButtonReplyMessage", b"templateButtonReplyMessage", "templateMessage", b"templateMessage", "videoMessage", b"videoMessage", "viewOnceMessage", b"viewOnceMessage", "viewOnceMessageV2", b"viewOnceMessageV2", "viewOnceMessageV2Extension", b"viewOnceMessageV2Extension"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___Message: typing_extensions.TypeAlias = Message
+Global___Message: _TypeAlias = Message  # noqa: Y015
 
-@typing.final
-class AlbumMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AlbumMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    EXPECTEDIMAGECOUNT_FIELD_NUMBER: builtins.int
-    EXPECTEDVIDEOCOUNT_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    expectedImageCount: builtins.int
-    expectedVideoCount: builtins.int
-    @property
+    EXPECTEDIMAGECOUNT_FIELD_NUMBER: _builtins.int
+    EXPECTEDVIDEOCOUNT_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    expectedImageCount: _builtins.int
+    expectedVideoCount: _builtins.int
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        expectedImageCount: builtins.int | None = ...,
-        expectedVideoCount: builtins.int | None = ...,
+        expectedImageCount: _builtins.int | None = ...,
+        expectedVideoCount: _builtins.int | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "expectedImageCount", b"expectedImageCount", "expectedVideoCount", b"expectedVideoCount"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "expectedImageCount", b"expectedImageCount", "expectedVideoCount", b"expectedVideoCount"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "expectedImageCount", b"expectedImageCount", "expectedVideoCount", b"expectedVideoCount"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "expectedImageCount", b"expectedImageCount", "expectedVideoCount", b"expectedVideoCount"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AlbumMessage: typing_extensions.TypeAlias = AlbumMessage
+Global___AlbumMessage: _TypeAlias = AlbumMessage  # noqa: Y015
 
-@typing.final
-class MessageHistoryMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MessageHistoryMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    HISTORYRECEIVERS_FIELD_NUMBER: builtins.int
-    OLDESTMESSAGETIMESTAMP_FIELD_NUMBER: builtins.int
-    MESSAGECOUNT_FIELD_NUMBER: builtins.int
-    oldestMessageTimestamp: builtins.int
-    messageCount: builtins.int
-    @property
-    def historyReceivers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    HISTORYRECEIVERS_FIELD_NUMBER: _builtins.int
+    OLDESTMESSAGETIMESTAMP_FIELD_NUMBER: _builtins.int
+    MESSAGECOUNT_FIELD_NUMBER: _builtins.int
+    oldestMessageTimestamp: _builtins.int
+    messageCount: _builtins.int
+    @_builtins.property
+    def historyReceivers(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
     def __init__(
         self,
         *,
-        historyReceivers: collections.abc.Iterable[builtins.str] | None = ...,
-        oldestMessageTimestamp: builtins.int | None = ...,
-        messageCount: builtins.int | None = ...,
+        historyReceivers: _abc.Iterable[_builtins.str] | None = ...,
+        oldestMessageTimestamp: _builtins.int | None = ...,
+        messageCount: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["messageCount", b"messageCount", "oldestMessageTimestamp", b"oldestMessageTimestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["historyReceivers", b"historyReceivers", "messageCount", b"messageCount", "oldestMessageTimestamp", b"oldestMessageTimestamp"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["messageCount", b"messageCount", "oldestMessageTimestamp", b"oldestMessageTimestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["historyReceivers", b"historyReceivers", "messageCount", b"messageCount", "oldestMessageTimestamp", b"oldestMessageTimestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___MessageHistoryMetadata: typing_extensions.TypeAlias = MessageHistoryMetadata
+Global___MessageHistoryMetadata: _TypeAlias = MessageHistoryMetadata  # noqa: Y015
 
-@typing.final
-class MessageHistoryNotice(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MessageHistoryNotice(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    MESSAGEHISTORYMETADATA_FIELD_NUMBER: builtins.int
-    @property
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    MESSAGEHISTORYMETADATA_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
-    @property
+    @_builtins.property
     def messageHistoryMetadata(self) -> Global___MessageHistoryMetadata: ...
     def __init__(
         self,
@@ -4976,806 +5227,865 @@ class MessageHistoryNotice(google.protobuf.message.Message):
         contextInfo: Global___ContextInfo | None = ...,
         messageHistoryMetadata: Global___MessageHistoryMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "messageHistoryMetadata", b"messageHistoryMetadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "messageHistoryMetadata", b"messageHistoryMetadata"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "messageHistoryMetadata", b"messageHistoryMetadata"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "messageHistoryMetadata", b"messageHistoryMetadata"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___MessageHistoryNotice: typing_extensions.TypeAlias = MessageHistoryNotice
+Global___MessageHistoryNotice: _TypeAlias = MessageHistoryNotice  # noqa: Y015
 
-@typing.final
-class MessageHistoryBundle(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MessageHistoryBundle(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MIMETYPE_FIELD_NUMBER: builtins.int
-    FILESHA256_FIELD_NUMBER: builtins.int
-    MEDIAKEY_FIELD_NUMBER: builtins.int
-    FILEENCSHA256_FIELD_NUMBER: builtins.int
-    DIRECTPATH_FIELD_NUMBER: builtins.int
-    MEDIAKEYTIMESTAMP_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    MESSAGEHISTORYMETADATA_FIELD_NUMBER: builtins.int
-    mimetype: builtins.str
-    fileSHA256: builtins.bytes
-    mediaKey: builtins.bytes
-    fileEncSHA256: builtins.bytes
-    directPath: builtins.str
-    mediaKeyTimestamp: builtins.int
-    @property
+    MIMETYPE_FIELD_NUMBER: _builtins.int
+    FILESHA256_FIELD_NUMBER: _builtins.int
+    MEDIAKEY_FIELD_NUMBER: _builtins.int
+    FILEENCSHA256_FIELD_NUMBER: _builtins.int
+    DIRECTPATH_FIELD_NUMBER: _builtins.int
+    MEDIAKEYTIMESTAMP_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    MESSAGEHISTORYMETADATA_FIELD_NUMBER: _builtins.int
+    mimetype: _builtins.str
+    fileSHA256: _builtins.bytes
+    mediaKey: _builtins.bytes
+    fileEncSHA256: _builtins.bytes
+    directPath: _builtins.str
+    mediaKeyTimestamp: _builtins.int
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
-    @property
+    @_builtins.property
     def messageHistoryMetadata(self) -> Global___MessageHistoryMetadata: ...
     def __init__(
         self,
         *,
-        mimetype: builtins.str | None = ...,
-        fileSHA256: builtins.bytes | None = ...,
-        mediaKey: builtins.bytes | None = ...,
-        fileEncSHA256: builtins.bytes | None = ...,
-        directPath: builtins.str | None = ...,
-        mediaKeyTimestamp: builtins.int | None = ...,
+        mimetype: _builtins.str | None = ...,
+        fileSHA256: _builtins.bytes | None = ...,
+        mediaKey: _builtins.bytes | None = ...,
+        fileEncSHA256: _builtins.bytes | None = ...,
+        directPath: _builtins.str | None = ...,
+        mediaKeyTimestamp: _builtins.int | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
         messageHistoryMetadata: Global___MessageHistoryMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "messageHistoryMetadata", b"messageHistoryMetadata", "mimetype", b"mimetype"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "messageHistoryMetadata", b"messageHistoryMetadata", "mimetype", b"mimetype"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "messageHistoryMetadata", b"messageHistoryMetadata", "mimetype", b"mimetype"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "messageHistoryMetadata", b"messageHistoryMetadata", "mimetype", b"mimetype"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___MessageHistoryBundle: typing_extensions.TypeAlias = MessageHistoryBundle
+Global___MessageHistoryBundle: _TypeAlias = MessageHistoryBundle  # noqa: Y015
 
-@typing.final
-class EncEventResponseMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class EncEventResponseMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    EVENTCREATIONMESSAGEKEY_FIELD_NUMBER: builtins.int
-    ENCPAYLOAD_FIELD_NUMBER: builtins.int
-    ENCIV_FIELD_NUMBER: builtins.int
-    encPayload: builtins.bytes
-    encIV: builtins.bytes
-    @property
-    def eventCreationMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    EVENTCREATIONMESSAGEKEY_FIELD_NUMBER: _builtins.int
+    ENCPAYLOAD_FIELD_NUMBER: _builtins.int
+    ENCIV_FIELD_NUMBER: _builtins.int
+    encPayload: _builtins.bytes
+    encIV: _builtins.bytes
+    @_builtins.property
+    def eventCreationMessageKey(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        eventCreationMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
-        encPayload: builtins.bytes | None = ...,
-        encIV: builtins.bytes | None = ...,
+        eventCreationMessageKey: _WACommon_pb2.MessageKey | None = ...,
+        encPayload: _builtins.bytes | None = ...,
+        encIV: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "eventCreationMessageKey", b"eventCreationMessageKey"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "eventCreationMessageKey", b"eventCreationMessageKey"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "eventCreationMessageKey", b"eventCreationMessageKey"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "eventCreationMessageKey", b"eventCreationMessageKey"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___EncEventResponseMessage: typing_extensions.TypeAlias = EncEventResponseMessage
+Global___EncEventResponseMessage: _TypeAlias = EncEventResponseMessage  # noqa: Y015
 
-@typing.final
-class EventMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class EventMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    ISCANCELED_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    DESCRIPTION_FIELD_NUMBER: builtins.int
-    LOCATION_FIELD_NUMBER: builtins.int
-    JOINLINK_FIELD_NUMBER: builtins.int
-    STARTTIME_FIELD_NUMBER: builtins.int
-    ENDTIME_FIELD_NUMBER: builtins.int
-    EXTRAGUESTSALLOWED_FIELD_NUMBER: builtins.int
-    ISSCHEDULECALL_FIELD_NUMBER: builtins.int
-    HASREMINDER_FIELD_NUMBER: builtins.int
-    REMINDEROFFSETSEC_FIELD_NUMBER: builtins.int
-    isCanceled: builtins.bool
-    name: builtins.str
-    description: builtins.str
-    joinLink: builtins.str
-    startTime: builtins.int
-    endTime: builtins.int
-    extraGuestsAllowed: builtins.bool
-    isScheduleCall: builtins.bool
-    hasReminder: builtins.bool
-    reminderOffsetSec: builtins.int
-    @property
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    ISCANCELED_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    LOCATION_FIELD_NUMBER: _builtins.int
+    JOINLINK_FIELD_NUMBER: _builtins.int
+    STARTTIME_FIELD_NUMBER: _builtins.int
+    ENDTIME_FIELD_NUMBER: _builtins.int
+    EXTRAGUESTSALLOWED_FIELD_NUMBER: _builtins.int
+    ISSCHEDULECALL_FIELD_NUMBER: _builtins.int
+    HASREMINDER_FIELD_NUMBER: _builtins.int
+    REMINDEROFFSETSEC_FIELD_NUMBER: _builtins.int
+    isCanceled: _builtins.bool
+    name: _builtins.str
+    description: _builtins.str
+    joinLink: _builtins.str
+    startTime: _builtins.int
+    endTime: _builtins.int
+    extraGuestsAllowed: _builtins.bool
+    isScheduleCall: _builtins.bool
+    hasReminder: _builtins.bool
+    reminderOffsetSec: _builtins.int
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
-    @property
+    @_builtins.property
     def location(self) -> Global___LocationMessage: ...
     def __init__(
         self,
         *,
         contextInfo: Global___ContextInfo | None = ...,
-        isCanceled: builtins.bool | None = ...,
-        name: builtins.str | None = ...,
-        description: builtins.str | None = ...,
+        isCanceled: _builtins.bool | None = ...,
+        name: _builtins.str | None = ...,
+        description: _builtins.str | None = ...,
         location: Global___LocationMessage | None = ...,
-        joinLink: builtins.str | None = ...,
-        startTime: builtins.int | None = ...,
-        endTime: builtins.int | None = ...,
-        extraGuestsAllowed: builtins.bool | None = ...,
-        isScheduleCall: builtins.bool | None = ...,
-        hasReminder: builtins.bool | None = ...,
-        reminderOffsetSec: builtins.int | None = ...,
+        joinLink: _builtins.str | None = ...,
+        startTime: _builtins.int | None = ...,
+        endTime: _builtins.int | None = ...,
+        extraGuestsAllowed: _builtins.bool | None = ...,
+        isScheduleCall: _builtins.bool | None = ...,
+        hasReminder: _builtins.bool | None = ...,
+        reminderOffsetSec: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "description", b"description", "endTime", b"endTime", "extraGuestsAllowed", b"extraGuestsAllowed", "hasReminder", b"hasReminder", "isCanceled", b"isCanceled", "isScheduleCall", b"isScheduleCall", "joinLink", b"joinLink", "location", b"location", "name", b"name", "reminderOffsetSec", b"reminderOffsetSec", "startTime", b"startTime"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "description", b"description", "endTime", b"endTime", "extraGuestsAllowed", b"extraGuestsAllowed", "hasReminder", b"hasReminder", "isCanceled", b"isCanceled", "isScheduleCall", b"isScheduleCall", "joinLink", b"joinLink", "location", b"location", "name", b"name", "reminderOffsetSec", b"reminderOffsetSec", "startTime", b"startTime"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "description", b"description", "endTime", b"endTime", "extraGuestsAllowed", b"extraGuestsAllowed", "hasReminder", b"hasReminder", "isCanceled", b"isCanceled", "isScheduleCall", b"isScheduleCall", "joinLink", b"joinLink", "location", b"location", "name", b"name", "reminderOffsetSec", b"reminderOffsetSec", "startTime", b"startTime"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "description", b"description", "endTime", b"endTime", "extraGuestsAllowed", b"extraGuestsAllowed", "hasReminder", b"hasReminder", "isCanceled", b"isCanceled", "isScheduleCall", b"isScheduleCall", "joinLink", b"joinLink", "location", b"location", "name", b"name", "reminderOffsetSec", b"reminderOffsetSec", "startTime", b"startTime"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___EventMessage: typing_extensions.TypeAlias = EventMessage
+Global___EventMessage: _TypeAlias = EventMessage  # noqa: Y015
 
-@typing.final
-class CommentMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class CommentMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MESSAGE_FIELD_NUMBER: builtins.int
-    TARGETMESSAGEKEY_FIELD_NUMBER: builtins.int
-    @property
+    MESSAGE_FIELD_NUMBER: _builtins.int
+    TARGETMESSAGEKEY_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def message(self) -> Global___Message: ...
-    @property
-    def targetMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    @_builtins.property
+    def targetMessageKey(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
         message: Global___Message | None = ...,
-        targetMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+        targetMessageKey: _WACommon_pb2.MessageKey | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["message", b"message", "targetMessageKey", b"targetMessageKey"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["message", b"message", "targetMessageKey", b"targetMessageKey"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["message", b"message", "targetMessageKey", b"targetMessageKey"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["message", b"message", "targetMessageKey", b"targetMessageKey"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___CommentMessage: typing_extensions.TypeAlias = CommentMessage
+Global___CommentMessage: _TypeAlias = CommentMessage  # noqa: Y015
 
-@typing.final
-class EncCommentMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class EncCommentMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TARGETMESSAGEKEY_FIELD_NUMBER: builtins.int
-    ENCPAYLOAD_FIELD_NUMBER: builtins.int
-    ENCIV_FIELD_NUMBER: builtins.int
-    encPayload: builtins.bytes
-    encIV: builtins.bytes
-    @property
-    def targetMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    TARGETMESSAGEKEY_FIELD_NUMBER: _builtins.int
+    ENCPAYLOAD_FIELD_NUMBER: _builtins.int
+    ENCIV_FIELD_NUMBER: _builtins.int
+    encPayload: _builtins.bytes
+    encIV: _builtins.bytes
+    @_builtins.property
+    def targetMessageKey(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        targetMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
-        encPayload: builtins.bytes | None = ...,
-        encIV: builtins.bytes | None = ...,
+        targetMessageKey: _WACommon_pb2.MessageKey | None = ...,
+        encPayload: _builtins.bytes | None = ...,
+        encIV: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "targetMessageKey", b"targetMessageKey"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "targetMessageKey", b"targetMessageKey"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "targetMessageKey", b"targetMessageKey"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "targetMessageKey", b"targetMessageKey"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___EncCommentMessage: typing_extensions.TypeAlias = EncCommentMessage
+Global___EncCommentMessage: _TypeAlias = EncCommentMessage  # noqa: Y015
 
-@typing.final
-class EncReactionMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class EncReactionMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TARGETMESSAGEKEY_FIELD_NUMBER: builtins.int
-    ENCPAYLOAD_FIELD_NUMBER: builtins.int
-    ENCIV_FIELD_NUMBER: builtins.int
-    encPayload: builtins.bytes
-    encIV: builtins.bytes
-    @property
-    def targetMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    TARGETMESSAGEKEY_FIELD_NUMBER: _builtins.int
+    ENCPAYLOAD_FIELD_NUMBER: _builtins.int
+    ENCIV_FIELD_NUMBER: _builtins.int
+    encPayload: _builtins.bytes
+    encIV: _builtins.bytes
+    @_builtins.property
+    def targetMessageKey(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        targetMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
-        encPayload: builtins.bytes | None = ...,
-        encIV: builtins.bytes | None = ...,
+        targetMessageKey: _WACommon_pb2.MessageKey | None = ...,
+        encPayload: _builtins.bytes | None = ...,
+        encIV: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "targetMessageKey", b"targetMessageKey"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "targetMessageKey", b"targetMessageKey"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "targetMessageKey", b"targetMessageKey"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "targetMessageKey", b"targetMessageKey"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___EncReactionMessage: typing_extensions.TypeAlias = EncReactionMessage
+Global___EncReactionMessage: _TypeAlias = EncReactionMessage  # noqa: Y015
 
-@typing.final
-class KeepInChatMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class KeepInChatMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    KEY_FIELD_NUMBER: builtins.int
-    KEEPTYPE_FIELD_NUMBER: builtins.int
-    TIMESTAMPMS_FIELD_NUMBER: builtins.int
+    KEY_FIELD_NUMBER: _builtins.int
+    KEEPTYPE_FIELD_NUMBER: _builtins.int
+    TIMESTAMPMS_FIELD_NUMBER: _builtins.int
     keepType: Global___KeepType.ValueType
-    timestampMS: builtins.int
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    timestampMS: _builtins.int
+    @_builtins.property
+    def key(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        key: waCommon.WACommon_pb2.MessageKey | None = ...,
+        key: _WACommon_pb2.MessageKey | None = ...,
         keepType: Global___KeepType.ValueType | None = ...,
-        timestampMS: builtins.int | None = ...,
+        timestampMS: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["keepType", b"keepType", "key", b"key", "timestampMS", b"timestampMS"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["keepType", b"keepType", "key", b"key", "timestampMS", b"timestampMS"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["keepType", b"keepType", "key", b"key", "timestampMS", b"timestampMS"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["keepType", b"keepType", "key", b"key", "timestampMS", b"timestampMS"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___KeepInChatMessage: typing_extensions.TypeAlias = KeepInChatMessage
+Global___KeepInChatMessage: _TypeAlias = KeepInChatMessage  # noqa: Y015
 
-@typing.final
-class QuestionResponseMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class QuestionResponseMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    KEY_FIELD_NUMBER: builtins.int
-    TEXT_FIELD_NUMBER: builtins.int
-    text: builtins.str
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    KEY_FIELD_NUMBER: _builtins.int
+    TEXT_FIELD_NUMBER: _builtins.int
+    text: _builtins.str
+    @_builtins.property
+    def key(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        key: waCommon.WACommon_pb2.MessageKey | None = ...,
-        text: builtins.str | None = ...,
+        key: _WACommon_pb2.MessageKey | None = ...,
+        text: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["key", b"key", "text", b"text"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["key", b"key", "text", b"text"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "text", b"text"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "text", b"text"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___QuestionResponseMessage: typing_extensions.TypeAlias = QuestionResponseMessage
+Global___QuestionResponseMessage: _TypeAlias = QuestionResponseMessage  # noqa: Y015
 
-@typing.final
-class StatusQuestionAnswerMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class StatusQuestionAnswerMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    KEY_FIELD_NUMBER: builtins.int
-    TEXT_FIELD_NUMBER: builtins.int
-    text: builtins.str
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    KEY_FIELD_NUMBER: _builtins.int
+    TEXT_FIELD_NUMBER: _builtins.int
+    text: _builtins.str
+    @_builtins.property
+    def key(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        key: waCommon.WACommon_pb2.MessageKey | None = ...,
-        text: builtins.str | None = ...,
+        key: _WACommon_pb2.MessageKey | None = ...,
+        text: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["key", b"key", "text", b"text"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["key", b"key", "text", b"text"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "text", b"text"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "text", b"text"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___StatusQuestionAnswerMessage: typing_extensions.TypeAlias = StatusQuestionAnswerMessage
+Global___StatusQuestionAnswerMessage: _TypeAlias = StatusQuestionAnswerMessage  # noqa: Y015
 
-@typing.final
-class PollResultSnapshotMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PollResultSnapshotMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class PollVote(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class PollVote(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        OPTIONNAME_FIELD_NUMBER: builtins.int
-        OPTIONVOTECOUNT_FIELD_NUMBER: builtins.int
-        optionName: builtins.str
-        optionVoteCount: builtins.int
+        OPTIONNAME_FIELD_NUMBER: _builtins.int
+        OPTIONVOTECOUNT_FIELD_NUMBER: _builtins.int
+        optionName: _builtins.str
+        optionVoteCount: _builtins.int
         def __init__(
             self,
             *,
-            optionName: builtins.str | None = ...,
-            optionVoteCount: builtins.int | None = ...,
+            optionName: _builtins.str | None = ...,
+            optionVoteCount: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["optionName", b"optionName", "optionVoteCount", b"optionVoteCount"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["optionName", b"optionName", "optionVoteCount", b"optionVoteCount"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["optionName", b"optionName", "optionVoteCount", b"optionVoteCount"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["optionName", b"optionName", "optionVoteCount", b"optionVoteCount"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    POLLVOTES_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    POLLTYPE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    POLLVOTES_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    POLLTYPE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     pollType: Global___PollType.ValueType
-    @property
-    def pollVotes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PollResultSnapshotMessage.PollVote]: ...
-    @property
+    @_builtins.property
+    def pollVotes(self) -> _containers.RepeatedCompositeFieldContainer[Global___PollResultSnapshotMessage.PollVote]: ...
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        pollVotes: collections.abc.Iterable[Global___PollResultSnapshotMessage.PollVote] | None = ...,
+        name: _builtins.str | None = ...,
+        pollVotes: _abc.Iterable[Global___PollResultSnapshotMessage.PollVote] | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
         pollType: Global___PollType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "name", b"name", "pollType", b"pollType"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "name", b"name", "pollType", b"pollType", "pollVotes", b"pollVotes"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "name", b"name", "pollType", b"pollType"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "name", b"name", "pollType", b"pollType", "pollVotes", b"pollVotes"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PollResultSnapshotMessage: typing_extensions.TypeAlias = PollResultSnapshotMessage
+Global___PollResultSnapshotMessage: _TypeAlias = PollResultSnapshotMessage  # noqa: Y015
 
-@typing.final
-class PollVoteMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PollVoteMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SELECTEDOPTIONS_FIELD_NUMBER: builtins.int
-    @property
-    def selectedOptions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bytes]: ...
+    SELECTEDOPTIONS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def selectedOptions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bytes]: ...
     def __init__(
         self,
         *,
-        selectedOptions: collections.abc.Iterable[builtins.bytes] | None = ...,
+        selectedOptions: _abc.Iterable[_builtins.bytes] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["selectedOptions", b"selectedOptions"]) -> None: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["selectedOptions", b"selectedOptions"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PollVoteMessage: typing_extensions.TypeAlias = PollVoteMessage
+Global___PollVoteMessage: _TypeAlias = PollVoteMessage  # noqa: Y015
 
-@typing.final
-class PollEncValue(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PollEncValue(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ENCPAYLOAD_FIELD_NUMBER: builtins.int
-    ENCIV_FIELD_NUMBER: builtins.int
-    encPayload: builtins.bytes
-    encIV: builtins.bytes
+    ENCPAYLOAD_FIELD_NUMBER: _builtins.int
+    ENCIV_FIELD_NUMBER: _builtins.int
+    encPayload: _builtins.bytes
+    encIV: _builtins.bytes
     def __init__(
         self,
         *,
-        encPayload: builtins.bytes | None = ...,
-        encIV: builtins.bytes | None = ...,
+        encPayload: _builtins.bytes | None = ...,
+        encIV: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PollEncValue: typing_extensions.TypeAlias = PollEncValue
+Global___PollEncValue: _TypeAlias = PollEncValue  # noqa: Y015
 
-@typing.final
-class PollUpdateMessageMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PollUpdateMessageMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     def __init__(
         self,
     ) -> None: ...
 
-Global___PollUpdateMessageMetadata: typing_extensions.TypeAlias = PollUpdateMessageMetadata
+Global___PollUpdateMessageMetadata: _TypeAlias = PollUpdateMessageMetadata  # noqa: Y015
 
-@typing.final
-class PollUpdateMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PollUpdateMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    POLLCREATIONMESSAGEKEY_FIELD_NUMBER: builtins.int
-    VOTE_FIELD_NUMBER: builtins.int
-    METADATA_FIELD_NUMBER: builtins.int
-    SENDERTIMESTAMPMS_FIELD_NUMBER: builtins.int
-    senderTimestampMS: builtins.int
-    @property
-    def pollCreationMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
-    @property
+    POLLCREATIONMESSAGEKEY_FIELD_NUMBER: _builtins.int
+    VOTE_FIELD_NUMBER: _builtins.int
+    METADATA_FIELD_NUMBER: _builtins.int
+    SENDERTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+    senderTimestampMS: _builtins.int
+    @_builtins.property
+    def pollCreationMessageKey(self) -> _WACommon_pb2.MessageKey: ...
+    @_builtins.property
     def vote(self) -> Global___PollEncValue: ...
-    @property
+    @_builtins.property
     def metadata(self) -> Global___PollUpdateMessageMetadata: ...
     def __init__(
         self,
         *,
-        pollCreationMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+        pollCreationMessageKey: _WACommon_pb2.MessageKey | None = ...,
         vote: Global___PollEncValue | None = ...,
         metadata: Global___PollUpdateMessageMetadata | None = ...,
-        senderTimestampMS: builtins.int | None = ...,
+        senderTimestampMS: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["metadata", b"metadata", "pollCreationMessageKey", b"pollCreationMessageKey", "senderTimestampMS", b"senderTimestampMS", "vote", b"vote"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["metadata", b"metadata", "pollCreationMessageKey", b"pollCreationMessageKey", "senderTimestampMS", b"senderTimestampMS", "vote", b"vote"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["metadata", b"metadata", "pollCreationMessageKey", b"pollCreationMessageKey", "senderTimestampMS", b"senderTimestampMS", "vote", b"vote"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["metadata", b"metadata", "pollCreationMessageKey", b"pollCreationMessageKey", "senderTimestampMS", b"senderTimestampMS", "vote", b"vote"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PollUpdateMessage: typing_extensions.TypeAlias = PollUpdateMessage
+Global___PollUpdateMessage: _TypeAlias = PollUpdateMessage  # noqa: Y015
 
-@typing.final
-class PollCreationMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PollCreationMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class Option(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Option(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        OPTIONNAME_FIELD_NUMBER: builtins.int
-        OPTIONHASH_FIELD_NUMBER: builtins.int
-        optionName: builtins.str
-        optionHash: builtins.str
+        OPTIONNAME_FIELD_NUMBER: _builtins.int
+        OPTIONHASH_FIELD_NUMBER: _builtins.int
+        optionName: _builtins.str
+        optionHash: _builtins.str
         def __init__(
             self,
             *,
-            optionName: builtins.str | None = ...,
-            optionHash: builtins.str | None = ...,
+            optionName: _builtins.str | None = ...,
+            optionHash: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["optionHash", b"optionHash", "optionName", b"optionName"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["optionHash", b"optionHash", "optionName", b"optionName"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["optionHash", b"optionHash", "optionName", b"optionName"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["optionHash", b"optionHash", "optionName", b"optionName"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    ENCKEY_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    OPTIONS_FIELD_NUMBER: builtins.int
-    SELECTABLEOPTIONSCOUNT_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    POLLCONTENTTYPE_FIELD_NUMBER: builtins.int
-    POLLTYPE_FIELD_NUMBER: builtins.int
-    CORRECTANSWER_FIELD_NUMBER: builtins.int
-    encKey: builtins.bytes
-    name: builtins.str
-    selectableOptionsCount: builtins.int
+    ENCKEY_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    OPTIONS_FIELD_NUMBER: _builtins.int
+    SELECTABLEOPTIONSCOUNT_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    POLLCONTENTTYPE_FIELD_NUMBER: _builtins.int
+    POLLTYPE_FIELD_NUMBER: _builtins.int
+    CORRECTANSWER_FIELD_NUMBER: _builtins.int
+    encKey: _builtins.bytes
+    name: _builtins.str
+    selectableOptionsCount: _builtins.int
     pollContentType: Global___PollContentType.ValueType
     pollType: Global___PollType.ValueType
-    @property
-    def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PollCreationMessage.Option]: ...
-    @property
+    @_builtins.property
+    def options(self) -> _containers.RepeatedCompositeFieldContainer[Global___PollCreationMessage.Option]: ...
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
-    @property
+    @_builtins.property
     def correctAnswer(self) -> Global___PollCreationMessage.Option: ...
     def __init__(
         self,
         *,
-        encKey: builtins.bytes | None = ...,
-        name: builtins.str | None = ...,
-        options: collections.abc.Iterable[Global___PollCreationMessage.Option] | None = ...,
-        selectableOptionsCount: builtins.int | None = ...,
+        encKey: _builtins.bytes | None = ...,
+        name: _builtins.str | None = ...,
+        options: _abc.Iterable[Global___PollCreationMessage.Option] | None = ...,
+        selectableOptionsCount: _builtins.int | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
         pollContentType: Global___PollContentType.ValueType | None = ...,
         pollType: Global___PollType.ValueType | None = ...,
         correctAnswer: Global___PollCreationMessage.Option | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "correctAnswer", b"correctAnswer", "encKey", b"encKey", "name", b"name", "pollContentType", b"pollContentType", "pollType", b"pollType", "selectableOptionsCount", b"selectableOptionsCount"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "correctAnswer", b"correctAnswer", "encKey", b"encKey", "name", b"name", "options", b"options", "pollContentType", b"pollContentType", "pollType", b"pollType", "selectableOptionsCount", b"selectableOptionsCount"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "correctAnswer", b"correctAnswer", "encKey", b"encKey", "name", b"name", "pollContentType", b"pollContentType", "pollType", b"pollType", "selectableOptionsCount", b"selectableOptionsCount"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "correctAnswer", b"correctAnswer", "encKey", b"encKey", "name", b"name", "options", b"options", "pollContentType", b"pollContentType", "pollType", b"pollType", "selectableOptionsCount", b"selectableOptionsCount"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PollCreationMessage: typing_extensions.TypeAlias = PollCreationMessage
+Global___PollCreationMessage: _TypeAlias = PollCreationMessage  # noqa: Y015
 
-@typing.final
-class StickerSyncRMRMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class StickerSyncRMRMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    FILEHASH_FIELD_NUMBER: builtins.int
-    RMRSOURCE_FIELD_NUMBER: builtins.int
-    REQUESTTIMESTAMP_FIELD_NUMBER: builtins.int
-    rmrSource: builtins.str
-    requestTimestamp: builtins.int
-    @property
-    def filehash(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    FILEHASH_FIELD_NUMBER: _builtins.int
+    RMRSOURCE_FIELD_NUMBER: _builtins.int
+    REQUESTTIMESTAMP_FIELD_NUMBER: _builtins.int
+    rmrSource: _builtins.str
+    requestTimestamp: _builtins.int
+    @_builtins.property
+    def filehash(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
     def __init__(
         self,
         *,
-        filehash: collections.abc.Iterable[builtins.str] | None = ...,
-        rmrSource: builtins.str | None = ...,
-        requestTimestamp: builtins.int | None = ...,
+        filehash: _abc.Iterable[_builtins.str] | None = ...,
+        rmrSource: _builtins.str | None = ...,
+        requestTimestamp: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["requestTimestamp", b"requestTimestamp", "rmrSource", b"rmrSource"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["filehash", b"filehash", "requestTimestamp", b"requestTimestamp", "rmrSource", b"rmrSource"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["requestTimestamp", b"requestTimestamp", "rmrSource", b"rmrSource"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["filehash", b"filehash", "requestTimestamp", b"requestTimestamp", "rmrSource", b"rmrSource"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___StickerSyncRMRMessage: typing_extensions.TypeAlias = StickerSyncRMRMessage
+Global___StickerSyncRMRMessage: _TypeAlias = StickerSyncRMRMessage  # noqa: Y015
 
-@typing.final
-class ReactionMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ReactionMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    KEY_FIELD_NUMBER: builtins.int
-    TEXT_FIELD_NUMBER: builtins.int
-    GROUPINGKEY_FIELD_NUMBER: builtins.int
-    SENDERTIMESTAMPMS_FIELD_NUMBER: builtins.int
-    text: builtins.str
-    groupingKey: builtins.str
-    senderTimestampMS: builtins.int
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    KEY_FIELD_NUMBER: _builtins.int
+    TEXT_FIELD_NUMBER: _builtins.int
+    GROUPINGKEY_FIELD_NUMBER: _builtins.int
+    SENDERTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+    text: _builtins.str
+    groupingKey: _builtins.str
+    senderTimestampMS: _builtins.int
+    @_builtins.property
+    def key(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        key: waCommon.WACommon_pb2.MessageKey | None = ...,
-        text: builtins.str | None = ...,
-        groupingKey: builtins.str | None = ...,
-        senderTimestampMS: builtins.int | None = ...,
+        key: _WACommon_pb2.MessageKey | None = ...,
+        text: _builtins.str | None = ...,
+        groupingKey: _builtins.str | None = ...,
+        senderTimestampMS: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["groupingKey", b"groupingKey", "key", b"key", "senderTimestampMS", b"senderTimestampMS", "text", b"text"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["groupingKey", b"groupingKey", "key", b"key", "senderTimestampMS", b"senderTimestampMS", "text", b"text"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["groupingKey", b"groupingKey", "key", b"key", "senderTimestampMS", b"senderTimestampMS", "text", b"text"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["groupingKey", b"groupingKey", "key", b"key", "senderTimestampMS", b"senderTimestampMS", "text", b"text"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ReactionMessage: typing_extensions.TypeAlias = ReactionMessage
+Global___ReactionMessage: _TypeAlias = ReactionMessage  # noqa: Y015
 
-@typing.final
-class FutureProofMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class FutureProofMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MESSAGE_FIELD_NUMBER: builtins.int
-    @property
+    MESSAGE_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def message(self) -> Global___Message: ...
     def __init__(
         self,
         *,
         message: Global___Message | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["message", b"message"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["message", b"message"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["message", b"message"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["message", b"message"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___FutureProofMessage: typing_extensions.TypeAlias = FutureProofMessage
+Global___FutureProofMessage: _TypeAlias = FutureProofMessage  # noqa: Y015
 
-@typing.final
-class DeviceSentMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DeviceSentMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DESTINATIONJID_FIELD_NUMBER: builtins.int
-    MESSAGE_FIELD_NUMBER: builtins.int
-    PHASH_FIELD_NUMBER: builtins.int
-    destinationJID: builtins.str
-    phash: builtins.str
-    @property
+    DESTINATIONJID_FIELD_NUMBER: _builtins.int
+    MESSAGE_FIELD_NUMBER: _builtins.int
+    PHASH_FIELD_NUMBER: _builtins.int
+    destinationJID: _builtins.str
+    phash: _builtins.str
+    @_builtins.property
     def message(self) -> Global___Message: ...
     def __init__(
         self,
         *,
-        destinationJID: builtins.str | None = ...,
+        destinationJID: _builtins.str | None = ...,
         message: Global___Message | None = ...,
-        phash: builtins.str | None = ...,
+        phash: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["destinationJID", b"destinationJID", "message", b"message", "phash", b"phash"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["destinationJID", b"destinationJID", "message", b"message", "phash", b"phash"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["destinationJID", b"destinationJID", "message", b"message", "phash", b"phash"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["destinationJID", b"destinationJID", "message", b"message", "phash", b"phash"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___DeviceSentMessage: typing_extensions.TypeAlias = DeviceSentMessage
+Global___DeviceSentMessage: _TypeAlias = DeviceSentMessage  # noqa: Y015
 
-@typing.final
-class RequestPhoneNumberMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class RequestPhoneNumberMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    @property
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
         contextInfo: Global___ContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___RequestPhoneNumberMessage: typing_extensions.TypeAlias = RequestPhoneNumberMessage
+Global___RequestPhoneNumberMessage: _TypeAlias = RequestPhoneNumberMessage  # noqa: Y015
 
-@typing.final
-class NewsletterFollowerInviteMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class NewsletterFollowerInviteMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NEWSLETTERJID_FIELD_NUMBER: builtins.int
-    NEWSLETTERNAME_FIELD_NUMBER: builtins.int
-    JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-    CAPTION_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    newsletterJID: builtins.str
-    newsletterName: builtins.str
-    JPEGThumbnail: builtins.bytes
-    caption: builtins.str
-    @property
+    NEWSLETTERJID_FIELD_NUMBER: _builtins.int
+    NEWSLETTERNAME_FIELD_NUMBER: _builtins.int
+    JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+    CAPTION_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    newsletterJID: _builtins.str
+    newsletterName: _builtins.str
+    JPEGThumbnail: _builtins.bytes
+    caption: _builtins.str
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        newsletterJID: builtins.str | None = ...,
-        newsletterName: builtins.str | None = ...,
-        JPEGThumbnail: builtins.bytes | None = ...,
-        caption: builtins.str | None = ...,
+        newsletterJID: _builtins.str | None = ...,
+        newsletterName: _builtins.str | None = ...,
+        JPEGThumbnail: _builtins.bytes | None = ...,
+        caption: _builtins.str | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "contextInfo", b"contextInfo", "newsletterJID", b"newsletterJID", "newsletterName", b"newsletterName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "contextInfo", b"contextInfo", "newsletterJID", b"newsletterJID", "newsletterName", b"newsletterName"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "contextInfo", b"contextInfo", "newsletterJID", b"newsletterJID", "newsletterName", b"newsletterName"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "contextInfo", b"contextInfo", "newsletterJID", b"newsletterJID", "newsletterName", b"newsletterName"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___NewsletterFollowerInviteMessage: typing_extensions.TypeAlias = NewsletterFollowerInviteMessage
+Global___NewsletterFollowerInviteMessage: _TypeAlias = NewsletterFollowerInviteMessage  # noqa: Y015
 
-@typing.final
-class NewsletterAdminInviteMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class NewsletterAdminInviteMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NEWSLETTERJID_FIELD_NUMBER: builtins.int
-    NEWSLETTERNAME_FIELD_NUMBER: builtins.int
-    JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-    CAPTION_FIELD_NUMBER: builtins.int
-    INVITEEXPIRATION_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    newsletterJID: builtins.str
-    newsletterName: builtins.str
-    JPEGThumbnail: builtins.bytes
-    caption: builtins.str
-    inviteExpiration: builtins.int
-    @property
+    NEWSLETTERJID_FIELD_NUMBER: _builtins.int
+    NEWSLETTERNAME_FIELD_NUMBER: _builtins.int
+    JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+    CAPTION_FIELD_NUMBER: _builtins.int
+    INVITEEXPIRATION_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    newsletterJID: _builtins.str
+    newsletterName: _builtins.str
+    JPEGThumbnail: _builtins.bytes
+    caption: _builtins.str
+    inviteExpiration: _builtins.int
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        newsletterJID: builtins.str | None = ...,
-        newsletterName: builtins.str | None = ...,
-        JPEGThumbnail: builtins.bytes | None = ...,
-        caption: builtins.str | None = ...,
-        inviteExpiration: builtins.int | None = ...,
+        newsletterJID: _builtins.str | None = ...,
+        newsletterName: _builtins.str | None = ...,
+        JPEGThumbnail: _builtins.bytes | None = ...,
+        caption: _builtins.str | None = ...,
+        inviteExpiration: _builtins.int | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "contextInfo", b"contextInfo", "inviteExpiration", b"inviteExpiration", "newsletterJID", b"newsletterJID", "newsletterName", b"newsletterName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "contextInfo", b"contextInfo", "inviteExpiration", b"inviteExpiration", "newsletterJID", b"newsletterJID", "newsletterName", b"newsletterName"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "contextInfo", b"contextInfo", "inviteExpiration", b"inviteExpiration", "newsletterJID", b"newsletterJID", "newsletterName", b"newsletterName"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "contextInfo", b"contextInfo", "inviteExpiration", b"inviteExpiration", "newsletterJID", b"newsletterJID", "newsletterName", b"newsletterName"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___NewsletterAdminInviteMessage: typing_extensions.TypeAlias = NewsletterAdminInviteMessage
+Global___NewsletterAdminInviteMessage: _TypeAlias = NewsletterAdminInviteMessage  # noqa: Y015
 
-@typing.final
-class ProductMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ProductMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class ProductSnapshot(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ProductSnapshot(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        PRODUCTIMAGE_FIELD_NUMBER: builtins.int
-        PRODUCTID_FIELD_NUMBER: builtins.int
-        TITLE_FIELD_NUMBER: builtins.int
-        DESCRIPTION_FIELD_NUMBER: builtins.int
-        CURRENCYCODE_FIELD_NUMBER: builtins.int
-        PRICEAMOUNT1000_FIELD_NUMBER: builtins.int
-        RETAILERID_FIELD_NUMBER: builtins.int
-        URL_FIELD_NUMBER: builtins.int
-        PRODUCTIMAGECOUNT_FIELD_NUMBER: builtins.int
-        FIRSTIMAGEID_FIELD_NUMBER: builtins.int
-        SALEPRICEAMOUNT1000_FIELD_NUMBER: builtins.int
-        SIGNEDURL_FIELD_NUMBER: builtins.int
-        productID: builtins.str
-        title: builtins.str
-        description: builtins.str
-        currencyCode: builtins.str
-        priceAmount1000: builtins.int
-        retailerID: builtins.str
-        URL: builtins.str
-        productImageCount: builtins.int
-        firstImageID: builtins.str
-        salePriceAmount1000: builtins.int
-        signedURL: builtins.str
-        @property
+        PRODUCTIMAGE_FIELD_NUMBER: _builtins.int
+        PRODUCTID_FIELD_NUMBER: _builtins.int
+        TITLE_FIELD_NUMBER: _builtins.int
+        DESCRIPTION_FIELD_NUMBER: _builtins.int
+        CURRENCYCODE_FIELD_NUMBER: _builtins.int
+        PRICEAMOUNT1000_FIELD_NUMBER: _builtins.int
+        RETAILERID_FIELD_NUMBER: _builtins.int
+        URL_FIELD_NUMBER: _builtins.int
+        PRODUCTIMAGECOUNT_FIELD_NUMBER: _builtins.int
+        FIRSTIMAGEID_FIELD_NUMBER: _builtins.int
+        SALEPRICEAMOUNT1000_FIELD_NUMBER: _builtins.int
+        SIGNEDURL_FIELD_NUMBER: _builtins.int
+        productID: _builtins.str
+        title: _builtins.str
+        description: _builtins.str
+        currencyCode: _builtins.str
+        priceAmount1000: _builtins.int
+        retailerID: _builtins.str
+        URL: _builtins.str
+        productImageCount: _builtins.int
+        firstImageID: _builtins.str
+        salePriceAmount1000: _builtins.int
+        signedURL: _builtins.str
+        @_builtins.property
         def productImage(self) -> Global___ImageMessage: ...
         def __init__(
             self,
             *,
             productImage: Global___ImageMessage | None = ...,
-            productID: builtins.str | None = ...,
-            title: builtins.str | None = ...,
-            description: builtins.str | None = ...,
-            currencyCode: builtins.str | None = ...,
-            priceAmount1000: builtins.int | None = ...,
-            retailerID: builtins.str | None = ...,
-            URL: builtins.str | None = ...,
-            productImageCount: builtins.int | None = ...,
-            firstImageID: builtins.str | None = ...,
-            salePriceAmount1000: builtins.int | None = ...,
-            signedURL: builtins.str | None = ...,
+            productID: _builtins.str | None = ...,
+            title: _builtins.str | None = ...,
+            description: _builtins.str | None = ...,
+            currencyCode: _builtins.str | None = ...,
+            priceAmount1000: _builtins.int | None = ...,
+            retailerID: _builtins.str | None = ...,
+            URL: _builtins.str | None = ...,
+            productImageCount: _builtins.int | None = ...,
+            firstImageID: _builtins.str | None = ...,
+            salePriceAmount1000: _builtins.int | None = ...,
+            signedURL: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["URL", b"URL", "currencyCode", b"currencyCode", "description", b"description", "firstImageID", b"firstImageID", "priceAmount1000", b"priceAmount1000", "productID", b"productID", "productImage", b"productImage", "productImageCount", b"productImageCount", "retailerID", b"retailerID", "salePriceAmount1000", b"salePriceAmount1000", "signedURL", b"signedURL", "title", b"title"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["URL", b"URL", "currencyCode", b"currencyCode", "description", b"description", "firstImageID", b"firstImageID", "priceAmount1000", b"priceAmount1000", "productID", b"productID", "productImage", b"productImage", "productImageCount", b"productImageCount", "retailerID", b"retailerID", "salePriceAmount1000", b"salePriceAmount1000", "signedURL", b"signedURL", "title", b"title"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "currencyCode", b"currencyCode", "description", b"description", "firstImageID", b"firstImageID", "priceAmount1000", b"priceAmount1000", "productID", b"productID", "productImage", b"productImage", "productImageCount", b"productImageCount", "retailerID", b"retailerID", "salePriceAmount1000", b"salePriceAmount1000", "signedURL", b"signedURL", "title", b"title"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "currencyCode", b"currencyCode", "description", b"description", "firstImageID", b"firstImageID", "priceAmount1000", b"priceAmount1000", "productID", b"productID", "productImage", b"productImage", "productImageCount", b"productImageCount", "retailerID", b"retailerID", "salePriceAmount1000", b"salePriceAmount1000", "signedURL", b"signedURL", "title", b"title"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class CatalogSnapshot(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class CatalogSnapshot(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        CATALOGIMAGE_FIELD_NUMBER: builtins.int
-        TITLE_FIELD_NUMBER: builtins.int
-        DESCRIPTION_FIELD_NUMBER: builtins.int
-        title: builtins.str
-        description: builtins.str
-        @property
+        CATALOGIMAGE_FIELD_NUMBER: _builtins.int
+        TITLE_FIELD_NUMBER: _builtins.int
+        DESCRIPTION_FIELD_NUMBER: _builtins.int
+        title: _builtins.str
+        description: _builtins.str
+        @_builtins.property
         def catalogImage(self) -> Global___ImageMessage: ...
         def __init__(
             self,
             *,
             catalogImage: Global___ImageMessage | None = ...,
-            title: builtins.str | None = ...,
-            description: builtins.str | None = ...,
+            title: _builtins.str | None = ...,
+            description: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["catalogImage", b"catalogImage", "description", b"description", "title", b"title"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["catalogImage", b"catalogImage", "description", b"description", "title", b"title"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["catalogImage", b"catalogImage", "description", b"description", "title", b"title"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["catalogImage", b"catalogImage", "description", b"description", "title", b"title"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    PRODUCT_FIELD_NUMBER: builtins.int
-    BUSINESSOWNERJID_FIELD_NUMBER: builtins.int
-    CATALOG_FIELD_NUMBER: builtins.int
-    BODY_FIELD_NUMBER: builtins.int
-    FOOTER_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    businessOwnerJID: builtins.str
-    body: builtins.str
-    footer: builtins.str
-    @property
+    PRODUCT_FIELD_NUMBER: _builtins.int
+    BUSINESSOWNERJID_FIELD_NUMBER: _builtins.int
+    CATALOG_FIELD_NUMBER: _builtins.int
+    BODY_FIELD_NUMBER: _builtins.int
+    FOOTER_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    businessOwnerJID: _builtins.str
+    body: _builtins.str
+    footer: _builtins.str
+    @_builtins.property
     def product(self) -> Global___ProductMessage.ProductSnapshot: ...
-    @property
+    @_builtins.property
     def catalog(self) -> Global___ProductMessage.CatalogSnapshot: ...
-    @property
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
         product: Global___ProductMessage.ProductSnapshot | None = ...,
-        businessOwnerJID: builtins.str | None = ...,
+        businessOwnerJID: _builtins.str | None = ...,
         catalog: Global___ProductMessage.CatalogSnapshot | None = ...,
-        body: builtins.str | None = ...,
-        footer: builtins.str | None = ...,
+        body: _builtins.str | None = ...,
+        footer: _builtins.str | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["body", b"body", "businessOwnerJID", b"businessOwnerJID", "catalog", b"catalog", "contextInfo", b"contextInfo", "footer", b"footer", "product", b"product"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["body", b"body", "businessOwnerJID", b"businessOwnerJID", "catalog", b"catalog", "contextInfo", b"contextInfo", "footer", b"footer", "product", b"product"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["body", b"body", "businessOwnerJID", b"businessOwnerJID", "catalog", b"catalog", "contextInfo", b"contextInfo", "footer", b"footer", "product", b"product"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["body", b"body", "businessOwnerJID", b"businessOwnerJID", "catalog", b"catalog", "contextInfo", b"contextInfo", "footer", b"footer", "product", b"product"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ProductMessage: typing_extensions.TypeAlias = ProductMessage
+Global___ProductMessage: _TypeAlias = ProductMessage  # noqa: Y015
 
-@typing.final
-class TemplateButtonReplyMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class TemplateButtonReplyMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SELECTEDID_FIELD_NUMBER: builtins.int
-    SELECTEDDISPLAYTEXT_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    SELECTEDINDEX_FIELD_NUMBER: builtins.int
-    SELECTEDCAROUSELCARDINDEX_FIELD_NUMBER: builtins.int
-    selectedID: builtins.str
-    selectedDisplayText: builtins.str
-    selectedIndex: builtins.int
-    selectedCarouselCardIndex: builtins.int
-    @property
+    SELECTEDID_FIELD_NUMBER: _builtins.int
+    SELECTEDDISPLAYTEXT_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    SELECTEDINDEX_FIELD_NUMBER: _builtins.int
+    SELECTEDCAROUSELCARDINDEX_FIELD_NUMBER: _builtins.int
+    selectedID: _builtins.str
+    selectedDisplayText: _builtins.str
+    selectedIndex: _builtins.int
+    selectedCarouselCardIndex: _builtins.int
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        selectedID: builtins.str | None = ...,
-        selectedDisplayText: builtins.str | None = ...,
+        selectedID: _builtins.str | None = ...,
+        selectedDisplayText: _builtins.str | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
-        selectedIndex: builtins.int | None = ...,
-        selectedCarouselCardIndex: builtins.int | None = ...,
+        selectedIndex: _builtins.int | None = ...,
+        selectedCarouselCardIndex: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "selectedCarouselCardIndex", b"selectedCarouselCardIndex", "selectedDisplayText", b"selectedDisplayText", "selectedID", b"selectedID", "selectedIndex", b"selectedIndex"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "selectedCarouselCardIndex", b"selectedCarouselCardIndex", "selectedDisplayText", b"selectedDisplayText", "selectedID", b"selectedID", "selectedIndex", b"selectedIndex"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "selectedCarouselCardIndex", b"selectedCarouselCardIndex", "selectedDisplayText", b"selectedDisplayText", "selectedID", b"selectedID", "selectedIndex", b"selectedIndex"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "selectedCarouselCardIndex", b"selectedCarouselCardIndex", "selectedDisplayText", b"selectedDisplayText", "selectedID", b"selectedID", "selectedIndex", b"selectedIndex"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___TemplateButtonReplyMessage: typing_extensions.TypeAlias = TemplateButtonReplyMessage
+Global___TemplateButtonReplyMessage: _TypeAlias = TemplateButtonReplyMessage  # noqa: Y015
 
-@typing.final
-class TemplateMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class TemplateMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class HydratedFourRowTemplate(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class HydratedFourRowTemplate(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        DOCUMENTMESSAGE_FIELD_NUMBER: builtins.int
-        HYDRATEDTITLETEXT_FIELD_NUMBER: builtins.int
-        IMAGEMESSAGE_FIELD_NUMBER: builtins.int
-        VIDEOMESSAGE_FIELD_NUMBER: builtins.int
-        LOCATIONMESSAGE_FIELD_NUMBER: builtins.int
-        HYDRATEDCONTENTTEXT_FIELD_NUMBER: builtins.int
-        HYDRATEDFOOTERTEXT_FIELD_NUMBER: builtins.int
-        HYDRATEDBUTTONS_FIELD_NUMBER: builtins.int
-        TEMPLATEID_FIELD_NUMBER: builtins.int
-        MASKLINKEDDEVICES_FIELD_NUMBER: builtins.int
-        hydratedTitleText: builtins.str
-        hydratedContentText: builtins.str
-        hydratedFooterText: builtins.str
-        templateID: builtins.str
-        maskLinkedDevices: builtins.bool
-        @property
+        DOCUMENTMESSAGE_FIELD_NUMBER: _builtins.int
+        HYDRATEDTITLETEXT_FIELD_NUMBER: _builtins.int
+        IMAGEMESSAGE_FIELD_NUMBER: _builtins.int
+        VIDEOMESSAGE_FIELD_NUMBER: _builtins.int
+        LOCATIONMESSAGE_FIELD_NUMBER: _builtins.int
+        HYDRATEDCONTENTTEXT_FIELD_NUMBER: _builtins.int
+        HYDRATEDFOOTERTEXT_FIELD_NUMBER: _builtins.int
+        HYDRATEDBUTTONS_FIELD_NUMBER: _builtins.int
+        TEMPLATEID_FIELD_NUMBER: _builtins.int
+        MASKLINKEDDEVICES_FIELD_NUMBER: _builtins.int
+        hydratedTitleText: _builtins.str
+        hydratedContentText: _builtins.str
+        hydratedFooterText: _builtins.str
+        templateID: _builtins.str
+        maskLinkedDevices: _builtins.bool
+        @_builtins.property
         def documentMessage(self) -> Global___DocumentMessage: ...
-        @property
+        @_builtins.property
         def imageMessage(self) -> Global___ImageMessage: ...
-        @property
+        @_builtins.property
         def videoMessage(self) -> Global___VideoMessage: ...
-        @property
+        @_builtins.property
         def locationMessage(self) -> Global___LocationMessage: ...
-        @property
-        def hydratedButtons(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___HydratedTemplateButton]: ...
+        @_builtins.property
+        def hydratedButtons(self) -> _containers.RepeatedCompositeFieldContainer[Global___HydratedTemplateButton]: ...
         def __init__(
             self,
             *,
             documentMessage: Global___DocumentMessage | None = ...,
-            hydratedTitleText: builtins.str | None = ...,
+            hydratedTitleText: _builtins.str | None = ...,
             imageMessage: Global___ImageMessage | None = ...,
             videoMessage: Global___VideoMessage | None = ...,
             locationMessage: Global___LocationMessage | None = ...,
-            hydratedContentText: builtins.str | None = ...,
-            hydratedFooterText: builtins.str | None = ...,
-            hydratedButtons: collections.abc.Iterable[Global___HydratedTemplateButton] | None = ...,
-            templateID: builtins.str | None = ...,
-            maskLinkedDevices: builtins.bool | None = ...,
+            hydratedContentText: _builtins.str | None = ...,
+            hydratedFooterText: _builtins.str | None = ...,
+            hydratedButtons: _abc.Iterable[Global___HydratedTemplateButton] | None = ...,
+            templateID: _builtins.str | None = ...,
+            maskLinkedDevices: _builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["documentMessage", b"documentMessage", "hydratedContentText", b"hydratedContentText", "hydratedFooterText", b"hydratedFooterText", "hydratedTitleText", b"hydratedTitleText", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "maskLinkedDevices", b"maskLinkedDevices", "templateID", b"templateID", "title", b"title", "videoMessage", b"videoMessage"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["documentMessage", b"documentMessage", "hydratedButtons", b"hydratedButtons", "hydratedContentText", b"hydratedContentText", "hydratedFooterText", b"hydratedFooterText", "hydratedTitleText", b"hydratedTitleText", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "maskLinkedDevices", b"maskLinkedDevices", "templateID", b"templateID", "title", b"title", "videoMessage", b"videoMessage"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["title", b"title"]) -> typing.Literal["documentMessage", "hydratedTitleText", "imageMessage", "videoMessage", "locationMessage"] | None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["documentMessage", b"documentMessage", "hydratedContentText", b"hydratedContentText", "hydratedFooterText", b"hydratedFooterText", "hydratedTitleText", b"hydratedTitleText", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "maskLinkedDevices", b"maskLinkedDevices", "templateID", b"templateID", "title", b"title", "videoMessage", b"videoMessage"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["documentMessage", b"documentMessage", "hydratedButtons", b"hydratedButtons", "hydratedContentText", b"hydratedContentText", "hydratedFooterText", b"hydratedFooterText", "hydratedTitleText", b"hydratedTitleText", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "maskLinkedDevices", b"maskLinkedDevices", "templateID", b"templateID", "title", b"title", "videoMessage", b"videoMessage"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        _WhichOneofReturnType_title: _TypeAlias = _typing.Literal["documentMessage", "hydratedTitleText", "imageMessage", "videoMessage", "locationMessage"]  # noqa: Y015
+        _WhichOneofArgType_title: _TypeAlias = _typing.Literal["title", b"title"]  # noqa: Y015
+        def WhichOneof(self, oneof_group: _WhichOneofArgType_title) -> _WhichOneofReturnType_title | None: ...
 
-    @typing.final
-    class FourRowTemplate(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class FourRowTemplate(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        DOCUMENTMESSAGE_FIELD_NUMBER: builtins.int
-        HIGHLYSTRUCTUREDMESSAGE_FIELD_NUMBER: builtins.int
-        IMAGEMESSAGE_FIELD_NUMBER: builtins.int
-        VIDEOMESSAGE_FIELD_NUMBER: builtins.int
-        LOCATIONMESSAGE_FIELD_NUMBER: builtins.int
-        CONTENT_FIELD_NUMBER: builtins.int
-        FOOTER_FIELD_NUMBER: builtins.int
-        BUTTONS_FIELD_NUMBER: builtins.int
-        @property
+        DOCUMENTMESSAGE_FIELD_NUMBER: _builtins.int
+        HIGHLYSTRUCTUREDMESSAGE_FIELD_NUMBER: _builtins.int
+        IMAGEMESSAGE_FIELD_NUMBER: _builtins.int
+        VIDEOMESSAGE_FIELD_NUMBER: _builtins.int
+        LOCATIONMESSAGE_FIELD_NUMBER: _builtins.int
+        CONTENT_FIELD_NUMBER: _builtins.int
+        FOOTER_FIELD_NUMBER: _builtins.int
+        BUTTONS_FIELD_NUMBER: _builtins.int
+        @_builtins.property
         def documentMessage(self) -> Global___DocumentMessage: ...
-        @property
+        @_builtins.property
         def highlyStructuredMessage(self) -> Global___HighlyStructuredMessage: ...
-        @property
+        @_builtins.property
         def imageMessage(self) -> Global___ImageMessage: ...
-        @property
+        @_builtins.property
         def videoMessage(self) -> Global___VideoMessage: ...
-        @property
+        @_builtins.property
         def locationMessage(self) -> Global___LocationMessage: ...
-        @property
+        @_builtins.property
         def content(self) -> Global___HighlyStructuredMessage: ...
-        @property
+        @_builtins.property
         def footer(self) -> Global___HighlyStructuredMessage: ...
-        @property
-        def buttons(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___TemplateButton]: ...
+        @_builtins.property
+        def buttons(self) -> _containers.RepeatedCompositeFieldContainer[Global___TemplateButton]: ...
         def __init__(
             self,
             *,
@@ -5786,28 +6096,32 @@ class TemplateMessage(google.protobuf.message.Message):
             locationMessage: Global___LocationMessage | None = ...,
             content: Global___HighlyStructuredMessage | None = ...,
             footer: Global___HighlyStructuredMessage | None = ...,
-            buttons: collections.abc.Iterable[Global___TemplateButton] | None = ...,
+            buttons: _abc.Iterable[Global___TemplateButton] | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["content", b"content", "documentMessage", b"documentMessage", "footer", b"footer", "highlyStructuredMessage", b"highlyStructuredMessage", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "title", b"title", "videoMessage", b"videoMessage"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["buttons", b"buttons", "content", b"content", "documentMessage", b"documentMessage", "footer", b"footer", "highlyStructuredMessage", b"highlyStructuredMessage", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "title", b"title", "videoMessage", b"videoMessage"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["title", b"title"]) -> typing.Literal["documentMessage", "highlyStructuredMessage", "imageMessage", "videoMessage", "locationMessage"] | None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["content", b"content", "documentMessage", b"documentMessage", "footer", b"footer", "highlyStructuredMessage", b"highlyStructuredMessage", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "title", b"title", "videoMessage", b"videoMessage"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["buttons", b"buttons", "content", b"content", "documentMessage", b"documentMessage", "footer", b"footer", "highlyStructuredMessage", b"highlyStructuredMessage", "imageMessage", b"imageMessage", "locationMessage", b"locationMessage", "title", b"title", "videoMessage", b"videoMessage"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        _WhichOneofReturnType_title: _TypeAlias = _typing.Literal["documentMessage", "highlyStructuredMessage", "imageMessage", "videoMessage", "locationMessage"]  # noqa: Y015
+        _WhichOneofArgType_title: _TypeAlias = _typing.Literal["title", b"title"]  # noqa: Y015
+        def WhichOneof(self, oneof_group: _WhichOneofArgType_title) -> _WhichOneofReturnType_title | None: ...
 
-    FOURROWTEMPLATE_FIELD_NUMBER: builtins.int
-    HYDRATEDFOURROWTEMPLATE_FIELD_NUMBER: builtins.int
-    INTERACTIVEMESSAGETEMPLATE_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    HYDRATEDTEMPLATE_FIELD_NUMBER: builtins.int
-    TEMPLATEID_FIELD_NUMBER: builtins.int
-    templateID: builtins.str
-    @property
+    FOURROWTEMPLATE_FIELD_NUMBER: _builtins.int
+    HYDRATEDFOURROWTEMPLATE_FIELD_NUMBER: _builtins.int
+    INTERACTIVEMESSAGETEMPLATE_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    HYDRATEDTEMPLATE_FIELD_NUMBER: _builtins.int
+    TEMPLATEID_FIELD_NUMBER: _builtins.int
+    templateID: _builtins.str
+    @_builtins.property
     def fourRowTemplate(self) -> Global___TemplateMessage.FourRowTemplate: ...
-    @property
+    @_builtins.property
     def hydratedFourRowTemplate(self) -> Global___TemplateMessage.HydratedFourRowTemplate: ...
-    @property
+    @_builtins.property
     def interactiveMessageTemplate(self) -> Global___InteractiveMessage: ...
-    @property
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
-    @property
+    @_builtins.property
     def hydratedTemplate(self) -> Global___TemplateMessage.HydratedFourRowTemplate: ...
     def __init__(
         self,
@@ -5817,413 +6131,445 @@ class TemplateMessage(google.protobuf.message.Message):
         interactiveMessageTemplate: Global___InteractiveMessage | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
         hydratedTemplate: Global___TemplateMessage.HydratedFourRowTemplate | None = ...,
-        templateID: builtins.str | None = ...,
+        templateID: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "format", b"format", "fourRowTemplate", b"fourRowTemplate", "hydratedFourRowTemplate", b"hydratedFourRowTemplate", "hydratedTemplate", b"hydratedTemplate", "interactiveMessageTemplate", b"interactiveMessageTemplate", "templateID", b"templateID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "format", b"format", "fourRowTemplate", b"fourRowTemplate", "hydratedFourRowTemplate", b"hydratedFourRowTemplate", "hydratedTemplate", b"hydratedTemplate", "interactiveMessageTemplate", b"interactiveMessageTemplate", "templateID", b"templateID"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["format", b"format"]) -> typing.Literal["fourRowTemplate", "hydratedFourRowTemplate", "interactiveMessageTemplate"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "format", b"format", "fourRowTemplate", b"fourRowTemplate", "hydratedFourRowTemplate", b"hydratedFourRowTemplate", "hydratedTemplate", b"hydratedTemplate", "interactiveMessageTemplate", b"interactiveMessageTemplate", "templateID", b"templateID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "format", b"format", "fourRowTemplate", b"fourRowTemplate", "hydratedFourRowTemplate", b"hydratedFourRowTemplate", "hydratedTemplate", b"hydratedTemplate", "interactiveMessageTemplate", b"interactiveMessageTemplate", "templateID", b"templateID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_format: _TypeAlias = _typing.Literal["fourRowTemplate", "hydratedFourRowTemplate", "interactiveMessageTemplate"]  # noqa: Y015
+    _WhichOneofArgType_format: _TypeAlias = _typing.Literal["format", b"format"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_format) -> _WhichOneofReturnType_format | None: ...
 
-Global___TemplateMessage: typing_extensions.TypeAlias = TemplateMessage
+Global___TemplateMessage: _TypeAlias = TemplateMessage  # noqa: Y015
 
-@typing.final
-class StickerMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class StickerMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    URL_FIELD_NUMBER: builtins.int
-    FILESHA256_FIELD_NUMBER: builtins.int
-    FILEENCSHA256_FIELD_NUMBER: builtins.int
-    MEDIAKEY_FIELD_NUMBER: builtins.int
-    MIMETYPE_FIELD_NUMBER: builtins.int
-    HEIGHT_FIELD_NUMBER: builtins.int
-    WIDTH_FIELD_NUMBER: builtins.int
-    DIRECTPATH_FIELD_NUMBER: builtins.int
-    FILELENGTH_FIELD_NUMBER: builtins.int
-    MEDIAKEYTIMESTAMP_FIELD_NUMBER: builtins.int
-    FIRSTFRAMELENGTH_FIELD_NUMBER: builtins.int
-    FIRSTFRAMESIDECAR_FIELD_NUMBER: builtins.int
-    ISANIMATED_FIELD_NUMBER: builtins.int
-    PNGTHUMBNAIL_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    STICKERSENTTS_FIELD_NUMBER: builtins.int
-    ISAVATAR_FIELD_NUMBER: builtins.int
-    ISAISTICKER_FIELD_NUMBER: builtins.int
-    ISLOTTIE_FIELD_NUMBER: builtins.int
-    ACCESSIBILITYLABEL_FIELD_NUMBER: builtins.int
-    MEDIAKEYDOMAIN_FIELD_NUMBER: builtins.int
-    URL: builtins.str
-    fileSHA256: builtins.bytes
-    fileEncSHA256: builtins.bytes
-    mediaKey: builtins.bytes
-    mimetype: builtins.str
-    height: builtins.int
-    width: builtins.int
-    directPath: builtins.str
-    fileLength: builtins.int
-    mediaKeyTimestamp: builtins.int
-    firstFrameLength: builtins.int
-    firstFrameSidecar: builtins.bytes
-    isAnimated: builtins.bool
-    pngThumbnail: builtins.bytes
-    stickerSentTS: builtins.int
-    isAvatar: builtins.bool
-    isAiSticker: builtins.bool
-    isLottie: builtins.bool
-    accessibilityLabel: builtins.str
+    URL_FIELD_NUMBER: _builtins.int
+    FILESHA256_FIELD_NUMBER: _builtins.int
+    FILEENCSHA256_FIELD_NUMBER: _builtins.int
+    MEDIAKEY_FIELD_NUMBER: _builtins.int
+    MIMETYPE_FIELD_NUMBER: _builtins.int
+    HEIGHT_FIELD_NUMBER: _builtins.int
+    WIDTH_FIELD_NUMBER: _builtins.int
+    DIRECTPATH_FIELD_NUMBER: _builtins.int
+    FILELENGTH_FIELD_NUMBER: _builtins.int
+    MEDIAKEYTIMESTAMP_FIELD_NUMBER: _builtins.int
+    FIRSTFRAMELENGTH_FIELD_NUMBER: _builtins.int
+    FIRSTFRAMESIDECAR_FIELD_NUMBER: _builtins.int
+    ISANIMATED_FIELD_NUMBER: _builtins.int
+    PNGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    STICKERSENTTS_FIELD_NUMBER: _builtins.int
+    ISAVATAR_FIELD_NUMBER: _builtins.int
+    ISAISTICKER_FIELD_NUMBER: _builtins.int
+    ISLOTTIE_FIELD_NUMBER: _builtins.int
+    ACCESSIBILITYLABEL_FIELD_NUMBER: _builtins.int
+    MEDIAKEYDOMAIN_FIELD_NUMBER: _builtins.int
+    URL: _builtins.str
+    fileSHA256: _builtins.bytes
+    fileEncSHA256: _builtins.bytes
+    mediaKey: _builtins.bytes
+    mimetype: _builtins.str
+    height: _builtins.int
+    width: _builtins.int
+    directPath: _builtins.str
+    fileLength: _builtins.int
+    mediaKeyTimestamp: _builtins.int
+    firstFrameLength: _builtins.int
+    firstFrameSidecar: _builtins.bytes
+    isAnimated: _builtins.bool
+    pngThumbnail: _builtins.bytes
+    stickerSentTS: _builtins.int
+    isAvatar: _builtins.bool
+    isAiSticker: _builtins.bool
+    isLottie: _builtins.bool
+    accessibilityLabel: _builtins.str
     mediaKeyDomain: Global___MediaKeyDomain.ValueType
-    @property
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        URL: builtins.str | None = ...,
-        fileSHA256: builtins.bytes | None = ...,
-        fileEncSHA256: builtins.bytes | None = ...,
-        mediaKey: builtins.bytes | None = ...,
-        mimetype: builtins.str | None = ...,
-        height: builtins.int | None = ...,
-        width: builtins.int | None = ...,
-        directPath: builtins.str | None = ...,
-        fileLength: builtins.int | None = ...,
-        mediaKeyTimestamp: builtins.int | None = ...,
-        firstFrameLength: builtins.int | None = ...,
-        firstFrameSidecar: builtins.bytes | None = ...,
-        isAnimated: builtins.bool | None = ...,
-        pngThumbnail: builtins.bytes | None = ...,
+        URL: _builtins.str | None = ...,
+        fileSHA256: _builtins.bytes | None = ...,
+        fileEncSHA256: _builtins.bytes | None = ...,
+        mediaKey: _builtins.bytes | None = ...,
+        mimetype: _builtins.str | None = ...,
+        height: _builtins.int | None = ...,
+        width: _builtins.int | None = ...,
+        directPath: _builtins.str | None = ...,
+        fileLength: _builtins.int | None = ...,
+        mediaKeyTimestamp: _builtins.int | None = ...,
+        firstFrameLength: _builtins.int | None = ...,
+        firstFrameSidecar: _builtins.bytes | None = ...,
+        isAnimated: _builtins.bool | None = ...,
+        pngThumbnail: _builtins.bytes | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
-        stickerSentTS: builtins.int | None = ...,
-        isAvatar: builtins.bool | None = ...,
-        isAiSticker: builtins.bool | None = ...,
-        isLottie: builtins.bool | None = ...,
-        accessibilityLabel: builtins.str | None = ...,
+        stickerSentTS: _builtins.int | None = ...,
+        isAvatar: _builtins.bool | None = ...,
+        isAiSticker: _builtins.bool | None = ...,
+        isLottie: _builtins.bool | None = ...,
+        accessibilityLabel: _builtins.str | None = ...,
         mediaKeyDomain: Global___MediaKeyDomain.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "firstFrameLength", b"firstFrameLength", "firstFrameSidecar", b"firstFrameSidecar", "height", b"height", "isAiSticker", b"isAiSticker", "isAnimated", b"isAnimated", "isAvatar", b"isAvatar", "isLottie", b"isLottie", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "pngThumbnail", b"pngThumbnail", "stickerSentTS", b"stickerSentTS", "width", b"width"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "firstFrameLength", b"firstFrameLength", "firstFrameSidecar", b"firstFrameSidecar", "height", b"height", "isAiSticker", b"isAiSticker", "isAnimated", b"isAnimated", "isAvatar", b"isAvatar", "isLottie", b"isLottie", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "pngThumbnail", b"pngThumbnail", "stickerSentTS", b"stickerSentTS", "width", b"width"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "firstFrameLength", b"firstFrameLength", "firstFrameSidecar", b"firstFrameSidecar", "height", b"height", "isAiSticker", b"isAiSticker", "isAnimated", b"isAnimated", "isAvatar", b"isAvatar", "isLottie", b"isLottie", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "pngThumbnail", b"pngThumbnail", "stickerSentTS", b"stickerSentTS", "width", b"width"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "firstFrameLength", b"firstFrameLength", "firstFrameSidecar", b"firstFrameSidecar", "height", b"height", "isAiSticker", b"isAiSticker", "isAnimated", b"isAnimated", "isAvatar", b"isAvatar", "isLottie", b"isLottie", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "pngThumbnail", b"pngThumbnail", "stickerSentTS", b"stickerSentTS", "width", b"width"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___StickerMessage: typing_extensions.TypeAlias = StickerMessage
+Global___StickerMessage: _TypeAlias = StickerMessage  # noqa: Y015
 
-@typing.final
-class LiveLocationMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class LiveLocationMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DEGREESLATITUDE_FIELD_NUMBER: builtins.int
-    DEGREESLONGITUDE_FIELD_NUMBER: builtins.int
-    ACCURACYINMETERS_FIELD_NUMBER: builtins.int
-    SPEEDINMPS_FIELD_NUMBER: builtins.int
-    DEGREESCLOCKWISEFROMMAGNETICNORTH_FIELD_NUMBER: builtins.int
-    CAPTION_FIELD_NUMBER: builtins.int
-    SEQUENCENUMBER_FIELD_NUMBER: builtins.int
-    TIMEOFFSET_FIELD_NUMBER: builtins.int
-    JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    degreesLatitude: builtins.float
-    degreesLongitude: builtins.float
-    accuracyInMeters: builtins.int
-    speedInMps: builtins.float
-    degreesClockwiseFromMagneticNorth: builtins.int
-    caption: builtins.str
-    sequenceNumber: builtins.int
-    timeOffset: builtins.int
-    JPEGThumbnail: builtins.bytes
-    @property
+    DEGREESLATITUDE_FIELD_NUMBER: _builtins.int
+    DEGREESLONGITUDE_FIELD_NUMBER: _builtins.int
+    ACCURACYINMETERS_FIELD_NUMBER: _builtins.int
+    SPEEDINMPS_FIELD_NUMBER: _builtins.int
+    DEGREESCLOCKWISEFROMMAGNETICNORTH_FIELD_NUMBER: _builtins.int
+    CAPTION_FIELD_NUMBER: _builtins.int
+    SEQUENCENUMBER_FIELD_NUMBER: _builtins.int
+    TIMEOFFSET_FIELD_NUMBER: _builtins.int
+    JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    degreesLatitude: _builtins.float
+    degreesLongitude: _builtins.float
+    accuracyInMeters: _builtins.int
+    speedInMps: _builtins.float
+    degreesClockwiseFromMagneticNorth: _builtins.int
+    caption: _builtins.str
+    sequenceNumber: _builtins.int
+    timeOffset: _builtins.int
+    JPEGThumbnail: _builtins.bytes
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        degreesLatitude: builtins.float | None = ...,
-        degreesLongitude: builtins.float | None = ...,
-        accuracyInMeters: builtins.int | None = ...,
-        speedInMps: builtins.float | None = ...,
-        degreesClockwiseFromMagneticNorth: builtins.int | None = ...,
-        caption: builtins.str | None = ...,
-        sequenceNumber: builtins.int | None = ...,
-        timeOffset: builtins.int | None = ...,
-        JPEGThumbnail: builtins.bytes | None = ...,
+        degreesLatitude: _builtins.float | None = ...,
+        degreesLongitude: _builtins.float | None = ...,
+        accuracyInMeters: _builtins.int | None = ...,
+        speedInMps: _builtins.float | None = ...,
+        degreesClockwiseFromMagneticNorth: _builtins.int | None = ...,
+        caption: _builtins.str | None = ...,
+        sequenceNumber: _builtins.int | None = ...,
+        timeOffset: _builtins.int | None = ...,
+        JPEGThumbnail: _builtins.bytes | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "accuracyInMeters", b"accuracyInMeters", "caption", b"caption", "contextInfo", b"contextInfo", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "sequenceNumber", b"sequenceNumber", "speedInMps", b"speedInMps", "timeOffset", b"timeOffset"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "accuracyInMeters", b"accuracyInMeters", "caption", b"caption", "contextInfo", b"contextInfo", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "sequenceNumber", b"sequenceNumber", "speedInMps", b"speedInMps", "timeOffset", b"timeOffset"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "accuracyInMeters", b"accuracyInMeters", "caption", b"caption", "contextInfo", b"contextInfo", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "sequenceNumber", b"sequenceNumber", "speedInMps", b"speedInMps", "timeOffset", b"timeOffset"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "accuracyInMeters", b"accuracyInMeters", "caption", b"caption", "contextInfo", b"contextInfo", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "sequenceNumber", b"sequenceNumber", "speedInMps", b"speedInMps", "timeOffset", b"timeOffset"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___LiveLocationMessage: typing_extensions.TypeAlias = LiveLocationMessage
+Global___LiveLocationMessage: _TypeAlias = LiveLocationMessage  # noqa: Y015
 
-@typing.final
-class CancelPaymentRequestMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class CancelPaymentRequestMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    KEY_FIELD_NUMBER: builtins.int
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    KEY_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def key(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        key: waCommon.WACommon_pb2.MessageKey | None = ...,
+        key: _WACommon_pb2.MessageKey | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["key", b"key"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["key", b"key"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["key", b"key"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___CancelPaymentRequestMessage: typing_extensions.TypeAlias = CancelPaymentRequestMessage
+Global___CancelPaymentRequestMessage: _TypeAlias = CancelPaymentRequestMessage  # noqa: Y015
 
-@typing.final
-class DeclinePaymentRequestMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DeclinePaymentRequestMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    KEY_FIELD_NUMBER: builtins.int
-    @property
-    def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    KEY_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def key(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        key: waCommon.WACommon_pb2.MessageKey | None = ...,
+        key: _WACommon_pb2.MessageKey | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["key", b"key"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["key", b"key"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["key", b"key"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___DeclinePaymentRequestMessage: typing_extensions.TypeAlias = DeclinePaymentRequestMessage
+Global___DeclinePaymentRequestMessage: _TypeAlias = DeclinePaymentRequestMessage  # noqa: Y015
 
-@typing.final
-class RequestPaymentMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class RequestPaymentMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NOTEMESSAGE_FIELD_NUMBER: builtins.int
-    CURRENCYCODEISO4217_FIELD_NUMBER: builtins.int
-    AMOUNT1000_FIELD_NUMBER: builtins.int
-    REQUESTFROM_FIELD_NUMBER: builtins.int
-    EXPIRYTIMESTAMP_FIELD_NUMBER: builtins.int
-    AMOUNT_FIELD_NUMBER: builtins.int
-    BACKGROUND_FIELD_NUMBER: builtins.int
-    currencyCodeIso4217: builtins.str
-    amount1000: builtins.int
-    requestFrom: builtins.str
-    expiryTimestamp: builtins.int
-    @property
+    NOTEMESSAGE_FIELD_NUMBER: _builtins.int
+    CURRENCYCODEISO4217_FIELD_NUMBER: _builtins.int
+    AMOUNT1000_FIELD_NUMBER: _builtins.int
+    REQUESTFROM_FIELD_NUMBER: _builtins.int
+    EXPIRYTIMESTAMP_FIELD_NUMBER: _builtins.int
+    AMOUNT_FIELD_NUMBER: _builtins.int
+    BACKGROUND_FIELD_NUMBER: _builtins.int
+    currencyCodeIso4217: _builtins.str
+    amount1000: _builtins.int
+    requestFrom: _builtins.str
+    expiryTimestamp: _builtins.int
+    @_builtins.property
     def noteMessage(self) -> Global___Message: ...
-    @property
+    @_builtins.property
     def amount(self) -> Global___Money: ...
-    @property
+    @_builtins.property
     def background(self) -> Global___PaymentBackground: ...
     def __init__(
         self,
         *,
         noteMessage: Global___Message | None = ...,
-        currencyCodeIso4217: builtins.str | None = ...,
-        amount1000: builtins.int | None = ...,
-        requestFrom: builtins.str | None = ...,
-        expiryTimestamp: builtins.int | None = ...,
+        currencyCodeIso4217: _builtins.str | None = ...,
+        amount1000: _builtins.int | None = ...,
+        requestFrom: _builtins.str | None = ...,
+        expiryTimestamp: _builtins.int | None = ...,
         amount: Global___Money | None = ...,
         background: Global___PaymentBackground | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["amount", b"amount", "amount1000", b"amount1000", "background", b"background", "currencyCodeIso4217", b"currencyCodeIso4217", "expiryTimestamp", b"expiryTimestamp", "noteMessage", b"noteMessage", "requestFrom", b"requestFrom"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["amount", b"amount", "amount1000", b"amount1000", "background", b"background", "currencyCodeIso4217", b"currencyCodeIso4217", "expiryTimestamp", b"expiryTimestamp", "noteMessage", b"noteMessage", "requestFrom", b"requestFrom"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["amount", b"amount", "amount1000", b"amount1000", "background", b"background", "currencyCodeIso4217", b"currencyCodeIso4217", "expiryTimestamp", b"expiryTimestamp", "noteMessage", b"noteMessage", "requestFrom", b"requestFrom"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["amount", b"amount", "amount1000", b"amount1000", "background", b"background", "currencyCodeIso4217", b"currencyCodeIso4217", "expiryTimestamp", b"expiryTimestamp", "noteMessage", b"noteMessage", "requestFrom", b"requestFrom"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___RequestPaymentMessage: typing_extensions.TypeAlias = RequestPaymentMessage
+Global___RequestPaymentMessage: _TypeAlias = RequestPaymentMessage  # noqa: Y015
 
-@typing.final
-class SendPaymentMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class SendPaymentMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NOTEMESSAGE_FIELD_NUMBER: builtins.int
-    REQUESTMESSAGEKEY_FIELD_NUMBER: builtins.int
-    BACKGROUND_FIELD_NUMBER: builtins.int
-    TRANSACTIONDATA_FIELD_NUMBER: builtins.int
-    transactionData: builtins.str
-    @property
+    NOTEMESSAGE_FIELD_NUMBER: _builtins.int
+    REQUESTMESSAGEKEY_FIELD_NUMBER: _builtins.int
+    BACKGROUND_FIELD_NUMBER: _builtins.int
+    TRANSACTIONDATA_FIELD_NUMBER: _builtins.int
+    transactionData: _builtins.str
+    @_builtins.property
     def noteMessage(self) -> Global___Message: ...
-    @property
-    def requestMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
-    @property
+    @_builtins.property
+    def requestMessageKey(self) -> _WACommon_pb2.MessageKey: ...
+    @_builtins.property
     def background(self) -> Global___PaymentBackground: ...
     def __init__(
         self,
         *,
         noteMessage: Global___Message | None = ...,
-        requestMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+        requestMessageKey: _WACommon_pb2.MessageKey | None = ...,
         background: Global___PaymentBackground | None = ...,
-        transactionData: builtins.str | None = ...,
+        transactionData: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["background", b"background", "noteMessage", b"noteMessage", "requestMessageKey", b"requestMessageKey", "transactionData", b"transactionData"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["background", b"background", "noteMessage", b"noteMessage", "requestMessageKey", b"requestMessageKey", "transactionData", b"transactionData"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["background", b"background", "noteMessage", b"noteMessage", "requestMessageKey", b"requestMessageKey", "transactionData", b"transactionData"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["background", b"background", "noteMessage", b"noteMessage", "requestMessageKey", b"requestMessageKey", "transactionData", b"transactionData"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___SendPaymentMessage: typing_extensions.TypeAlias = SendPaymentMessage
+Global___SendPaymentMessage: _TypeAlias = SendPaymentMessage  # noqa: Y015
 
-@typing.final
-class ContactsArrayMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ContactsArrayMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DISPLAYNAME_FIELD_NUMBER: builtins.int
-    CONTACTS_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    displayName: builtins.str
-    @property
-    def contacts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ContactMessage]: ...
-    @property
+    DISPLAYNAME_FIELD_NUMBER: _builtins.int
+    CONTACTS_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    displayName: _builtins.str
+    @_builtins.property
+    def contacts(self) -> _containers.RepeatedCompositeFieldContainer[Global___ContactMessage]: ...
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        displayName: builtins.str | None = ...,
-        contacts: collections.abc.Iterable[Global___ContactMessage] | None = ...,
+        displayName: _builtins.str | None = ...,
+        contacts: _abc.Iterable[Global___ContactMessage] | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "displayName", b"displayName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contacts", b"contacts", "contextInfo", b"contextInfo", "displayName", b"displayName"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "displayName", b"displayName"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contacts", b"contacts", "contextInfo", b"contextInfo", "displayName", b"displayName"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ContactsArrayMessage: typing_extensions.TypeAlias = ContactsArrayMessage
+Global___ContactsArrayMessage: _TypeAlias = ContactsArrayMessage  # noqa: Y015
 
-@typing.final
-class InitialSecurityNotificationSettingSync(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class InitialSecurityNotificationSettingSync(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SECURITYNOTIFICATIONENABLED_FIELD_NUMBER: builtins.int
-    securityNotificationEnabled: builtins.bool
+    SECURITYNOTIFICATIONENABLED_FIELD_NUMBER: _builtins.int
+    securityNotificationEnabled: _builtins.bool
     def __init__(
         self,
         *,
-        securityNotificationEnabled: builtins.bool | None = ...,
+        securityNotificationEnabled: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["securityNotificationEnabled", b"securityNotificationEnabled"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["securityNotificationEnabled", b"securityNotificationEnabled"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["securityNotificationEnabled", b"securityNotificationEnabled"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["securityNotificationEnabled", b"securityNotificationEnabled"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___InitialSecurityNotificationSettingSync: typing_extensions.TypeAlias = InitialSecurityNotificationSettingSync
+Global___InitialSecurityNotificationSettingSync: _TypeAlias = InitialSecurityNotificationSettingSync  # noqa: Y015
 
-@typing.final
-class FullHistorySyncOnDemandRequestMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class FullHistorySyncOnDemandRequestMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    REQUESTID_FIELD_NUMBER: builtins.int
-    requestID: builtins.str
+    REQUESTID_FIELD_NUMBER: _builtins.int
+    requestID: _builtins.str
     def __init__(
         self,
         *,
-        requestID: builtins.str | None = ...,
+        requestID: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["requestID", b"requestID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["requestID", b"requestID"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["requestID", b"requestID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["requestID", b"requestID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___FullHistorySyncOnDemandRequestMetadata: typing_extensions.TypeAlias = FullHistorySyncOnDemandRequestMetadata
+Global___FullHistorySyncOnDemandRequestMetadata: _TypeAlias = FullHistorySyncOnDemandRequestMetadata  # noqa: Y015
 
-@typing.final
-class AppStateFatalExceptionNotification(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AppStateFatalExceptionNotification(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    COLLECTIONNAMES_FIELD_NUMBER: builtins.int
-    TIMESTAMP_FIELD_NUMBER: builtins.int
-    timestamp: builtins.int
-    @property
-    def collectionNames(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    COLLECTIONNAMES_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    timestamp: _builtins.int
+    @_builtins.property
+    def collectionNames(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
     def __init__(
         self,
         *,
-        collectionNames: collections.abc.Iterable[builtins.str] | None = ...,
-        timestamp: builtins.int | None = ...,
+        collectionNames: _abc.Iterable[_builtins.str] | None = ...,
+        timestamp: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["collectionNames", b"collectionNames", "timestamp", b"timestamp"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["timestamp", b"timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["collectionNames", b"collectionNames", "timestamp", b"timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AppStateFatalExceptionNotification: typing_extensions.TypeAlias = AppStateFatalExceptionNotification
+Global___AppStateFatalExceptionNotification: _TypeAlias = AppStateFatalExceptionNotification  # noqa: Y015
 
-@typing.final
-class AppStateSyncKeyRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AppStateSyncKeyRequest(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    KEYIDS_FIELD_NUMBER: builtins.int
-    @property
-    def keyIDs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AppStateSyncKeyId]: ...
+    KEYIDS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def keyIDs(self) -> _containers.RepeatedCompositeFieldContainer[Global___AppStateSyncKeyId]: ...
     def __init__(
         self,
         *,
-        keyIDs: collections.abc.Iterable[Global___AppStateSyncKeyId] | None = ...,
+        keyIDs: _abc.Iterable[Global___AppStateSyncKeyId] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["keyIDs", b"keyIDs"]) -> None: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["keyIDs", b"keyIDs"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AppStateSyncKeyRequest: typing_extensions.TypeAlias = AppStateSyncKeyRequest
+Global___AppStateSyncKeyRequest: _TypeAlias = AppStateSyncKeyRequest  # noqa: Y015
 
-@typing.final
-class AppStateSyncKeyShare(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AppStateSyncKeyShare(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    KEYS_FIELD_NUMBER: builtins.int
-    @property
-    def keys(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AppStateSyncKey]: ...
+    KEYS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def keys(self) -> _containers.RepeatedCompositeFieldContainer[Global___AppStateSyncKey]: ...
     def __init__(
         self,
         *,
-        keys: collections.abc.Iterable[Global___AppStateSyncKey] | None = ...,
+        keys: _abc.Iterable[Global___AppStateSyncKey] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["keys", b"keys"]) -> None: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["keys", b"keys"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AppStateSyncKeyShare: typing_extensions.TypeAlias = AppStateSyncKeyShare
+Global___AppStateSyncKeyShare: _TypeAlias = AppStateSyncKeyShare  # noqa: Y015
 
-@typing.final
-class AppStateSyncKeyData(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AppStateSyncKeyData(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    KEYDATA_FIELD_NUMBER: builtins.int
-    FINGERPRINT_FIELD_NUMBER: builtins.int
-    TIMESTAMP_FIELD_NUMBER: builtins.int
-    keyData: builtins.bytes
-    timestamp: builtins.int
-    @property
+    KEYDATA_FIELD_NUMBER: _builtins.int
+    FINGERPRINT_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    keyData: _builtins.bytes
+    timestamp: _builtins.int
+    @_builtins.property
     def fingerprint(self) -> Global___AppStateSyncKeyFingerprint: ...
     def __init__(
         self,
         *,
-        keyData: builtins.bytes | None = ...,
+        keyData: _builtins.bytes | None = ...,
         fingerprint: Global___AppStateSyncKeyFingerprint | None = ...,
-        timestamp: builtins.int | None = ...,
+        timestamp: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["fingerprint", b"fingerprint", "keyData", b"keyData", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["fingerprint", b"fingerprint", "keyData", b"keyData", "timestamp", b"timestamp"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["fingerprint", b"fingerprint", "keyData", b"keyData", "timestamp", b"timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["fingerprint", b"fingerprint", "keyData", b"keyData", "timestamp", b"timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AppStateSyncKeyData: typing_extensions.TypeAlias = AppStateSyncKeyData
+Global___AppStateSyncKeyData: _TypeAlias = AppStateSyncKeyData  # noqa: Y015
 
-@typing.final
-class AppStateSyncKeyFingerprint(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AppStateSyncKeyFingerprint(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    RAWID_FIELD_NUMBER: builtins.int
-    CURRENTINDEX_FIELD_NUMBER: builtins.int
-    DEVICEINDEXES_FIELD_NUMBER: builtins.int
-    rawID: builtins.int
-    currentIndex: builtins.int
-    @property
-    def deviceIndexes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    RAWID_FIELD_NUMBER: _builtins.int
+    CURRENTINDEX_FIELD_NUMBER: _builtins.int
+    DEVICEINDEXES_FIELD_NUMBER: _builtins.int
+    rawID: _builtins.int
+    currentIndex: _builtins.int
+    @_builtins.property
+    def deviceIndexes(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
     def __init__(
         self,
         *,
-        rawID: builtins.int | None = ...,
-        currentIndex: builtins.int | None = ...,
-        deviceIndexes: collections.abc.Iterable[builtins.int] | None = ...,
+        rawID: _builtins.int | None = ...,
+        currentIndex: _builtins.int | None = ...,
+        deviceIndexes: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["currentIndex", b"currentIndex", "rawID", b"rawID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["currentIndex", b"currentIndex", "deviceIndexes", b"deviceIndexes", "rawID", b"rawID"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["currentIndex", b"currentIndex", "rawID", b"rawID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["currentIndex", b"currentIndex", "deviceIndexes", b"deviceIndexes", "rawID", b"rawID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AppStateSyncKeyFingerprint: typing_extensions.TypeAlias = AppStateSyncKeyFingerprint
+Global___AppStateSyncKeyFingerprint: _TypeAlias = AppStateSyncKeyFingerprint  # noqa: Y015
 
-@typing.final
-class AppStateSyncKeyId(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AppStateSyncKeyId(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    KEYID_FIELD_NUMBER: builtins.int
-    keyID: builtins.bytes
+    KEYID_FIELD_NUMBER: _builtins.int
+    keyID: _builtins.bytes
     def __init__(
         self,
         *,
-        keyID: builtins.bytes | None = ...,
+        keyID: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["keyID", b"keyID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["keyID", b"keyID"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["keyID", b"keyID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["keyID", b"keyID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AppStateSyncKeyId: typing_extensions.TypeAlias = AppStateSyncKeyId
+Global___AppStateSyncKeyId: _TypeAlias = AppStateSyncKeyId  # noqa: Y015
 
-@typing.final
-class AppStateSyncKey(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AppStateSyncKey(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    KEYID_FIELD_NUMBER: builtins.int
-    KEYDATA_FIELD_NUMBER: builtins.int
-    @property
+    KEYID_FIELD_NUMBER: _builtins.int
+    KEYDATA_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def keyID(self) -> Global___AppStateSyncKeyId: ...
-    @property
+    @_builtins.property
     def keyData(self) -> Global___AppStateSyncKeyData: ...
     def __init__(
         self,
@@ -6231,608 +6577,645 @@ class AppStateSyncKey(google.protobuf.message.Message):
         keyID: Global___AppStateSyncKeyId | None = ...,
         keyData: Global___AppStateSyncKeyData | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["keyData", b"keyData", "keyID", b"keyID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["keyData", b"keyData", "keyID", b"keyID"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["keyData", b"keyData", "keyID", b"keyID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["keyData", b"keyData", "keyID", b"keyID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AppStateSyncKey: typing_extensions.TypeAlias = AppStateSyncKey
+Global___AppStateSyncKey: _TypeAlias = AppStateSyncKey  # noqa: Y015
 
-@typing.final
-class HistorySyncNotification(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class HistorySyncNotification(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    FILESHA256_FIELD_NUMBER: builtins.int
-    FILELENGTH_FIELD_NUMBER: builtins.int
-    MEDIAKEY_FIELD_NUMBER: builtins.int
-    FILEENCSHA256_FIELD_NUMBER: builtins.int
-    DIRECTPATH_FIELD_NUMBER: builtins.int
-    SYNCTYPE_FIELD_NUMBER: builtins.int
-    CHUNKORDER_FIELD_NUMBER: builtins.int
-    ORIGINALMESSAGEID_FIELD_NUMBER: builtins.int
-    PROGRESS_FIELD_NUMBER: builtins.int
-    OLDESTMSGINCHUNKTIMESTAMPSEC_FIELD_NUMBER: builtins.int
-    INITIALHISTBOOTSTRAPINLINEPAYLOAD_FIELD_NUMBER: builtins.int
-    PEERDATAREQUESTSESSIONID_FIELD_NUMBER: builtins.int
-    FULLHISTORYSYNCONDEMANDREQUESTMETADATA_FIELD_NUMBER: builtins.int
-    ENCHANDLE_FIELD_NUMBER: builtins.int
-    MESSAGEACCESSSTATUS_FIELD_NUMBER: builtins.int
-    fileSHA256: builtins.bytes
-    fileLength: builtins.int
-    mediaKey: builtins.bytes
-    fileEncSHA256: builtins.bytes
-    directPath: builtins.str
+    FILESHA256_FIELD_NUMBER: _builtins.int
+    FILELENGTH_FIELD_NUMBER: _builtins.int
+    MEDIAKEY_FIELD_NUMBER: _builtins.int
+    FILEENCSHA256_FIELD_NUMBER: _builtins.int
+    DIRECTPATH_FIELD_NUMBER: _builtins.int
+    SYNCTYPE_FIELD_NUMBER: _builtins.int
+    CHUNKORDER_FIELD_NUMBER: _builtins.int
+    ORIGINALMESSAGEID_FIELD_NUMBER: _builtins.int
+    PROGRESS_FIELD_NUMBER: _builtins.int
+    OLDESTMSGINCHUNKTIMESTAMPSEC_FIELD_NUMBER: _builtins.int
+    INITIALHISTBOOTSTRAPINLINEPAYLOAD_FIELD_NUMBER: _builtins.int
+    PEERDATAREQUESTSESSIONID_FIELD_NUMBER: _builtins.int
+    FULLHISTORYSYNCONDEMANDREQUESTMETADATA_FIELD_NUMBER: _builtins.int
+    ENCHANDLE_FIELD_NUMBER: _builtins.int
+    MESSAGEACCESSSTATUS_FIELD_NUMBER: _builtins.int
+    fileSHA256: _builtins.bytes
+    fileLength: _builtins.int
+    mediaKey: _builtins.bytes
+    fileEncSHA256: _builtins.bytes
+    directPath: _builtins.str
     syncType: Global___HistorySyncType.ValueType
-    chunkOrder: builtins.int
-    originalMessageID: builtins.str
-    progress: builtins.int
-    oldestMsgInChunkTimestampSec: builtins.int
-    initialHistBootstrapInlinePayload: builtins.bytes
-    peerDataRequestSessionID: builtins.str
-    encHandle: builtins.str
-    @property
+    chunkOrder: _builtins.int
+    originalMessageID: _builtins.str
+    progress: _builtins.int
+    oldestMsgInChunkTimestampSec: _builtins.int
+    initialHistBootstrapInlinePayload: _builtins.bytes
+    peerDataRequestSessionID: _builtins.str
+    encHandle: _builtins.str
+    @_builtins.property
     def fullHistorySyncOnDemandRequestMetadata(self) -> Global___FullHistorySyncOnDemandRequestMetadata: ...
-    @property
+    @_builtins.property
     def messageAccessStatus(self) -> Global___HistorySyncMessageAccessStatus: ...
     def __init__(
         self,
         *,
-        fileSHA256: builtins.bytes | None = ...,
-        fileLength: builtins.int | None = ...,
-        mediaKey: builtins.bytes | None = ...,
-        fileEncSHA256: builtins.bytes | None = ...,
-        directPath: builtins.str | None = ...,
+        fileSHA256: _builtins.bytes | None = ...,
+        fileLength: _builtins.int | None = ...,
+        mediaKey: _builtins.bytes | None = ...,
+        fileEncSHA256: _builtins.bytes | None = ...,
+        directPath: _builtins.str | None = ...,
         syncType: Global___HistorySyncType.ValueType | None = ...,
-        chunkOrder: builtins.int | None = ...,
-        originalMessageID: builtins.str | None = ...,
-        progress: builtins.int | None = ...,
-        oldestMsgInChunkTimestampSec: builtins.int | None = ...,
-        initialHistBootstrapInlinePayload: builtins.bytes | None = ...,
-        peerDataRequestSessionID: builtins.str | None = ...,
+        chunkOrder: _builtins.int | None = ...,
+        originalMessageID: _builtins.str | None = ...,
+        progress: _builtins.int | None = ...,
+        oldestMsgInChunkTimestampSec: _builtins.int | None = ...,
+        initialHistBootstrapInlinePayload: _builtins.bytes | None = ...,
+        peerDataRequestSessionID: _builtins.str | None = ...,
         fullHistorySyncOnDemandRequestMetadata: Global___FullHistorySyncOnDemandRequestMetadata | None = ...,
-        encHandle: builtins.str | None = ...,
+        encHandle: _builtins.str | None = ...,
         messageAccessStatus: Global___HistorySyncMessageAccessStatus | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["chunkOrder", b"chunkOrder", "directPath", b"directPath", "encHandle", b"encHandle", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "fullHistorySyncOnDemandRequestMetadata", b"fullHistorySyncOnDemandRequestMetadata", "initialHistBootstrapInlinePayload", b"initialHistBootstrapInlinePayload", "mediaKey", b"mediaKey", "messageAccessStatus", b"messageAccessStatus", "oldestMsgInChunkTimestampSec", b"oldestMsgInChunkTimestampSec", "originalMessageID", b"originalMessageID", "peerDataRequestSessionID", b"peerDataRequestSessionID", "progress", b"progress", "syncType", b"syncType"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["chunkOrder", b"chunkOrder", "directPath", b"directPath", "encHandle", b"encHandle", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "fullHistorySyncOnDemandRequestMetadata", b"fullHistorySyncOnDemandRequestMetadata", "initialHistBootstrapInlinePayload", b"initialHistBootstrapInlinePayload", "mediaKey", b"mediaKey", "messageAccessStatus", b"messageAccessStatus", "oldestMsgInChunkTimestampSec", b"oldestMsgInChunkTimestampSec", "originalMessageID", b"originalMessageID", "peerDataRequestSessionID", b"peerDataRequestSessionID", "progress", b"progress", "syncType", b"syncType"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["chunkOrder", b"chunkOrder", "directPath", b"directPath", "encHandle", b"encHandle", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "fullHistorySyncOnDemandRequestMetadata", b"fullHistorySyncOnDemandRequestMetadata", "initialHistBootstrapInlinePayload", b"initialHistBootstrapInlinePayload", "mediaKey", b"mediaKey", "messageAccessStatus", b"messageAccessStatus", "oldestMsgInChunkTimestampSec", b"oldestMsgInChunkTimestampSec", "originalMessageID", b"originalMessageID", "peerDataRequestSessionID", b"peerDataRequestSessionID", "progress", b"progress", "syncType", b"syncType"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["chunkOrder", b"chunkOrder", "directPath", b"directPath", "encHandle", b"encHandle", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "fullHistorySyncOnDemandRequestMetadata", b"fullHistorySyncOnDemandRequestMetadata", "initialHistBootstrapInlinePayload", b"initialHistBootstrapInlinePayload", "mediaKey", b"mediaKey", "messageAccessStatus", b"messageAccessStatus", "oldestMsgInChunkTimestampSec", b"oldestMsgInChunkTimestampSec", "originalMessageID", b"originalMessageID", "peerDataRequestSessionID", b"peerDataRequestSessionID", "progress", b"progress", "syncType", b"syncType"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___HistorySyncNotification: typing_extensions.TypeAlias = HistorySyncNotification
+Global___HistorySyncNotification: _TypeAlias = HistorySyncNotification  # noqa: Y015
 
-@typing.final
-class HistorySyncMessageAccessStatus(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class HistorySyncMessageAccessStatus(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    COMPLETEACCESSGRANTED_FIELD_NUMBER: builtins.int
-    completeAccessGranted: builtins.bool
+    COMPLETEACCESSGRANTED_FIELD_NUMBER: _builtins.int
+    completeAccessGranted: _builtins.bool
     def __init__(
         self,
         *,
-        completeAccessGranted: builtins.bool | None = ...,
+        completeAccessGranted: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["completeAccessGranted", b"completeAccessGranted"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["completeAccessGranted", b"completeAccessGranted"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["completeAccessGranted", b"completeAccessGranted"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["completeAccessGranted", b"completeAccessGranted"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___HistorySyncMessageAccessStatus: typing_extensions.TypeAlias = HistorySyncMessageAccessStatus
+Global___HistorySyncMessageAccessStatus: _TypeAlias = HistorySyncMessageAccessStatus  # noqa: Y015
 
-@typing.final
-class Chat(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Chat(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DISPLAYNAME_FIELD_NUMBER: builtins.int
-    ID_FIELD_NUMBER: builtins.int
-    displayName: builtins.str
-    ID: builtins.str
+    DISPLAYNAME_FIELD_NUMBER: _builtins.int
+    ID_FIELD_NUMBER: _builtins.int
+    displayName: _builtins.str
+    ID: _builtins.str
     def __init__(
         self,
         *,
-        displayName: builtins.str | None = ...,
-        ID: builtins.str | None = ...,
+        displayName: _builtins.str | None = ...,
+        ID: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ID", b"ID", "displayName", b"displayName"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["ID", b"ID", "displayName", b"displayName"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "displayName", b"displayName"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "displayName", b"displayName"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___Chat: typing_extensions.TypeAlias = Chat
+Global___Chat: _TypeAlias = Chat  # noqa: Y015
 
-@typing.final
-class Call(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Call(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CALLKEY_FIELD_NUMBER: builtins.int
-    CONVERSIONSOURCE_FIELD_NUMBER: builtins.int
-    CONVERSIONDATA_FIELD_NUMBER: builtins.int
-    CONVERSIONDELAYSECONDS_FIELD_NUMBER: builtins.int
-    CTWASIGNALS_FIELD_NUMBER: builtins.int
-    CTWAPAYLOAD_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    NATIVEFLOWCALLBUTTONPAYLOAD_FIELD_NUMBER: builtins.int
-    DEEPLINKPAYLOAD_FIELD_NUMBER: builtins.int
-    MESSAGECONTEXTINFO_FIELD_NUMBER: builtins.int
-    callKey: builtins.bytes
-    conversionSource: builtins.str
-    conversionData: builtins.bytes
-    conversionDelaySeconds: builtins.int
-    ctwaSignals: builtins.str
-    ctwaPayload: builtins.bytes
-    nativeFlowCallButtonPayload: builtins.str
-    deeplinkPayload: builtins.str
-    @property
+    CALLKEY_FIELD_NUMBER: _builtins.int
+    CONVERSIONSOURCE_FIELD_NUMBER: _builtins.int
+    CONVERSIONDATA_FIELD_NUMBER: _builtins.int
+    CONVERSIONDELAYSECONDS_FIELD_NUMBER: _builtins.int
+    CTWASIGNALS_FIELD_NUMBER: _builtins.int
+    CTWAPAYLOAD_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    NATIVEFLOWCALLBUTTONPAYLOAD_FIELD_NUMBER: _builtins.int
+    DEEPLINKPAYLOAD_FIELD_NUMBER: _builtins.int
+    MESSAGECONTEXTINFO_FIELD_NUMBER: _builtins.int
+    callKey: _builtins.bytes
+    conversionSource: _builtins.str
+    conversionData: _builtins.bytes
+    conversionDelaySeconds: _builtins.int
+    ctwaSignals: _builtins.str
+    ctwaPayload: _builtins.bytes
+    nativeFlowCallButtonPayload: _builtins.str
+    deeplinkPayload: _builtins.str
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
-    @property
+    @_builtins.property
     def messageContextInfo(self) -> Global___MessageContextInfo: ...
     def __init__(
         self,
         *,
-        callKey: builtins.bytes | None = ...,
-        conversionSource: builtins.str | None = ...,
-        conversionData: builtins.bytes | None = ...,
-        conversionDelaySeconds: builtins.int | None = ...,
-        ctwaSignals: builtins.str | None = ...,
-        ctwaPayload: builtins.bytes | None = ...,
+        callKey: _builtins.bytes | None = ...,
+        conversionSource: _builtins.str | None = ...,
+        conversionData: _builtins.bytes | None = ...,
+        conversionDelaySeconds: _builtins.int | None = ...,
+        ctwaSignals: _builtins.str | None = ...,
+        ctwaPayload: _builtins.bytes | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
-        nativeFlowCallButtonPayload: builtins.str | None = ...,
-        deeplinkPayload: builtins.str | None = ...,
+        nativeFlowCallButtonPayload: _builtins.str | None = ...,
+        deeplinkPayload: _builtins.str | None = ...,
         messageContextInfo: Global___MessageContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["callKey", b"callKey", "contextInfo", b"contextInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "deeplinkPayload", b"deeplinkPayload", "messageContextInfo", b"messageContextInfo", "nativeFlowCallButtonPayload", b"nativeFlowCallButtonPayload"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["callKey", b"callKey", "contextInfo", b"contextInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "deeplinkPayload", b"deeplinkPayload", "messageContextInfo", b"messageContextInfo", "nativeFlowCallButtonPayload", b"nativeFlowCallButtonPayload"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["callKey", b"callKey", "contextInfo", b"contextInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "deeplinkPayload", b"deeplinkPayload", "messageContextInfo", b"messageContextInfo", "nativeFlowCallButtonPayload", b"nativeFlowCallButtonPayload"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["callKey", b"callKey", "contextInfo", b"contextInfo", "conversionData", b"conversionData", "conversionDelaySeconds", b"conversionDelaySeconds", "conversionSource", b"conversionSource", "ctwaPayload", b"ctwaPayload", "ctwaSignals", b"ctwaSignals", "deeplinkPayload", b"deeplinkPayload", "messageContextInfo", b"messageContextInfo", "nativeFlowCallButtonPayload", b"nativeFlowCallButtonPayload"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___Call: typing_extensions.TypeAlias = Call
+Global___Call: _TypeAlias = Call  # noqa: Y015
 
-@typing.final
-class AudioMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AudioMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    URL_FIELD_NUMBER: builtins.int
-    MIMETYPE_FIELD_NUMBER: builtins.int
-    FILESHA256_FIELD_NUMBER: builtins.int
-    FILELENGTH_FIELD_NUMBER: builtins.int
-    SECONDS_FIELD_NUMBER: builtins.int
-    PTT_FIELD_NUMBER: builtins.int
-    MEDIAKEY_FIELD_NUMBER: builtins.int
-    FILEENCSHA256_FIELD_NUMBER: builtins.int
-    DIRECTPATH_FIELD_NUMBER: builtins.int
-    MEDIAKEYTIMESTAMP_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    STREAMINGSIDECAR_FIELD_NUMBER: builtins.int
-    WAVEFORM_FIELD_NUMBER: builtins.int
-    BACKGROUNDARGB_FIELD_NUMBER: builtins.int
-    VIEWONCE_FIELD_NUMBER: builtins.int
-    ACCESSIBILITYLABEL_FIELD_NUMBER: builtins.int
-    MEDIAKEYDOMAIN_FIELD_NUMBER: builtins.int
-    URL: builtins.str
-    mimetype: builtins.str
-    fileSHA256: builtins.bytes
-    fileLength: builtins.int
-    seconds: builtins.int
-    PTT: builtins.bool
-    mediaKey: builtins.bytes
-    fileEncSHA256: builtins.bytes
-    directPath: builtins.str
-    mediaKeyTimestamp: builtins.int
-    streamingSidecar: builtins.bytes
-    waveform: builtins.bytes
-    backgroundArgb: builtins.int
-    viewOnce: builtins.bool
-    accessibilityLabel: builtins.str
+    URL_FIELD_NUMBER: _builtins.int
+    MIMETYPE_FIELD_NUMBER: _builtins.int
+    FILESHA256_FIELD_NUMBER: _builtins.int
+    FILELENGTH_FIELD_NUMBER: _builtins.int
+    SECONDS_FIELD_NUMBER: _builtins.int
+    PTT_FIELD_NUMBER: _builtins.int
+    MEDIAKEY_FIELD_NUMBER: _builtins.int
+    FILEENCSHA256_FIELD_NUMBER: _builtins.int
+    DIRECTPATH_FIELD_NUMBER: _builtins.int
+    MEDIAKEYTIMESTAMP_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    STREAMINGSIDECAR_FIELD_NUMBER: _builtins.int
+    WAVEFORM_FIELD_NUMBER: _builtins.int
+    BACKGROUNDARGB_FIELD_NUMBER: _builtins.int
+    VIEWONCE_FIELD_NUMBER: _builtins.int
+    ACCESSIBILITYLABEL_FIELD_NUMBER: _builtins.int
+    MEDIAKEYDOMAIN_FIELD_NUMBER: _builtins.int
+    URL: _builtins.str
+    mimetype: _builtins.str
+    fileSHA256: _builtins.bytes
+    fileLength: _builtins.int
+    seconds: _builtins.int
+    PTT: _builtins.bool
+    mediaKey: _builtins.bytes
+    fileEncSHA256: _builtins.bytes
+    directPath: _builtins.str
+    mediaKeyTimestamp: _builtins.int
+    streamingSidecar: _builtins.bytes
+    waveform: _builtins.bytes
+    backgroundArgb: _builtins.int
+    viewOnce: _builtins.bool
+    accessibilityLabel: _builtins.str
     mediaKeyDomain: Global___MediaKeyDomain.ValueType
-    @property
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        URL: builtins.str | None = ...,
-        mimetype: builtins.str | None = ...,
-        fileSHA256: builtins.bytes | None = ...,
-        fileLength: builtins.int | None = ...,
-        seconds: builtins.int | None = ...,
-        PTT: builtins.bool | None = ...,
-        mediaKey: builtins.bytes | None = ...,
-        fileEncSHA256: builtins.bytes | None = ...,
-        directPath: builtins.str | None = ...,
-        mediaKeyTimestamp: builtins.int | None = ...,
+        URL: _builtins.str | None = ...,
+        mimetype: _builtins.str | None = ...,
+        fileSHA256: _builtins.bytes | None = ...,
+        fileLength: _builtins.int | None = ...,
+        seconds: _builtins.int | None = ...,
+        PTT: _builtins.bool | None = ...,
+        mediaKey: _builtins.bytes | None = ...,
+        fileEncSHA256: _builtins.bytes | None = ...,
+        directPath: _builtins.str | None = ...,
+        mediaKeyTimestamp: _builtins.int | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
-        streamingSidecar: builtins.bytes | None = ...,
-        waveform: builtins.bytes | None = ...,
-        backgroundArgb: builtins.int | None = ...,
-        viewOnce: builtins.bool | None = ...,
-        accessibilityLabel: builtins.str | None = ...,
+        streamingSidecar: _builtins.bytes | None = ...,
+        waveform: _builtins.bytes | None = ...,
+        backgroundArgb: _builtins.int | None = ...,
+        viewOnce: _builtins.bool | None = ...,
+        accessibilityLabel: _builtins.str | None = ...,
         mediaKeyDomain: Global___MediaKeyDomain.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["PTT", b"PTT", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "backgroundArgb", b"backgroundArgb", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "seconds", b"seconds", "streamingSidecar", b"streamingSidecar", "viewOnce", b"viewOnce", "waveform", b"waveform"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["PTT", b"PTT", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "backgroundArgb", b"backgroundArgb", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "seconds", b"seconds", "streamingSidecar", b"streamingSidecar", "viewOnce", b"viewOnce", "waveform", b"waveform"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["PTT", b"PTT", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "backgroundArgb", b"backgroundArgb", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "seconds", b"seconds", "streamingSidecar", b"streamingSidecar", "viewOnce", b"viewOnce", "waveform", b"waveform"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["PTT", b"PTT", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "backgroundArgb", b"backgroundArgb", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "seconds", b"seconds", "streamingSidecar", b"streamingSidecar", "viewOnce", b"viewOnce", "waveform", b"waveform"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AudioMessage: typing_extensions.TypeAlias = AudioMessage
+Global___AudioMessage: _TypeAlias = AudioMessage  # noqa: Y015
 
-@typing.final
-class DocumentMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DocumentMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    URL_FIELD_NUMBER: builtins.int
-    MIMETYPE_FIELD_NUMBER: builtins.int
-    TITLE_FIELD_NUMBER: builtins.int
-    FILESHA256_FIELD_NUMBER: builtins.int
-    FILELENGTH_FIELD_NUMBER: builtins.int
-    PAGECOUNT_FIELD_NUMBER: builtins.int
-    MEDIAKEY_FIELD_NUMBER: builtins.int
-    FILENAME_FIELD_NUMBER: builtins.int
-    FILEENCSHA256_FIELD_NUMBER: builtins.int
-    DIRECTPATH_FIELD_NUMBER: builtins.int
-    MEDIAKEYTIMESTAMP_FIELD_NUMBER: builtins.int
-    CONTACTVCARD_FIELD_NUMBER: builtins.int
-    THUMBNAILDIRECTPATH_FIELD_NUMBER: builtins.int
-    THUMBNAILSHA256_FIELD_NUMBER: builtins.int
-    THUMBNAILENCSHA256_FIELD_NUMBER: builtins.int
-    JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    THUMBNAILHEIGHT_FIELD_NUMBER: builtins.int
-    THUMBNAILWIDTH_FIELD_NUMBER: builtins.int
-    CAPTION_FIELD_NUMBER: builtins.int
-    ACCESSIBILITYLABEL_FIELD_NUMBER: builtins.int
-    MEDIAKEYDOMAIN_FIELD_NUMBER: builtins.int
-    URL: builtins.str
-    mimetype: builtins.str
-    title: builtins.str
-    fileSHA256: builtins.bytes
-    fileLength: builtins.int
-    pageCount: builtins.int
-    mediaKey: builtins.bytes
-    fileName: builtins.str
-    fileEncSHA256: builtins.bytes
-    directPath: builtins.str
-    mediaKeyTimestamp: builtins.int
-    contactVcard: builtins.bool
-    thumbnailDirectPath: builtins.str
-    thumbnailSHA256: builtins.bytes
-    thumbnailEncSHA256: builtins.bytes
-    JPEGThumbnail: builtins.bytes
-    thumbnailHeight: builtins.int
-    thumbnailWidth: builtins.int
-    caption: builtins.str
-    accessibilityLabel: builtins.str
+    URL_FIELD_NUMBER: _builtins.int
+    MIMETYPE_FIELD_NUMBER: _builtins.int
+    TITLE_FIELD_NUMBER: _builtins.int
+    FILESHA256_FIELD_NUMBER: _builtins.int
+    FILELENGTH_FIELD_NUMBER: _builtins.int
+    PAGECOUNT_FIELD_NUMBER: _builtins.int
+    MEDIAKEY_FIELD_NUMBER: _builtins.int
+    FILENAME_FIELD_NUMBER: _builtins.int
+    FILEENCSHA256_FIELD_NUMBER: _builtins.int
+    DIRECTPATH_FIELD_NUMBER: _builtins.int
+    MEDIAKEYTIMESTAMP_FIELD_NUMBER: _builtins.int
+    CONTACTVCARD_FIELD_NUMBER: _builtins.int
+    THUMBNAILDIRECTPATH_FIELD_NUMBER: _builtins.int
+    THUMBNAILSHA256_FIELD_NUMBER: _builtins.int
+    THUMBNAILENCSHA256_FIELD_NUMBER: _builtins.int
+    JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    THUMBNAILHEIGHT_FIELD_NUMBER: _builtins.int
+    THUMBNAILWIDTH_FIELD_NUMBER: _builtins.int
+    CAPTION_FIELD_NUMBER: _builtins.int
+    ACCESSIBILITYLABEL_FIELD_NUMBER: _builtins.int
+    MEDIAKEYDOMAIN_FIELD_NUMBER: _builtins.int
+    URL: _builtins.str
+    mimetype: _builtins.str
+    title: _builtins.str
+    fileSHA256: _builtins.bytes
+    fileLength: _builtins.int
+    pageCount: _builtins.int
+    mediaKey: _builtins.bytes
+    fileName: _builtins.str
+    fileEncSHA256: _builtins.bytes
+    directPath: _builtins.str
+    mediaKeyTimestamp: _builtins.int
+    contactVcard: _builtins.bool
+    thumbnailDirectPath: _builtins.str
+    thumbnailSHA256: _builtins.bytes
+    thumbnailEncSHA256: _builtins.bytes
+    JPEGThumbnail: _builtins.bytes
+    thumbnailHeight: _builtins.int
+    thumbnailWidth: _builtins.int
+    caption: _builtins.str
+    accessibilityLabel: _builtins.str
     mediaKeyDomain: Global___MediaKeyDomain.ValueType
-    @property
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        URL: builtins.str | None = ...,
-        mimetype: builtins.str | None = ...,
-        title: builtins.str | None = ...,
-        fileSHA256: builtins.bytes | None = ...,
-        fileLength: builtins.int | None = ...,
-        pageCount: builtins.int | None = ...,
-        mediaKey: builtins.bytes | None = ...,
-        fileName: builtins.str | None = ...,
-        fileEncSHA256: builtins.bytes | None = ...,
-        directPath: builtins.str | None = ...,
-        mediaKeyTimestamp: builtins.int | None = ...,
-        contactVcard: builtins.bool | None = ...,
-        thumbnailDirectPath: builtins.str | None = ...,
-        thumbnailSHA256: builtins.bytes | None = ...,
-        thumbnailEncSHA256: builtins.bytes | None = ...,
-        JPEGThumbnail: builtins.bytes | None = ...,
+        URL: _builtins.str | None = ...,
+        mimetype: _builtins.str | None = ...,
+        title: _builtins.str | None = ...,
+        fileSHA256: _builtins.bytes | None = ...,
+        fileLength: _builtins.int | None = ...,
+        pageCount: _builtins.int | None = ...,
+        mediaKey: _builtins.bytes | None = ...,
+        fileName: _builtins.str | None = ...,
+        fileEncSHA256: _builtins.bytes | None = ...,
+        directPath: _builtins.str | None = ...,
+        mediaKeyTimestamp: _builtins.int | None = ...,
+        contactVcard: _builtins.bool | None = ...,
+        thumbnailDirectPath: _builtins.str | None = ...,
+        thumbnailSHA256: _builtins.bytes | None = ...,
+        thumbnailEncSHA256: _builtins.bytes | None = ...,
+        JPEGThumbnail: _builtins.bytes | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
-        thumbnailHeight: builtins.int | None = ...,
-        thumbnailWidth: builtins.int | None = ...,
-        caption: builtins.str | None = ...,
-        accessibilityLabel: builtins.str | None = ...,
+        thumbnailHeight: _builtins.int | None = ...,
+        thumbnailWidth: _builtins.int | None = ...,
+        caption: _builtins.str | None = ...,
+        accessibilityLabel: _builtins.str | None = ...,
         mediaKeyDomain: Global___MediaKeyDomain.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "contactVcard", b"contactVcard", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileName", b"fileName", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "pageCount", b"pageCount", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "title", b"title"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "contactVcard", b"contactVcard", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileName", b"fileName", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "pageCount", b"pageCount", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "title", b"title"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "contactVcard", b"contactVcard", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileName", b"fileName", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "pageCount", b"pageCount", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "title", b"title"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accessibilityLabel", b"accessibilityLabel", "caption", b"caption", "contactVcard", b"contactVcard", "contextInfo", b"contextInfo", "directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength", "fileName", b"fileName", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "mimetype", b"mimetype", "pageCount", b"pageCount", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth", "title", b"title"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___DocumentMessage: typing_extensions.TypeAlias = DocumentMessage
+Global___DocumentMessage: _TypeAlias = DocumentMessage  # noqa: Y015
 
-@typing.final
-class URLMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class URLMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    FBEXPERIMENTID_FIELD_NUMBER: builtins.int
-    fbExperimentID: builtins.int
+    FBEXPERIMENTID_FIELD_NUMBER: _builtins.int
+    fbExperimentID: _builtins.int
     def __init__(
         self,
         *,
-        fbExperimentID: builtins.int | None = ...,
+        fbExperimentID: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["fbExperimentID", b"fbExperimentID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["fbExperimentID", b"fbExperimentID"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["fbExperimentID", b"fbExperimentID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["fbExperimentID", b"fbExperimentID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___URLMetadata: typing_extensions.TypeAlias = URLMetadata
+Global___URLMetadata: _TypeAlias = URLMetadata  # noqa: Y015
 
-@typing.final
-class PaymentExtendedMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PaymentExtendedMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TYPE_FIELD_NUMBER: builtins.int
-    PLATFORM_FIELD_NUMBER: builtins.int
-    type: builtins.int
-    platform: builtins.str
+    TYPE_FIELD_NUMBER: _builtins.int
+    PLATFORM_FIELD_NUMBER: _builtins.int
+    type: _builtins.int
+    platform: _builtins.str
     def __init__(
         self,
         *,
-        type: builtins.int | None = ...,
-        platform: builtins.str | None = ...,
+        type: _builtins.int | None = ...,
+        platform: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["platform", b"platform", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["platform", b"platform", "type", b"type"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["platform", b"platform", "type", b"type"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["platform", b"platform", "type", b"type"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PaymentExtendedMetadata: typing_extensions.TypeAlias = PaymentExtendedMetadata
+Global___PaymentExtendedMetadata: _TypeAlias = PaymentExtendedMetadata  # noqa: Y015
 
-@typing.final
-class MMSThumbnailMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MMSThumbnailMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    THUMBNAILDIRECTPATH_FIELD_NUMBER: builtins.int
-    THUMBNAILSHA256_FIELD_NUMBER: builtins.int
-    THUMBNAILENCSHA256_FIELD_NUMBER: builtins.int
-    MEDIAKEY_FIELD_NUMBER: builtins.int
-    MEDIAKEYTIMESTAMP_FIELD_NUMBER: builtins.int
-    THUMBNAILHEIGHT_FIELD_NUMBER: builtins.int
-    THUMBNAILWIDTH_FIELD_NUMBER: builtins.int
-    MEDIAKEYDOMAIN_FIELD_NUMBER: builtins.int
-    thumbnailDirectPath: builtins.str
-    thumbnailSHA256: builtins.bytes
-    thumbnailEncSHA256: builtins.bytes
-    mediaKey: builtins.bytes
-    mediaKeyTimestamp: builtins.int
-    thumbnailHeight: builtins.int
-    thumbnailWidth: builtins.int
+    THUMBNAILDIRECTPATH_FIELD_NUMBER: _builtins.int
+    THUMBNAILSHA256_FIELD_NUMBER: _builtins.int
+    THUMBNAILENCSHA256_FIELD_NUMBER: _builtins.int
+    MEDIAKEY_FIELD_NUMBER: _builtins.int
+    MEDIAKEYTIMESTAMP_FIELD_NUMBER: _builtins.int
+    THUMBNAILHEIGHT_FIELD_NUMBER: _builtins.int
+    THUMBNAILWIDTH_FIELD_NUMBER: _builtins.int
+    MEDIAKEYDOMAIN_FIELD_NUMBER: _builtins.int
+    thumbnailDirectPath: _builtins.str
+    thumbnailSHA256: _builtins.bytes
+    thumbnailEncSHA256: _builtins.bytes
+    mediaKey: _builtins.bytes
+    mediaKeyTimestamp: _builtins.int
+    thumbnailHeight: _builtins.int
+    thumbnailWidth: _builtins.int
     mediaKeyDomain: Global___MediaKeyDomain.ValueType
     def __init__(
         self,
         *,
-        thumbnailDirectPath: builtins.str | None = ...,
-        thumbnailSHA256: builtins.bytes | None = ...,
-        thumbnailEncSHA256: builtins.bytes | None = ...,
-        mediaKey: builtins.bytes | None = ...,
-        mediaKeyTimestamp: builtins.int | None = ...,
-        thumbnailHeight: builtins.int | None = ...,
-        thumbnailWidth: builtins.int | None = ...,
+        thumbnailDirectPath: _builtins.str | None = ...,
+        thumbnailSHA256: _builtins.bytes | None = ...,
+        thumbnailEncSHA256: _builtins.bytes | None = ...,
+        mediaKey: _builtins.bytes | None = ...,
+        mediaKeyTimestamp: _builtins.int | None = ...,
+        thumbnailHeight: _builtins.int | None = ...,
+        thumbnailWidth: _builtins.int | None = ...,
         mediaKeyDomain: Global___MediaKeyDomain.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["mediaKey", b"mediaKey", "mediaKeyDomain", b"mediaKeyDomain", "mediaKeyTimestamp", b"mediaKeyTimestamp", "thumbnailDirectPath", b"thumbnailDirectPath", "thumbnailEncSHA256", b"thumbnailEncSHA256", "thumbnailHeight", b"thumbnailHeight", "thumbnailSHA256", b"thumbnailSHA256", "thumbnailWidth", b"thumbnailWidth"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___MMSThumbnailMetadata: typing_extensions.TypeAlias = MMSThumbnailMetadata
+Global___MMSThumbnailMetadata: _TypeAlias = MMSThumbnailMetadata  # noqa: Y015
 
-@typing.final
-class LocationMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class LocationMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DEGREESLATITUDE_FIELD_NUMBER: builtins.int
-    DEGREESLONGITUDE_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    ADDRESS_FIELD_NUMBER: builtins.int
-    URL_FIELD_NUMBER: builtins.int
-    ISLIVE_FIELD_NUMBER: builtins.int
-    ACCURACYINMETERS_FIELD_NUMBER: builtins.int
-    SPEEDINMPS_FIELD_NUMBER: builtins.int
-    DEGREESCLOCKWISEFROMMAGNETICNORTH_FIELD_NUMBER: builtins.int
-    COMMENT_FIELD_NUMBER: builtins.int
-    JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    degreesLatitude: builtins.float
-    degreesLongitude: builtins.float
-    name: builtins.str
-    address: builtins.str
-    URL: builtins.str
-    isLive: builtins.bool
-    accuracyInMeters: builtins.int
-    speedInMps: builtins.float
-    degreesClockwiseFromMagneticNorth: builtins.int
-    comment: builtins.str
-    JPEGThumbnail: builtins.bytes
-    @property
+    DEGREESLATITUDE_FIELD_NUMBER: _builtins.int
+    DEGREESLONGITUDE_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    ADDRESS_FIELD_NUMBER: _builtins.int
+    URL_FIELD_NUMBER: _builtins.int
+    ISLIVE_FIELD_NUMBER: _builtins.int
+    ACCURACYINMETERS_FIELD_NUMBER: _builtins.int
+    SPEEDINMPS_FIELD_NUMBER: _builtins.int
+    DEGREESCLOCKWISEFROMMAGNETICNORTH_FIELD_NUMBER: _builtins.int
+    COMMENT_FIELD_NUMBER: _builtins.int
+    JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    degreesLatitude: _builtins.float
+    degreesLongitude: _builtins.float
+    name: _builtins.str
+    address: _builtins.str
+    URL: _builtins.str
+    isLive: _builtins.bool
+    accuracyInMeters: _builtins.int
+    speedInMps: _builtins.float
+    degreesClockwiseFromMagneticNorth: _builtins.int
+    comment: _builtins.str
+    JPEGThumbnail: _builtins.bytes
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        degreesLatitude: builtins.float | None = ...,
-        degreesLongitude: builtins.float | None = ...,
-        name: builtins.str | None = ...,
-        address: builtins.str | None = ...,
-        URL: builtins.str | None = ...,
-        isLive: builtins.bool | None = ...,
-        accuracyInMeters: builtins.int | None = ...,
-        speedInMps: builtins.float | None = ...,
-        degreesClockwiseFromMagneticNorth: builtins.int | None = ...,
-        comment: builtins.str | None = ...,
-        JPEGThumbnail: builtins.bytes | None = ...,
+        degreesLatitude: _builtins.float | None = ...,
+        degreesLongitude: _builtins.float | None = ...,
+        name: _builtins.str | None = ...,
+        address: _builtins.str | None = ...,
+        URL: _builtins.str | None = ...,
+        isLive: _builtins.bool | None = ...,
+        accuracyInMeters: _builtins.int | None = ...,
+        speedInMps: _builtins.float | None = ...,
+        degreesClockwiseFromMagneticNorth: _builtins.int | None = ...,
+        comment: _builtins.str | None = ...,
+        JPEGThumbnail: _builtins.bytes | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accuracyInMeters", b"accuracyInMeters", "address", b"address", "comment", b"comment", "contextInfo", b"contextInfo", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "isLive", b"isLive", "name", b"name", "speedInMps", b"speedInMps"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accuracyInMeters", b"accuracyInMeters", "address", b"address", "comment", b"comment", "contextInfo", b"contextInfo", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "isLive", b"isLive", "name", b"name", "speedInMps", b"speedInMps"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accuracyInMeters", b"accuracyInMeters", "address", b"address", "comment", b"comment", "contextInfo", b"contextInfo", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "isLive", b"isLive", "name", b"name", "speedInMps", b"speedInMps"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "URL", b"URL", "accuracyInMeters", b"accuracyInMeters", "address", b"address", "comment", b"comment", "contextInfo", b"contextInfo", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "isLive", b"isLive", "name", b"name", "speedInMps", b"speedInMps"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___LocationMessage: typing_extensions.TypeAlias = LocationMessage
+Global___LocationMessage: _TypeAlias = LocationMessage  # noqa: Y015
 
-@typing.final
-class ContactMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ContactMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DISPLAYNAME_FIELD_NUMBER: builtins.int
-    VCARD_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    displayName: builtins.str
-    vcard: builtins.str
-    @property
+    DISPLAYNAME_FIELD_NUMBER: _builtins.int
+    VCARD_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    ISSELFCONTACT_FIELD_NUMBER: _builtins.int
+    displayName: _builtins.str
+    vcard: _builtins.str
+    isSelfContact: _builtins.bool
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        displayName: builtins.str | None = ...,
-        vcard: builtins.str | None = ...,
+        displayName: _builtins.str | None = ...,
+        vcard: _builtins.str | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
+        isSelfContact: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "displayName", b"displayName", "vcard", b"vcard"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "displayName", b"displayName", "vcard", b"vcard"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "displayName", b"displayName", "isSelfContact", b"isSelfContact", "vcard", b"vcard"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "displayName", b"displayName", "isSelfContact", b"isSelfContact", "vcard", b"vcard"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ContactMessage: typing_extensions.TypeAlias = ContactMessage
+Global___ContactMessage: _TypeAlias = ContactMessage  # noqa: Y015
 
-@typing.final
-class SenderKeyDistributionMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class SenderKeyDistributionMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    GROUPID_FIELD_NUMBER: builtins.int
-    AXOLOTLSENDERKEYDISTRIBUTIONMESSAGE_FIELD_NUMBER: builtins.int
-    groupID: builtins.str
-    axolotlSenderKeyDistributionMessage: builtins.bytes
+    GROUPID_FIELD_NUMBER: _builtins.int
+    AXOLOTLSENDERKEYDISTRIBUTIONMESSAGE_FIELD_NUMBER: _builtins.int
+    groupID: _builtins.str
+    axolotlSenderKeyDistributionMessage: _builtins.bytes
     def __init__(
         self,
         *,
-        groupID: builtins.str | None = ...,
-        axolotlSenderKeyDistributionMessage: builtins.bytes | None = ...,
+        groupID: _builtins.str | None = ...,
+        axolotlSenderKeyDistributionMessage: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["axolotlSenderKeyDistributionMessage", b"axolotlSenderKeyDistributionMessage", "groupID", b"groupID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["axolotlSenderKeyDistributionMessage", b"axolotlSenderKeyDistributionMessage", "groupID", b"groupID"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["axolotlSenderKeyDistributionMessage", b"axolotlSenderKeyDistributionMessage", "groupID", b"groupID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["axolotlSenderKeyDistributionMessage", b"axolotlSenderKeyDistributionMessage", "groupID", b"groupID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___SenderKeyDistributionMessage: typing_extensions.TypeAlias = SenderKeyDistributionMessage
+Global___SenderKeyDistributionMessage: _TypeAlias = SenderKeyDistributionMessage  # noqa: Y015
 
-@typing.final
-class VideoEndCard(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class VideoEndCard(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    USERNAME_FIELD_NUMBER: builtins.int
-    CAPTION_FIELD_NUMBER: builtins.int
-    THUMBNAILIMAGEURL_FIELD_NUMBER: builtins.int
-    PROFILEPICTUREURL_FIELD_NUMBER: builtins.int
-    username: builtins.str
-    caption: builtins.str
-    thumbnailImageURL: builtins.str
-    profilePictureURL: builtins.str
+    USERNAME_FIELD_NUMBER: _builtins.int
+    CAPTION_FIELD_NUMBER: _builtins.int
+    THUMBNAILIMAGEURL_FIELD_NUMBER: _builtins.int
+    PROFILEPICTUREURL_FIELD_NUMBER: _builtins.int
+    username: _builtins.str
+    caption: _builtins.str
+    thumbnailImageURL: _builtins.str
+    profilePictureURL: _builtins.str
     def __init__(
         self,
         *,
-        username: builtins.str | None = ...,
-        caption: builtins.str | None = ...,
-        thumbnailImageURL: builtins.str | None = ...,
-        profilePictureURL: builtins.str | None = ...,
+        username: _builtins.str | None = ...,
+        caption: _builtins.str | None = ...,
+        thumbnailImageURL: _builtins.str | None = ...,
+        profilePictureURL: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["caption", b"caption", "profilePictureURL", b"profilePictureURL", "thumbnailImageURL", b"thumbnailImageURL", "username", b"username"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["caption", b"caption", "profilePictureURL", b"profilePictureURL", "thumbnailImageURL", b"thumbnailImageURL", "username", b"username"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["caption", b"caption", "profilePictureURL", b"profilePictureURL", "thumbnailImageURL", b"thumbnailImageURL", "username", b"username"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["caption", b"caption", "profilePictureURL", b"profilePictureURL", "thumbnailImageURL", b"thumbnailImageURL", "username", b"username"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___VideoEndCard: typing_extensions.TypeAlias = VideoEndCard
+Global___VideoEndCard: _TypeAlias = VideoEndCard  # noqa: Y015
 
-@typing.final
-class DeviceListMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DeviceListMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SENDERKEYHASH_FIELD_NUMBER: builtins.int
-    SENDERTIMESTAMP_FIELD_NUMBER: builtins.int
-    SENDERKEYINDEXES_FIELD_NUMBER: builtins.int
-    SENDERACCOUNTTYPE_FIELD_NUMBER: builtins.int
-    RECEIVERACCOUNTTYPE_FIELD_NUMBER: builtins.int
-    RECIPIENTKEYHASH_FIELD_NUMBER: builtins.int
-    RECIPIENTTIMESTAMP_FIELD_NUMBER: builtins.int
-    RECIPIENTKEYINDEXES_FIELD_NUMBER: builtins.int
-    senderKeyHash: builtins.bytes
-    senderTimestamp: builtins.int
-    senderAccountType: waAdv.WAAdv_pb2.ADVEncryptionType.ValueType
-    receiverAccountType: waAdv.WAAdv_pb2.ADVEncryptionType.ValueType
-    recipientKeyHash: builtins.bytes
-    recipientTimestamp: builtins.int
-    @property
-    def senderKeyIndexes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def recipientKeyIndexes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    SENDERKEYHASH_FIELD_NUMBER: _builtins.int
+    SENDERTIMESTAMP_FIELD_NUMBER: _builtins.int
+    SENDERKEYINDEXES_FIELD_NUMBER: _builtins.int
+    SENDERACCOUNTTYPE_FIELD_NUMBER: _builtins.int
+    RECEIVERACCOUNTTYPE_FIELD_NUMBER: _builtins.int
+    RECIPIENTKEYHASH_FIELD_NUMBER: _builtins.int
+    RECIPIENTTIMESTAMP_FIELD_NUMBER: _builtins.int
+    RECIPIENTKEYINDEXES_FIELD_NUMBER: _builtins.int
+    senderKeyHash: _builtins.bytes
+    senderTimestamp: _builtins.int
+    senderAccountType: _WAAdv_pb2.ADVEncryptionType.ValueType
+    receiverAccountType: _WAAdv_pb2.ADVEncryptionType.ValueType
+    recipientKeyHash: _builtins.bytes
+    recipientTimestamp: _builtins.int
+    @_builtins.property
+    def senderKeyIndexes(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    def recipientKeyIndexes(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
     def __init__(
         self,
         *,
-        senderKeyHash: builtins.bytes | None = ...,
-        senderTimestamp: builtins.int | None = ...,
-        senderKeyIndexes: collections.abc.Iterable[builtins.int] | None = ...,
-        senderAccountType: waAdv.WAAdv_pb2.ADVEncryptionType.ValueType | None = ...,
-        receiverAccountType: waAdv.WAAdv_pb2.ADVEncryptionType.ValueType | None = ...,
-        recipientKeyHash: builtins.bytes | None = ...,
-        recipientTimestamp: builtins.int | None = ...,
-        recipientKeyIndexes: collections.abc.Iterable[builtins.int] | None = ...,
+        senderKeyHash: _builtins.bytes | None = ...,
+        senderTimestamp: _builtins.int | None = ...,
+        senderKeyIndexes: _abc.Iterable[_builtins.int] | None = ...,
+        senderAccountType: _WAAdv_pb2.ADVEncryptionType.ValueType | None = ...,
+        receiverAccountType: _WAAdv_pb2.ADVEncryptionType.ValueType | None = ...,
+        recipientKeyHash: _builtins.bytes | None = ...,
+        recipientTimestamp: _builtins.int | None = ...,
+        recipientKeyIndexes: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["receiverAccountType", b"receiverAccountType", "recipientKeyHash", b"recipientKeyHash", "recipientTimestamp", b"recipientTimestamp", "senderAccountType", b"senderAccountType", "senderKeyHash", b"senderKeyHash", "senderTimestamp", b"senderTimestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["receiverAccountType", b"receiverAccountType", "recipientKeyHash", b"recipientKeyHash", "recipientKeyIndexes", b"recipientKeyIndexes", "recipientTimestamp", b"recipientTimestamp", "senderAccountType", b"senderAccountType", "senderKeyHash", b"senderKeyHash", "senderKeyIndexes", b"senderKeyIndexes", "senderTimestamp", b"senderTimestamp"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["receiverAccountType", b"receiverAccountType", "recipientKeyHash", b"recipientKeyHash", "recipientTimestamp", b"recipientTimestamp", "senderAccountType", b"senderAccountType", "senderKeyHash", b"senderKeyHash", "senderTimestamp", b"senderTimestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["receiverAccountType", b"receiverAccountType", "recipientKeyHash", b"recipientKeyHash", "recipientKeyIndexes", b"recipientKeyIndexes", "recipientTimestamp", b"recipientTimestamp", "senderAccountType", b"senderAccountType", "senderKeyHash", b"senderKeyHash", "senderKeyIndexes", b"senderKeyIndexes", "senderTimestamp", b"senderTimestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___DeviceListMetadata: typing_extensions.TypeAlias = DeviceListMetadata
+Global___DeviceListMetadata: _TypeAlias = DeviceListMetadata  # noqa: Y015
 
-@typing.final
-class EmbeddedMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class EmbeddedMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STANZAID_FIELD_NUMBER: builtins.int
-    MESSAGE_FIELD_NUMBER: builtins.int
-    stanzaID: builtins.str
-    @property
+    STANZAID_FIELD_NUMBER: _builtins.int
+    MESSAGE_FIELD_NUMBER: _builtins.int
+    stanzaID: _builtins.str
+    @_builtins.property
     def message(self) -> Global___Message: ...
     def __init__(
         self,
         *,
-        stanzaID: builtins.str | None = ...,
+        stanzaID: _builtins.str | None = ...,
         message: Global___Message | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["message", b"message", "stanzaID", b"stanzaID"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["message", b"message", "stanzaID", b"stanzaID"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["message", b"message", "stanzaID", b"stanzaID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["message", b"message", "stanzaID", b"stanzaID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___EmbeddedMessage: typing_extensions.TypeAlias = EmbeddedMessage
+Global___EmbeddedMessage: _TypeAlias = EmbeddedMessage  # noqa: Y015
 
-@typing.final
-class EmbeddedMusic(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class EmbeddedMusic(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MUSICCONTENTMEDIAID_FIELD_NUMBER: builtins.int
-    SONGID_FIELD_NUMBER: builtins.int
-    AUTHOR_FIELD_NUMBER: builtins.int
-    TITLE_FIELD_NUMBER: builtins.int
-    ARTWORKDIRECTPATH_FIELD_NUMBER: builtins.int
-    ARTWORKSHA256_FIELD_NUMBER: builtins.int
-    ARTWORKENCSHA256_FIELD_NUMBER: builtins.int
-    ARTISTATTRIBUTION_FIELD_NUMBER: builtins.int
-    COUNTRYBLOCKLIST_FIELD_NUMBER: builtins.int
-    ISEXPLICIT_FIELD_NUMBER: builtins.int
-    ARTWORKMEDIAKEY_FIELD_NUMBER: builtins.int
-    MUSICSONGSTARTTIMEINMS_FIELD_NUMBER: builtins.int
-    DERIVEDCONTENTSTARTTIMEINMS_FIELD_NUMBER: builtins.int
-    OVERLAPDURATIONINMS_FIELD_NUMBER: builtins.int
-    musicContentMediaID: builtins.str
-    songID: builtins.str
-    author: builtins.str
-    title: builtins.str
-    artworkDirectPath: builtins.str
-    artworkSHA256: builtins.bytes
-    artworkEncSHA256: builtins.bytes
-    artistAttribution: builtins.str
-    countryBlocklist: builtins.bytes
-    isExplicit: builtins.bool
-    artworkMediaKey: builtins.bytes
-    musicSongStartTimeInMS: builtins.int
-    derivedContentStartTimeInMS: builtins.int
-    overlapDurationInMS: builtins.int
+    MUSICCONTENTMEDIAID_FIELD_NUMBER: _builtins.int
+    SONGID_FIELD_NUMBER: _builtins.int
+    AUTHOR_FIELD_NUMBER: _builtins.int
+    TITLE_FIELD_NUMBER: _builtins.int
+    ARTWORKDIRECTPATH_FIELD_NUMBER: _builtins.int
+    ARTWORKSHA256_FIELD_NUMBER: _builtins.int
+    ARTWORKENCSHA256_FIELD_NUMBER: _builtins.int
+    ARTISTATTRIBUTION_FIELD_NUMBER: _builtins.int
+    COUNTRYBLOCKLIST_FIELD_NUMBER: _builtins.int
+    ISEXPLICIT_FIELD_NUMBER: _builtins.int
+    ARTWORKMEDIAKEY_FIELD_NUMBER: _builtins.int
+    MUSICSONGSTARTTIMEINMS_FIELD_NUMBER: _builtins.int
+    DERIVEDCONTENTSTARTTIMEINMS_FIELD_NUMBER: _builtins.int
+    OVERLAPDURATIONINMS_FIELD_NUMBER: _builtins.int
+    musicContentMediaID: _builtins.str
+    songID: _builtins.str
+    author: _builtins.str
+    title: _builtins.str
+    artworkDirectPath: _builtins.str
+    artworkSHA256: _builtins.bytes
+    artworkEncSHA256: _builtins.bytes
+    artistAttribution: _builtins.str
+    countryBlocklist: _builtins.bytes
+    isExplicit: _builtins.bool
+    artworkMediaKey: _builtins.bytes
+    musicSongStartTimeInMS: _builtins.int
+    derivedContentStartTimeInMS: _builtins.int
+    overlapDurationInMS: _builtins.int
     def __init__(
         self,
         *,
-        musicContentMediaID: builtins.str | None = ...,
-        songID: builtins.str | None = ...,
-        author: builtins.str | None = ...,
-        title: builtins.str | None = ...,
-        artworkDirectPath: builtins.str | None = ...,
-        artworkSHA256: builtins.bytes | None = ...,
-        artworkEncSHA256: builtins.bytes | None = ...,
-        artistAttribution: builtins.str | None = ...,
-        countryBlocklist: builtins.bytes | None = ...,
-        isExplicit: builtins.bool | None = ...,
-        artworkMediaKey: builtins.bytes | None = ...,
-        musicSongStartTimeInMS: builtins.int | None = ...,
-        derivedContentStartTimeInMS: builtins.int | None = ...,
-        overlapDurationInMS: builtins.int | None = ...,
+        musicContentMediaID: _builtins.str | None = ...,
+        songID: _builtins.str | None = ...,
+        author: _builtins.str | None = ...,
+        title: _builtins.str | None = ...,
+        artworkDirectPath: _builtins.str | None = ...,
+        artworkSHA256: _builtins.bytes | None = ...,
+        artworkEncSHA256: _builtins.bytes | None = ...,
+        artistAttribution: _builtins.str | None = ...,
+        countryBlocklist: _builtins.bytes | None = ...,
+        isExplicit: _builtins.bool | None = ...,
+        artworkMediaKey: _builtins.bytes | None = ...,
+        musicSongStartTimeInMS: _builtins.int | None = ...,
+        derivedContentStartTimeInMS: _builtins.int | None = ...,
+        overlapDurationInMS: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["artistAttribution", b"artistAttribution", "artworkDirectPath", b"artworkDirectPath", "artworkEncSHA256", b"artworkEncSHA256", "artworkMediaKey", b"artworkMediaKey", "artworkSHA256", b"artworkSHA256", "author", b"author", "countryBlocklist", b"countryBlocklist", "derivedContentStartTimeInMS", b"derivedContentStartTimeInMS", "isExplicit", b"isExplicit", "musicContentMediaID", b"musicContentMediaID", "musicSongStartTimeInMS", b"musicSongStartTimeInMS", "overlapDurationInMS", b"overlapDurationInMS", "songID", b"songID", "title", b"title"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["artistAttribution", b"artistAttribution", "artworkDirectPath", b"artworkDirectPath", "artworkEncSHA256", b"artworkEncSHA256", "artworkMediaKey", b"artworkMediaKey", "artworkSHA256", b"artworkSHA256", "author", b"author", "countryBlocklist", b"countryBlocklist", "derivedContentStartTimeInMS", b"derivedContentStartTimeInMS", "isExplicit", b"isExplicit", "musicContentMediaID", b"musicContentMediaID", "musicSongStartTimeInMS", b"musicSongStartTimeInMS", "overlapDurationInMS", b"overlapDurationInMS", "songID", b"songID", "title", b"title"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["artistAttribution", b"artistAttribution", "artworkDirectPath", b"artworkDirectPath", "artworkEncSHA256", b"artworkEncSHA256", "artworkMediaKey", b"artworkMediaKey", "artworkSHA256", b"artworkSHA256", "author", b"author", "countryBlocklist", b"countryBlocklist", "derivedContentStartTimeInMS", b"derivedContentStartTimeInMS", "isExplicit", b"isExplicit", "musicContentMediaID", b"musicContentMediaID", "musicSongStartTimeInMS", b"musicSongStartTimeInMS", "overlapDurationInMS", b"overlapDurationInMS", "songID", b"songID", "title", b"title"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["artistAttribution", b"artistAttribution", "artworkDirectPath", b"artworkDirectPath", "artworkEncSHA256", b"artworkEncSHA256", "artworkMediaKey", b"artworkMediaKey", "artworkSHA256", b"artworkSHA256", "author", b"author", "countryBlocklist", b"countryBlocklist", "derivedContentStartTimeInMS", b"derivedContentStartTimeInMS", "isExplicit", b"isExplicit", "musicContentMediaID", b"musicContentMediaID", "musicSongStartTimeInMS", b"musicSongStartTimeInMS", "overlapDurationInMS", b"overlapDurationInMS", "songID", b"songID", "title", b"title"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___EmbeddedMusic: typing_extensions.TypeAlias = EmbeddedMusic
+Global___EmbeddedMusic: _TypeAlias = EmbeddedMusic  # noqa: Y015
 
-@typing.final
-class EmbeddedContent(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class EmbeddedContent(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    EMBEDDEDMESSAGE_FIELD_NUMBER: builtins.int
-    EMBEDDEDMUSIC_FIELD_NUMBER: builtins.int
-    @property
+    EMBEDDEDMESSAGE_FIELD_NUMBER: _builtins.int
+    EMBEDDEDMUSIC_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def embeddedMessage(self) -> Global___EmbeddedMessage: ...
-    @property
+    @_builtins.property
     def embeddedMusic(self) -> Global___EmbeddedMusic: ...
     def __init__(
         self,
@@ -6840,91 +7223,101 @@ class EmbeddedContent(google.protobuf.message.Message):
         embeddedMessage: Global___EmbeddedMessage | None = ...,
         embeddedMusic: Global___EmbeddedMusic | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["content", b"content", "embeddedMessage", b"embeddedMessage", "embeddedMusic", b"embeddedMusic"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["content", b"content", "embeddedMessage", b"embeddedMessage", "embeddedMusic", b"embeddedMusic"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["embeddedMessage", "embeddedMusic"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["content", b"content", "embeddedMessage", b"embeddedMessage", "embeddedMusic", b"embeddedMusic"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["content", b"content", "embeddedMessage", b"embeddedMessage", "embeddedMusic", b"embeddedMusic"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_content: _TypeAlias = _typing.Literal["embeddedMessage", "embeddedMusic"]  # noqa: Y015
+    _WhichOneofArgType_content: _TypeAlias = _typing.Literal["content", b"content"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_content) -> _WhichOneofReturnType_content | None: ...
 
-Global___EmbeddedContent: typing_extensions.TypeAlias = EmbeddedContent
+Global___EmbeddedContent: _TypeAlias = EmbeddedContent  # noqa: Y015
 
-@typing.final
-class TapLinkAction(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class TapLinkAction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TITLE_FIELD_NUMBER: builtins.int
-    TAPURL_FIELD_NUMBER: builtins.int
-    title: builtins.str
-    tapURL: builtins.str
+    TITLE_FIELD_NUMBER: _builtins.int
+    TAPURL_FIELD_NUMBER: _builtins.int
+    title: _builtins.str
+    tapURL: _builtins.str
     def __init__(
         self,
         *,
-        title: builtins.str | None = ...,
-        tapURL: builtins.str | None = ...,
+        title: _builtins.str | None = ...,
+        tapURL: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["tapURL", b"tapURL", "title", b"title"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["tapURL", b"tapURL", "title", b"title"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["tapURL", b"tapURL", "title", b"title"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["tapURL", b"tapURL", "title", b"title"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___TapLinkAction: typing_extensions.TypeAlias = TapLinkAction
+Global___TapLinkAction: _TypeAlias = TapLinkAction  # noqa: Y015
 
-@typing.final
-class Point(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Point(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    XDEPRECATED_FIELD_NUMBER: builtins.int
-    YDEPRECATED_FIELD_NUMBER: builtins.int
-    X_FIELD_NUMBER: builtins.int
-    Y_FIELD_NUMBER: builtins.int
-    xDeprecated: builtins.int
-    yDeprecated: builtins.int
-    x: builtins.float
-    y: builtins.float
+    XDEPRECATED_FIELD_NUMBER: _builtins.int
+    YDEPRECATED_FIELD_NUMBER: _builtins.int
+    X_FIELD_NUMBER: _builtins.int
+    Y_FIELD_NUMBER: _builtins.int
+    xDeprecated: _builtins.int
+    yDeprecated: _builtins.int
+    x: _builtins.float
+    y: _builtins.float
     def __init__(
         self,
         *,
-        xDeprecated: builtins.int | None = ...,
-        yDeprecated: builtins.int | None = ...,
-        x: builtins.float | None = ...,
-        y: builtins.float | None = ...,
+        xDeprecated: _builtins.int | None = ...,
+        yDeprecated: _builtins.int | None = ...,
+        x: _builtins.float | None = ...,
+        y: _builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["x", b"x", "xDeprecated", b"xDeprecated", "y", b"y", "yDeprecated", b"yDeprecated"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["x", b"x", "xDeprecated", b"xDeprecated", "y", b"y", "yDeprecated", b"yDeprecated"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["x", b"x", "xDeprecated", b"xDeprecated", "y", b"y", "yDeprecated", b"yDeprecated"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["x", b"x", "xDeprecated", b"xDeprecated", "y", b"y", "yDeprecated", b"yDeprecated"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___Point: typing_extensions.TypeAlias = Point
+Global___Point: _TypeAlias = Point  # noqa: Y015
 
-@typing.final
-class Location(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Location(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DEGREESLATITUDE_FIELD_NUMBER: builtins.int
-    DEGREESLONGITUDE_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    degreesLatitude: builtins.float
-    degreesLongitude: builtins.float
-    name: builtins.str
+    DEGREESLATITUDE_FIELD_NUMBER: _builtins.int
+    DEGREESLONGITUDE_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    degreesLatitude: _builtins.float
+    degreesLongitude: _builtins.float
+    name: _builtins.str
     def __init__(
         self,
         *,
-        degreesLatitude: builtins.float | None = ...,
-        degreesLongitude: builtins.float | None = ...,
-        name: builtins.str | None = ...,
+        degreesLatitude: _builtins.float | None = ...,
+        degreesLongitude: _builtins.float | None = ...,
+        name: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "name", b"name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___Location: typing_extensions.TypeAlias = Location
+Global___Location: _TypeAlias = Location  # noqa: Y015
 
-@typing.final
-class TemplateButton(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class TemplateButton(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class CallButton(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class CallButton(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        DISPLAYTEXT_FIELD_NUMBER: builtins.int
-        PHONENUMBER_FIELD_NUMBER: builtins.int
-        @property
+        DISPLAYTEXT_FIELD_NUMBER: _builtins.int
+        PHONENUMBER_FIELD_NUMBER: _builtins.int
+        @_builtins.property
         def displayText(self) -> Global___HighlyStructuredMessage: ...
-        @property
+        @_builtins.property
         def phoneNumber(self) -> Global___HighlyStructuredMessage: ...
         def __init__(
             self,
@@ -6932,18 +7325,20 @@ class TemplateButton(google.protobuf.message.Message):
             displayText: Global___HighlyStructuredMessage | None = ...,
             phoneNumber: Global___HighlyStructuredMessage | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["displayText", b"displayText", "phoneNumber", b"phoneNumber"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["displayText", b"displayText", "phoneNumber", b"phoneNumber"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["displayText", b"displayText", "phoneNumber", b"phoneNumber"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["displayText", b"displayText", "phoneNumber", b"phoneNumber"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class URLButton(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class URLButton(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        DISPLAYTEXT_FIELD_NUMBER: builtins.int
-        URL_FIELD_NUMBER: builtins.int
-        @property
+        DISPLAYTEXT_FIELD_NUMBER: _builtins.int
+        URL_FIELD_NUMBER: _builtins.int
+        @_builtins.property
         def displayText(self) -> Global___HighlyStructuredMessage: ...
-        @property
+        @_builtins.property
         def URL(self) -> Global___HighlyStructuredMessage: ...
         def __init__(
             self,
@@ -6951,37 +7346,41 @@ class TemplateButton(google.protobuf.message.Message):
             displayText: Global___HighlyStructuredMessage | None = ...,
             URL: Global___HighlyStructuredMessage | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["URL", b"URL", "displayText", b"displayText"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["URL", b"URL", "displayText", b"displayText"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "displayText", b"displayText"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "displayText", b"displayText"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class QuickReplyButton(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class QuickReplyButton(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        DISPLAYTEXT_FIELD_NUMBER: builtins.int
-        ID_FIELD_NUMBER: builtins.int
-        ID: builtins.str
-        @property
+        DISPLAYTEXT_FIELD_NUMBER: _builtins.int
+        ID_FIELD_NUMBER: _builtins.int
+        ID: _builtins.str
+        @_builtins.property
         def displayText(self) -> Global___HighlyStructuredMessage: ...
         def __init__(
             self,
             *,
             displayText: Global___HighlyStructuredMessage | None = ...,
-            ID: builtins.str | None = ...,
+            ID: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["ID", b"ID", "displayText", b"displayText"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["ID", b"ID", "displayText", b"displayText"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "displayText", b"displayText"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "displayText", b"displayText"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    QUICKREPLYBUTTON_FIELD_NUMBER: builtins.int
-    URLBUTTON_FIELD_NUMBER: builtins.int
-    CALLBUTTON_FIELD_NUMBER: builtins.int
-    INDEX_FIELD_NUMBER: builtins.int
-    index: builtins.int
-    @property
+    QUICKREPLYBUTTON_FIELD_NUMBER: _builtins.int
+    URLBUTTON_FIELD_NUMBER: _builtins.int
+    CALLBUTTON_FIELD_NUMBER: _builtins.int
+    INDEX_FIELD_NUMBER: _builtins.int
+    index: _builtins.int
+    @_builtins.property
     def quickReplyButton(self) -> Global___TemplateButton.QuickReplyButton: ...
-    @property
+    @_builtins.property
     def urlButton(self) -> Global___TemplateButton.URLButton: ...
-    @property
+    @_builtins.property
     def callButton(self) -> Global___TemplateButton.CallButton: ...
     def __init__(
         self,
@@ -6989,240 +7388,265 @@ class TemplateButton(google.protobuf.message.Message):
         quickReplyButton: Global___TemplateButton.QuickReplyButton | None = ...,
         urlButton: Global___TemplateButton.URLButton | None = ...,
         callButton: Global___TemplateButton.CallButton | None = ...,
-        index: builtins.int | None = ...,
+        index: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["button", b"button", "callButton", b"callButton", "index", b"index", "quickReplyButton", b"quickReplyButton", "urlButton", b"urlButton"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["button", b"button", "callButton", b"callButton", "index", b"index", "quickReplyButton", b"quickReplyButton", "urlButton", b"urlButton"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["button", b"button"]) -> typing.Literal["quickReplyButton", "urlButton", "callButton"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["button", b"button", "callButton", b"callButton", "index", b"index", "quickReplyButton", b"quickReplyButton", "urlButton", b"urlButton"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["button", b"button", "callButton", b"callButton", "index", b"index", "quickReplyButton", b"quickReplyButton", "urlButton", b"urlButton"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_button: _TypeAlias = _typing.Literal["quickReplyButton", "urlButton", "callButton"]  # noqa: Y015
+    _WhichOneofArgType_button: _TypeAlias = _typing.Literal["button", b"button"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_button) -> _WhichOneofReturnType_button | None: ...
 
-Global___TemplateButton: typing_extensions.TypeAlias = TemplateButton
+Global___TemplateButton: _TypeAlias = TemplateButton  # noqa: Y015
 
-@typing.final
-class Money(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Money(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VALUE_FIELD_NUMBER: builtins.int
-    OFFSET_FIELD_NUMBER: builtins.int
-    CURRENCYCODE_FIELD_NUMBER: builtins.int
-    value: builtins.int
-    offset: builtins.int
-    currencyCode: builtins.str
+    VALUE_FIELD_NUMBER: _builtins.int
+    OFFSET_FIELD_NUMBER: _builtins.int
+    CURRENCYCODE_FIELD_NUMBER: _builtins.int
+    value: _builtins.int
+    offset: _builtins.int
+    currencyCode: _builtins.str
     def __init__(
         self,
         *,
-        value: builtins.int | None = ...,
-        offset: builtins.int | None = ...,
-        currencyCode: builtins.str | None = ...,
+        value: _builtins.int | None = ...,
+        offset: _builtins.int | None = ...,
+        currencyCode: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["currencyCode", b"currencyCode", "offset", b"offset", "value", b"value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["currencyCode", b"currencyCode", "offset", b"offset", "value", b"value"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["currencyCode", b"currencyCode", "offset", b"offset", "value", b"value"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["currencyCode", b"currencyCode", "offset", b"offset", "value", b"value"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___Money: typing_extensions.TypeAlias = Money
+Global___Money: _TypeAlias = Money  # noqa: Y015
 
-@typing.final
-class ActionLink(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ActionLink(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    URL_FIELD_NUMBER: builtins.int
-    BUTTONTITLE_FIELD_NUMBER: builtins.int
-    URL: builtins.str
-    buttonTitle: builtins.str
+    URL_FIELD_NUMBER: _builtins.int
+    BUTTONTITLE_FIELD_NUMBER: _builtins.int
+    URL: _builtins.str
+    buttonTitle: _builtins.str
     def __init__(
         self,
         *,
-        URL: builtins.str | None = ...,
-        buttonTitle: builtins.str | None = ...,
+        URL: _builtins.str | None = ...,
+        buttonTitle: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["URL", b"URL", "buttonTitle", b"buttonTitle"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["URL", b"URL", "buttonTitle", b"buttonTitle"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "buttonTitle", b"buttonTitle"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["URL", b"URL", "buttonTitle", b"buttonTitle"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ActionLink: typing_extensions.TypeAlias = ActionLink
+Global___ActionLink: _TypeAlias = ActionLink  # noqa: Y015
 
-@typing.final
-class GroupMention(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class GroupMention(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    GROUPJID_FIELD_NUMBER: builtins.int
-    GROUPSUBJECT_FIELD_NUMBER: builtins.int
-    groupJID: builtins.str
-    groupSubject: builtins.str
+    GROUPJID_FIELD_NUMBER: _builtins.int
+    GROUPSUBJECT_FIELD_NUMBER: _builtins.int
+    groupJID: _builtins.str
+    groupSubject: _builtins.str
     def __init__(
         self,
         *,
-        groupJID: builtins.str | None = ...,
-        groupSubject: builtins.str | None = ...,
+        groupJID: _builtins.str | None = ...,
+        groupSubject: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["groupJID", b"groupJID", "groupSubject", b"groupSubject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["groupJID", b"groupJID", "groupSubject", b"groupSubject"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["groupJID", b"groupJID", "groupSubject", b"groupSubject"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["groupJID", b"groupJID", "groupSubject", b"groupSubject"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___GroupMention: typing_extensions.TypeAlias = GroupMention
+Global___GroupMention: _TypeAlias = GroupMention  # noqa: Y015
 
-@typing.final
-class MessageSecretMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MessageSecretMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VERSION_FIELD_NUMBER: builtins.int
-    ENCIV_FIELD_NUMBER: builtins.int
-    ENCPAYLOAD_FIELD_NUMBER: builtins.int
-    version: builtins.int
-    encIV: builtins.bytes
-    encPayload: builtins.bytes
+    VERSION_FIELD_NUMBER: _builtins.int
+    ENCIV_FIELD_NUMBER: _builtins.int
+    ENCPAYLOAD_FIELD_NUMBER: _builtins.int
+    version: _builtins.int
+    encIV: _builtins.bytes
+    encPayload: _builtins.bytes
     def __init__(
         self,
         *,
-        version: builtins.int | None = ...,
-        encIV: builtins.bytes | None = ...,
-        encPayload: builtins.bytes | None = ...,
+        version: _builtins.int | None = ...,
+        encIV: _builtins.bytes | None = ...,
+        encPayload: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "version", b"version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "version", b"version"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "version", b"version"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload", "version", b"version"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___MessageSecretMessage: typing_extensions.TypeAlias = MessageSecretMessage
+Global___MessageSecretMessage: _TypeAlias = MessageSecretMessage  # noqa: Y015
 
-@typing.final
-class MediaNotifyMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MediaNotifyMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    EXPRESSPATHURL_FIELD_NUMBER: builtins.int
-    FILEENCSHA256_FIELD_NUMBER: builtins.int
-    FILELENGTH_FIELD_NUMBER: builtins.int
-    expressPathURL: builtins.str
-    fileEncSHA256: builtins.bytes
-    fileLength: builtins.int
+    EXPRESSPATHURL_FIELD_NUMBER: _builtins.int
+    FILEENCSHA256_FIELD_NUMBER: _builtins.int
+    FILELENGTH_FIELD_NUMBER: _builtins.int
+    expressPathURL: _builtins.str
+    fileEncSHA256: _builtins.bytes
+    fileLength: _builtins.int
     def __init__(
         self,
         *,
-        expressPathURL: builtins.str | None = ...,
-        fileEncSHA256: builtins.bytes | None = ...,
-        fileLength: builtins.int | None = ...,
+        expressPathURL: _builtins.str | None = ...,
+        fileEncSHA256: _builtins.bytes | None = ...,
+        fileLength: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["expressPathURL", b"expressPathURL", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["expressPathURL", b"expressPathURL", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["expressPathURL", b"expressPathURL", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["expressPathURL", b"expressPathURL", "fileEncSHA256", b"fileEncSHA256", "fileLength", b"fileLength"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___MediaNotifyMessage: typing_extensions.TypeAlias = MediaNotifyMessage
+Global___MediaNotifyMessage: _TypeAlias = MediaNotifyMessage  # noqa: Y015
 
-@typing.final
-class LIDMigrationMappingSyncMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class LIDMigrationMappingSyncMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ENCODEDMAPPINGPAYLOAD_FIELD_NUMBER: builtins.int
-    encodedMappingPayload: builtins.bytes
+    ENCODEDMAPPINGPAYLOAD_FIELD_NUMBER: _builtins.int
+    encodedMappingPayload: _builtins.bytes
     def __init__(
         self,
         *,
-        encodedMappingPayload: builtins.bytes | None = ...,
+        encodedMappingPayload: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["encodedMappingPayload", b"encodedMappingPayload"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["encodedMappingPayload", b"encodedMappingPayload"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["encodedMappingPayload", b"encodedMappingPayload"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["encodedMappingPayload", b"encodedMappingPayload"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___LIDMigrationMappingSyncMessage: typing_extensions.TypeAlias = LIDMigrationMappingSyncMessage
+Global___LIDMigrationMappingSyncMessage: _TypeAlias = LIDMigrationMappingSyncMessage  # noqa: Y015
 
-@typing.final
-class UrlTrackingMap(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class UrlTrackingMap(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class UrlTrackingMapElement(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class UrlTrackingMapElement(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        ORIGINALURL_FIELD_NUMBER: builtins.int
-        UNCONSENTEDUSERSURL_FIELD_NUMBER: builtins.int
-        CONSENTEDUSERSURL_FIELD_NUMBER: builtins.int
-        CARDINDEX_FIELD_NUMBER: builtins.int
-        originalURL: builtins.str
-        unconsentedUsersURL: builtins.str
-        consentedUsersURL: builtins.str
-        cardIndex: builtins.int
+        ORIGINALURL_FIELD_NUMBER: _builtins.int
+        UNCONSENTEDUSERSURL_FIELD_NUMBER: _builtins.int
+        CONSENTEDUSERSURL_FIELD_NUMBER: _builtins.int
+        CARDINDEX_FIELD_NUMBER: _builtins.int
+        originalURL: _builtins.str
+        unconsentedUsersURL: _builtins.str
+        consentedUsersURL: _builtins.str
+        cardIndex: _builtins.int
         def __init__(
             self,
             *,
-            originalURL: builtins.str | None = ...,
-            unconsentedUsersURL: builtins.str | None = ...,
-            consentedUsersURL: builtins.str | None = ...,
-            cardIndex: builtins.int | None = ...,
+            originalURL: _builtins.str | None = ...,
+            unconsentedUsersURL: _builtins.str | None = ...,
+            consentedUsersURL: _builtins.str | None = ...,
+            cardIndex: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["cardIndex", b"cardIndex", "consentedUsersURL", b"consentedUsersURL", "originalURL", b"originalURL", "unconsentedUsersURL", b"unconsentedUsersURL"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["cardIndex", b"cardIndex", "consentedUsersURL", b"consentedUsersURL", "originalURL", b"originalURL", "unconsentedUsersURL", b"unconsentedUsersURL"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["cardIndex", b"cardIndex", "consentedUsersURL", b"consentedUsersURL", "originalURL", b"originalURL", "unconsentedUsersURL", b"unconsentedUsersURL"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["cardIndex", b"cardIndex", "consentedUsersURL", b"consentedUsersURL", "originalURL", b"originalURL", "unconsentedUsersURL", b"unconsentedUsersURL"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    URLTRACKINGMAPELEMENTS_FIELD_NUMBER: builtins.int
-    @property
-    def urlTrackingMapElements(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UrlTrackingMap.UrlTrackingMapElement]: ...
+    URLTRACKINGMAPELEMENTS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def urlTrackingMapElements(self) -> _containers.RepeatedCompositeFieldContainer[Global___UrlTrackingMap.UrlTrackingMapElement]: ...
     def __init__(
         self,
         *,
-        urlTrackingMapElements: collections.abc.Iterable[Global___UrlTrackingMap.UrlTrackingMapElement] | None = ...,
+        urlTrackingMapElements: _abc.Iterable[Global___UrlTrackingMap.UrlTrackingMapElement] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["urlTrackingMapElements", b"urlTrackingMapElements"]) -> None: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["urlTrackingMapElements", b"urlTrackingMapElements"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___UrlTrackingMap: typing_extensions.TypeAlias = UrlTrackingMap
+Global___UrlTrackingMap: _TypeAlias = UrlTrackingMap  # noqa: Y015
 
-@typing.final
-class MemberLabel(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MemberLabel(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    LABEL_FIELD_NUMBER: builtins.int
-    LABELTIMESTAMP_FIELD_NUMBER: builtins.int
-    label: builtins.str
-    labelTimestamp: builtins.int
+    LABEL_FIELD_NUMBER: _builtins.int
+    LABELTIMESTAMP_FIELD_NUMBER: _builtins.int
+    label: _builtins.str
+    labelTimestamp: _builtins.int
     def __init__(
         self,
         *,
-        label: builtins.str | None = ...,
-        labelTimestamp: builtins.int | None = ...,
+        label: _builtins.str | None = ...,
+        labelTimestamp: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["label", b"label", "labelTimestamp", b"labelTimestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["label", b"label", "labelTimestamp", b"labelTimestamp"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["label", b"label", "labelTimestamp", b"labelTimestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["label", b"label", "labelTimestamp", b"labelTimestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___MemberLabel: typing_extensions.TypeAlias = MemberLabel
+Global___MemberLabel: _TypeAlias = MemberLabel  # noqa: Y015
 
-@typing.final
-class AIRichResponseMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AIRichResponseMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MESSAGETYPE_FIELD_NUMBER: builtins.int
-    SUBMESSAGES_FIELD_NUMBER: builtins.int
-    UNIFIEDRESPONSE_FIELD_NUMBER: builtins.int
-    CONTEXTINFO_FIELD_NUMBER: builtins.int
-    messageType: waAICommon.WAAICommon_pb2.AIRichResponseMessageType.ValueType
-    @property
-    def submessages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[waAICommon.WAAICommon_pb2.AIRichResponseSubMessage]: ...
-    @property
-    def unifiedResponse(self) -> waAICommon.WAAICommon_pb2.AIRichResponseUnifiedResponse: ...
-    @property
+    MESSAGETYPE_FIELD_NUMBER: _builtins.int
+    SUBMESSAGES_FIELD_NUMBER: _builtins.int
+    UNIFIEDRESPONSE_FIELD_NUMBER: _builtins.int
+    CONTEXTINFO_FIELD_NUMBER: _builtins.int
+    messageType: _WAAICommon_pb2.AIRichResponseMessageType.ValueType
+    @_builtins.property
+    def submessages(self) -> _containers.RepeatedCompositeFieldContainer[_WAAICommon_pb2.AIRichResponseSubMessage]: ...
+    @_builtins.property
+    def unifiedResponse(self) -> _WAAICommon_pb2.AIRichResponseUnifiedResponse: ...
+    @_builtins.property
     def contextInfo(self) -> Global___ContextInfo: ...
     def __init__(
         self,
         *,
-        messageType: waAICommon.WAAICommon_pb2.AIRichResponseMessageType.ValueType | None = ...,
-        submessages: collections.abc.Iterable[waAICommon.WAAICommon_pb2.AIRichResponseSubMessage] | None = ...,
-        unifiedResponse: waAICommon.WAAICommon_pb2.AIRichResponseUnifiedResponse | None = ...,
+        messageType: _WAAICommon_pb2.AIRichResponseMessageType.ValueType | None = ...,
+        submessages: _abc.Iterable[_WAAICommon_pb2.AIRichResponseSubMessage] | None = ...,
+        unifiedResponse: _WAAICommon_pb2.AIRichResponseUnifiedResponse | None = ...,
         contextInfo: Global___ContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "messageType", b"messageType", "unifiedResponse", b"unifiedResponse"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "messageType", b"messageType", "submessages", b"submessages", "unifiedResponse", b"unifiedResponse"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "messageType", b"messageType", "unifiedResponse", b"unifiedResponse"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "messageType", b"messageType", "submessages", b"submessages", "unifiedResponse", b"unifiedResponse"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AIRichResponseMessage: typing_extensions.TypeAlias = AIRichResponseMessage
+Global___AIRichResponseMessage: _TypeAlias = AIRichResponseMessage  # noqa: Y015
 
-@typing.final
-class AIQueryFanout(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AIQueryFanout(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MESSAGEKEY_FIELD_NUMBER: builtins.int
-    MESSAGE_FIELD_NUMBER: builtins.int
-    TIMESTAMP_FIELD_NUMBER: builtins.int
-    timestamp: builtins.int
-    @property
-    def messageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
-    @property
+    MESSAGEKEY_FIELD_NUMBER: _builtins.int
+    MESSAGE_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    timestamp: _builtins.int
+    @_builtins.property
+    def messageKey(self) -> _WACommon_pb2.MessageKey: ...
+    @_builtins.property
     def message(self) -> Global___Message: ...
     def __init__(
         self,
         *,
-        messageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+        messageKey: _WACommon_pb2.MessageKey | None = ...,
         message: Global___Message | None = ...,
-        timestamp: builtins.int | None = ...,
+        timestamp: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["message", b"message", "messageKey", b"messageKey", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["message", b"message", "messageKey", b"messageKey", "timestamp", b"timestamp"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["message", b"message", "messageKey", b"messageKey", "timestamp", b"timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["message", b"message", "messageKey", b"messageKey", "timestamp", b"timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AIQueryFanout: typing_extensions.TypeAlias = AIQueryFanout
+Global___AIQueryFanout: _TypeAlias = AIQueryFanout  # noqa: Y015

@@ -3,42 +3,42 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from waCommon import WACommon_pb2 as _WACommon_pb2
+import builtins as _builtins
 import sys
-import typing
-import waCommon.WACommon_pb2
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class ConsumerApplication(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ConsumerApplication(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class Payload(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Payload(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        CONTENT_FIELD_NUMBER: builtins.int
-        APPLICATIONDATA_FIELD_NUMBER: builtins.int
-        SIGNAL_FIELD_NUMBER: builtins.int
-        SUBPROTOCOL_FIELD_NUMBER: builtins.int
-        @property
+        CONTENT_FIELD_NUMBER: _builtins.int
+        APPLICATIONDATA_FIELD_NUMBER: _builtins.int
+        SIGNAL_FIELD_NUMBER: _builtins.int
+        SUBPROTOCOL_FIELD_NUMBER: _builtins.int
+        @_builtins.property
         def content(self) -> Global___ConsumerApplication.Content: ...
-        @property
+        @_builtins.property
         def applicationData(self) -> Global___ConsumerApplication.ApplicationData: ...
-        @property
+        @_builtins.property
         def signal(self) -> Global___ConsumerApplication.Signal: ...
-        @property
+        @_builtins.property
         def subProtocol(self) -> Global___ConsumerApplication.SubProtocolPayload: ...
         def __init__(
             self,
@@ -48,34 +48,40 @@ class ConsumerApplication(google.protobuf.message.Message):
             signal: Global___ConsumerApplication.Signal | None = ...,
             subProtocol: Global___ConsumerApplication.SubProtocolPayload | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["applicationData", b"applicationData", "content", b"content", "payload", b"payload", "signal", b"signal", "subProtocol", b"subProtocol"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["applicationData", b"applicationData", "content", b"content", "payload", b"payload", "signal", b"signal", "subProtocol", b"subProtocol"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["payload", b"payload"]) -> typing.Literal["content", "applicationData", "signal", "subProtocol"] | None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["applicationData", b"applicationData", "content", b"content", "payload", b"payload", "signal", b"signal", "subProtocol", b"subProtocol"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["applicationData", b"applicationData", "content", b"content", "payload", b"payload", "signal", b"signal", "subProtocol", b"subProtocol"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        _WhichOneofReturnType_payload: _TypeAlias = _typing.Literal["content", "applicationData", "signal", "subProtocol"]  # noqa: Y015
+        _WhichOneofArgType_payload: _TypeAlias = _typing.Literal["payload", b"payload"]  # noqa: Y015
+        def WhichOneof(self, oneof_group: _WhichOneofArgType_payload) -> _WhichOneofReturnType_payload | None: ...
 
-    @typing.final
-    class SubProtocolPayload(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class SubProtocolPayload(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        FUTUREPROOF_FIELD_NUMBER: builtins.int
-        futureProof: waCommon.WACommon_pb2.FutureProofBehavior.ValueType
+        FUTUREPROOF_FIELD_NUMBER: _builtins.int
+        futureProof: _WACommon_pb2.FutureProofBehavior.ValueType
         def __init__(
             self,
             *,
-            futureProof: waCommon.WACommon_pb2.FutureProofBehavior.ValueType | None = ...,
+            futureProof: _WACommon_pb2.FutureProofBehavior.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["futureProof", b"futureProof"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["futureProof", b"futureProof"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["futureProof", b"futureProof"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["futureProof", b"futureProof"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class Metadata(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Metadata(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _SpecialTextSize:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _SpecialTextSizeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConsumerApplication.Metadata._SpecialTextSize.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _SpecialTextSizeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ConsumerApplication.Metadata._SpecialTextSize.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             SMALL: ConsumerApplication.Metadata._SpecialTextSize.ValueType  # 1
             MEDIUM: ConsumerApplication.Metadata._SpecialTextSize.ValueType  # 2
             LARGE: ConsumerApplication.Metadata._SpecialTextSize.ValueType  # 3
@@ -85,102 +91,108 @@ class ConsumerApplication(google.protobuf.message.Message):
         MEDIUM: ConsumerApplication.Metadata.SpecialTextSize.ValueType  # 2
         LARGE: ConsumerApplication.Metadata.SpecialTextSize.ValueType  # 3
 
-        SPECIALTEXTSIZE_FIELD_NUMBER: builtins.int
+        SPECIALTEXTSIZE_FIELD_NUMBER: _builtins.int
         specialTextSize: Global___ConsumerApplication.Metadata.SpecialTextSize.ValueType
         def __init__(
             self,
             *,
             specialTextSize: Global___ConsumerApplication.Metadata.SpecialTextSize.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["specialTextSize", b"specialTextSize"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["specialTextSize", b"specialTextSize"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["specialTextSize", b"specialTextSize"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["specialTextSize", b"specialTextSize"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class Signal(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Signal(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         def __init__(
             self,
         ) -> None: ...
 
-    @typing.final
-    class ApplicationData(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ApplicationData(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        REVOKE_FIELD_NUMBER: builtins.int
-        @property
+        REVOKE_FIELD_NUMBER: _builtins.int
+        @_builtins.property
         def revoke(self) -> Global___ConsumerApplication.RevokeMessage: ...
         def __init__(
             self,
             *,
             revoke: Global___ConsumerApplication.RevokeMessage | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["applicationContent", b"applicationContent", "revoke", b"revoke"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["applicationContent", b"applicationContent", "revoke", b"revoke"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["applicationContent", b"applicationContent"]) -> typing.Literal["revoke"] | None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["applicationContent", b"applicationContent", "revoke", b"revoke"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["applicationContent", b"applicationContent", "revoke", b"revoke"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        _WhichOneofReturnType_applicationContent: _TypeAlias = _typing.Literal["revoke"]  # noqa: Y015
+        _WhichOneofArgType_applicationContent: _TypeAlias = _typing.Literal["applicationContent", b"applicationContent"]  # noqa: Y015
+        def WhichOneof(self, oneof_group: _WhichOneofArgType_applicationContent) -> _WhichOneofReturnType_applicationContent | None: ...
 
-    @typing.final
-    class Content(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Content(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        MESSAGETEXT_FIELD_NUMBER: builtins.int
-        IMAGEMESSAGE_FIELD_NUMBER: builtins.int
-        CONTACTMESSAGE_FIELD_NUMBER: builtins.int
-        LOCATIONMESSAGE_FIELD_NUMBER: builtins.int
-        EXTENDEDTEXTMESSAGE_FIELD_NUMBER: builtins.int
-        STATUSTEXTMESSAGE_FIELD_NUMBER: builtins.int
-        DOCUMENTMESSAGE_FIELD_NUMBER: builtins.int
-        AUDIOMESSAGE_FIELD_NUMBER: builtins.int
-        VIDEOMESSAGE_FIELD_NUMBER: builtins.int
-        CONTACTSARRAYMESSAGE_FIELD_NUMBER: builtins.int
-        LIVELOCATIONMESSAGE_FIELD_NUMBER: builtins.int
-        STICKERMESSAGE_FIELD_NUMBER: builtins.int
-        GROUPINVITEMESSAGE_FIELD_NUMBER: builtins.int
-        VIEWONCEMESSAGE_FIELD_NUMBER: builtins.int
-        REACTIONMESSAGE_FIELD_NUMBER: builtins.int
-        POLLCREATIONMESSAGE_FIELD_NUMBER: builtins.int
-        POLLUPDATEMESSAGE_FIELD_NUMBER: builtins.int
-        EDITMESSAGE_FIELD_NUMBER: builtins.int
-        @property
-        def messageText(self) -> waCommon.WACommon_pb2.MessageText: ...
-        @property
+        MESSAGETEXT_FIELD_NUMBER: _builtins.int
+        IMAGEMESSAGE_FIELD_NUMBER: _builtins.int
+        CONTACTMESSAGE_FIELD_NUMBER: _builtins.int
+        LOCATIONMESSAGE_FIELD_NUMBER: _builtins.int
+        EXTENDEDTEXTMESSAGE_FIELD_NUMBER: _builtins.int
+        STATUSTEXTMESSAGE_FIELD_NUMBER: _builtins.int
+        DOCUMENTMESSAGE_FIELD_NUMBER: _builtins.int
+        AUDIOMESSAGE_FIELD_NUMBER: _builtins.int
+        VIDEOMESSAGE_FIELD_NUMBER: _builtins.int
+        CONTACTSARRAYMESSAGE_FIELD_NUMBER: _builtins.int
+        LIVELOCATIONMESSAGE_FIELD_NUMBER: _builtins.int
+        STICKERMESSAGE_FIELD_NUMBER: _builtins.int
+        GROUPINVITEMESSAGE_FIELD_NUMBER: _builtins.int
+        VIEWONCEMESSAGE_FIELD_NUMBER: _builtins.int
+        REACTIONMESSAGE_FIELD_NUMBER: _builtins.int
+        POLLCREATIONMESSAGE_FIELD_NUMBER: _builtins.int
+        POLLUPDATEMESSAGE_FIELD_NUMBER: _builtins.int
+        EDITMESSAGE_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def messageText(self) -> _WACommon_pb2.MessageText: ...
+        @_builtins.property
         def imageMessage(self) -> Global___ConsumerApplication.ImageMessage: ...
-        @property
+        @_builtins.property
         def contactMessage(self) -> Global___ConsumerApplication.ContactMessage: ...
-        @property
+        @_builtins.property
         def locationMessage(self) -> Global___ConsumerApplication.LocationMessage: ...
-        @property
+        @_builtins.property
         def extendedTextMessage(self) -> Global___ConsumerApplication.ExtendedTextMessage: ...
-        @property
+        @_builtins.property
         def statusTextMessage(self) -> Global___ConsumerApplication.StatusTextMesage: ...
-        @property
+        @_builtins.property
         def documentMessage(self) -> Global___ConsumerApplication.DocumentMessage: ...
-        @property
+        @_builtins.property
         def audioMessage(self) -> Global___ConsumerApplication.AudioMessage: ...
-        @property
+        @_builtins.property
         def videoMessage(self) -> Global___ConsumerApplication.VideoMessage: ...
-        @property
+        @_builtins.property
         def contactsArrayMessage(self) -> Global___ConsumerApplication.ContactsArrayMessage: ...
-        @property
+        @_builtins.property
         def liveLocationMessage(self) -> Global___ConsumerApplication.LiveLocationMessage: ...
-        @property
+        @_builtins.property
         def stickerMessage(self) -> Global___ConsumerApplication.StickerMessage: ...
-        @property
+        @_builtins.property
         def groupInviteMessage(self) -> Global___ConsumerApplication.GroupInviteMessage: ...
-        @property
+        @_builtins.property
         def viewOnceMessage(self) -> Global___ConsumerApplication.ViewOnceMessage: ...
-        @property
+        @_builtins.property
         def reactionMessage(self) -> Global___ConsumerApplication.ReactionMessage: ...
-        @property
+        @_builtins.property
         def pollCreationMessage(self) -> Global___ConsumerApplication.PollCreationMessage: ...
-        @property
+        @_builtins.property
         def pollUpdateMessage(self) -> Global___ConsumerApplication.PollUpdateMessage: ...
-        @property
+        @_builtins.property
         def editMessage(self) -> Global___ConsumerApplication.EditMessage: ...
         def __init__(
             self,
             *,
-            messageText: waCommon.WACommon_pb2.MessageText | None = ...,
+            messageText: _WACommon_pb2.MessageText | None = ...,
             imageMessage: Global___ConsumerApplication.ImageMessage | None = ...,
             contactMessage: Global___ConsumerApplication.ContactMessage | None = ...,
             locationMessage: Global___ConsumerApplication.LocationMessage | None = ...,
@@ -199,196 +211,217 @@ class ConsumerApplication(google.protobuf.message.Message):
             pollUpdateMessage: Global___ConsumerApplication.PollUpdateMessage | None = ...,
             editMessage: Global___ConsumerApplication.EditMessage | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["audioMessage", b"audioMessage", "contactMessage", b"contactMessage", "contactsArrayMessage", b"contactsArrayMessage", "content", b"content", "documentMessage", b"documentMessage", "editMessage", b"editMessage", "extendedTextMessage", b"extendedTextMessage", "groupInviteMessage", b"groupInviteMessage", "imageMessage", b"imageMessage", "liveLocationMessage", b"liveLocationMessage", "locationMessage", b"locationMessage", "messageText", b"messageText", "pollCreationMessage", b"pollCreationMessage", "pollUpdateMessage", b"pollUpdateMessage", "reactionMessage", b"reactionMessage", "statusTextMessage", b"statusTextMessage", "stickerMessage", b"stickerMessage", "videoMessage", b"videoMessage", "viewOnceMessage", b"viewOnceMessage"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["audioMessage", b"audioMessage", "contactMessage", b"contactMessage", "contactsArrayMessage", b"contactsArrayMessage", "content", b"content", "documentMessage", b"documentMessage", "editMessage", b"editMessage", "extendedTextMessage", b"extendedTextMessage", "groupInviteMessage", b"groupInviteMessage", "imageMessage", b"imageMessage", "liveLocationMessage", b"liveLocationMessage", "locationMessage", b"locationMessage", "messageText", b"messageText", "pollCreationMessage", b"pollCreationMessage", "pollUpdateMessage", b"pollUpdateMessage", "reactionMessage", b"reactionMessage", "statusTextMessage", b"statusTextMessage", "stickerMessage", b"stickerMessage", "videoMessage", b"videoMessage", "viewOnceMessage", b"viewOnceMessage"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["content", b"content"]) -> typing.Literal["messageText", "imageMessage", "contactMessage", "locationMessage", "extendedTextMessage", "statusTextMessage", "documentMessage", "audioMessage", "videoMessage", "contactsArrayMessage", "liveLocationMessage", "stickerMessage", "groupInviteMessage", "viewOnceMessage", "reactionMessage", "pollCreationMessage", "pollUpdateMessage", "editMessage"] | None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["audioMessage", b"audioMessage", "contactMessage", b"contactMessage", "contactsArrayMessage", b"contactsArrayMessage", "content", b"content", "documentMessage", b"documentMessage", "editMessage", b"editMessage", "extendedTextMessage", b"extendedTextMessage", "groupInviteMessage", b"groupInviteMessage", "imageMessage", b"imageMessage", "liveLocationMessage", b"liveLocationMessage", "locationMessage", b"locationMessage", "messageText", b"messageText", "pollCreationMessage", b"pollCreationMessage", "pollUpdateMessage", b"pollUpdateMessage", "reactionMessage", b"reactionMessage", "statusTextMessage", b"statusTextMessage", "stickerMessage", b"stickerMessage", "videoMessage", b"videoMessage", "viewOnceMessage", b"viewOnceMessage"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["audioMessage", b"audioMessage", "contactMessage", b"contactMessage", "contactsArrayMessage", b"contactsArrayMessage", "content", b"content", "documentMessage", b"documentMessage", "editMessage", b"editMessage", "extendedTextMessage", b"extendedTextMessage", "groupInviteMessage", b"groupInviteMessage", "imageMessage", b"imageMessage", "liveLocationMessage", b"liveLocationMessage", "locationMessage", b"locationMessage", "messageText", b"messageText", "pollCreationMessage", b"pollCreationMessage", "pollUpdateMessage", b"pollUpdateMessage", "reactionMessage", b"reactionMessage", "statusTextMessage", b"statusTextMessage", "stickerMessage", b"stickerMessage", "videoMessage", b"videoMessage", "viewOnceMessage", b"viewOnceMessage"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        _WhichOneofReturnType_content: _TypeAlias = _typing.Literal["messageText", "imageMessage", "contactMessage", "locationMessage", "extendedTextMessage", "statusTextMessage", "documentMessage", "audioMessage", "videoMessage", "contactsArrayMessage", "liveLocationMessage", "stickerMessage", "groupInviteMessage", "viewOnceMessage", "reactionMessage", "pollCreationMessage", "pollUpdateMessage", "editMessage"]  # noqa: Y015
+        _WhichOneofArgType_content: _TypeAlias = _typing.Literal["content", b"content"]  # noqa: Y015
+        def WhichOneof(self, oneof_group: _WhichOneofArgType_content) -> _WhichOneofReturnType_content | None: ...
 
-    @typing.final
-    class EditMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class EditMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        MESSAGE_FIELD_NUMBER: builtins.int
-        TIMESTAMPMS_FIELD_NUMBER: builtins.int
-        timestampMS: builtins.int
-        @property
-        def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
-        @property
-        def message(self) -> waCommon.WACommon_pb2.MessageText: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        MESSAGE_FIELD_NUMBER: _builtins.int
+        TIMESTAMPMS_FIELD_NUMBER: _builtins.int
+        timestampMS: _builtins.int
+        @_builtins.property
+        def key(self) -> _WACommon_pb2.MessageKey: ...
+        @_builtins.property
+        def message(self) -> _WACommon_pb2.MessageText: ...
         def __init__(
             self,
             *,
-            key: waCommon.WACommon_pb2.MessageKey | None = ...,
-            message: waCommon.WACommon_pb2.MessageText | None = ...,
-            timestampMS: builtins.int | None = ...,
+            key: _WACommon_pb2.MessageKey | None = ...,
+            message: _WACommon_pb2.MessageText | None = ...,
+            timestampMS: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["key", b"key", "message", b"message", "timestampMS", b"timestampMS"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "message", b"message", "timestampMS", b"timestampMS"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "message", b"message", "timestampMS", b"timestampMS"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "message", b"message", "timestampMS", b"timestampMS"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class PollAddOptionMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class PollAddOptionMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        POLLOPTION_FIELD_NUMBER: builtins.int
-        @property
-        def pollOption(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ConsumerApplication.Option]: ...
+        POLLOPTION_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def pollOption(self) -> _containers.RepeatedCompositeFieldContainer[Global___ConsumerApplication.Option]: ...
         def __init__(
             self,
             *,
-            pollOption: collections.abc.Iterable[Global___ConsumerApplication.Option] | None = ...,
+            pollOption: _abc.Iterable[Global___ConsumerApplication.Option] | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["pollOption", b"pollOption"]) -> None: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["pollOption", b"pollOption"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class PollVoteMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class PollVoteMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        SELECTEDOPTIONS_FIELD_NUMBER: builtins.int
-        SENDERTIMESTAMPMS_FIELD_NUMBER: builtins.int
-        senderTimestampMS: builtins.int
-        @property
-        def selectedOptions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bytes]: ...
+        SELECTEDOPTIONS_FIELD_NUMBER: _builtins.int
+        SENDERTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+        senderTimestampMS: _builtins.int
+        @_builtins.property
+        def selectedOptions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bytes]: ...
         def __init__(
             self,
             *,
-            selectedOptions: collections.abc.Iterable[builtins.bytes] | None = ...,
-            senderTimestampMS: builtins.int | None = ...,
+            selectedOptions: _abc.Iterable[_builtins.bytes] | None = ...,
+            senderTimestampMS: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["senderTimestampMS", b"senderTimestampMS"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["selectedOptions", b"selectedOptions", "senderTimestampMS", b"senderTimestampMS"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["senderTimestampMS", b"senderTimestampMS"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["selectedOptions", b"selectedOptions", "senderTimestampMS", b"senderTimestampMS"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class PollEncValue(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class PollEncValue(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        ENCPAYLOAD_FIELD_NUMBER: builtins.int
-        ENCIV_FIELD_NUMBER: builtins.int
-        encPayload: builtins.bytes
-        encIV: builtins.bytes
+        ENCPAYLOAD_FIELD_NUMBER: _builtins.int
+        ENCIV_FIELD_NUMBER: _builtins.int
+        encPayload: _builtins.bytes
+        encIV: _builtins.bytes
         def __init__(
             self,
             *,
-            encPayload: builtins.bytes | None = ...,
-            encIV: builtins.bytes | None = ...,
+            encPayload: _builtins.bytes | None = ...,
+            encIV: _builtins.bytes | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["encIV", b"encIV", "encPayload", b"encPayload"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class PollUpdateMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class PollUpdateMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        POLLCREATIONMESSAGEKEY_FIELD_NUMBER: builtins.int
-        VOTE_FIELD_NUMBER: builtins.int
-        ADDOPTION_FIELD_NUMBER: builtins.int
-        @property
-        def pollCreationMessageKey(self) -> waCommon.WACommon_pb2.MessageKey: ...
-        @property
+        POLLCREATIONMESSAGEKEY_FIELD_NUMBER: _builtins.int
+        VOTE_FIELD_NUMBER: _builtins.int
+        ADDOPTION_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def pollCreationMessageKey(self) -> _WACommon_pb2.MessageKey: ...
+        @_builtins.property
         def vote(self) -> Global___ConsumerApplication.PollEncValue: ...
-        @property
+        @_builtins.property
         def addOption(self) -> Global___ConsumerApplication.PollEncValue: ...
         def __init__(
             self,
             *,
-            pollCreationMessageKey: waCommon.WACommon_pb2.MessageKey | None = ...,
+            pollCreationMessageKey: _WACommon_pb2.MessageKey | None = ...,
             vote: Global___ConsumerApplication.PollEncValue | None = ...,
             addOption: Global___ConsumerApplication.PollEncValue | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["addOption", b"addOption", "pollCreationMessageKey", b"pollCreationMessageKey", "vote", b"vote"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["addOption", b"addOption", "pollCreationMessageKey", b"pollCreationMessageKey", "vote", b"vote"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["addOption", b"addOption", "pollCreationMessageKey", b"pollCreationMessageKey", "vote", b"vote"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["addOption", b"addOption", "pollCreationMessageKey", b"pollCreationMessageKey", "vote", b"vote"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class PollCreationMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class PollCreationMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        ENCKEY_FIELD_NUMBER: builtins.int
-        NAME_FIELD_NUMBER: builtins.int
-        OPTIONS_FIELD_NUMBER: builtins.int
-        SELECTABLEOPTIONSCOUNT_FIELD_NUMBER: builtins.int
-        encKey: builtins.bytes
-        name: builtins.str
-        selectableOptionsCount: builtins.int
-        @property
-        def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ConsumerApplication.Option]: ...
+        ENCKEY_FIELD_NUMBER: _builtins.int
+        NAME_FIELD_NUMBER: _builtins.int
+        OPTIONS_FIELD_NUMBER: _builtins.int
+        SELECTABLEOPTIONSCOUNT_FIELD_NUMBER: _builtins.int
+        encKey: _builtins.bytes
+        name: _builtins.str
+        selectableOptionsCount: _builtins.int
+        @_builtins.property
+        def options(self) -> _containers.RepeatedCompositeFieldContainer[Global___ConsumerApplication.Option]: ...
         def __init__(
             self,
             *,
-            encKey: builtins.bytes | None = ...,
-            name: builtins.str | None = ...,
-            options: collections.abc.Iterable[Global___ConsumerApplication.Option] | None = ...,
-            selectableOptionsCount: builtins.int | None = ...,
+            encKey: _builtins.bytes | None = ...,
+            name: _builtins.str | None = ...,
+            options: _abc.Iterable[Global___ConsumerApplication.Option] | None = ...,
+            selectableOptionsCount: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["encKey", b"encKey", "name", b"name", "selectableOptionsCount", b"selectableOptionsCount"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["encKey", b"encKey", "name", b"name", "options", b"options", "selectableOptionsCount", b"selectableOptionsCount"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["encKey", b"encKey", "name", b"name", "selectableOptionsCount", b"selectableOptionsCount"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["encKey", b"encKey", "name", b"name", "options", b"options", "selectableOptionsCount", b"selectableOptionsCount"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class Option(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Option(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        OPTIONNAME_FIELD_NUMBER: builtins.int
-        optionName: builtins.str
+        OPTIONNAME_FIELD_NUMBER: _builtins.int
+        optionName: _builtins.str
         def __init__(
             self,
             *,
-            optionName: builtins.str | None = ...,
+            optionName: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["optionName", b"optionName"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["optionName", b"optionName"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["optionName", b"optionName"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["optionName", b"optionName"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ReactionMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ReactionMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        TEXT_FIELD_NUMBER: builtins.int
-        GROUPINGKEY_FIELD_NUMBER: builtins.int
-        SENDERTIMESTAMPMS_FIELD_NUMBER: builtins.int
-        REACTIONMETADATADATACLASSDATA_FIELD_NUMBER: builtins.int
-        STYLE_FIELD_NUMBER: builtins.int
-        text: builtins.str
-        groupingKey: builtins.str
-        senderTimestampMS: builtins.int
-        reactionMetadataDataclassData: builtins.str
-        style: builtins.int
-        @property
-        def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        TEXT_FIELD_NUMBER: _builtins.int
+        GROUPINGKEY_FIELD_NUMBER: _builtins.int
+        SENDERTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+        REACTIONMETADATADATACLASSDATA_FIELD_NUMBER: _builtins.int
+        STYLE_FIELD_NUMBER: _builtins.int
+        text: _builtins.str
+        groupingKey: _builtins.str
+        senderTimestampMS: _builtins.int
+        reactionMetadataDataclassData: _builtins.str
+        style: _builtins.int
+        @_builtins.property
+        def key(self) -> _WACommon_pb2.MessageKey: ...
         def __init__(
             self,
             *,
-            key: waCommon.WACommon_pb2.MessageKey | None = ...,
-            text: builtins.str | None = ...,
-            groupingKey: builtins.str | None = ...,
-            senderTimestampMS: builtins.int | None = ...,
-            reactionMetadataDataclassData: builtins.str | None = ...,
-            style: builtins.int | None = ...,
+            key: _WACommon_pb2.MessageKey | None = ...,
+            text: _builtins.str | None = ...,
+            groupingKey: _builtins.str | None = ...,
+            senderTimestampMS: _builtins.int | None = ...,
+            reactionMetadataDataclassData: _builtins.str | None = ...,
+            style: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["groupingKey", b"groupingKey", "key", b"key", "reactionMetadataDataclassData", b"reactionMetadataDataclassData", "senderTimestampMS", b"senderTimestampMS", "style", b"style", "text", b"text"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["groupingKey", b"groupingKey", "key", b"key", "reactionMetadataDataclassData", b"reactionMetadataDataclassData", "senderTimestampMS", b"senderTimestampMS", "style", b"style", "text", b"text"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["groupingKey", b"groupingKey", "key", b"key", "reactionMetadataDataclassData", b"reactionMetadataDataclassData", "senderTimestampMS", b"senderTimestampMS", "style", b"style", "text", b"text"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["groupingKey", b"groupingKey", "key", b"key", "reactionMetadataDataclassData", b"reactionMetadataDataclassData", "senderTimestampMS", b"senderTimestampMS", "style", b"style", "text", b"text"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class RevokeMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class RevokeMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        @property
-        def key(self) -> waCommon.WACommon_pb2.MessageKey: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def key(self) -> _WACommon_pb2.MessageKey: ...
         def __init__(
             self,
             *,
-            key: waCommon.WACommon_pb2.MessageKey | None = ...,
+            key: _WACommon_pb2.MessageKey | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["key", b"key"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["key", b"key"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ViewOnceMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ViewOnceMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        IMAGEMESSAGE_FIELD_NUMBER: builtins.int
-        VIDEOMESSAGE_FIELD_NUMBER: builtins.int
-        @property
+        IMAGEMESSAGE_FIELD_NUMBER: _builtins.int
+        VIDEOMESSAGE_FIELD_NUMBER: _builtins.int
+        @_builtins.property
         def imageMessage(self) -> Global___ConsumerApplication.ImageMessage: ...
-        @property
+        @_builtins.property
         def videoMessage(self) -> Global___ConsumerApplication.VideoMessage: ...
         def __init__(
             self,
@@ -396,117 +429,129 @@ class ConsumerApplication(google.protobuf.message.Message):
             imageMessage: Global___ConsumerApplication.ImageMessage | None = ...,
             videoMessage: Global___ConsumerApplication.VideoMessage | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["imageMessage", b"imageMessage", "videoMessage", b"videoMessage", "viewOnceContent", b"viewOnceContent"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["imageMessage", b"imageMessage", "videoMessage", b"videoMessage", "viewOnceContent", b"viewOnceContent"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["viewOnceContent", b"viewOnceContent"]) -> typing.Literal["imageMessage", "videoMessage"] | None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["imageMessage", b"imageMessage", "videoMessage", b"videoMessage", "viewOnceContent", b"viewOnceContent"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["imageMessage", b"imageMessage", "videoMessage", b"videoMessage", "viewOnceContent", b"viewOnceContent"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        _WhichOneofReturnType_viewOnceContent: _TypeAlias = _typing.Literal["imageMessage", "videoMessage"]  # noqa: Y015
+        _WhichOneofArgType_viewOnceContent: _TypeAlias = _typing.Literal["viewOnceContent", b"viewOnceContent"]  # noqa: Y015
+        def WhichOneof(self, oneof_group: _WhichOneofArgType_viewOnceContent) -> _WhichOneofReturnType_viewOnceContent | None: ...
 
-    @typing.final
-    class GroupInviteMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class GroupInviteMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        GROUPJID_FIELD_NUMBER: builtins.int
-        INVITECODE_FIELD_NUMBER: builtins.int
-        INVITEEXPIRATION_FIELD_NUMBER: builtins.int
-        GROUPNAME_FIELD_NUMBER: builtins.int
-        JPEGTHUMBNAIL_FIELD_NUMBER: builtins.int
-        CAPTION_FIELD_NUMBER: builtins.int
-        groupJID: builtins.str
-        inviteCode: builtins.str
-        inviteExpiration: builtins.int
-        groupName: builtins.str
-        JPEGThumbnail: builtins.bytes
-        @property
-        def caption(self) -> waCommon.WACommon_pb2.MessageText: ...
+        GROUPJID_FIELD_NUMBER: _builtins.int
+        INVITECODE_FIELD_NUMBER: _builtins.int
+        INVITEEXPIRATION_FIELD_NUMBER: _builtins.int
+        GROUPNAME_FIELD_NUMBER: _builtins.int
+        JPEGTHUMBNAIL_FIELD_NUMBER: _builtins.int
+        CAPTION_FIELD_NUMBER: _builtins.int
+        groupJID: _builtins.str
+        inviteCode: _builtins.str
+        inviteExpiration: _builtins.int
+        groupName: _builtins.str
+        JPEGThumbnail: _builtins.bytes
+        @_builtins.property
+        def caption(self) -> _WACommon_pb2.MessageText: ...
         def __init__(
             self,
             *,
-            groupJID: builtins.str | None = ...,
-            inviteCode: builtins.str | None = ...,
-            inviteExpiration: builtins.int | None = ...,
-            groupName: builtins.str | None = ...,
-            JPEGThumbnail: builtins.bytes | None = ...,
-            caption: waCommon.WACommon_pb2.MessageText | None = ...,
+            groupJID: _builtins.str | None = ...,
+            inviteCode: _builtins.str | None = ...,
+            inviteExpiration: _builtins.int | None = ...,
+            groupName: _builtins.str | None = ...,
+            JPEGThumbnail: _builtins.bytes | None = ...,
+            caption: _WACommon_pb2.MessageText | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "groupJID", b"groupJID", "groupName", b"groupName", "inviteCode", b"inviteCode", "inviteExpiration", b"inviteExpiration"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "groupJID", b"groupJID", "groupName", b"groupName", "inviteCode", b"inviteCode", "inviteExpiration", b"inviteExpiration"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "groupJID", b"groupJID", "groupName", b"groupName", "inviteCode", b"inviteCode", "inviteExpiration", b"inviteExpiration"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["JPEGThumbnail", b"JPEGThumbnail", "caption", b"caption", "groupJID", b"groupJID", "groupName", b"groupName", "inviteCode", b"inviteCode", "inviteExpiration", b"inviteExpiration"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class LiveLocationMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class LiveLocationMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        LOCATION_FIELD_NUMBER: builtins.int
-        ACCURACYINMETERS_FIELD_NUMBER: builtins.int
-        SPEEDINMPS_FIELD_NUMBER: builtins.int
-        DEGREESCLOCKWISEFROMMAGNETICNORTH_FIELD_NUMBER: builtins.int
-        CAPTION_FIELD_NUMBER: builtins.int
-        SEQUENCENUMBER_FIELD_NUMBER: builtins.int
-        TIMEOFFSET_FIELD_NUMBER: builtins.int
-        accuracyInMeters: builtins.int
-        speedInMps: builtins.float
-        degreesClockwiseFromMagneticNorth: builtins.int
-        sequenceNumber: builtins.int
-        timeOffset: builtins.int
-        @property
+        LOCATION_FIELD_NUMBER: _builtins.int
+        ACCURACYINMETERS_FIELD_NUMBER: _builtins.int
+        SPEEDINMPS_FIELD_NUMBER: _builtins.int
+        DEGREESCLOCKWISEFROMMAGNETICNORTH_FIELD_NUMBER: _builtins.int
+        CAPTION_FIELD_NUMBER: _builtins.int
+        SEQUENCENUMBER_FIELD_NUMBER: _builtins.int
+        TIMEOFFSET_FIELD_NUMBER: _builtins.int
+        accuracyInMeters: _builtins.int
+        speedInMps: _builtins.float
+        degreesClockwiseFromMagneticNorth: _builtins.int
+        sequenceNumber: _builtins.int
+        timeOffset: _builtins.int
+        @_builtins.property
         def location(self) -> Global___ConsumerApplication.Location: ...
-        @property
-        def caption(self) -> waCommon.WACommon_pb2.MessageText: ...
+        @_builtins.property
+        def caption(self) -> _WACommon_pb2.MessageText: ...
         def __init__(
             self,
             *,
             location: Global___ConsumerApplication.Location | None = ...,
-            accuracyInMeters: builtins.int | None = ...,
-            speedInMps: builtins.float | None = ...,
-            degreesClockwiseFromMagneticNorth: builtins.int | None = ...,
-            caption: waCommon.WACommon_pb2.MessageText | None = ...,
-            sequenceNumber: builtins.int | None = ...,
-            timeOffset: builtins.int | None = ...,
+            accuracyInMeters: _builtins.int | None = ...,
+            speedInMps: _builtins.float | None = ...,
+            degreesClockwiseFromMagneticNorth: _builtins.int | None = ...,
+            caption: _WACommon_pb2.MessageText | None = ...,
+            sequenceNumber: _builtins.int | None = ...,
+            timeOffset: _builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["accuracyInMeters", b"accuracyInMeters", "caption", b"caption", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "location", b"location", "sequenceNumber", b"sequenceNumber", "speedInMps", b"speedInMps", "timeOffset", b"timeOffset"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["accuracyInMeters", b"accuracyInMeters", "caption", b"caption", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "location", b"location", "sequenceNumber", b"sequenceNumber", "speedInMps", b"speedInMps", "timeOffset", b"timeOffset"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["accuracyInMeters", b"accuracyInMeters", "caption", b"caption", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "location", b"location", "sequenceNumber", b"sequenceNumber", "speedInMps", b"speedInMps", "timeOffset", b"timeOffset"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["accuracyInMeters", b"accuracyInMeters", "caption", b"caption", "degreesClockwiseFromMagneticNorth", b"degreesClockwiseFromMagneticNorth", "location", b"location", "sequenceNumber", b"sequenceNumber", "speedInMps", b"speedInMps", "timeOffset", b"timeOffset"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ContactsArrayMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ContactsArrayMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        DISPLAYNAME_FIELD_NUMBER: builtins.int
-        CONTACTS_FIELD_NUMBER: builtins.int
-        displayName: builtins.str
-        @property
-        def contacts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ConsumerApplication.ContactMessage]: ...
+        DISPLAYNAME_FIELD_NUMBER: _builtins.int
+        CONTACTS_FIELD_NUMBER: _builtins.int
+        displayName: _builtins.str
+        @_builtins.property
+        def contacts(self) -> _containers.RepeatedCompositeFieldContainer[Global___ConsumerApplication.ContactMessage]: ...
         def __init__(
             self,
             *,
-            displayName: builtins.str | None = ...,
-            contacts: collections.abc.Iterable[Global___ConsumerApplication.ContactMessage] | None = ...,
+            displayName: _builtins.str | None = ...,
+            contacts: _abc.Iterable[Global___ConsumerApplication.ContactMessage] | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["displayName", b"displayName"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["contacts", b"contacts", "displayName", b"displayName"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["displayName", b"displayName"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["contacts", b"contacts", "displayName", b"displayName"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ContactMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ContactMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        CONTACT_FIELD_NUMBER: builtins.int
-        @property
-        def contact(self) -> waCommon.WACommon_pb2.SubProtocol: ...
+        CONTACT_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def contact(self) -> _WACommon_pb2.SubProtocol: ...
         def __init__(
             self,
             *,
-            contact: waCommon.WACommon_pb2.SubProtocol | None = ...,
+            contact: _WACommon_pb2.SubProtocol | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["contact", b"contact"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["contact", b"contact"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["contact", b"contact"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["contact", b"contact"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class StatusTextMesage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class StatusTextMesage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _FontType:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _FontTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConsumerApplication.StatusTextMesage._FontType.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _FontTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ConsumerApplication.StatusTextMesage._FontType.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             SANS_SERIF: ConsumerApplication.StatusTextMesage._FontType.ValueType  # 0
             SERIF: ConsumerApplication.StatusTextMesage._FontType.ValueType  # 1
             NORICAN_REGULAR: ConsumerApplication.StatusTextMesage._FontType.ValueType  # 2
@@ -522,36 +567,38 @@ class ConsumerApplication(google.protobuf.message.Message):
         BEBASNEUE_REGULAR: ConsumerApplication.StatusTextMesage.FontType.ValueType  # 4
         OSWALD_HEAVY: ConsumerApplication.StatusTextMesage.FontType.ValueType  # 5
 
-        TEXT_FIELD_NUMBER: builtins.int
-        TEXTARGB_FIELD_NUMBER: builtins.int
-        BACKGROUNDARGB_FIELD_NUMBER: builtins.int
-        FONT_FIELD_NUMBER: builtins.int
-        textArgb: builtins.int
-        backgroundArgb: builtins.int
+        TEXT_FIELD_NUMBER: _builtins.int
+        TEXTARGB_FIELD_NUMBER: _builtins.int
+        BACKGROUNDARGB_FIELD_NUMBER: _builtins.int
+        FONT_FIELD_NUMBER: _builtins.int
+        textArgb: _builtins.int
+        backgroundArgb: _builtins.int
         font: Global___ConsumerApplication.StatusTextMesage.FontType.ValueType
-        @property
+        @_builtins.property
         def text(self) -> Global___ConsumerApplication.ExtendedTextMessage: ...
         def __init__(
             self,
             *,
             text: Global___ConsumerApplication.ExtendedTextMessage | None = ...,
-            textArgb: builtins.int | None = ...,
-            backgroundArgb: builtins.int | None = ...,
+            textArgb: _builtins.int | None = ...,
+            backgroundArgb: _builtins.int | None = ...,
             font: Global___ConsumerApplication.StatusTextMesage.FontType.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["backgroundArgb", b"backgroundArgb", "font", b"font", "text", b"text", "textArgb", b"textArgb"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["backgroundArgb", b"backgroundArgb", "font", b"font", "text", b"text", "textArgb", b"textArgb"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["backgroundArgb", b"backgroundArgb", "font", b"font", "text", b"text", "textArgb", b"textArgb"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["backgroundArgb", b"backgroundArgb", "font", b"font", "text", b"text", "textArgb", b"textArgb"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ExtendedTextMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ExtendedTextMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _PreviewType:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
-        class _PreviewTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConsumerApplication.ExtendedTextMessage._PreviewType.ValueType], builtins.type):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        class _PreviewTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ConsumerApplication.ExtendedTextMessage._PreviewType.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
             NONE: ConsumerApplication.ExtendedTextMessage._PreviewType.ValueType  # 0
             VIDEO: ConsumerApplication.ExtendedTextMessage._PreviewType.ValueType  # 1
 
@@ -559,220 +606,244 @@ class ConsumerApplication(google.protobuf.message.Message):
         NONE: ConsumerApplication.ExtendedTextMessage.PreviewType.ValueType  # 0
         VIDEO: ConsumerApplication.ExtendedTextMessage.PreviewType.ValueType  # 1
 
-        TEXT_FIELD_NUMBER: builtins.int
-        MATCHEDTEXT_FIELD_NUMBER: builtins.int
-        CANONICALURL_FIELD_NUMBER: builtins.int
-        DESCRIPTION_FIELD_NUMBER: builtins.int
-        TITLE_FIELD_NUMBER: builtins.int
-        THUMBNAIL_FIELD_NUMBER: builtins.int
-        PREVIEWTYPE_FIELD_NUMBER: builtins.int
-        matchedText: builtins.str
-        canonicalURL: builtins.str
-        description: builtins.str
-        title: builtins.str
+        TEXT_FIELD_NUMBER: _builtins.int
+        MATCHEDTEXT_FIELD_NUMBER: _builtins.int
+        CANONICALURL_FIELD_NUMBER: _builtins.int
+        DESCRIPTION_FIELD_NUMBER: _builtins.int
+        TITLE_FIELD_NUMBER: _builtins.int
+        THUMBNAIL_FIELD_NUMBER: _builtins.int
+        PREVIEWTYPE_FIELD_NUMBER: _builtins.int
+        matchedText: _builtins.str
+        canonicalURL: _builtins.str
+        description: _builtins.str
+        title: _builtins.str
         previewType: Global___ConsumerApplication.ExtendedTextMessage.PreviewType.ValueType
-        @property
-        def text(self) -> waCommon.WACommon_pb2.MessageText: ...
-        @property
-        def thumbnail(self) -> waCommon.WACommon_pb2.SubProtocol: ...
+        @_builtins.property
+        def text(self) -> _WACommon_pb2.MessageText: ...
+        @_builtins.property
+        def thumbnail(self) -> _WACommon_pb2.SubProtocol: ...
         def __init__(
             self,
             *,
-            text: waCommon.WACommon_pb2.MessageText | None = ...,
-            matchedText: builtins.str | None = ...,
-            canonicalURL: builtins.str | None = ...,
-            description: builtins.str | None = ...,
-            title: builtins.str | None = ...,
-            thumbnail: waCommon.WACommon_pb2.SubProtocol | None = ...,
+            text: _WACommon_pb2.MessageText | None = ...,
+            matchedText: _builtins.str | None = ...,
+            canonicalURL: _builtins.str | None = ...,
+            description: _builtins.str | None = ...,
+            title: _builtins.str | None = ...,
+            thumbnail: _WACommon_pb2.SubProtocol | None = ...,
             previewType: Global___ConsumerApplication.ExtendedTextMessage.PreviewType.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["canonicalURL", b"canonicalURL", "description", b"description", "matchedText", b"matchedText", "previewType", b"previewType", "text", b"text", "thumbnail", b"thumbnail", "title", b"title"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["canonicalURL", b"canonicalURL", "description", b"description", "matchedText", b"matchedText", "previewType", b"previewType", "text", b"text", "thumbnail", b"thumbnail", "title", b"title"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["canonicalURL", b"canonicalURL", "description", b"description", "matchedText", b"matchedText", "previewType", b"previewType", "text", b"text", "thumbnail", b"thumbnail", "title", b"title"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["canonicalURL", b"canonicalURL", "description", b"description", "matchedText", b"matchedText", "previewType", b"previewType", "text", b"text", "thumbnail", b"thumbnail", "title", b"title"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class LocationMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class LocationMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        LOCATION_FIELD_NUMBER: builtins.int
-        ADDRESS_FIELD_NUMBER: builtins.int
-        address: builtins.str
-        @property
+        LOCATION_FIELD_NUMBER: _builtins.int
+        ADDRESS_FIELD_NUMBER: _builtins.int
+        address: _builtins.str
+        @_builtins.property
         def location(self) -> Global___ConsumerApplication.Location: ...
         def __init__(
             self,
             *,
             location: Global___ConsumerApplication.Location | None = ...,
-            address: builtins.str | None = ...,
+            address: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["address", b"address", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["address", b"address", "location", b"location"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["address", b"address", "location", b"location"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["address", b"address", "location", b"location"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class StickerMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class StickerMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        STICKER_FIELD_NUMBER: builtins.int
-        @property
-        def sticker(self) -> waCommon.WACommon_pb2.SubProtocol: ...
+        STICKER_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def sticker(self) -> _WACommon_pb2.SubProtocol: ...
         def __init__(
             self,
             *,
-            sticker: waCommon.WACommon_pb2.SubProtocol | None = ...,
+            sticker: _WACommon_pb2.SubProtocol | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["sticker", b"sticker"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["sticker", b"sticker"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["sticker", b"sticker"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["sticker", b"sticker"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class DocumentMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class DocumentMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        DOCUMENT_FIELD_NUMBER: builtins.int
-        FILENAME_FIELD_NUMBER: builtins.int
-        fileName: builtins.str
-        @property
-        def document(self) -> waCommon.WACommon_pb2.SubProtocol: ...
+        DOCUMENT_FIELD_NUMBER: _builtins.int
+        FILENAME_FIELD_NUMBER: _builtins.int
+        fileName: _builtins.str
+        @_builtins.property
+        def document(self) -> _WACommon_pb2.SubProtocol: ...
         def __init__(
             self,
             *,
-            document: waCommon.WACommon_pb2.SubProtocol | None = ...,
-            fileName: builtins.str | None = ...,
+            document: _WACommon_pb2.SubProtocol | None = ...,
+            fileName: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["document", b"document", "fileName", b"fileName"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["document", b"document", "fileName", b"fileName"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["document", b"document", "fileName", b"fileName"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["document", b"document", "fileName", b"fileName"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class VideoMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class VideoMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        VIDEO_FIELD_NUMBER: builtins.int
-        CAPTION_FIELD_NUMBER: builtins.int
-        @property
-        def video(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-        @property
-        def caption(self) -> waCommon.WACommon_pb2.MessageText: ...
+        VIDEO_FIELD_NUMBER: _builtins.int
+        CAPTION_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def video(self) -> _WACommon_pb2.SubProtocol: ...
+        @_builtins.property
+        def caption(self) -> _WACommon_pb2.MessageText: ...
         def __init__(
             self,
             *,
-            video: waCommon.WACommon_pb2.SubProtocol | None = ...,
-            caption: waCommon.WACommon_pb2.MessageText | None = ...,
+            video: _WACommon_pb2.SubProtocol | None = ...,
+            caption: _WACommon_pb2.MessageText | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["caption", b"caption", "video", b"video"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["caption", b"caption", "video", b"video"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["caption", b"caption", "video", b"video"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["caption", b"caption", "video", b"video"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class AudioMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class AudioMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        AUDIO_FIELD_NUMBER: builtins.int
-        PTT_FIELD_NUMBER: builtins.int
-        PTT: builtins.bool
-        @property
-        def audio(self) -> waCommon.WACommon_pb2.SubProtocol: ...
+        AUDIO_FIELD_NUMBER: _builtins.int
+        PTT_FIELD_NUMBER: _builtins.int
+        PTT: _builtins.bool
+        @_builtins.property
+        def audio(self) -> _WACommon_pb2.SubProtocol: ...
         def __init__(
             self,
             *,
-            audio: waCommon.WACommon_pb2.SubProtocol | None = ...,
-            PTT: builtins.bool | None = ...,
+            audio: _WACommon_pb2.SubProtocol | None = ...,
+            PTT: _builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["PTT", b"PTT", "audio", b"audio"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["PTT", b"PTT", "audio", b"audio"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["PTT", b"PTT", "audio", b"audio"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["PTT", b"PTT", "audio", b"audio"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ImageMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ImageMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        IMAGE_FIELD_NUMBER: builtins.int
-        CAPTION_FIELD_NUMBER: builtins.int
-        @property
-        def image(self) -> waCommon.WACommon_pb2.SubProtocol: ...
-        @property
-        def caption(self) -> waCommon.WACommon_pb2.MessageText: ...
+        IMAGE_FIELD_NUMBER: _builtins.int
+        CAPTION_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def image(self) -> _WACommon_pb2.SubProtocol: ...
+        @_builtins.property
+        def caption(self) -> _WACommon_pb2.MessageText: ...
         def __init__(
             self,
             *,
-            image: waCommon.WACommon_pb2.SubProtocol | None = ...,
-            caption: waCommon.WACommon_pb2.MessageText | None = ...,
+            image: _WACommon_pb2.SubProtocol | None = ...,
+            caption: _WACommon_pb2.MessageText | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["caption", b"caption", "image", b"image"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["caption", b"caption", "image", b"image"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["caption", b"caption", "image", b"image"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["caption", b"caption", "image", b"image"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class InteractiveAnnotation(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class InteractiveAnnotation(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        LOCATION_FIELD_NUMBER: builtins.int
-        POLYGONVERTICES_FIELD_NUMBER: builtins.int
-        @property
+        LOCATION_FIELD_NUMBER: _builtins.int
+        POLYGONVERTICES_FIELD_NUMBER: _builtins.int
+        @_builtins.property
         def location(self) -> Global___ConsumerApplication.Location: ...
-        @property
-        def polygonVertices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___ConsumerApplication.Point]: ...
+        @_builtins.property
+        def polygonVertices(self) -> _containers.RepeatedCompositeFieldContainer[Global___ConsumerApplication.Point]: ...
         def __init__(
             self,
             *,
             location: Global___ConsumerApplication.Location | None = ...,
-            polygonVertices: collections.abc.Iterable[Global___ConsumerApplication.Point] | None = ...,
+            polygonVertices: _abc.Iterable[Global___ConsumerApplication.Point] | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["action", b"action", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["action", b"action", "location", b"location", "polygonVertices", b"polygonVertices"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["action", b"action"]) -> typing.Literal["location"] | None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["action", b"action", "location", b"location"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["action", b"action", "location", b"location", "polygonVertices", b"polygonVertices"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        _WhichOneofReturnType_action: _TypeAlias = _typing.Literal["location"]  # noqa: Y015
+        _WhichOneofArgType_action: _TypeAlias = _typing.Literal["action", b"action"]  # noqa: Y015
+        def WhichOneof(self, oneof_group: _WhichOneofArgType_action) -> _WhichOneofReturnType_action | None: ...
 
-    @typing.final
-    class Point(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Point(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        X_FIELD_NUMBER: builtins.int
-        Y_FIELD_NUMBER: builtins.int
-        x: builtins.float
-        y: builtins.float
+        X_FIELD_NUMBER: _builtins.int
+        Y_FIELD_NUMBER: _builtins.int
+        x: _builtins.float
+        y: _builtins.float
         def __init__(
             self,
             *,
-            x: builtins.float | None = ...,
-            y: builtins.float | None = ...,
+            x: _builtins.float | None = ...,
+            y: _builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["x", b"x", "y", b"y"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["x", b"x", "y", b"y"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["x", b"x", "y", b"y"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["x", b"x", "y", b"y"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class Location(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Location(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        DEGREESLATITUDE_FIELD_NUMBER: builtins.int
-        DEGREESLONGITUDE_FIELD_NUMBER: builtins.int
-        NAME_FIELD_NUMBER: builtins.int
-        degreesLatitude: builtins.float
-        degreesLongitude: builtins.float
-        name: builtins.str
+        DEGREESLATITUDE_FIELD_NUMBER: _builtins.int
+        DEGREESLONGITUDE_FIELD_NUMBER: _builtins.int
+        NAME_FIELD_NUMBER: _builtins.int
+        degreesLatitude: _builtins.float
+        degreesLongitude: _builtins.float
+        name: _builtins.str
         def __init__(
             self,
             *,
-            degreesLatitude: builtins.float | None = ...,
-            degreesLongitude: builtins.float | None = ...,
-            name: builtins.str | None = ...,
+            degreesLatitude: _builtins.float | None = ...,
+            degreesLongitude: _builtins.float | None = ...,
+            name: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "name", b"name"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "name", b"name"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "name", b"name"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["degreesLatitude", b"degreesLatitude", "degreesLongitude", b"degreesLongitude", "name", b"name"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class MediaPayload(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class MediaPayload(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        PROTOCOL_FIELD_NUMBER: builtins.int
-        @property
-        def protocol(self) -> waCommon.WACommon_pb2.SubProtocol: ...
+        PROTOCOL_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def protocol(self) -> _WACommon_pb2.SubProtocol: ...
         def __init__(
             self,
             *,
-            protocol: waCommon.WACommon_pb2.SubProtocol | None = ...,
+            protocol: _WACommon_pb2.SubProtocol | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["protocol", b"protocol"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["protocol", b"protocol"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["protocol", b"protocol"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["protocol", b"protocol"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    PAYLOAD_FIELD_NUMBER: builtins.int
-    METADATA_FIELD_NUMBER: builtins.int
-    @property
+    PAYLOAD_FIELD_NUMBER: _builtins.int
+    METADATA_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def payload(self) -> Global___ConsumerApplication.Payload: ...
-    @property
+    @_builtins.property
     def metadata(self) -> Global___ConsumerApplication.Metadata: ...
     def __init__(
         self,
@@ -780,7 +851,9 @@ class ConsumerApplication(google.protobuf.message.Message):
         payload: Global___ConsumerApplication.Payload | None = ...,
         metadata: Global___ConsumerApplication.Metadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["metadata", b"metadata", "payload", b"payload"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["metadata", b"metadata", "payload", b"payload"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["metadata", b"metadata", "payload", b"payload"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ConsumerApplication: typing_extensions.TypeAlias = ConsumerApplication
+Global___ConsumerApplication: _TypeAlias = ConsumerApplication  # noqa: Y015
