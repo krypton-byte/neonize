@@ -29,6 +29,7 @@ import (
 	"go.mau.fi/whatsmeow/proto/waConsumerApplication"
 	waE2E "go.mau.fi/whatsmeow/proto/waE2E"
 	"go.mau.fi/whatsmeow/proto/waMsgApplication"
+	"go.mau.fi/whatsmeow/appstate"
 	"go.mau.fi/whatsmeow/store"
 	"go.mau.fi/whatsmeow/store/sqlstore"
 	"go.mau.fi/whatsmeow/types"
@@ -235,6 +236,19 @@ func GenerateWABinary(ctx context.Context, to types.JID, msg *waE2E.Message) *[]
 	}
 
 	return &nodes
+}
+
+//export SetPushName
+func SetPushName(id *C.char, name *C.char) *C.char {
+    client, exists := clients[C.GoString(id)]
+    if !exists {
+        return C.CString("client not found")
+    }
+    err := client.SendAppState(context.Background(),appstate.BuildSettingPushName(C.GoString(name)))
+    if err != nil {
+        return C.CString(err.Error())
+    }
+    return C.CString("")
 }
 
 //export GetPNFromLID
