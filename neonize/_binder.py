@@ -507,6 +507,8 @@ if not os.environ.get("SPHINX"):
     gocode.StopAll.restype = ctypes.c_void_p
     gocode.FreeBytesStruct.argtypes = [ctypes.POINTER(Bytes)]
     gocode.FreeBytesStruct.restype = None
+    gocode.SetPushName.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+    gocode.SetPushName.restype = ctypes.c_char_p
 else:
     gocode: Any = object()
 
