@@ -3,49 +3,55 @@
 isort:skip_file
 """
 
-import builtins
-import google.protobuf.descriptor
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class ActionLog(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ActionLog(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ACTIONLOGREACTION_FIELD_NUMBER: builtins.int
-    @property
+    ACTIONLOGREACTION_FIELD_NUMBER: _builtins.int
+    @_builtins.property
     def actionLogReaction(self) -> Global___ActionLogReaction: ...
     def __init__(
         self,
         *,
         actionLogReaction: Global___ActionLogReaction | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["actionLogReaction", b"actionLogReaction", "actionLogSubtype", b"actionLogSubtype"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["actionLogReaction", b"actionLogReaction", "actionLogSubtype", b"actionLogSubtype"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["actionLogSubtype", b"actionLogSubtype"]) -> typing.Literal["actionLogReaction"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["actionLogReaction", b"actionLogReaction", "actionLogSubtype", b"actionLogSubtype"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["actionLogReaction", b"actionLogReaction", "actionLogSubtype", b"actionLogSubtype"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_actionLogSubtype: _TypeAlias = _typing.Literal["actionLogReaction"]  # noqa: Y015
+    _WhichOneofArgType_actionLogSubtype: _TypeAlias = _typing.Literal["actionLogSubtype", b"actionLogSubtype"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_actionLogSubtype) -> _WhichOneofReturnType_actionLogSubtype | None: ...
 
-Global___ActionLog: typing_extensions.TypeAlias = ActionLog
+Global___ActionLog: _TypeAlias = ActionLog  # noqa: Y015
 
-@typing.final
-class ActionLogReaction(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ActionLogReaction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    EMOJIUNICODE_FIELD_NUMBER: builtins.int
-    emojiUnicode: builtins.str
+    EMOJIUNICODE_FIELD_NUMBER: _builtins.int
+    emojiUnicode: _builtins.str
     def __init__(
         self,
         *,
-        emojiUnicode: builtins.str | None = ...,
+        emojiUnicode: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["emojiUnicode", b"emojiUnicode"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["emojiUnicode", b"emojiUnicode"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["emojiUnicode", b"emojiUnicode"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["emojiUnicode", b"emojiUnicode"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___ActionLogReaction: typing_extensions.TypeAlias = ActionLogReaction
+Global___ActionLogReaction: _TypeAlias = ActionLogReaction  # noqa: Y015

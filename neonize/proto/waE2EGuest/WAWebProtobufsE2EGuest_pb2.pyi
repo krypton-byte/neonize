@@ -3,94 +3,102 @@
 isort:skip_file
 """
 
-import builtins
-import google.protobuf.descriptor
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class Message(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Message(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class ExtendedTextMessage(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ExtendedTextMessage(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        TEXT_FIELD_NUMBER: builtins.int
-        CONTEXTINFO_FIELD_NUMBER: builtins.int
-        text: builtins.str
-        @property
+        TEXT_FIELD_NUMBER: _builtins.int
+        CONTEXTINFO_FIELD_NUMBER: _builtins.int
+        text: _builtins.str
+        @_builtins.property
         def contextInfo(self) -> Global___Message.ContextInfo: ...
         def __init__(
             self,
             *,
-            text: builtins.str | None = ...,
+            text: _builtins.str | None = ...,
             contextInfo: Global___Message.ContextInfo | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "text", b"text"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["contextInfo", b"contextInfo", "text", b"text"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "text", b"text"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["contextInfo", b"contextInfo", "text", b"text"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class ContextInfo(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ContextInfo(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        STANZAID_FIELD_NUMBER: builtins.int
-        PARTICIPANT_FIELD_NUMBER: builtins.int
-        QUOTEDMESSAGE_FIELD_NUMBER: builtins.int
-        stanzaID: builtins.str
-        participant: builtins.str
-        @property
+        STANZAID_FIELD_NUMBER: _builtins.int
+        PARTICIPANT_FIELD_NUMBER: _builtins.int
+        QUOTEDMESSAGE_FIELD_NUMBER: _builtins.int
+        stanzaID: _builtins.str
+        participant: _builtins.str
+        @_builtins.property
         def quotedMessage(self) -> Global___Message: ...
         def __init__(
             self,
             *,
-            stanzaID: builtins.str | None = ...,
-            participant: builtins.str | None = ...,
+            stanzaID: _builtins.str | None = ...,
+            participant: _builtins.str | None = ...,
             quotedMessage: Global___Message | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["participant", b"participant", "quotedMessage", b"quotedMessage", "stanzaID", b"stanzaID"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["participant", b"participant", "quotedMessage", b"quotedMessage", "stanzaID", b"stanzaID"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["participant", b"participant", "quotedMessage", b"quotedMessage", "stanzaID", b"stanzaID"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["participant", b"participant", "quotedMessage", b"quotedMessage", "stanzaID", b"stanzaID"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    CONVERSATION_FIELD_NUMBER: builtins.int
-    EXTENDEDTEXTMESSAGE_FIELD_NUMBER: builtins.int
-    MESSAGECONTEXTINFO_FIELD_NUMBER: builtins.int
-    conversation: builtins.str
-    @property
+    CONVERSATION_FIELD_NUMBER: _builtins.int
+    EXTENDEDTEXTMESSAGE_FIELD_NUMBER: _builtins.int
+    MESSAGECONTEXTINFO_FIELD_NUMBER: _builtins.int
+    conversation: _builtins.str
+    @_builtins.property
     def extendedTextMessage(self) -> Global___Message.ExtendedTextMessage: ...
-    @property
+    @_builtins.property
     def messageContextInfo(self) -> Global___MessageContextInfo: ...
     def __init__(
         self,
         *,
-        conversation: builtins.str | None = ...,
+        conversation: _builtins.str | None = ...,
         extendedTextMessage: Global___Message.ExtendedTextMessage | None = ...,
         messageContextInfo: Global___MessageContextInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["conversation", b"conversation", "extendedTextMessage", b"extendedTextMessage", "messageContextInfo", b"messageContextInfo"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["conversation", b"conversation", "extendedTextMessage", b"extendedTextMessage", "messageContextInfo", b"messageContextInfo"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["conversation", b"conversation", "extendedTextMessage", b"extendedTextMessage", "messageContextInfo", b"messageContextInfo"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["conversation", b"conversation", "extendedTextMessage", b"extendedTextMessage", "messageContextInfo", b"messageContextInfo"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___Message: typing_extensions.TypeAlias = Message
+Global___Message: _TypeAlias = Message  # noqa: Y015
 
-@typing.final
-class MessageContextInfo(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MessageContextInfo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MESSAGESECRET_FIELD_NUMBER: builtins.int
-    messageSecret: builtins.bytes
+    MESSAGESECRET_FIELD_NUMBER: _builtins.int
+    messageSecret: _builtins.bytes
     def __init__(
         self,
         *,
-        messageSecret: builtins.bytes | None = ...,
+        messageSecret: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["messageSecret", b"messageSecret"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["messageSecret", b"messageSecret"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["messageSecret", b"messageSecret"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["messageSecret", b"messageSecret"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___MessageContextInfo: typing_extensions.TypeAlias = MessageContextInfo
+Global___MessageContextInfo: _TypeAlias = MessageContextInfo  # noqa: Y015
