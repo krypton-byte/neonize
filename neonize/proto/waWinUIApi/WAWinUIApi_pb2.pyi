@@ -3,28 +3,28 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _PositronDataSource:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _PositronDataSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PositronDataSource.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _PositronDataSourceEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_PositronDataSource.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     MESSAGES: _PositronDataSource.ValueType  # 1
     CHATS: _PositronDataSource.ValueType  # 2
     CONTACTS: _PositronDataSource.ValueType  # 3
@@ -40,244 +40,262 @@ CONTACTS: PositronDataSource.ValueType  # 3
 GROUP_METADATA: PositronDataSource.ValueType  # 4
 GROUP_PARTICIPANTS: PositronDataSource.ValueType  # 5
 REACTIONS: PositronDataSource.ValueType  # 6
-Global___PositronDataSource: typing_extensions.TypeAlias = PositronDataSource
+Global___PositronDataSource: _TypeAlias = PositronDataSource  # noqa: Y015
 
-@typing.final
-class PositronMessage(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PositronMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class MsgKey(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class MsgKey(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        FROMME_FIELD_NUMBER: builtins.int
-        REMOTE_FIELD_NUMBER: builtins.int
-        ID_FIELD_NUMBER: builtins.int
-        PARTICIPANT_FIELD_NUMBER: builtins.int
-        fromMe: builtins.bool
-        ID: builtins.str
-        @property
+        FROMME_FIELD_NUMBER: _builtins.int
+        REMOTE_FIELD_NUMBER: _builtins.int
+        ID_FIELD_NUMBER: _builtins.int
+        PARTICIPANT_FIELD_NUMBER: _builtins.int
+        fromMe: _builtins.bool
+        ID: _builtins.str
+        @_builtins.property
         def remote(self) -> Global___PositronMessage.WID: ...
-        @property
+        @_builtins.property
         def participant(self) -> Global___PositronMessage.WID: ...
         def __init__(
             self,
             *,
-            fromMe: builtins.bool | None = ...,
+            fromMe: _builtins.bool | None = ...,
             remote: Global___PositronMessage.WID | None = ...,
-            ID: builtins.str | None = ...,
+            ID: _builtins.str | None = ...,
             participant: Global___PositronMessage.WID | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["ID", b"ID", "fromMe", b"fromMe", "participant", b"participant", "remote", b"remote"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["ID", b"ID", "fromMe", b"fromMe", "participant", b"participant", "remote", b"remote"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "fromMe", b"fromMe", "participant", b"participant", "remote", b"remote"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "fromMe", b"fromMe", "participant", b"participant", "remote", b"remote"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    @typing.final
-    class WID(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class WID(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        SERIALIZED_FIELD_NUMBER: builtins.int
-        serialized: builtins.str
+        SERIALIZED_FIELD_NUMBER: _builtins.int
+        serialized: _builtins.str
         def __init__(
             self,
             *,
-            serialized: builtins.str | None = ...,
+            serialized: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["serialized", b"serialized"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["serialized", b"serialized"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["serialized", b"serialized"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["serialized", b"serialized"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-    TIMESTAMP_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
-    BODY_FIELD_NUMBER: builtins.int
-    ID_FIELD_NUMBER: builtins.int
-    JSON_FIELD_NUMBER: builtins.int
-    timestamp: builtins.int
-    type: builtins.str
-    body: builtins.str
-    JSON: builtins.str
-    @property
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    BODY_FIELD_NUMBER: _builtins.int
+    ID_FIELD_NUMBER: _builtins.int
+    JSON_FIELD_NUMBER: _builtins.int
+    timestamp: _builtins.int
+    type: _builtins.str
+    body: _builtins.str
+    JSON: _builtins.str
+    @_builtins.property
     def ID(self) -> Global___PositronMessage.MsgKey: ...
     def __init__(
         self,
         *,
-        timestamp: builtins.int | None = ...,
-        type: builtins.str | None = ...,
-        body: builtins.str | None = ...,
+        timestamp: _builtins.int | None = ...,
+        type: _builtins.str | None = ...,
+        body: _builtins.str | None = ...,
         ID: Global___PositronMessage.MsgKey | None = ...,
-        JSON: builtins.str | None = ...,
+        JSON: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ID", b"ID", "JSON", b"JSON", "body", b"body", "timestamp", b"timestamp", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["ID", b"ID", "JSON", b"JSON", "body", b"body", "timestamp", b"timestamp", "type", b"type"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "JSON", b"JSON", "body", b"body", "timestamp", b"timestamp", "type", b"type"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "JSON", b"JSON", "body", b"body", "timestamp", b"timestamp", "type", b"type"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PositronMessage: typing_extensions.TypeAlias = PositronMessage
+Global___PositronMessage: _TypeAlias = PositronMessage  # noqa: Y015
 
-@typing.final
-class PositronChat(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PositronChat(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ID_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    TIMESTAMP_FIELD_NUMBER: builtins.int
-    UNREADCOUNT_FIELD_NUMBER: builtins.int
-    JSON_FIELD_NUMBER: builtins.int
-    ID: builtins.str
-    name: builtins.str
-    timestamp: builtins.int
-    unreadCount: builtins.int
-    JSON: builtins.str
+    ID_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    UNREADCOUNT_FIELD_NUMBER: _builtins.int
+    JSON_FIELD_NUMBER: _builtins.int
+    ID: _builtins.str
+    name: _builtins.str
+    timestamp: _builtins.int
+    unreadCount: _builtins.int
+    JSON: _builtins.str
     def __init__(
         self,
         *,
-        ID: builtins.str | None = ...,
-        name: builtins.str | None = ...,
-        timestamp: builtins.int | None = ...,
-        unreadCount: builtins.int | None = ...,
-        JSON: builtins.str | None = ...,
+        ID: _builtins.str | None = ...,
+        name: _builtins.str | None = ...,
+        timestamp: _builtins.int | None = ...,
+        unreadCount: _builtins.int | None = ...,
+        JSON: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ID", b"ID", "JSON", b"JSON", "name", b"name", "timestamp", b"timestamp", "unreadCount", b"unreadCount"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["ID", b"ID", "JSON", b"JSON", "name", b"name", "timestamp", b"timestamp", "unreadCount", b"unreadCount"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "JSON", b"JSON", "name", b"name", "timestamp", b"timestamp", "unreadCount", b"unreadCount"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "JSON", b"JSON", "name", b"name", "timestamp", b"timestamp", "unreadCount", b"unreadCount"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PositronChat: typing_extensions.TypeAlias = PositronChat
+Global___PositronChat: _TypeAlias = PositronChat  # noqa: Y015
 
-@typing.final
-class PositronContact(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PositronContact(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ID_FIELD_NUMBER: builtins.int
-    PHONENUMBER_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    ISADDRESSBOOKCONTACT_FIELD_NUMBER: builtins.int
-    JSON_FIELD_NUMBER: builtins.int
-    ID: builtins.str
-    phoneNumber: builtins.str
-    name: builtins.str
-    isAddressBookContact: builtins.bool
-    JSON: builtins.str
+    ID_FIELD_NUMBER: _builtins.int
+    PHONENUMBER_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    ISADDRESSBOOKCONTACT_FIELD_NUMBER: _builtins.int
+    JSON_FIELD_NUMBER: _builtins.int
+    ID: _builtins.str
+    phoneNumber: _builtins.str
+    name: _builtins.str
+    isAddressBookContact: _builtins.bool
+    JSON: _builtins.str
     def __init__(
         self,
         *,
-        ID: builtins.str | None = ...,
-        phoneNumber: builtins.str | None = ...,
-        name: builtins.str | None = ...,
-        isAddressBookContact: builtins.bool | None = ...,
-        JSON: builtins.str | None = ...,
+        ID: _builtins.str | None = ...,
+        phoneNumber: _builtins.str | None = ...,
+        name: _builtins.str | None = ...,
+        isAddressBookContact: _builtins.bool | None = ...,
+        JSON: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ID", b"ID", "JSON", b"JSON", "isAddressBookContact", b"isAddressBookContact", "name", b"name", "phoneNumber", b"phoneNumber"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["ID", b"ID", "JSON", b"JSON", "isAddressBookContact", b"isAddressBookContact", "name", b"name", "phoneNumber", b"phoneNumber"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "JSON", b"JSON", "isAddressBookContact", b"isAddressBookContact", "name", b"name", "phoneNumber", b"phoneNumber"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "JSON", b"JSON", "isAddressBookContact", b"isAddressBookContact", "name", b"name", "phoneNumber", b"phoneNumber"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PositronContact: typing_extensions.TypeAlias = PositronContact
+Global___PositronContact: _TypeAlias = PositronContact  # noqa: Y015
 
-@typing.final
-class PositronGroupMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PositronGroupMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ID_FIELD_NUMBER: builtins.int
-    SUBJECT_FIELD_NUMBER: builtins.int
-    JSON_FIELD_NUMBER: builtins.int
-    ID: builtins.str
-    subject: builtins.str
-    JSON: builtins.str
+    ID_FIELD_NUMBER: _builtins.int
+    SUBJECT_FIELD_NUMBER: _builtins.int
+    JSON_FIELD_NUMBER: _builtins.int
+    ID: _builtins.str
+    subject: _builtins.str
+    JSON: _builtins.str
     def __init__(
         self,
         *,
-        ID: builtins.str | None = ...,
-        subject: builtins.str | None = ...,
-        JSON: builtins.str | None = ...,
+        ID: _builtins.str | None = ...,
+        subject: _builtins.str | None = ...,
+        JSON: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ID", b"ID", "JSON", b"JSON", "subject", b"subject"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["ID", b"ID", "JSON", b"JSON", "subject", b"subject"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "JSON", b"JSON", "subject", b"subject"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "JSON", b"JSON", "subject", b"subject"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PositronGroupMetadata: typing_extensions.TypeAlias = PositronGroupMetadata
+Global___PositronGroupMetadata: _TypeAlias = PositronGroupMetadata  # noqa: Y015
 
-@typing.final
-class PositronGroupParticipants(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PositronGroupParticipants(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ID_FIELD_NUMBER: builtins.int
-    PARTICIPANTS_FIELD_NUMBER: builtins.int
-    JSON_FIELD_NUMBER: builtins.int
-    ID: builtins.str
-    JSON: builtins.str
-    @property
-    def participants(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    ID_FIELD_NUMBER: _builtins.int
+    PARTICIPANTS_FIELD_NUMBER: _builtins.int
+    JSON_FIELD_NUMBER: _builtins.int
+    ID: _builtins.str
+    JSON: _builtins.str
+    @_builtins.property
+    def participants(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
     def __init__(
         self,
         *,
-        ID: builtins.str | None = ...,
-        participants: collections.abc.Iterable[builtins.str] | None = ...,
-        JSON: builtins.str | None = ...,
+        ID: _builtins.str | None = ...,
+        participants: _abc.Iterable[_builtins.str] | None = ...,
+        JSON: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ID", b"ID", "JSON", b"JSON"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["ID", b"ID", "JSON", b"JSON", "participants", b"participants"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "JSON", b"JSON"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "JSON", b"JSON", "participants", b"participants"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PositronGroupParticipants: typing_extensions.TypeAlias = PositronGroupParticipants
+Global___PositronGroupParticipants: _TypeAlias = PositronGroupParticipants  # noqa: Y015
 
-@typing.final
-class PositronReaction(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PositronReaction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ID_FIELD_NUMBER: builtins.int
-    PARENTMSGKEY_FIELD_NUMBER: builtins.int
-    REACTIONTEXT_FIELD_NUMBER: builtins.int
-    TIMESTAMP_FIELD_NUMBER: builtins.int
-    SENDERUSERJID_FIELD_NUMBER: builtins.int
-    JSON_FIELD_NUMBER: builtins.int
-    ID: builtins.str
-    parentMsgKey: builtins.str
-    reactionText: builtins.str
-    timestamp: builtins.int
-    senderUserJID: builtins.str
-    JSON: builtins.str
+    ID_FIELD_NUMBER: _builtins.int
+    PARENTMSGKEY_FIELD_NUMBER: _builtins.int
+    REACTIONTEXT_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    SENDERUSERJID_FIELD_NUMBER: _builtins.int
+    JSON_FIELD_NUMBER: _builtins.int
+    ID: _builtins.str
+    parentMsgKey: _builtins.str
+    reactionText: _builtins.str
+    timestamp: _builtins.int
+    senderUserJID: _builtins.str
+    JSON: _builtins.str
     def __init__(
         self,
         *,
-        ID: builtins.str | None = ...,
-        parentMsgKey: builtins.str | None = ...,
-        reactionText: builtins.str | None = ...,
-        timestamp: builtins.int | None = ...,
-        senderUserJID: builtins.str | None = ...,
-        JSON: builtins.str | None = ...,
+        ID: _builtins.str | None = ...,
+        parentMsgKey: _builtins.str | None = ...,
+        reactionText: _builtins.str | None = ...,
+        timestamp: _builtins.int | None = ...,
+        senderUserJID: _builtins.str | None = ...,
+        JSON: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ID", b"ID", "JSON", b"JSON", "parentMsgKey", b"parentMsgKey", "reactionText", b"reactionText", "senderUserJID", b"senderUserJID", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["ID", b"ID", "JSON", b"JSON", "parentMsgKey", b"parentMsgKey", "reactionText", b"reactionText", "senderUserJID", b"senderUserJID", "timestamp", b"timestamp"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "JSON", b"JSON", "parentMsgKey", b"parentMsgKey", "reactionText", b"reactionText", "senderUserJID", b"senderUserJID", "timestamp", b"timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "JSON", b"JSON", "parentMsgKey", b"parentMsgKey", "reactionText", b"reactionText", "senderUserJID", b"senderUserJID", "timestamp", b"timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PositronReaction: typing_extensions.TypeAlias = PositronReaction
+Global___PositronReaction: _TypeAlias = PositronReaction  # noqa: Y015
 
-@typing.final
-class PositronData(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PositronData(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DATASOURCE_FIELD_NUMBER: builtins.int
-    MESSAGES_FIELD_NUMBER: builtins.int
-    CHATS_FIELD_NUMBER: builtins.int
-    CONTACTS_FIELD_NUMBER: builtins.int
-    GROUPMETADATA_FIELD_NUMBER: builtins.int
-    GROUPPARTICIPANTS_FIELD_NUMBER: builtins.int
-    REACTIONS_FIELD_NUMBER: builtins.int
+    DATASOURCE_FIELD_NUMBER: _builtins.int
+    MESSAGES_FIELD_NUMBER: _builtins.int
+    CHATS_FIELD_NUMBER: _builtins.int
+    CONTACTS_FIELD_NUMBER: _builtins.int
+    GROUPMETADATA_FIELD_NUMBER: _builtins.int
+    GROUPPARTICIPANTS_FIELD_NUMBER: _builtins.int
+    REACTIONS_FIELD_NUMBER: _builtins.int
     dataSource: Global___PositronDataSource.ValueType
-    @property
-    def messages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PositronMessage]: ...
-    @property
-    def chats(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PositronChat]: ...
-    @property
-    def contacts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PositronContact]: ...
-    @property
-    def groupMetadata(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PositronGroupMetadata]: ...
-    @property
-    def groupParticipants(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PositronGroupParticipants]: ...
-    @property
-    def reactions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___PositronReaction]: ...
+    @_builtins.property
+    def messages(self) -> _containers.RepeatedCompositeFieldContainer[Global___PositronMessage]: ...
+    @_builtins.property
+    def chats(self) -> _containers.RepeatedCompositeFieldContainer[Global___PositronChat]: ...
+    @_builtins.property
+    def contacts(self) -> _containers.RepeatedCompositeFieldContainer[Global___PositronContact]: ...
+    @_builtins.property
+    def groupMetadata(self) -> _containers.RepeatedCompositeFieldContainer[Global___PositronGroupMetadata]: ...
+    @_builtins.property
+    def groupParticipants(self) -> _containers.RepeatedCompositeFieldContainer[Global___PositronGroupParticipants]: ...
+    @_builtins.property
+    def reactions(self) -> _containers.RepeatedCompositeFieldContainer[Global___PositronReaction]: ...
     def __init__(
         self,
         *,
         dataSource: Global___PositronDataSource.ValueType | None = ...,
-        messages: collections.abc.Iterable[Global___PositronMessage] | None = ...,
-        chats: collections.abc.Iterable[Global___PositronChat] | None = ...,
-        contacts: collections.abc.Iterable[Global___PositronContact] | None = ...,
-        groupMetadata: collections.abc.Iterable[Global___PositronGroupMetadata] | None = ...,
-        groupParticipants: collections.abc.Iterable[Global___PositronGroupParticipants] | None = ...,
-        reactions: collections.abc.Iterable[Global___PositronReaction] | None = ...,
+        messages: _abc.Iterable[Global___PositronMessage] | None = ...,
+        chats: _abc.Iterable[Global___PositronChat] | None = ...,
+        contacts: _abc.Iterable[Global___PositronContact] | None = ...,
+        groupMetadata: _abc.Iterable[Global___PositronGroupMetadata] | None = ...,
+        groupParticipants: _abc.Iterable[Global___PositronGroupParticipants] | None = ...,
+        reactions: _abc.Iterable[Global___PositronReaction] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["dataSource", b"dataSource"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["chats", b"chats", "contacts", b"contacts", "dataSource", b"dataSource", "groupMetadata", b"groupMetadata", "groupParticipants", b"groupParticipants", "messages", b"messages", "reactions", b"reactions"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["dataSource", b"dataSource"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["chats", b"chats", "contacts", b"contacts", "dataSource", b"dataSource", "groupMetadata", b"groupMetadata", "groupParticipants", b"groupParticipants", "messages", b"messages", "reactions", b"reactions"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PositronData: typing_extensions.TypeAlias = PositronData
+Global___PositronData: _TypeAlias = PositronData  # noqa: Y015

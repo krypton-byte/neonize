@@ -3,67 +3,70 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import containers as _containers
+from waCommon import WACommon_pb2 as _WACommon_pb2
+from waWeb import WAWebProtobufsWeb_pb2 as _WAWebProtobufsWeb_pb2
+import builtins as _builtins
 import sys
-import typing
-import waCommon.WACommon_pb2
-import waWeb.WAWebProtobufsWeb_pb2
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class GroupHistory(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class GroupHistory(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MESSAGES_FIELD_NUMBER: builtins.int
-    ASSOCIATEDMESSAGELISTS_FIELD_NUMBER: builtins.int
-    COMMENTMESSAGES_FIELD_NUMBER: builtins.int
-    @property
-    def messages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[waWeb.WAWebProtobufsWeb_pb2.WebMessageInfo]: ...
-    @property
-    def associatedMessageLists(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AssociatedMessageList]: ...
-    @property
-    def commentMessages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[waWeb.WAWebProtobufsWeb_pb2.WebMessageInfo]: ...
+    MESSAGES_FIELD_NUMBER: _builtins.int
+    ASSOCIATEDMESSAGELISTS_FIELD_NUMBER: _builtins.int
+    COMMENTMESSAGES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def messages(self) -> _containers.RepeatedCompositeFieldContainer[_WAWebProtobufsWeb_pb2.WebMessageInfo]: ...
+    @_builtins.property
+    def associatedMessageLists(self) -> _containers.RepeatedCompositeFieldContainer[Global___AssociatedMessageList]: ...
+    @_builtins.property
+    def commentMessages(self) -> _containers.RepeatedCompositeFieldContainer[_WAWebProtobufsWeb_pb2.WebMessageInfo]: ...
     def __init__(
         self,
         *,
-        messages: collections.abc.Iterable[waWeb.WAWebProtobufsWeb_pb2.WebMessageInfo] | None = ...,
-        associatedMessageLists: collections.abc.Iterable[Global___AssociatedMessageList] | None = ...,
-        commentMessages: collections.abc.Iterable[waWeb.WAWebProtobufsWeb_pb2.WebMessageInfo] | None = ...,
+        messages: _abc.Iterable[_WAWebProtobufsWeb_pb2.WebMessageInfo] | None = ...,
+        associatedMessageLists: _abc.Iterable[Global___AssociatedMessageList] | None = ...,
+        commentMessages: _abc.Iterable[_WAWebProtobufsWeb_pb2.WebMessageInfo] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["associatedMessageLists", b"associatedMessageLists", "commentMessages", b"commentMessages", "messages", b"messages"]) -> None: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["associatedMessageLists", b"associatedMessageLists", "commentMessages", b"commentMessages", "messages", b"messages"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___GroupHistory: typing_extensions.TypeAlias = GroupHistory
+Global___GroupHistory: _TypeAlias = GroupHistory  # noqa: Y015
 
-@typing.final
-class AssociatedMessageList(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AssociatedMessageList(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MESSAGES_FIELD_NUMBER: builtins.int
-    PARENTMESSAGE_FIELD_NUMBER: builtins.int
-    ASSOCIATIONTYPE_FIELD_NUMBER: builtins.int
-    associationType: builtins.int
-    @property
-    def messages(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[waWeb.WAWebProtobufsWeb_pb2.WebMessageInfo]: ...
-    @property
-    def parentMessage(self) -> waCommon.WACommon_pb2.MessageKey: ...
+    MESSAGES_FIELD_NUMBER: _builtins.int
+    PARENTMESSAGE_FIELD_NUMBER: _builtins.int
+    ASSOCIATIONTYPE_FIELD_NUMBER: _builtins.int
+    associationType: _builtins.int
+    @_builtins.property
+    def messages(self) -> _containers.RepeatedCompositeFieldContainer[_WAWebProtobufsWeb_pb2.WebMessageInfo]: ...
+    @_builtins.property
+    def parentMessage(self) -> _WACommon_pb2.MessageKey: ...
     def __init__(
         self,
         *,
-        messages: collections.abc.Iterable[waWeb.WAWebProtobufsWeb_pb2.WebMessageInfo] | None = ...,
-        parentMessage: waCommon.WACommon_pb2.MessageKey | None = ...,
-        associationType: builtins.int | None = ...,
+        messages: _abc.Iterable[_WAWebProtobufsWeb_pb2.WebMessageInfo] | None = ...,
+        parentMessage: _WACommon_pb2.MessageKey | None = ...,
+        associationType: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["associationType", b"associationType", "parentMessage", b"parentMessage"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["associationType", b"associationType", "messages", b"messages", "parentMessage", b"parentMessage"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["associationType", b"associationType", "parentMessage", b"parentMessage"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["associationType", b"associationType", "messages", b"messages", "parentMessage", b"parentMessage"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AssociatedMessageList: typing_extensions.TypeAlias = AssociatedMessageList
+Global___AssociatedMessageList: _TypeAlias = AssociatedMessageList  # noqa: Y015

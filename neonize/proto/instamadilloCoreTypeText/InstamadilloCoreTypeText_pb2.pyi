@@ -3,33 +3,33 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import instamadilloCoreTypeMedia.InstamadilloCoreTypeMedia_pb2
+from collections import abc as _abc
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf.internal import containers as _containers
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from instamadilloCoreTypeMedia import InstamadilloCoreTypeMedia_pb2 as _InstamadilloCoreTypeMedia_pb2
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing_extensions import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class Text(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Text(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _FormatStyle:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _FormatStyleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Text._FormatStyle.ValueType], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _FormatStyleEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[Text._FormatStyle.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         TEXT_FORMAT_STYLE_UNSPECIFIED: Text._FormatStyle.ValueType  # 0
         TEXT_FORMAT_STYLE_BOLD: Text._FormatStyle.ValueType  # 1
         TEXT_FORMAT_STYLE_ITALIC: Text._FormatStyle.ValueType  # 2
@@ -45,121 +45,131 @@ class Text(google.protobuf.message.Message):
     TEXT_FORMAT_STYLE_UNDERLINE: Text.FormatStyle.ValueType  # 4
     TEXT_FORMAT_STYLE_INVALID: Text.FormatStyle.ValueType  # 5
 
-    TEXT_FIELD_NUMBER: builtins.int
-    ISSUGGESTEDREPLY_FIELD_NUMBER: builtins.int
-    POSTBACKPAYLOAD_FIELD_NUMBER: builtins.int
-    POWERUPDATA_FIELD_NUMBER: builtins.int
-    COMMANDS_FIELD_NUMBER: builtins.int
-    ANIMATEDEMOJICHARACTERRANGES_FIELD_NUMBER: builtins.int
-    text: builtins.str
-    isSuggestedReply: builtins.bool
-    postbackPayload: builtins.str
-    @property
+    TEXT_FIELD_NUMBER: _builtins.int
+    ISSUGGESTEDREPLY_FIELD_NUMBER: _builtins.int
+    POSTBACKPAYLOAD_FIELD_NUMBER: _builtins.int
+    POWERUPDATA_FIELD_NUMBER: _builtins.int
+    COMMANDS_FIELD_NUMBER: _builtins.int
+    ANIMATEDEMOJICHARACTERRANGES_FIELD_NUMBER: _builtins.int
+    text: _builtins.str
+    isSuggestedReply: _builtins.bool
+    postbackPayload: _builtins.str
+    @_builtins.property
     def powerUpData(self) -> Global___PowerUpsData: ...
-    @property
-    def commands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___CommandRangeData]: ...
-    @property
-    def animatedEmojiCharacterRanges(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AnimatedEmojiCharacterRange]: ...
+    @_builtins.property
+    def commands(self) -> _containers.RepeatedCompositeFieldContainer[Global___CommandRangeData]: ...
+    @_builtins.property
+    def animatedEmojiCharacterRanges(self) -> _containers.RepeatedCompositeFieldContainer[Global___AnimatedEmojiCharacterRange]: ...
     def __init__(
         self,
         *,
-        text: builtins.str | None = ...,
-        isSuggestedReply: builtins.bool | None = ...,
-        postbackPayload: builtins.str | None = ...,
+        text: _builtins.str | None = ...,
+        isSuggestedReply: _builtins.bool | None = ...,
+        postbackPayload: _builtins.str | None = ...,
         powerUpData: Global___PowerUpsData | None = ...,
-        commands: collections.abc.Iterable[Global___CommandRangeData] | None = ...,
-        animatedEmojiCharacterRanges: collections.abc.Iterable[Global___AnimatedEmojiCharacterRange] | None = ...,
+        commands: _abc.Iterable[Global___CommandRangeData] | None = ...,
+        animatedEmojiCharacterRanges: _abc.Iterable[Global___AnimatedEmojiCharacterRange] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["isSuggestedReply", b"isSuggestedReply", "postbackPayload", b"postbackPayload", "powerUpData", b"powerUpData", "text", b"text"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["animatedEmojiCharacterRanges", b"animatedEmojiCharacterRanges", "commands", b"commands", "isSuggestedReply", b"isSuggestedReply", "postbackPayload", b"postbackPayload", "powerUpData", b"powerUpData", "text", b"text"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["isSuggestedReply", b"isSuggestedReply", "postbackPayload", b"postbackPayload", "powerUpData", b"powerUpData", "text", b"text"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["animatedEmojiCharacterRanges", b"animatedEmojiCharacterRanges", "commands", b"commands", "isSuggestedReply", b"isSuggestedReply", "postbackPayload", b"postbackPayload", "powerUpData", b"powerUpData", "text", b"text"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___Text: typing_extensions.TypeAlias = Text
+Global___Text: _TypeAlias = Text  # noqa: Y015
 
-@typing.final
-class PowerUpsData(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class PowerUpsData(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STYLE_FIELD_NUMBER: builtins.int
-    MEDIAATTACHMENT_FIELD_NUMBER: builtins.int
-    style: builtins.int
-    @property
-    def mediaAttachment(self) -> instamadilloCoreTypeMedia.InstamadilloCoreTypeMedia_pb2.CommonMediaTransport: ...
+    STYLE_FIELD_NUMBER: _builtins.int
+    MEDIAATTACHMENT_FIELD_NUMBER: _builtins.int
+    style: _builtins.int
+    @_builtins.property
+    def mediaAttachment(self) -> _InstamadilloCoreTypeMedia_pb2.CommonMediaTransport: ...
     def __init__(
         self,
         *,
-        style: builtins.int | None = ...,
-        mediaAttachment: instamadilloCoreTypeMedia.InstamadilloCoreTypeMedia_pb2.CommonMediaTransport | None = ...,
+        style: _builtins.int | None = ...,
+        mediaAttachment: _InstamadilloCoreTypeMedia_pb2.CommonMediaTransport | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["mediaAttachment", b"mediaAttachment", "style", b"style"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["mediaAttachment", b"mediaAttachment", "style", b"style"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["mediaAttachment", b"mediaAttachment", "style", b"style"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["mediaAttachment", b"mediaAttachment", "style", b"style"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___PowerUpsData: typing_extensions.TypeAlias = PowerUpsData
+Global___PowerUpsData: _TypeAlias = PowerUpsData  # noqa: Y015
 
-@typing.final
-class CommandRangeData(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class CommandRangeData(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    OFFSET_FIELD_NUMBER: builtins.int
-    LENGTH_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
-    FBID_FIELD_NUMBER: builtins.int
-    USERORTHREADFBID_FIELD_NUMBER: builtins.int
-    offset: builtins.int
-    length: builtins.int
-    type: builtins.int
-    FBID: builtins.str
-    userOrThreadFbid: builtins.str
+    OFFSET_FIELD_NUMBER: _builtins.int
+    LENGTH_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    FBID_FIELD_NUMBER: _builtins.int
+    USERORTHREADFBID_FIELD_NUMBER: _builtins.int
+    offset: _builtins.int
+    length: _builtins.int
+    type: _builtins.int
+    FBID: _builtins.str
+    userOrThreadFbid: _builtins.str
     def __init__(
         self,
         *,
-        offset: builtins.int | None = ...,
-        length: builtins.int | None = ...,
-        type: builtins.int | None = ...,
-        FBID: builtins.str | None = ...,
-        userOrThreadFbid: builtins.str | None = ...,
+        offset: _builtins.int | None = ...,
+        length: _builtins.int | None = ...,
+        type: _builtins.int | None = ...,
+        FBID: _builtins.str | None = ...,
+        userOrThreadFbid: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["FBID", b"FBID", "length", b"length", "offset", b"offset", "type", b"type", "userOrThreadFbid", b"userOrThreadFbid"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["FBID", b"FBID", "length", b"length", "offset", b"offset", "type", b"type", "userOrThreadFbid", b"userOrThreadFbid"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["FBID", b"FBID", "length", b"length", "offset", b"offset", "type", b"type", "userOrThreadFbid", b"userOrThreadFbid"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["FBID", b"FBID", "length", b"length", "offset", b"offset", "type", b"type", "userOrThreadFbid", b"userOrThreadFbid"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___CommandRangeData: typing_extensions.TypeAlias = CommandRangeData
+Global___CommandRangeData: _TypeAlias = CommandRangeData  # noqa: Y015
 
-@typing.final
-class FormattedText(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class FormattedText(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    OFFSET_FIELD_NUMBER: builtins.int
-    LENGTH_FIELD_NUMBER: builtins.int
-    STYLE_FIELD_NUMBER: builtins.int
-    offset: builtins.int
-    length: builtins.int
+    OFFSET_FIELD_NUMBER: _builtins.int
+    LENGTH_FIELD_NUMBER: _builtins.int
+    STYLE_FIELD_NUMBER: _builtins.int
+    offset: _builtins.int
+    length: _builtins.int
     style: Global___Text.FormatStyle.ValueType
     def __init__(
         self,
         *,
-        offset: builtins.int | None = ...,
-        length: builtins.int | None = ...,
+        offset: _builtins.int | None = ...,
+        length: _builtins.int | None = ...,
         style: Global___Text.FormatStyle.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["length", b"length", "offset", b"offset", "style", b"style"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["length", b"length", "offset", b"offset", "style", b"style"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["length", b"length", "offset", b"offset", "style", b"style"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["length", b"length", "offset", b"offset", "style", b"style"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___FormattedText: typing_extensions.TypeAlias = FormattedText
+Global___FormattedText: _TypeAlias = FormattedText  # noqa: Y015
 
-@typing.final
-class AnimatedEmojiCharacterRange(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AnimatedEmojiCharacterRange(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    OFFSET_FIELD_NUMBER: builtins.int
-    LENGTH_FIELD_NUMBER: builtins.int
-    offset: builtins.int
-    length: builtins.int
+    OFFSET_FIELD_NUMBER: _builtins.int
+    LENGTH_FIELD_NUMBER: _builtins.int
+    offset: _builtins.int
+    length: _builtins.int
     def __init__(
         self,
         *,
-        offset: builtins.int | None = ...,
-        length: builtins.int | None = ...,
+        offset: _builtins.int | None = ...,
+        length: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["length", b"length", "offset", b"offset"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["length", b"length", "offset", b"offset"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["length", b"length", "offset", b"offset"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["length", b"length", "offset", b"offset"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AnimatedEmojiCharacterRange: typing_extensions.TypeAlias = AnimatedEmojiCharacterRange
+Global___AnimatedEmojiCharacterRange: _TypeAlias = AnimatedEmojiCharacterRange  # noqa: Y015
