@@ -30,8 +30,7 @@ sys.path.insert(0, os.getcwd())
 
 
 def interrupted(*_):
-    loop = asyncio.get_event_loop()
-    asyncio.run_coroutine_threadsafe(ClientFactory.stop(), loop)
+    event.set()
 
 
 log.setLevel(logging.DEBUG)
@@ -327,4 +326,4 @@ async def run_factory():
 if __name__ == "__main__":
     # all created clients will be automatically logged in and receive all
     # events
-    client_factory.loop.run_until_complete(run_factory())
+    asyncio.run(run_factory())

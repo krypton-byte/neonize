@@ -126,23 +126,56 @@ import asyncio
 from neonize.aioze.client import NewAClient
 from neonize.aioze.events import MessageEv, ConnectedEv
 
+client = NewAClient("async_bot")
+
+@client.event(ConnectedEv)
+async def on_connected(client: NewAClient, event: ConnectedEv):
+    print("✅ Async bot connected!")
+
+@client.event(MessageEv)
+async def on_message(client: NewAClient, event: MessageEv):
+    text = event.Message.conversation
+    if text == "ping":
+        await client.reply_message("pong! 🏓", event)
+
 async def main():
-    client = NewAClient("async_bot")
-    
-    @client.event
-    async def on_connected(client: NewAClient, event: ConnectedEv):
-        print("✅ Async bot connected!")
-    
-    @client.event
-    async def on_message(client: NewAClient, event: MessageEv):
-        text = event.Message.conversation
-        if text == "ping":
-            await client.reply_message("pong! 🏓", event)
-    
     await client.connect()
+    await client.idle()  # Keep receiving events
 
 asyncio.run(main())
 ```
+
+### Understanding the Async Event Loop
+
+Neonize uses **`asyncio.run()`** as the standard entry point. When you call
+`await client.connect()`, the library internally calls
+`asyncio.get_running_loop()` to capture the current event loop. All internal
+event dispatching (events from Go callbacks via `run_coroutine_threadsafe`) is
+automatically wired to this same loop.
+
+!!! danger "Deprecated Patterns — Do NOT Use"
+    The following patterns are **deprecated** since Python 3.10 and **raise
+    `DeprecationWarning`** or **`RuntimeError`** on Python 3.12+:
+
+    ```python
+    # ❌ WRONG — get_event_loop() is deprecated in non-async context
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+
+    # ❌ WRONG — creates orphan loop, events will never be dispatched
+    loop = asyncio.new_event_loop()
+    loop.run_until_complete(main())
+    ```
+
+!!! success "Correct Modern Pattern"
+    ```python
+    # ✅ CORRECT — standard since Python 3.7, works on all versions
+    asyncio.run(main())
+    ```
+
+    `asyncio.run()` creates a fresh event loop, runs the coroutine to
+    completion, then cleans up. Inside `main()`, you can use
+    `asyncio.get_running_loop()` to access the loop when needed.
 
 ## Database Configuration
 

@@ -130,6 +130,57 @@ Yes, because it's built on the Go-based Whatsmeow library, Neonize is significan
 
 ## Errors & Troubleshooting
 
+### I'm getting "DeprecationWarning: There is no current event loop" or "RuntimeError: no running event loop"
+
+This happens on **Python 3.10+** (warning) or **Python 3.12+** (error) when using
+the deprecated `asyncio.get_event_loop()` pattern.
+
+**Cause:** Code is calling `asyncio.get_event_loop()` or `loop.run_until_complete()`
+outside of an async context.
+
+**Fix:** Replace your entry point with `asyncio.run()`:
+
+```python
+# ❌ OLD — deprecated, breaks on Python 3.12+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())
+
+# ❌ OLD — orphan loop, events never dispatched
+loop = asyncio.new_event_loop()
+loop.run_until_complete(main())
+
+# ✅ NEW — standard modern pattern
+asyncio.run(main())
+```
+
+Neonize's `connect()` method internally calls `asyncio.get_running_loop()` (which
+only works inside a running async context) so you **must** be inside `asyncio.run()`.
+
+### I'm getting "Event loop not initialized. Call connect() first."
+
+This means you tried to trigger an event before `connect()` was called.
+The event loop reference is set during `connect()`:
+
+```python
+async def main():
+    await client.connect()  # ← sets up the event loop
+    await client.idle()
+
+asyncio.run(main())
+```
+
+### Events are not being received / callbacks never fire
+
+Common causes:
+
+1. **Missing `await client.idle()`** — The program exits before events arrive.
+   Always await idle or a forever-running task.
+2. **Using a separate event loop** — If you manually created a loop with
+   `asyncio.new_event_loop()`, events dispatched via `run_coroutine_threadsafe()`
+   target a different loop. Use `asyncio.run()` instead.
+3. **Event handlers not registered** — Make sure you register handlers *before*
+   calling `connect()`.
+
 ### I'm getting "SendMessageError", what should I do?
 
 Common causes:
@@ -287,3 +338,122 @@ Consider migrating if you need these benefits.
 - 💬 Join [GitHub Discussions](https://github.com/krypton-byte/neonize/discussions)
 - 🐛 Report bugs on [GitHub Issues](https://github.com/krypton-byte/neonize/issues)
 - 📧 Check existing issues before creating new ones
+
+## Migration Guide: Event Loop Changes
+
+If you are upgrading from an older version of Neonize that used
+`get_event_loop()` / `new_event_loop()` / `loop.run_until_complete()`, here is
+a summary of what changed and how to migrate your code.
+
+### What Changed
+
+| Before | After |
+|--------|-------|
+| `event_global_loop = asyncio.new_event_loop()` at module level | Lazy initialization via `set_event_loop()` inside `connect()` |
+| `self.loop = asyncio.get_event_loop()` in `__init__` | `self.loop` set to `None`; populated by `asyncio.get_running_loop()` in `connect()` |
+| `client.loop.run_until_complete(main())` | `asyncio.run(main())` |
+| `client_factory.loop.run_until_complete(...)` | `asyncio.run(main())` |
+
+### Single-Client Migration
+
+```python
+# ❌ Old pattern
+client = NewAClient("db.sqlite3")
+
+async def main():
+    await client.connect()
+    await client.idle()
+
+client.loop.run_until_complete(main())  # ← deprecated
+```
+
+```python
+# ✅ New pattern
+client = NewAClient("db.sqlite3")
+
+async def main():
+    await client.connect()  # internally calls asyncio.get_running_loop()
+    await client.idle()
+
+asyncio.run(main())  # ← modern standard
+```
+
+### Multi-Session (ClientFactory) Migration
+
+```python
+# ❌ Old pattern
+client_factory = ClientFactory("db.sqlite3")
+# ...
+client_factory.loop.run_until_complete(run_factory())  # ← deprecated
+```
+
+```python
+# ✅ New pattern
+client_factory = ClientFactory("db.sqlite3")
+# ...
+asyncio.run(run_factory())  # ← modern standard
+```
+
+### Signal Handler Migration
+
+```python
+# ❌ Old pattern — get_event_loop() in sync context
+def interrupted(*_):
+    loop = asyncio.get_event_loop()
+    asyncio.run_coroutine_threadsafe(ClientFactory.stop(), loop)
+
+signal.signal(signal.SIGINT, interrupted)
+```
+
+```python
+# ✅ New pattern — use asyncio signal handlers inside async context
+async def main():
+    loop = asyncio.get_running_loop()
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        loop.add_signal_handler(sig, lambda: asyncio.create_task(on_exit()))
+    await client.connect()
+    await client.idle()
+```
+
+### One-Shot Script Migration
+
+```python
+# ❌ Old pattern
+client = NewAClient("db.sqlite3")
+
+async def greet():
+    for signame in {"SIGINT", "SIGTERM"}:
+        client.loop.add_signal_handler(  # ← client.loop was None or wrong
+            getattr(signal, signame),
+            lambda: asyncio.create_task(on_exit()),
+        )
+    await client.connect()
+
+client.loop.run_until_complete(greet())
+```
+
+```python
+# ✅ New pattern
+client = NewAClient("db.sqlite3")
+
+async def greet():
+    for signame in {"SIGINT", "SIGTERM"}:
+        asyncio.get_running_loop().add_signal_handler(
+            getattr(signal, signame),
+            lambda: asyncio.create_task(on_exit()),
+        )
+    await client.connect()
+    # ...
+
+asyncio.run(greet())
+```
+
+### Quick Reference
+
+| Deprecated API (Python 3.10+) | Modern Replacement |
+|---|---|
+| `asyncio.get_event_loop()` in sync code | `asyncio.run()` as entry point |
+| `asyncio.get_event_loop()` in async code | `asyncio.get_running_loop()` |
+| `loop.run_until_complete(coro)` | `asyncio.run(coro)` |
+| `asyncio.new_event_loop()` + manual thread | Let `asyncio.run()` manage the lifecycle |
+| `client.loop.run_until_complete(...)` | `asyncio.run(main())` |

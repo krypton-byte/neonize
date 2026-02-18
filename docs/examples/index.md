@@ -116,6 +116,67 @@ event.wait()
 
 ## More Examples
 
+### Async Bot
+
+A basic async bot with event handling:
+
+```python
+import asyncio
+from neonize.aioze.client import NewAClient
+from neonize.aioze.events import ConnectedEv, MessageEv
+
+client = NewAClient("async_bot.sqlite3")
+
+@client.event(ConnectedEv)
+async def on_connected(client: NewAClient, event: ConnectedEv):
+    print("⚡ Connected")
+
+@client.event(MessageEv)
+async def on_message(client: NewAClient, event: MessageEv):
+    text = event.Message.conversation or event.Message.extendedTextMessage.text
+    if text == "ping":
+        await client.reply_message("pong!", event)
+
+async def main():
+    await client.connect()
+    await client.idle()
+
+asyncio.run(main())
+```
+
+### Multi-Session Async
+
+Handle multiple WhatsApp sessions with `ClientFactory`:
+
+```python
+import asyncio
+from neonize.aioze.client import ClientFactory, NewAClient
+from neonize.aioze.events import ConnectedEv, MessageEv
+
+factory = ClientFactory("sessions.db")
+
+for device in factory.get_all_devices():
+    factory.new_client(device.JID)
+
+@factory.event(ConnectedEv)
+async def on_connected(client: NewAClient, event: ConnectedEv):
+    print("⚡ Client connected")
+
+@factory.event(MessageEv)
+async def on_message(client: NewAClient, event: MessageEv):
+    if event.Message.conversation == "ping":
+        await client.reply_message("pong!", event)
+
+async def main():
+    await factory.run()
+    await factory.idle_all()
+
+asyncio.run(main())
+```
+
+!!! tip "Event Loop"
+    Always use `asyncio.run()` as your entry point for async examples.\n    Neonize captures the running loop internally via `asyncio.get_running_loop()`.
+
 For complete, runnable examples, check the examples in the repository:
 
 - [examples/basic.py](https://github.com/krypton-byte/neonize/blob/main/examples/basic.py)

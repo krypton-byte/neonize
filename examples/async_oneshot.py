@@ -19,7 +19,7 @@ async def on_exit():
 
 async def greet():
     for signame in {"SIGINT", "SIGTERM", "SIGABRT"}:
-        client.loop.add_signal_handler(
+        asyncio.get_running_loop().add_signal_handler(
             getattr(signal, signame),
             lambda: asyncio.create_task(on_exit()),
         )
@@ -35,6 +35,6 @@ async def greet():
 
 try:
     if __name__ == "__main__":
-        client.loop.run_until_complete(greet())
+        asyncio.run(greet())
 except Exception:
     traceback.print_exc()

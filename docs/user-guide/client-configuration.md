@@ -153,6 +153,30 @@ if client.is_logged_in:
 client.logout()
 ```
 
+#### Async Connection
+
+For the async client, use `asyncio.run()` as the entry point:
+
+```python
+import asyncio
+from neonize.aioze.client import NewAClient
+
+client = NewAClient("my_async_bot")
+
+async def main():
+    # connect() internally calls asyncio.get_running_loop()
+    # to capture the event loop for dispatching events
+    await client.connect()
+    await client.idle()
+
+asyncio.run(main())
+```
+
+!!! warning "Deprecated: get_event_loop()"
+    Do not use `asyncio.get_event_loop()` or `loop.run_until_complete()`.
+    These are deprecated since Python 3.10 and error on Python 3.12+.
+    Always use `asyncio.run()` instead.
+
 ### Getting Client Information
 
 ```python

@@ -49,7 +49,16 @@ from ..proto.Neonize_pb2 import TemporaryBan as TemporaryBanEv
 from ..proto.Neonize_pb2 import UnknownCallEvent as UnknownCallEventEv
 from ..proto.Neonize_pb2 import privacySettingsEvent as PrivacySettingsEv
 
-event_global_loop = asyncio.new_event_loop()
+event_global_loop: asyncio.AbstractEventLoop | None = None
+
+
+def set_event_loop(loop: asyncio.AbstractEventLoop) -> None:
+    """Set the global event loop used for dispatching events from Go callbacks.
+    Called automatically when connect() is invoked."""
+    global event_global_loop
+    if event_global_loop is None:
+        event_global_loop = loop
+
 
 if TYPE_CHECKING:
     from .client import ClientFactory, NewAClient
@@ -246,7 +255,4 @@ class EventsManager:
         return callback
 
 
-# threading.Thread(
-#    target=event_global_loop.run_forever,
-#    daemon=True,
-# ).start()
+
