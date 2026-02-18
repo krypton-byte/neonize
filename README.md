@@ -122,18 +122,25 @@ import asyncio
 from neonize.aioze.client import NewAClient
 from neonize.aioze.events import MessageEv, ConnectedEv
 
+client = NewAClient("async_bot")
+
+@client.event(MessageEv)
+async def on_message(client: NewAClient, event: MessageEv):
+    if event.Message.conversation == "ping":
+        await client.reply_message("pong! 🏓", event)
+
 async def main():
-    client = NewAClient("async_bot")
-    
-    @client.event
-    async def on_message(client: NewAClient, event: MessageEv):
-        if event.message.conversation == "ping":
-            await client.reply_message("pong! 🏓", event.message)
-    
     await client.connect()
+    await client.idle()  # Keep receiving events
 
 asyncio.run(main())
 ```
+
+!!! important "Python 3.10+ Event Loop"
+    Neonize uses `asyncio.run()` as the standard entry point. The event loop is
+    automatically obtained via `asyncio.get_running_loop()` inside `connect()`.
+    **Do not** use the deprecated `asyncio.get_event_loop()` or
+    `loop.run_until_complete()` — these raise errors on Python 3.12+.
 
 ## 💡 Examples
 
@@ -387,16 +394,16 @@ The event system in Neonize is built around decorators and type-safe events:
 
 ```python
 # Synchronous event handling
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     handle_message(event)
 
-@client.event
+@client.event(ReceiptEv)
 def on_receipt(client: NewClient, event: ReceiptEv):
     handle_receipt(event)
 
 # Asynchronous event handling
-@async_client.event
+@async_client.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv):
     await handle_message_async(event)
 ```
@@ -421,25 +428,32 @@ client = NewClient("bot_name", database=":memory:")
 Handle multiple WhatsApp accounts simultaneously:
 
 ```python
-from neonize.client import NewClient
-import threading
+import asyncio
+from neonize.aioze.client import ClientFactory, NewAClient
+from neonize.aioze.events import MessageEv, ConnectedEv
 
-# Create multiple clients
-clients = []
-for i in range(3):
-    client = NewClient(f"bot_{i}", database=f"./bot_{i}.db")
-    clients.append(client)
+client_factory = ClientFactory("multisession.db")
 
-# Start all clients in separate threads
-threads = []
-for client in clients:
-    thread = threading.Thread(target=client.connect)
-    thread.start()
-    threads.append(thread)
+# Load existing sessions from database
+for device in client_factory.get_all_devices():
+    client_factory.new_client(device.JID)
 
-# Wait for all threads
-for thread in threads:
-    thread.join()
+# Register shared event handlers
+@client_factory.event(ConnectedEv)
+async def on_connected(client: NewAClient, event: ConnectedEv):
+    print(f"⚡ Client connected")
+
+@client_factory.event(MessageEv)
+async def on_message(client: NewAClient, event: MessageEv):
+    text = event.Message.conversation
+    if text == "ping":
+        await client.reply_message("pong!", event)
+
+async def main():
+    await client_factory.run()      # connect() all clients
+    await client_factory.idle_all()  # keep running
+
+asyncio.run(main())
 ```
 
 ## 🤝 Contributing
@@ -522,27 +536,32 @@ client = NewClient("production_bot", database=database_url)
 ### With FastAPI
 
 ```python
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from neonize.aioze.client import NewAClient
 from neonize.aioze.events import MessageEv
+from neonize.utils.jid import build_jid
 
-app = FastAPI()
 whatsapp_client = NewAClient("fastapi_bot")
 
-@app.on_event("startup")
-async def startup_event():
-    await whatsapp_client.connect()
-
-@whatsapp_client.event
+@whatsapp_client.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv):
-    # Handle WhatsApp messages in your FastAPI app
-    if event.message.conversation == "/api_status":
-        await client.reply_message("API is running! ✅", event.message)
+    if event.Message.conversation == "/api_status":
+        await client.reply_message("API is running! ✅", event)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # connect() automatically picks up the running event loop
+    await whatsapp_client.connect()
+    yield
+    await whatsapp_client.disconnect()
+
+app = FastAPI(lifespan=lifespan)
 
 @app.get("/send-message")
 async def send_message(phone: str, message: str):
     jid = build_jid(phone)
-    await whatsapp_client.send_message(jid, text=message)
+    await whatsapp_client.send_message(jid, message)
     return {"status": "sent"}
 ```
 

@@ -22,8 +22,7 @@ sys.path.insert(0, os.getcwd())
 
 
 def interrupted(*_):
-    loop = asyncio.get_event_loop()
-    asyncio.run_coroutine_threadsafe(ClientFactory.stop(), loop)
+    event.set()
 
 
 log.setLevel(logging.DEBUG)
@@ -339,4 +338,4 @@ async def connect():
 
 
 if __name__ == "__main__":
-    client.loop.run_until_complete(connect())
+    asyncio.run(connect())

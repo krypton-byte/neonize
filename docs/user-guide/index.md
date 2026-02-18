@@ -89,11 +89,15 @@ For async examples:
 import asyncio
 from neonize.aioze.client import NewAClient
 
-async def main():
-    client = NewAClient("async_bot")
-    await client.connect()
+client = NewAClient("async_bot")
 
-asyncio.run(main())
+# register event handlers on client.event here...
+
+async def main():
+    await client.connect()  # captures the running event loop
+    await client.idle()     # keeps the bot alive
+
+asyncio.run(main())  # ✅ standard entry point
 ```
 
 ## Best Practices

@@ -9,7 +9,6 @@ import struct
 import time
 import traceback
 import typing
-from asyncio import get_event_loop
 from datetime import timedelta
 from io import BytesIO
 from os import urandom
@@ -197,11 +196,11 @@ from ..utils.iofile import (
 from ..utils.jid import Jid2String, JIDToNonAD, build_jid, jid_is_lid
 from ..utils.log import log, log_whatsmeow
 from ..utils.sticker import aio_convert_to_sticker, aio_convert_to_webp
-from .events import Event, EventsManager, event_global_loop
+from . import events as _events_module
+from .events import Event, EventsManager
 from .preview.compose import link_preview
 
 _log_ = logging.getLogger(__name__)
-loop = get_event_loop()
 
 SyncFunctionParams = ParamSpec("SyncFunctionParams")
 ReturnType = TypeVar("ReturnType")
@@ -460,7 +459,7 @@ class NewAClient:
         self.chat_settings = ChatSettingsStore(self.uuid)
         self.connect_task = None
         self.connected = False
-        self.loop = event_global_loop
+        self.loop: asyncio.AbstractEventLoop | None = None
         self.me = None
         _log_.debug("🔨 Creating a NewClient instance")
 
@@ -474,8 +473,11 @@ class NewAClient:
         :param qr_protoaddr: The address of the QR code in memory.
         :type qr_protoaddr: int
         """
+        loop = _events_module.event_global_loop
+        assert loop is not None, "Event loop not initialized. Call connect() first."
         asyncio.run_coroutine_threadsafe(
-            self.event._qr(self, ctypes.string_at(qr_protoaddr)), event_global_loop
+            self.event._qr(self, ctypes.string_at(qr_protoaddr)),
+            loop,
         )
 
     def _parse_mention(
@@ -3414,6 +3416,8 @@ class NewAClient:
 
     async def connect(self):
         """Establishes a connection to the WhatsApp servers."""
+        self.loop = asyncio.get_running_loop()
+        _events_module.set_event_loop(self.loop)
         # Convert the list of functions to a bytearray
         d = bytearray(list(self.event.list_func))
         _log_.debug("🔒 Attempting to connect to the WhatsApp servers.")
@@ -3466,7 +3470,7 @@ class ClientFactory:
         self.database_name = database_name
         self.clients: list[NewAClient] = []
         self.event = EventsManager(self)
-        self.loop = event_global_loop
+        self.loop: asyncio.AbstractEventLoop | None = None
 
     @staticmethod
     def get_all_devices_from_db(db: str) -> List[Device]:
@@ -3539,4 +3543,6 @@ class ClientFactory:
         return client
 
     async def run(self):
+        self.loop = asyncio.get_running_loop()
+        _events_module.set_event_loop(self.loop)
         return await asyncio.gather(*[client.connect() for client in self.clients])
