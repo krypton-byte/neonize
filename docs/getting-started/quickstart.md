@@ -17,12 +17,12 @@ from neonize.events import MessageEv, ConnectedEv, event
 # Initialize the client
 client = NewClient("my_first_bot")
 
-@client.event
+@client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     print("✅ Bot connected successfully!")
     print(f"📱 Logged in as: {event.device.User}")
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     # Get message text
     text = event.Message.conversation or event.Message.extendedTextMessage.text
@@ -92,12 +92,12 @@ This creates a new client instance with the session name "my_first_bot". The ses
 ### 3. Event Handlers
 
 ```python
-@client.event
+@client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     print("✅ Bot connected successfully!")
 ```
 
-The `@client.event` decorator registers event handlers. Functions are automatically matched to events based on their parameter types.
+The `@client.event(EventType)` decorator registers event handlers. You pass the event class (e.g., `ConnectedEv`, `MessageEv`) to specify which event the handler receives.
 
 ### 4. Message Processing
 
@@ -201,7 +201,7 @@ client = NewClient(
 ### Handling Different Message Types
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
     
@@ -258,7 +258,7 @@ client.send_document(
 ### Replying to Messages
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     # Reply to the message
     client.reply_message("I received your message!", event)

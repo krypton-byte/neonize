@@ -101,11 +101,11 @@ from neonize.events import MessageEv, ConnectedEv, event
 # Initialize client
 client = NewClient("your_bot_name")
 
-@client.event
+@client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     print("🎉 Bot connected successfully!")
 
-@client.event  
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     if event.message.conversation == "hi":
         client.reply_message("Hello! 👋", event.message)
@@ -161,7 +161,7 @@ client = NewClient(
 )
 
 # Handle successful connection
-@client.event
+@client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     print("🎉 Successfully connected to WhatsApp!")
     print(f"📱 Device: {event.device}")
@@ -211,7 +211,7 @@ from neonize.events import MessageEv, ReceiptEv, PresenceEv
 from datetime import datetime
 
 # Handle incoming text messages
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     message_text = event.message.conversation
     sender_jid = event.info.message_source.sender
@@ -236,12 +236,12 @@ def on_message(client: NewClient, event: MessageEv):
         client.send_message(chat_jid, text=f"🕐 Current time: {current_time}")
 
 # Handle message receipts (delivery status)
-@client.event
+@client.event(ReceiptEv)
 def on_receipt(client: NewClient, event: ReceiptEv):
     print(f"📧 Message {event.receipt.type}: {event.message_ids}")
 
 # Handle typing indicators
-@client.event
+@client.event(PresenceEv)
 def on_presence(client: NewClient, event: PresenceEv):
     chat = event.message_source.chat
     participant = event.message_source.sender
@@ -338,8 +338,8 @@ poll_msg = client.build_poll_vote_creation(
 client.send_message(chat_jid, message=poll_msg)
 
 # Handle poll responses
-@client.event
-def on_poll_vote(client: NewClient, event):
+@client.event(MessageEv)
+def on_poll_vote(client: NewClient, event: MessageEv):
     voter = event.info.message_source.sender
     selected_options = event.message.poll_update_message.vote.selected_options
     print(f"📊 {voter} voted for: {selected_options}")

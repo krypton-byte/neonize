@@ -207,7 +207,7 @@ This is usually due to:
 Implement reconnection logic:
 
 ```python
-@client.event
+@client.event(DisconnectedEv)
 def on_disconnected(client: NewClient, event: DisconnectedEv):
     print("Disconnected, attempting to reconnect...")
     client.connect()

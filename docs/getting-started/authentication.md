@@ -21,7 +21,7 @@ from neonize.events import ConnectedEv, event
 
 client = NewClient("my_bot")
 
-@client.event
+@client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     print("✅ Successfully authenticated!")
 
@@ -97,7 +97,7 @@ from neonize.events import PairStatusEv, event
 
 client = NewClient("my_bot")
 
-@client.event
+@client.event(PairStatusEv)
 def on_pair_status(client: NewClient, event: PairStatusEv):
     if event.ID.User:
         print(f"✅ Logged in as: {event.ID.User}")

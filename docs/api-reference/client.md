@@ -84,7 +84,7 @@ recipient = build_jid("1234567890")
 client.send_message(recipient, "Hello!")
 
 # Handle events
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     print(f"Received: {event.Message.conversation}")
 ```
@@ -254,7 +254,7 @@ def rate_limit(max_calls: int, period: float) -> Callable:
     return decorator
 
 # Usage
-@client.event
+@client.event(MessageEv)
 @rate_limit(max_calls=5, period=60)
 def on_message(client, event: MessageEv):
     # Handle message (max 5 per minute)
@@ -296,7 +296,7 @@ def filter_spam(client, event):
         return False  # Stop processing
     return True
 
-@client.event
+@client.event(MessageEv)
 def on_message(client, event: MessageEv):
     if middleware.run(client, event):
         # Process message
