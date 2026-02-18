@@ -2236,6 +2236,27 @@ class PairPhoneParams(_message.Message):
 Global___PairPhoneParams: _TypeAlias = PairPhoneParams  # noqa: Y015
 
 @_typing.final
+class PairPhoneReturnFunction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    CODE_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    Code: _builtins.str
+    Error: _builtins.str
+    def __init__(
+        self,
+        *,
+        Code: _builtins.str | None = ...,
+        Error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Code", b"Code", "Error", b"Error"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Code", b"Code", "Error", b"Error"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___PairPhoneReturnFunction: _TypeAlias = PairPhoneReturnFunction  # noqa: Y015
+
+@_typing.final
 class ContactQRLinkTarget(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
