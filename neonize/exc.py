@@ -142,6 +142,10 @@ class NewsletterToggleMuteError(Exception):
     pass
 
 
+class PairPhoneError(Exception):
+    pass
+
+
 class ResolveContactQRLinkError(Exception):
     pass
 
