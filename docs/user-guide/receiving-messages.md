@@ -12,7 +12,7 @@ from neonize.events import MessageEv, event
 
 client = NewClient("my_bot")
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     # Get message text
     text = event.Message.conversation
@@ -30,7 +30,7 @@ event.wait()
 ### Text Messages
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
     
@@ -52,7 +52,7 @@ def on_message(client: NewClient, event: MessageEv):
 ### Media Messages
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
     
@@ -92,7 +92,7 @@ def on_message(client: NewClient, event: MessageEv):
 ### Special Messages
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
     
@@ -126,7 +126,7 @@ def on_message(client: NewClient, event: MessageEv):
 ### Extracting Message Details
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     info = event.Info
     
@@ -158,7 +158,7 @@ def on_message(client: NewClient, event: MessageEv):
 ### Checking Message Context
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
     
@@ -186,7 +186,7 @@ def on_message(client: NewClient, event: MessageEv):
 ### Download to File
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
     
@@ -199,7 +199,7 @@ def on_message(client: NewClient, event: MessageEv):
 ### Download to Memory
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
     
@@ -220,7 +220,7 @@ def on_message(client: NewClient, event: MessageEv):
 ```python
 from tqdm import tqdm
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
     
@@ -247,7 +247,7 @@ def on_message(client: NewClient, event: MessageEv):
 ```python
 ADMIN_NUMBERS = ["1234567890", "0987654321"]
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     sender = event.Info.MessageSource.Sender.User
     
@@ -261,7 +261,7 @@ def on_message(client: NewClient, event: MessageEv):
 ### Filter by Chat Type
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     is_group = event.Info.MessageSource.IsGroup
     
@@ -276,7 +276,7 @@ def on_message(client: NewClient, event: MessageEv):
 ### Filter by Message Type
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
     
@@ -295,7 +295,7 @@ def on_message(client: NewClient, event: MessageEv):
 ### Simple Command Parser
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     text = event.Message.conversation or ""
     
@@ -367,7 +367,7 @@ def info_command(client: NewClient, event: MessageEv, args):
     sender = event.Info.PushName
     client.reply_message(f"Hello {sender}!", event)
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     handler.handle(client, event)
 ```
@@ -379,7 +379,7 @@ def on_message(client: NewClient, event: MessageEv):
 ```python
 from neonize.events import ReceiptEv
 
-@client.event
+@client.event(ReceiptEv)
 def on_receipt(client: NewClient, event: ReceiptEv):
     receipt_type = event.Type
     message_ids = event.MessageIDs
@@ -393,7 +393,7 @@ def on_receipt(client: NewClient, event: ReceiptEv):
 ```python
 from neonize.utils.enum import ReceiptType
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     # Auto mark as read
     client.mark_read(
@@ -409,7 +409,7 @@ def on_message(client: NewClient, event: MessageEv):
 ### 1. Error Handling
 
 ```python
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     try:
         text = event.Message.conversation
@@ -427,7 +427,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 executor = ThreadPoolExecutor(max_workers=5)
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     # Process message in background
     executor.submit(process_message_async, client, event)
@@ -448,7 +448,7 @@ import time
 last_message_time = defaultdict(float)
 RATE_LIMIT = 2  # seconds
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     sender = event.Info.MessageSource.Sender.User
     current_time = time.time()

@@ -27,7 +27,7 @@ from neonize.events import MessageEv, event
 
 client = NewClient("echo_bot")
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     text = event.Message.conversation
     if text:
@@ -47,11 +47,11 @@ from neonize.events import MessageEv, ConnectedEv, event
 
 client = NewClient("command_bot")
 
-@client.event
+@client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     print(f"✅ Bot connected as {event.device.User}")
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     text = event.Message.conversation or ""
     
@@ -102,7 +102,7 @@ AUTO_REPLIES = {
     "bye": "Goodbye! Have a great day! 👋",
 }
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     text = (event.Message.conversation or "").lower().strip()
     

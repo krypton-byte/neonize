@@ -180,7 +180,7 @@ response = client.reply_message(
 ```python
 from neonize.events import MessageEv
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     # Reply to message
     client.reply_message("Thanks!", event)
@@ -403,7 +403,7 @@ data = client.download_any(
 ```python
 from neonize.events import MessageEv
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
     
@@ -492,18 +492,18 @@ client.mark_read(
 
 ## Event Decorator
 
-### @client.event
+### @client.event(EventType)
 
-Register event handlers.
+Register event handlers for a specific event type.
 
 ```python
 from neonize.events import MessageEv, ReceiptEv
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     print("Message received!")
 
-@client.event
+@client.event(ReceiptEv)
 def on_receipt(client: NewClient, event: ReceiptEv):
     print("Receipt received!")
 ```

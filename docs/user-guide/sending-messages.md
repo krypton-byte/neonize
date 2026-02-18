@@ -238,7 +238,7 @@ client.send_message(chat_jid, reaction)
 ```python
 from neonize.events import MessageEv
 
-@client.event
+@client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     # Reply to received message
     client.reply_message("Thanks for your message!", event)
