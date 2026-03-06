@@ -218,6 +218,159 @@ class MiTransportAdminMessage(_message.Message):
         def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
     @_typing.final
+    class XmatMessengerMessageReminderTriggered(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        OFFLINETHREADINGID_FIELD_NUMBER: _builtins.int
+        SCHEDULEDTIME_FIELD_NUMBER: _builtins.int
+        offlineThreadingID: _builtins.int
+        scheduledTime: _builtins.int
+        def __init__(
+            self,
+            *,
+            offlineThreadingID: _builtins.int | None = ...,
+            scheduledTime: _builtins.int | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["offlineThreadingID", b"offlineThreadingID", "scheduledTime", b"scheduledTime"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["offlineThreadingID", b"offlineThreadingID", "scheduledTime", b"scheduledTime"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+    @_typing.final
+    class XmatMessengerMessageReminderSet(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        OFFLINETHREADINGID_FIELD_NUMBER: _builtins.int
+        SCHEDULEDTIME_FIELD_NUMBER: _builtins.int
+        offlineThreadingID: _builtins.int
+        scheduledTime: _builtins.int
+        def __init__(
+            self,
+            *,
+            offlineThreadingID: _builtins.int | None = ...,
+            scheduledTime: _builtins.int | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["offlineThreadingID", b"offlineThreadingID", "scheduledTime", b"scheduledTime"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["offlineThreadingID", b"offlineThreadingID", "scheduledTime", b"scheduledTime"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+    @_typing.final
+    class XmatSetParticipantUpdateMode(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        PARTICIPANTUPDATEMODE_FIELD_NUMBER: _builtins.int
+        SETTERID_FIELD_NUMBER: _builtins.int
+        TRANSPORTTHREADFBID_FIELD_NUMBER: _builtins.int
+        participantUpdateMode: _builtins.str
+        setterID: _builtins.int
+        transportThreadFbid: _builtins.int
+        def __init__(
+            self,
+            *,
+            participantUpdateMode: _builtins.str | None = ...,
+            setterID: _builtins.int | None = ...,
+            transportThreadFbid: _builtins.int | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["participantUpdateMode", b"participantUpdateMode", "setterID", b"setterID", "transportThreadFbid", b"transportThreadFbid"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["participantUpdateMode", b"participantUpdateMode", "setterID", b"setterID", "transportThreadFbid", b"transportThreadFbid"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+    @_typing.final
+    class XmatGroupThreadCreated(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        THREADSUBTYPE_FIELD_NUMBER: _builtins.int
+        threadSubtype: _builtins.str
+        def __init__(
+            self,
+            *,
+            threadSubtype: _builtins.str | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["threadSubtype", b"threadSubtype"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["threadSubtype", b"threadSubtype"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+    @_typing.final
+    class XmatChangeThreadName(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        NEWTHREADNAME_FIELD_NUMBER: _builtins.int
+        newThreadName: _builtins.str
+        def __init__(
+            self,
+            *,
+            newThreadName: _builtins.str | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["newThreadName", b"newThreadName"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["newThreadName", b"newThreadName"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+    @_typing.final
+    class XmatChangeThreadAdmins(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        ADMINEVENT_FIELD_NUMBER: _builtins.int
+        TARGETID_FIELD_NUMBER: _builtins.int
+        THREADCATEGORY_FIELD_NUMBER: _builtins.int
+        ADMINTYPE_FIELD_NUMBER: _builtins.int
+        adminEvent: _builtins.str
+        targetID: _builtins.int
+        threadCategory: _builtins.str
+        adminType: _builtins.str
+        def __init__(
+            self,
+            *,
+            adminEvent: _builtins.str | None = ...,
+            targetID: _builtins.int | None = ...,
+            threadCategory: _builtins.str | None = ...,
+            adminType: _builtins.str | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["adminEvent", b"adminEvent", "adminType", b"adminType", "targetID", b"targetID", "threadCategory", b"threadCategory"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["adminEvent", b"adminEvent", "adminType", b"adminType", "targetID", b"targetID", "threadCategory", b"threadCategory"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+    @_typing.final
+    class XmatRemoveParticipant(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        REMOVEDPARTICIPANTFBID_FIELD_NUMBER: _builtins.int
+        removedParticipantFbid: _builtins.int
+        def __init__(
+            self,
+            *,
+            removedParticipantFbid: _builtins.int | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["removedParticipantFbid", b"removedParticipantFbid"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["removedParticipantFbid", b"removedParticipantFbid"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+    @_typing.final
+    class XmatAddParticipants(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        PARTICIPANTSADDED_FIELD_NUMBER: _builtins.int
+        ADDEDTHROUGHJOINREQUESTS_FIELD_NUMBER: _builtins.int
+        addedThroughJoinRequests: _builtins.bool
+        @_builtins.property
+        def participantsAdded(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+        def __init__(
+            self,
+            *,
+            participantsAdded: _abc.Iterable[_builtins.int] | None = ...,
+            addedThroughJoinRequests: _builtins.bool | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["addedThroughJoinRequests", b"addedThroughJoinRequests"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["addedThroughJoinRequests", b"addedThroughJoinRequests", "participantsAdded", b"participantsAdded"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+    @_typing.final
     class XmatGenAITaskAdd(_message.Message):
         DESCRIPTOR: _descriptor.Descriptor
 
@@ -897,10 +1050,20 @@ class MiTransportAdminMessage(_message.Message):
     XMATPINMESSAGEV2_FIELD_NUMBER: _builtins.int
     XMATUNPINMESSAGEV2_FIELD_NUMBER: _builtins.int
     XMATGENAITASKADD_FIELD_NUMBER: _builtins.int
+    XMATADDPARTICIPANTS_FIELD_NUMBER: _builtins.int
+    XMATREMOVEPARTICIPANT_FIELD_NUMBER: _builtins.int
+    XMATCHANGETHREADADMINS_FIELD_NUMBER: _builtins.int
+    XMATCHANGETHREADNAME_FIELD_NUMBER: _builtins.int
+    XMATGROUPTHREADCREATED_FIELD_NUMBER: _builtins.int
+    XMATSETPARTICIPANTUPDATEMODE_FIELD_NUMBER: _builtins.int
+    XMATMESSENGERMESSAGEREMINDERSET_FIELD_NUMBER: _builtins.int
+    XMATMESSENGERMESSAGEREMINDERTRIGGERED_FIELD_NUMBER: _builtins.int
     SKIPBUMPTHREAD_FIELD_NUMBER: _builtins.int
     SKIPSNIPPETUPDATE_FIELD_NUMBER: _builtins.int
+    READONLYMETADATADATACLASS_FIELD_NUMBER: _builtins.int
     skipBumpThread: _builtins.bool
     skipSnippetUpdate: _builtins.bool
+    readonlyMetadataDataclass: _builtins.str
     @_builtins.property
     def chatThemeChanged(self) -> Global___MiTransportAdminMessage.ChatThemeChanged: ...
     @_builtins.property
@@ -967,6 +1130,22 @@ class MiTransportAdminMessage(_message.Message):
     def xmatUnpinMessageV2(self) -> Global___MiTransportAdminMessage.XmatUnpinMessageV2: ...
     @_builtins.property
     def xmatGenaiTaskAdd(self) -> Global___MiTransportAdminMessage.XmatGenAITaskAdd: ...
+    @_builtins.property
+    def xmatAddParticipants(self) -> Global___MiTransportAdminMessage.XmatAddParticipants: ...
+    @_builtins.property
+    def xmatRemoveParticipant(self) -> Global___MiTransportAdminMessage.XmatRemoveParticipant: ...
+    @_builtins.property
+    def xmatChangeThreadAdmins(self) -> Global___MiTransportAdminMessage.XmatChangeThreadAdmins: ...
+    @_builtins.property
+    def xmatChangeThreadName(self) -> Global___MiTransportAdminMessage.XmatChangeThreadName: ...
+    @_builtins.property
+    def xmatGroupThreadCreated(self) -> Global___MiTransportAdminMessage.XmatGroupThreadCreated: ...
+    @_builtins.property
+    def xmatSetParticipantUpdateMode(self) -> Global___MiTransportAdminMessage.XmatSetParticipantUpdateMode: ...
+    @_builtins.property
+    def xmatMessengerMessageReminderSet(self) -> Global___MiTransportAdminMessage.XmatMessengerMessageReminderSet: ...
+    @_builtins.property
+    def xmatMessengerMessageReminderTriggered(self) -> Global___MiTransportAdminMessage.XmatMessengerMessageReminderTriggered: ...
     def __init__(
         self,
         *,
@@ -1003,14 +1182,23 @@ class MiTransportAdminMessage(_message.Message):
         xmatPinMessageV2: Global___MiTransportAdminMessage.XmatPinMessageV2 | None = ...,
         xmatUnpinMessageV2: Global___MiTransportAdminMessage.XmatUnpinMessageV2 | None = ...,
         xmatGenaiTaskAdd: Global___MiTransportAdminMessage.XmatGenAITaskAdd | None = ...,
+        xmatAddParticipants: Global___MiTransportAdminMessage.XmatAddParticipants | None = ...,
+        xmatRemoveParticipant: Global___MiTransportAdminMessage.XmatRemoveParticipant | None = ...,
+        xmatChangeThreadAdmins: Global___MiTransportAdminMessage.XmatChangeThreadAdmins | None = ...,
+        xmatChangeThreadName: Global___MiTransportAdminMessage.XmatChangeThreadName | None = ...,
+        xmatGroupThreadCreated: Global___MiTransportAdminMessage.XmatGroupThreadCreated | None = ...,
+        xmatSetParticipantUpdateMode: Global___MiTransportAdminMessage.XmatSetParticipantUpdateMode | None = ...,
+        xmatMessengerMessageReminderSet: Global___MiTransportAdminMessage.XmatMessengerMessageReminderSet | None = ...,
+        xmatMessengerMessageReminderTriggered: Global___MiTransportAdminMessage.XmatMessengerMessageReminderTriggered | None = ...,
         skipBumpThread: _builtins.bool | None = ...,
         skipSnippetUpdate: _builtins.bool | None = ...,
+        readonlyMetadataDataclass: _builtins.str | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "limitSharingChanged", b"limitSharingChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged", "skipBumpThread", b"skipBumpThread", "skipSnippetUpdate", b"skipSnippetUpdate", "xmatDisappearingSetting", b"xmatDisappearingSetting", "xmatFriendRequestConfirmedEncrypted", b"xmatFriendRequestConfirmedEncrypted", "xmatGenaiTaskAdd", b"xmatGenaiTaskAdd", "xmatInstantGameEncryptedDynamicCustomUpdate", b"xmatInstantGameEncryptedDynamicCustomUpdate", "xmatLinkCta", b"xmatLinkCta", "xmatMagicWords", b"xmatMagicWords", "xmatMessagingLimitSharing", b"xmatMessagingLimitSharing", "xmatMessengerQrCodeScanned", b"xmatMessengerQrCodeScanned", "xmatMessengerSharedAlbum", b"xmatMessengerSharedAlbum", "xmatMessengerSharedAlbumAddition", b"xmatMessengerSharedAlbumAddition", "xmatMessengerSharedAlbumContentRemoval", b"xmatMessengerSharedAlbumContentRemoval", "xmatMessengerSharedAlbumDeletion", b"xmatMessengerSharedAlbumDeletion", "xmatMessengerSharedAlbumRename", b"xmatMessengerSharedAlbumRename", "xmatPinMessageV2", b"xmatPinMessageV2", "xmatThemeColor", b"xmatThemeColor", "xmatThreadIcon", b"xmatThreadIcon", "xmatThreadNickname", b"xmatThreadNickname", "xmatThreadQuickReaction", b"xmatThreadQuickReaction", "xmatUnpinMessageV2", b"xmatUnpinMessageV2", "xmatUpdatePayments", b"xmatUpdatePayments"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "limitSharingChanged", b"limitSharingChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged", "readonlyMetadataDataclass", b"readonlyMetadataDataclass", "skipBumpThread", b"skipBumpThread", "skipSnippetUpdate", b"skipSnippetUpdate", "xmatAddParticipants", b"xmatAddParticipants", "xmatChangeThreadAdmins", b"xmatChangeThreadAdmins", "xmatChangeThreadName", b"xmatChangeThreadName", "xmatDisappearingSetting", b"xmatDisappearingSetting", "xmatFriendRequestConfirmedEncrypted", b"xmatFriendRequestConfirmedEncrypted", "xmatGenaiTaskAdd", b"xmatGenaiTaskAdd", "xmatGroupThreadCreated", b"xmatGroupThreadCreated", "xmatInstantGameEncryptedDynamicCustomUpdate", b"xmatInstantGameEncryptedDynamicCustomUpdate", "xmatLinkCta", b"xmatLinkCta", "xmatMagicWords", b"xmatMagicWords", "xmatMessagingLimitSharing", b"xmatMessagingLimitSharing", "xmatMessengerMessageReminderSet", b"xmatMessengerMessageReminderSet", "xmatMessengerMessageReminderTriggered", b"xmatMessengerMessageReminderTriggered", "xmatMessengerQrCodeScanned", b"xmatMessengerQrCodeScanned", "xmatMessengerSharedAlbum", b"xmatMessengerSharedAlbum", "xmatMessengerSharedAlbumAddition", b"xmatMessengerSharedAlbumAddition", "xmatMessengerSharedAlbumContentRemoval", b"xmatMessengerSharedAlbumContentRemoval", "xmatMessengerSharedAlbumDeletion", b"xmatMessengerSharedAlbumDeletion", "xmatMessengerSharedAlbumRename", b"xmatMessengerSharedAlbumRename", "xmatPinMessageV2", b"xmatPinMessageV2", "xmatRemoveParticipant", b"xmatRemoveParticipant", "xmatSetParticipantUpdateMode", b"xmatSetParticipantUpdateMode", "xmatThemeColor", b"xmatThemeColor", "xmatThreadIcon", b"xmatThreadIcon", "xmatThreadNickname", b"xmatThreadNickname", "xmatThreadQuickReaction", b"xmatThreadQuickReaction", "xmatUnpinMessageV2", b"xmatUnpinMessageV2", "xmatUpdatePayments", b"xmatUpdatePayments"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "limitSharingChanged", b"limitSharingChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged", "skipBumpThread", b"skipBumpThread", "skipSnippetUpdate", b"skipSnippetUpdate", "xmatDisappearingSetting", b"xmatDisappearingSetting", "xmatFriendRequestConfirmedEncrypted", b"xmatFriendRequestConfirmedEncrypted", "xmatGenaiTaskAdd", b"xmatGenaiTaskAdd", "xmatInstantGameEncryptedDynamicCustomUpdate", b"xmatInstantGameEncryptedDynamicCustomUpdate", "xmatLinkCta", b"xmatLinkCta", "xmatMagicWords", b"xmatMagicWords", "xmatMessagingLimitSharing", b"xmatMessagingLimitSharing", "xmatMessengerQrCodeScanned", b"xmatMessengerQrCodeScanned", "xmatMessengerSharedAlbum", b"xmatMessengerSharedAlbum", "xmatMessengerSharedAlbumAddition", b"xmatMessengerSharedAlbumAddition", "xmatMessengerSharedAlbumContentRemoval", b"xmatMessengerSharedAlbumContentRemoval", "xmatMessengerSharedAlbumDeletion", b"xmatMessengerSharedAlbumDeletion", "xmatMessengerSharedAlbumRename", b"xmatMessengerSharedAlbumRename", "xmatPinMessageV2", b"xmatPinMessageV2", "xmatThemeColor", b"xmatThemeColor", "xmatThreadIcon", b"xmatThreadIcon", "xmatThreadNickname", b"xmatThreadNickname", "xmatThreadQuickReaction", b"xmatThreadQuickReaction", "xmatUnpinMessageV2", b"xmatUnpinMessageV2", "xmatUpdatePayments", b"xmatUpdatePayments"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["chatThemeChanged", b"chatThemeChanged", "content", b"content", "disappearingSettingChanged", b"disappearingSettingChanged", "groupAdminChanged", b"groupAdminChanged", "groupImageChanged", b"groupImageChanged", "groupMembershipAddModeChanged", b"groupMembershipAddModeChanged", "groupNameChanged", b"groupNameChanged", "groupParticipantChanged", b"groupParticipantChanged", "iconChanged", b"iconChanged", "limitSharingChanged", b"limitSharingChanged", "linkCta", b"linkCta", "messagePinned", b"messagePinned", "nicknameChanged", b"nicknameChanged", "quickReactionChanged", b"quickReactionChanged", "readonlyMetadataDataclass", b"readonlyMetadataDataclass", "skipBumpThread", b"skipBumpThread", "skipSnippetUpdate", b"skipSnippetUpdate", "xmatAddParticipants", b"xmatAddParticipants", "xmatChangeThreadAdmins", b"xmatChangeThreadAdmins", "xmatChangeThreadName", b"xmatChangeThreadName", "xmatDisappearingSetting", b"xmatDisappearingSetting", "xmatFriendRequestConfirmedEncrypted", b"xmatFriendRequestConfirmedEncrypted", "xmatGenaiTaskAdd", b"xmatGenaiTaskAdd", "xmatGroupThreadCreated", b"xmatGroupThreadCreated", "xmatInstantGameEncryptedDynamicCustomUpdate", b"xmatInstantGameEncryptedDynamicCustomUpdate", "xmatLinkCta", b"xmatLinkCta", "xmatMagicWords", b"xmatMagicWords", "xmatMessagingLimitSharing", b"xmatMessagingLimitSharing", "xmatMessengerMessageReminderSet", b"xmatMessengerMessageReminderSet", "xmatMessengerMessageReminderTriggered", b"xmatMessengerMessageReminderTriggered", "xmatMessengerQrCodeScanned", b"xmatMessengerQrCodeScanned", "xmatMessengerSharedAlbum", b"xmatMessengerSharedAlbum", "xmatMessengerSharedAlbumAddition", b"xmatMessengerSharedAlbumAddition", "xmatMessengerSharedAlbumContentRemoval", b"xmatMessengerSharedAlbumContentRemoval", "xmatMessengerSharedAlbumDeletion", b"xmatMessengerSharedAlbumDeletion", "xmatMessengerSharedAlbumRename", b"xmatMessengerSharedAlbumRename", "xmatPinMessageV2", b"xmatPinMessageV2", "xmatRemoveParticipant", b"xmatRemoveParticipant", "xmatSetParticipantUpdateMode", b"xmatSetParticipantUpdateMode", "xmatThemeColor", b"xmatThemeColor", "xmatThreadIcon", b"xmatThreadIcon", "xmatThreadNickname", b"xmatThreadNickname", "xmatThreadQuickReaction", b"xmatThreadQuickReaction", "xmatUnpinMessageV2", b"xmatUnpinMessageV2", "xmatUpdatePayments", b"xmatUpdatePayments"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-    _WhichOneofReturnType_content: _TypeAlias = _typing.Literal["chatThemeChanged", "nicknameChanged", "groupParticipantChanged", "groupAdminChanged", "groupNameChanged", "groupMembershipAddModeChanged", "messagePinned", "groupImageChanged", "quickReactionChanged", "linkCta", "iconChanged", "disappearingSettingChanged", "limitSharingChanged", "xmatDisappearingSetting", "xmatFriendRequestConfirmedEncrypted", "xmatInstantGameEncryptedDynamicCustomUpdate", "xmatLinkCta", "xmatMagicWords", "xmatMessagingLimitSharing", "xmatMessengerQrCodeScanned", "xmatMessengerSharedAlbumAddition", "xmatMessengerSharedAlbumContentRemoval", "xmatMessengerSharedAlbumDeletion", "xmatMessengerSharedAlbumRename", "xmatMessengerSharedAlbum", "xmatThemeColor", "xmatThreadIcon", "xmatThreadNickname", "xmatThreadQuickReaction", "xmatUpdatePayments", "xmatPinMessageV2", "xmatUnpinMessageV2", "xmatGenaiTaskAdd"]  # noqa: Y015
+    _WhichOneofReturnType_content: _TypeAlias = _typing.Literal["chatThemeChanged", "nicknameChanged", "groupParticipantChanged", "groupAdminChanged", "groupNameChanged", "groupMembershipAddModeChanged", "messagePinned", "groupImageChanged", "quickReactionChanged", "linkCta", "iconChanged", "disappearingSettingChanged", "limitSharingChanged", "xmatDisappearingSetting", "xmatFriendRequestConfirmedEncrypted", "xmatInstantGameEncryptedDynamicCustomUpdate", "xmatLinkCta", "xmatMagicWords", "xmatMessagingLimitSharing", "xmatMessengerQrCodeScanned", "xmatMessengerSharedAlbumAddition", "xmatMessengerSharedAlbumContentRemoval", "xmatMessengerSharedAlbumDeletion", "xmatMessengerSharedAlbumRename", "xmatMessengerSharedAlbum", "xmatThemeColor", "xmatThreadIcon", "xmatThreadNickname", "xmatThreadQuickReaction", "xmatUpdatePayments", "xmatPinMessageV2", "xmatUnpinMessageV2", "xmatGenaiTaskAdd", "xmatAddParticipants", "xmatRemoveParticipant", "xmatChangeThreadAdmins", "xmatChangeThreadName", "xmatGroupThreadCreated", "xmatSetParticipantUpdateMode", "xmatMessengerMessageReminderSet", "xmatMessengerMessageReminderTriggered"]  # noqa: Y015
     _WhichOneofArgType_content: _TypeAlias = _typing.Literal["content", b"content"]  # noqa: Y015
     def WhichOneof(self, oneof_group: _WhichOneofArgType_content) -> _WhichOneofReturnType_content | None: ...
 
