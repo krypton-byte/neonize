@@ -8,6 +8,7 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf.internal import containers as _containers
 from waCommon import WACommon_pb2 as _WACommon_pb2
+from waE2E import WAWebProtobufsE2E_pb2 as _WAWebProtobufsE2E_pb2
 from waWeb import WAWebProtobufsWeb_pb2 as _WAWebProtobufsWeb_pb2
 import builtins as _builtins
 import sys
@@ -25,34 +26,34 @@ class GroupHistory(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
     MESSAGES_FIELD_NUMBER: _builtins.int
-    ASSOCIATEDMESSAGELISTS_FIELD_NUMBER: _builtins.int
+    UNCOUNTEDASSOCIATEDMESSAGELISTS_FIELD_NUMBER: _builtins.int
     COMMENTMESSAGES_FIELD_NUMBER: _builtins.int
     @_builtins.property
     def messages(self) -> _containers.RepeatedCompositeFieldContainer[_WAWebProtobufsWeb_pb2.WebMessageInfo]: ...
     @_builtins.property
-    def associatedMessageLists(self) -> _containers.RepeatedCompositeFieldContainer[Global___AssociatedMessageList]: ...
+    def uncountedAssociatedMessageLists(self) -> _containers.RepeatedCompositeFieldContainer[Global___UnCountedAssociatedMessageList]: ...
     @_builtins.property
     def commentMessages(self) -> _containers.RepeatedCompositeFieldContainer[_WAWebProtobufsWeb_pb2.WebMessageInfo]: ...
     def __init__(
         self,
         *,
         messages: _abc.Iterable[_WAWebProtobufsWeb_pb2.WebMessageInfo] | None = ...,
-        associatedMessageLists: _abc.Iterable[Global___AssociatedMessageList] | None = ...,
+        uncountedAssociatedMessageLists: _abc.Iterable[Global___UnCountedAssociatedMessageList] | None = ...,
         commentMessages: _abc.Iterable[_WAWebProtobufsWeb_pb2.WebMessageInfo] | None = ...,
     ) -> None: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["associatedMessageLists", b"associatedMessageLists", "commentMessages", b"commentMessages", "messages", b"messages"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["commentMessages", b"commentMessages", "messages", b"messages", "uncountedAssociatedMessageLists", b"uncountedAssociatedMessageLists"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___GroupHistory: _TypeAlias = GroupHistory  # noqa: Y015
 
 @_typing.final
-class AssociatedMessageList(_message.Message):
+class UnCountedAssociatedMessageList(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
     MESSAGES_FIELD_NUMBER: _builtins.int
     PARENTMESSAGE_FIELD_NUMBER: _builtins.int
     ASSOCIATIONTYPE_FIELD_NUMBER: _builtins.int
-    associationType: _builtins.int
+    associationType: _WAWebProtobufsE2E_pb2.MessageAssociation.AssociationType.ValueType
     @_builtins.property
     def messages(self) -> _containers.RepeatedCompositeFieldContainer[_WAWebProtobufsWeb_pb2.WebMessageInfo]: ...
     @_builtins.property
@@ -62,11 +63,81 @@ class AssociatedMessageList(_message.Message):
         *,
         messages: _abc.Iterable[_WAWebProtobufsWeb_pb2.WebMessageInfo] | None = ...,
         parentMessage: _WACommon_pb2.MessageKey | None = ...,
-        associationType: _builtins.int | None = ...,
+        associationType: _WAWebProtobufsE2E_pb2.MessageAssociation.AssociationType.ValueType | None = ...,
     ) -> None: ...
     _HasFieldArgType: _TypeAlias = _typing.Literal["associationType", b"associationType", "parentMessage", b"parentMessage"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["associationType", b"associationType", "messages", b"messages", "parentMessage", b"parentMessage"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
-Global___AssociatedMessageList: _TypeAlias = AssociatedMessageList  # noqa: Y015
+Global___UnCountedAssociatedMessageList: _TypeAlias = UnCountedAssociatedMessageList  # noqa: Y015
+
+@_typing.final
+class WebMessageInfoWithMessageBytes(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: _builtins.int
+    MESSAGEBYTES_FIELD_NUMBER: _builtins.int
+    messageBytes: _builtins.bytes
+    @_builtins.property
+    def key(self) -> _WACommon_pb2.MessageKey: ...
+    def __init__(
+        self,
+        *,
+        key: _WACommon_pb2.MessageKey | None = ...,
+        messageBytes: _builtins.bytes | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "messageBytes", b"messageBytes"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "messageBytes", b"messageBytes"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___WebMessageInfoWithMessageBytes: _TypeAlias = WebMessageInfoWithMessageBytes  # noqa: Y015
+
+@_typing.final
+class UnCountedAssociatedMessageListWithMessageBytes(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    MESSAGES_FIELD_NUMBER: _builtins.int
+    PARENTMESSAGE_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def messages(self) -> _containers.RepeatedCompositeFieldContainer[Global___WebMessageInfoWithMessageBytes]: ...
+    @_builtins.property
+    def parentMessage(self) -> _WACommon_pb2.MessageKey: ...
+    def __init__(
+        self,
+        *,
+        messages: _abc.Iterable[Global___WebMessageInfoWithMessageBytes] | None = ...,
+        parentMessage: _WACommon_pb2.MessageKey | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["parentMessage", b"parentMessage"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["messages", b"messages", "parentMessage", b"parentMessage"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___UnCountedAssociatedMessageListWithMessageBytes: _TypeAlias = UnCountedAssociatedMessageListWithMessageBytes  # noqa: Y015
+
+@_typing.final
+class GroupHistoryWithMessageBytes(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    MESSAGES_FIELD_NUMBER: _builtins.int
+    UNCOUNTEDASSOCIATEDMESSAGELISTS_FIELD_NUMBER: _builtins.int
+    COMMENTMESSAGES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def messages(self) -> _containers.RepeatedCompositeFieldContainer[Global___WebMessageInfoWithMessageBytes]: ...
+    @_builtins.property
+    def uncountedAssociatedMessageLists(self) -> _containers.RepeatedCompositeFieldContainer[Global___UnCountedAssociatedMessageListWithMessageBytes]: ...
+    @_builtins.property
+    def commentMessages(self) -> _containers.RepeatedCompositeFieldContainer[Global___WebMessageInfoWithMessageBytes]: ...
+    def __init__(
+        self,
+        *,
+        messages: _abc.Iterable[Global___WebMessageInfoWithMessageBytes] | None = ...,
+        uncountedAssociatedMessageLists: _abc.Iterable[Global___UnCountedAssociatedMessageListWithMessageBytes] | None = ...,
+        commentMessages: _abc.Iterable[Global___WebMessageInfoWithMessageBytes] | None = ...,
+    ) -> None: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["commentMessages", b"commentMessages", "messages", b"messages", "uncountedAssociatedMessageLists", b"uncountedAssociatedMessageLists"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___GroupHistoryWithMessageBytes: _TypeAlias = GroupHistoryWithMessageBytes  # noqa: Y015

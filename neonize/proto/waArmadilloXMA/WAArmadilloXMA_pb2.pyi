@@ -172,6 +172,7 @@ class ExtendedContentMessage(_message.Message):
         MSG_PHONE_NUMBER: ExtendedContentMessage._ExtendedContentType.ValueType  # 2030
         AI_ACTIVITY_SHARE: ExtendedContentMessage._ExtendedContentType.ValueType  # 2031
         MSG_PRIVATE_XMA: ExtendedContentMessage._ExtendedContentType.ValueType  # 2032
+        MSG_MANUS_GROWTH_REFERRAL: ExtendedContentMessage._ExtendedContentType.ValueType  # 2060
         RTC_AUDIO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3000
         RTC_VIDEO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3001
         RTC_MISSED_AUDIO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3002
@@ -252,6 +253,7 @@ class ExtendedContentMessage(_message.Message):
     MSG_PHONE_NUMBER: ExtendedContentMessage.ExtendedContentType.ValueType  # 2030
     AI_ACTIVITY_SHARE: ExtendedContentMessage.ExtendedContentType.ValueType  # 2031
     MSG_PRIVATE_XMA: ExtendedContentMessage.ExtendedContentType.ValueType  # 2032
+    MSG_MANUS_GROWTH_REFERRAL: ExtendedContentMessage.ExtendedContentType.ValueType  # 2060
     RTC_AUDIO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3000
     RTC_VIDEO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3001
     RTC_MISSED_AUDIO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3002

@@ -123,6 +123,10 @@ class _MutationPropsEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_Mutatio
     AI_THREAD_RENAME_ACTION: _MutationProps.ValueType  # 76
     INTERACTIVE_MESSAGE_ACTION: _MutationProps.ValueType  # 77
     SETTINGS_SYNC_ACTION: _MutationProps.ValueType  # 78
+    OUT_CONTACT_ACTION: _MutationProps.ValueType  # 79
+    NCT_SALT_SYNC_ACTION: _MutationProps.ValueType  # 80
+    BUSINESS_BROADCAST_CAMPAIGN_ACTION: _MutationProps.ValueType  # 81
+    BUSINESS_BROADCAST_INSIGHTS_ACTION: _MutationProps.ValueType  # 82
     SHARE_OWN_PN: _MutationProps.ValueType  # 10001
     BUSINESS_BROADCAST_ACTION: _MutationProps.ValueType  # 10002
     AI_THREAD_DELETE_ACTION: _MutationProps.ValueType  # 10003
@@ -201,10 +205,35 @@ NEWSLETTER_SAVED_INTERESTS_ACTION: MutationProps.ValueType  # 75
 AI_THREAD_RENAME_ACTION: MutationProps.ValueType  # 76
 INTERACTIVE_MESSAGE_ACTION: MutationProps.ValueType  # 77
 SETTINGS_SYNC_ACTION: MutationProps.ValueType  # 78
+OUT_CONTACT_ACTION: MutationProps.ValueType  # 79
+NCT_SALT_SYNC_ACTION: MutationProps.ValueType  # 80
+BUSINESS_BROADCAST_CAMPAIGN_ACTION: MutationProps.ValueType  # 81
+BUSINESS_BROADCAST_INSIGHTS_ACTION: MutationProps.ValueType  # 82
 SHARE_OWN_PN: MutationProps.ValueType  # 10001
 BUSINESS_BROADCAST_ACTION: MutationProps.ValueType  # 10002
 AI_THREAD_DELETE_ACTION: MutationProps.ValueType  # 10003
 Global___MutationProps: _TypeAlias = MutationProps  # noqa: Y015
+
+class _BusinessBroadcastCampaignStatus:
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
+
+class _BusinessBroadcastCampaignStatusEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_BusinessBroadcastCampaignStatus.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
+    DRAFT: _BusinessBroadcastCampaignStatus.ValueType  # 1
+    SCHEDULED: _BusinessBroadcastCampaignStatus.ValueType  # 2
+    PROCESSING: _BusinessBroadcastCampaignStatus.ValueType  # 3
+    FAILED: _BusinessBroadcastCampaignStatus.ValueType  # 4
+    SENT: _BusinessBroadcastCampaignStatus.ValueType  # 5
+
+class BusinessBroadcastCampaignStatus(_BusinessBroadcastCampaignStatus, metaclass=_BusinessBroadcastCampaignStatusEnumTypeWrapper): ...
+
+DRAFT: BusinessBroadcastCampaignStatus.ValueType  # 1
+SCHEDULED: BusinessBroadcastCampaignStatus.ValueType  # 2
+PROCESSING: BusinessBroadcastCampaignStatus.ValueType  # 3
+FAILED: BusinessBroadcastCampaignStatus.ValueType  # 4
+SENT: BusinessBroadcastCampaignStatus.ValueType  # 5
+Global___BusinessBroadcastCampaignStatus: _TypeAlias = BusinessBroadcastCampaignStatus  # noqa: Y015
 
 @_typing.final
 class CallLogRecord(_message.Message):
@@ -597,15 +626,18 @@ class InteractiveMessageAction(_message.Message):
     DISABLE_CTA: InteractiveMessageAction.InteractiveMessageActionMode.ValueType  # 1
 
     TYPE_FIELD_NUMBER: _builtins.int
+    AGMID_FIELD_NUMBER: _builtins.int
     type: Global___InteractiveMessageAction.InteractiveMessageActionMode.ValueType
+    agmID: _builtins.str
     def __init__(
         self,
         *,
         type: Global___InteractiveMessageAction.InteractiveMessageActionMode.ValueType | None = ...,
+        agmID: _builtins.str | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["type", b"type"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["agmID", b"agmID", "type", b"type"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["type", b"type"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["agmID", b"agmID", "type", b"type"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___InteractiveMessageAction: _TypeAlias = InteractiveMessageAction  # noqa: Y015
@@ -919,7 +951,11 @@ class StatusPrivacyAction(_message.Message):
 
     MODE_FIELD_NUMBER: _builtins.int
     USERJID_FIELD_NUMBER: _builtins.int
+    SHARETOFB_FIELD_NUMBER: _builtins.int
+    SHARETOIG_FIELD_NUMBER: _builtins.int
     mode: Global___StatusPrivacyAction.StatusDistributionMode.ValueType
+    shareToFB: _builtins.bool
+    shareToIG: _builtins.bool
     @_builtins.property
     def userJID(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
     def __init__(
@@ -927,10 +963,12 @@ class StatusPrivacyAction(_message.Message):
         *,
         mode: Global___StatusPrivacyAction.StatusDistributionMode.ValueType | None = ...,
         userJID: _abc.Iterable[_builtins.str] | None = ...,
+        shareToFB: _builtins.bool | None = ...,
+        shareToIG: _builtins.bool | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["mode", b"mode"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["mode", b"mode", "shareToFB", b"shareToFB", "shareToIG", b"shareToIG"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["mode", b"mode", "userJID", b"userJID"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["mode", b"mode", "shareToFB", b"shareToFB", "shareToIG", b"shareToIG", "userJID", b"userJID"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___StatusPrivacyAction: _TypeAlias = StatusPrivacyAction  # noqa: Y015
@@ -1033,6 +1071,7 @@ class LabelEditAction(_message.Message):
         SERVER_ASSIGNED: LabelEditAction._ListType.ValueType  # 7
         DRAFTED: LabelEditAction._ListType.ValueType  # 8
         AI_HANDOFF: LabelEditAction._ListType.ValueType  # 9
+        CHANNELS: LabelEditAction._ListType.ValueType  # 10
 
     class ListType(_ListType, metaclass=_ListTypeEnumTypeWrapper): ...
     NONE: LabelEditAction.ListType.ValueType  # 0
@@ -1045,6 +1084,7 @@ class LabelEditAction(_message.Message):
     SERVER_ASSIGNED: LabelEditAction.ListType.ValueType  # 7
     DRAFTED: LabelEditAction.ListType.ValueType  # 8
     AI_HANDOFF: LabelEditAction.ListType.ValueType  # 9
+    CHANNELS: LabelEditAction.ListType.ValueType  # 10
 
     NAME_FIELD_NUMBER: _builtins.int
     COLOR_FIELD_NUMBER: _builtins.int
@@ -1269,6 +1309,10 @@ class SyncActionValue(_message.Message):
     AITHREADRENAMEACTION_FIELD_NUMBER: _builtins.int
     INTERACTIVEMESSAGEACTION_FIELD_NUMBER: _builtins.int
     SETTINGSSYNCACTION_FIELD_NUMBER: _builtins.int
+    OUTCONTACTACTION_FIELD_NUMBER: _builtins.int
+    NCTSALTSYNCACTION_FIELD_NUMBER: _builtins.int
+    BUSINESSBROADCASTCAMPAIGNACTION_FIELD_NUMBER: _builtins.int
+    BUSINESSBROADCASTINSIGHTSACTION_FIELD_NUMBER: _builtins.int
     timestamp: _builtins.int
     @_builtins.property
     def starAction(self) -> Global___StarAction: ...
@@ -1406,6 +1450,14 @@ class SyncActionValue(_message.Message):
     def interactiveMessageAction(self) -> Global___InteractiveMessageAction: ...
     @_builtins.property
     def settingsSyncAction(self) -> Global___SettingsSyncAction: ...
+    @_builtins.property
+    def outContactAction(self) -> Global___OutContactAction: ...
+    @_builtins.property
+    def nctSaltSyncAction(self) -> Global___NctSaltSyncAction: ...
+    @_builtins.property
+    def businessBroadcastCampaignAction(self) -> Global___BusinessBroadcastCampaignAction: ...
+    @_builtins.property
+    def businessBroadcastInsightsAction(self) -> Global___BusinessBroadcastInsightsAction: ...
     def __init__(
         self,
         *,
@@ -1478,13 +1530,65 @@ class SyncActionValue(_message.Message):
         aiThreadRenameAction: Global___AiThreadRenameAction | None = ...,
         interactiveMessageAction: Global___InteractiveMessageAction | None = ...,
         settingsSyncAction: Global___SettingsSyncAction | None = ...,
+        outContactAction: Global___OutContactAction | None = ...,
+        nctSaltSyncAction: Global___NctSaltSyncAction | None = ...,
+        businessBroadcastCampaignAction: Global___BusinessBroadcastCampaignAction | None = ...,
+        businessBroadcastInsightsAction: Global___BusinessBroadcastInsightsAction | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["agentAction", b"agentAction", "aiThreadRenameAction", b"aiThreadRenameAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "avatarUpdatedAction", b"avatarUpdatedAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "businessBroadcastListAction", b"businessBroadcastListAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "ctwaPerCustomerDataSharingAction", b"ctwaPerCustomerDataSharingAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "detectedOutcomesStatusAction", b"detectedOutcomesStatusAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "interactiveMessageAction", b"interactiveMessageAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "lidContactAction", b"lidContactAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "maibaAiFeaturesControlAction", b"maibaAiFeaturesControlAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "musicUserIDAction", b"musicUserIDAction", "muteAction", b"muteAction", "newsletterSavedInterestsAction", b"newsletterSavedInterestsAction", "noteEditAction", b"noteEditAction", "notificationActivitySettingAction", b"notificationActivitySettingAction", "nuxAction", b"nuxAction", "paymentInfoAction", b"paymentInfoAction", "paymentTosAction", b"paymentTosAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingChannelsPersonalisedRecommendationAction", b"privacySettingChannelsPersonalisedRecommendationAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "privateProcessingSettingAction", b"privateProcessingSettingAction", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "settingsSyncAction", b"settingsSyncAction", "starAction", b"starAction", "statusPostOptInNotificationPreferencesAction", b"statusPostOptInNotificationPreferencesAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "ugcBot", b"ugcBot", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "usernameChatStartMode", b"usernameChatStartMode", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["agentAction", b"agentAction", "aiThreadRenameAction", b"aiThreadRenameAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "avatarUpdatedAction", b"avatarUpdatedAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "businessBroadcastCampaignAction", b"businessBroadcastCampaignAction", "businessBroadcastInsightsAction", b"businessBroadcastInsightsAction", "businessBroadcastListAction", b"businessBroadcastListAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "ctwaPerCustomerDataSharingAction", b"ctwaPerCustomerDataSharingAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "detectedOutcomesStatusAction", b"detectedOutcomesStatusAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "interactiveMessageAction", b"interactiveMessageAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "lidContactAction", b"lidContactAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "maibaAiFeaturesControlAction", b"maibaAiFeaturesControlAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "musicUserIDAction", b"musicUserIDAction", "muteAction", b"muteAction", "nctSaltSyncAction", b"nctSaltSyncAction", "newsletterSavedInterestsAction", b"newsletterSavedInterestsAction", "noteEditAction", b"noteEditAction", "notificationActivitySettingAction", b"notificationActivitySettingAction", "nuxAction", b"nuxAction", "outContactAction", b"outContactAction", "paymentInfoAction", b"paymentInfoAction", "paymentTosAction", b"paymentTosAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingChannelsPersonalisedRecommendationAction", b"privacySettingChannelsPersonalisedRecommendationAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "privateProcessingSettingAction", b"privateProcessingSettingAction", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "settingsSyncAction", b"settingsSyncAction", "starAction", b"starAction", "statusPostOptInNotificationPreferencesAction", b"statusPostOptInNotificationPreferencesAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "ugcBot", b"ugcBot", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "usernameChatStartMode", b"usernameChatStartMode", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["agentAction", b"agentAction", "aiThreadRenameAction", b"aiThreadRenameAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "avatarUpdatedAction", b"avatarUpdatedAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "businessBroadcastListAction", b"businessBroadcastListAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "ctwaPerCustomerDataSharingAction", b"ctwaPerCustomerDataSharingAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "detectedOutcomesStatusAction", b"detectedOutcomesStatusAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "interactiveMessageAction", b"interactiveMessageAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "lidContactAction", b"lidContactAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "maibaAiFeaturesControlAction", b"maibaAiFeaturesControlAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "musicUserIDAction", b"musicUserIDAction", "muteAction", b"muteAction", "newsletterSavedInterestsAction", b"newsletterSavedInterestsAction", "noteEditAction", b"noteEditAction", "notificationActivitySettingAction", b"notificationActivitySettingAction", "nuxAction", b"nuxAction", "paymentInfoAction", b"paymentInfoAction", "paymentTosAction", b"paymentTosAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingChannelsPersonalisedRecommendationAction", b"privacySettingChannelsPersonalisedRecommendationAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "privateProcessingSettingAction", b"privateProcessingSettingAction", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "settingsSyncAction", b"settingsSyncAction", "starAction", b"starAction", "statusPostOptInNotificationPreferencesAction", b"statusPostOptInNotificationPreferencesAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "ugcBot", b"ugcBot", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "usernameChatStartMode", b"usernameChatStartMode", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["agentAction", b"agentAction", "aiThreadRenameAction", b"aiThreadRenameAction", "androidUnsupportedActions", b"androidUnsupportedActions", "archiveChatAction", b"archiveChatAction", "avatarUpdatedAction", b"avatarUpdatedAction", "botWelcomeRequestAction", b"botWelcomeRequestAction", "businessBroadcastCampaignAction", b"businessBroadcastCampaignAction", "businessBroadcastInsightsAction", b"businessBroadcastInsightsAction", "businessBroadcastListAction", b"businessBroadcastListAction", "callLogAction", b"callLogAction", "chatAssignment", b"chatAssignment", "chatAssignmentOpenedStatus", b"chatAssignmentOpenedStatus", "chatLockSettings", b"chatLockSettings", "clearChatAction", b"clearChatAction", "contactAction", b"contactAction", "ctwaPerCustomerDataSharingAction", b"ctwaPerCustomerDataSharingAction", "customPaymentMethodsAction", b"customPaymentMethodsAction", "deleteChatAction", b"deleteChatAction", "deleteIndividualCallLog", b"deleteIndividualCallLog", "deleteMessageForMeAction", b"deleteMessageForMeAction", "detectedOutcomesStatusAction", b"detectedOutcomesStatusAction", "deviceCapabilities", b"deviceCapabilities", "externalWebBetaAction", b"externalWebBetaAction", "favoritesAction", b"favoritesAction", "interactiveMessageAction", b"interactiveMessageAction", "keyExpiration", b"keyExpiration", "labelAssociationAction", b"labelAssociationAction", "labelEditAction", b"labelEditAction", "labelReorderingAction", b"labelReorderingAction", "lidContactAction", b"lidContactAction", "localeSetting", b"localeSetting", "lockChatAction", b"lockChatAction", "maibaAiFeaturesControlAction", b"maibaAiFeaturesControlAction", "markChatAsReadAction", b"markChatAsReadAction", "marketingMessageAction", b"marketingMessageAction", "marketingMessageBroadcastAction", b"marketingMessageBroadcastAction", "merchantPaymentPartnerAction", b"merchantPaymentPartnerAction", "musicUserIDAction", b"musicUserIDAction", "muteAction", b"muteAction", "nctSaltSyncAction", b"nctSaltSyncAction", "newsletterSavedInterestsAction", b"newsletterSavedInterestsAction", "noteEditAction", b"noteEditAction", "notificationActivitySettingAction", b"notificationActivitySettingAction", "nuxAction", b"nuxAction", "outContactAction", b"outContactAction", "paymentInfoAction", b"paymentInfoAction", "paymentTosAction", b"paymentTosAction", "pinAction", b"pinAction", "pnForLidChatAction", b"pnForLidChatAction", "primaryFeature", b"primaryFeature", "primaryVersionAction", b"primaryVersionAction", "privacySettingChannelsPersonalisedRecommendationAction", b"privacySettingChannelsPersonalisedRecommendationAction", "privacySettingDisableLinkPreviewsAction", b"privacySettingDisableLinkPreviewsAction", "privacySettingRelayAllCalls", b"privacySettingRelayAllCalls", "privateProcessingSettingAction", b"privateProcessingSettingAction", "pushNameSetting", b"pushNameSetting", "quickReplyAction", b"quickReplyAction", "recentEmojiWeightsAction", b"recentEmojiWeightsAction", "removeRecentStickerAction", b"removeRecentStickerAction", "settingsSyncAction", b"settingsSyncAction", "starAction", b"starAction", "statusPostOptInNotificationPreferencesAction", b"statusPostOptInNotificationPreferencesAction", "statusPrivacy", b"statusPrivacy", "stickerAction", b"stickerAction", "subscriptionAction", b"subscriptionAction", "timeFormatAction", b"timeFormatAction", "timestamp", b"timestamp", "ugcBot", b"ugcBot", "unarchiveChatsSetting", b"unarchiveChatsSetting", "userStatusMuteAction", b"userStatusMuteAction", "usernameChatStartMode", b"usernameChatStartMode", "waffleAccountLinkStateAction", b"waffleAccountLinkStateAction", "wamoUserIdentifierAction", b"wamoUserIdentifierAction"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___SyncActionValue: _TypeAlias = SyncActionValue  # noqa: Y015
+
+@_typing.final
+class BusinessBroadcastInsightsAction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    RECIPIENTCOUNT_FIELD_NUMBER: _builtins.int
+    DELIVEREDCOUNT_FIELD_NUMBER: _builtins.int
+    READCOUNT_FIELD_NUMBER: _builtins.int
+    REPLIEDCOUNT_FIELD_NUMBER: _builtins.int
+    QUICKREPLYCOUNT_FIELD_NUMBER: _builtins.int
+    recipientCount: _builtins.int
+    deliveredCount: _builtins.int
+    readCount: _builtins.int
+    repliedCount: _builtins.int
+    quickReplyCount: _builtins.int
+    def __init__(
+        self,
+        *,
+        recipientCount: _builtins.int | None = ...,
+        deliveredCount: _builtins.int | None = ...,
+        readCount: _builtins.int | None = ...,
+        repliedCount: _builtins.int | None = ...,
+        quickReplyCount: _builtins.int | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["deliveredCount", b"deliveredCount", "quickReplyCount", b"quickReplyCount", "readCount", b"readCount", "recipientCount", b"recipientCount", "repliedCount", b"repliedCount"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["deliveredCount", b"deliveredCount", "quickReplyCount", b"quickReplyCount", "readCount", b"readCount", "recipientCount", b"recipientCount", "repliedCount", b"repliedCount"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___BusinessBroadcastInsightsAction: _TypeAlias = BusinessBroadcastInsightsAction  # noqa: Y015
+
+@_typing.final
+class NctSaltSyncAction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    SALT_FIELD_NUMBER: _builtins.int
+    salt: _builtins.bytes
+    def __init__(
+        self,
+        *,
+        salt: _builtins.bytes | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["salt", b"salt"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["salt", b"salt"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___NctSaltSyncAction: _TypeAlias = NctSaltSyncAction  # noqa: Y015
 
 @_typing.final
 class AiThreadRenameAction(_message.Message):
@@ -1542,6 +1646,48 @@ class BroadcastListParticipant(_message.Message):
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___BroadcastListParticipant: _TypeAlias = BroadcastListParticipant  # noqa: Y015
+
+@_typing.final
+class BusinessBroadcastCampaignAction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    DEVICEID_FIELD_NUMBER: _builtins.int
+    ADID_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    MSGID_FIELD_NUMBER: _builtins.int
+    BROADCASTJID_FIELD_NUMBER: _builtins.int
+    RESERVEDQUOTA_FIELD_NUMBER: _builtins.int
+    SCHEDULEDTIMESTAMP_FIELD_NUMBER: _builtins.int
+    CREATETIMESTAMP_FIELD_NUMBER: _builtins.int
+    STATUS_FIELD_NUMBER: _builtins.int
+    deviceID: _builtins.int
+    adID: _builtins.str
+    name: _builtins.str
+    msgID: _builtins.str
+    broadcastJID: _builtins.str
+    reservedQuota: _builtins.int
+    scheduledTimestamp: _builtins.int
+    createTimestamp: _builtins.int
+    status: Global___BusinessBroadcastCampaignStatus.ValueType
+    def __init__(
+        self,
+        *,
+        deviceID: _builtins.int | None = ...,
+        adID: _builtins.str | None = ...,
+        name: _builtins.str | None = ...,
+        msgID: _builtins.str | None = ...,
+        broadcastJID: _builtins.str | None = ...,
+        reservedQuota: _builtins.int | None = ...,
+        scheduledTimestamp: _builtins.int | None = ...,
+        createTimestamp: _builtins.int | None = ...,
+        status: Global___BusinessBroadcastCampaignStatus.ValueType | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["adID", b"adID", "broadcastJID", b"broadcastJID", "createTimestamp", b"createTimestamp", "deviceID", b"deviceID", "msgID", b"msgID", "name", b"name", "reservedQuota", b"reservedQuota", "scheduledTimestamp", b"scheduledTimestamp", "status", b"status"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["adID", b"adID", "broadcastJID", b"broadcastJID", "createTimestamp", b"createTimestamp", "deviceID", b"deviceID", "msgID", b"msgID", "name", b"name", "reservedQuota", b"reservedQuota", "scheduledTimestamp", b"scheduledTimestamp", "status", b"status"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___BusinessBroadcastCampaignAction: _TypeAlias = BusinessBroadcastCampaignAction  # noqa: Y015
 
 @_typing.final
 class BusinessBroadcastListAction(_message.Message):
@@ -1607,6 +1753,27 @@ class CtwaPerCustomerDataSharingAction(_message.Message):
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___CtwaPerCustomerDataSharingAction: _TypeAlias = CtwaPerCustomerDataSharingAction  # noqa: Y015
+
+@_typing.final
+class OutContactAction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    FULLNAME_FIELD_NUMBER: _builtins.int
+    FIRSTNAME_FIELD_NUMBER: _builtins.int
+    fullName: _builtins.str
+    firstName: _builtins.str
+    def __init__(
+        self,
+        *,
+        fullName: _builtins.str | None = ...,
+        firstName: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["firstName", b"firstName", "fullName", b"fullName"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["firstName", b"firstName", "fullName", b"fullName"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___OutContactAction: _TypeAlias = OutContactAction  # noqa: Y015
 
 @_typing.final
 class LidContactAction(_message.Message):
