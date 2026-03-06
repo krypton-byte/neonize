@@ -64,7 +64,7 @@
 
 We are grateful to our sponsors who help make Neonize possible. Their support enables us to continue developing and maintaining this open-source project for the community.
 
-<!-- sponsors --><a href="https://github.com/OwlFeedMe"><img src="https:&#x2F;&#x2F;github.com&#x2F;OwlFeedMe.png" width="60px" alt="User avatar: FeedMe" /></a><!-- sponsors -->
+<!-- sponsors --><a href="https://github.com/OwlFeedMe"><img src="https:&#x2F;&#x2F;github.com&#x2F;OwlFeedMe.png" width="60px" alt="User avatar: FeedMe" /></a><a href="https://github.com/Seikened"><img src="https:&#x2F;&#x2F;github.com&#x2F;Seikened.png" width="60px" alt="User avatar: Fernando Leon Franco" /></a><!-- sponsors -->
 
 ### 🤝 Become a Sponsor
 
