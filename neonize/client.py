@@ -3236,7 +3236,9 @@ class NewClient:
         Stops the client by disconnecting it from the WhatsApp servers.
         """
         _log_.debug("Stopping client and disconnecting from WhatsApp servers.")
-        self.__client.stop()
+        self.__client.stop(
+            self.uuid
+        )
 
     def get_message_for_retry(
         self, requester: JID, to: JID, message_id: str
