@@ -3452,8 +3452,8 @@ class NewAClient:
             b"",
             0,
         )
-        self.connect_task = connect_task = self.loop.create_task(task)
-        return connect_task
+        self.connect_task = self.loop.create_task(task)
+        return self.connect_task
 
     async def disconnect(self) -> None:
         """
