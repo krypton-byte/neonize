@@ -633,11 +633,34 @@ This project is licensed under the **Apache License 2.0** - see the [LICENSE](LI
 - 📚 **Documentation**: [Full Documentation](https://neonize.readthedocs.io/)
 - 🔗 **Related Projects**: [Thundra Framework](https://github.com/krypton-byte/thundra)
 
+## 🌟 Introducing Tryx
+
+Looking for another powerful tool for WhatsApp automation? Check out **[Tryx](https://github.com/krypton-byte/tryx)** — a Rust-powered Python SDK designed for building WhatsApp automations with an async-first API, strong typing, and production-focused performance.
+
+### Why Tryx?
+- Async-first architecture for event-driven bots
+- Python-friendly API with namespace-based clients
+- High-performance native core for protocol and transport workloads
+- Typed interfaces for better editor support and safer integrations
+
+Tryx combines the best of:
+- **Rust** for protocol and runtime-heavy paths
+- **PyO3** for Python bindings
+- **Tokio** for async orchestration
+- **Typed Python package distribution** (.pyi + py.typed)
+
+> Note: This project is an independent developer SDK and is not affiliated with WhatsApp or Meta.
+
+For more details, visit the [Tryx repository](https://github.com/krypton-byte/tryx).
+
+---
+
 ## 🌟 Related Projects
 
 - **[Thundra](https://github.com/krypton-byte/thundra)** - High-level bot framework built on Neonize
 - **[Neonize Dart](https://github.com/krypton-byte/neonize-dart)** - Dart/Flutter wrapper for Neonize
 - **[Whatsmeow](https://github.com/tulir/whatsmeow)** - Go WhatsApp Web API library
+- **[Tryx](https://github.com/krypton-byte/tryx)** - Rust-powered Python SDK for WhatsApp automation
 
 ---
 
