@@ -3310,7 +3310,7 @@ class NewClient:
     def decrypt_poll_vote(self, message: neonize_proto.Message) -> PollVoteMessage:
         """Decrypt PollMessage"""
         msg_buff = message.SerializeToString()
-        bytes_ptr = self.__client.DecryptPollVote(self.uuid, msg_buff)
+        bytes_ptr = self.__client.DecryptPollVote(self.uuid, msg_buff, len(msg_buff))
         protobytes = bytes_ptr.contents.get_bytes()
         free_bytes(bytes_ptr)
         model = ReturnFunctionWithError.FromString(protobytes)

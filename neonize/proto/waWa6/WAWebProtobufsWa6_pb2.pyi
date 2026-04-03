@@ -20,6 +20,156 @@ else:
 DESCRIPTOR: _descriptor.FileDescriptor
 
 @_typing.final
+class HandshakeMessage(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    class _HandshakePqMode:
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
+
+    class _HandshakePqModeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[HandshakeMessage._HandshakePqMode.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
+        HANDSHAKE_PQ_MODE_UNKNOWN: HandshakeMessage._HandshakePqMode.ValueType  # 0
+        XXKEM: HandshakeMessage._HandshakePqMode.ValueType  # 1
+        XXKEM_FS: HandshakeMessage._HandshakePqMode.ValueType  # 2
+        WA_CLASSICAL: HandshakeMessage._HandshakePqMode.ValueType  # 3
+        WA_PQ: HandshakeMessage._HandshakePqMode.ValueType  # 4
+        IKKEM: HandshakeMessage._HandshakePqMode.ValueType  # 5
+        IKKEM_FS: HandshakeMessage._HandshakePqMode.ValueType  # 6
+        XXKEM_2: HandshakeMessage._HandshakePqMode.ValueType  # 7
+        IKKEM_2: HandshakeMessage._HandshakePqMode.ValueType  # 8
+
+    class HandshakePqMode(_HandshakePqMode, metaclass=_HandshakePqModeEnumTypeWrapper): ...
+    HANDSHAKE_PQ_MODE_UNKNOWN: HandshakeMessage.HandshakePqMode.ValueType  # 0
+    XXKEM: HandshakeMessage.HandshakePqMode.ValueType  # 1
+    XXKEM_FS: HandshakeMessage.HandshakePqMode.ValueType  # 2
+    WA_CLASSICAL: HandshakeMessage.HandshakePqMode.ValueType  # 3
+    WA_PQ: HandshakeMessage.HandshakePqMode.ValueType  # 4
+    IKKEM: HandshakeMessage.HandshakePqMode.ValueType  # 5
+    IKKEM_FS: HandshakeMessage.HandshakePqMode.ValueType  # 6
+    XXKEM_2: HandshakeMessage.HandshakePqMode.ValueType  # 7
+    IKKEM_2: HandshakeMessage.HandshakePqMode.ValueType  # 8
+
+    @_typing.final
+    class ClientFinish(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        STATIC_FIELD_NUMBER: _builtins.int
+        PAYLOAD_FIELD_NUMBER: _builtins.int
+        EXTENDEDCIPHERTEXT_FIELD_NUMBER: _builtins.int
+        PADDEDBYTES_FIELD_NUMBER: _builtins.int
+        SIMULATEXXKEMFS_FIELD_NUMBER: _builtins.int
+        static: _builtins.bytes
+        payload: _builtins.bytes
+        extendedCiphertext: _builtins.bytes
+        paddedBytes: _builtins.bytes
+        simulateXxkemFs: _builtins.bool
+        def __init__(
+            self,
+            *,
+            static: _builtins.bytes | None = ...,
+            payload: _builtins.bytes | None = ...,
+            extendedCiphertext: _builtins.bytes | None = ...,
+            paddedBytes: _builtins.bytes | None = ...,
+            simulateXxkemFs: _builtins.bool | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["extendedCiphertext", b"extendedCiphertext", "paddedBytes", b"paddedBytes", "payload", b"payload", "simulateXxkemFs", b"simulateXxkemFs", "static", b"static"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["extendedCiphertext", b"extendedCiphertext", "paddedBytes", b"paddedBytes", "payload", b"payload", "simulateXxkemFs", b"simulateXxkemFs", "static", b"static"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+    @_typing.final
+    class ServerHello(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        EPHEMERAL_FIELD_NUMBER: _builtins.int
+        STATIC_FIELD_NUMBER: _builtins.int
+        PAYLOAD_FIELD_NUMBER: _builtins.int
+        EXTENDEDSTATIC_FIELD_NUMBER: _builtins.int
+        PADDINGBYTES_FIELD_NUMBER: _builtins.int
+        ephemeral: _builtins.bytes
+        static: _builtins.bytes
+        payload: _builtins.bytes
+        extendedStatic: _builtins.bytes
+        paddingBytes: _builtins.bytes
+        def __init__(
+            self,
+            *,
+            ephemeral: _builtins.bytes | None = ...,
+            static: _builtins.bytes | None = ...,
+            payload: _builtins.bytes | None = ...,
+            extendedStatic: _builtins.bytes | None = ...,
+            paddingBytes: _builtins.bytes | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["ephemeral", b"ephemeral", "extendedStatic", b"extendedStatic", "paddingBytes", b"paddingBytes", "payload", b"payload", "static", b"static"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["ephemeral", b"ephemeral", "extendedStatic", b"extendedStatic", "paddingBytes", b"paddingBytes", "payload", b"payload", "static", b"static"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+    @_typing.final
+    class ClientHello(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        EPHEMERAL_FIELD_NUMBER: _builtins.int
+        STATIC_FIELD_NUMBER: _builtins.int
+        PAYLOAD_FIELD_NUMBER: _builtins.int
+        USEEXTENDED_FIELD_NUMBER: _builtins.int
+        EXTENDEDCIPHERTEXT_FIELD_NUMBER: _builtins.int
+        PADDEDBYTES_FIELD_NUMBER: _builtins.int
+        SENDSERVERHELLOPADDEDBYTES_FIELD_NUMBER: _builtins.int
+        SIMULATEXXKEMFS_FIELD_NUMBER: _builtins.int
+        PQMODE_FIELD_NUMBER: _builtins.int
+        ephemeral: _builtins.bytes
+        static: _builtins.bytes
+        payload: _builtins.bytes
+        useExtended: _builtins.bool
+        extendedCiphertext: _builtins.bytes
+        paddedBytes: _builtins.bytes
+        sendServerHelloPaddedBytes: _builtins.bool
+        simulateXxkemFs: _builtins.bool
+        pqMode: Global___HandshakeMessage.HandshakePqMode.ValueType
+        def __init__(
+            self,
+            *,
+            ephemeral: _builtins.bytes | None = ...,
+            static: _builtins.bytes | None = ...,
+            payload: _builtins.bytes | None = ...,
+            useExtended: _builtins.bool | None = ...,
+            extendedCiphertext: _builtins.bytes | None = ...,
+            paddedBytes: _builtins.bytes | None = ...,
+            sendServerHelloPaddedBytes: _builtins.bool | None = ...,
+            simulateXxkemFs: _builtins.bool | None = ...,
+            pqMode: Global___HandshakeMessage.HandshakePqMode.ValueType | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["ephemeral", b"ephemeral", "extendedCiphertext", b"extendedCiphertext", "paddedBytes", b"paddedBytes", "payload", b"payload", "pqMode", b"pqMode", "sendServerHelloPaddedBytes", b"sendServerHelloPaddedBytes", "simulateXxkemFs", b"simulateXxkemFs", "static", b"static", "useExtended", b"useExtended"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["ephemeral", b"ephemeral", "extendedCiphertext", b"extendedCiphertext", "paddedBytes", b"paddedBytes", "payload", b"payload", "pqMode", b"pqMode", "sendServerHelloPaddedBytes", b"sendServerHelloPaddedBytes", "simulateXxkemFs", b"simulateXxkemFs", "static", b"static", "useExtended", b"useExtended"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+    CLIENTHELLO_FIELD_NUMBER: _builtins.int
+    SERVERHELLO_FIELD_NUMBER: _builtins.int
+    CLIENTFINISH_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def clientHello(self) -> Global___HandshakeMessage.ClientHello: ...
+    @_builtins.property
+    def serverHello(self) -> Global___HandshakeMessage.ServerHello: ...
+    @_builtins.property
+    def clientFinish(self) -> Global___HandshakeMessage.ClientFinish: ...
+    def __init__(
+        self,
+        *,
+        clientHello: Global___HandshakeMessage.ClientHello | None = ...,
+        serverHello: Global___HandshakeMessage.ServerHello | None = ...,
+        clientFinish: Global___HandshakeMessage.ClientFinish | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["clientFinish", b"clientFinish", "clientHello", b"clientHello", "serverHello", b"serverHello"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["clientFinish", b"clientFinish", "clientHello", b"clientHello", "serverHello", b"serverHello"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___HandshakeMessage: _TypeAlias = HandshakeMessage  # noqa: Y015
+
+@_typing.final
 class ClientPayload(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -592,6 +742,7 @@ class ClientPayload(_message.Message):
     PAALINK_FIELD_NUMBER: _builtins.int
     PREACKSCOUNT_FIELD_NUMBER: _builtins.int
     PROCESSINGQUEUESIZE_FIELD_NUMBER: _builtins.int
+    PAIREDPERIPHERALS_FIELD_NUMBER: _builtins.int
     username: _builtins.int
     passive: _builtins.bool
     pushName: _builtins.str
@@ -632,6 +783,8 @@ class ClientPayload(_message.Message):
     def devicePairingData(self) -> Global___ClientPayload.DevicePairingRegistrationData: ...
     @_builtins.property
     def interopData(self) -> Global___ClientPayload.InteropData: ...
+    @_builtins.property
+    def pairedPeripherals(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
     def __init__(
         self,
         *,
@@ -669,112 +822,11 @@ class ClientPayload(_message.Message):
         paaLink: _builtins.bool | None = ...,
         preacksCount: _builtins.int | None = ...,
         processingQueueSize: _builtins.int | None = ...,
+        pairedPeripherals: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
     _HasFieldArgType: _TypeAlias = _typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "passive", b"passive", "preacksCount", b"preacksCount", "processingQueueSize", b"processingQueueSize", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "passive", b"passive", "preacksCount", b"preacksCount", "processingQueueSize", b"processingQueueSize", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shards", b"shards", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["accountType", b"accountType", "connectAttemptCount", b"connectAttemptCount", "connectReason", b"connectReason", "connectType", b"connectType", "connectionSequenceInfo", b"connectionSequenceInfo", "device", b"device", "devicePairingData", b"devicePairingData", "dnsSource", b"dnsSource", "fbAppID", b"fbAppID", "fbCat", b"fbCat", "fbDeviceID", b"fbDeviceID", "fbUserAgent", b"fbUserAgent", "interopData", b"interopData", "iosAppExtension", b"iosAppExtension", "lc", b"lc", "lidDbMigrated", b"lidDbMigrated", "memClass", b"memClass", "oc", b"oc", "paaLink", b"paaLink", "paddingBytes", b"paddingBytes", "pairedPeripherals", b"pairedPeripherals", "passive", b"passive", "preacksCount", b"preacksCount", "processingQueueSize", b"processingQueueSize", "product", b"product", "pull", b"pull", "pushName", b"pushName", "sessionID", b"sessionID", "shards", b"shards", "shortConnect", b"shortConnect", "trafficAnonymization", b"trafficAnonymization", "userAgent", b"userAgent", "username", b"username", "webInfo", b"webInfo", "yearClass", b"yearClass"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___ClientPayload: _TypeAlias = ClientPayload  # noqa: Y015
-
-@_typing.final
-class HandshakeMessage(_message.Message):
-    DESCRIPTOR: _descriptor.Descriptor
-
-    @_typing.final
-    class ClientFinish(_message.Message):
-        DESCRIPTOR: _descriptor.Descriptor
-
-        STATIC_FIELD_NUMBER: _builtins.int
-        PAYLOAD_FIELD_NUMBER: _builtins.int
-        EXTENDEDCIPHERTEXT_FIELD_NUMBER: _builtins.int
-        static: _builtins.bytes
-        payload: _builtins.bytes
-        extendedCiphertext: _builtins.bytes
-        def __init__(
-            self,
-            *,
-            static: _builtins.bytes | None = ...,
-            payload: _builtins.bytes | None = ...,
-            extendedCiphertext: _builtins.bytes | None = ...,
-        ) -> None: ...
-        _HasFieldArgType: _TypeAlias = _typing.Literal["extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static"]  # noqa: Y015
-        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-        _ClearFieldArgType: _TypeAlias = _typing.Literal["extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static"]  # noqa: Y015
-        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-
-    @_typing.final
-    class ServerHello(_message.Message):
-        DESCRIPTOR: _descriptor.Descriptor
-
-        EPHEMERAL_FIELD_NUMBER: _builtins.int
-        STATIC_FIELD_NUMBER: _builtins.int
-        PAYLOAD_FIELD_NUMBER: _builtins.int
-        EXTENDEDSTATIC_FIELD_NUMBER: _builtins.int
-        ephemeral: _builtins.bytes
-        static: _builtins.bytes
-        payload: _builtins.bytes
-        extendedStatic: _builtins.bytes
-        def __init__(
-            self,
-            *,
-            ephemeral: _builtins.bytes | None = ...,
-            static: _builtins.bytes | None = ...,
-            payload: _builtins.bytes | None = ...,
-            extendedStatic: _builtins.bytes | None = ...,
-        ) -> None: ...
-        _HasFieldArgType: _TypeAlias = _typing.Literal["ephemeral", b"ephemeral", "extendedStatic", b"extendedStatic", "payload", b"payload", "static", b"static"]  # noqa: Y015
-        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-        _ClearFieldArgType: _TypeAlias = _typing.Literal["ephemeral", b"ephemeral", "extendedStatic", b"extendedStatic", "payload", b"payload", "static", b"static"]  # noqa: Y015
-        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-
-    @_typing.final
-    class ClientHello(_message.Message):
-        DESCRIPTOR: _descriptor.Descriptor
-
-        EPHEMERAL_FIELD_NUMBER: _builtins.int
-        STATIC_FIELD_NUMBER: _builtins.int
-        PAYLOAD_FIELD_NUMBER: _builtins.int
-        USEEXTENDED_FIELD_NUMBER: _builtins.int
-        EXTENDEDCIPHERTEXT_FIELD_NUMBER: _builtins.int
-        ephemeral: _builtins.bytes
-        static: _builtins.bytes
-        payload: _builtins.bytes
-        useExtended: _builtins.bool
-        extendedCiphertext: _builtins.bytes
-        def __init__(
-            self,
-            *,
-            ephemeral: _builtins.bytes | None = ...,
-            static: _builtins.bytes | None = ...,
-            payload: _builtins.bytes | None = ...,
-            useExtended: _builtins.bool | None = ...,
-            extendedCiphertext: _builtins.bytes | None = ...,
-        ) -> None: ...
-        _HasFieldArgType: _TypeAlias = _typing.Literal["ephemeral", b"ephemeral", "extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static", "useExtended", b"useExtended"]  # noqa: Y015
-        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-        _ClearFieldArgType: _TypeAlias = _typing.Literal["ephemeral", b"ephemeral", "extendedCiphertext", b"extendedCiphertext", "payload", b"payload", "static", b"static", "useExtended", b"useExtended"]  # noqa: Y015
-        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-
-    CLIENTHELLO_FIELD_NUMBER: _builtins.int
-    SERVERHELLO_FIELD_NUMBER: _builtins.int
-    CLIENTFINISH_FIELD_NUMBER: _builtins.int
-    @_builtins.property
-    def clientHello(self) -> Global___HandshakeMessage.ClientHello: ...
-    @_builtins.property
-    def serverHello(self) -> Global___HandshakeMessage.ServerHello: ...
-    @_builtins.property
-    def clientFinish(self) -> Global___HandshakeMessage.ClientFinish: ...
-    def __init__(
-        self,
-        *,
-        clientHello: Global___HandshakeMessage.ClientHello | None = ...,
-        serverHello: Global___HandshakeMessage.ServerHello | None = ...,
-        clientFinish: Global___HandshakeMessage.ClientFinish | None = ...,
-    ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["clientFinish", b"clientFinish", "clientHello", b"clientHello", "serverHello", b"serverHello"]  # noqa: Y015
-    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["clientFinish", b"clientFinish", "clientHello", b"clientHello", "serverHello", b"serverHello"]  # noqa: Y015
-    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-
-Global___HandshakeMessage: _TypeAlias = HandshakeMessage  # noqa: Y015

@@ -17,11 +17,12 @@ import (
 //export PutPushName
 func PutPushName(id *C.char, user *C.uchar, userSize C.int, pushname *C.char) *C.struct_BytesReturn {
 	var userJID defproto.JID
+	return_ := defproto.ContactsPutPushNameReturnFunction{}
 	err := proto.Unmarshal(getByteByAddr(user, userSize), &userJID)
 	if err != nil {
-		panic(err)
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
 	}
-	return_ := defproto.ContactsPutPushNameReturnFunction{}
 	status, prev_name, err := clients[C.GoString(id)].Store.Contacts.PutPushName(context.Background(), utils.DecodeJidProto(&userJID), C.GoString(pushname))
 	return_.PreviousName = proto.String(prev_name)
 	return_.Status = &status
@@ -34,11 +35,12 @@ func PutPushName(id *C.char, user *C.uchar, userSize C.int, pushname *C.char) *C
 //export PutBusinessName
 func PutBusinessName(id *C.char, user *C.uchar, userSize C.int, businessName *C.char) *C.struct_BytesReturn {
 	var userJID defproto.JID
+	return_ := defproto.ContactsPutPushNameReturnFunction{}
 	err := proto.Unmarshal(getByteByAddr(user, userSize), &userJID)
 	if err != nil {
-		panic(err)
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
 	}
-	return_ := defproto.ContactsPutPushNameReturnFunction{}
 	status, prev_name, err := clients[C.GoString(id)].Store.Contacts.PutBusinessName(context.Background(), utils.DecodeJidProto(&userJID), C.GoString(businessName))
 	return_.PreviousName = proto.String(prev_name)
 	return_.Status = &status
@@ -53,7 +55,7 @@ func PutContactName(id *C.char, user *C.uchar, userSize C.int, fullName, firstNa
 	var userJID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(user, userSize), &userJID)
 	if err != nil {
-		panic(err)
+		return C.CString(err.Error())
 	}
 	err_ := clients[C.GoString(id)].Store.Contacts.PutContactName(context.Background(), utils.DecodeJidProto(&userJID), C.GoString(fullName), C.GoString(firstName))
 	if err_ != nil {
@@ -67,7 +69,7 @@ func PutAllContactNames(id *C.char, contacts *C.uchar, contactsSize C.int) *C.ch
 	var entry defproto.ContactEntryArray
 	err := proto.Unmarshal(getByteByAddr(contacts, contactsSize), &entry)
 	if err != nil {
-		panic(err)
+		return C.CString(err.Error())
 	}
 	contactEntry := make([]store.ContactEntry, len(entry.ContactEntry))
 	for i, centry := range entry.ContactEntry {
@@ -85,7 +87,9 @@ func GetContact(id *C.char, user *C.uchar, userSize C.int) *C.struct_BytesReturn
 	var userJID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(user, userSize), &userJID)
 	if err != nil {
-		panic(err)
+		return_ := defproto.ContactsGetContactReturnFunction{}
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
 	}
 	contact_info, err_ := clients[C.GoString(id)].Store.Contacts.GetContact(context.Background(), utils.DecodeJidProto(&userJID))
 	return_ := defproto.ContactsGetContactReturnFunction{

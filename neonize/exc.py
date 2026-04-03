@@ -198,10 +198,6 @@ class UnfollowNewsletterError(Exception):
     pass
 
 
-class UnlinkGroupErro(Exception):
-    pass
-
-
 class UnlinkGroupError(Exception):
     pass
 
