@@ -210,14 +210,12 @@ class LimitSharing(_message.Message):
         CHAT_SETTING: LimitSharing._Trigger.ValueType  # 1
         BIZ_SUPPORTS_FB_HOSTING: LimitSharing._Trigger.ValueType  # 2
         UNKNOWN_GROUP: LimitSharing._Trigger.ValueType  # 3
-        DEPRECATION: LimitSharing._Trigger.ValueType  # 4
 
     class Trigger(_Trigger, metaclass=_TriggerEnumTypeWrapper): ...
     UNKNOWN: LimitSharing.Trigger.ValueType  # 0
     CHAT_SETTING: LimitSharing.Trigger.ValueType  # 1
     BIZ_SUPPORTS_FB_HOSTING: LimitSharing.Trigger.ValueType  # 2
     UNKNOWN_GROUP: LimitSharing.Trigger.ValueType  # 3
-    DEPRECATION: LimitSharing.Trigger.ValueType  # 4
 
     SHARINGLIMITED_FIELD_NUMBER: _builtins.int
     TRIGGER_FIELD_NUMBER: _builtins.int

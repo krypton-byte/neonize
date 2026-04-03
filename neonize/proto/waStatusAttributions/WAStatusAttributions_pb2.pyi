@@ -36,6 +36,8 @@ class StatusAttribution(_message.Message):
         RL_ATTRIBUTION: StatusAttribution._Type.ValueType  # 6
         AI_CREATED: StatusAttribution._Type.ValueType  # 7
         LAYOUTS: StatusAttribution._Type.ValueType  # 8
+        NEWSLETTER_STATUS: StatusAttribution._Type.ValueType  # 9
+        STATUS_CLOSE_SHARING: StatusAttribution._Type.ValueType  # 10
 
     class Type(_Type, metaclass=_TypeEnumTypeWrapper): ...
     UNKNOWN: StatusAttribution.Type.ValueType  # 0
@@ -47,6 +49,8 @@ class StatusAttribution(_message.Message):
     RL_ATTRIBUTION: StatusAttribution.Type.ValueType  # 6
     AI_CREATED: StatusAttribution.Type.ValueType  # 7
     LAYOUTS: StatusAttribution.Type.ValueType  # 8
+    NEWSLETTER_STATUS: StatusAttribution.Type.ValueType  # 9
+    STATUS_CLOSE_SHARING: StatusAttribution.Type.ValueType  # 10
 
     @_typing.final
     class AiCreatedAttribution(_message.Message):

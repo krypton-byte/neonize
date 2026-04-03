@@ -72,6 +72,7 @@ class _BotMetricsEntryPointEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_
     WEB_INTRO_PANEL: _BotMetricsEntryPoint.ValueType  # 46
     WEB_NAVIGATION_BAR: _BotMetricsEntryPoint.ValueType  # 47
     GROUP_MEMBER: _BotMetricsEntryPoint.ValueType  # 54
+    CHATLIST_SEARCH: _BotMetricsEntryPoint.ValueType  # 55
 
 class BotMetricsEntryPoint(_BotMetricsEntryPoint, metaclass=_BotMetricsEntryPointEnumTypeWrapper): ...
 
@@ -121,6 +122,7 @@ META_AI_SETTINGS: BotMetricsEntryPoint.ValueType  # 45
 WEB_INTRO_PANEL: BotMetricsEntryPoint.ValueType  # 46
 WEB_NAVIGATION_BAR: BotMetricsEntryPoint.ValueType  # 47
 GROUP_MEMBER: BotMetricsEntryPoint.ValueType  # 54
+CHATLIST_SEARCH: BotMetricsEntryPoint.ValueType  # 55
 Global___BotMetricsEntryPoint: _TypeAlias = BotMetricsEntryPoint  # noqa: Y015
 
 class _BotMetricsThreadEntryPoint:
@@ -800,6 +802,10 @@ class BotCapabilityMetadata(_message.Message):
         RICH_RESPONSE_UR_BLOKS_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 55
         RICH_RESPONSE_INLINE_LINKS_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 56
         RICH_RESPONSE_UR_IMAGINE_VIDEO: BotCapabilityMetadata._BotCapabilityType.ValueType  # 57
+        JSON_PATCH_STREAMING: BotCapabilityMetadata._BotCapabilityType.ValueType  # 58
+        AI_TAB_FORCE_CLIPPY: BotCapabilityMetadata._BotCapabilityType.ValueType  # 59
+        UNIFIED_RESPONSE_EMBEDDED_SCREENS: BotCapabilityMetadata._BotCapabilityType.ValueType  # 60
+        AI_SUBSCRIPTION_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 61
 
     class BotCapabilityType(_BotCapabilityType, metaclass=_BotCapabilityTypeEnumTypeWrapper): ...
     UNKNOWN: BotCapabilityMetadata.BotCapabilityType.ValueType  # 0
@@ -860,6 +866,10 @@ class BotCapabilityMetadata(_message.Message):
     RICH_RESPONSE_UR_BLOKS_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 55
     RICH_RESPONSE_INLINE_LINKS_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 56
     RICH_RESPONSE_UR_IMAGINE_VIDEO: BotCapabilityMetadata.BotCapabilityType.ValueType  # 57
+    JSON_PATCH_STREAMING: BotCapabilityMetadata.BotCapabilityType.ValueType  # 58
+    AI_TAB_FORCE_CLIPPY: BotCapabilityMetadata.BotCapabilityType.ValueType  # 59
+    UNIFIED_RESPONSE_EMBEDDED_SCREENS: BotCapabilityMetadata.BotCapabilityType.ValueType  # 60
+    AI_SUBSCRIPTION_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 61
 
     CAPABILITIES_FIELD_NUMBER: _builtins.int
     @_builtins.property
@@ -1153,22 +1163,27 @@ class AIThreadInfo(_message.Message):
             UNKNOWN: AIThreadInfo.AIThreadClientInfo._AIThreadType.ValueType  # 0
             DEFAULT: AIThreadInfo.AIThreadClientInfo._AIThreadType.ValueType  # 1
             INCOGNITO: AIThreadInfo.AIThreadClientInfo._AIThreadType.ValueType  # 2
+            SIDE_CHAT: AIThreadInfo.AIThreadClientInfo._AIThreadType.ValueType  # 3
 
         class AIThreadType(_AIThreadType, metaclass=_AIThreadTypeEnumTypeWrapper): ...
         UNKNOWN: AIThreadInfo.AIThreadClientInfo.AIThreadType.ValueType  # 0
         DEFAULT: AIThreadInfo.AIThreadClientInfo.AIThreadType.ValueType  # 1
         INCOGNITO: AIThreadInfo.AIThreadClientInfo.AIThreadType.ValueType  # 2
+        SIDE_CHAT: AIThreadInfo.AIThreadClientInfo.AIThreadType.ValueType  # 3
 
         TYPE_FIELD_NUMBER: _builtins.int
+        SOURCECHATJID_FIELD_NUMBER: _builtins.int
         type: Global___AIThreadInfo.AIThreadClientInfo.AIThreadType.ValueType
+        sourceChatJID: _builtins.str
         def __init__(
             self,
             *,
             type: Global___AIThreadInfo.AIThreadClientInfo.AIThreadType.ValueType | None = ...,
+            sourceChatJID: _builtins.str | None = ...,
         ) -> None: ...
-        _HasFieldArgType: _TypeAlias = _typing.Literal["type", b"type"]  # noqa: Y015
+        _HasFieldArgType: _TypeAlias = _typing.Literal["sourceChatJID", b"sourceChatJID", "type", b"type"]  # noqa: Y015
         def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-        _ClearFieldArgType: _TypeAlias = _typing.Literal["type", b"type"]  # noqa: Y015
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["sourceChatJID", b"sourceChatJID", "type", b"type"]  # noqa: Y015
         def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
     @_typing.final
@@ -2150,15 +2165,18 @@ class AIMediaCollectionMetadata(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
     COLLECTIONID_FIELD_NUMBER: _builtins.int
+    UPLOADORDERINDEX_FIELD_NUMBER: _builtins.int
     collectionID: _builtins.str
+    uploadOrderIndex: _builtins.int
     def __init__(
         self,
         *,
         collectionID: _builtins.str | None = ...,
+        uploadOrderIndex: _builtins.int | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["collectionID", b"collectionID"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["collectionID", b"collectionID", "uploadOrderIndex", b"uploadOrderIndex"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["collectionID", b"collectionID"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["collectionID", b"collectionID", "uploadOrderIndex", b"uploadOrderIndex"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___AIMediaCollectionMetadata: _TypeAlias = AIMediaCollectionMetadata  # noqa: Y015
@@ -2510,3 +2528,40 @@ class SessionTransparencyMetadata(_message.Message):
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___SessionTransparencyMetadata: _TypeAlias = SessionTransparencyMetadata  # noqa: Y015
+
+@_typing.final
+class BotAgentMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    DEEPLINKMETADATA_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def deepLinkMetadata(self) -> Global___BotAgentDeepLinkMetadata: ...
+    def __init__(
+        self,
+        *,
+        deepLinkMetadata: Global___BotAgentDeepLinkMetadata | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["deepLinkMetadata", b"deepLinkMetadata"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["deepLinkMetadata", b"deepLinkMetadata"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___BotAgentMetadata: _TypeAlias = BotAgentMetadata  # noqa: Y015
+
+@_typing.final
+class BotAgentDeepLinkMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    TOKEN_FIELD_NUMBER: _builtins.int
+    token: _builtins.str
+    def __init__(
+        self,
+        *,
+        token: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["token", b"token"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["token", b"token"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___BotAgentDeepLinkMetadata: _TypeAlias = BotAgentDeepLinkMetadata  # noqa: Y015

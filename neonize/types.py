@@ -31,28 +31,14 @@ MessageWithContextInfo = TypeVar(
     LiveLocationMessage,
     StickerMessage,
     GroupInviteMessage,
-    GroupInviteMessage,
     ProductMessage,
     ListMessage,
-    ListMessage,
     ListResponseMessage,
-    ButtonsMessage,
     ButtonsMessage,
     PollCreationMessage,
     MessageHistoryBundle,
     EventMessage,
-    ContactsArrayMessage,
 )
-
-MediaMessageType = TypeVar(
-    "MediaMessageType",
-    ImageMessage,
-    AudioMessage,
-    VideoMessage,
-    StickerMessage,
-    DocumentMessage,
-)
-
 
 MediaMessageType = TypeVar(
     "MediaMessageType",

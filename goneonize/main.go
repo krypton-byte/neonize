@@ -254,48 +254,40 @@ func SetPushName(id *C.char, name *C.char) *C.char {
 //export GetPNFromLID
 func GetPNFromLID(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesReturn {
 	var neoJIDProto defproto.JID
+	return_ := defproto.GetJIDFromStoreReturnFunction{}
 	jidbyte := getByteByAddr(JIDByte, JIDSize)
 	err := proto.Unmarshal(jidbyte, &neoJIDProto)
 	if err != nil {
-		panic(err)
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
 	}
 	lid := utils.DecodeJidProto(&neoJIDProto)
 	cli := clients[C.GoString(id)].Store
 	pn, err := cli.LIDs.GetPNForLID(context.Background(), lid)
-
-	neojid := utils.EncodeJidProto(pn)
-
-	return_ := defproto.GetJIDFromStoreReturnFunction{
-		Jid: neojid,
-	}
+	return_.Jid = utils.EncodeJidProto(pn)
 	if err != nil {
 		return_.Error = proto.String(err.Error())
 	}
-
 	return ProtoReturnV3(&return_)
 }
 
 //export GetLIDFromPN
 func GetLIDFromPN(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesReturn {
 	var neoJIDProto defproto.JID
+	return_ := defproto.GetJIDFromStoreReturnFunction{}
 	jidbyte := getByteByAddr(JIDByte, JIDSize)
 	err := proto.Unmarshal(jidbyte, &neoJIDProto)
 	if err != nil {
-		panic(err)
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
 	}
 	pn := utils.DecodeJidProto(&neoJIDProto)
 	cli := clients[C.GoString(id)].Store
 	lid, err := cli.LIDs.GetLIDForPN(context.Background(), pn)
-
-	neojid := utils.EncodeJidProto(lid)
-
-	return_ := defproto.GetJIDFromStoreReturnFunction{
-		Jid: neojid,
-	}
+	return_.Jid = utils.EncodeJidProto(lid)
 	if err != nil {
 		return_.Error = proto.String(err.Error())
 	}
-
 	return ProtoReturnV3(&return_)
 }
 
@@ -336,8 +328,12 @@ func ProtoReturnV3(data proto.Message) *C.struct_BytesReturn {
 	}
 	result := (*C.struct_BytesReturn)(C.malloc(C.size_t(unsafe.Sizeof(C.struct_BytesReturn{}))))
 	result.size = C.size_t(len(data_buf))
-	result.data = (*C.char)(C.malloc(result.size))
-	C.memcpy(unsafe.Pointer(result.data), unsafe.Pointer(&data_buf[0]), result.size)
+	if len(data_buf) > 0 {
+		result.data = (*C.char)(C.malloc(result.size))
+		C.memcpy(unsafe.Pointer(result.data), unsafe.Pointer(&data_buf[0]), result.size)
+	} else {
+		result.data = nil
+	}
 	return result
 }
 
@@ -506,8 +502,14 @@ func PinMessage(id *C.char, ChatJIDByte *C.uchar, ChatJIDSize C.int, SenderJIDBy
 
 //export StopAll
 func StopAll() {
+	keys := make([]string, 0, len(clients))
 	for key := range clients {
-		Stop(C.CString(key))
+		keys = append(keys, key)
+	}
+	for _, key := range keys {
+		cKey := C.CString(key)
+		Stop(cKey)
+		C.free(unsafe.Pointer(cKey))
 	}
 }
 
@@ -1014,12 +1016,16 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 	qrFuncCb := func(data string) {
 		cstr := C.CString(data)
 		defer C.free(unsafe.Pointer(cstr))
-		C.call_c_func_string(qrCb, C.CString(uuid), cstr)
+		cUUID := C.CString(uuid)
+		defer C.free(unsafe.Pointer(cUUID))
+		C.call_c_func_string(qrCb, cUUID, cstr)
 	}
 	logStatusCb := func(eventName string) {
 		cstr := C.CString(eventName)
 		defer C.free(unsafe.Pointer(cstr))
-		C.call_c_func_string(logStatus, C.CString(uuid), cstr)
+		cUUID := C.CString(uuid)
+		defer C.free(unsafe.Pointer(cUUID))
+		C.call_c_func_string(logStatus, cUUID, cstr)
 	}
 	if client.Store.ID == nil {
 		// No ID stored, new login
@@ -1153,7 +1159,7 @@ func IsConnected(id *C.char) C.bool {
 
 //export IsLoggedIn
 func IsLoggedIn(id *C.char) C.bool {
-	check := clients[C.GoString(id)].IsConnected()
+	check := clients[C.GoString(id)].IsLoggedIn()
 	return C.bool(check)
 }
 
@@ -1506,11 +1512,12 @@ func BuildPollVoteCreation(id *C.char, name *C.char, options *C.uchar, optionsSi
 func CreateNewsletter(id *C.char, createNewsletterParams *C.uchar, size C.int) *C.struct_BytesReturn {
 	var neonizeParams defproto.CreateNewsletterParams
 	params_byte := getByteByAddr(createNewsletterParams, size)
+	return_ := defproto.CreateNewsLetterReturnFunction{}
 	err := proto.Unmarshal(params_byte, &neonizeParams)
 	if err != nil {
-		panic(err)
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
 	}
-	return_ := defproto.CreateNewsLetterReturnFunction{}
 	metadata, err_metadata := clients[C.GoString(id)].CreateNewsletter(context.Background(), utils.DecodeCreateNewsletterParams(&neonizeParams))
 	if err_metadata != nil {
 		return_.Error = proto.String(err_metadata.Error())
@@ -1527,7 +1534,7 @@ func FollowNewsletter(id *C.char, jid *C.uchar, size C.int) *C.char {
 	jid_byte := getByteByAddr(jid, size)
 	unmarshal_err := proto.Unmarshal(jid_byte, &JID)
 	if unmarshal_err != nil {
-		panic(unmarshal_err)
+		return C.CString(unmarshal_err.Error())
 	}
 	err := clients[C.GoString(id)].FollowNewsletter(context.Background(), utils.DecodeJidProto(&JID))
 	if err != nil {
@@ -1539,11 +1546,12 @@ func FollowNewsletter(id *C.char, jid *C.uchar, size C.int) *C.char {
 //export GetNewsletterInfo
 func GetNewsletterInfo(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesReturn {
 	var JID defproto.JID
+	metadata_proto := defproto.CreateNewsLetterReturnFunction{}
 	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
 	if err != nil {
-		panic(err)
+		metadata_proto.Error = proto.String(err.Error())
+		return ProtoReturnV3(&metadata_proto)
 	}
-	metadata_proto := defproto.CreateNewsLetterReturnFunction{}
 	metadata, err_metadata := clients[C.GoString(id)].GetNewsletterInfo(context.Background(), utils.DecodeJidProto(&JID))
 	if metadata != nil {
 		metadata_proto.NewsletterMetadata = utils.EncodeNewsLetterMessageMetadata(*metadata)
@@ -1572,7 +1580,9 @@ func GetNewsletterMessageUpdate(id *C.char, JIDByte *C.uchar, JIDSize C.int, Cou
 	var JID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
 	if err != nil {
-		panic(err)
+		return_ := defproto.GetNewsletterMessageUpdateReturnFunction{}
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
 	}
 	newsletterMessage, errnewsletter := clients[C.GoString(id)].GetNewsletterMessageUpdates(context.Background(), utils.DecodeJidProto(&JID), &whatsmeow.GetNewsletterUpdatesParams{
 		Count: int(Count),
@@ -1598,7 +1608,9 @@ func GetNewsletterMessages(id *C.char, JIDByte *C.uchar, JIDSize C.int, Count C.
 	var JID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
 	if err != nil {
-		panic(err)
+		return_ := defproto.GetNewsletterMessageUpdateReturnFunction{}
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
 	}
 	newsletterMessage, errnewsletter := clients[C.GoString(id)].GetNewsletterMessages(context.Background(), utils.DecodeJidProto(&JID), &whatsmeow.GetNewsletterMessagesParams{
 		Count:  int(Count),
@@ -1648,13 +1660,14 @@ func MarkRead(id *C.char, ids *C.char, timestamp C.int, chatByte *C.uchar, chatS
 //export NewsletterMarkViewed
 func NewsletterMarkViewed(id *C.char, JIDByte *C.uchar, JIDSize C.int, MessageServerID *C.uchar, MessageServerIDSize C.int) *C.char {
 	var JID defproto.JID
-	serverIDs := make([]int, int(MessageServerIDSize))
-	for _, msid := range getByteByAddr(MessageServerID, MessageServerIDSize) {
+	raw := getByteByAddr(MessageServerID, MessageServerIDSize)
+	serverIDs := make([]int, 0, len(raw))
+	for _, msid := range raw {
 		serverIDs = append(serverIDs, int(msid))
 	}
 	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
 	if err != nil {
-		panic(err)
+		return C.CString(err.Error())
 	}
 	err_return := clients[C.GoString(id)].NewsletterMarkViewed(context.Background(), utils.DecodeJidProto(&JID), serverIDs)
 	if err_return != nil {
@@ -1682,7 +1695,9 @@ func NewsletterSubscribeLiveUpdates(id *C.char, JIDByte *C.uchar, JIDSize C.int)
 	var JID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
 	if err != nil {
-		panic(err)
+		return_ := defproto.NewsletterSubscribeLiveUpdatesReturnFunction{}
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
 	}
 	duration, err_subs := clients[C.GoString(id)].NewsletterSubscribeLiveUpdates(context.Background(), utils.DecodeJidProto(&JID))
 	return_ := defproto.NewsletterSubscribeLiveUpdatesReturnFunction{
@@ -1699,7 +1714,7 @@ func NewsletterToggleMute(id *C.char, JIDByte *C.uchar, JIDSize C.int, mute C.bo
 	var JID defproto.JID
 	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
 	if err != nil {
-		panic(err)
+		return C.CString(err.Error())
 	}
 	err_togglemute := clients[C.GoString(id)].NewsletterToggleMute(context.Background(), utils.DecodeJidProto(&JID), bool(mute))
 	if err_togglemute != nil {
@@ -1791,7 +1806,7 @@ func SetDisappearingTimer(id *C.char, JIDByte *C.uchar, JIDSize C.int, timer C.i
 	var JID defproto.JID
 	err_ := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
 	if err_ != nil {
-		panic(err_)
+		return C.CString(err_.Error())
 	}
 	err := clients[C.GoString(id)].SetDisappearingTimer(context.Background(), utils.DecodeJidProto(&JID), time.Duration(timer), time.UnixMilli(int64(settingTS)))
 	if err != nil {
@@ -2260,12 +2275,12 @@ func GetAllDevices(db *C.char, logCb C.ptr_to_python_function_callback_bytes2) *
 	dbLog := utils.NewLogger("Database", "ERROR", utils.Callback(logCb))
 	container, err := getDB(db, dbLog)
 	if err != nil {
-		panic(err)
+		return C.CString("error: " + err.Error())
 	}
 
 	deviceStore, err := container.GetAllDevices(context.TODO())
 	if err != nil {
-		panic(err)
+		return C.CString("error: " + err.Error())
 	}
 
 	var result strings.Builder
@@ -2432,6 +2447,11 @@ func CallbackFunction(ctx context.Context, callback C.ptr_to_python_function_byt
 
 //export FreeBytesStruct
 func FreeBytesStruct(bytesReturn *C.struct_BytesReturn) {
-	C.free(unsafe.Pointer(bytesReturn.data))
+	if bytesReturn == nil {
+		return
+	}
+	if bytesReturn.data != nil {
+		C.free(unsafe.Pointer(bytesReturn.data))
+	}
 	C.free(unsafe.Pointer(bytesReturn))
 }

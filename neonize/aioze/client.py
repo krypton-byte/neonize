@@ -3405,7 +3405,7 @@ class NewAClient:
         """Decrypt PollMessage"""
         msg_buff = message.SerializeToString()
         bytes_ptr = await self.__client.DecryptPollVote(
-            self.uuid, msg_buff, len(msg_buff), len(msg_buff)
+            self.uuid, msg_buff, len(msg_buff)
         )
         protobytes = bytes_ptr.contents.get_bytes()
         free_bytes(bytes_ptr)

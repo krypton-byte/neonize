@@ -103,15 +103,24 @@ class DeviceCapabilities(_message.Message):
         DESCRIPTOR: _descriptor.Descriptor
 
         IMPORTLISTENABLED_FIELD_NUMBER: _builtins.int
+        COMPANIONSUPPORTENABLED_FIELD_NUMBER: _builtins.int
+        CAMPAIGNSYNCENABLED_FIELD_NUMBER: _builtins.int
+        INSIGHTSSYNCENABLED_FIELD_NUMBER: _builtins.int
         importListEnabled: _builtins.bool
+        companionSupportEnabled: _builtins.bool
+        campaignSyncEnabled: _builtins.bool
+        insightsSyncEnabled: _builtins.bool
         def __init__(
             self,
             *,
             importListEnabled: _builtins.bool | None = ...,
+            companionSupportEnabled: _builtins.bool | None = ...,
+            campaignSyncEnabled: _builtins.bool | None = ...,
+            insightsSyncEnabled: _builtins.bool | None = ...,
         ) -> None: ...
-        _HasFieldArgType: _TypeAlias = _typing.Literal["importListEnabled", b"importListEnabled"]  # noqa: Y015
+        _HasFieldArgType: _TypeAlias = _typing.Literal["campaignSyncEnabled", b"campaignSyncEnabled", "companionSupportEnabled", b"companionSupportEnabled", "importListEnabled", b"importListEnabled", "insightsSyncEnabled", b"insightsSyncEnabled"]  # noqa: Y015
         def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-        _ClearFieldArgType: _TypeAlias = _typing.Literal["importListEnabled", b"importListEnabled"]  # noqa: Y015
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["campaignSyncEnabled", b"campaignSyncEnabled", "companionSupportEnabled", b"companionSupportEnabled", "importListEnabled", b"importListEnabled", "insightsSyncEnabled", b"insightsSyncEnabled"]  # noqa: Y015
         def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
     @_typing.final
