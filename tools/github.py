@@ -21,8 +21,7 @@ class Github(httpx.Client):
         """
         self.base_url = "https://api.github.com"
         self.versioning = Version()
-        self.username, self.repository = self.versioning.github_url.split(
-            "/")[-2:]
+        self.username, self.repository = self.versioning.github_url.split("/")[-2:]
         super().__init__(base_url=self.base_url)
 
     def get_last_version(self) -> str:
@@ -103,8 +102,7 @@ class Github(httpx.Client):
             ).timestamp()
 
         # Iterate newest→oldest
-        for rel in sorted(
-                releases, key=lambda r: r["_created_ts"], reverse=True):
+        for rel in sorted(releases, key=lambda r: r["_created_ts"], reverse=True):
             if len(rel.get("assets", [])) > 12:
                 return rel["tag_name"]
 

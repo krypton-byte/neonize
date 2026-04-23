@@ -51,8 +51,7 @@ class UnsupportedPlatform(Exception):
 def download_whatsmeow():
     chunk_size = 1024
     name = WORKDIR / "whatsmeow.zip"
-    print(
-        f"{Fore.RED}[{Fore.GREEN}{name.name} {Fore.YELLOW}'HEAD'{Fore.RED}]{Fore.RESET}")
+    print(f"{Fore.RED}[{Fore.GREEN}{name.name} {Fore.YELLOW}'HEAD'{Fore.RED}]{Fore.RESET}")
     resp = requests.get(
         "https://github.com/tulir/whatsmeow/archive/refs/heads/main.zip", stream=True
     )
@@ -74,8 +73,7 @@ def download_whatsmeow():
     bar.close()
     # unzip
     with zipfile.ZipFile(WORKDIR / "whatsmeow.zip") as zfile:
-        for name in filter(lambda x: x.startswith(
-                "whatsmeow-main/proto"), zfile.namelist()):
+        for name in filter(lambda x: x.startswith("whatsmeow-main/proto"), zfile.namelist()):
             zfile.extract(name, WORKDIR / ".dest")
     # remove != .proto
     value = FileValue()
@@ -85,16 +83,8 @@ def download_whatsmeow():
     print(f"{Fore.RED}  - {Fore.GREEN}{value.dropped}{Fore.YELLOW} files skipped/dropped")
     # remove defproto
     shutil.rmtree(WORKDIR / "goneonize/defproto/")
-    shutil.move(
-        WORKDIR /
-        ".dest/whatsmeow-main/proto",
-        WORKDIR /
-        "goneonize/defproto")
-    shutil.copy(
-        WORKDIR /
-        "goneonize/Neonize.proto",
-        WORKDIR /
-        "goneonize/defproto/")
+    shutil.move(WORKDIR / ".dest/whatsmeow-main/proto", WORKDIR / "goneonize/defproto")
+    shutil.copy(WORKDIR / "goneonize/Neonize.proto", WORKDIR / "goneonize/defproto/")
     print(
         f"{Fore.RED}  - {Fore.GREEN}{value.proto} {Fore.YELLOW}proto files processed and moved to 'defproto'"
     )
@@ -102,10 +92,8 @@ def download_whatsmeow():
     shutil.rmtree(WORKDIR / ".dest")
     print(f"{Fore.BLUE}[INFO] Work directory cleaned up successfully.")
     git_proto_sha = ""
-    last_sha_commit = requests.get(
-        "https://api.github.com/repos/tulir/whatsmeow/contents/").json()
-    for result in filter(
-            lambda item: item["name"] == "proto", last_sha_commit):
+    last_sha_commit = requests.get("https://api.github.com/repos/tulir/whatsmeow/contents/").json()
+    for result in filter(lambda item: item["name"] == "proto", last_sha_commit):
         git_proto_sha = result["sha"]
         break
     with open(SHA_FILE, "w") as file:
@@ -114,10 +102,8 @@ def download_whatsmeow():
 
 def upgradable() -> ProtoCommit:
     git_proto_sha = ""
-    last_sha_commit = requests.get(
-        "https://api.github.com/repos/tulir/whatsmeow/contents/").json()
-    for result in filter(
-            lambda item: item["name"] == "proto", last_sha_commit):
+    last_sha_commit = requests.get("https://api.github.com/repos/tulir/whatsmeow/contents/").json()
+    for result in filter(lambda item: item["name"] == "proto", last_sha_commit):
         git_proto_sha = result["sha"]
         break
     if SHA_FILE.exists():
@@ -131,11 +117,7 @@ def upgradable() -> ProtoCommit:
 
 if __name__ == "__main__":
     args = argparse.ArgumentParser()
-    args.add_argument(
-        "--force",
-        help="force update",
-        default=False,
-        action="store_true")
+    args.add_argument("--force", help="force update", default=False, action="store_true")
     parse = args.parse_args()
     proto = upgradable()
     if proto.upgradeable:

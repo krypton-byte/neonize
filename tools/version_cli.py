@@ -12,8 +12,7 @@ if __name__ == "__main__":
     args.add_argument("--set-url", type=str, help="change github release url")
     cmd.add_parser("info")
     update = cmd.add_parser("update")
-    update_type = update.add_subparsers(
-        title="type", dest="update_type", required=True)
+    update_type = update.add_subparsers(title="type", dest="update_type", required=True)
     update_type.add_parser("major")
     update_type.add_parser("minor")
     update_type.add_parser("patch")
@@ -52,8 +51,7 @@ if __name__ == "__main__":
             version = Version()
             github = Github()
             if parse.last:
-                version.goneonize = ".".join(
-                    github.get_last_goneonize_version().split("."))
+                version.goneonize = ".".join(github.get_last_goneonize_version().split("."))
             elif parse.set_version:
                 version.goneonize = parse.set_version
             print(version.goneonize)
