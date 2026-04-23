@@ -15,9 +15,7 @@ def fallback_grab_link(url: str):
             receive_timeout=10,
             chunk_size=1024,
         )
-        return grabber.get_content(
-            url, headers={"user-agent": "imessagebot", "accept": "*/*"}
-        )
+        return grabber.get_content(url, headers={"user-agent": "imessagebot", "accept": "*/*"})
     except Exception:
         return None, url
 

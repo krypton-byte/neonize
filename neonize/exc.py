@@ -2,6 +2,10 @@
 #     pass
 
 
+class NeonizeError(Exception):
+    pass
+
+
 class UploadError(Exception):
     pass
 

@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+
 sys.path.insert(0, Path(__file__).parent.parent.__str__())
 from tools.version import Version
 import os
