@@ -83,7 +83,8 @@ func (s *stdoutLogger) outputf(level, msg string, args ...interface{}) {
 	}
 	buff, err := proto.Marshal(&log_msg)
 	if err != nil {
-		panic(err)
+		// Silently skip log entries that fail to marshal rather than crashing the process
+		return
 	}
 	uchars, size := getBytesAndSize(buff)
 	C.call_c_func_callback_bytes2(s.callback, uchars, size)

@@ -1,23 +1,26 @@
 import asyncio
+
 # import subprocess
 import os
 from .version import Version
 
+
 async def check_goneonize_change():
     result = await asyncio.create_subprocess_exec(
-            "git",
-            "diff",
-            "--quiet",
-            os.environ["BVHOOK_CURRENT_TAG"],
-            "--",
-            "goneonize/",
-            ":(exclude)goneonize/version.go",
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
-        )
+        "git",
+        "diff",
+        "--quiet",
+        os.environ["BVHOOK_CURRENT_TAG"],
+        "--",
+        "goneonize/",
+        ":(exclude)goneonize/version.go",
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
     await result.wait()
     print("returncode:", result.returncode)
     return result.returncode != 0
+
 
 async def main():
     changed = await check_goneonize_change()
@@ -30,6 +33,8 @@ async def main():
         print("goneonize/ not changed, skipping goneonize version bump.")
     print("version:", version)
     return 0
+
+
 if __name__ == "__main__":
     asyncio.run(main())
 # r = subprocess.run(["uv", "run", "-m","tools.action"], capture_output=True)
