@@ -1,5 +1,5 @@
 from .version import Version
-from goneonize import generated_name
+from neonize.utils.platform import generated_name
 from colorama import Fore, init
 import argparse
 from pathlib import Path
@@ -28,11 +28,8 @@ def download(
     chunk_size: int,
     path=Path(__file__).parent.parent / "neonize",
 ):
-    name = (Path(__file__).parent.parent / "neonize") / \
-        generated_name(os_name, arch_name)
-    print(
-        f"{Fore.RED}[{Fore.GREEN}{name.name} {Fore.YELLOW}%r{Fore.RED}]{Fore.RESET}" %
-        version)
+    name = (Path(__file__).parent.parent / "neonize") / generated_name(os_name, arch_name)
+    print(f"{Fore.RED}[{Fore.GREEN}{name.name} {Fore.YELLOW}%r{Fore.RED}]{Fore.RESET}" % version)
     username, repository = Version().github_url.split("/")[-2:]
     resp = requests.get(
         f"https://github.com/{username}/{repository}/releases/download/{version}/{generated_name(os_name, arch_name)}",
@@ -66,11 +63,7 @@ if __name__ == "__main__":
     version = arg.add_mutually_exclusive_group(required=True)
     version.add_argument("--last", action="store_true")
     version.add_argument("--version", type=str, help="goneonize version")
-    arg.add_argument(
-        "--chunk-size",
-        type=int,
-        help="default: 1024",
-        default=1024)
+    arg.add_argument("--chunk-size", type=int, help="default: 1024", default=1024)
     parse = arg.parse_args()
     github = Github()
     if parse.version:

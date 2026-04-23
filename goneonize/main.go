@@ -24,12 +24,12 @@ import (
 	"github.com/krypton-byte/neonize/utils"
 	_ "github.com/mattn/go-sqlite3"
 	"go.mau.fi/whatsmeow"
+	"go.mau.fi/whatsmeow/appstate"
 	waBinary "go.mau.fi/whatsmeow/binary"
 	"go.mau.fi/whatsmeow/proto/waCompanionReg"
 	"go.mau.fi/whatsmeow/proto/waConsumerApplication"
 	waE2E "go.mau.fi/whatsmeow/proto/waE2E"
 	"go.mau.fi/whatsmeow/proto/waMsgApplication"
-	"go.mau.fi/whatsmeow/appstate"
 	"go.mau.fi/whatsmeow/store"
 	"go.mau.fi/whatsmeow/store/sqlstore"
 	"go.mau.fi/whatsmeow/types"
@@ -240,15 +240,15 @@ func GenerateWABinary(ctx context.Context, to types.JID, msg *waE2E.Message) *[]
 
 //export SetPushName
 func SetPushName(id *C.char, name *C.char) *C.char {
-    client, exists := clients[C.GoString(id)]
-    if !exists {
-        return C.CString("client not found")
-    }
-    err := client.SendAppState(context.Background(),appstate.BuildSettingPushName(C.GoString(name)))
-    if err != nil {
-        return C.CString(err.Error())
-    }
-    return C.CString("")
+	client, exists := clients[C.GoString(id)]
+	if !exists {
+		return C.CString("client not found")
+	}
+	err := client.SendAppState(context.Background(), appstate.BuildSettingPushName(C.GoString(name)))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
 }
 
 //export GetPNFromLID
@@ -531,7 +531,7 @@ func Stop(id *C.char) {
 }
 
 //export Neonize
-func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, logCb C.ptr_to_python_function_callback_bytes2, subscribes *C.uchar, lenSubscriber C.int, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int) { // ,
+func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, logCb C.ptr_to_python_function_callback_bytes2, subscribes *C.uchar, lenSubscriber C.int, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int) *C.char { // ,
 	subscribers := map[int]bool{}
 	var deviceProps waCompanionReg.DeviceProps
 	loginStateChan := make(chan bool)
@@ -539,7 +539,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 	ctx, cancel := context.WithCancel(context.Background())
 	StopSignal[C.GoString(id)] = cancel
 	if err_proto != nil {
-		panic(err_proto)
+		return C.CString(err_proto.Error())
 	}
 	for _, s := range getByteByAddr(subscribes, lenSubscriber) {
 		subscribers[int(s)] = true
@@ -551,7 +551,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 	eventChan := make(chan *MessageEvent, 100)
 	eventChannel[uuid] = eventChan
 	if err != nil {
-		panic(err)
+		return C.CString(err.Error())
 	}
 	// If you want multiple sessions, remember their JIDs and use .GetDevice(jid) or .GetAllDevices() instead.
 	var deviceStore *store.Device
@@ -560,14 +560,14 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 	if int(JIDSize) > 0 {
 		jidbyte_err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
 		if jidbyte_err != nil {
-			panic(jidbyte_err)
+			return C.CString(jidbyte_err.Error())
 		}
 		deviceStore, err_device = container.GetDevice(context.TODO(), utils.DecodeJidProto(&JID))
 	} else {
 		deviceStore, err_device = container.GetFirstDevice(context.TODO())
 	}
 	if err_device != nil {
-		panic(err_device)
+		return C.CString(err_device.Error())
 	}
 	proto.Merge(store.DeviceProps, &deviceProps)
 	clientLog := utils.NewLogger("Client", C.GoString(logLevel), utils.Callback(logCb))
@@ -1034,7 +1034,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 			var PairPhone defproto.PairPhoneParams
 			err_pairparams := proto.Unmarshal(phone_number, &PairPhone)
 			if err_pairparams != nil {
-				panic(err_pairparams)
+				return C.CString(err_pairparams.Error())
 			}
 			phone := *PairPhone.Phone
 			notif := *PairPhone.ShowPushNotification
@@ -1043,7 +1043,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 			client.Connect()
 			code_, code_err := client.PairPhone(context.Background(), phone, notif, whatsmeow.PairClientType(int(clientType)), displayname)
 			if code_err != nil {
-				panic(code_err)
+				return C.CString(code_err.Error())
 			}
 			fmt.Println("Pair Code: ", code_)
 			// for stat := range loginStateChan {
@@ -1056,7 +1056,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 			qrChan, _ := client.GetQRChannel(context.Background())
 			err = client.Connect()
 			if err != nil {
-				panic(err)
+				return C.CString(err.Error())
 			}
 			for evt := range qrChan {
 				if evt.Event == "code" {
@@ -1075,7 +1075,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 		// Already logged in, just connect
 		err = client.Connect()
 		if err != nil {
-			panic(err)
+			return C.CString(err.Error())
 		}
 	}
 
@@ -1089,7 +1089,10 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 
 	// Listen to Ctrl+C (you can also do something else that prevents the program from exiting)
 	println("Press Ctrl+C to exit")
-	CallbackFunction(ctx, event, uuid)
+	if cbErr := CallbackFunction(ctx, event, uuid); cbErr != nil {
+		return C.CString(cbErr.Error())
+	}
+	return C.CString("")
 }
 
 //export Disconnect
@@ -2420,23 +2423,23 @@ func FetchMe(id string) *defproto.Device {
 }
 
 // comment
-func CallbackFunction(ctx context.Context, callback C.ptr_to_python_function_bytes, id string) {
+func CallbackFunction(ctx context.Context, callback C.ptr_to_python_function_bytes, id string) error {
 	uuid := C.CString(id)
 	channel := eventChannel[id]
 	buff, err := proto.Marshal(FetchMe(id))
 	if err != nil {
-		panic(err)
+		return err
 	}
 	uchars, size := getBytesAndSize(buff)
 	C.call_c_func_callback_bytes(callback, uuid, uchars, size, C.int(0))
 	for {
 		select {
 		case <-ctx.Done():
-			return
+			return nil
 		case message := <-channel:
 			buff, err := proto.Marshal(message.message)
 			if err != nil {
-				panic(err)
+				return err
 			}
 			uchars, size := getBytesAndSize(buff)
 			C.call_c_func_callback_bytes(callback, uuid, uchars, size, C.int(message.eventType))

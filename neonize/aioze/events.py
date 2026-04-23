@@ -118,9 +118,7 @@ class Event:
         """
         self.client = client
         self.blocking_func = self.paircode(self.default_paircode_cb)
-        self.list_func: Dict[
-            int, Callable[[NewAClient, Message], Coroutine[None, None, None]]
-        ] = {}
+        self.list_func: Dict[int, Callable[[NewAClient, Message], Coroutine[None, None, None]]] = {}
         self._qr = self.__onqr
 
     def execute(self, uuid: int, binary: int, size: int, code: int):
@@ -198,9 +196,7 @@ class Event:
         return paircodecb
 
     @staticmethod
-    async def default_paircode_cb(
-        client: NewAClient, data: str, connected: bool = True
-    ):
+    async def default_paircode_cb(client: NewAClient, data: str, connected: bool = True):
         """
         A default callback function that handles the pair code event.
         This function is called when the pair code event occurs, and it blocks the execution until the event is processed.
@@ -253,6 +249,3 @@ class EventsManager:
             self.list_func.update({EVENT_TO_INT[event]: func})
 
         return callback
-
-
-
