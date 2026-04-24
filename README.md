@@ -156,8 +156,7 @@ logging.basicConfig(level=logging.INFO)
 
 # Initialize the WhatsApp client
 client = NewClient(
-    name="my-whatsapp-bot",
-    database="./neonize.db"
+    name="my-whatsapp-bot"
 )
 
 # Handle successful connection
