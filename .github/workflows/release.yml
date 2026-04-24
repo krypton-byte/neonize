@@ -495,6 +495,9 @@ jobs:
         git config user.email ${{ secrets.EMAIL }}
         uv sync --dev
         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
+        # Add and commit the modified file so the Git tree is clean before bumping
+        git add neonize/download.py
+        git commit -m "chore: auto-update neonize/download.py" || true
         update_neonize(){
             case "${{ inputs.version_type }}" in
               major)
