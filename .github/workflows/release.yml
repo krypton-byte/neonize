@@ -57,6 +57,8 @@ jobs:
       run: |
         git config user.name "krypton-byte"
         git config user.email ${{ secrets.EMAIL }}
+        git add .
+        git commit -m "chore: auto-update neonize/download.py" || true
         update_neonize(){
           case "${{ inputs.version_type }}" in
             major)
@@ -145,6 +147,8 @@ jobs:
       run: |
         git config user.name "krypton-byte"
         git config user.email ${{ secrets.EMAIL }}
+        git add .
+        git commit -m "chore: auto-update neonize/download.py" || true
         update_neonize(){
           case "${{ inputs.version_type }}" in
             major)
@@ -244,6 +248,8 @@ jobs:
       run: |
         git config user.name "krypton-byte"
         git config user.email ${{ secrets.EMAIL }}
+        git add .
+        git commit -m "chore: auto-update neonize/download.py" || true
         update_neonize(){
             case "${{ inputs.version_type }}" in
               major)
@@ -338,10 +344,12 @@ jobs:
       run: |
         git config user.name "krypton-byte"
         git config user.email ${{ secrets.EMAIL }}
+        git add .
+        git commit -m "chore: auto-update neonize/download.py" || true
         update_neonize(){
             case "${{ inputs.version_type }}" in
               major)
-                uv run bump-my-version bump patch 
+                uv run bump-my-version bump major
                 ;;
               minor)
                 uv run bump-my-version bump minor
@@ -502,16 +510,16 @@ jobs:
         update_neonize(){
             case "${{ inputs.version_type }}" in
               major)
-                uv run bump-my-version bump major
+                uv run bump-my-version bump major --allow-dirty
                 ;;
               minor)
-                uv run bump-my-version bump minor
+                uv run bump-my-version bump minor --allow-dirty
                 ;;
               patch)
-                uv run bump-my-version bump patch
+                uv run bump-my-version bump patch --allow-dirty
                 ;;
               post)
-                uv run bump-my-version bump post
+                uv run bump-my-version bump post --allow-dirty
                 ;;
             esac
           }
