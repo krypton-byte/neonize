@@ -519,8 +519,11 @@ jobs:
         echo "TAG_NAME=$(uv run bump-my-version show current_version)" >> $GITHUB_ENV
         ls -R
         ls -lah sharedlib
-        git push origin master
-        # git push tag 
+        # Push the detached HEAD to the remote master branch
+        git push origin HEAD:master
+        
+        # Explicitly push the generated tag
+        # git push origin refs/tags/$(uv run bump-my-version show current_version)
     - name: Upload shared library to draft release
       uses: softprops/action-gh-release@v1
       with:
