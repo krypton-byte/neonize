@@ -225,6 +225,7 @@ jobs:
     - uses: actions/setup-python@v4
       with:
         python-version: "3.11"
+    - uses: mlugg/setup-zig@v2
     - name: Install uv
       uses: astral-sh/setup-uv@v5
     - name: Install Protoc
@@ -242,8 +243,6 @@ jobs:
       run: |
         uv sync --dev
         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-    - name: Installing Dev Package
-      run: sudo apt update && sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
     - name: build
       run: |
         git config user.name "krypton-byte"
@@ -253,7 +252,7 @@ jobs:
         update_neonize(){
             case "${{ inputs.version_type }}" in
               major)
-                uv run bump-my-version bump patch 
+                uv run bump-my-version bump patch
                 ;;
               minor)
                 uv run bump-my-version bump minor
@@ -268,8 +267,11 @@ jobs:
           }
         # uv run task goneonize_changed
         mkdir LIBS
-        #AMD64/X86_64
         export CGO_ENABLED=1
+        #AMD64/X86_64
+        export GOOS=linux
+        export GOARCH=amd64
+        export CC="zig cc -target x86_64-linux-gnu.2.17"
         update_neonize
         uv run task build goneonize --smart
         uv build
@@ -278,24 +280,21 @@ jobs:
         #ARM64/AARCH64
         export GOOS=linux
         export GOARCH=arm64
-        export CC=$(which aarch64-linux-gnu-gcc)
-        export CXX=$(which aarch64-linux-gnu-cpp)
+        export CC="zig cc -target aarch64-linux-gnu.2.17"
         uv run task build goneonize --smart
         uv build
         uv run task repack
         mv neonize/*.so LIBS
-        #RISCV64
+        #RISCV64 (glibc support starts at 2.27)
         export GOOS=linux
         export GOARCH=riscv64
-        export CC=$(which riscv64-linux-gnu-gcc)
-        export CXX=$(which riscv64-linux-gnu-cpp)
+        export CC="zig cc -target riscv64-linux-gnu.2.27"
         uv run task build goneonize --smart
         mv neonize/*.so LIBS
         #S390X
         export GOOS=linux
         export GOARCH=s390x
-        export CC=$(which s390x-linux-gnu-gcc)
-        export CXX=$(which s390x-linux-gnu-cpp)
+        export CC="zig cc -target s390x-linux-gnu.2.17"
         uv run task build goneonize --smart
         uv build
         uv run task repack
