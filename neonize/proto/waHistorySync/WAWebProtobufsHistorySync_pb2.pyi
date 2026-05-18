@@ -116,6 +116,8 @@ class HistorySync(_message.Message):
     SHAREABLECHATIDENTIFIERENCRYPTIONKEY_FIELD_NUMBER: _builtins.int
     ACCOUNTS_FIELD_NUMBER: _builtins.int
     NCTSALT_FIELD_NUMBER: _builtins.int
+    INLINECONTACTS_FIELD_NUMBER: _builtins.int
+    INLINECONTACTSPROVIDED_FIELD_NUMBER: _builtins.int
     syncType: Global___HistorySync.HistorySyncType.ValueType
     chunkOrder: _builtins.int
     progress: _builtins.int
@@ -125,6 +127,7 @@ class HistorySync(_message.Message):
     companionMetaNonce: _builtins.str
     shareableChatIdentifierEncryptionKey: _builtins.bytes
     nctSalt: _builtins.bytes
+    inlineContactsProvided: _builtins.bool
     @_builtins.property
     def conversations(self) -> _containers.RepeatedCompositeFieldContainer[Global___Conversation]: ...
     @_builtins.property
@@ -143,6 +146,8 @@ class HistorySync(_message.Message):
     def phoneNumberToLidMappings(self) -> _containers.RepeatedCompositeFieldContainer[Global___PhoneNumberToLIDMapping]: ...
     @_builtins.property
     def accounts(self) -> _containers.RepeatedCompositeFieldContainer[Global___Account]: ...
+    @_builtins.property
+    def inlineContacts(self) -> _containers.RepeatedCompositeFieldContainer[Global___InlineContact]: ...
     def __init__(
         self,
         *,
@@ -164,10 +169,12 @@ class HistorySync(_message.Message):
         shareableChatIdentifierEncryptionKey: _builtins.bytes | None = ...,
         accounts: _abc.Iterable[Global___Account] | None = ...,
         nctSalt: _builtins.bytes | None = ...,
+        inlineContacts: _abc.Iterable[Global___InlineContact] | None = ...,
+        inlineContactsProvided: _builtins.bool | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["aiWaitListState", b"aiWaitListState", "chunkOrder", b"chunkOrder", "companionMetaNonce", b"companionMetaNonce", "globalSettings", b"globalSettings", "nctSalt", b"nctSalt", "progress", b"progress", "shareableChatIdentifierEncryptionKey", b"shareableChatIdentifierEncryptionKey", "syncType", b"syncType", "threadDsTimeframeOffset", b"threadDsTimeframeOffset", "threadIDUserSecret", b"threadIDUserSecret"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["aiWaitListState", b"aiWaitListState", "chunkOrder", b"chunkOrder", "companionMetaNonce", b"companionMetaNonce", "globalSettings", b"globalSettings", "inlineContactsProvided", b"inlineContactsProvided", "nctSalt", b"nctSalt", "progress", b"progress", "shareableChatIdentifierEncryptionKey", b"shareableChatIdentifierEncryptionKey", "syncType", b"syncType", "threadDsTimeframeOffset", b"threadDsTimeframeOffset", "threadIDUserSecret", b"threadIDUserSecret"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["accounts", b"accounts", "aiWaitListState", b"aiWaitListState", "callLogRecords", b"callLogRecords", "chunkOrder", b"chunkOrder", "companionMetaNonce", b"companionMetaNonce", "conversations", b"conversations", "globalSettings", b"globalSettings", "nctSalt", b"nctSalt", "pastParticipants", b"pastParticipants", "phoneNumberToLidMappings", b"phoneNumberToLidMappings", "progress", b"progress", "pushnames", b"pushnames", "recentStickers", b"recentStickers", "shareableChatIdentifierEncryptionKey", b"shareableChatIdentifierEncryptionKey", "statusV3Messages", b"statusV3Messages", "syncType", b"syncType", "threadDsTimeframeOffset", b"threadDsTimeframeOffset", "threadIDUserSecret", b"threadIDUserSecret"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["accounts", b"accounts", "aiWaitListState", b"aiWaitListState", "callLogRecords", b"callLogRecords", "chunkOrder", b"chunkOrder", "companionMetaNonce", b"companionMetaNonce", "conversations", b"conversations", "globalSettings", b"globalSettings", "inlineContacts", b"inlineContacts", "inlineContactsProvided", b"inlineContactsProvided", "nctSalt", b"nctSalt", "pastParticipants", b"pastParticipants", "phoneNumberToLidMappings", b"phoneNumberToLidMappings", "progress", b"progress", "pushnames", b"pushnames", "recentStickers", b"recentStickers", "shareableChatIdentifierEncryptionKey", b"shareableChatIdentifierEncryptionKey", "statusV3Messages", b"statusV3Messages", "syncType", b"syncType", "threadDsTimeframeOffset", b"threadDsTimeframeOffset", "threadIDUserSecret", b"threadIDUserSecret"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___HistorySync: _TypeAlias = HistorySync  # noqa: Y015
@@ -175,6 +182,23 @@ Global___HistorySync: _TypeAlias = HistorySync  # noqa: Y015
 @_typing.final
 class Conversation(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
+
+    class _GroupAppealStatus:
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
+
+    class _GroupAppealStatusEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[Conversation._GroupAppealStatus.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
+        NO_APPEAL: Conversation._GroupAppealStatus.ValueType  # 0
+        APPEAL_IN_REVIEW: Conversation._GroupAppealStatus.ValueType  # 1
+        APPEAL_APPROVED: Conversation._GroupAppealStatus.ValueType  # 2
+        APPEAL_REJECTED: Conversation._GroupAppealStatus.ValueType  # 3
+
+    class GroupAppealStatus(_GroupAppealStatus, metaclass=_GroupAppealStatusEnumTypeWrapper): ...
+    NO_APPEAL: Conversation.GroupAppealStatus.ValueType  # 0
+    APPEAL_IN_REVIEW: Conversation.GroupAppealStatus.ValueType  # 1
+    APPEAL_APPROVED: Conversation.GroupAppealStatus.ValueType  # 2
+    APPEAL_REJECTED: Conversation.GroupAppealStatus.ValueType  # 3
 
     class _EndOfHistoryTransferType:
         ValueType = _typing.NewType("ValueType", _builtins.int)
@@ -250,6 +274,11 @@ class Conversation(_message.Message):
     ISMARKETINGMESSAGETHREAD_FIELD_NUMBER: _builtins.int
     ISSENDERNEWACCOUNT_FIELD_NUMBER: _builtins.int
     AFTERREADDURATION_FIELD_NUMBER: _builtins.int
+    ISSENDERSUSPICIOUS_FIELD_NUMBER: _builtins.int
+    APPEALSTATUS_FIELD_NUMBER: _builtins.int
+    APPEALUPDATETIME_FIELD_NUMBER: _builtins.int
+    AUTHAGENTPARENTCOMPANYNAME_FIELD_NUMBER: _builtins.int
+    AUTHAGENTOBAPHONENUMBER_FIELD_NUMBER: _builtins.int
     ID: _builtins.str
     newJID: _builtins.str
     oldJID: _builtins.str
@@ -303,6 +332,11 @@ class Conversation(_message.Message):
     isMarketingMessageThread: _builtins.bool
     isSenderNewAccount: _builtins.bool
     afterReadDuration: _builtins.int
+    isSenderSuspicious: _builtins.bool
+    appealStatus: Global___Conversation.GroupAppealStatus.ValueType
+    appealUpdateTime: _builtins.int
+    authAgentParentCompanyName: _builtins.str
+    authAgentObaPhoneNumber: _builtins.str
     @_builtins.property
     def messages(self) -> _containers.RepeatedCompositeFieldContainer[Global___HistorySyncMsg]: ...
     @_builtins.property
@@ -371,10 +405,15 @@ class Conversation(_message.Message):
         isMarketingMessageThread: _builtins.bool | None = ...,
         isSenderNewAccount: _builtins.bool | None = ...,
         afterReadDuration: _builtins.int | None = ...,
+        isSenderSuspicious: _builtins.bool | None = ...,
+        appealStatus: Global___Conversation.GroupAppealStatus.ValueType | None = ...,
+        appealUpdateTime: _builtins.int | None = ...,
+        authAgentParentCompanyName: _builtins.str | None = ...,
+        authAgentObaPhoneNumber: _builtins.str | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "accountLid", b"accountLid", "afterReadDuration", b"afterReadDuration", "archived", b"archived", "capiCreatedGroup", b"capiCreatedGroup", "commentsCount", b"commentsCount", "contactPrimaryIdentityKey", b"contactPrimaryIdentityKey", "conversationTimestamp", b"conversationTimestamp", "createdAt", b"createdAt", "createdBy", b"createdBy", "description", b"description", "disappearingMode", b"disappearingMode", "displayName", b"displayName", "endOfHistoryTransfer", b"endOfHistoryTransfer", "endOfHistoryTransferType", b"endOfHistoryTransferType", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isDefaultSubgroup", b"isDefaultSubgroup", "isMarketingMessageThread", b"isMarketingMessageThread", "isParentGroup", b"isParentGroup", "isSenderNewAccount", b"isSenderNewAccount", "lastMsgTimestamp", b"lastMsgTimestamp", "lidJID", b"lidJID", "lidOriginType", b"lidOriginType", "limitSharing", b"limitSharing", "limitSharingInitiatedByMe", b"limitSharingInitiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "limitSharingTrigger", b"limitSharingTrigger", "locked", b"locked", "maibaAiThreadEnabled", b"maibaAiThreadEnabled", "markedAsUnread", b"markedAsUnread", "mediaVisibility", b"mediaVisibility", "muteEndTime", b"muteEndTime", "name", b"name", "newJID", b"newJID", "notSpam", b"notSpam", "oldJID", b"oldJID", "pHash", b"pHash", "parentGroupID", b"parentGroupID", "pinned", b"pinned", "pnJID", b"pnJID", "pnhDuplicateLidThread", b"pnhDuplicateLidThread", "readOnly", b"readOnly", "shareOwnPn", b"shareOwnPn", "support", b"support", "suspended", b"suspended", "systemMessageToInsert", b"systemMessageToInsert", "tcToken", b"tcToken", "tcTokenSenderTimestamp", b"tcTokenSenderTimestamp", "tcTokenTimestamp", b"tcTokenTimestamp", "terminated", b"terminated", "unreadCount", b"unreadCount", "unreadMentionCount", b"unreadMentionCount", "username", b"username", "wallpaper", b"wallpaper"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "accountLid", b"accountLid", "afterReadDuration", b"afterReadDuration", "appealStatus", b"appealStatus", "appealUpdateTime", b"appealUpdateTime", "archived", b"archived", "authAgentObaPhoneNumber", b"authAgentObaPhoneNumber", "authAgentParentCompanyName", b"authAgentParentCompanyName", "capiCreatedGroup", b"capiCreatedGroup", "commentsCount", b"commentsCount", "contactPrimaryIdentityKey", b"contactPrimaryIdentityKey", "conversationTimestamp", b"conversationTimestamp", "createdAt", b"createdAt", "createdBy", b"createdBy", "description", b"description", "disappearingMode", b"disappearingMode", "displayName", b"displayName", "endOfHistoryTransfer", b"endOfHistoryTransfer", "endOfHistoryTransferType", b"endOfHistoryTransferType", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isDefaultSubgroup", b"isDefaultSubgroup", "isMarketingMessageThread", b"isMarketingMessageThread", "isParentGroup", b"isParentGroup", "isSenderNewAccount", b"isSenderNewAccount", "isSenderSuspicious", b"isSenderSuspicious", "lastMsgTimestamp", b"lastMsgTimestamp", "lidJID", b"lidJID", "lidOriginType", b"lidOriginType", "limitSharing", b"limitSharing", "limitSharingInitiatedByMe", b"limitSharingInitiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "limitSharingTrigger", b"limitSharingTrigger", "locked", b"locked", "maibaAiThreadEnabled", b"maibaAiThreadEnabled", "markedAsUnread", b"markedAsUnread", "mediaVisibility", b"mediaVisibility", "muteEndTime", b"muteEndTime", "name", b"name", "newJID", b"newJID", "notSpam", b"notSpam", "oldJID", b"oldJID", "pHash", b"pHash", "parentGroupID", b"parentGroupID", "pinned", b"pinned", "pnJID", b"pnJID", "pnhDuplicateLidThread", b"pnhDuplicateLidThread", "readOnly", b"readOnly", "shareOwnPn", b"shareOwnPn", "support", b"support", "suspended", b"suspended", "systemMessageToInsert", b"systemMessageToInsert", "tcToken", b"tcToken", "tcTokenSenderTimestamp", b"tcTokenSenderTimestamp", "tcTokenTimestamp", b"tcTokenTimestamp", "terminated", b"terminated", "unreadCount", b"unreadCount", "unreadMentionCount", b"unreadMentionCount", "username", b"username", "wallpaper", b"wallpaper"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "accountLid", b"accountLid", "afterReadDuration", b"afterReadDuration", "archived", b"archived", "capiCreatedGroup", b"capiCreatedGroup", "commentsCount", b"commentsCount", "contactPrimaryIdentityKey", b"contactPrimaryIdentityKey", "conversationTimestamp", b"conversationTimestamp", "createdAt", b"createdAt", "createdBy", b"createdBy", "description", b"description", "disappearingMode", b"disappearingMode", "displayName", b"displayName", "endOfHistoryTransfer", b"endOfHistoryTransfer", "endOfHistoryTransferType", b"endOfHistoryTransferType", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isDefaultSubgroup", b"isDefaultSubgroup", "isMarketingMessageThread", b"isMarketingMessageThread", "isParentGroup", b"isParentGroup", "isSenderNewAccount", b"isSenderNewAccount", "lastMsgTimestamp", b"lastMsgTimestamp", "lidJID", b"lidJID", "lidOriginType", b"lidOriginType", "limitSharing", b"limitSharing", "limitSharingInitiatedByMe", b"limitSharingInitiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "limitSharingTrigger", b"limitSharingTrigger", "locked", b"locked", "maibaAiThreadEnabled", b"maibaAiThreadEnabled", "markedAsUnread", b"markedAsUnread", "mediaVisibility", b"mediaVisibility", "messages", b"messages", "muteEndTime", b"muteEndTime", "name", b"name", "newJID", b"newJID", "notSpam", b"notSpam", "oldJID", b"oldJID", "pHash", b"pHash", "parentGroupID", b"parentGroupID", "participant", b"participant", "pinned", b"pinned", "pnJID", b"pnJID", "pnhDuplicateLidThread", b"pnhDuplicateLidThread", "readOnly", b"readOnly", "shareOwnPn", b"shareOwnPn", "support", b"support", "suspended", b"suspended", "systemMessageToInsert", b"systemMessageToInsert", "tcToken", b"tcToken", "tcTokenSenderTimestamp", b"tcTokenSenderTimestamp", "tcTokenTimestamp", b"tcTokenTimestamp", "terminated", b"terminated", "unreadCount", b"unreadCount", "unreadMentionCount", b"unreadMentionCount", "username", b"username", "wallpaper", b"wallpaper"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "accountLid", b"accountLid", "afterReadDuration", b"afterReadDuration", "appealStatus", b"appealStatus", "appealUpdateTime", b"appealUpdateTime", "archived", b"archived", "authAgentObaPhoneNumber", b"authAgentObaPhoneNumber", "authAgentParentCompanyName", b"authAgentParentCompanyName", "capiCreatedGroup", b"capiCreatedGroup", "commentsCount", b"commentsCount", "contactPrimaryIdentityKey", b"contactPrimaryIdentityKey", "conversationTimestamp", b"conversationTimestamp", "createdAt", b"createdAt", "createdBy", b"createdBy", "description", b"description", "disappearingMode", b"disappearingMode", "displayName", b"displayName", "endOfHistoryTransfer", b"endOfHistoryTransfer", "endOfHistoryTransferType", b"endOfHistoryTransferType", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isDefaultSubgroup", b"isDefaultSubgroup", "isMarketingMessageThread", b"isMarketingMessageThread", "isParentGroup", b"isParentGroup", "isSenderNewAccount", b"isSenderNewAccount", "isSenderSuspicious", b"isSenderSuspicious", "lastMsgTimestamp", b"lastMsgTimestamp", "lidJID", b"lidJID", "lidOriginType", b"lidOriginType", "limitSharing", b"limitSharing", "limitSharingInitiatedByMe", b"limitSharingInitiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "limitSharingTrigger", b"limitSharingTrigger", "locked", b"locked", "maibaAiThreadEnabled", b"maibaAiThreadEnabled", "markedAsUnread", b"markedAsUnread", "mediaVisibility", b"mediaVisibility", "messages", b"messages", "muteEndTime", b"muteEndTime", "name", b"name", "newJID", b"newJID", "notSpam", b"notSpam", "oldJID", b"oldJID", "pHash", b"pHash", "parentGroupID", b"parentGroupID", "participant", b"participant", "pinned", b"pinned", "pnJID", b"pnJID", "pnhDuplicateLidThread", b"pnhDuplicateLidThread", "readOnly", b"readOnly", "shareOwnPn", b"shareOwnPn", "support", b"support", "suspended", b"suspended", "systemMessageToInsert", b"systemMessageToInsert", "tcToken", b"tcToken", "tcTokenSenderTimestamp", b"tcTokenSenderTimestamp", "tcTokenTimestamp", b"tcTokenTimestamp", "terminated", b"terminated", "unreadCount", b"unreadCount", "unreadMentionCount", b"unreadMentionCount", "username", b"username", "wallpaper", b"wallpaper"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___Conversation: _TypeAlias = Conversation  # noqa: Y015
@@ -476,6 +515,36 @@ class PhoneNumberToLIDMapping(_message.Message):
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___PhoneNumberToLIDMapping: _TypeAlias = PhoneNumberToLIDMapping  # noqa: Y015
+
+@_typing.final
+class InlineContact(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    PNJID_FIELD_NUMBER: _builtins.int
+    LIDJID_FIELD_NUMBER: _builtins.int
+    FULLNAME_FIELD_NUMBER: _builtins.int
+    FIRSTNAME_FIELD_NUMBER: _builtins.int
+    USERNAME_FIELD_NUMBER: _builtins.int
+    pnJID: _builtins.str
+    lidJID: _builtins.str
+    fullName: _builtins.str
+    firstName: _builtins.str
+    username: _builtins.str
+    def __init__(
+        self,
+        *,
+        pnJID: _builtins.str | None = ...,
+        lidJID: _builtins.str | None = ...,
+        fullName: _builtins.str | None = ...,
+        firstName: _builtins.str | None = ...,
+        username: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["firstName", b"firstName", "fullName", b"fullName", "lidJID", b"lidJID", "pnJID", b"pnJID", "username", b"username"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["firstName", b"firstName", "fullName", b"fullName", "lidJID", b"lidJID", "pnJID", b"pnJID", "username", b"username"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___InlineContact: _TypeAlias = InlineContact  # noqa: Y015
 
 @_typing.final
 class Account(_message.Message):

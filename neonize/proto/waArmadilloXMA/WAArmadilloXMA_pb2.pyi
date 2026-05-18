@@ -172,7 +172,11 @@ class ExtendedContentMessage(_message.Message):
         MSG_PHONE_NUMBER: ExtendedContentMessage._ExtendedContentType.ValueType  # 2030
         AI_ACTIVITY_SHARE: ExtendedContentMessage._ExtendedContentType.ValueType  # 2031
         MSG_PRIVATE_XMA: ExtendedContentMessage._ExtendedContentType.ValueType  # 2032
+        MSG_SOCIAL_CUE_MEMORIES: ExtendedContentMessage._ExtendedContentType.ValueType  # 2033
         MSG_MANUS_GROWTH_REFERRAL: ExtendedContentMessage._ExtendedContentType.ValueType  # 2060
+        MSG_MOMENT_LINK: ExtendedContentMessage._ExtendedContentType.ValueType  # 2061
+        MSG_HORIZON_WEEL: ExtendedContentMessage._ExtendedContentType.ValueType  # 2062
+        MSG_MOMENT_ADDED: ExtendedContentMessage._ExtendedContentType.ValueType  # 2063
         RTC_AUDIO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3000
         RTC_VIDEO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3001
         RTC_MISSED_AUDIO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3002
@@ -253,7 +257,11 @@ class ExtendedContentMessage(_message.Message):
     MSG_PHONE_NUMBER: ExtendedContentMessage.ExtendedContentType.ValueType  # 2030
     AI_ACTIVITY_SHARE: ExtendedContentMessage.ExtendedContentType.ValueType  # 2031
     MSG_PRIVATE_XMA: ExtendedContentMessage.ExtendedContentType.ValueType  # 2032
+    MSG_SOCIAL_CUE_MEMORIES: ExtendedContentMessage.ExtendedContentType.ValueType  # 2033
     MSG_MANUS_GROWTH_REFERRAL: ExtendedContentMessage.ExtendedContentType.ValueType  # 2060
+    MSG_MOMENT_LINK: ExtendedContentMessage.ExtendedContentType.ValueType  # 2061
+    MSG_HORIZON_WEEL: ExtendedContentMessage.ExtendedContentType.ValueType  # 2062
+    MSG_MOMENT_ADDED: ExtendedContentMessage.ExtendedContentType.ValueType  # 2063
     RTC_AUDIO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3000
     RTC_VIDEO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3001
     RTC_MISSED_AUDIO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3002

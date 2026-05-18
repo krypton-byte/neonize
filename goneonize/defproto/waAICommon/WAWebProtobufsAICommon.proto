@@ -52,6 +52,7 @@ enum BotMetricsEntryPoint {
 	WEB_NAVIGATION_BAR = 47;
 	GROUP_MEMBER = 54;
 	CHATLIST_SEARCH = 55;
+	NEW_CHAT_LIST = 56;
 }
 
 enum BotMetricsThreadEntryPoint {
@@ -71,6 +72,13 @@ enum BotSessionSource {
 	EMU_FLASH_FOLLOWUP = 5;
 	VOICE = 6;
 	AI_HOME_SESSION = 7;
+}
+
+enum AISubscriptionRequestType {
+	UNSPECIFIED = 0;
+	THINK_HARD = 1;
+	IMAGE_GEN = 2;
+	VIDEO_GEN = 3;
 }
 
 enum SessionTransparencyType {
@@ -537,6 +545,7 @@ message AIHomeState {
 			ANIMATE_PHOTO = 2;
 			ANALYZE_FILE = 3;
 			COLLABORATE = 4;
+			OPEN_GREETING_CARD = 5;
 		}
 
 		optional AIHomeActionType type = 1;
@@ -695,6 +704,17 @@ message AIMediaCollectionMessage {
 	optional bool hasGlobalCaption = 3;
 }
 
+message BotCommandMetadata {
+	optional string commandName = 1;
+	optional string commandDescription = 2;
+	optional string commandPrompt = 3;
+}
+
+message BotResolvedToolCallMetadata {
+	optional string toolCallID = 1;
+	optional string resolutionDataSerialized = 2;
+}
+
 message BotMetadata {
 	optional string personaID = 2;
 	optional BotPluginMetadata pluginMetadata = 3;
@@ -733,7 +753,14 @@ message BotMetadata {
 	optional BotRenderingConfigMetadata botRenderingConfigMetadata = 36;
 	optional BotInfrastructureDiagnostics botInfrastructureDiagnostics = 37;
 	optional AIMediaCollectionMetadata aiMediaCollectionMetadata = 38;
+	optional BotCommandMetadata commandMetadata = 39;
+	optional BotResolvedToolCallMetadata resolvedToolCallMetadata = 40;
+	optional AISubscriptionUpsellMetadata subscriptionUpsellMetadata = 41;
 	optional bytes internalMetadata = 999;
+}
+
+message AISubscriptionUpsellMetadata {
+	optional AISubscriptionRequestType requestType = 1;
 }
 
 message BotGroupMetadata {

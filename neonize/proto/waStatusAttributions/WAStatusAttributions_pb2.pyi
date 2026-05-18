@@ -135,6 +135,7 @@ class StatusAttribution(_message.Message):
             APPLE_MUSIC: StatusAttribution.ExternalShare._Source.ValueType  # 8
             SHARECHAT: StatusAttribution.ExternalShare._Source.ValueType  # 9
             GOOGLE_PHOTOS: StatusAttribution.ExternalShare._Source.ValueType  # 10
+            SOUNDCLOUD: StatusAttribution.ExternalShare._Source.ValueType  # 11
 
         class Source(_Source, metaclass=_SourceEnumTypeWrapper): ...
         UNKNOWN: StatusAttribution.ExternalShare.Source.ValueType  # 0
@@ -148,6 +149,7 @@ class StatusAttribution(_message.Message):
         APPLE_MUSIC: StatusAttribution.ExternalShare.Source.ValueType  # 8
         SHARECHAT: StatusAttribution.ExternalShare.Source.ValueType  # 9
         GOOGLE_PHOTOS: StatusAttribution.ExternalShare.Source.ValueType  # 10
+        SOUNDCLOUD: StatusAttribution.ExternalShare.Source.ValueType  # 11
 
         ACTIONURL_FIELD_NUMBER: _builtins.int
         SOURCE_FIELD_NUMBER: _builtins.int
