@@ -272,6 +272,8 @@ class WebMessageInfo(_message.Message):
         GROUP_MEMBER_SHARE_GROUP_HISTORY_MODE: WebMessageInfo._StubType.ValueType  # 221
         GROUP_OPEN_BOT_ADDED: WebMessageInfo._StubType.ValueType  # 222
         GROUP_TEE_BOT_ADDED: WebMessageInfo._StubType.ValueType  # 223
+        CONTACT_INFO: WebMessageInfo._StubType.ValueType  # 224
+        SCHEDULED_MESSAGE_CREATED: WebMessageInfo._StubType.ValueType  # 225
 
     class StubType(_StubType, metaclass=_StubTypeEnumTypeWrapper): ...
     UNKNOWN: WebMessageInfo.StubType.ValueType  # 0
@@ -498,6 +500,8 @@ class WebMessageInfo(_message.Message):
     GROUP_MEMBER_SHARE_GROUP_HISTORY_MODE: WebMessageInfo.StubType.ValueType  # 221
     GROUP_OPEN_BOT_ADDED: WebMessageInfo.StubType.ValueType  # 222
     GROUP_TEE_BOT_ADDED: WebMessageInfo.StubType.ValueType  # 223
+    CONTACT_INFO: WebMessageInfo.StubType.ValueType  # 224
+    SCHEDULED_MESSAGE_CREATED: WebMessageInfo.StubType.ValueType  # 225
 
     class _Status:
         ValueType = _typing.NewType("ValueType", _builtins.int)
@@ -588,6 +592,10 @@ class WebMessageInfo(_message.Message):
     QUARANTINEDMESSAGE_FIELD_NUMBER: _builtins.int
     NONJIDMENTIONS_FIELD_NUMBER: _builtins.int
     HSMTAG_FIELD_NUMBER: _builtins.int
+    EPHEMERALEXPIRATIONTIMESTAMP_FIELD_NUMBER: _builtins.int
+    SCHEDULEDMESSAGEMETADATA_FIELD_NUMBER: _builtins.int
+    DECISIONID_FIELD_NUMBER: _builtins.int
+    DECISIONSOURCES_FIELD_NUMBER: _builtins.int
     messageTimestamp: _builtins.int
     status: Global___WebMessageInfo.Status.ValueType
     participant: _builtins.str
@@ -624,6 +632,8 @@ class WebMessageInfo(_message.Message):
     botTargetID: _builtins.str
     nonJIDMentions: _builtins.int
     hsmTag: _builtins.str
+    ephemeralExpirationTimestamp: _builtins.int
+    decisionID: _builtins.str
     @_builtins.property
     def key(self) -> _WACommon_pb2.MessageKey: ...
     @_builtins.property
@@ -688,6 +698,10 @@ class WebMessageInfo(_message.Message):
     def interactiveMessageAdditionalMetadata(self) -> Global___InteractiveMessageAdditionalMetadata: ...
     @_builtins.property
     def quarantinedMessage(self) -> Global___QuarantinedMessage: ...
+    @_builtins.property
+    def scheduledMessageMetadata(self) -> Global___ScheduledMessageMetadata: ...
+    @_builtins.property
+    def decisionSources(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
     def __init__(
         self,
         *,
@@ -759,10 +773,14 @@ class WebMessageInfo(_message.Message):
         quarantinedMessage: Global___QuarantinedMessage | None = ...,
         nonJIDMentions: _builtins.int | None = ...,
         hsmTag: _builtins.str | None = ...,
+        ephemeralExpirationTimestamp: _builtins.int | None = ...,
+        scheduledMessageMetadata: Global___ScheduledMessageMetadata | None = ...,
+        decisionID: _builtins.str | None = ...,
+        decisionSources: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "hsmTag", b"hsmTag", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "nonJIDMentions", b"nonJIDMentions", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quarantinedMessage", b"quarantinedMessage", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusPsa", b"statusPsa", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "verifiedBizName", b"verifiedBizName"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "decisionID", b"decisionID", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralExpirationTimestamp", b"ephemeralExpirationTimestamp", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "hsmTag", b"hsmTag", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "nonJIDMentions", b"nonJIDMentions", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quarantinedMessage", b"quarantinedMessage", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "scheduledMessageMetadata", b"scheduledMessageMetadata", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusPsa", b"statusPsa", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "verifiedBizName", b"verifiedBizName"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "eventResponses", b"eventResponses", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "hsmTag", b"hsmTag", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "labels", b"labels", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageAddOns", b"messageAddOns", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubParameters", b"messageStubParameters", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "nonJIDMentions", b"nonJIDMentions", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "pollUpdates", b"pollUpdates", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quarantinedMessage", b"quarantinedMessage", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reactions", b"reactions", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusMentionSources", b"statusMentionSources", "statusMentions", b"statusMentions", "statusPsa", b"statusPsa", "supportAiCitations", b"supportAiCitations", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "userReceipt", b"userReceipt", "verifiedBizName", b"verifiedBizName"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "decisionID", b"decisionID", "decisionSources", b"decisionSources", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralExpirationTimestamp", b"ephemeralExpirationTimestamp", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "eventResponses", b"eventResponses", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "hsmTag", b"hsmTag", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "labels", b"labels", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageAddOns", b"messageAddOns", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubParameters", b"messageStubParameters", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "nonJIDMentions", b"nonJIDMentions", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "pollUpdates", b"pollUpdates", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quarantinedMessage", b"quarantinedMessage", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reactions", b"reactions", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "scheduledMessageMetadata", b"scheduledMessageMetadata", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusMentionSources", b"statusMentionSources", "statusMentions", b"statusMentions", "statusPsa", b"statusPsa", "supportAiCitations", b"supportAiCitations", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "userReceipt", b"userReceipt", "verifiedBizName", b"verifiedBizName"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___WebMessageInfo: _TypeAlias = WebMessageInfo  # noqa: Y015
@@ -1785,3 +1803,27 @@ class QuarantinedMessage(_message.Message):
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___QuarantinedMessage: _TypeAlias = QuarantinedMessage  # noqa: Y015
+
+@_typing.final
+class ScheduledMessageMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    REVEALKEYID_FIELD_NUMBER: _builtins.int
+    REVEALKEY_FIELD_NUMBER: _builtins.int
+    SCHEDULEDTIME_FIELD_NUMBER: _builtins.int
+    revealKeyID: _builtins.str
+    revealKey: _builtins.bytes
+    scheduledTime: _builtins.int
+    def __init__(
+        self,
+        *,
+        revealKeyID: _builtins.str | None = ...,
+        revealKey: _builtins.bytes | None = ...,
+        scheduledTime: _builtins.int | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["revealKey", b"revealKey", "revealKeyID", b"revealKeyID", "scheduledTime", b"scheduledTime"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["revealKey", b"revealKey", "revealKeyID", b"revealKeyID", "scheduledTime", b"scheduledTime"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+
+Global___ScheduledMessageMetadata: _TypeAlias = ScheduledMessageMetadata  # noqa: Y015
