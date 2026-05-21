@@ -19,7 +19,8 @@ func_callback_bytes2 = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_int)  # 
 
 
 def load_goneonize():
-    while True:
+    last_error: Exception | None = None
+    for _ in range(3):
         try:
             gocode = ctypes.CDLL(f"{root_dir}/{generated_name()}")
             gocode.GetVersion.restype = ctypes.c_char_p
@@ -29,8 +30,12 @@ def load_goneonize():
         except OSError as e:
             print("e", e)
             raise e
-        except Exception:
+        except Exception as e:
+            last_error = e
             download()
+    raise RuntimeError(
+        f"failed to load goneonize after 3 attempts; last error: {last_error}"
+    )
 
 
 class Bytes(ctypes.Structure):
