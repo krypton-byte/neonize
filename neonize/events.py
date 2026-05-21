@@ -159,7 +159,9 @@ class Event:
             return
         elif code == 3:
             self.client.connected = True
-        self.list_func[code](self.client, message)
+        handler = self.list_func.get(code)
+        if handler is not None:
+            handler(self.client, message)
 
     def __onqr(self, _: NewClient, data_qr: bytes):
         """
