@@ -524,10 +524,14 @@ func Stop(id *C.char) {
 		cancelFunc()
 		delete(StopSignal, C.GoString(id))
 	}
-	if eventChan, exists := eventChannel[C.GoString(id)]; exists {
-		close(eventChan)
-		delete(eventChannel, C.GoString(id))
-	}
+	// Drop the event channel reference without closing it. Closing it raced
+	// with CallbackFunction's select loop: once the channel is closed, its
+	// `case message := <-channel` branch fires immediately with a nil
+	// *MessageEvent, which then nil-dereferences in proto.Marshal and panics
+	// the process. CallbackFunction already returns cleanly via <-ctx.Done()
+	// (cancelled just above); once it does, the channel is unreferenced and
+	// garbage-collected.
+	delete(eventChannel, C.GoString(id))
 }
 
 //export Neonize
