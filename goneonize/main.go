@@ -2458,3 +2458,16 @@ func FreeBytesStruct(bytesReturn *C.struct_BytesReturn) {
 	}
 	C.free(unsafe.Pointer(bytesReturn))
 }
+
+// FreeString releases a C string returned to Python by a function whose
+// result is a *C.char (allocated by Go's C.CString). The Python side declares
+// such functions restype = c_void_p and calls this from a ctypes errcheck hook
+// once the string has been copied; without it the allocation is leaked, since
+// a c_char_p restype would discard the pointer.
+//
+//export FreeString
+func FreeString(str *C.char) {
+	if str != nil {
+		C.free(unsafe.Pointer(str))
+	}
+}
