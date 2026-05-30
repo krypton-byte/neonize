@@ -16,7 +16,15 @@ from neonize.types import MessageServerID
 from neonize.utils import log
 from neonize.utils.enum import ReceiptType, VoteType
 import signal
+from neonize.ext.interactive_message.button import ButtonMessage
 
+btn = (
+    ButtonMessage()
+    .set_title("Button Title")
+    .set_body("Button Body")
+    .add_reply("Reply 1", ".reply1")
+    .add_reply("Reply 2", ".reply2")
+)
 
 sys.path.insert(0, os.getcwd())
 
@@ -56,6 +64,8 @@ async def handler(client: NewAClient, message: MessageEv):
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     chat = message.Info.MessageSource.Chat
     match text:
+        case "test_button":
+            await client.send_interactive_message(chat, btn)
         case "ping":
             result = await client.reply_message("pong", message)
         case "stop":
