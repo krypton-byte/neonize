@@ -32,6 +32,8 @@ from linkpreview.exceptions import MaximumContentSizeError
 from PIL import Image, ImageSequence
 from requests.exceptions import HTTPError
 
+from ..ext.interactive_message.base import CustomInteractiveMessage
+
 from .._binder import (
     free_bytes,
     func_callback_bytes,
@@ -586,6 +588,43 @@ class NewAClient:
             remoteJID=(
                 Jid2String(JIDToNonAD(message.Info.MessageSource.Chat)) if reply_privately else None
             ),
+        )
+
+    async def send_interactive_message(
+        self,
+        to: JID,
+        interactive_message: CustomInteractiveMessage,
+        link_preview: bool = False,
+        ghost_mentions: Optional[str] = None,
+        mentions_are_lids: bool = False,
+        add_msg_secret: bool = False,
+    ) -> SendResponse:
+        """Send a custom interactive message to the specified JID.
+
+        :param to: The JID to send the message to.
+        :type to: JID
+        :param interactive_message: An instance of a class that implements the CustomInteractiveMessage protocol.
+        :type interactive_message: CustomInteractiveMessage
+        :param link_preview: Whether to send a link preview, defaults to False
+        :type link_preview: bool, optional
+        :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
+        :type ghost_mentions: str, optional
+        :param mentions_are_lids: whether mentions contained in message or ghost_mentions are lids, defaults to False.
+        :type mentions_are_lids: bool, optional
+        :param add_msg_secret: Whether to generate 32 random bytes for messageSecret inside MessageContextInfo before sending, defaults to False
+        :type add_msg_secret: bool, optional
+        :raises SendMessageError: If there was an error sending the message.
+        :return: The response from the server.
+        :rtype: SendResponse
+        """
+        msg = await interactive_message.prepare_asend(self)
+        return await self.send_message(
+            to,
+            msg,
+            link_preview=link_preview,
+            ghost_mentions=ghost_mentions,
+            mentions_are_lids=mentions_are_lids,
+            add_msg_secret=add_msg_secret,
         )
 
     async def send_message(
