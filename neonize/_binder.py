@@ -1,9 +1,10 @@
 import ctypes
 import ctypes.util
 import os
+from dataclasses import dataclass
 from pathlib import Path
 from platform import system
-from typing import Any
+from typing import Any, Optional
 
 from .download import __GONEONIZE_VERSION__, download
 from .utils.platform import generated_name
@@ -39,12 +40,64 @@ def load_goneonize():
 
 
 class Bytes(ctypes.Structure):
-    ptr: int
-    size: int
-    _fields_ = [("ptr", ctypes.POINTER(ctypes.c_char)), ("size", ctypes.c_size_t)]
+    _fields_ = [("ptr", ctypes.c_char_p), ("size", ctypes.c_size_t)]
 
     def get_bytes(self):
         return ctypes.string_at(self.ptr, self.size)
+
+
+class _CProxySettings(ctypes.Structure):
+    """Internal ctypes struct that mirrors C.struct_ProxySettings in cstruct.h.
+    Do not use directly — use :class:`ProxySettings` dataclass instead.
+    """
+
+    _fields_ = [
+        ("proxyAddress", ctypes.c_char_p),
+        ("noWebsocket", ctypes.c_bool),
+        ("onlyLogin", ctypes.c_bool),
+        ("noMedia", ctypes.c_bool),
+    ]
+
+
+@dataclass
+class ProxySettings:
+    """Proxy configuration for the WhatsApp client.
+
+    Example::
+
+        # Connect with a SOCKS5 proxy
+        proxy = ProxySettings(proxy_address="socks5://127.0.0.1:1080")
+        client.connect(proxy)
+
+        # Proxy only during login, skip media traffic
+        proxy = ProxySettings(
+            proxy_address="http://proxy.example.com:8080",
+            only_login=True,
+            no_media=True,
+        )
+        client.connect(proxy)
+    """
+
+    proxy_address: str
+    """Proxy URL, e.g. ``socks5://host:port`` or ``http://host:port``."""
+
+    no_websocket: bool = False
+    """If True, don't route WebSocket traffic through the proxy."""
+
+    only_login: bool = False
+    """If True, only use the proxy during the login/pairing phase."""
+
+    no_media: bool = False
+    """If True, don't route media uploads/downloads through the proxy."""
+
+    def _to_c_struct(self) -> "_CProxySettings":
+        """Convert this dataclass into the internal ctypes struct for CGO."""
+        return _CProxySettings(
+            proxyAddress=self.proxy_address.encode(),
+            noWebsocket=self.no_websocket,
+            onlyLogin=self.only_login,
+            noMedia=self.no_media,
+        )
 
 
 if not os.environ.get("SPHINX"):
@@ -70,6 +123,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
         ctypes.c_char_p,
         ctypes.c_int,
+        ctypes.POINTER(_CProxySettings),
     ]
     gocode.Neonize.restype = ctypes.c_void_p
     gocode.GetLIDFromPN.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
@@ -520,6 +574,10 @@ if not os.environ.get("SPHINX"):
     gocode.FreeBytesStruct.restype = None
     gocode.SetPushName.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     gocode.SetPushName.restype = ctypes.c_void_p
+    gocode.SetPushName.errcheck = consume_cstring
+    gocode.SetProxyAddress.argtypes = [ctypes.c_char_p, ctypes.POINTER(_CProxySettings)]
+    gocode.SetProxyAddress.restype = ctypes.c_void_p
+    gocode.SetProxyAddress.errcheck = consume_cstring
 
     gocode.FreeString.argtypes = [ctypes.c_void_p]
     gocode.FreeString.restype = None
