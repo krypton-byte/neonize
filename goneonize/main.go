@@ -73,6 +73,54 @@ func getByteByAddr(addr *C.uchar, size C.int) []byte {
 	// return result
 }
 
+// applyProxySettings configures the proxy on the whatsmeow client.
+// It uses C.struct_ProxySettings (defined in header/cstruct.h) directly,
+// so the memory layout is guaranteed by the C compiler — no manual
+// Go-struct-to-C alignment required.
+//
+// When settings is nil (Python passes None), the proxy step is skipped.
+func applyProxySettings(client *whatsmeow.Client, settings *C.struct_ProxySettings) error {
+	if settings == nil {
+		return nil
+	}
+	proxyAddress := ""
+	if settings.proxyAddress != nil {
+		proxyAddress = C.GoString(settings.proxyAddress)
+	}
+	return client.SetProxyAddress(proxyAddress, whatsmeow.SetProxyOptions{
+		NoWebsocket: bool(settings.noWebsocket),
+		OnlyLogin:   bool(settings.onlyLogin),
+		NoMedia:     bool(settings.noMedia),
+	})
+}
+
+func pairClientTypeFromInt(clientType int32) whatsmeow.PairClientType {
+	switch clientType {
+	case 0:
+		return whatsmeow.PairClientUnknown
+	case 1:
+		return whatsmeow.PairClientChrome
+	case 2:
+		return whatsmeow.PairClientEdge
+	case 3:
+		return whatsmeow.PairClientFirefox
+	case 4:
+		return whatsmeow.PairClientIE
+	case 5:
+		return whatsmeow.PairClientOpera
+	case 6:
+		return whatsmeow.PairClientSafari
+	case 7:
+		return whatsmeow.PairClientElectron
+	case 8:
+		return whatsmeow.PairClientUWP
+	case 9:
+		return whatsmeow.PairClientOtherWebClient
+	default:
+		return whatsmeow.PairClientUnknown
+	}
+}
+
 // Get button type
 func getButtonTypeFromMessage(msg *waE2E.Message) string {
 	switch {
@@ -535,7 +583,7 @@ func Stop(id *C.char) {
 }
 
 //export Neonize
-func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, logCb C.ptr_to_python_function_callback_bytes2, subscribes *C.uchar, lenSubscriber C.int, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int) *C.char { // ,
+func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, logCb C.ptr_to_python_function_callback_bytes2, subscribes *C.uchar, lenSubscriber C.int, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int, proxySettingsRaw *C.struct_ProxySettings) *C.char {
 	subscribers := map[int]bool{}
 	var deviceProps waCompanionReg.DeviceProps
 	loginStateChan := make(chan bool)
@@ -577,6 +625,9 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 	clientLog := utils.NewLogger("Client", C.GoString(logLevel), utils.Callback(logCb))
 	client := whatsmeow.NewClient(deviceStore, clientLog)
 	clients[uuid] = client
+	if err := applyProxySettings(client, proxySettingsRaw); err != nil {
+		return C.CString(err.Error())
+	}
 	eventHandler := func(evt interface{}) {
 		switch v := evt.(type) {
 		case *events.QR:
@@ -1045,7 +1096,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 			displayname := *PairPhone.ClientDisplayName
 			clientType := *PairPhone.ClientType
 			client.Connect()
-			code_, code_err := client.PairPhone(context.Background(), phone, notif, whatsmeow.PairClientType(int(clientType)), displayname)
+			code_, code_err := client.PairPhone(context.Background(), phone, notif, pairClientTypeFromInt(clientType), displayname)
 			if code_err != nil {
 				return C.CString(code_err.Error())
 			}
@@ -1200,6 +1251,20 @@ func GetUserInfo(id *C.char, JIDSByte *C.uchar, JIDSSize C.int) *C.struct_BytesR
 	}
 	return_.UsersInfo = usersinfo
 	return ProtoReturnV3(&return_)
+}
+
+//export SetProxyAddress
+func SetProxyAddress(id *C.char, proxySettingsRaw *C.struct_ProxySettings) *C.char {
+	uuid := C.GoString(id)
+	client, exists := clients[uuid]
+	if !exists {
+		return C.CString("client not found")
+	}
+	err := applyProxySettings(client, proxySettingsRaw)
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
 }
 
 // /GROUP
@@ -1772,7 +1837,7 @@ func PairPhone(id *C.char, pairPhoneByte *C.uchar, pairPhoneSize C.int) *C.struc
 		context.Background(),
 		*pairPhoneParams.Phone,
 		*pairPhoneParams.ShowPushNotification,
-		whatsmeow.PairClientType(int(*pairPhoneParams.ClientType)),
+		pairClientTypeFromInt(*pairPhoneParams.ClientType),
 		*pairPhoneParams.ClientDisplayName,
 	)
 

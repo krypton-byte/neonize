@@ -194,6 +194,10 @@ class SetStatusMessageError(Exception):
     pass
 
 
+class SetProxyAddressError(Exception):
+    pass
+
+
 class SubscribePresenceError(Exception):
     pass
 
