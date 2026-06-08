@@ -142,14 +142,11 @@ class Event:
             return
         elif code == 3:
             self.client.connected = True
-        # loop = asyncio.new_event_loop()
-        # loop.run_until_complete(
-        #     self.list_func[code](self.client, message)
-        # )
-        # loop.close()
-        asyncio.run_coroutine_threadsafe(
-            self.list_func[code](self.client, message), event_global_loop
-        )
+        handler = self.list_func.get(code)
+        if handler is not None:
+            asyncio.run_coroutine_threadsafe(
+                handler(self.client, message), event_global_loop
+            )
 
     async def __onqr(self, _: NewAClient, data_qr: bytes):
         """
