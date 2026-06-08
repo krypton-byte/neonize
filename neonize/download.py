@@ -13,7 +13,7 @@ class UnsupportedPlatform(Exception):
 
 
 def __download(url: str, fname: str, chunk_size=1024):
-    resp = requests.get(url, stream=True)
+    resp = requests.get(url, stream=True, timeout=30)
     if resp.status_code != 200:
         resp.close()
         raise UnsupportedPlatform(generated_name())

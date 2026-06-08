@@ -3325,23 +3325,35 @@ class NewAClient:
 
         # Initiate connection to the server
         async def _connect_and_check():
-            err = await self.__client.Neonize(
-                self.name.encode(),
-                self.uuid,
-                jidbuf,
-                jidbuf_size,
-                LogLevel.from_logging(log.level).level,
-                func_string(self.__onQr),
-                func_string(self.__onLoginStatus),
-                func_callback_bytes(self.event.execute),
-                func_callback_bytes2(log_whatsmeow),
-                (ctypes.c_char * len(self.event.list_func)).from_buffer(d),
-                len(d),
-                deviceprops,
-                len(deviceprops),
-                b"",
-                0,
-            )
+            try:
+                err = await self.__client.Neonize(
+                    self.name.encode(),
+                    self.uuid,
+                    jidbuf,
+                    jidbuf_size,
+                    LogLevel.from_logging(log.level).level,
+                    func_string(self.__onQr),
+                    func_string(self.__onLoginStatus),
+                    func_callback_bytes(self.event.execute),
+                    func_callback_bytes2(log_whatsmeow),
+                    (ctypes.c_char * len(self.event.list_func)).from_buffer(d),
+                    len(d),
+                    deviceprops,
+                    len(deviceprops),
+                    b"",
+                    0,
+                )
+            except asyncio.CancelledError:
+                # Neonize() is a blocking Go call dispatched to a non-daemon
+                # ThreadPoolExecutor thread via asyncio.to_thread; it only
+                # returns once the Go-side context is cancelled. Cancelling
+                # this task -- which is what asyncio.run() does on a
+                # KeyboardInterrupt -- unblocks this coroutine but cannot stop
+                # the worker thread. Without signalling Go, that thread runs
+                # forever and interpreter shutdown hangs joining it. Tell Go to
+                # stop so Neonize() returns and the worker thread can exit.
+                gocode.Stop(self.uuid)
+                raise
             if err:
                 raise NeonizeError(err.decode())
 
