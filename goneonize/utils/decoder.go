@@ -202,9 +202,6 @@ func DecodeSendRequestExtra(extra *defproto.SendRequestExtra) whatsmeow.SendRequ
 	}
 }
 
-func DecodeNewsLetterMessageMeta(defproto.NewsLetterMessageMeta) {
-}
-
 func DecodeEventTypesMessage(message *defproto.Message) *events.Message {
 	model := &events.Message{
 		Info:                  *DecodeMessageInfo(message.Info),
