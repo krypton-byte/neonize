@@ -13,10 +13,10 @@ import builtins as _builtins
 import sys
 import typing as _typing
 
-if sys.version_info >= (3, 10):
-    from typing import TypeAlias as _TypeAlias
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    from typing_extensions import TypeAlias as _TypeAlias
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -305,6 +305,7 @@ class ExtendedContentMessage(_message.Message):
         def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
         _ClearFieldArgType: _TypeAlias = _typing.Literal["actionContentBlob", b"actionContentBlob", "actionURL", b"actionURL", "buttonType", b"buttonType", "ctaType", b"ctaType", "nativeURL", b"nativeURL", "title", b"title"]  # noqa: Y015
         def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
     ASSOCIATEDMESSAGE_FIELD_NUMBER: _builtins.int
     TARGETTYPE_FIELD_NUMBER: _builtins.int
@@ -409,5 +410,6 @@ class ExtendedContentMessage(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["associatedMessage", b"associatedMessage", "commands", b"commands", "contentRef", b"contentRef", "ctas", b"ctas", "favicon", b"favicon", "featureSharedSessionID", b"featureSharedSessionID", "headerImage", b"headerImage", "headerSubtitle", b"headerSubtitle", "headerTitle", b"headerTitle", "maxSubtitleNumOfLines", b"maxSubtitleNumOfLines", "maxTitleNumOfLines", b"maxTitleNumOfLines", "mentionedJID", b"mentionedJID", "mentions", b"mentions", "messageText", b"messageText", "overlayDescription", b"overlayDescription", "overlayIconGlyph", b"overlayIconGlyph", "overlayTitle", b"overlayTitle", "previews", b"previews", "sentWithMessageID", b"sentWithMessageID", "signedXmaDataclassValidation", b"signedXmaDataclassValidation", "subtitleText", b"subtitleText", "targetExpiringAtSec", b"targetExpiringAtSec", "targetID", b"targetID", "targetType", b"targetType", "targetUsername", b"targetUsername", "titleText", b"titleText", "xmaDataclass", b"xmaDataclass", "xmaDataclassType", b"xmaDataclassType", "xmaLayoutType", b"xmaLayoutType"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___ExtendedContentMessage: _TypeAlias = ExtendedContentMessage  # noqa: Y015
