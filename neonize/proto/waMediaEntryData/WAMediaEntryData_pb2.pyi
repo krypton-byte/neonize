@@ -11,10 +11,10 @@ import builtins as _builtins
 import sys
 import typing as _typing
 
-if sys.version_info >= (3, 10):
-    from typing import TypeAlias as _TypeAlias
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    from typing_extensions import TypeAlias as _TypeAlias
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -41,6 +41,7 @@ class MediaEntry(_message.Message):
         def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
         _ClearFieldArgType: _TypeAlias = _typing.Literal["scanLengths", b"scanLengths", "sidecar", b"sidecar"]  # noqa: Y015
         def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
     @_typing.final
     class DownloadableThumbnail(_message.Message):
@@ -72,6 +73,7 @@ class MediaEntry(_message.Message):
         def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
         _ClearFieldArgType: _TypeAlias = _typing.Literal["directPath", b"directPath", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "objectID", b"objectID"]  # noqa: Y015
         def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
     FILESHA256_FIELD_NUMBER: _builtins.int
     MEDIAKEY_FIELD_NUMBER: _builtins.int
@@ -134,5 +136,6 @@ class MediaEntry(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["FBID", b"FBID", "directPath", b"directPath", "downloadableThumbnail", b"downloadableThumbnail", "fileEncSHA256", b"fileEncSHA256", "fileSHA256", b"fileSHA256", "filename", b"filename", "handle", b"handle", "lastDownloadAttemptTimestamp", b"lastDownloadAttemptTimestamp", "mediaKey", b"mediaKey", "mediaKeyTimestamp", b"mediaKeyTimestamp", "objectID", b"objectID", "progressiveJPEGDetails", b"progressiveJPEGDetails", "serverMediaType", b"serverMediaType", "sidecar", b"sidecar", "size", b"size", "uploadToken", b"uploadToken", "validatedTimestamp", b"validatedTimestamp"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___MediaEntry: _TypeAlias = MediaEntry  # noqa: Y015
