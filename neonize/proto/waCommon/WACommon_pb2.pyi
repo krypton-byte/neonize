@@ -12,10 +12,10 @@ import builtins as _builtins
 import sys
 import typing as _typing
 
-if sys.version_info >= (3, 10):
-    from typing import TypeAlias as _TypeAlias
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    from typing_extensions import TypeAlias as _TypeAlias
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -60,6 +60,7 @@ class MessageKey(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "fromMe", b"fromMe", "participant", b"participant", "remoteJID", b"remoteJID"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___MessageKey: _TypeAlias = MessageKey  # noqa: Y015
 
@@ -104,6 +105,7 @@ class Command(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["commandType", b"commandType", "length", b"length", "offset", b"offset", "validationToken", b"validationToken"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___Command: _TypeAlias = Command  # noqa: Y015
 
@@ -142,6 +144,7 @@ class Mention(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["length", b"length", "mentionType", b"mentionType", "mentionedJID", b"mentionedJID", "offset", b"offset"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___Mention: _TypeAlias = Mention  # noqa: Y015
 
@@ -172,6 +175,7 @@ class MessageText(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["commands", b"commands", "mentionedJID", b"mentionedJID", "mentions", b"mentions", "text", b"text"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___MessageText: _TypeAlias = MessageText  # noqa: Y015
 
@@ -193,6 +197,7 @@ class SubProtocol(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["payload", b"payload", "version", b"version"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___SubProtocol: _TypeAlias = SubProtocol  # noqa: Y015
 
@@ -237,5 +242,6 @@ class LimitSharing(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["initiatedByMe", b"initiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "sharingLimited", b"sharingLimited", "trigger", b"trigger"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___LimitSharing: _TypeAlias = LimitSharing  # noqa: Y015

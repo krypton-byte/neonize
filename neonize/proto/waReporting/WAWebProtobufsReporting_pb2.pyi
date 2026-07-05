@@ -11,10 +11,10 @@ import builtins as _builtins
 import sys
 import typing as _typing
 
-if sys.version_info >= (3, 10):
-    from typing import TypeAlias as _TypeAlias
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    from typing_extensions import TypeAlias as _TypeAlias
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -38,8 +38,11 @@ class Reportable(_message.Message):
         notReportableMinVersion: _builtins.int = ...,
         never: _builtins.bool = ...,
     ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["maxVersion", b"maxVersion", "minVersion", b"minVersion", "never", b"never", "notReportableMinVersion", b"notReportableMinVersion"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___Reportable: _TypeAlias = Reportable  # noqa: Y015
 
@@ -66,6 +69,7 @@ class Config(_message.Message):
         def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
         _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
         def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
     FIELD_FIELD_NUMBER: _builtins.int
     VERSION_FIELD_NUMBER: _builtins.int
@@ -78,8 +82,11 @@ class Config(_message.Message):
         field: _abc.Mapping[_builtins.int, Global___Field] | None = ...,
         version: _builtins.int = ...,
     ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["field", b"field", "version", b"version"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___Config: _TypeAlias = Config  # noqa: Y015
 
@@ -106,6 +113,7 @@ class Field(_message.Message):
         def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
         _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
         def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
     MINVERSION_FIELD_NUMBER: _builtins.int
     MAXVERSION_FIELD_NUMBER: _builtins.int
@@ -127,7 +135,10 @@ class Field(_message.Message):
         isMessage: _builtins.bool = ...,
         subfield: _abc.Mapping[_builtins.int, Global___Field] | None = ...,
     ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["isMessage", b"isMessage", "maxVersion", b"maxVersion", "minVersion", b"minVersion", "notReportableMinVersion", b"notReportableMinVersion", "subfield", b"subfield"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___Field: _TypeAlias = Field  # noqa: Y015

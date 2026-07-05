@@ -12,10 +12,10 @@ import builtins as _builtins
 import sys
 import typing as _typing
 
-if sys.version_info >= (3, 10):
-    from typing import TypeAlias as _TypeAlias
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    from typing_extensions import TypeAlias as _TypeAlias
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -70,6 +70,7 @@ class BizAccountLinkInfo(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["accountType", b"accountType", "hostStorage", b"hostStorage", "issueTime", b"issueTime", "whatsappAcctNumber", b"whatsappAcctNumber", "whatsappBizAcctFbid", b"whatsappBizAcctFbid"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___BizAccountLinkInfo: _TypeAlias = BizAccountLinkInfo  # noqa: Y015
 
@@ -151,6 +152,7 @@ class BizIdentityInfo(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["actualActors", b"actualActors", "featureControls", b"featureControls", "hostStorage", b"hostStorage", "privacyModeTS", b"privacyModeTS", "revoked", b"revoked", "signed", b"signed", "vlevel", b"vlevel", "vnameCert", b"vnameCert"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___BizIdentityInfo: _TypeAlias = BizIdentityInfo  # noqa: Y015
 
@@ -175,6 +177,7 @@ class LocalizedName(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["lc", b"lc", "lg", b"lg", "verifiedName", b"verifiedName"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___LocalizedName: _TypeAlias = LocalizedName  # noqa: Y015
 
@@ -210,6 +213,7 @@ class VerifiedNameCertificate(_message.Message):
         def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
         _ClearFieldArgType: _TypeAlias = _typing.Literal["issueTime", b"issueTime", "issuer", b"issuer", "localizedNames", b"localizedNames", "serial", b"serial", "verifiedName", b"verifiedName"]  # noqa: Y015
         def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
     DETAILS_FIELD_NUMBER: _builtins.int
     SIGNATURE_FIELD_NUMBER: _builtins.int
@@ -228,6 +232,7 @@ class VerifiedNameCertificate(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["details", b"details", "serverSignature", b"serverSignature", "signature", b"signature"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___VerifiedNameCertificate: _TypeAlias = VerifiedNameCertificate  # noqa: Y015
 
@@ -250,5 +255,6 @@ class BizAccountPayload(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["bizAcctLinkInfo", b"bizAcctLinkInfo", "vnameCert", b"vnameCert"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___BizAccountPayload: _TypeAlias = BizAccountPayload  # noqa: Y015

@@ -9,10 +9,10 @@ import builtins as _builtins
 import sys
 import typing as _typing
 
-if sys.version_info >= (3, 10):
-    from typing import TypeAlias as _TypeAlias
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    from typing_extensions import TypeAlias as _TypeAlias
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -47,6 +47,7 @@ class NoiseCertificate(_message.Message):
         def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
         _ClearFieldArgType: _TypeAlias = _typing.Literal["expires", b"expires", "issuer", b"issuer", "key", b"key", "serial", b"serial", "subject", b"subject"]  # noqa: Y015
         def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
     DETAILS_FIELD_NUMBER: _builtins.int
     SIGNATURE_FIELD_NUMBER: _builtins.int
@@ -62,6 +63,7 @@ class NoiseCertificate(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["details", b"details", "signature", b"signature"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___NoiseCertificate: _TypeAlias = NoiseCertificate  # noqa: Y015
 
@@ -100,6 +102,7 @@ class CertChain(_message.Message):
             def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
             _ClearFieldArgType: _TypeAlias = _typing.Literal["issuerSerial", b"issuerSerial", "key", b"key", "notAfter", b"notAfter", "notBefore", b"notBefore", "serial", b"serial"]  # noqa: Y015
             def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            def WhichOneof(self, oneof_group: _Never) -> None: ...
 
         DETAILS_FIELD_NUMBER: _builtins.int
         SIGNATURE_FIELD_NUMBER: _builtins.int
@@ -115,6 +118,7 @@ class CertChain(_message.Message):
         def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
         _ClearFieldArgType: _TypeAlias = _typing.Literal["details", b"details", "signature", b"signature"]  # noqa: Y015
         def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
     LEAF_FIELD_NUMBER: _builtins.int
     INTERMEDIATE_FIELD_NUMBER: _builtins.int
@@ -132,5 +136,6 @@ class CertChain(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["intermediate", b"intermediate", "leaf", b"leaf"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___CertChain: _TypeAlias = CertChain  # noqa: Y015

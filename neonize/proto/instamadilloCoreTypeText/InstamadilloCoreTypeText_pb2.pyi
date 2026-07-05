@@ -13,10 +13,10 @@ import builtins as _builtins
 import sys
 import typing as _typing
 
-if sys.version_info >= (3, 10):
-    from typing import TypeAlias as _TypeAlias
+if sys.version_info >= (3, 11):
+    from typing import TypeAlias as _TypeAlias, Never as _Never
 else:
-    from typing_extensions import TypeAlias as _TypeAlias
+    from typing_extensions import TypeAlias as _TypeAlias, Never as _Never
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -74,6 +74,7 @@ class Text(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["animatedEmojiCharacterRanges", b"animatedEmojiCharacterRanges", "commands", b"commands", "isSuggestedReply", b"isSuggestedReply", "postbackPayload", b"postbackPayload", "powerUpData", b"powerUpData", "text", b"text"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___Text: _TypeAlias = Text  # noqa: Y015
 
@@ -96,6 +97,7 @@ class PowerUpsData(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["mediaAttachment", b"mediaAttachment", "style", b"style"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___PowerUpsData: _TypeAlias = PowerUpsData  # noqa: Y015
 
@@ -126,6 +128,7 @@ class CommandRangeData(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["FBID", b"FBID", "length", b"length", "offset", b"offset", "type", b"type", "userOrThreadFbid", b"userOrThreadFbid"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___CommandRangeData: _TypeAlias = CommandRangeData  # noqa: Y015
 
@@ -150,6 +153,7 @@ class FormattedText(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["length", b"length", "offset", b"offset", "style", b"style"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___FormattedText: _TypeAlias = FormattedText  # noqa: Y015
 
@@ -171,5 +175,6 @@ class AnimatedEmojiCharacterRange(_message.Message):
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
     _ClearFieldArgType: _TypeAlias = _typing.Literal["length", b"length", "offset", b"offset"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___AnimatedEmojiCharacterRange: _TypeAlias = AnimatedEmojiCharacterRange  # noqa: Y015
