@@ -370,8 +370,13 @@ func ProtoReturnV2(data proto.Message) *C.struct_BytesReturn {
 }
 
 func ProtoReturnV3(data proto.Message) *C.struct_BytesReturn {
-	data_buf, err := proto.Marshal(data)
+	// Marshal into a pooled buffer to avoid a fresh heap allocation on every
+	// call; the bytes are copied onto the C heap below, so the buffer can be
+	// returned to the pool immediately afterwards.
+	bufPtr := bufPool.Get().(*[]byte)
+	data_buf, err := proto.MarshalOptions{}.MarshalAppend((*bufPtr)[:0], data)
 	if err != nil {
+		bufPool.Put(bufPtr)
 		panic(err)
 	}
 	result := (*C.struct_BytesReturn)(C.malloc(C.size_t(unsafe.Sizeof(C.struct_BytesReturn{}))))
@@ -382,6 +387,8 @@ func ProtoReturnV3(data proto.Message) *C.struct_BytesReturn {
 	} else {
 		result.data = nil
 	}
+	*bufPtr = data_buf // keep the grown capacity for the next caller
+	bufPool.Put(bufPtr)
 	return result
 }
 
@@ -1177,7 +1184,8 @@ func DownloadAny(id *C.char, messageProto *C.uchar, size C.int) *C.struct_BytesR
 
 //export DownloadMediaWithPath
 func DownloadMediaWithPath(id *C.char, directPath *C.char, encFileHash *C.uchar, encFileHashSize C.int, fileHash *C.uchar, fileHashSize C.int, mediakey *C.uchar, mediaKeySize C.int, fileLength C.int, mediaType C.int, mmsType *C.char) *C.struct_BytesReturn {
-	data_buff, err := clients[C.GoString(id)].DownloadMediaWithPath(context.Background(), C.GoString(directPath), getByteByAddr(encFileHash, encFileHashSize), getByteByAddr(fileHash, fileHashSize), getByteByAddr(mediakey, mediaKeySize), int(fileLength), utils.MediaType[mediaType], C.GoString(mmsType))
+	_ = fileLength // fileLength no longer used by whatsmeow's DownloadMediaWithPath; kept in C signature for ABI compatibility
+	data_buff, err := clients[C.GoString(id)].DownloadMediaWithPath(context.Background(), C.GoString(directPath), getByteByAddr(encFileHash, encFileHashSize), getByteByAddr(fileHash, fileHashSize), getByteByAddr(mediakey, mediaKeySize), utils.MediaType[mediaType], C.GoString(mmsType), false)
 	return_ := defproto.DownloadReturnFunction{}
 	if err != nil {
 		return_.Error = proto.String(err.Error())
@@ -2494,6 +2502,7 @@ func FetchMe(id string) *defproto.Device {
 // comment
 func CallbackFunction(ctx context.Context, callback C.ptr_to_python_function_bytes, id string) error {
 	uuid := C.CString(id)
+	defer C.free(unsafe.Pointer(uuid)) // released when the client's event loop exits; was leaked once per session
 	channel := eventChannel[id]
 	buff, err := proto.Marshal(FetchMe(id))
 	if err != nil {
