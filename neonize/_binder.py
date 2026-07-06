@@ -572,12 +572,6 @@ if not os.environ.get("SPHINX"):
     gocode.StopAll.restype = ctypes.c_void_p
     gocode.FreeBytesStruct.argtypes = [ctypes.POINTER(Bytes)]
     gocode.FreeBytesStruct.restype = None
-    gocode.SetPushName.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
-    gocode.SetPushName.restype = ctypes.c_void_p
-    gocode.SetPushName.errcheck = consume_cstring
-    gocode.SetProxyAddress.argtypes = [ctypes.c_char_p, ctypes.POINTER(_CProxySettings)]
-    gocode.SetProxyAddress.restype = ctypes.c_void_p
-    gocode.SetProxyAddress.errcheck = consume_cstring
 
     gocode.FreeString.argtypes = [ctypes.c_void_p]
     gocode.FreeString.restype = None
@@ -597,6 +591,13 @@ if not os.environ.get("SPHINX"):
             return ctypes.string_at(result)
         finally:
             gocode.FreeString(result)
+
+    gocode.SetPushName.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+    gocode.SetPushName.restype = ctypes.c_void_p
+    gocode.SetPushName.errcheck = consume_cstring
+    gocode.SetProxyAddress.argtypes = [ctypes.c_char_p, ctypes.POINTER(_CProxySettings)]
+    gocode.SetProxyAddress.restype = ctypes.c_void_p
+    gocode.SetProxyAddress.errcheck = consume_cstring
 
     # FFI functions that return a Go-allocated C string. Each is declared
     # ``restype = ctypes.c_void_p`` above so the raw pointer survives the call;
