@@ -13,7 +13,7 @@ from datetime import timedelta
 from functools import partial
 from io import BytesIO
 from os import urandom
-from threading import Thread
+from threading import Event as ThreadEvent, Thread
 from types import NoneType
 from typing import List, Optional, Sequence, overload
 from uuid import uuid4
@@ -33,7 +33,7 @@ from ._binder import (
     gocode,
 )
 from .builder import build_edit, build_revoke
-from .events import Event, EventsManager
+from .events import Event, EventsManager, event as stop_event
 from .exc import (
     BuildPollVoteCreationError,
     BuildPollVoteError,
@@ -3162,7 +3162,7 @@ class NewClient:
         Stops the client by disconnecting it from the WhatsApp servers.
         """
         _log_.debug("Stopping client and disconnecting from WhatsApp servers.")
-        self.__client.stop(self.uuid)
+        self.__client.Stop(self.uuid)
 
     def get_message_for_retry(
         self, requester: JID, to: JID, message_id: str
@@ -3312,25 +3312,88 @@ class NewClient:
             c_settings = proxy_settings._to_c_struct()
             proxy_ref = ctypes.byref(c_settings)
 
-        # Initiate connection to the server
-        err = self.__client.Neonize(
-            self.name.encode(),
-            self.uuid,
-            jidbuf,
-            jidbuf_size,
-            LogLevel.from_logging(log.level).level,
+        # Keep the ctypes callback wrappers and the subscriber buffer referenced
+        # for the whole lifetime of the connection. ``Neonize`` runs on a worker
+        # thread (below) and Go invokes these callbacks throughout the session;
+        # if they were mere temporaries they could be garbage-collected mid-call.
+        subscriber_buf = (ctypes.c_char * len(self.event.list_func)).from_buffer(d)
+        self._connect_refs = (
             func_string(self.__onQr),
             func_string(self.__onLoginStatus),
             func_callback_bytes(self.event.execute),
             func_callback_bytes2(log_whatsmeow),
-            (ctypes.c_char * len(self.event.list_func)).from_buffer(d),
-            len(d),
-            deviceprops,
-            len(deviceprops),
-            b"",
-            0,
-            proxy_ref,
+            subscriber_buf,
+            d,
         )
+        qr_cb, login_cb, event_cb, log_cb, subscriber_buf, _ = self._connect_refs
+
+        # ``Neonize`` is a blocking Go call that only returns once the Go-side
+        # context is cancelled (via ``Stop``). Running it directly on the caller
+        # thread would trap that thread inside the C call, so CPython could never
+        # run signal handlers or raise ``KeyboardInterrupt`` -- Ctrl+C would be
+        # ignored. Instead we run it on a worker thread and wait interruptibly on
+        # the caller thread; on Ctrl+C (or the global stop event) we cancel Go so
+        # ``Neonize`` returns and the worker exits cleanly.
+        holder: typing.Dict[str, typing.Any] = {}
+        # Set the instant Neonize() returns. This -- not worker.is_alive() -- is
+        # the source of truth for "the Go call finished": when a KeyboardInterrupt
+        # interrupts Thread.join(), CPython can leave is_alive() wrongly reporting
+        # False for a still-running thread, whereas an Event flag is never
+        # corrupted by the interrupt.
+        done = ThreadEvent()
+
+        def _worker():
+            try:
+                holder["err"] = self.__client.Neonize(
+                    self.name.encode(),
+                    self.uuid,
+                    jidbuf,
+                    jidbuf_size,
+                    LogLevel.from_logging(log.level).level,
+                    qr_cb,
+                    login_cb,
+                    event_cb,
+                    log_cb,
+                    subscriber_buf,
+                    len(d),
+                    deviceprops,
+                    len(deviceprops),
+                    b"",
+                    0,
+                    proxy_ref,
+                )
+            except BaseException as exc:  # noqa: BLE001 - surfaced on caller thread
+                holder["exc"] = exc
+            finally:
+                done.set()
+
+        worker = Thread(target=_worker, name=self.uuid.decode(), daemon=False)
+        worker.start()
+        try:
+            # Short timeouts return control to the interpreter periodically, so a
+            # pending signal / KeyboardInterrupt can fire on this thread instead
+            # of being trapped behind the blocking Go call on the worker thread.
+            while not done.is_set():
+                if stop_event.is_set():
+                    break
+                done.wait(0.2)
+        except KeyboardInterrupt:
+            pass  # clean shutdown, no traceback
+        finally:
+            if not done.is_set():
+                self.stop()  # cancel the Go context so Neonize() returns
+            # Drain the worker, absorbing any further interrupts, until Neonize
+            # has actually returned.
+            while not done.is_set():
+                try:
+                    done.wait(0.2)
+                except KeyboardInterrupt:
+                    self.stop()
+            worker.join()
+
+        if "exc" in holder:
+            raise holder["exc"]
+        err = holder.get("err")
         if err:
             raise NeonizeError(err.decode())
 
@@ -3411,10 +3474,46 @@ class ClientFactory:
         self.clients.append(client)
         return client
 
+    def stop(self):
+        """Stop every client managed by this factory.
+
+        Cancels the Go-side context of all running clients at once so their
+        blocking ``Neonize`` calls return and the worker threads can exit.
+        """
+        gocode.StopAll()
+
     def run(self):
+        """Connect every client and block until interrupted.
+
+        Each client's blocking ``connect`` runs on its own (non-daemon) worker
+        thread, while this call blocks the caller thread interruptibly. On Ctrl+C
+        (or when the global stop event is set) all clients are stopped and every
+        worker thread is joined before returning, so shutdown is clean.
+        """
+        threads = []
         for client in self.clients:
-            Thread(
+            t = Thread(
                 target=client.connect,
-                daemon=True,
+                daemon=False,
                 name=client.uuid.decode(),
-            ).start()
+            )
+            t.start()
+            threads.append(t)
+        try:
+            while any(t.is_alive() for t in threads):
+                if stop_event.is_set():
+                    break
+                for t in threads:
+                    t.join(0.2)
+        except KeyboardInterrupt:
+            pass
+        finally:
+            self.stop()  # StopAll: cancel every client's Go context
+            # Drain all worker threads, absorbing any further interrupts so a
+            # repeated Ctrl+C can't leave a client's Go call running.
+            for t in threads:
+                while t.is_alive():
+                    try:
+                        t.join(0.2)
+                    except KeyboardInterrupt:
+                        self.stop()
