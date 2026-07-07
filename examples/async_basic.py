@@ -29,12 +29,12 @@ btn = (
 sys.path.insert(0, os.getcwd())
 
 
-def interrupted(*_):
-    event.set()
+# def interrupted(*_):
+#     event.set()
 
 
 log.setLevel(logging.DEBUG)
-signal.signal(signal.SIGINT, interrupted)
+# signal.signal(signal.SIGINT, interrupted)
 
 
 client = NewAClient("db.sqlite3")
