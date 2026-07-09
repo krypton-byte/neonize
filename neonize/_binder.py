@@ -40,7 +40,10 @@ def load_goneonize():
 
 
 class Bytes(ctypes.Structure):
-    _fields_ = [("ptr", ctypes.c_char_p), ("size", ctypes.c_size_t)]
+    # Go returns raw binary buffers that may contain NUL bytes. Do not use
+    # c_char_p here because ctypes treats it as a NUL-terminated C string and
+    # can truncate/corrupt media bytes such as JPEG/PNG downloads.
+    _fields_ = [("ptr", ctypes.c_void_p), ("size", ctypes.c_size_t)]
 
     def get_bytes(self):
         return ctypes.string_at(self.ptr, self.size)
