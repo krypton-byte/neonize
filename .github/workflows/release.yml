@@ -51,8 +51,11 @@ jobs:
     - name: Install Protoc
       uses: arduino/setup-protoc@v3
       with:
-        version: "30.2"
+        version: "21.12"
         repo-token: ${{ secrets.PAT }}
+    - name: Install protoc-gen-go
+      run: |
+        go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.10
     - name: build
       run: |
         git config user.name "krypton-byte"
@@ -76,6 +79,7 @@ jobs:
           esac
         }
         # uv run task goneonize_changed
+        uv run task build proto
         export CGO_ENABLED=1
         wget https://dl.google.com/android/repository/android-ndk-r26b-linux.zip > /dev/null
         unzip android-ndk-r26b-linux.zip > /dev/null
@@ -87,25 +91,25 @@ jobs:
         export GOOS=android
         export GOARCH=arm64
         update_neonize
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         #ARM
         export CC=$(which armv7a-linux-androideabi28-clang)
         export CXX=$(which armv7a-linux-androideabi28-clang++)
         export GOOS=android
         export GOARCH=arm
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         #AMD64/x86_64
         export CC=$(which x86_64-linux-android28-clang)
         export CXX=$(which x86_64-linux-android28-clang++)
         export GOOS=android
         export GOARCH=amd64
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         #386/686
         export CC=$(which i686-linux-android28-clang)
         export CXX=$(which i686-linux-android28-clang++)
         export GOOS=android
         export GOARCH=386
-        uv run task build goneonize --smart
+        uv run task build goneonize 
       continue-on-error: true
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
@@ -131,7 +135,7 @@ jobs:
     - name: Install Protoc
       uses: arduino/setup-protoc@v3
       with:
-        version: "30.2"
+        version: "21.12"
         repo-token: ${{ secrets.PAT }}
     - name: Cache dependencies
       uses: actions/cache@v4
@@ -139,6 +143,9 @@ jobs:
         path: |
           **/.venv
         key: ${{ runner.os }}-${{ hashFiles('**/uv.lock') }}
+    - name: Install protoc-gen-go
+      run: |
+        go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.10
     - name: install deps
       run: |
         uv sync --dev
@@ -166,6 +173,7 @@ jobs:
           esac
         }
         # uv run task goneonize_changed
+        uv run task build proto
         mkdir LIBS
         export CGO_ENABLED=1
         #AMD64
@@ -173,7 +181,7 @@ jobs:
         export GOARCH=amd64
         export CC="zig cc -target x86_64-windows"
         update_neonize
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         uv build
         uv run task repack
         mv neonize/*.dll LIBS
@@ -181,7 +189,7 @@ jobs:
         export GOOS=windows
         export GOARCH=arm64
         export CC="zig cc -target aarch64-windows"
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         uv build
         uv run task repack
         mv neonize/*.dll LIBS
@@ -189,7 +197,7 @@ jobs:
         export GOOS=windows
         export GOARCH=386
         export CC="zig cc -target x86-windows"
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         uv build
         uv run task repack
         mv neonize/*.dll LIBS
@@ -197,7 +205,7 @@ jobs:
         export GOOS=linux
         export GOARCH=386
         export CC="zig cc -target x86-linux"
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         uv build
         uv run task repack
         mv neonize/*.so LIBS
@@ -230,8 +238,11 @@ jobs:
     - name: Install Protoc
       uses: arduino/setup-protoc@v3
       with:
-        version: "30.2"
+        version: "21.12"
         repo-token: ${{ secrets.PAT }}
+    - name: Install protoc-gen-go
+      run: |
+        go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.10
     - name: Cache dependencies
       uses: actions/cache@v4
       with:
@@ -267,11 +278,12 @@ jobs:
             esac
           }
         # uv run task goneonize_changed
+        uv run task build proto
         mkdir LIBS
         #AMD64/X86_64
         export CGO_ENABLED=1
         update_neonize
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         uv build
         uv run task repack
         mv neonize/*.so LIBS
@@ -280,7 +292,7 @@ jobs:
         export GOARCH=arm64
         export CC=$(which aarch64-linux-gnu-gcc)
         export CXX=$(which aarch64-linux-gnu-cpp)
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         uv build
         uv run task repack
         mv neonize/*.so LIBS
@@ -289,14 +301,14 @@ jobs:
         export GOARCH=riscv64
         export CC=$(which riscv64-linux-gnu-gcc)
         export CXX=$(which riscv64-linux-gnu-cpp)
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         mv neonize/*.so LIBS
         #S390X
         export GOOS=linux
         export GOARCH=s390x
         export CC=$(which s390x-linux-gnu-gcc)
         export CXX=$(which s390x-linux-gnu-cpp)
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         uv build
         uv run task repack
         mv neonize/*.so LIBS
@@ -328,8 +340,11 @@ jobs:
     - name: Install Protoc
       uses: arduino/setup-protoc@v3
       with:
-        version: "30.2"
+        version: "21.12"
         repo-token: ${{ secrets.PAT }}
+    - name: Install protoc-gen-go
+      run: |
+        go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.10
     - name: Cache dependencies
       uses: actions/cache@v4
       with:
@@ -363,6 +378,7 @@ jobs:
             esac
           }
         # uv run task goneonize_changed
+        uv run task build proto
         mkdir LIBS
         export PATH="/Users/runner/.local/bin:$PATH"
         # Set necessary environment variables for building on Darwin
@@ -375,7 +391,7 @@ jobs:
         export CC=$(which clang)
         export CXX=$(which clang++)
         update_neonize
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         uv build
         uv run task repack
         mv neonize/*.dylib LIBS/
@@ -385,7 +401,7 @@ jobs:
         export GOARCH=arm64
         export CC=$(which clang)
         export CXX=$(which clang++)
-        uv run task build goneonize --smart
+        uv run task build goneonize 
         uv build
         uv run task repack
         cp dist/*.whl LIBS/
@@ -495,7 +511,7 @@ jobs:
     - name: Install Protoc
       uses: arduino/setup-protoc@v3
       with:
-        version: "30.2"
+        version: "21.12"
         repo-token: ${{ secrets.PAT }}
     - name: install deps
       run: |
