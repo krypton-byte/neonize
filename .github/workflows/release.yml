@@ -79,7 +79,6 @@ jobs:
           esac
         }
         # uv run task goneonize_changed
-        uv run task build proto
         export CGO_ENABLED=1
         wget https://dl.google.com/android/repository/android-ndk-r26b-linux.zip > /dev/null
         unzip android-ndk-r26b-linux.zip > /dev/null
@@ -91,6 +90,7 @@ jobs:
         export GOOS=android
         export GOARCH=arm64
         update_neonize
+        uv run task build proto
         uv run task build goneonize 
         #ARM
         export CC=$(which armv7a-linux-androideabi28-clang)
@@ -173,7 +173,6 @@ jobs:
           esac
         }
         # uv run task goneonize_changed
-        uv run task build proto
         mkdir LIBS
         export CGO_ENABLED=1
         #AMD64
@@ -181,6 +180,7 @@ jobs:
         export GOARCH=amd64
         export CC="zig cc -target x86_64-windows"
         update_neonize
+        uv run task build proto
         uv run task build goneonize 
         uv build
         uv run task repack
@@ -278,11 +278,11 @@ jobs:
             esac
           }
         # uv run task goneonize_changed
-        uv run task build proto
         mkdir LIBS
         #AMD64/X86_64
         export CGO_ENABLED=1
         update_neonize
+        uv run task build proto
         uv run task build goneonize 
         uv build
         uv run task repack
@@ -378,7 +378,6 @@ jobs:
             esac
           }
         # uv run task goneonize_changed
-        uv run task build proto
         mkdir LIBS
         export PATH="/Users/runner/.local/bin:$PATH"
         # Set necessary environment variables for building on Darwin
@@ -391,6 +390,7 @@ jobs:
         export CC=$(which clang)
         export CXX=$(which clang++)
         update_neonize
+        uv run task build proto
         uv run task build goneonize 
         uv build
         uv run task repack
