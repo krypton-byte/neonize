@@ -19,6 +19,6 @@ commit_args = ""
 allow_shell_hooks = true
 setup_hooks = []
 pre_commit_hooks = [
-    "uv run -m tools.flow > flow.log",
+    "uv run -m tools.flow",
 ]
 post_commit_hooks = []

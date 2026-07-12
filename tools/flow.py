@@ -2,6 +2,11 @@ import asyncio
 
 # import subprocess
 import os
+import sys
+from contextlib import redirect_stdout
+from pathlib import Path
+from typing import TextIO
+
 from .version import Version
 
 
@@ -23,16 +28,33 @@ async def check_goneonize_change():
 
 
 async def main():
-    changed = await check_goneonize_change()
-    version = Version()
-    version.neonize = os.environ["BVHOOK_NEW_VERSION_TAG"]
-    if changed:
-        print("goneonize/ changed, bumping goneonize version...")
-        version.goneonize = os.environ["BVHOOK_NEW_VERSION_TAG"]
-    else:
-        print("goneonize/ not changed, skipping goneonize version bump.")
-    print("version:", version)
+    log_path = Path("flow.log")
+    with log_path.open("w", encoding="utf-8") as log_file:
+        with redirect_stdout(Tee(sys.stdout, log_file)):
+            changed = await check_goneonize_change()
+            version = Version()
+            version.neonize = os.environ["BVHOOK_NEW_VERSION_TAG"]
+            if changed:
+                print("goneonize/ changed, bumping goneonize version...")
+                version.goneonize = os.environ["BVHOOK_NEW_VERSION_TAG"]
+            else:
+                print("goneonize/ not changed, skipping goneonize version bump.")
+            print("version:", version)
     return 0
+
+
+class Tee:
+    def __init__(self, *streams: TextIO):
+        self.streams = streams
+
+    def write(self, data: str) -> int:
+        for stream in self.streams:
+            stream.write(data)
+        return len(data)
+
+    def flush(self) -> None:
+        for stream in self.streams:
+            stream.flush()
 
 
 if __name__ == "__main__":
