@@ -1408,6 +1408,22 @@ func SetGroupName(id *C.char, JIDByte *C.uchar, JIDSize C.int, name *C.char) *C.
 	return C.CString("")
 }
 
+//export RejectCall
+func RejectCall(id *C.char, JIDByte *C.uchar, JIDSize C.int, callID *C.char) *C.char {
+	jidbyte := getByteByAddr(JIDByte, JIDSize)
+	var neoJIDProto defproto.JID
+	err := proto.Unmarshal(jidbyte, &neoJIDProto)
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	// callFrom is the caller's JID (the CallOffer creator); whatsmeow addresses the <reject> to it.
+	status_err := clients[C.GoString(id)].RejectCall(context.Background(), utils.DecodeJidProto(&neoJIDProto), C.GoString(callID))
+	if status_err != nil {
+		return C.CString(status_err.Error())
+	}
+	return C.CString("")
+}
+
 //export SetGroupPhoto
 func SetGroupPhoto(id *C.char, JIDByte *C.uchar, JIDSize C.int, Photo *C.uchar, PhotoSize C.int) *C.struct_BytesReturn {
 	var neoJIDProto defproto.JID
