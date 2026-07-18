@@ -764,6 +764,25 @@ class NewClient:
         """
         return self.send_message(chat, self.build_revoke(chat, sender, message_id))
 
+    def reject_call(self, call_from: JID, call_id: str) -> str:
+        """Reject (decline) an incoming call.
+
+        Wraps whatsmeow's ``Client.RejectCall``: the call is terminated on the same
+        connection that received the offer. ``call_from`` must be the caller's JID
+        exactly as delivered in the CallOffer (a phone-number or a hosted ``@lid`` JID).
+
+        :param call_from: JID of the caller (the CallOffer creator).
+        :type call_from: JID
+        :param call_id: The call id (CallOffer id).
+        :type call_id: str
+        :return: An empty string on success, otherwise the error text.
+        :rtype: str
+        """
+        jidbuf = call_from.SerializeToString()
+        return self.__client.RejectCall(
+            self.uuid, jidbuf, len(jidbuf), ctypes.create_string_buffer(call_id.encode())
+        ).decode()
+
     def build_poll_vote_creation(
         self,
         name: str,
