@@ -387,6 +387,7 @@ class NewClient:
         jid: Optional[JID] = None,
         props: Optional[DeviceProps] = None,
         uuid: Optional[str] = None,
+        new_device: bool = False,
     ):
         """Initializes a new client instance.
 
@@ -399,9 +400,14 @@ class NewClient:
         :type messageCallback: Optional[Callable[[NewClient, MessageSource, Message], None]], optional
         :param uuid: Optional. A unique identifier for the client, defaults to None.
         :type uuid: Optional[str], optional
+        :param new_device: Optional. Pair a brand-new account (fresh QR) even if the
+            database already stores other sessions; without it, connecting without a
+            jid resumes the FIRST stored session. Requires uuid. Defaults to False.
+        :type new_device: bool, optional
         """
         self.name = name
         self.device_props = props
+        self.new_device = new_device
         self.jid = jid
         self.uuid = (jid.User if jid else (uuid or name)).encode()
         self.__client = gocode
@@ -3349,6 +3355,7 @@ class NewClient:
                     self.uuid,
                     jidbuf,
                     jidbuf_size,
+                    int(self.new_device),
                     LogLevel.from_logging(log.level).level,
                     qr_cb,
                     login_cb,
@@ -3451,6 +3458,7 @@ class ClientFactory:
         jid: Optional[JID] = None,
         uuid: Optional[str] = None,
         props: Optional[DeviceProps] = None,
+        new_device: bool = False,
     ) -> NewClient:
         """
         This function creates a new instance of the client. If the jid parameter is not provided, a new client will be created.
@@ -3469,7 +3477,7 @@ class ClientFactory:
             # unique
             raise Exception("JID and UUID cannot be none")
 
-        client = NewClient(self.database_name, jid, props, uuid)
+        client = NewClient(self.database_name, jid, props, uuid, new_device)
         client.event.list_func = self.event.list_func
         self.clients.append(client)
         return client
