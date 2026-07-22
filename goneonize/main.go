@@ -590,7 +590,7 @@ func Stop(id *C.char) {
 }
 
 //export Neonize
-func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, logCb C.ptr_to_python_function_callback_bytes2, subscribes *C.uchar, lenSubscriber C.int, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int, proxySettingsRaw *C.struct_ProxySettings) *C.char {
+func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice C.int, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, logCb C.ptr_to_python_function_callback_bytes2, subscribes *C.uchar, lenSubscriber C.int, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int, proxySettingsRaw *C.struct_ProxySettings) *C.char {
 	subscribers := map[int]bool{}
 	var deviceProps waCompanionReg.DeviceProps
 	loginStateChan := make(chan bool)
@@ -613,6 +613,9 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 		return C.CString(err.Error())
 	}
 	// If you want multiple sessions, remember their JIDs and use .GetDevice(jid) or .GetAllDevices() instead.
+	// Pass newDevice != 0 to pair an ADDITIONAL account: it forces a brand-new
+	// blank device (fresh QR) even when the store already holds other sessions,
+	// where GetFirstDevice would silently resume the first stored one.
 	var deviceStore *store.Device
 	var err_device error
 	var JID defproto.JID
@@ -622,6 +625,8 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, logLevel *
 			return C.CString(jidbyte_err.Error())
 		}
 		deviceStore, err_device = container.GetDevice(context.TODO(), utils.DecodeJidProto(&JID))
+	} else if int(newDevice) != 0 {
+		deviceStore = container.NewDevice()
 	} else {
 		deviceStore, err_device = container.GetFirstDevice(context.TODO())
 	}
