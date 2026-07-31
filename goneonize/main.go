@@ -143,18 +143,12 @@ func getButtonTypeFromMessage(msg *waE2E.Message) string {
 }
 
 // shouldAddBotNode reports whether the <bot biz_bot="1"/> node should be
-// appended for the given chat. Controlled by the NEONIZE_BOT_SCOPE env var:
+// appended for the given chat. Controlled by the NEONIZE_BOT_TAG env var:
 //
-//	"private" (default) - bot node only in 1:1 chats (upstream behavior)
-//	"group"             - bot node only in group chats
-//	"both"              - bot node in 1:1 and group chats
-//	"off"               - never append the bot node
+//	"on"  (default) - append the bot node in 1:1 chats (upstream behavior)
+//	"off"           - never append the bot node
 func shouldAddBotNode(isPrivate bool) bool {
-	switch strings.ToLower(strings.TrimSpace(os.Getenv("NEONIZE_BOT_SCOPE"))) {
-	case "group":
-		return !isPrivate
-	case "both", "all":
-		return true
+	switch strings.ToLower(strings.TrimSpace(os.Getenv("NEONIZE_BOT_TAG"))) {
 	case "off", "none", "false", "0":
 		return false
 	default:
