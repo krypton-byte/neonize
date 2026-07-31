@@ -16,6 +16,7 @@ import (
 	// "crypto/sha256"
 	// "encoding/hex"
 	"fmt"
+	"os"
 	"strings"
 	"time"
 	"unsafe"
@@ -141,6 +142,26 @@ func getButtonTypeFromMessage(msg *waE2E.Message) string {
 	}
 }
 
+// shouldAddBotNode reports whether the <bot biz_bot="1"/> node should be
+// appended for the given chat. Controlled by the NEONIZE_BOT_SCOPE env var:
+//
+//	"private" (default) - bot node only in 1:1 chats (upstream behavior)
+//	"group"             - bot node only in group chats
+//	"both"              - bot node in 1:1 and group chats
+//	"off"               - never append the bot node
+func shouldAddBotNode(isPrivate bool) bool {
+	switch strings.ToLower(strings.TrimSpace(os.Getenv("NEONIZE_BOT_SCOPE"))) {
+	case "group":
+		return !isPrivate
+	case "both", "all":
+		return true
+	case "off", "none", "false", "0":
+		return false
+	default:
+		return isPrivate
+	}
+}
+
 // GenerateWABinary for create button
 func GenerateWABinary(ctx context.Context, to types.JID, msg *waE2E.Message) *[]waBinary.Node {
 	isPrivate := to.Server == types.DefaultUserServer
@@ -225,7 +246,7 @@ func GenerateWABinary(ctx context.Context, to types.JID, msg *waE2E.Message) *[]
 			}
 		}
 
-		if isPrivate {
+		if shouldAddBotNode(isPrivate) {
 			botNode := waBinary.Node{
 				Tag:   "bot",
 				Attrs: waBinary.Attrs{"biz_bot": "1"},
@@ -265,7 +286,7 @@ func GenerateWABinary(ctx context.Context, to types.JID, msg *waE2E.Message) *[]
 		}
 		nodes = append(nodes, bizNode)
 
-		if isPrivate {
+		if shouldAddBotNode(isPrivate) {
 			botNode := waBinary.Node{
 				Tag:   "bot",
 				Attrs: waBinary.Attrs{"biz_bot": "1"},
@@ -274,7 +295,7 @@ func GenerateWABinary(ctx context.Context, to types.JID, msg *waE2E.Message) *[]
 		}
 
 	default:
-		if isPrivate {
+		if shouldAddBotNode(isPrivate) {
 			botNode := waBinary.Node{
 				Tag:   "bot",
 				Attrs: waBinary.Attrs{"biz_bot": "1"},
