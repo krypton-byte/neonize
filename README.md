@@ -64,7 +64,7 @@
 
 We are grateful to our sponsors who help make Neonize possible. Their support enables us to continue developing and maintaining this open-source project for the community.
 
-<!-- sponsors --><a href="https://github.com/Seikened"><img src="https:&#x2F;&#x2F;github.com&#x2F;Seikened.png" width="60px" alt="User avatar: Fernando Leon Franco" /></a><!-- sponsors -->
+<!-- sponsors --><!-- sponsors -->
 
 ### 🤝 Become a Sponsor
 
