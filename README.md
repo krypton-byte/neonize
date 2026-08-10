@@ -438,6 +438,11 @@ client_factory = ClientFactory("multisession.db")
 for device in client_factory.get_all_devices():
     client_factory.new_client(device.JID)
 
+# Pair an ADDITIONAL account into the same database (shows a fresh QR).
+# Without new_device=True a jid-less client resumes the FIRST stored
+# session instead of pairing a new one.
+new_account = client_factory.new_client(uuid="my-second-account", new_device=True)
+
 # Register shared event handlers
 @client_factory.event(ConnectedEv)
 async def on_connected(client: NewAClient, event: ConnectedEv):
