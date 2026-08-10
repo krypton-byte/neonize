@@ -115,6 +115,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_char_p,
         ctypes.c_int,
+        ctypes.c_int,
         ctypes.c_char_p,
         func_string,
         func_string,
