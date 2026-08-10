@@ -280,6 +280,7 @@ class Conversation(_message.Message):
     APPEALUPDATETIME_FIELD_NUMBER: _builtins.int
     AUTHAGENTPARENTCOMPANYNAME_FIELD_NUMBER: _builtins.int
     AUTHAGENTOBAPHONENUMBER_FIELD_NUMBER: _builtins.int
+    IDENTITYVERIFICATION_FIELD_NUMBER: _builtins.int
     ID: _builtins.str
     newJID: _builtins.str
     oldJID: _builtins.str
@@ -346,6 +347,8 @@ class Conversation(_message.Message):
     def participant(self) -> _containers.RepeatedCompositeFieldContainer[Global___GroupParticipant]: ...
     @_builtins.property
     def wallpaper(self) -> Global___WallpaperSettings: ...
+    @_builtins.property
+    def identityVerification(self) -> Global___IdentityVerificationState: ...
     def __init__(
         self,
         *,
@@ -411,10 +414,11 @@ class Conversation(_message.Message):
         appealUpdateTime: _builtins.int | None = ...,
         authAgentParentCompanyName: _builtins.str | None = ...,
         authAgentObaPhoneNumber: _builtins.str | None = ...,
+        identityVerification: Global___IdentityVerificationState | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "accountLid", b"accountLid", "afterReadDuration", b"afterReadDuration", "appealStatus", b"appealStatus", "appealUpdateTime", b"appealUpdateTime", "archived", b"archived", "authAgentObaPhoneNumber", b"authAgentObaPhoneNumber", "authAgentParentCompanyName", b"authAgentParentCompanyName", "capiCreatedGroup", b"capiCreatedGroup", "commentsCount", b"commentsCount", "contactPrimaryIdentityKey", b"contactPrimaryIdentityKey", "conversationTimestamp", b"conversationTimestamp", "createdAt", b"createdAt", "createdBy", b"createdBy", "description", b"description", "disappearingMode", b"disappearingMode", "displayName", b"displayName", "endOfHistoryTransfer", b"endOfHistoryTransfer", "endOfHistoryTransferType", b"endOfHistoryTransferType", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isDefaultSubgroup", b"isDefaultSubgroup", "isMarketingMessageThread", b"isMarketingMessageThread", "isParentGroup", b"isParentGroup", "isSenderNewAccount", b"isSenderNewAccount", "isSenderSuspicious", b"isSenderSuspicious", "lastMsgTimestamp", b"lastMsgTimestamp", "lidJID", b"lidJID", "lidOriginType", b"lidOriginType", "limitSharing", b"limitSharing", "limitSharingInitiatedByMe", b"limitSharingInitiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "limitSharingTrigger", b"limitSharingTrigger", "locked", b"locked", "maibaAiThreadEnabled", b"maibaAiThreadEnabled", "markedAsUnread", b"markedAsUnread", "mediaVisibility", b"mediaVisibility", "muteEndTime", b"muteEndTime", "name", b"name", "newJID", b"newJID", "notSpam", b"notSpam", "oldJID", b"oldJID", "pHash", b"pHash", "parentGroupID", b"parentGroupID", "pinned", b"pinned", "pnJID", b"pnJID", "pnhDuplicateLidThread", b"pnhDuplicateLidThread", "readOnly", b"readOnly", "shareOwnPn", b"shareOwnPn", "support", b"support", "suspended", b"suspended", "systemMessageToInsert", b"systemMessageToInsert", "tcToken", b"tcToken", "tcTokenSenderTimestamp", b"tcTokenSenderTimestamp", "tcTokenTimestamp", b"tcTokenTimestamp", "terminated", b"terminated", "unreadCount", b"unreadCount", "unreadMentionCount", b"unreadMentionCount", "username", b"username", "wallpaper", b"wallpaper"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "accountLid", b"accountLid", "afterReadDuration", b"afterReadDuration", "appealStatus", b"appealStatus", "appealUpdateTime", b"appealUpdateTime", "archived", b"archived", "authAgentObaPhoneNumber", b"authAgentObaPhoneNumber", "authAgentParentCompanyName", b"authAgentParentCompanyName", "capiCreatedGroup", b"capiCreatedGroup", "commentsCount", b"commentsCount", "contactPrimaryIdentityKey", b"contactPrimaryIdentityKey", "conversationTimestamp", b"conversationTimestamp", "createdAt", b"createdAt", "createdBy", b"createdBy", "description", b"description", "disappearingMode", b"disappearingMode", "displayName", b"displayName", "endOfHistoryTransfer", b"endOfHistoryTransfer", "endOfHistoryTransferType", b"endOfHistoryTransferType", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "identityVerification", b"identityVerification", "isDefaultSubgroup", b"isDefaultSubgroup", "isMarketingMessageThread", b"isMarketingMessageThread", "isParentGroup", b"isParentGroup", "isSenderNewAccount", b"isSenderNewAccount", "isSenderSuspicious", b"isSenderSuspicious", "lastMsgTimestamp", b"lastMsgTimestamp", "lidJID", b"lidJID", "lidOriginType", b"lidOriginType", "limitSharing", b"limitSharing", "limitSharingInitiatedByMe", b"limitSharingInitiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "limitSharingTrigger", b"limitSharingTrigger", "locked", b"locked", "maibaAiThreadEnabled", b"maibaAiThreadEnabled", "markedAsUnread", b"markedAsUnread", "mediaVisibility", b"mediaVisibility", "muteEndTime", b"muteEndTime", "name", b"name", "newJID", b"newJID", "notSpam", b"notSpam", "oldJID", b"oldJID", "pHash", b"pHash", "parentGroupID", b"parentGroupID", "pinned", b"pinned", "pnJID", b"pnJID", "pnhDuplicateLidThread", b"pnhDuplicateLidThread", "readOnly", b"readOnly", "shareOwnPn", b"shareOwnPn", "support", b"support", "suspended", b"suspended", "systemMessageToInsert", b"systemMessageToInsert", "tcToken", b"tcToken", "tcTokenSenderTimestamp", b"tcTokenSenderTimestamp", "tcTokenTimestamp", b"tcTokenTimestamp", "terminated", b"terminated", "unreadCount", b"unreadCount", "unreadMentionCount", b"unreadMentionCount", "username", b"username", "wallpaper", b"wallpaper"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "accountLid", b"accountLid", "afterReadDuration", b"afterReadDuration", "appealStatus", b"appealStatus", "appealUpdateTime", b"appealUpdateTime", "archived", b"archived", "authAgentObaPhoneNumber", b"authAgentObaPhoneNumber", "authAgentParentCompanyName", b"authAgentParentCompanyName", "capiCreatedGroup", b"capiCreatedGroup", "commentsCount", b"commentsCount", "contactPrimaryIdentityKey", b"contactPrimaryIdentityKey", "conversationTimestamp", b"conversationTimestamp", "createdAt", b"createdAt", "createdBy", b"createdBy", "description", b"description", "disappearingMode", b"disappearingMode", "displayName", b"displayName", "endOfHistoryTransfer", b"endOfHistoryTransfer", "endOfHistoryTransferType", b"endOfHistoryTransferType", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "isDefaultSubgroup", b"isDefaultSubgroup", "isMarketingMessageThread", b"isMarketingMessageThread", "isParentGroup", b"isParentGroup", "isSenderNewAccount", b"isSenderNewAccount", "isSenderSuspicious", b"isSenderSuspicious", "lastMsgTimestamp", b"lastMsgTimestamp", "lidJID", b"lidJID", "lidOriginType", b"lidOriginType", "limitSharing", b"limitSharing", "limitSharingInitiatedByMe", b"limitSharingInitiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "limitSharingTrigger", b"limitSharingTrigger", "locked", b"locked", "maibaAiThreadEnabled", b"maibaAiThreadEnabled", "markedAsUnread", b"markedAsUnread", "mediaVisibility", b"mediaVisibility", "messages", b"messages", "muteEndTime", b"muteEndTime", "name", b"name", "newJID", b"newJID", "notSpam", b"notSpam", "oldJID", b"oldJID", "pHash", b"pHash", "parentGroupID", b"parentGroupID", "participant", b"participant", "pinned", b"pinned", "pnJID", b"pnJID", "pnhDuplicateLidThread", b"pnhDuplicateLidThread", "readOnly", b"readOnly", "shareOwnPn", b"shareOwnPn", "support", b"support", "suspended", b"suspended", "systemMessageToInsert", b"systemMessageToInsert", "tcToken", b"tcToken", "tcTokenSenderTimestamp", b"tcTokenSenderTimestamp", "tcTokenTimestamp", b"tcTokenTimestamp", "terminated", b"terminated", "unreadCount", b"unreadCount", "unreadMentionCount", b"unreadMentionCount", "username", b"username", "wallpaper", b"wallpaper"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "accountLid", b"accountLid", "afterReadDuration", b"afterReadDuration", "appealStatus", b"appealStatus", "appealUpdateTime", b"appealUpdateTime", "archived", b"archived", "authAgentObaPhoneNumber", b"authAgentObaPhoneNumber", "authAgentParentCompanyName", b"authAgentParentCompanyName", "capiCreatedGroup", b"capiCreatedGroup", "commentsCount", b"commentsCount", "contactPrimaryIdentityKey", b"contactPrimaryIdentityKey", "conversationTimestamp", b"conversationTimestamp", "createdAt", b"createdAt", "createdBy", b"createdBy", "description", b"description", "disappearingMode", b"disappearingMode", "displayName", b"displayName", "endOfHistoryTransfer", b"endOfHistoryTransfer", "endOfHistoryTransferType", b"endOfHistoryTransferType", "ephemeralExpiration", b"ephemeralExpiration", "ephemeralSettingTimestamp", b"ephemeralSettingTimestamp", "identityVerification", b"identityVerification", "isDefaultSubgroup", b"isDefaultSubgroup", "isMarketingMessageThread", b"isMarketingMessageThread", "isParentGroup", b"isParentGroup", "isSenderNewAccount", b"isSenderNewAccount", "isSenderSuspicious", b"isSenderSuspicious", "lastMsgTimestamp", b"lastMsgTimestamp", "lidJID", b"lidJID", "lidOriginType", b"lidOriginType", "limitSharing", b"limitSharing", "limitSharingInitiatedByMe", b"limitSharingInitiatedByMe", "limitSharingSettingTimestamp", b"limitSharingSettingTimestamp", "limitSharingTrigger", b"limitSharingTrigger", "locked", b"locked", "maibaAiThreadEnabled", b"maibaAiThreadEnabled", "markedAsUnread", b"markedAsUnread", "mediaVisibility", b"mediaVisibility", "messages", b"messages", "muteEndTime", b"muteEndTime", "name", b"name", "newJID", b"newJID", "notSpam", b"notSpam", "oldJID", b"oldJID", "pHash", b"pHash", "parentGroupID", b"parentGroupID", "participant", b"participant", "pinned", b"pinned", "pnJID", b"pnJID", "pnhDuplicateLidThread", b"pnhDuplicateLidThread", "readOnly", b"readOnly", "shareOwnPn", b"shareOwnPn", "support", b"support", "suspended", b"suspended", "systemMessageToInsert", b"systemMessageToInsert", "tcToken", b"tcToken", "tcTokenSenderTimestamp", b"tcTokenSenderTimestamp", "tcTokenTimestamp", b"tcTokenTimestamp", "terminated", b"terminated", "unreadCount", b"unreadCount", "unreadMentionCount", b"unreadMentionCount", "username", b"username", "wallpaper", b"wallpaper"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
@@ -498,6 +502,28 @@ class PastParticipant(_message.Message):
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___PastParticipant: _TypeAlias = PastParticipant  # noqa: Y015
+
+@_typing.final
+class IdentityVerificationState(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    VERIFIED_FIELD_NUMBER: _builtins.int
+    ACTIONSEQ_FIELD_NUMBER: _builtins.int
+    verified: _builtins.bool
+    actionSeq: _builtins.int
+    def __init__(
+        self,
+        *,
+        verified: _builtins.bool | None = ...,
+        actionSeq: _builtins.int | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["actionSeq", b"actionSeq", "verified", b"verified"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["actionSeq", b"actionSeq", "verified", b"verified"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___IdentityVerificationState: _TypeAlias = IdentityVerificationState  # noqa: Y015
 
 @_typing.final
 class PhoneNumberToLIDMapping(_message.Message):

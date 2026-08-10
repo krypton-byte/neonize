@@ -1984,7 +1984,10 @@ func SetPassive(id *C.char, passive C.bool) *C.char {
 
 //export SetStatusMessage
 func SetStatusMessage(id *C.char, msg *C.char) *C.char {
-	err := clients[C.GoString(id)].SetStatusMessage(context.Background(), C.GoString(msg))
+	status := C.GoString(msg)
+	err := clients[C.GoString(id)].SetStatusMessage(context.Background(), types.SetStatusInput{
+		Text: &status,
+	})
 	if err != nil {
 		return C.CString(err.Error())
 	}

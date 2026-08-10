@@ -552,6 +552,7 @@ class ClientPayload(_message.Message):
             SMART_GLASSES: ClientPayload.UserAgent._Platform.ValueType  # 35
             BLUE_VR: ClientPayload.UserAgent._Platform.ValueType  # 36
             AR_WRIST: ClientPayload.UserAgent._Platform.ValueType  # 37
+            WAIL: ClientPayload.UserAgent._Platform.ValueType  # 38
 
         class Platform(_Platform, metaclass=_PlatformEnumTypeWrapper): ...
         ANDROID: ClientPayload.UserAgent.Platform.ValueType  # 0
@@ -592,6 +593,7 @@ class ClientPayload(_message.Message):
         SMART_GLASSES: ClientPayload.UserAgent.Platform.ValueType  # 35
         BLUE_VR: ClientPayload.UserAgent.Platform.ValueType  # 36
         AR_WRIST: ClientPayload.UserAgent.Platform.ValueType  # 37
+        WAIL: ClientPayload.UserAgent.Platform.ValueType  # 38
 
         @_typing.final
         class AppVersion(_message.Message):

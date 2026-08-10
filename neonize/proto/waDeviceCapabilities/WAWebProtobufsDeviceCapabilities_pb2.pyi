@@ -84,6 +84,23 @@ class DeviceCapabilities(_message.Message):
         def WhichOneof(self, oneof_group: _Never) -> None: ...
 
     @_typing.final
+    class AiFbidMigration(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        CHATDBMIGRATIONTIMESTAMP_FIELD_NUMBER: _builtins.int
+        chatDbMigrationTimestamp: _builtins.int
+        def __init__(
+            self,
+            *,
+            chatDbMigrationTimestamp: _builtins.int | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["chatDbMigrationTimestamp", b"chatDbMigrationTimestamp"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["chatDbMigrationTimestamp", b"chatDbMigrationTimestamp"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    @_typing.final
     class UserHasAvatar(_message.Message):
         DESCRIPTOR: _descriptor.Descriptor
 
@@ -152,6 +169,7 @@ class DeviceCapabilities(_message.Message):
     USERHASAVATAR_FIELD_NUMBER: _builtins.int
     MEMBERNAMETAGPRIMARYSUPPORT_FIELD_NUMBER: _builtins.int
     AITHREAD_FIELD_NUMBER: _builtins.int
+    AIFBIDMIGRATION_FIELD_NUMBER: _builtins.int
     chatLockSupportLevel: Global___DeviceCapabilities.ChatLockSupportLevel.ValueType
     memberNameTagPrimarySupport: Global___DeviceCapabilities.MemberNameTagPrimarySupport.ValueType
     @_builtins.property
@@ -162,6 +180,8 @@ class DeviceCapabilities(_message.Message):
     def userHasAvatar(self) -> Global___DeviceCapabilities.UserHasAvatar: ...
     @_builtins.property
     def aiThread(self) -> Global___DeviceCapabilities.AiThread: ...
+    @_builtins.property
+    def aiFbidMigration(self) -> Global___DeviceCapabilities.AiFbidMigration: ...
     def __init__(
         self,
         *,
@@ -171,10 +191,11 @@ class DeviceCapabilities(_message.Message):
         userHasAvatar: Global___DeviceCapabilities.UserHasAvatar | None = ...,
         memberNameTagPrimarySupport: Global___DeviceCapabilities.MemberNameTagPrimarySupport.ValueType | None = ...,
         aiThread: Global___DeviceCapabilities.AiThread | None = ...,
+        aiFbidMigration: Global___DeviceCapabilities.AiFbidMigration | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["aiThread", b"aiThread", "businessBroadcast", b"businessBroadcast", "chatLockSupportLevel", b"chatLockSupportLevel", "lidMigration", b"lidMigration", "memberNameTagPrimarySupport", b"memberNameTagPrimarySupport", "userHasAvatar", b"userHasAvatar"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["aiFbidMigration", b"aiFbidMigration", "aiThread", b"aiThread", "businessBroadcast", b"businessBroadcast", "chatLockSupportLevel", b"chatLockSupportLevel", "lidMigration", b"lidMigration", "memberNameTagPrimarySupport", b"memberNameTagPrimarySupport", "userHasAvatar", b"userHasAvatar"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["aiThread", b"aiThread", "businessBroadcast", b"businessBroadcast", "chatLockSupportLevel", b"chatLockSupportLevel", "lidMigration", b"lidMigration", "memberNameTagPrimarySupport", b"memberNameTagPrimarySupport", "userHasAvatar", b"userHasAvatar"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["aiFbidMigration", b"aiFbidMigration", "aiThread", b"aiThread", "businessBroadcast", b"businessBroadcast", "chatLockSupportLevel", b"chatLockSupportLevel", "lidMigration", b"lidMigration", "memberNameTagPrimarySupport", b"memberNameTagPrimarySupport", "userHasAvatar", b"userHasAvatar"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
