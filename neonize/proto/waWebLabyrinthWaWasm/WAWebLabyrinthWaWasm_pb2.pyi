@@ -121,6 +121,53 @@ class DecryptMessageInput(_message.Message):
 Global___DecryptMessageInput: _TypeAlias = DecryptMessageInput  # noqa: Y015
 
 @_typing.final
+class OrfThreadIdInput(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ORFCLIENTSTATE_FIELD_NUMBER: _builtins.int
+    THREADID_FIELD_NUMBER: _builtins.int
+    orfClientState: _builtins.bytes
+    threadID: _builtins.str
+    def __init__(
+        self,
+        *,
+        orfClientState: _builtins.bytes | None = ...,
+        threadID: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["orfClientState", b"orfClientState", "threadID", b"threadID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["orfClientState", b"orfClientState", "threadID", b"threadID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___OrfThreadIdInput: _TypeAlias = OrfThreadIdInput  # noqa: Y015
+
+@_typing.final
+class DeriveMessageKeyInput(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    EPOCHROOTKEY_FIELD_NUMBER: _builtins.int
+    EPOCHANONID_FIELD_NUMBER: _builtins.int
+    THREADID_FIELD_NUMBER: _builtins.int
+    epochRootKey: _builtins.bytes
+    epochAnonID: _builtins.bytes
+    threadID: _builtins.str
+    def __init__(
+        self,
+        *,
+        epochRootKey: _builtins.bytes | None = ...,
+        epochAnonID: _builtins.bytes | None = ...,
+        threadID: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["epochAnonID", b"epochAnonID", "epochRootKey", b"epochRootKey", "threadID", b"threadID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["epochAnonID", b"epochAnonID", "epochRootKey", b"epochRootKey", "threadID", b"threadID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___DeriveMessageKeyInput: _TypeAlias = DeriveMessageKeyInput  # noqa: Y015
+
+@_typing.final
 class DeviceOutput(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -322,14 +369,12 @@ class EncryptMessageOutput(_message.Message):
     VALUESECRETREF_FIELD_NUMBER: _builtins.int
     OFFLINETHREADINGID_FIELD_NUMBER: _builtins.int
     TIMESTAMPMS_FIELD_NUMBER: _builtins.int
-    MESSAGEKEY_FIELD_NUMBER: _builtins.int
     ERROR_FIELD_NUMBER: _builtins.int
     encryptedProtobuf: _builtins.bytes
     orfThreadID: _builtins.bytes
     valueSecretRef: _builtins.str
     offlineThreadingID: _builtins.int
     timestampMS: _builtins.int
-    messageKey: _builtins.bytes
     error: _builtins.str
     def __init__(
         self,
@@ -339,12 +384,11 @@ class EncryptMessageOutput(_message.Message):
         valueSecretRef: _builtins.str | None = ...,
         offlineThreadingID: _builtins.int | None = ...,
         timestampMS: _builtins.int | None = ...,
-        messageKey: _builtins.bytes | None = ...,
         error: _builtins.str | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["encryptedProtobuf", b"encryptedProtobuf", "error", b"error", "messageKey", b"messageKey", "offlineThreadingID", b"offlineThreadingID", "orfThreadID", b"orfThreadID", "timestampMS", b"timestampMS", "valueSecretRef", b"valueSecretRef"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["encryptedProtobuf", b"encryptedProtobuf", "error", b"error", "offlineThreadingID", b"offlineThreadingID", "orfThreadID", b"orfThreadID", "timestampMS", b"timestampMS", "valueSecretRef", b"valueSecretRef"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["encryptedProtobuf", b"encryptedProtobuf", "error", b"error", "messageKey", b"messageKey", "offlineThreadingID", b"offlineThreadingID", "orfThreadID", b"orfThreadID", "timestampMS", b"timestampMS", "valueSecretRef", b"valueSecretRef"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["encryptedProtobuf", b"encryptedProtobuf", "error", b"error", "offlineThreadingID", b"offlineThreadingID", "orfThreadID", b"orfThreadID", "timestampMS", b"timestampMS", "valueSecretRef", b"valueSecretRef"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
@@ -373,30 +417,209 @@ class DecryptMessageOutput(_message.Message):
 Global___DecryptMessageOutput: _TypeAlias = DecryptMessageOutput  # noqa: Y015
 
 @_typing.final
+class OrfThreadIdOutput(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ORFTHREADID_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    orfThreadID: _builtins.bytes
+    error: _builtins.str
+    def __init__(
+        self,
+        *,
+        orfThreadID: _builtins.bytes | None = ...,
+        error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["error", b"error", "orfThreadID", b"orfThreadID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error", b"error", "orfThreadID", b"orfThreadID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___OrfThreadIdOutput: _TypeAlias = OrfThreadIdOutput  # noqa: Y015
+
+@_typing.final
+class DeriveMessageKeyOutput(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    MESSAGEKEY_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    messageKey: _builtins.bytes
+    error: _builtins.str
+    def __init__(
+        self,
+        *,
+        messageKey: _builtins.bytes | None = ...,
+        error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["error", b"error", "messageKey", b"messageKey"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error", b"error", "messageKey", b"messageKey"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___DeriveMessageKeyOutput: _TypeAlias = DeriveMessageKeyOutput  # noqa: Y015
+
+@_typing.final
+class RotateEpochMemberInput(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    DEVICEID_FIELD_NUMBER: _builtins.int
+    EPOCHSTORAGEPUBLICKEY_FIELD_NUMBER: _builtins.int
+    DEVICEPUBLICKEY_FIELD_NUMBER: _builtins.int
+    deviceID: _builtins.int
+    epochStoragePublicKey: _builtins.bytes
+    devicePublicKey: _builtins.bytes
+    def __init__(
+        self,
+        *,
+        deviceID: _builtins.int | None = ...,
+        epochStoragePublicKey: _builtins.bytes | None = ...,
+        devicePublicKey: _builtins.bytes | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["deviceID", b"deviceID", "devicePublicKey", b"devicePublicKey", "epochStoragePublicKey", b"epochStoragePublicKey"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["deviceID", b"deviceID", "devicePublicKey", b"devicePublicKey", "epochStoragePublicKey", b"epochStoragePublicKey"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___RotateEpochMemberInput: _TypeAlias = RotateEpochMemberInput  # noqa: Y015
+
+@_typing.final
+class RotateEpochInput(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    CURRENTEPOCHROOTKEY_FIELD_NUMBER: _builtins.int
+    CURRENTEPOCHANONID_FIELD_NUMBER: _builtins.int
+    CURRENTEPOCHFBID_FIELD_NUMBER: _builtins.int
+    NEWEPOCHFBID_FIELD_NUMBER: _builtins.int
+    EPOCHSTORAGEPRIVATEKEY_FIELD_NUMBER: _builtins.int
+    MEMBERS_FIELD_NUMBER: _builtins.int
+    currentEpochRootKey: _builtins.bytes
+    currentEpochAnonID: _builtins.int
+    currentEpochFbid: _builtins.int
+    newEpochFbid: _builtins.int
+    epochStoragePrivateKey: _builtins.bytes
+    @_builtins.property
+    def members(self) -> _containers.RepeatedCompositeFieldContainer[Global___RotateEpochMemberInput]: ...
+    def __init__(
+        self,
+        *,
+        currentEpochRootKey: _builtins.bytes | None = ...,
+        currentEpochAnonID: _builtins.int | None = ...,
+        currentEpochFbid: _builtins.int | None = ...,
+        newEpochFbid: _builtins.int | None = ...,
+        epochStoragePrivateKey: _builtins.bytes | None = ...,
+        members: _abc.Iterable[Global___RotateEpochMemberInput] | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["currentEpochAnonID", b"currentEpochAnonID", "currentEpochFbid", b"currentEpochFbid", "currentEpochRootKey", b"currentEpochRootKey", "epochStoragePrivateKey", b"epochStoragePrivateKey", "newEpochFbid", b"newEpochFbid"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["currentEpochAnonID", b"currentEpochAnonID", "currentEpochFbid", b"currentEpochFbid", "currentEpochRootKey", b"currentEpochRootKey", "epochStoragePrivateKey", b"epochStoragePrivateKey", "members", b"members", "newEpochFbid", b"newEpochFbid"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___RotateEpochInput: _TypeAlias = RotateEpochInput  # noqa: Y015
+
+@_typing.final
+class RotateEpochMemberEdge(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    DEVICEID_FIELD_NUMBER: _builtins.int
+    ENCRYPTEDEPOCHKEY_FIELD_NUMBER: _builtins.int
+    DEVICEEPOCHHMAC_FIELD_NUMBER: _builtins.int
+    deviceID: _builtins.int
+    encryptedEpochKey: _builtins.bytes
+    deviceEpochHmac: _builtins.bytes
+    def __init__(
+        self,
+        *,
+        deviceID: _builtins.int | None = ...,
+        encryptedEpochKey: _builtins.bytes | None = ...,
+        deviceEpochHmac: _builtins.bytes | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["deviceEpochHmac", b"deviceEpochHmac", "deviceID", b"deviceID", "encryptedEpochKey", b"encryptedEpochKey"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["deviceEpochHmac", b"deviceEpochHmac", "deviceID", b"deviceID", "encryptedEpochKey", b"encryptedEpochKey"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___RotateEpochMemberEdge: _TypeAlias = RotateEpochMemberEdge  # noqa: Y015
+
+@_typing.final
+class RotateEpochOutput(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    NEWEPOCHROOTKEY_FIELD_NUMBER: _builtins.int
+    NEWEPOCHANONID_FIELD_NUMBER: _builtins.int
+    EPOCHANONID_FIELD_NUMBER: _builtins.int
+    EPOCHDATA_FIELD_NUMBER: _builtins.int
+    MEMBEREDGES_FIELD_NUMBER: _builtins.int
+    EPOCHROOTKEYFINGERPRINT_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    newEpochRootKey: _builtins.bytes
+    newEpochAnonID: _builtins.int
+    epochAnonID: _builtins.bytes
+    epochData: _builtins.bytes
+    epochRootKeyFingerprint: _builtins.bytes
+    error: _builtins.str
+    @_builtins.property
+    def memberEdges(self) -> _containers.RepeatedCompositeFieldContainer[Global___RotateEpochMemberEdge]: ...
+    def __init__(
+        self,
+        *,
+        newEpochRootKey: _builtins.bytes | None = ...,
+        newEpochAnonID: _builtins.int | None = ...,
+        epochAnonID: _builtins.bytes | None = ...,
+        epochData: _builtins.bytes | None = ...,
+        memberEdges: _abc.Iterable[Global___RotateEpochMemberEdge] | None = ...,
+        epochRootKeyFingerprint: _builtins.bytes | None = ...,
+        error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["epochAnonID", b"epochAnonID", "epochData", b"epochData", "epochRootKeyFingerprint", b"epochRootKeyFingerprint", "error", b"error", "newEpochAnonID", b"newEpochAnonID", "newEpochRootKey", b"newEpochRootKey"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["epochAnonID", b"epochAnonID", "epochData", b"epochData", "epochRootKeyFingerprint", b"epochRootKeyFingerprint", "error", b"error", "memberEdges", b"memberEdges", "newEpochAnonID", b"newEpochAnonID", "newEpochRootKey", b"newEpochRootKey"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___RotateEpochOutput: _TypeAlias = RotateEpochOutput  # noqa: Y015
+
+@_typing.final
 class LabyrinthWaCommand(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
     CREATEBACKUPINPUT_FIELD_NUMBER: _builtins.int
     ENCRYPTMESSAGEINPUT_FIELD_NUMBER: _builtins.int
     DECRYPTMESSAGEINPUT_FIELD_NUMBER: _builtins.int
+    ORFTHREADIDINPUT_FIELD_NUMBER: _builtins.int
+    DERIVEMESSAGEKEYINPUT_FIELD_NUMBER: _builtins.int
+    ROTATEEPOCHINPUT_FIELD_NUMBER: _builtins.int
     @_builtins.property
     def createBackupInput(self) -> Global___CreateBackupInput: ...
     @_builtins.property
     def encryptMessageInput(self) -> Global___EncryptMessageInput: ...
     @_builtins.property
     def decryptMessageInput(self) -> Global___DecryptMessageInput: ...
+    @_builtins.property
+    def orfThreadIDInput(self) -> Global___OrfThreadIdInput: ...
+    @_builtins.property
+    def deriveMessageKeyInput(self) -> Global___DeriveMessageKeyInput: ...
+    @_builtins.property
+    def rotateEpochInput(self) -> Global___RotateEpochInput: ...
     def __init__(
         self,
         *,
         createBackupInput: Global___CreateBackupInput | None = ...,
         encryptMessageInput: Global___EncryptMessageInput | None = ...,
         decryptMessageInput: Global___DecryptMessageInput | None = ...,
+        orfThreadIDInput: Global___OrfThreadIdInput | None = ...,
+        deriveMessageKeyInput: Global___DeriveMessageKeyInput | None = ...,
+        rotateEpochInput: Global___RotateEpochInput | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["commandInput", b"commandInput", "createBackupInput", b"createBackupInput", "decryptMessageInput", b"decryptMessageInput", "encryptMessageInput", b"encryptMessageInput"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["commandInput", b"commandInput", "createBackupInput", b"createBackupInput", "decryptMessageInput", b"decryptMessageInput", "deriveMessageKeyInput", b"deriveMessageKeyInput", "encryptMessageInput", b"encryptMessageInput", "orfThreadIDInput", b"orfThreadIDInput", "rotateEpochInput", b"rotateEpochInput"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["commandInput", b"commandInput", "createBackupInput", b"createBackupInput", "decryptMessageInput", b"decryptMessageInput", "encryptMessageInput", b"encryptMessageInput"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["commandInput", b"commandInput", "createBackupInput", b"createBackupInput", "decryptMessageInput", b"decryptMessageInput", "deriveMessageKeyInput", b"deriveMessageKeyInput", "encryptMessageInput", b"encryptMessageInput", "orfThreadIDInput", b"orfThreadIDInput", "rotateEpochInput", b"rotateEpochInput"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-    _WhichOneofReturnType_commandInput: _TypeAlias = _typing.Literal["createBackupInput", "encryptMessageInput", "decryptMessageInput"]  # noqa: Y015
+    _WhichOneofReturnType_commandInput: _TypeAlias = _typing.Literal["createBackupInput", "encryptMessageInput", "decryptMessageInput", "orfThreadIDInput", "deriveMessageKeyInput", "rotateEpochInput"]  # noqa: Y015
     _WhichOneofArgType_commandInput: _TypeAlias = _typing.Literal["commandInput", b"commandInput"]  # noqa: Y015
     def WhichOneof(self, oneof_group: _WhichOneofArgType_commandInput) -> _WhichOneofReturnType_commandInput | None: ...
 

@@ -274,6 +274,10 @@ class WebMessageInfo(_message.Message):
         GROUP_TEE_BOT_ADDED: WebMessageInfo._StubType.ValueType  # 223
         CONTACT_INFO: WebMessageInfo._StubType.ValueType  # 224
         SCHEDULED_MESSAGE_CREATED: WebMessageInfo._StubType.ValueType  # 225
+        IDENTITY_TRUST_MARKED: WebMessageInfo._StubType.ValueType  # 226
+        IDENTITY_TRUST_UNMARKED: WebMessageInfo._StubType.ValueType  # 227
+        IDENTITY_TRUST_REVOKED: WebMessageInfo._StubType.ValueType  # 228
+        CTWA_CONSUMER_DISCLOSURE: WebMessageInfo._StubType.ValueType  # 230
 
     class StubType(_StubType, metaclass=_StubTypeEnumTypeWrapper): ...
     UNKNOWN: WebMessageInfo.StubType.ValueType  # 0
@@ -502,6 +506,10 @@ class WebMessageInfo(_message.Message):
     GROUP_TEE_BOT_ADDED: WebMessageInfo.StubType.ValueType  # 223
     CONTACT_INFO: WebMessageInfo.StubType.ValueType  # 224
     SCHEDULED_MESSAGE_CREATED: WebMessageInfo.StubType.ValueType  # 225
+    IDENTITY_TRUST_MARKED: WebMessageInfo.StubType.ValueType  # 226
+    IDENTITY_TRUST_UNMARKED: WebMessageInfo.StubType.ValueType  # 227
+    IDENTITY_TRUST_REVOKED: WebMessageInfo.StubType.ValueType  # 228
+    CTWA_CONSUMER_DISCLOSURE: WebMessageInfo.StubType.ValueType  # 230
 
     class _Status:
         ValueType = _typing.NewType("ValueType", _builtins.int)
@@ -1373,15 +1381,18 @@ class ReportingTokenInfo(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
     REPORTINGTAG_FIELD_NUMBER: _builtins.int
+    REPORTINGTAGTIMESTAMP_FIELD_NUMBER: _builtins.int
     reportingTag: _builtins.bytes
+    reportingTagTimestamp: _builtins.int
     def __init__(
         self,
         *,
         reportingTag: _builtins.bytes | None = ...,
+        reportingTagTimestamp: _builtins.int | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["reportingTag", b"reportingTag"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["reportingTag", b"reportingTag", "reportingTagTimestamp", b"reportingTagTimestamp"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["reportingTag", b"reportingTag"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["reportingTag", b"reportingTag", "reportingTagTimestamp", b"reportingTagTimestamp"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 

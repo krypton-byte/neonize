@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n;waDeviceCapabilities/WAWebProtobufsDeviceCapabilities.proto\x12 WAWebProtobufsDeviceCapabilities\"\x88\t\n\x12\x44\x65viceCapabilities\x12g\n\x14\x63hatLockSupportLevel\x18\x01 \x01(\x0e\x32I.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.ChatLockSupportLevel\x12W\n\x0clidMigration\x18\x02 \x01(\x0b\x32\x41.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.LIDMigration\x12\x61\n\x11\x62usinessBroadcast\x18\x03 \x01(\x0b\x32\x46.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.BusinessBroadcast\x12Y\n\ruserHasAvatar\x18\x04 \x01(\x0b\x32\x42.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.UserHasAvatar\x12u\n\x1bmemberNameTagPrimarySupport\x18\x05 \x01(\x0e\x32P.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.MemberNameTagPrimarySupport\x12O\n\x08\x61iThread\x18\x06 \x01(\x0b\x32=.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.AiThread\x1a\x9b\x01\n\x08\x41iThread\x12`\n\x0csupportLevel\x18\x01 \x01(\x0e\x32J.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.AiThread.SupportLevel\"-\n\x0cSupportLevel\x12\x08\n\x04NONE\x10\x00\x12\t\n\x05INFRA\x10\x01\x12\x08\n\x04\x46ULL\x10\x02\x1a&\n\rUserHasAvatar\x12\x15\n\ruserHasAvatar\x18\x01 \x01(\x08\x1a\xa1\x01\n\x11\x42usinessBroadcast\x12\x19\n\x11importListEnabled\x18\x01 \x01(\x08\x12\x1f\n\x17\x63ompanionSupportEnabled\x18\x02 \x01(\x08\x12\x1b\n\x13\x63\x61mpaignSyncEnabled\x18\x03 \x01(\x08\x12\x1b\n\x13insightsSyncEnabled\x18\x04 \x01(\x08\x12\x16\n\x0erecipientLimit\x18\x05 \x01(\x05\x1a\x30\n\x0cLIDMigration\x12 \n\x18\x63hatDbMigrationTimestamp\x18\x01 \x01(\x04\"U\n\x1bMemberNameTagPrimarySupport\x12\x0c\n\x08\x44ISABLED\x10\x00\x12\x14\n\x10RECEIVER_ENABLED\x10\x01\x12\x12\n\x0eSENDER_ENABLED\x10\x02\"7\n\x14\x43hatLockSupportLevel\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07MINIMAL\x10\x01\x12\x08\n\x04\x46ULL\x10\x02\x42\x30Z.go.mau.fi/whatsmeow/proto/waDeviceCapabilities')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n;waDeviceCapabilities/WAWebProtobufsDeviceCapabilities.proto\x12 WAWebProtobufsDeviceCapabilities\"\x9c\n\n\x12\x44\x65viceCapabilities\x12g\n\x14\x63hatLockSupportLevel\x18\x01 \x01(\x0e\x32I.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.ChatLockSupportLevel\x12W\n\x0clidMigration\x18\x02 \x01(\x0b\x32\x41.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.LIDMigration\x12\x61\n\x11\x62usinessBroadcast\x18\x03 \x01(\x0b\x32\x46.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.BusinessBroadcast\x12Y\n\ruserHasAvatar\x18\x04 \x01(\x0b\x32\x42.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.UserHasAvatar\x12u\n\x1bmemberNameTagPrimarySupport\x18\x05 \x01(\x0e\x32P.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.MemberNameTagPrimarySupport\x12O\n\x08\x61iThread\x18\x06 \x01(\x0b\x32=.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.AiThread\x12]\n\x0f\x61iFbidMigration\x18\x07 \x01(\x0b\x32\x44.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.AiFbidMigration\x1a\x9b\x01\n\x08\x41iThread\x12`\n\x0csupportLevel\x18\x01 \x01(\x0e\x32J.WAWebProtobufsDeviceCapabilities.DeviceCapabilities.AiThread.SupportLevel\"-\n\x0cSupportLevel\x12\x08\n\x04NONE\x10\x00\x12\t\n\x05INFRA\x10\x01\x12\x08\n\x04\x46ULL\x10\x02\x1a\x33\n\x0f\x41iFbidMigration\x12 \n\x18\x63hatDbMigrationTimestamp\x18\x01 \x01(\x04\x1a&\n\rUserHasAvatar\x12\x15\n\ruserHasAvatar\x18\x01 \x01(\x08\x1a\xa1\x01\n\x11\x42usinessBroadcast\x12\x19\n\x11importListEnabled\x18\x01 \x01(\x08\x12\x1f\n\x17\x63ompanionSupportEnabled\x18\x02 \x01(\x08\x12\x1b\n\x13\x63\x61mpaignSyncEnabled\x18\x03 \x01(\x08\x12\x1b\n\x13insightsSyncEnabled\x18\x04 \x01(\x08\x12\x16\n\x0erecipientLimit\x18\x05 \x01(\x05\x1a\x30\n\x0cLIDMigration\x12 \n\x18\x63hatDbMigrationTimestamp\x18\x01 \x01(\x04\"U\n\x1bMemberNameTagPrimarySupport\x12\x0c\n\x08\x44ISABLED\x10\x00\x12\x14\n\x10RECEIVER_ENABLED\x10\x01\x12\x12\n\x0eSENDER_ENABLED\x10\x02\"7\n\x14\x43hatLockSupportLevel\x12\x08\n\x04NONE\x10\x00\x12\x0b\n\x07MINIMAL\x10\x01\x12\x08\n\x04\x46ULL\x10\x02\x42\x30Z.go.mau.fi/whatsmeow/proto/waDeviceCapabilities')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,19 +33,21 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z.go.mau.fi/whatsmeow/proto/waDeviceCapabilities'
   _globals['_DEVICECAPABILITIES']._serialized_start=98
-  _globals['_DEVICECAPABILITIES']._serialized_end=1258
-  _globals['_DEVICECAPABILITIES_AITHREAD']._serialized_start=705
-  _globals['_DEVICECAPABILITIES_AITHREAD']._serialized_end=860
-  _globals['_DEVICECAPABILITIES_AITHREAD_SUPPORTLEVEL']._serialized_start=815
-  _globals['_DEVICECAPABILITIES_AITHREAD_SUPPORTLEVEL']._serialized_end=860
-  _globals['_DEVICECAPABILITIES_USERHASAVATAR']._serialized_start=862
-  _globals['_DEVICECAPABILITIES_USERHASAVATAR']._serialized_end=900
-  _globals['_DEVICECAPABILITIES_BUSINESSBROADCAST']._serialized_start=903
-  _globals['_DEVICECAPABILITIES_BUSINESSBROADCAST']._serialized_end=1064
-  _globals['_DEVICECAPABILITIES_LIDMIGRATION']._serialized_start=1066
-  _globals['_DEVICECAPABILITIES_LIDMIGRATION']._serialized_end=1114
-  _globals['_DEVICECAPABILITIES_MEMBERNAMETAGPRIMARYSUPPORT']._serialized_start=1116
-  _globals['_DEVICECAPABILITIES_MEMBERNAMETAGPRIMARYSUPPORT']._serialized_end=1201
-  _globals['_DEVICECAPABILITIES_CHATLOCKSUPPORTLEVEL']._serialized_start=1203
-  _globals['_DEVICECAPABILITIES_CHATLOCKSUPPORTLEVEL']._serialized_end=1258
+  _globals['_DEVICECAPABILITIES']._serialized_end=1406
+  _globals['_DEVICECAPABILITIES_AITHREAD']._serialized_start=800
+  _globals['_DEVICECAPABILITIES_AITHREAD']._serialized_end=955
+  _globals['_DEVICECAPABILITIES_AITHREAD_SUPPORTLEVEL']._serialized_start=910
+  _globals['_DEVICECAPABILITIES_AITHREAD_SUPPORTLEVEL']._serialized_end=955
+  _globals['_DEVICECAPABILITIES_AIFBIDMIGRATION']._serialized_start=957
+  _globals['_DEVICECAPABILITIES_AIFBIDMIGRATION']._serialized_end=1008
+  _globals['_DEVICECAPABILITIES_USERHASAVATAR']._serialized_start=1010
+  _globals['_DEVICECAPABILITIES_USERHASAVATAR']._serialized_end=1048
+  _globals['_DEVICECAPABILITIES_BUSINESSBROADCAST']._serialized_start=1051
+  _globals['_DEVICECAPABILITIES_BUSINESSBROADCAST']._serialized_end=1212
+  _globals['_DEVICECAPABILITIES_LIDMIGRATION']._serialized_start=1214
+  _globals['_DEVICECAPABILITIES_LIDMIGRATION']._serialized_end=1262
+  _globals['_DEVICECAPABILITIES_MEMBERNAMETAGPRIMARYSUPPORT']._serialized_start=1264
+  _globals['_DEVICECAPABILITIES_MEMBERNAMETAGPRIMARYSUPPORT']._serialized_end=1349
+  _globals['_DEVICECAPABILITIES_CHATLOCKSUPPORTLEVEL']._serialized_start=1351
+  _globals['_DEVICECAPABILITIES_CHATLOCKSUPPORTLEVEL']._serialized_end=1406
 # @@protoc_insertion_point(module_scope)
