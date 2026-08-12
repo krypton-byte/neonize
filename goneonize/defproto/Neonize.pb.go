@@ -7827,6 +7827,8 @@ type JoinedGroup struct {
 	Type          *string                `protobuf:"bytes,2,req,name=Type" json:"Type,omitempty"`
 	CreateKey     *string                `protobuf:"bytes,3,req,name=CreateKey" json:"CreateKey,omitempty"`
 	GroupInfo     *GroupInfo             `protobuf:"bytes,4,req,name=GroupInfo" json:"GroupInfo,omitempty"`
+	Sender        *JID                   `protobuf:"bytes,5,opt,name=Sender" json:"Sender,omitempty"`
+	SenderPN      *JID                   `protobuf:"bytes,6,opt,name=SenderPN" json:"SenderPN,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -7885,6 +7887,20 @@ func (x *JoinedGroup) GetCreateKey() string {
 func (x *JoinedGroup) GetGroupInfo() *GroupInfo {
 	if x != nil {
 		return x.GroupInfo
+	}
+	return nil
+}
+
+func (x *JoinedGroup) GetSender() *JID {
+	if x != nil {
+		return x.Sender
+	}
+	return nil
+}
+
+func (x *JoinedGroup) GetSenderPN() *JID {
+	if x != nil {
+		return x.SenderPN
 	}
 	return nil
 }
@@ -10512,12 +10528,14 @@ const file_Neonize_proto_rawDesc = "" +
 	"\bPresence\x12 \n" +
 	"\x04From\x18\x01 \x02(\v2\f.neonize.JIDR\x04From\x12 \n" +
 	"\vUnavailable\x18\x02 \x02(\bR\vUnavailable\x12\x1a\n" +
-	"\bLastSeen\x18\x03 \x02(\x03R\bLastSeen\"\x89\x01\n" +
+	"\bLastSeen\x18\x03 \x02(\x03R\bLastSeen\"\xd9\x01\n" +
 	"\vJoinedGroup\x12\x16\n" +
 	"\x06Reason\x18\x01 \x02(\tR\x06Reason\x12\x12\n" +
 	"\x04Type\x18\x02 \x02(\tR\x04Type\x12\x1c\n" +
 	"\tCreateKey\x18\x03 \x02(\tR\tCreateKey\x120\n" +
-	"\tGroupInfo\x18\x04 \x02(\v2\x12.neonize.GroupInfoR\tGroupInfo\"\x89\a\n" +
+	"\tGroupInfo\x18\x04 \x02(\v2\x12.neonize.GroupInfoR\tGroupInfo\x12$\n" +
+	"\x06Sender\x18\x05 \x01(\v2\f.neonize.JIDR\x06Sender\x12(\n" +
+	"\bSenderPN\x18\x06 \x01(\v2\f.neonize.JIDR\bSenderPN\"\x89\a\n" +
 	"\x0eGroupInfoEvent\x12\x1e\n" +
 	"\x03JID\x18\x01 \x02(\v2\f.neonize.JIDR\x03JID\x12\x16\n" +
 	"\x06Notify\x18\x02 \x02(\tR\x06Notify\x12$\n" +
@@ -11024,72 +11042,74 @@ var file_Neonize_proto_depIdxs = []int32{
 	16,  // 134: neonize.ChatPresence.Media:type_name -> neonize.ChatPresence.ChatPresenceMedia
 	20,  // 135: neonize.Presence.From:type_name -> neonize.JID
 	41,  // 136: neonize.JoinedGroup.GroupInfo:type_name -> neonize.GroupInfo
-	20,  // 137: neonize.GroupInfoEvent.JID:type_name -> neonize.JID
-	20,  // 138: neonize.GroupInfoEvent.Sender:type_name -> neonize.JID
-	30,  // 139: neonize.GroupInfoEvent.Name:type_name -> neonize.GroupName
-	31,  // 140: neonize.GroupInfoEvent.Topic:type_name -> neonize.GroupTopic
-	32,  // 141: neonize.GroupInfoEvent.Locked:type_name -> neonize.GroupLocked
-	33,  // 142: neonize.GroupInfoEvent.Announce:type_name -> neonize.GroupAnnounce
-	34,  // 143: neonize.GroupInfoEvent.Ephemeral:type_name -> neonize.GroupEphemeral
-	66,  // 144: neonize.GroupInfoEvent.Delete:type_name -> neonize.GroupDelete
-	90,  // 145: neonize.GroupInfoEvent.Link:type_name -> neonize.GroupLinkChange
-	90,  // 146: neonize.GroupInfoEvent.Unlink:type_name -> neonize.GroupLinkChange
-	20,  // 147: neonize.GroupInfoEvent.Join:type_name -> neonize.JID
-	20,  // 148: neonize.GroupInfoEvent.Leave:type_name -> neonize.JID
-	20,  // 149: neonize.GroupInfoEvent.Promote:type_name -> neonize.JID
-	20,  // 150: neonize.GroupInfoEvent.Demote:type_name -> neonize.JID
-	83,  // 151: neonize.GroupInfoEvent.UnknownChanges:type_name -> neonize.Node
-	20,  // 152: neonize.Picture.JID:type_name -> neonize.JID
-	20,  // 153: neonize.Picture.Author:type_name -> neonize.JID
-	20,  // 154: neonize.IdentityChange.JID:type_name -> neonize.JID
-	81,  // 155: neonize.privacySettingsEvent.NewSettings:type_name -> neonize.PrivacySettings
-	17,  // 156: neonize.BlocklistEvent.Action:type_name -> neonize.BlocklistEvent.Actions
-	135, // 157: neonize.BlocklistEvent.Changes:type_name -> neonize.BlocklistChange
-	20,  // 158: neonize.BlocklistChange.JID:type_name -> neonize.JID
-	18,  // 159: neonize.BlocklistChange.BlockAction:type_name -> neonize.BlocklistChange.Action
-	76,  // 160: neonize.NewsletterJoin.NewsletterMetadata:type_name -> neonize.NewsletterMetadata
-	20,  // 161: neonize.NewsletterLeave.ID:type_name -> neonize.JID
-	1,   // 162: neonize.NewsletterLeave.Role:type_name -> neonize.NewsletterRole
-	20,  // 163: neonize.NewsletterMuteChange.ID:type_name -> neonize.JID
-	2,   // 164: neonize.NewsletterMuteChange.Mute:type_name -> neonize.NewsletterMuteState
-	20,  // 165: neonize.NewsletterLiveUpdate.JID:type_name -> neonize.JID
-	79,  // 166: neonize.NewsletterLiveUpdate.Messages:type_name -> neonize.NewsletterMessage
-	20,  // 167: neonize.BasicCallMeta.from:type_name -> neonize.JID
-	20,  // 168: neonize.BasicCallMeta.callCreator:type_name -> neonize.JID
-	20,  // 169: neonize.BasicCallMeta.callCreatorAlt:type_name -> neonize.JID
-	140, // 170: neonize.CallOffer.basicCallMeta:type_name -> neonize.BasicCallMeta
-	141, // 171: neonize.CallOffer.callRemoteMeta:type_name -> neonize.CallRemoteMeta
-	83,  // 172: neonize.CallOffer.data:type_name -> neonize.Node
-	140, // 173: neonize.CallAccept.basicCallMeta:type_name -> neonize.BasicCallMeta
-	141, // 174: neonize.CallAccept.callRemoteMeta:type_name -> neonize.CallRemoteMeta
-	83,  // 175: neonize.CallAccept.data:type_name -> neonize.Node
-	140, // 176: neonize.CallPreAccept.basicCallMeta:type_name -> neonize.BasicCallMeta
-	141, // 177: neonize.CallPreAccept.callRemoteMeta:type_name -> neonize.CallRemoteMeta
-	83,  // 178: neonize.CallPreAccept.data:type_name -> neonize.Node
-	140, // 179: neonize.CallTransport.basicCallMeta:type_name -> neonize.BasicCallMeta
-	141, // 180: neonize.CallTransport.callRemoteMeta:type_name -> neonize.CallRemoteMeta
-	83,  // 181: neonize.CallTransport.data:type_name -> neonize.Node
-	140, // 182: neonize.CallOfferNotice.basicCallMeta:type_name -> neonize.BasicCallMeta
-	83,  // 183: neonize.CallOfferNotice.data:type_name -> neonize.Node
-	140, // 184: neonize.CallRelayLatency.basicCallMeta:type_name -> neonize.BasicCallMeta
-	83,  // 185: neonize.CallRelayLatency.data:type_name -> neonize.Node
-	140, // 186: neonize.CallTerminate.basicCallMeta:type_name -> neonize.BasicCallMeta
-	83,  // 187: neonize.CallTerminate.data:type_name -> neonize.Node
-	83,  // 188: neonize.UnknownCallEvent.node:type_name -> neonize.Node
-	21,  // 189: neonize.UndecryptableMessage.Info:type_name -> neonize.MessageInfo
-	19,  // 190: neonize.UndecryptableMessage.DecryptFailMode:type_name -> neonize.UndecryptableMessage.DecryptFailModeT
-	40,  // 191: neonize.UpdateGroupParticipantsReturnFunction.participants:type_name -> neonize.GroupParticipant
-	161, // 192: neonize.GetMessageForRetryReturnFunction.Message:type_name -> WAWebProtobufsE2E.Message
-	153, // 193: neonize.ReturnFunctionWithError.LocalChatSettings:type_name -> neonize.LocalChatSettings
-	165, // 194: neonize.ReturnFunctionWithError.PollVoteMessage:type_name -> WAWebProtobufsE2E.PollVoteMessage
-	63,  // 195: neonize.ReturnFunctionWithError.GetLinkedGroupsParticipants:type_name -> neonize.JIDArray
-	20,  // 196: neonize.SendRequestExtra.InlineBotJID:type_name -> neonize.JID
-	161, // 197: neonize.BuildMessageReturnFunction.Message:type_name -> WAWebProtobufsE2E.Message
-	198, // [198:198] is the sub-list for method output_type
-	198, // [198:198] is the sub-list for method input_type
-	198, // [198:198] is the sub-list for extension type_name
-	198, // [198:198] is the sub-list for extension extendee
-	0,   // [0:198] is the sub-list for field type_name
+	20,  // 137: neonize.JoinedGroup.Sender:type_name -> neonize.JID
+	20,  // 138: neonize.JoinedGroup.SenderPN:type_name -> neonize.JID
+	20,  // 139: neonize.GroupInfoEvent.JID:type_name -> neonize.JID
+	20,  // 140: neonize.GroupInfoEvent.Sender:type_name -> neonize.JID
+	30,  // 141: neonize.GroupInfoEvent.Name:type_name -> neonize.GroupName
+	31,  // 142: neonize.GroupInfoEvent.Topic:type_name -> neonize.GroupTopic
+	32,  // 143: neonize.GroupInfoEvent.Locked:type_name -> neonize.GroupLocked
+	33,  // 144: neonize.GroupInfoEvent.Announce:type_name -> neonize.GroupAnnounce
+	34,  // 145: neonize.GroupInfoEvent.Ephemeral:type_name -> neonize.GroupEphemeral
+	66,  // 146: neonize.GroupInfoEvent.Delete:type_name -> neonize.GroupDelete
+	90,  // 147: neonize.GroupInfoEvent.Link:type_name -> neonize.GroupLinkChange
+	90,  // 148: neonize.GroupInfoEvent.Unlink:type_name -> neonize.GroupLinkChange
+	20,  // 149: neonize.GroupInfoEvent.Join:type_name -> neonize.JID
+	20,  // 150: neonize.GroupInfoEvent.Leave:type_name -> neonize.JID
+	20,  // 151: neonize.GroupInfoEvent.Promote:type_name -> neonize.JID
+	20,  // 152: neonize.GroupInfoEvent.Demote:type_name -> neonize.JID
+	83,  // 153: neonize.GroupInfoEvent.UnknownChanges:type_name -> neonize.Node
+	20,  // 154: neonize.Picture.JID:type_name -> neonize.JID
+	20,  // 155: neonize.Picture.Author:type_name -> neonize.JID
+	20,  // 156: neonize.IdentityChange.JID:type_name -> neonize.JID
+	81,  // 157: neonize.privacySettingsEvent.NewSettings:type_name -> neonize.PrivacySettings
+	17,  // 158: neonize.BlocklistEvent.Action:type_name -> neonize.BlocklistEvent.Actions
+	135, // 159: neonize.BlocklistEvent.Changes:type_name -> neonize.BlocklistChange
+	20,  // 160: neonize.BlocklistChange.JID:type_name -> neonize.JID
+	18,  // 161: neonize.BlocklistChange.BlockAction:type_name -> neonize.BlocklistChange.Action
+	76,  // 162: neonize.NewsletterJoin.NewsletterMetadata:type_name -> neonize.NewsletterMetadata
+	20,  // 163: neonize.NewsletterLeave.ID:type_name -> neonize.JID
+	1,   // 164: neonize.NewsletterLeave.Role:type_name -> neonize.NewsletterRole
+	20,  // 165: neonize.NewsletterMuteChange.ID:type_name -> neonize.JID
+	2,   // 166: neonize.NewsletterMuteChange.Mute:type_name -> neonize.NewsletterMuteState
+	20,  // 167: neonize.NewsletterLiveUpdate.JID:type_name -> neonize.JID
+	79,  // 168: neonize.NewsletterLiveUpdate.Messages:type_name -> neonize.NewsletterMessage
+	20,  // 169: neonize.BasicCallMeta.from:type_name -> neonize.JID
+	20,  // 170: neonize.BasicCallMeta.callCreator:type_name -> neonize.JID
+	20,  // 171: neonize.BasicCallMeta.callCreatorAlt:type_name -> neonize.JID
+	140, // 172: neonize.CallOffer.basicCallMeta:type_name -> neonize.BasicCallMeta
+	141, // 173: neonize.CallOffer.callRemoteMeta:type_name -> neonize.CallRemoteMeta
+	83,  // 174: neonize.CallOffer.data:type_name -> neonize.Node
+	140, // 175: neonize.CallAccept.basicCallMeta:type_name -> neonize.BasicCallMeta
+	141, // 176: neonize.CallAccept.callRemoteMeta:type_name -> neonize.CallRemoteMeta
+	83,  // 177: neonize.CallAccept.data:type_name -> neonize.Node
+	140, // 178: neonize.CallPreAccept.basicCallMeta:type_name -> neonize.BasicCallMeta
+	141, // 179: neonize.CallPreAccept.callRemoteMeta:type_name -> neonize.CallRemoteMeta
+	83,  // 180: neonize.CallPreAccept.data:type_name -> neonize.Node
+	140, // 181: neonize.CallTransport.basicCallMeta:type_name -> neonize.BasicCallMeta
+	141, // 182: neonize.CallTransport.callRemoteMeta:type_name -> neonize.CallRemoteMeta
+	83,  // 183: neonize.CallTransport.data:type_name -> neonize.Node
+	140, // 184: neonize.CallOfferNotice.basicCallMeta:type_name -> neonize.BasicCallMeta
+	83,  // 185: neonize.CallOfferNotice.data:type_name -> neonize.Node
+	140, // 186: neonize.CallRelayLatency.basicCallMeta:type_name -> neonize.BasicCallMeta
+	83,  // 187: neonize.CallRelayLatency.data:type_name -> neonize.Node
+	140, // 188: neonize.CallTerminate.basicCallMeta:type_name -> neonize.BasicCallMeta
+	83,  // 189: neonize.CallTerminate.data:type_name -> neonize.Node
+	83,  // 190: neonize.UnknownCallEvent.node:type_name -> neonize.Node
+	21,  // 191: neonize.UndecryptableMessage.Info:type_name -> neonize.MessageInfo
+	19,  // 192: neonize.UndecryptableMessage.DecryptFailMode:type_name -> neonize.UndecryptableMessage.DecryptFailModeT
+	40,  // 193: neonize.UpdateGroupParticipantsReturnFunction.participants:type_name -> neonize.GroupParticipant
+	161, // 194: neonize.GetMessageForRetryReturnFunction.Message:type_name -> WAWebProtobufsE2E.Message
+	153, // 195: neonize.ReturnFunctionWithError.LocalChatSettings:type_name -> neonize.LocalChatSettings
+	165, // 196: neonize.ReturnFunctionWithError.PollVoteMessage:type_name -> WAWebProtobufsE2E.PollVoteMessage
+	63,  // 197: neonize.ReturnFunctionWithError.GetLinkedGroupsParticipants:type_name -> neonize.JIDArray
+	20,  // 198: neonize.SendRequestExtra.InlineBotJID:type_name -> neonize.JID
+	161, // 199: neonize.BuildMessageReturnFunction.Message:type_name -> WAWebProtobufsE2E.Message
+	200, // [200:200] is the sub-list for method output_type
+	200, // [200:200] is the sub-list for method input_type
+	200, // [200:200] is the sub-list for extension type_name
+	200, // [200:200] is the sub-list for extension extendee
+	0,   // [0:200] is the sub-list for field type_name
 }
 
 func init() { file_Neonize_proto_init() }

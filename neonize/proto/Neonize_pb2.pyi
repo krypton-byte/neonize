@@ -3193,11 +3193,17 @@ class JoinedGroup(_message.Message):
     TYPE_FIELD_NUMBER: _builtins.int
     CREATEKEY_FIELD_NUMBER: _builtins.int
     GROUPINFO_FIELD_NUMBER: _builtins.int
+    SENDER_FIELD_NUMBER: _builtins.int
+    SENDERPN_FIELD_NUMBER: _builtins.int
     Reason: _builtins.str
     Type: _builtins.str
     CreateKey: _builtins.str
     @_builtins.property
     def GroupInfo(self) -> Global___GroupInfo: ...
+    @_builtins.property
+    def Sender(self) -> Global___JID: ...
+    @_builtins.property
+    def SenderPN(self) -> Global___JID: ...
     def __init__(
         self,
         *,
@@ -3205,10 +3211,12 @@ class JoinedGroup(_message.Message):
         Type: _builtins.str | None = ...,
         CreateKey: _builtins.str | None = ...,
         GroupInfo: Global___GroupInfo | None = ...,
+        Sender: Global___JID | None = ...,
+        SenderPN: Global___JID | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["CreateKey", b"CreateKey", "GroupInfo", b"GroupInfo", "Reason", b"Reason", "Type", b"Type"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["CreateKey", b"CreateKey", "GroupInfo", b"GroupInfo", "Reason", b"Reason", "Sender", b"Sender", "SenderPN", b"SenderPN", "Type", b"Type"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["CreateKey", b"CreateKey", "GroupInfo", b"GroupInfo", "Reason", b"Reason", "Type", b"Type"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["CreateKey", b"CreateKey", "GroupInfo", b"GroupInfo", "Reason", b"Reason", "Sender", b"Sender", "SenderPN", b"SenderPN", "Type", b"Type"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
