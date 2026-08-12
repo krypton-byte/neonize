@@ -722,6 +722,8 @@ message JoinedGroup { // 21
     required string Type = 2;
     required string CreateKey = 3;
     required GroupInfo GroupInfo = 4;
+    optional JID Sender = 5;
+    optional JID SenderPN = 6;
 }
 message GroupInfoEvent { //22
     required JID JID = 1;

@@ -740,12 +740,19 @@ func EncodePresence(presence *events.Presence) defproto.Presence {
 }
 
 func EncodeJoinedGroup(joined *events.JoinedGroup) defproto.JoinedGroup {
-	return defproto.JoinedGroup{
+	joinedGroup := defproto.JoinedGroup{
 		Reason:    &joined.Reason,
-		Type:      &joined.Reason,
+		Type:      &joined.Type,
 		CreateKey: &joined.CreateKey,
 		GroupInfo: EncodeGroupInfo(&joined.GroupInfo),
 	}
+	if joined.Sender != nil {
+		joinedGroup.Sender = EncodeJidProto(*joined.Sender)
+	}
+	if joined.SenderPN != nil {
+		joinedGroup.SenderPN = EncodeJidProto(*joined.SenderPN)
+	}
+	return joinedGroup
 }
 
 func EncodeGroupDelete(delete types.GroupDelete) *defproto.GroupDelete {
