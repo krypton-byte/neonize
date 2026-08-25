@@ -1,566 +1,418 @@
 name: Release
 
-on:
-  workflow_dispatch:
-    inputs:
-      version_type:
-        description: "Type of release version bump"
-        required: true
-        type: choice
-        default: patch
-        options:
-          - major
-          - minor
-          - patch
-          - post
+# Automated semantic-release pipeline.
+#
+# Flow:
+#   1. release-version : Python Semantic Release computes the next version from
+#                        conventional commits, rewrites the version files
+#                        (neonize/__init__.py, neonize/download.py,
+#                        goneonize/version.go), generates CHANGELOG.md, commits,
+#                        tags and creates the GitHub Release.
+#   2. changes         : detects whether goneonize/** changed since the previous
+#                        release tag. If not, prebuilt shared libraries are
+#                        downloaded from that release instead of being rebuilt.
+#   3. android/zig/linux/darwin : build shared libraries (only when goneonize
+#                        changed) and platform wheels for every target.
+#   4. publish         : uploads all artifacts to the GitHub Release created in
+#                        step 1 and publishes the package to PyPI (single job).
 
-env:
- UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
- VERSION_MAJOR: ${{ github.event.inputs.version_major }}
- VERSION_MINOR: ${{ github.event.inputs.version_minor }}
- VERSION_PATCH: ${{ github.event.inputs.version_patch }}
- VERSION_POST: ${{ github.event.inputs.version_post }}
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: release-master
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
 jobs:
+  release-version:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    outputs:
+      release: ${{ steps.psr.outputs.release }}
+      version: ${{ steps.psr.outputs.version }}
+      tag: ${{ steps.psr.outputs.tag }}
+      previous_tag: ${{ steps.previous_tag.outputs.previous_tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - name: Ensure baseline SemVer tag exists (one-time bootstrap)
+        run: |
+          if ! git ls-remote --tags origin | grep -qE 'refs/tags/[0-9]+\.[0-9]+\.[0-9]+$'; then
+            git tag 0.4.3
+            git push origin 0.4.3
+            echo "Bootstrap tag 0.4.3 pushed."
+          fi
+      - name: Resolve previous release tag
+        id: previous_tag
+        run: |
+          echo "previous_tag=$(git ls-remote --tags origin \
+            | grep -oE 'refs/tags/[0-9]+\.[0-9]+\.[0-9]+$' \
+            | sed 's|refs/tags/||' | sort -V | tail -1)" >> "$GITHUB_OUTPUT"
+      - uses: astral-sh/setup-uv@v5
+      - name: Validate semantic-release configuration
+        run: |
+          uv sync --dev
+          uv run semantic-release config
+      - name: Python Semantic Release
+        id: psr
+        uses: python-semantic-release/python-semantic-release@v10.6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  changes:
+    needs: release-version
+    if: needs.release-version.outputs.release == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      goneonize: ${{ steps.filter.outputs.goneonize }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          base: ${{ needs.release-version.outputs.previous_tag }}
+          filters: |
+            goneonize:
+              - 'goneonize/**'
+              - '!goneonize/version.go'
+
   android:
+    needs: [release-version, changes]
+    if: needs.release-version.outputs.release == 'true'
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
-        fetch-tags: true
-    - uses: actions/setup-go@v4
-      with:
-        go-version: '^1.21.5'
-    - uses: actions/setup-python@v4
-      with:
-        python-version: "3.11"
-    
-    - name: Install uv
-      uses: astral-sh/setup-uv@v5
-    - name: Cache dependencies
-      uses: actions/cache@v4
-      with:
-        path: |
-          **/.venv
-        key: ${{ runner.os }}-${{ hashFiles('**/uv.lock') }}
-    - name: install deps
-      run: |
-        uv sync --dev
-        uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-        
-    - name: Install Protoc
-      uses: arduino/setup-protoc@v3
-      with:
-        version: "21.12"
-        repo-token: ${{ secrets.PAT }}
-    - name: Install protoc-gen-go
-      run: |
-        go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.10
-    - name: build
-      run: |
-        git config user.name "krypton-byte"
-        git config user.email ${{ secrets.EMAIL }}
-        git add .
-        git commit -m "chore: auto-update neonize/download.py" || true
-        update_neonize(){
-          case "${{ inputs.version_type }}" in
-            major)
-              uv run bump-my-version bump patch 
-              ;;
-            minor)
-              uv run bump-my-version bump minor
-              ;;
-            patch)
-              uv run bump-my-version bump patch
-              ;;
-            post)
-              uv run bump-my-version bump post
-              ;;
-          esac
-        }
-        # uv run task goneonize_changed
-        export CGO_ENABLED=1
-        wget https://dl.google.com/android/repository/android-ndk-r26b-linux.zip > /dev/null
-        unzip android-ndk-r26b-linux.zip > /dev/null
-        export ANDROID_NDK_HOME=$(pwd)/android-ndk-r26b
-        export PATH=$PATH:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
-        #ARM64/AARCH64
-        export CC=$(which aarch64-linux-android28-clang)
-        export CXX=$(which aarch64-linux-android28-clang++)
-        export GOOS=android
-        export GOARCH=arm64
-        update_neonize
-        uv run task build proto
-        uv run task build goneonize 
-        #ARM
-        export CC=$(which armv7a-linux-androideabi28-clang)
-        export CXX=$(which armv7a-linux-androideabi28-clang++)
-        export GOOS=android
-        export GOARCH=arm
-        uv run task build goneonize 
-        #AMD64/x86_64
-        export CC=$(which x86_64-linux-android28-clang)
-        export CXX=$(which x86_64-linux-android28-clang++)
-        export GOOS=android
-        export GOARCH=amd64
-        uv run task build goneonize 
-        #386/686
-        export CC=$(which i686-linux-android28-clang)
-        export CXX=$(which i686-linux-android28-clang++)
-        export GOOS=android
-        export GOARCH=386
-        uv run task build goneonize 
-      continue-on-error: true
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with: 
-        name: Android
-        path: neonize/*.so
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-version.outputs.tag }}
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '^1.25'
+      - uses: astral-sh/setup-uv@v5
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v3
+        with:
+          version: "34.1"
+          repo-token: ${{ secrets.PAT }}
+      - name: Install protoc-gen-go
+        run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.12
+      - name: install deps
+        run: uv sync --dev
+      - name: Download prebuilt libraries (goneonize unchanged)
+        if: needs.changes.outputs.goneonize != 'true'
+        run: |
+          mkdir LIBS
+          BASE="https://github.com/${{ github.repository }}/releases/download/${{ needs.release-version.outputs.previous_tag }}"
+          for f in neonize-android-arm64.so neonize-android-arm.so neonize-android-amd64.so neonize-android-386.so; do
+            curl -fsSL -o "LIBS/$f" "$BASE/$f"
+          done
+      - name: Build Android shared libraries (goneonize changed)
+        if: needs.changes.outputs.goneonize == 'true'
+        run: |
+          mkdir LIBS
+          export CGO_ENABLED=1
+          wget -q https://dl.google.com/android/repository/android-ndk-r26b-linux.zip
+          unzip -q android-ndk-r26b-linux.zip
+          export ANDROID_NDK_HOME=$(pwd)/android-ndk-r26b
+          export PATH=$PATH:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
+
+          # ARM64 / AARCH64
+          export CC=$(which aarch64-linux-android28-clang)
+          export CXX=$(which aarch64-linux-android28-clang++)
+          export GOOS=android GOARCH=arm64
+          uv run task build proto
+          uv run task build goneonize
+          mv neonize/*.so LIBS/
+
+          # ARM
+          export CC=$(which armv7a-linux-androideabi28-clang)
+          export CXX=$(which armv7a-linux-androideabi28-clang++)
+          export GOOS=android GOARCH=arm
+          uv run task build goneonize
+          mv neonize/*.so LIBS/
+
+          # AMD64 / x86_64
+          export CC=$(which x86_64-linux-android28-clang)
+          export CXX=$(which x86_64-linux-android28-clang++)
+          export GOOS=android GOARCH=amd64
+          uv run task build goneonize
+          mv neonize/*.so LIBS/
+
+          # 386 / i686
+          export CC=$(which i686-linux-android28-clang)
+          export CXX=$(which i686-linux-android28-clang++)
+          export GOOS=android GOARCH=386
+          uv run task build goneonize
+          mv neonize/*.so LIBS/
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android
+          path: LIBS/*
+
   zig:
+    # Windows (amd64/arm64/386) + Linux 386 wheels via zig cc cross toolchain
+    needs: [release-version, changes]
+    if: needs.release-version.outputs.release == 'true'
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
-        fetch-tags: true
-    - uses: actions/setup-go@v4
-      with:
-        go-version: '^1.21.5'
-    - uses: actions/setup-python@v4
-      with:
-        python-version: "3.11"
-    - uses: mlugg/setup-zig@v2
-    - name: Install uv
-      uses: astral-sh/setup-uv@v5
-    - name: Install Protoc
-      uses: arduino/setup-protoc@v3
-      with:
-        version: "21.12"
-        repo-token: ${{ secrets.PAT }}
-    - name: Cache dependencies
-      uses: actions/cache@v4
-      with:
-        path: |
-          **/.venv
-        key: ${{ runner.os }}-${{ hashFiles('**/uv.lock') }}
-    - name: Install protoc-gen-go
-      run: |
-        go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.10
-    - name: install deps
-      run: |
-        uv sync --dev
-        uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-    - name: build
-      run: |
-        git config user.name "krypton-byte"
-        git config user.email ${{ secrets.EMAIL }}
-        git add .
-        git commit -m "chore: auto-update neonize/download.py" || true
-        update_neonize(){
-          case "${{ inputs.version_type }}" in
-            major)
-              uv run bump-my-version bump patch 
-              ;;
-            minor)
-              uv run bump-my-version bump minor
-              ;;
-            patch)
-              uv run bump-my-version bump patch
-              ;;
-            post)
-              uv run bump-my-version bump post
-              ;;
-          esac
-        }
-        # uv run task goneonize_changed
-        mkdir LIBS
-        export CGO_ENABLED=1
-        #AMD64
-        export GOOS=windows
-        export GOARCH=amd64
-        export CC="zig cc -target x86_64-windows"
-        update_neonize
-        uv run task build proto
-        uv run task build goneonize 
-        uv build
-        uv run task repack
-        mv neonize/*.dll LIBS
-        #ARM64
-        export GOOS=windows
-        export GOARCH=arm64
-        export CC="zig cc -target aarch64-windows"
-        uv run task build goneonize 
-        uv build
-        uv run task repack
-        mv neonize/*.dll LIBS
-        #X86 / 386
-        export GOOS=windows
-        export GOARCH=386
-        export CC="zig cc -target x86-windows"
-        uv run task build goneonize 
-        uv build
-        uv run task repack
-        mv neonize/*.dll LIBS
-        #LINUX x86/386
-        export GOOS=linux
-        export GOARCH=386
-        export CC="zig cc -target x86-linux"
-        uv run task build goneonize 
-        uv build
-        uv run task repack
-        mv neonize/*.so LIBS
-        cp dist/*.whl LIBS/
-        if [[ $UV_PUBLISH_TOKEN ]];then
-          uv publish
-        fi
-      continue-on-error: true
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with: 
-        name: Zig
-        path: |
-          LIBS/*
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-version.outputs.tag }}
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '^1.25'
+      - uses: mlugg/setup-zig@v2
+      - uses: astral-sh/setup-uv@v5
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v3
+        with:
+          version: "34.1"
+          repo-token: ${{ secrets.PAT }}
+      - name: Install protoc-gen-go
+        run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.12
+      - name: install deps
+        run: uv sync --dev
+      - name: Shared library targets
+        id: targets
+        run: echo 'libs=windows-amd64.dll windows-arm64.dll windows-386.dll linux-386.so' >> "$GITHUB_OUTPUT"
+      - name: Download prebuilt libraries (goneonize unchanged)
+        if: needs.changes.outputs.goneonize != 'true'
+        run: |
+          mkdir LIBS
+          BASE="https://github.com/${{ github.repository }}/releases/download/${{ needs.release-version.outputs.previous_tag }}"
+          for f in ${{ steps.targets.outputs.libs }}; do
+            curl -fsSL -o "LIBS/neonize-$f" "$BASE/neonize-$f"
+          done
+      - name: Build shared libraries (goneonize changed)
+        if: needs.changes.outputs.goneonize == 'true'
+        run: |
+          mkdir LIBS
+          export CGO_ENABLED=1
+
+          # Windows amd64
+          export GOOS=windows GOARCH=amd64 CC="zig cc -target x86_64-windows"
+          uv run task build proto
+          uv run task build goneonize
+          mv neonize/*.dll LIBS/
+
+          # Windows arm64
+          export GOOS=windows GOARCH=arm64 CC="zig cc -target aarch64-windows"
+          uv run task build goneonize
+          mv neonize/*.dll LIBS/
+
+          # Windows 386
+          export GOOS=windows GOARCH=386 CC="zig cc -target x86-windows"
+          uv run task build goneonize
+          mv neonize/*.dll LIBS/
+
+          # Linux 386
+          export GOOS=linux GOARCH=386 CC="zig cc -target x86-linux"
+          uv run task build goneonize
+          mv neonize/*.so LIBS/
+      - name: Build wheels
+        run: |
+          for t in ${{ steps.targets.outputs.libs }}; do
+            os="${t%%-*}"; lib="${t#*-}"
+            cp "LIBS/neonize-$t" neonize/
+            export GOOS="$os" GOARCH="${lib%.*}"
+            unset CC CXX
+            uv build --wheel
+            uv run task repack
+            rm -f neonize/neonize-*
+            mv dist/*.whl LIBS/
+          done
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Zig
+          path: LIBS/*
+
   linux:
+    needs: [release-version, changes]
+    if: needs.release-version.outputs.release == 'true'
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
-        fetch-tags: true
-    - uses: actions/setup-go@v4
-      with:
-        go-version: '^1.21.5'
-    - uses: actions/setup-python@v4
-      with:
-        python-version: "3.11"
-    - name: Install uv
-      uses: astral-sh/setup-uv@v5
-    - name: Install Protoc
-      uses: arduino/setup-protoc@v3
-      with:
-        version: "21.12"
-        repo-token: ${{ secrets.PAT }}
-    - name: Install protoc-gen-go
-      run: |
-        go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.10
-    - name: Cache dependencies
-      uses: actions/cache@v4
-      with:
-        path: |
-          **/.venv
-        key: ${{ runner.os }}-${{ hashFiles('**/uv.lock') }}
-    - name: install deps
-      run: |
-        uv sync --dev
-        uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-    - name: Installing Dev Package
-      run: sudo apt update && sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
-    - name: build
-      run: |
-        git config user.name "krypton-byte"
-        git config user.email ${{ secrets.EMAIL }}
-        git add .
-        git commit -m "chore: auto-update neonize/download.py" || true
-        update_neonize(){
-            case "${{ inputs.version_type }}" in
-              major)
-                uv run bump-my-version bump patch 
-                ;;
-              minor)
-                uv run bump-my-version bump minor
-                ;;
-              patch)
-                uv run bump-my-version bump patch
-                ;;
-              post)
-                uv run bump-my-version bump post
-                ;;
-            esac
-          }
-        # uv run task goneonize_changed
-        mkdir LIBS
-        #AMD64/X86_64
-        export CGO_ENABLED=1
-        update_neonize
-        uv run task build proto
-        uv run task build goneonize 
-        uv build
-        uv run task repack
-        mv neonize/*.so LIBS
-        #ARM64/AARCH64
-        export GOOS=linux
-        export GOARCH=arm64
-        export CC=$(which aarch64-linux-gnu-gcc)
-        export CXX=$(which aarch64-linux-gnu-cpp)
-        uv run task build goneonize 
-        uv build
-        uv run task repack
-        mv neonize/*.so LIBS
-        #RISCV64
-        export GOOS=linux
-        export GOARCH=riscv64
-        export CC=$(which riscv64-linux-gnu-gcc)
-        export CXX=$(which riscv64-linux-gnu-cpp)
-        uv run task build goneonize 
-        mv neonize/*.so LIBS
-        #S390X
-        export GOOS=linux
-        export GOARCH=s390x
-        export CC=$(which s390x-linux-gnu-gcc)
-        export CXX=$(which s390x-linux-gnu-cpp)
-        uv run task build goneonize 
-        uv build
-        uv run task repack
-        mv neonize/*.so LIBS
-        cp dist/*.whl LIBS/
-        if [[ $UV_PUBLISH_TOKEN ]];then
-          uv publish
-        fi
-      continue-on-error: true
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with: 
-        name: Linux
-        path: LIBS/*
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-version.outputs.tag }}
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '^1.25'
+      - uses: astral-sh/setup-uv@v5
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v3
+        with:
+          version: "34.1"
+          repo-token: ${{ secrets.PAT }}
+      - name: Install protoc-gen-go
+        run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.12
+      - name: install deps
+        run: uv sync --dev
+      - name: Installing Dev Package
+        run: sudo apt update && sudo apt install wget gcc-aarch64-linux-gnu gcc-s390x-linux-gnu gcc-riscv64-linux-gnu -y
+      - name: Shared library targets
+        id: targets
+        run: echo 'libs=linux-amd64.so linux-arm64.so linux-s390x.so' >> "$GITHUB_OUTPUT"
+      - name: Download prebuilt libraries (goneonize unchanged)
+        if: needs.changes.outputs.goneonize != 'true'
+        run: |
+          mkdir LIBS
+          BASE="https://github.com/${{ github.repository }}/releases/download/${{ needs.release-version.outputs.previous_tag }}"
+          for f in ${{ steps.targets.outputs.libs }}; do
+            curl -fsSL -o "LIBS/$f" "$BASE/$f"
+          done
+          curl -fsSL -o "LIBS/neonize-linux-riscv64.so" "$BASE/neonize-linux-riscv64.so"
+      - name: Build shared libraries (goneonize changed)
+        if: needs.changes.outputs.goneonize == 'true'
+        run: |
+          mkdir LIBS
+          export CGO_ENABLED=1
+
+          # AMD64 / x86_64 (native)
+          unset GOOS GOARCH CC CXX
+          uv run task build proto
+          uv run task build goneonize
+          mv neonize/*.so LIBS/
+
+          # ARM64 / AARCH64
+          export GOOS=linux GOARCH=arm64
+          export CC=$(which aarch64-linux-gnu-gcc)
+          export CXX=$(which aarch64-linux-gnu-cpp)
+          uv run task build goneonize
+          mv neonize/*.so LIBS/
+
+          # RISCV64 (shared library only, no wheel)
+          export GOOS=linux GOARCH=riscv64
+          export CC=$(which riscv64-linux-gnu-gcc)
+          export CXX=$(which riscv64-linux-gnu-cpp)
+          uv run task build goneonize
+          mv neonize/*.so LIBS/
+
+          # S390X
+          export GOOS=linux GOARCH=s390x
+          export CC=$(which s390x-linux-gnu-gcc)
+          export CXX=$(which s390x-linux-gnu-cpp)
+          uv run task build goneonize
+          mv neonize/*.so LIBS/
+      - name: Build wheels
+        run: |
+          for t in ${{ steps.targets.outputs.libs }}; do
+            arch="${t##*-}"
+            cp "LIBS/$t" neonize/
+            export GOOS=linux GOARCH="$arch"
+            unset CC CXX
+            uv build --wheel
+            uv run task repack
+            rm -f neonize/neonize-*
+            mv dist/*.whl LIBS/
+          done
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Linux
+          path: LIBS/*
+
   darwin:
+    needs: [release-version, changes]
+    if: needs.release-version.outputs.release == 'true'
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
-        fetch-tags: true
-    - uses: actions/setup-go@v4
-      with:
-        go-version: '^1.21.5'
-    - uses: actions/setup-python@v4
-      with:
-        python-version: "3.11"
-    - name: Install uv
-      uses: astral-sh/setup-uv@v5
-    - name: Install Protoc
-      uses: arduino/setup-protoc@v3
-      with:
-        version: "21.12"
-        repo-token: ${{ secrets.PAT }}
-    - name: Install protoc-gen-go
-      run: |
-        go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.10
-    - name: Cache dependencies
-      uses: actions/cache@v4
-      with:
-        path: |
-          **/.venv
-        key: ${{ runner.os }}-${{ hashFiles('**/uv.lock') }}
-    - name: install deps
-      run: |
-        uv sync --dev
-        uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-    - name: build
-      run: |
-        git config user.name "krypton-byte"
-        git config user.email ${{ secrets.EMAIL }}
-        git add .
-        git commit -m "chore: auto-update neonize/download.py" || true
-        update_neonize(){
-            case "${{ inputs.version_type }}" in
-              major)
-                uv run bump-my-version bump major
-                ;;
-              minor)
-                uv run bump-my-version bump minor
-                ;;
-              patch)
-                uv run bump-my-version bump patch
-                ;;
-              post)
-                uv run bump-my-version bump post
-                ;;
-            esac
-          }
-        # uv run task goneonize_changed
-        mkdir LIBS
-        export PATH="/Users/runner/.local/bin:$PATH"
-        # Set necessary environment variables for building on Darwin
-        export CGO_ENABLED=1
-        # Build for Darwin (macOS)
-        
-        # AMD64/X86_64
-        export GOOS=darwin
-        export GOARCH=amd64
-        export CC=$(which clang)
-        export CXX=$(which clang++)
-        update_neonize
-        uv run task build proto
-        uv run task build goneonize 
-        uv build
-        uv run task repack
-        mv neonize/*.dylib LIBS/
-        
-        #ARM64/AARCH64
-        export GOOS=darwin
-        export GOARCH=arm64
-        export CC=$(which clang)
-        export CXX=$(which clang++)
-        uv run task build goneonize 
-        uv build
-        uv run task repack
-        cp dist/*.whl LIBS/
-        mv neonize/*.dylib LIBS/
-        if [[ $UV_PUBLISH_TOKEN ]];then
-          uv publish
-        fi
-      continue-on-error: true
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with: 
-        name: Darwin
-        path: LIBS/*
-  # musl:
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       include:
-  #         - arch: x86
-  #           goarch: 386
-  #         - arch: aarch64
-  #           goarch: arm64
-  #         - arch: x86_64
-  #           goarch: amd64
-  #         - arch: armv7
-  #           goarch: arm
-  #         - arch: ppc64le
-  #           goarch: ppc64le
-  #         - arch: s390x
-  #           goarch: s390x
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Setup latest Alpine Linux
-  #       uses: jirutka/setup-alpine@v1
-  #       with:
-  #         alpine-version: 'latest'
-  #         arch: ${{ matrix.arch }}
-  #         chroot: true
-  #         packages: |
-  #           linux-headers
-  #           python3-dev
-  #           go
-  #           python3
-  #           uv
-  #           musl
-  #           musl-dev
-  #           musl-utils
-  #           git
-  #           gcc
-  #           py3-pillow
-  #           build-base
-  #           zlib-dev
-  #           jpeg-dev
-  #           freetype-dev
-  #           lcms2-dev
-  #           bash
-  #     - name: Run script inside Alpine chroot as the default user (unprivileged)
-  #       run: |
-  #         export CGO_ENABLED=1
-  #         export GOARCH=${{ matrix.goarch }}
-  #         go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-  #         go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-  #         ls -la  # as you would expect, you're in your workspace directory
-  #         uv sync
-  #         uv sync --dev
-  #         uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-  #         bash bump_version.sh
-  #         uv run task build goneonize
-  #         uv build
-  #         uv run task repack
-  #       shell: alpine.sh {0}
-  #     - name: push to pypi
-  #       run: |
-  #         export UV_PUBLISH_TOKEN=${UV_PUBLISH_TOKEN}
-  #         if [[ $UV_PUBLISH_TOKEN ]];then
-  #           uv publish
-  #         fi
-  #         mkdir LIBS
-  #         mv dist/*.whl LIBS/
-  #       shell: alpine.sh {0}
-  #     - name: Upload Artifact
-  #       uses: actions/upload-artifact@v4
-  #       with: 
-  #         name: Musl ${{ matrix.arch }}
-  #         path: LIBS/*
-  release:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-version.outputs.tag }}
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '^1.25'
+      - uses: astral-sh/setup-uv@v5
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v3
+        with:
+          version: "34.1"
+          repo-token: ${{ secrets.PAT }}
+      - name: Install protoc-gen-go
+        run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.12
+      - name: install deps
+        run: uv sync --dev
+      - name: Shared library targets
+        id: targets
+        run: echo 'libs=darwin-amd64.dylib darwin-arm64.dylib' >> "$GITHUB_OUTPUT"
+      - name: Download prebuilt libraries (goneonize unchanged)
+        if: needs.changes.outputs.goneonize != 'true'
+        run: |
+          mkdir LIBS
+          BASE="https://github.com/${{ github.repository }}/releases/download/${{ needs.release-version.outputs.previous_tag }}"
+          for f in ${{ steps.targets.outputs.libs }}; do
+            curl -fsSL -o "LIBS/$f" "$BASE/$f"
+          done
+      - name: Build shared libraries (goneonize changed)
+        if: needs.changes.outputs.goneonize == 'true'
+        run: |
+          mkdir LIBS
+          export PATH="/Users/runner/.local/bin:$PATH"
+
+          # AMD64 / x86_64
+          export CGO_ENABLED=1 GOOS=darwin GOARCH=amd64
+          export CC=$(which clang)
+          export CXX=$(which clang++)
+          uv run task build proto
+          uv run task build goneonize
+          mv neonize/*.dylib LIBS/
+
+          # ARM64 / AARCH64
+          export GOOS=darwin GOARCH=arm64
+          uv run task build goneonize
+          mv neonize/*.dylib LIBS/
+      - name: Build wheels
+        run: |
+          for t in ${{ steps.targets.outputs.libs }}; do
+            arch="${t##*-}"
+            cp "LIBS/$t" neonize/
+            export CGO_ENABLED=1 GOOS=darwin GOARCH="$arch"
+            unset CC CXX
+            uv build --wheel
+            uv run task repack
+            rm -f neonize/neonize-*
+            mv dist/*.whl LIBS/
+          done
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Darwin
+          path: LIBS/*
+
+  publish:
+    needs: [release-version, changes, android, zig, linux, darwin]
+    if: needs.release-version.outputs.release == 'true'
     runs-on: ubuntu-latest
-    needs: [android, zig, linux, darwin]
+    permissions:
+      contents: write
+    env:
+      UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
-        fetch-tags: true
-    - uses: actions/setup-python@v4
-      with:
-        python-version: "3.11"
-    - name: Download Artifact
-      uses: actions/download-artifact@v4
-      with:
-        merge-multiple: true
-        path: sharedlib
-    - name: Install uv
-      uses: astral-sh/setup-uv@v5
-    - name: Bypass Rate Limit
-      run: sleep 20
-      shell: bash
-    - name: Install Protoc
-      uses: arduino/setup-protoc@v3
-      with:
-        version: "21.12"
-        repo-token: ${{ secrets.PAT }}
-    - name: install deps
-      run: |
-        git config user.name "krypton-byte"
-        git config user.email ${{ secrets.EMAIL }}
-        uv sync --dev
-        uv run task version --set-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" info
-        # Add and commit the modified file so the Git tree is clean before bumping
-        git add neonize/download.py
-        git add .
-        git commit -m "chore: auto-update neonize/download.py" || true
-        update_neonize(){
-            case "${{ inputs.version_type }}" in
-              major)
-                uv run bump-my-version bump major --allow-dirty
-                ;;
-              minor)
-                uv run bump-my-version bump minor --allow-dirty
-                ;;
-              patch)
-                uv run bump-my-version bump patch --allow-dirty
-                ;;
-              post)
-                uv run bump-my-version bump post --allow-dirty
-                ;;
-            esac
-          }
-        update_neonize
-        echo "TAG_NAME=$(uv run bump-my-version show current_version)" >> $GITHUB_ENV
-        ls -R
-        ls -lah sharedlib
-        # Push the detached HEAD to the remote master branch
-        git push origin HEAD:master
-        
-        # Explicitly push the generated tag
-        # git push origin refs/tags/$(uv run bump-my-version show current_version)
-    - name: Upload shared library to draft release
-      uses: softprops/action-gh-release@v1
-      with:
-        draft: false
-        files: |
-          sharedlib/*.so
-          sharedlib/*.dll
-          sharedlib/*.dylib
-          sharedlib/*.whl
-        generate_release_notes: true
-        tag_name: ${{ env.TAG_NAME }}
-    - name: Publish
-      run: |
-        if [[ $UV_PUBLISH_TOKEN ]];then
-          uv build && uv publish
-        fi
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+          path: sharedlib
+      - name: Upload shared libraries & wheels to the GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ls -lah sharedlib
+          gh release upload "${{ needs.release-version.outputs.tag }}" sharedlib/* --clobber
+      - uses: astral-sh/setup-uv@v5
+      - name: Publish to PyPI
+        if: env.UV_PUBLISH_TOKEN != ''
+        run: |
+          uv build
+          uv publish

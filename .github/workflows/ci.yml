@@ -1,0 +1,95 @@
+name: CI
+
+# Pull-request quality gate: lint, Go build/vet, proto sync check,
+# Python tests and an FFI smoke test against a locally built goneonize.
+# Runs on every pull request and on pushes to non-release branches.
+
+on:
+  pull_request:
+  push:
+    branches-ignore: [master]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint-python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ruff lint
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: "check"
+      - name: Ruff format check
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: "format --check"
+
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: goneonize/go.mod
+          cache-dependency-path: goneonize/go.sum
+      - name: Build
+        run: cd goneonize && go build ./...
+      - name: Vet
+        run: cd goneonize && go vet ./...
+
+  proto-sync:
+    # Ensures committed generated protobuf artifacts match Neonize.proto +
+    # defproto sources exactly (same toolchain versions as pinned here).
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '^1.25'
+      - uses: arduino/setup-protoc@v3
+        with:
+          version: "34.1"
+          repo-token: ${{ secrets.PAT }}
+      - run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.12
+      - uses: astral-sh/setup-uv@v5
+      - name: Regenerate protos and verify no drift
+        run: |
+          uv sync --dev
+          export PATH="$HOME/go/bin:$PATH"
+          uv run task build proto
+          git diff --exit-code
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: goneonize/go.mod
+          cache-dependency-path: goneonize/go.sum
+      - uses: astral-sh/setup-uv@v5
+      - name: Install dependencies
+        run: uv sync --dev
+      - name: Run tests
+        run: uv run --with pytest python -m pytest tests/ -q
+      - name: Build goneonize shared library (native)
+        run: |
+          export CGO_ENABLED=1
+          uv run task build goneonize
+      - name: FFI smoke test (binder loads built library)
+        run: |
+          uv run python -c "
+          from neonize.client import NewClient
+          from neonize.aioze.client import NewAClient
+          assert hasattr(NewClient, 'reject_call') and hasattr(NewAClient, 'reject_call')
+          from neonize.proto.Neonize_pb2 import JoinedGroup
+          j = JoinedGroup()
+          assert not j.HasField('Sender')
+          print('FFI smoke test OK')
+          "

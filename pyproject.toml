@@ -20,7 +20,7 @@ dependencies = [
 HomePage = "https://github.com/krypton-byte/neonize"
 [dependency-groups]
 dev = [
-    "bump-my-version>=1.2.6",
+    "python-semantic-release>=10.6",
     "mypy-protobuf>=3.6.0",
     "taskipy>=1.14.1",
     "types-requests>=2.32.0.20241016",
@@ -52,6 +52,25 @@ docs-build = {cmd = "mkdocs build", help = "Build MkDocs documentation to site/ 
 docs-deploy = {cmd = "mkdocs gh-deploy", help = "Deploy documentation to GitHub Pages"}
 docs-clean = {cmd = "rm -rf site/", help = "Clean built documentation"}
 docs-validate = {cmd = "mkdocs build --strict", help = "Build docs with strict validation"}
+
+[tool.semantic_release]
+version_variables = [
+    "neonize/__init__.py:__version__",
+    "neonize/download.py:__GONEONIZE_VERSION__",
+    "goneonize/version.go:version",
+]
+tag_format = "{version}"
+allow_zero_version = true
+major_on_zero = false
+commit_parser = "conventional"
+
+[tool.semantic_release.branches.master]
+match = "(master)"
+prerelease = false
+prerelease_token = "rc"
+
+[tool.semantic_release.changelog.default_templates]
+changelog_file = "CHANGELOG.md"
 
 [tool.uv.workspace]
 exclude = ["docs/","goneonize/"]
