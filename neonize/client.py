@@ -199,6 +199,11 @@ _log_ = logging.getLogger(__name__)
 
 class ContactStore:
     def __init__(self, uuid: bytes) -> None:
+        """Initializes the contact store bound to a specific client session.
+
+        :param uuid: Unique identifier of the client session that owns this store.
+        :type uuid: bytes
+        """
         self.uuid = uuid
         self.__client = gocode
 
@@ -420,6 +425,13 @@ class NewClient:
         _log_.debug("🔨 Creating a NewClient instance")
 
     def __onLoginStatus(self, uuid: int, status: int):
+        """Internal callback invoked when a client's login status changes.
+
+        :param uuid: Numeric identifier of the client session reporting the status.
+        :type uuid: int
+        :param status: Login status code reported by the underlying client.
+        :type status: int
+        """
         print(status)
 
     def __onQr(self, uuid: int, qr_protoaddr: int):
@@ -1172,6 +1184,30 @@ class NewClient:
         animated_gif: bool = False,
         passthrough: bool = False,
     ) -> List[Message]:
+        """Builds a list of sticker-pack messages from image or video files.
+
+        Every file is converted to WebP and grouped into packs of at most 60
+        stickers. Invalid stickers larger than 1 MB are dropped automatically to
+        prevent broken packs. When more than one pack is produced, each pack name
+        is suffixed with its index (e.g. ``"Sticker pack (2)"``).
+
+        :param files: List of file paths, URLs or binary data of the stickers.
+        :type files: list
+        :param quoted: Optional message to quote (reply to). Defaults to None.
+        :type quoted: Optional[Message], optional
+        :param packname: Name of the sticker pack. Defaults to "Sticker pack".
+        :type packname: str, optional
+        :param publisher: Publisher name embedded in the pack metadata. Defaults to "".
+        :type publisher: str, optional
+        :param crop: Whether to crop media into a square 512x512 frame. Defaults to False.
+        :type crop: bool, optional
+        :param animated_gif: Whether to preserve transparency so animated stickers keep working. Defaults to False.
+        :type animated_gif: bool, optional
+        :param passthrough: Whether to convert media without resizing. Defaults to False.
+        :type passthrough: bool, optional
+        :return: One ready-to-send message per sticker-pack chunk.
+        :rtype: List[Message]
+        """
         p_func = partial(
             convert_to_webp,
             name=packname,
@@ -1497,6 +1533,22 @@ class NewClient:
         msg_association: MessageAssociation,
         **kwargs,
     ) -> Message:
+        """Builds a single album entry (image or video) linked to an album.
+
+        This is a low-level helper used by :meth:`send_album`; most callers
+        should use that method instead.
+
+        :param file: File path, URL or binary data of the media.
+        :type file: str | bytes
+        :param media_type: Kind of media to build, either ``"image"`` or ``"video"``.
+        :type media_type: str
+        :param msg_association: Album association linking this message to its album.
+        :type msg_association: MessageAssociation
+        :keyword caption: Optional caption displayed under the media.
+        :kwtype caption: Optional[str]
+        :return: The built album-content message.
+        :rtype: Message
+        """
         build_message = (
             self.build_image_message if media_type == "image" else self.build_video_message
         )
@@ -1695,6 +1747,30 @@ class NewClient:
         ghost_mentions: Optional[str] = None,
         mentions_are_lids: bool = False,
     ):
+        """Builds a document message that can be sent with :meth:`send_message`.
+
+        The file is uploaded automatically; when *mimetype* is omitted it is
+        detected from the file content.
+
+        :param file: File path, URL or binary data of the document.
+        :type file: str | bytes
+        :param caption: Optional caption displayed under the document. Defaults to None.
+        :type caption: Optional[str], optional
+        :param title: Optional title of the document. Defaults to None.
+        :type title: Optional[str], optional
+        :param filename: Optional file name shown to recipients. Defaults to None.
+        :type filename: Optional[str], optional
+        :param mimetype: MIME type of the document; auto-detected when omitted. Defaults to None.
+        :type mimetype: Optional[str], optional
+        :param quoted: Optional message to quote (reply to). Defaults to None.
+        :type quoted: Optional[Message], optional
+        :param ghost_mentions: Optional text used to resolve @mentions instead of the caption. Defaults to None.
+        :type ghost_mentions: Optional[str], optional
+        :param mentions_are_lids: Whether resolved mentions are LID JIDs. Defaults to False.
+        :type mentions_are_lids: bool, optional
+        :return: The built document message.
+        :rtype: Message
+        """
         io = BytesIO(get_bytes_from_name_or_url(file))
         io.seek(0)
         buff = io.read()
@@ -1828,10 +1904,12 @@ class NewClient:
         return upload_model.UploadResponse
 
     @overload
-    def download_any(self, message: Message) -> bytes: ...
+    def download_any(self, message: Message) -> bytes:
+        """Overload of :meth:`download_any` returning the content as bytes."""
 
     @overload
-    def download_any(self, message: Message, path: str) -> NoneType: ...
+    def download_any(self, message: Message, path: str) -> NoneType:
+        """Overload of :meth:`download_any` saving the content to *path*."""
 
     def download_any(
         self, message: Message, path: Optional[str] = None
@@ -2293,6 +2371,13 @@ class NewClient:
             raise LinkGroupError(err)
 
     def logout(self):
+        """Logs the connected account out and invalidates its session credentials.
+
+        After a successful logout the stored session can no longer be reused;
+        a new pairing (QR or pair code) is required on next connect.
+
+        :raises LogoutError: If the logout request fails.
+        """
         err = self.__client.Logout(self.uuid).decode()
         if err:
             raise LogoutError(err)
@@ -3230,6 +3315,22 @@ class NewClient:
         metadata: MessageApplication.Metadata,
         extra: SendRequestExtra,
     ):
+        """Sends a native consumer-application message with custom metadata.
+
+        This is a low-level API intended for advanced use cases such as
+        interactive business messages; most bots should prefer
+        :meth:`send_message` instead.
+
+        :param to: The JID (Jabber Identifier) of the recipient.
+        :type to: JID
+        :param message: The consumer-application protobuf message to send.
+        :type message: ConsumerApplication
+        :param metadata: Application metadata describing how the message is handled.
+        :type metadata: MessageApplication.Metadata
+        :param extra: Extra send-request options such as peer-message flag or timeout.
+        :type extra: SendRequestExtra
+        :raises SendMessageError: If the message could not be delivered.
+        """
         to_buff = to.SerializeToString()
         message_buff = message.SerializeToString()
         metadata_buff = metadata.SerializeToString()
@@ -3252,6 +3353,12 @@ class NewClient:
             raise SendMessageError(result.Error)
 
     def send_presence(self, presence: Presence):
+        """Broadcasts the presence status of the connected account.
+
+        :param presence: Presence to broadcast, e.g. ``Presence.AVAILABLE``.
+        :type presence: Presence
+        :raises SendPresenceError: If the presence update fails.
+        """
         response = self.__client.SendPresence(self.uuid, presence.value)
         if response:
             raise SendPresenceError(response)
