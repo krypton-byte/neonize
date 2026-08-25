@@ -21,9 +21,11 @@ from neonize.aioze.events import MessageEv, ConnectedEv
 
 client = NewAClient("async_bot")
 
+
 @client.event(ConnectedEv)
 async def on_connected(client: NewAClient, event: ConnectedEv):
     print("✅ Connected!")
+
 
 @client.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv):
@@ -31,11 +33,13 @@ async def on_message(client: NewAClient, event: MessageEv):
     if text == "ping":
         await client.reply_message("pong!", event)
 
-async def main():
-    await client.connect()   # captures the running event loop internally
-    await client.idle()       # keeps the client alive
 
-asyncio.run(main())          # ← standard entry point
+async def main():
+    await client.connect()  # captures the running event loop internally
+    await client.idle()  # keeps the client alive
+
+
+asyncio.run(main())  # ← standard entry point
 ```
 
 ## Event Loop Architecture
@@ -97,18 +101,22 @@ client_factory = ClientFactory("sessions.db")
 for device in client_factory.get_all_devices():
     client_factory.new_client(device.JID)
 
+
 @client_factory.event(ConnectedEv)
 async def on_connected(client: NewAClient, event: ConnectedEv):
     print("⚡ Client connected")
+
 
 @client_factory.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv):
     if event.Message.conversation == "ping":
         await client.reply_message("pong!", event)
 
+
 async def main():
-    await client_factory.run()       # connects all clients
+    await client_factory.run()  # connects all clients
     await client_factory.idle_all()  # keeps them alive
+
 
 asyncio.run(main())  # ← single entry point for all sessions
 ```
@@ -124,12 +132,14 @@ from neonize.utils.jid import build_jid
 
 client = NewAClient("db.sqlite3")
 
+
 async def main():
     await client.connect()
     while not client.connected:
         await asyncio.sleep(0.1)
     await client.send_message(build_jid("1234567890"), "Hello!")
     await client.stop()
+
 
 asyncio.run(main())
 ```
@@ -147,18 +157,22 @@ from neonize.utils.jid import build_jid
 
 wa = NewAClient("fastapi_bot")
 
+
 @wa.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv):
     if event.Message.conversation == "status":
         await client.reply_message("API is running ✅", event)
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await wa.connect()   # uses FastAPI's running loop
+    await wa.connect()  # uses FastAPI's running loop
     yield
     await wa.disconnect()
 
+
 app = FastAPI(lifespan=lifespan)
+
 
 @app.get("/send")
 async def send(phone: str, msg: str):

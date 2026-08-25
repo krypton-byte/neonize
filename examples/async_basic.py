@@ -3,20 +3,20 @@ import logging
 import os
 import sys
 from datetime import timedelta
+
 from neonize.aioze.client import NewAClient
-from neonize.aioze.events import ConnectedEv, MessageEv, PairStatusEv, ReceiptEv, CallOfferEv, event
+from neonize.aioze.events import CallOfferEv, ConnectedEv, MessageEv, PairStatusEv, ReceiptEv, event
+from neonize.ext.interactive_message.button import ButtonMessage
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
-    Message,
+    DeviceListMetadata,
     FutureProofMessage,
     InteractiveMessage,
+    Message,
     MessageContextInfo,
-    DeviceListMetadata,
 )
 from neonize.types import MessageServerID
 from neonize.utils import log
 from neonize.utils.enum import ReceiptType, VoteType
-import signal
-from neonize.ext.interactive_message.button import ButtonMessage
 
 btn = (
     ButtonMessage()

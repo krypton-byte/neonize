@@ -8,7 +8,6 @@ import tempfile
 import uuid
 from dataclasses import dataclass
 from enum import Enum
-from typing import List, Optional, Tuple
 
 from .iofile import (
     URL_MATCH,
@@ -97,34 +96,34 @@ class Stream:
     codec_long_name: str
     codec_name: str
     r_frame_rate: str
-    closed_captions: Optional[int] = None
-    color_range: Optional[str] = None
-    display_aspect_ratio: Optional[str] = None
-    color_transfer: Optional[str] = None
-    is_avc: Optional[str] = None
-    color_primaries: Optional[str] = None
-    film_grain: Optional[int] = None
-    color_space: Optional[str] = None
-    refs: Optional[int] = None
-    level: Optional[int] = None
-    nal_length_size: Optional[str] = None
-    chroma_location: Optional[str] = None
-    has_b_frames: Optional[int] = None
-    pix_fmt: Optional[str] = None
-    sample_aspect_ratio: Optional[str] = None
-    bits_per_raw_sample: Optional[str] = None
-    profile: Optional[str] = None
-    field_order: Optional[str] = None
-    width: Optional[int] = None
-    height: Optional[int] = None
-    coded_width: Optional[int] = None
-    coded_height: Optional[int] = None
-    bits_per_sample: Optional[int] = None
-    sample_fmt: Optional[str] = None
-    channel_layout: Optional[str] = None
-    initial_padding: Optional[int] = None
-    channels: Optional[int] = None
-    sample_rate: Optional[str] = None
+    closed_captions: int | None = None
+    color_range: str | None = None
+    display_aspect_ratio: str | None = None
+    color_transfer: str | None = None
+    is_avc: str | None = None
+    color_primaries: str | None = None
+    film_grain: int | None = None
+    color_space: str | None = None
+    refs: int | None = None
+    level: int | None = None
+    nal_length_size: str | None = None
+    chroma_location: str | None = None
+    has_b_frames: int | None = None
+    pix_fmt: str | None = None
+    sample_aspect_ratio: str | None = None
+    bits_per_raw_sample: str | None = None
+    profile: str | None = None
+    field_order: str | None = None
+    width: int | None = None
+    height: int | None = None
+    coded_width: int | None = None
+    coded_height: int | None = None
+    bits_per_sample: int | None = None
+    sample_fmt: str | None = None
+    channel_layout: str | None = None
+    initial_padding: int | None = None
+    channels: int | None = None
+    sample_rate: str | None = None
 
 
 @dataclass
@@ -175,11 +174,11 @@ class FFProbeInfo:
     """
 
     format: Format
-    streams: List[Stream]
+    streams: list[Stream]
 
 
 class AFFmpeg:
-    def __init__(self, data: bytes | str, prefix: Optional[str] = None) -> None:
+    def __init__(self, data: bytes | str, prefix: str | None = None) -> None:
         """
         Initializes the FFmpeg class. If the data is a URL, it retrieves the data from the URL
         and writes it to a temporary file. If the data is a string that is not a URL, it treats
@@ -300,7 +299,7 @@ class AFFmpeg:
         os.remove(temp)
         return buf
 
-    async def call(self, cmd: List[str]):
+    async def call(self, cmd: list[str]):
         cmd_str = shlex.join(cmd) if any(" " in part for part in cmd) else " ".join(cmd)
         popen = await asyncio.create_subprocess_shell(
             cmd_str if os.name == "nt" else shlex.join(cmd),
@@ -368,7 +367,7 @@ class AFFmpeg:
     async def extract_thumbnail(
         self,
         format: ImageFormat = ImageFormat.JPG,
-        size: Optional[Tuple[int, int] | int] = 200,
+        size: tuple[int, int] | int | None = 200,
     ) -> bytes:
         """
         Extracts a thumbnail from a video file.
@@ -392,7 +391,7 @@ class AFFmpeg:
                             "scale='if(gt(iw,ih),%i,-1)':'if(gt(iw,ih),-1,%i)'" % (size, size),
                         ]
                     )
-        elif isinstance(size, Tuple):
+        elif isinstance(size, tuple):
             extra.extend(["-s", "x".join(map(str, size))])
         return await self.call(
             [
@@ -433,7 +432,7 @@ class AFFmpeg:
                 ]
             )
         )
-        streams: List[dict] = data["streams"]
+        streams: list[dict] = data["streams"]
         format: dict = data["format"]
         return FFProbeInfo(
             format=Format(
@@ -452,7 +451,7 @@ class AFFmpeg:
 
 
 class FFmpeg:
-    def __init__(self, data: bytes | str, prefix: Optional[str] = None) -> None:
+    def __init__(self, data: bytes | str, prefix: str | None = None) -> None:
         """
         Initializes the FFmpeg class. If the data is a URL, it retrieves the data from the URL
         and writes it to a temporary file. If the data is a string that is not a URL, it treats
@@ -571,7 +570,7 @@ class FFmpeg:
         os.remove(temp)
         return buf
 
-    def call(self, cmd: List[str]):
+    def call(self, cmd: list[str]):
         popen = subprocess.Popen(
             cmd,
             stderr=subprocess.PIPE,
@@ -638,7 +637,7 @@ class FFmpeg:
     def extract_thumbnail(
         self,
         format: ImageFormat = ImageFormat.JPG,
-        size: Optional[Tuple[int, int] | int] = 200,
+        size: tuple[int, int] | int | None = 200,
     ) -> bytes:
         """
         Extracts a thumbnail from a video file.
@@ -662,7 +661,7 @@ class FFmpeg:
                             "scale='if(gt(iw,ih),%i,-1)':'if(gt(iw,ih),-1,%i)'" % (size, size),
                         ]
                     )
-        elif isinstance(size, Tuple):
+        elif isinstance(size, tuple):
             extra.extend(["-s", "x".join(map(str, size))])
         return self.call(
             [
@@ -703,7 +702,7 @@ class FFmpeg:
                 ]
             )
         )
-        streams: List[dict] = data["streams"]
+        streams: list[dict] = data["streams"]
         format: dict = data["format"]
         return FFProbeInfo(
             format=Format(

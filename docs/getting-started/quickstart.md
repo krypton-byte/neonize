@@ -17,21 +17,24 @@ from neonize.events import MessageEv, ConnectedEv, event
 # Initialize the client
 client = NewClient("my_first_bot")
 
+
 @client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     print("✅ Bot connected successfully!")
     print(f"📱 Logged in as: {event.device.User}")
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     # Get message text
     text = event.Message.conversation or event.Message.extendedTextMessage.text
-    
+
     # Respond to specific messages
     if text == "ping":
         client.reply_message("pong! 🏓", event)
     elif text == "hello":
         client.reply_message("Hello! 👋 How can I help you?", event)
+
 
 # Connect and start the bot
 client.connect()
@@ -128,9 +131,11 @@ from neonize.aioze.events import MessageEv, ConnectedEv
 
 client = NewAClient("async_bot")
 
+
 @client.event(ConnectedEv)
 async def on_connected(client: NewAClient, event: ConnectedEv):
     print("✅ Async bot connected!")
+
 
 @client.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv):
@@ -138,9 +143,11 @@ async def on_message(client: NewAClient, event: MessageEv):
     if text == "ping":
         await client.reply_message("pong! 🏓", event)
 
+
 async def main():
     await client.connect()
     await client.idle()  # Keep receiving events
+
 
 asyncio.run(main())
 ```
@@ -190,10 +197,7 @@ client = NewClient("my_bot", database="./my_bot.db")
 ### PostgreSQL (Production)
 
 ```python
-client = NewClient(
-    "my_bot",
-    database="postgresql://user:password@localhost:5432/whatsapp"
-)
+client = NewClient("my_bot", database="postgresql://user:password@localhost:5432/whatsapp")
 ```
 
 ## Common Patterns
@@ -234,25 +238,13 @@ recipient = build_jid("1234567890")
 client.send_message(recipient, "Hello!")
 
 # Send image
-client.send_image(
-    recipient,
-    "path/to/image.jpg",
-    caption="Check this out!"
-)
+client.send_image(recipient, "path/to/image.jpg", caption="Check this out!")
 
 # Send video
-client.send_video(
-    recipient,
-    "path/to/video.mp4",
-    caption="Amazing video"
-)
+client.send_video(recipient, "path/to/video.mp4", caption="Amazing video")
 
 # Send document
-client.send_document(
-    recipient,
-    "path/to/document.pdf",
-    filename="report.pdf"
-)
+client.send_document(recipient, "path/to/document.pdf", filename="report.pdf")
 ```
 
 ### Replying to Messages
@@ -262,12 +254,10 @@ client.send_document(
 def on_message(client: NewClient, event: MessageEv):
     # Reply to the message
     client.reply_message("I received your message!", event)
-    
+
     # Reply with link preview
     client.reply_message(
-        "Check this out: https://github.com/krypton-byte/neonize",
-        event,
-        link_preview=True
+        "Check this out: https://github.com/krypton-byte/neonize", event, link_preview=True
     )
 ```
 

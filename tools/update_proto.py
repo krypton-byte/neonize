@@ -1,15 +1,14 @@
-from typing import Optional
-from colorama import Fore, init
-import shutil
-from pathlib import Path
+import argparse
 import os
 import platform
-import requests
-from tqdm import tqdm
+import shutil
 import zipfile
 from dataclasses import dataclass
-import argparse
+from pathlib import Path
 
+import requests
+from colorama import Fore, init
+from tqdm import tqdm
 
 os_name = platform.system().lower()
 arch_name = platform.machine().lower()
@@ -29,7 +28,7 @@ class FileValue:
 @dataclass
 class ProtoCommit:
     upgradeable: bool
-    sha: Optional[str]
+    sha: str | None
 
 
 def remove_not_proto(path: Path, value: FileValue):

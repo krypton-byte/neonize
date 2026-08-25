@@ -21,9 +21,10 @@ def get_message_type(message: Message) -> MediaMessageType | TextMessageType:
     :rtype: MediaMessageType | TextMessageType
     """
     for field_name, v in message.ListFields():
-        if field_name.name.endswith(("Message", "MessageV2", "MessageV3")):
-            return v
-        elif field_name.name == "conversation":
+        if (
+            field_name.name.endswith(("Message", "MessageV2", "MessageV3"))
+            or field_name.name == "conversation"
+        ):
             return v
     raise IndexError()
 

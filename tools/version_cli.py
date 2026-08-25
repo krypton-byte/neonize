@@ -1,7 +1,9 @@
-from colorama import init
 import argparse
-from .version import Version
+
+from colorama import init
+
 from .github import Github
+from .version import Version
 
 init()
 

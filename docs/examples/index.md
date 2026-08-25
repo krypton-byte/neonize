@@ -27,11 +27,13 @@ from neonize.events import MessageEv, event
 
 client = NewClient("echo_bot")
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     text = event.Message.conversation
     if text:
         client.reply_message(f"You said: {text}", event)
+
 
 client.connect()
 event.wait()
@@ -47,17 +49,19 @@ from neonize.events import MessageEv, ConnectedEv, event
 
 client = NewClient("command_bot")
 
+
 @client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     print(f"✅ Bot connected as {event.device.User}")
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     text = event.Message.conversation or ""
-    
+
     if text.startswith("/"):
         command = text.split()[0][1:]  # Remove /
-        
+
         if command == "help":
             help_text = """
 Available commands:
@@ -67,18 +71,20 @@ Available commands:
 /info - Bot information
             """
             client.reply_message(help_text, event)
-        
+
         elif command == "ping":
             client.reply_message("Pong! 🏓", event)
-        
+
         elif command == "time":
             from datetime import datetime
+
             now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             client.reply_message(f"🕐 {now}", event)
-        
+
         elif command == "info":
             info = f"Bot: Neonize Command Bot\nVersion: 1.0"
             client.reply_message(info, event)
+
 
 client.connect()
 event.wait()
@@ -102,13 +108,15 @@ AUTO_REPLIES = {
     "bye": "Goodbye! Have a great day! 👋",
 }
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     text = (event.Message.conversation or "").lower().strip()
-    
+
     # Check if message matches any auto-reply rule
     if text in AUTO_REPLIES:
         client.reply_message(AUTO_REPLIES[text], event)
+
 
 client.connect()
 event.wait()
@@ -127,9 +135,11 @@ from neonize.aioze.events import ConnectedEv, MessageEv
 
 client = NewAClient("async_bot.sqlite3")
 
+
 @client.event(ConnectedEv)
 async def on_connected(client: NewAClient, event: ConnectedEv):
     print("⚡ Connected")
+
 
 @client.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv):
@@ -137,9 +147,11 @@ async def on_message(client: NewAClient, event: MessageEv):
     if text == "ping":
         await client.reply_message("pong!", event)
 
+
 async def main():
     await client.connect()
     await client.idle()
+
 
 asyncio.run(main())
 ```
@@ -158,18 +170,22 @@ factory = ClientFactory("sessions.db")
 for device in factory.get_all_devices():
     factory.new_client(device.JID)
 
+
 @factory.event(ConnectedEv)
 async def on_connected(client: NewAClient, event: ConnectedEv):
     print("⚡ Client connected")
+
 
 @factory.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv):
     if event.Message.conversation == "ping":
         await client.reply_message("pong!", event)
 
+
 async def main():
     await factory.run()
     await factory.idle_all()
+
 
 asyncio.run(main())
 ```

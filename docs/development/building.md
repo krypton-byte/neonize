@@ -238,10 +238,12 @@ After building, verify the installation:
 
 ```python
 import neonize
+
 print(neonize.__version__)
 
 # Test basic functionality
 from neonize.client import NewClient
+
 client = NewClient("test")
 print("✅ Build successful!")
 ```

@@ -2,10 +2,8 @@ import io
 import os
 import re
 import tempfile
-import typing
 import zipfile
 from pathlib import Path
-from typing import Optional
 
 import httpx
 import requests
@@ -15,7 +13,7 @@ from .log import log
 URL_MATCH = re.compile(r"^https?://")
 
 
-def get_bytes_from_name_or_url(args: typing.Union[str, bytes]) -> bytes:
+def get_bytes_from_name_or_url(args: str | bytes) -> bytes:
     """Gets bytes from either a file name or a URL.
 
     :param args: Either a file name (str) or binary data (bytes).
@@ -37,7 +35,7 @@ def get_bytes_from_name_or_url(args: typing.Union[str, bytes]) -> bytes:
         return args
 
 
-async def get_bytes_from_name_or_url_async(args: typing.Union[str, bytes]) -> bytes:
+async def get_bytes_from_name_or_url_async(args: str | bytes) -> bytes:
     """Gets bytes from either a file name or a URL.
 
     :param args: Either a file name (str) or binary data (bytes).
@@ -60,7 +58,7 @@ async def get_bytes_from_name_or_url_async(args: typing.Union[str, bytes]) -> by
         return args
 
 
-def write_from_bytesio_or_filename(fn_or_bytesio: typing.Union[io.BytesIO, str], data: bytes):
+def write_from_bytesio_or_filename(fn_or_bytesio: io.BytesIO | str, data: bytes):
     """Writes bytes to either a BytesIO object or a file specified by its name.
 
     :param fn_or_bytesio: Either a BytesIO object or the name of the file to write data to.
@@ -78,9 +76,9 @@ def write_from_bytesio_or_filename(fn_or_bytesio: typing.Union[io.BytesIO, str],
 class TemporaryFile:
     def __init__(
         self,
-        prefix: Optional[str] = None,
-        suffix: Optional[str] = None,
-        dir: Optional[str] = None,
+        prefix: str | None = None,
+        suffix: str | None = None,
+        dir: str | None = None,
         touch: bool = True,
     ) -> None:
         """

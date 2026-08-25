@@ -44,15 +44,11 @@ from neonize.client import NewClient
 
 # PostgreSQL connection
 client = NewClient(
-    "production_bot",
-    database="postgresql://username:password@localhost:5432/whatsapp"
+    "production_bot", database="postgresql://username:password@localhost:5432/whatsapp"
 )
 
 # With SSL
-client = NewClient(
-    "production_bot",
-    database="postgresql://user:pass@host:5432/db?sslmode=require"
-)
+client = NewClient("production_bot", database="postgresql://user:pass@host:5432/db?sslmode=require")
 
 # Connection pooling
 database_url = "postgresql://user:pass@host:5432/db?pool_min_conns=5&pool_max_conns=20"
@@ -91,8 +87,7 @@ import logging
 
 # Set logging level
 logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
 from neonize.client import NewClient
@@ -106,11 +101,11 @@ client = NewClient("debug_bot")
 import logging
 
 # Create custom logger
-logger = logging.getLogger('neonize')
+logger = logging.getLogger("neonize")
 logger.setLevel(logging.INFO)
 
 # Add file handler
-fh = logging.FileHandler('whatsapp.log')
+fh = logging.FileHandler("whatsapp.log")
 fh.setLevel(logging.INFO)
 
 # Add console handler
@@ -118,9 +113,7 @@ ch = logging.StreamHandler()
 ch.setLevel(logging.WARNING)
 
 # Create formatter
-formatter = logging.Formatter(
-    '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 fh.setFormatter(formatter)
 ch.setFormatter(formatter)
 
@@ -163,11 +156,13 @@ from neonize.aioze.client import NewAClient
 
 client = NewAClient("my_async_bot")
 
+
 async def main():
     # connect() internally calls asyncio.get_running_loop()
     # to capture the event loop for dispatching events
     await client.connect()
     await client.idle()
+
 
 asyncio.run(main())
 ```
@@ -225,10 +220,7 @@ load_dotenv()
 
 from neonize.client import NewClient
 
-client = NewClient(
-    os.getenv("BOT_NAME"),
-    database=os.getenv("WHATSAPP_DB_URL")
-)
+client = NewClient(os.getenv("BOT_NAME"), database=os.getenv("WHATSAPP_DB_URL"))
 ```
 
 ## Configuration Best Practices
@@ -260,12 +252,14 @@ client = NewClient("bot", database=DATABASE)
 from dataclasses import dataclass
 from neonize.client import NewClient
 
+
 @dataclass
 class Config:
     bot_name: str = "my_bot"
     database_url: str = "./bot.db"
     log_level: str = "INFO"
     max_retries: int = 3
+
 
 config = Config()
 client = NewClient(config.bot_name, database=config.database_url)
@@ -277,20 +271,19 @@ client = NewClient(config.bot_name, database=config.database_url)
 import os
 from neonize.client import NewClient
 
+
 def validate_config():
     """Validate required configuration."""
     required_vars = ["BOT_NAME", "DATABASE_URL"]
     missing = [var for var in required_vars if not os.getenv(var)]
-    
+
     if missing:
         raise ValueError(f"Missing required config: {', '.join(missing)}")
 
+
 validate_config()
 
-client = NewClient(
-    os.getenv("BOT_NAME"),
-    database=os.getenv("DATABASE_URL")
-)
+client = NewClient(os.getenv("BOT_NAME"), database=os.getenv("DATABASE_URL"))
 ```
 
 ## Performance Tuning
@@ -300,10 +293,7 @@ client = NewClient(
 ```python
 # Optimize PostgreSQL connection pool
 database_url = (
-    "postgresql://user:pass@host:5432/db"
-    "?pool_min_conns=10"
-    "&pool_max_conns=50"
-    "&pool_timeout=30"
+    "postgresql://user:pass@host:5432/db?pool_min_conns=10&pool_max_conns=50&pool_timeout=30"
 )
 
 client = NewClient("bot", database=database_url)

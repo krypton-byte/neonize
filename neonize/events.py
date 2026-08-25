@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import ctypes
 import logging
+from collections.abc import Callable
 from threading import Event as EventThread
-from typing import TYPE_CHECKING, Callable, Dict, Type, TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
 import segno
 from google.protobuf.message import Message
@@ -56,7 +57,7 @@ log = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from .client import ClientFactory, NewClient
 EventType = TypeVar("EventType", bound=Message)
-EVENT_TO_INT: Dict[Type[Message], int] = {
+EVENT_TO_INT: dict[type[Message], int] = {
     Device: 0,
     QREv: 1,
     PairStatusEv: 2,
@@ -99,7 +100,7 @@ EVENT_TO_INT: Dict[Type[Message], int] = {
     UnknownCallEventEV: 43,
     UndecryptableMessageEv: 44,
 }
-INT_TO_EVENT: Dict[int, Type[Message]] = {code: ev for ev, code in EVENT_TO_INT.items()}
+INT_TO_EVENT: dict[int, type[Message]] = {code: ev for ev, code in EVENT_TO_INT.items()}
 
 event = EventThread()
 
@@ -107,10 +108,10 @@ event = EventThread()
 class EventsManager:
     def __init__(self, client_factory: ClientFactory):
         self.client_factory = client_factory
-        self.list_func: Dict[int, Callable[[NewClient, Message], None]] = {}
+        self.list_func: dict[int, Callable[[NewClient, Message], None]] = {}
 
     def __call__(
-        self, event: Type[EventType]
+        self, event: type[EventType]
     ) -> Callable[[Callable[[NewClient, EventType], None]], None]:
         """
         Registers a callback function for a specific event type.
@@ -138,7 +139,7 @@ class Event:
         """
         self.client = client
         self.paircode_cb = self.paircode(self.default_paircode_cb)
-        self.list_func: Dict[int, Callable[[NewClient, Message], None]] = {}
+        self.list_func: dict[int, Callable[[NewClient, Message], None]] = {}
         self._qr = self.__onqr
 
     def execute(self, uuid: int, binary: int, size: int, code: int):  # Demands Attention
@@ -217,7 +218,7 @@ class Event:
             log.info("Pair code: %s", data)
 
     def __call__(
-        self, event: Type[EventType]
+        self, event: type[EventType]
     ) -> Callable[[Callable[[NewClient, EventType], None]], None]:
         """
         Registers a callback function for a specific event type.

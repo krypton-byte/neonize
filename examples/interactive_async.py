@@ -6,17 +6,17 @@ import sys
 
 from neonize.aioze.client import NewAClient
 from neonize.aioze.events import ConnectedEv, MessageEv, PairStatusEv, event
-from neonize.utils import log
 from neonize.ext.interactive_message import (
+    AIRichMessage,
     ButtonMessage,
     ButtonV2Message,
     CarouselMessage,
-    AIRichMessage,
+    Post,
     Product,
     Reel,
-    Post,
     Source,
 )
+from neonize.utils import log
 
 sys.path.insert(0, os.getcwd())
 

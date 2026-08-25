@@ -1,7 +1,7 @@
 import os
-from subprocess import call
-from pathlib import Path
 import shlex
+from pathlib import Path
+from subprocess import call
 
 workdir = Path(__file__).parent.parent
 

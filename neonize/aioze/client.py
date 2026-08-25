@@ -8,18 +8,13 @@ import re
 import struct
 import time
 import traceback
-import typing
+from collections.abc import Awaitable, Callable, Sequence
 from datetime import timedelta
 from io import BytesIO
 from os import urandom
 from typing import (
     Any,
-    Awaitable,
-    Callable,
-    List,
-    Optional,
     ParamSpec,
-    Sequence,
     TypeVar,
     overload,
 )
@@ -32,14 +27,12 @@ from linkpreview.exceptions import MaximumContentSizeError
 from PIL import Image, ImageSequence
 from requests.exceptions import HTTPError
 
-from ..ext.interactive_message.base import CustomInteractiveMessage
-
 from .._binder import (
+    ProxySettings,
     free_bytes,
     func_callback_bytes,
     func_callback_bytes2,
     func_string,
-    ProxySettings,
     gocode,
 )
 from ..builder import build_edit, build_revoke
@@ -108,6 +101,7 @@ from ..exc import (
     UpdateGroupParticipantsError,
     UploadError,
 )
+from ..ext.interactive_message.base import CustomInteractiveMessage
 from ..proto import Neonize_pb2 as neonize_proto
 from ..proto.Neonize_pb2 import (
     JID,
@@ -226,6 +220,7 @@ class GoCode:
         :return: An async wrapper with the same signature returning the same result type.
         :rtype: Callable[..., Awaitable[ReturnType]]
         """
+
         def call(
             *args: SyncFunctionParams.args, **kwargs: SyncFunctionParams.kwargs
         ) -> Awaitable[ReturnType]:
@@ -241,6 +236,7 @@ class GoCode:
         :return: An async callable forwarding its arguments to the FFI function.
         :rtype: Callable[..., Awaitable[Any]]
         """
+
         def call(*args, **kwargs):
             return asyncio.to_thread(getattr(gocode, name), *args, **kwargs)
 
@@ -310,7 +306,7 @@ class ContactStore:
         if err:
             return ContactStoreError(err)
 
-    async def put_all_contact_name(self, contact_entry: List[ContactEntry]):
+    async def put_all_contact_name(self, contact_entry: list[ContactEntry]):
         """
         This method serializes a list of ContactEntry objects and sends them to a
         remote service using the client's PutAllContactNames method. If the service
@@ -444,9 +440,9 @@ class NewAClient:
     def __init__(
         self,
         name: str,
-        jid: Optional[JID] = None,
-        props: Optional[DeviceProps] = None,
-        uuid: Optional[str] = None,
+        jid: JID | None = None,
+        props: DeviceProps | None = None,
+        uuid: str | None = None,
         new_device: bool = False,
     ):
         """Initializes a new client instance.
@@ -501,7 +497,7 @@ class NewAClient:
             loop,
         )
 
-    def _parse_mention(self, text: Optional[str] = None, are_lids: bool = False) -> list[str]:
+    def _parse_mention(self, text: str | None = None, are_lids: bool = False) -> list[str]:
         """
         This function parses a given text and returns a list of 'mentions' in the format of 'mention@s.whatsapp.net'.
         A 'mention' is defined as a sequence of numbers (5 to 16 digits long) that is prefixed by '@' in the text.
@@ -520,7 +516,7 @@ class NewAClient:
         server = "@s.whatsapp.net" if not are_lids else "@lid"
         return [jid.group(1) + server for jid in re.finditer(r"@([0-9]{5,16}|0)", text)]
 
-    async def _parse_group_mention(self, text: Optional[str] = None) -> list[GroupMention]:
+    async def _parse_group_mention(self, text: str | None = None) -> list[GroupMention]:
         """
         This function parses a given text and returns a list of 'mentions' in the format of 'GroupMention(…'
         A 'mention' is defined as a sequence of numbers (11 to 26 digits long) (might also include an hypen) that is prefixed by '@' and suffixed byg.us in the text.
@@ -625,7 +621,7 @@ class NewAClient:
         to: JID,
         interactive_message: CustomInteractiveMessage,
         link_preview: bool = False,
-        ghost_mentions: Optional[str] = None,
+        ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
         add_msg_secret: bool = False,
     ) -> SendResponse:
@@ -660,9 +656,9 @@ class NewAClient:
     async def send_message(
         self,
         to: JID,
-        message: typing.Union[Message, str],
+        message: Message | str,
         link_preview: bool = False,
-        ghost_mentions: Optional[str] = None,
+        ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
         add_msg_secret: bool = False,
     ) -> SendResponse:
@@ -721,11 +717,11 @@ class NewAClient:
 
     async def build_reply_message(
         self,
-        message: typing.Union[str, MessageWithContextInfo],
+        message: str | MessageWithContextInfo,
         quoted: neonize_proto.Message,
         link_preview: bool = False,
         reply_privately: bool = False,
-        ghost_mentions: Optional[str] = None,
+        ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
     ) -> Message:
         """Send a reply message to a specified JID.
@@ -771,12 +767,12 @@ class NewAClient:
 
     async def reply_message(
         self,
-        message: typing.Union[str, MessageWithContextInfo],
+        message: str | MessageWithContextInfo,
         quoted: neonize_proto.Message,
-        to: Optional[JID] = None,
+        to: JID | None = None,
         link_preview: bool = False,
         reply_privately: bool = False,
-        ghost_mentions: Optional[str] = None,
+        ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
         add_msg_secret: bool = False,
     ) -> SendResponse:
@@ -878,9 +874,9 @@ class NewAClient:
     async def build_poll_vote_creation(
         self,
         name: str,
-        options: List[str],
+        options: list[str],
         selectable_count: VoteType,
-        quoted: Optional[neonize_proto.Message] = None,
+        quoted: neonize_proto.Message | None = None,
     ) -> Message:
         """Build a poll vote creation message.
 
@@ -915,7 +911,7 @@ class NewAClient:
             message.pollCreationMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
         return message
 
-    async def build_poll_vote(self, poll_info: MessageInfo, option_names: List[str]) -> Message:
+    async def build_poll_vote(self, poll_info: MessageInfo, option_names: list[str]) -> Message:
         """Builds a poll vote.
 
         :param poll_info: The information about the poll.
@@ -997,8 +993,8 @@ class NewAClient:
 
     async def build_sticker_message(
         self,
-        file: typing.Union[str, bytes],
-        quoted: Optional[neonize_proto.Message] = None,
+        file: str | bytes,
+        quoted: neonize_proto.Message | None = None,
         name: str = "",
         packname: str = "",
         crop: bool = False,
@@ -1090,8 +1086,8 @@ class NewAClient:
     async def send_sticker(
         self,
         to: JID,
-        file: typing.Union[str, bytes],
-        quoted: Optional[neonize_proto.Message] = None,
+        file: str | bytes,
+        quoted: neonize_proto.Message | None = None,
         name: str = "",
         packname: str = "",
         crop: bool = False,
@@ -1143,10 +1139,10 @@ class NewAClient:
 
     async def _process_single_pack(
         self,
-        stickers: List[List[bytes, bool]],
+        stickers: list[list[bytes, bool]],
         pack_name: str,
         publisher: str = "",
-        quoted: Optional[neonize_proto.Message] = None,
+        quoted: neonize_proto.Message | None = None,
     ) -> Message:
         """
         Helper function to process a single sticker pack chunk
@@ -1234,13 +1230,13 @@ class NewAClient:
     async def build_stickerpack_message(
         self,
         files: list,
-        quoted: Optional[neonize_proto.Message] = None,
+        quoted: neonize_proto.Message | None = None,
         packname: str = "Sticker pack",
         publisher: str = "",
         crop: bool = False,
         animated_gif: bool = False,
         passthrough: bool = False,
-    ) -> List[Message]:
+    ) -> list[Message]:
         """Builds a list of sticker-pack messages from image or video files.
 
         Every file is converted to WebP and grouped into packs of at most 60
@@ -1297,14 +1293,14 @@ class NewAClient:
         self,
         to: JID,
         files: list,
-        quoted: Optional[neonize_proto.Message] = None,
+        quoted: neonize_proto.Message | None = None,
         packname: str = "Sticker pack",
         publisher: str = "",
         crop: bool = False,
         animated_gif: bool = False,
         passthrough: bool = False,
         add_msg_secret: bool = False,
-    ) -> List[SendResponse]:
+    ) -> list[SendResponse]:
         """
         Send a sticker pack to a specific JID.
 
@@ -1341,12 +1337,12 @@ class NewAClient:
     async def build_video_message(
         self,
         file: str | bytes,
-        caption: Optional[str] = None,
-        quoted: Optional[neonize_proto.Message] = None,
+        caption: str | None = None,
+        quoted: neonize_proto.Message | None = None,
         viewonce: bool = False,
         gifplayback: bool = False,
         is_gif: bool = False,
-        ghost_mentions: Optional[str] = None,
+        ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
     ) -> Message:
         """
@@ -1413,12 +1409,12 @@ class NewAClient:
         self,
         to: JID,
         file: str | bytes,
-        caption: Optional[str] = None,
-        quoted: Optional[neonize_proto.Message] = None,
+        caption: str | None = None,
+        quoted: neonize_proto.Message | None = None,
         viewonce: bool = False,
         gifplayback: bool = False,
         is_gif: bool = False,
-        ghost_mentions: Optional[str] = None,
+        ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
         add_msg_secret: bool = False,
     ) -> SendResponse:
@@ -1463,10 +1459,10 @@ class NewAClient:
     async def build_image_message(
         self,
         file: str | bytes,
-        caption: Optional[str] = None,
-        quoted: Optional[neonize_proto.Message] = None,
+        caption: str | None = None,
+        quoted: neonize_proto.Message | None = None,
         viewonce: bool = False,
-        ghost_mentions: Optional[str] = None,
+        ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
     ) -> Message:
         """
@@ -1527,10 +1523,10 @@ class NewAClient:
         self,
         to: JID,
         file: str | bytes,
-        caption: Optional[str] = None,
-        quoted: Optional[neonize_proto.Message] = None,
+        caption: str | None = None,
+        quoted: neonize_proto.Message | None = None,
         viewonce: bool = False,
-        ghost_mentions: Optional[str] = None,
+        ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
         add_msg_secret: bool = False,
     ) -> SendResponse:
@@ -1602,12 +1598,12 @@ class NewAClient:
         self,
         to: JID,
         files: list,
-        caption: Optional[str] = None,
-        quoted: Optional[neonize_proto.Message] = None,
-        ghost_mentions: Optional[str] = None,
+        caption: str | None = None,
+        quoted: neonize_proto.Message | None = None,
+        ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
         add_msg_secret: bool = False,
-    ) -> List[SendResponse, List[SendResponse]]:
+    ) -> list[SendResponse, list[SendResponse]]:
         """Sends an album containing images, videos or both to the specified recipient.
 
         :param to: The JID (Jabber Identifier) of the recipient.
@@ -1697,7 +1693,7 @@ class NewAClient:
         self,
         file: str | bytes,
         ptt: bool = False,
-        quoted: Optional[neonize_proto.Message] = None,
+        quoted: neonize_proto.Message | None = None,
     ) -> Message:
         """
         This method builds an audio message from a given file or bytes.
@@ -1739,7 +1735,7 @@ class NewAClient:
         to: JID,
         file: str | bytes,
         ptt: bool = False,
-        quoted: Optional[neonize_proto.Message] = None,
+        quoted: neonize_proto.Message | None = None,
         add_msg_secret: bool = False,
     ) -> SendResponse:
         """Sends an audio to the specified recipient.
@@ -1767,12 +1763,12 @@ class NewAClient:
     async def build_document_message(
         self,
         file: str | bytes,
-        caption: Optional[str] = None,
-        title: Optional[str] = None,
-        filename: Optional[str] = None,
-        mimetype: Optional[str] = None,
-        quoted: Optional[neonize_proto.Message] = None,
-        ghost_mentions: Optional[str] = None,
+        caption: str | None = None,
+        title: str | None = None,
+        filename: str | None = None,
+        mimetype: str | None = None,
+        quoted: neonize_proto.Message | None = None,
+        ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
     ):
         """Builds a document message that can be sent with :meth:`send_message`.
@@ -1831,12 +1827,12 @@ class NewAClient:
         self,
         to: JID,
         file: str | bytes,
-        caption: Optional[str] = None,
-        title: Optional[str] = None,
-        filename: Optional[str] = None,
-        mimetype: Optional[str] = None,
-        quoted: Optional[neonize_proto.Message] = None,
-        ghost_mentions: Optional[str] = None,
+        caption: str | None = None,
+        title: str | None = None,
+        filename: str | None = None,
+        mimetype: str | None = None,
+        quoted: neonize_proto.Message | None = None,
+        ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
         add_msg_secret: bool = False,
     ) -> SendResponse:
@@ -1881,7 +1877,7 @@ class NewAClient:
         to: JID,
         contact_name: str,
         contact_number: str,
-        quoted: Optional[neonize_proto.Message] = None,
+        quoted: neonize_proto.Message | None = None,
     ) -> SendResponse:
         """Sends a contact to the specified recipient.
 
@@ -1906,7 +1902,7 @@ class NewAClient:
             message.contactMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
         return await self.send_message(to, message)
 
-    async def upload(self, binary: bytes, media_type: Optional[MediaType] = None) -> UploadResponse:
+    async def upload(self, binary: bytes, media_type: MediaType | None = None) -> UploadResponse:
         """Uploads media content.
 
         :param binary: The binary data to be uploaded.
@@ -1937,9 +1933,7 @@ class NewAClient:
     async def download_any(self, message: Message, path: str) -> None:
         """Overload of :meth:`download_any` saving the content to *path*."""
 
-    async def download_any(
-        self, message: Message, path: Optional[str] = None
-    ) -> typing.Union[None, bytes]:
+    async def download_any(self, message: Message, path: str | None = None) -> None | bytes:
         """Downloads content from a message.
 
         :param message: The message containing the content to download.
@@ -2202,7 +2196,7 @@ class NewAClient:
             )
         ).decode()
 
-    async def set_group_photo(self, jid: JID, file_or_bytes: typing.Union[str, bytes]) -> str:
+    async def set_group_photo(self, jid: JID, file_or_bytes: str | bytes) -> str:
         """Sets the photo of a group.
 
         :param jid: The JID (Jabber Identifier) of the group.
@@ -2225,7 +2219,7 @@ class NewAClient:
             raise SetGroupPhotoError(model.Error)
         return model.PictureID
 
-    async def set_profile_photo(self, file_or_bytes: typing.Union[str, bytes]) -> str:
+    async def set_profile_photo(self, file_or_bytes: str | bytes) -> str:
         """Sets profile photo.
 
         :param file_or_bytes: Either a file path (str) or binary data (bytes) representing the group photo.
@@ -2433,7 +2427,7 @@ class NewAClient:
         chat: JID,
         sender: JID,
         receipt: ReceiptType,
-        timestamp: Optional[int] = None,
+        timestamp: int | None = None,
     ):
         """Marks the specified messages as read.
 
@@ -2465,7 +2459,7 @@ class NewAClient:
         if err:
             raise MarkReadError(err.decode())
 
-    async def newsletter_mark_viewed(self, jid: JID, message_server_ids: List[MessageServerID]):
+    async def newsletter_mark_viewed(self, jid: JID, message_server_ids: list[MessageServerID]):
         """
         Marks the specified newsletters as viewed by the user with the given JID.
 
@@ -2514,7 +2508,6 @@ class NewAClient:
         )
         if err:
             raise NewsletterSendReactionError(err)
-        return
 
     async def newsletter_subscribe_live_updates(self, jid: JID) -> int:
         """Subscribes a user to live updates of a newsletter.
@@ -2603,7 +2596,7 @@ class NewAClient:
         if err:
             raise SendAppStateError(err)
 
-    async def set_default_disappearing_timer(self, timer: typing.Union[timedelta, int]):
+    async def set_default_disappearing_timer(self, timer: timedelta | int):
         """
         Sets a default disappearing timer for messages. The timer can be specified as a timedelta or an integer.
         If a timedelta is provided, it is converted to nanoseconds. If an integer is provided, it is used directly as the timer.
@@ -2624,8 +2617,8 @@ class NewAClient:
     async def set_disappearing_timer(
         self,
         jid: JID,
-        timer: typing.Union[timedelta, int],
-        setting_ts: Optional[timedelta] = None,
+        timer: timedelta | int,
+        setting_ts: timedelta | None = None,
     ):
         """
         Set a disappearing timer for a specific JID. The timer can be set as either a timedelta object or an integer.
@@ -2843,7 +2836,7 @@ class NewAClient:
         return model.Blocklist
 
     async def update_group_participants(
-        self, jid: JID, participants_changes: List[JID], action: ParticipantChange
+        self, jid: JID, participants_changes: list[JID], action: ParticipantChange
     ) -> RepeatedCompositeFieldContainer[GroupParticipant]:
         """
         This method is used to update the list of participants in a group.
@@ -2900,9 +2893,9 @@ class NewAClient:
     async def create_group(
         self,
         name: str,
-        participants: List[JID] = [],
-        linked_parent: Optional[GroupLinkedParent] = None,
-        group_parent: Optional[GroupParent] = None,
+        participants: list[JID] = [],
+        linked_parent: GroupLinkedParent | None = None,
+        group_parent: GroupParent | None = None,
     ) -> GroupInfo:
         """Create a new group.
 
@@ -2973,7 +2966,7 @@ class NewAClient:
         return model.Group
 
     async def create_newsletter(
-        self, name: str, description: str, picture: typing.Union[str, bytes]
+        self, name: str, description: str, picture: str | bytes
     ) -> NewsletterMetadata:
         """Create a newsletter with the given name, description, and picture.
 
@@ -3297,7 +3290,7 @@ class NewAClient:
         phone: str,
         show_push_notification: bool,
         client_name: ClientName = ClientName.LINUX,
-        client_type: Optional[ClientType] = None,
+        client_type: ClientType | None = None,
     ) -> str:
         """Pair a phone with the client and return the pairing code.
 
@@ -3353,7 +3346,7 @@ class NewAClient:
 
     async def get_message_for_retry(
         self, requester: JID, to: JID, message_id: str
-    ) -> typing.Union[None, Message]:
+    ) -> None | Message:
         """
         This function retrieves a specific message for retrying transmission.
         It communicates with a client to get the message using provided requester, recipient, and message ID.
@@ -3581,7 +3574,7 @@ class ClientFactory:
         self.loop: asyncio.AbstractEventLoop | None = None
 
     @staticmethod
-    def get_all_devices_from_db(db: str) -> List[Device]:
+    def get_all_devices_from_db(db: str) -> list[Device]:
         """
         Retrieves all devices associated with the current account.
         :param db: The name of the database to retrieve the devices from.
@@ -3609,7 +3602,7 @@ class ClientFactory:
 
         return devices
 
-    def get_all_devices(self) -> List["Device"]:
+    def get_all_devices(self) -> list[Device]:
         """Retrieves all devices associated with the current account from the database."""
         return self.get_all_devices_from_db(self.database_name)
 
@@ -3622,9 +3615,9 @@ class ClientFactory:
 
     def new_client(
         self,
-        jid: Optional[JID] = None,
-        uuid: Optional[str] = None,
-        props: Optional[DeviceProps] = None,
+        jid: JID | None = None,
+        uuid: str | None = None,
+        props: DeviceProps | None = None,
         new_device: bool = False,
     ) -> NewAClient:
         """

@@ -4,7 +4,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 from platform import system
-from typing import Any, Optional
+from typing import Any
 
 from .download import __GONEONIZE_VERSION__, download
 from .utils.platform import generated_name
@@ -34,9 +34,7 @@ def load_goneonize():
         except Exception as e:
             last_error = e
             download()
-    raise RuntimeError(
-        f"failed to load goneonize after 3 attempts; last error: {last_error}"
-    )
+    raise RuntimeError(f"failed to load goneonize after 3 attempts; last error: {last_error}")
 
 
 class Bytes(ctypes.Structure):

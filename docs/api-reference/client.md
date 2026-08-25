@@ -83,6 +83,7 @@ client.connect()
 recipient = build_jid("1234567890")
 client.send_message(recipient, "Hello!")
 
+
 # Handle events
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
@@ -97,20 +98,16 @@ from neonize.client import NewClient
 from neonize.events import MessageEv
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import Message
 
-def send_text(
-    client: NewClient,
-    recipient: str,
-    text: str,
-    quote: Optional[Message] = None
-) -> str:
+
+def send_text(client: NewClient, recipient: str, text: str, quote: Optional[Message] = None) -> str:
     """Send a text message.
-    
+
     Args:
         client: WhatsApp client
         recipient: Recipient JID
         text: Message text
         quote: Optional message to quote
-        
+
     Returns:
         Message ID
     """
@@ -118,7 +115,7 @@ def send_text(
         response = client.reply_message(text, quote)
     else:
         response = client.send_message(recipient, text)
-    
+
     return response.ID
 ```
 
@@ -229,29 +226,32 @@ VoteType.MULTIPLE  # Multiple choice poll
 from neonize.events import MessageEv
 from typing import Callable
 
+
 def rate_limit(max_calls: int, period: float) -> Callable:
     """Decorator to rate limit event handlers."""
     import time
     from collections import deque
-    
+
     calls = deque()
-    
+
     def decorator(func: Callable) -> Callable:
         def wrapper(client, event: MessageEv):
             now = time.time()
-            
+
             # Remove old calls
             while calls and calls[0] < now - period:
                 calls.popleft()
-            
+
             if len(calls) >= max_calls:
                 return  # Rate limited
-            
+
             calls.append(now)
             return func(client, event)
-        
+
         return wrapper
+
     return decorator
+
 
 # Usage
 @client.event(MessageEv)
@@ -266,14 +266,15 @@ def on_message(client, event: MessageEv):
 ```python
 from typing import List, Callable
 
+
 class Middleware:
     def __init__(self):
         self.middlewares: List[Callable] = []
-    
+
     def use(self, func: Callable):
         self.middlewares.append(func)
         return func
-    
+
     def run(self, client, event):
         for middleware in self.middlewares:
             result = middleware(client, event)
@@ -281,13 +282,16 @@ class Middleware:
                 return False  # Stop processing
         return True
 
+
 # Usage
 middleware = Middleware()
+
 
 @middleware.use
 def log_messages(client, event):
     print(f"Message from {event.Info.PushName}")
     return True  # Continue
+
 
 @middleware.use
 def filter_spam(client, event):
@@ -295,6 +299,7 @@ def filter_spam(client, event):
     if "spam" in text.lower():
         return False  # Stop processing
     return True
+
 
 @client.event(MessageEv)
 def on_message(client, event: MessageEv):

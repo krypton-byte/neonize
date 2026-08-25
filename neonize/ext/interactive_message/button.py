@@ -32,18 +32,16 @@ Example::
 from __future__ import annotations
 
 import json
-import uuid as _uuid
-from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Self, Union
+from typing import TYPE_CHECKING, Any, Self, Union
 
 from ...proto.waE2E.WAWebProtobufsE2E_pb2 import (
     ContextInfo,
+    DocumentMessage,
     ImageMessage,
     InteractiveMessage,
     Message,
     VideoMessage,
-    DocumentMessage,
 )
 from ...utils.iofile import get_bytes_from_name_or_url
 from .base import CustomInteractiveMessage, InteractiveMessageBuilder
@@ -68,7 +66,7 @@ class ReplyButton:
 
     display_text: str
     id: str
-    extra: Dict[str, Any] = field(default_factory=dict)
+    extra: dict[str, Any] = field(default_factory=dict)
 
     def to_native_flow(self) -> InteractiveMessage.NativeFlowMessage.NativeFlowButton:
         """Serialise to a ``NativeFlowButton`` protobuf."""
@@ -91,7 +89,7 @@ class UrlButton:
     display_text: str
     url: str
     webview_interaction: bool = False
-    extra: Dict[str, Any] = field(default_factory=dict)
+    extra: dict[str, Any] = field(default_factory=dict)
 
     def to_native_flow(self) -> InteractiveMessage.NativeFlowMessage.NativeFlowButton:
         params = {
@@ -116,7 +114,7 @@ class CopyButton:
 
     display_text: str
     copy_code: str
-    extra: Dict[str, Any] = field(default_factory=dict)
+    extra: dict[str, Any] = field(default_factory=dict)
 
     def to_native_flow(self) -> InteractiveMessage.NativeFlowMessage.NativeFlowButton:
         params = {"display_text": self.display_text, "copy_code": self.copy_code, **self.extra}
@@ -136,7 +134,7 @@ class CallButton:
 
     display_text: str
     id: str
-    extra: Dict[str, Any] = field(default_factory=dict)
+    extra: dict[str, Any] = field(default_factory=dict)
 
     def to_native_flow(self) -> InteractiveMessage.NativeFlowMessage.NativeFlowButton:
         params = {"display_text": self.display_text, "id": self.id, **self.extra}
@@ -156,7 +154,7 @@ class ReminderButton:
 
     display_text: str
     id: str
-    extra: Dict[str, Any] = field(default_factory=dict)
+    extra: dict[str, Any] = field(default_factory=dict)
 
     def to_native_flow(self) -> InteractiveMessage.NativeFlowMessage.NativeFlowButton:
         params = {"display_text": self.display_text, "id": self.id, **self.extra}
@@ -176,7 +174,7 @@ class CancelReminderButton:
 
     display_text: str
     id: str
-    extra: Dict[str, Any] = field(default_factory=dict)
+    extra: dict[str, Any] = field(default_factory=dict)
 
     def to_native_flow(self) -> InteractiveMessage.NativeFlowMessage.NativeFlowButton:
         params = {"display_text": self.display_text, "id": self.id, **self.extra}
@@ -196,7 +194,7 @@ class AddressButton:
 
     display_text: str
     id: str
-    extra: Dict[str, Any] = field(default_factory=dict)
+    extra: dict[str, Any] = field(default_factory=dict)
 
     def to_native_flow(self) -> InteractiveMessage.NativeFlowMessage.NativeFlowButton:
         params = {"display_text": self.display_text, "id": self.id, **self.extra}
@@ -213,7 +211,7 @@ class LocationButton:
     :param extra: Optional additional parameters.
     """
 
-    extra: Dict[str, Any] = field(default_factory=dict)
+    extra: dict[str, Any] = field(default_factory=dict)
 
     def to_native_flow(self) -> InteractiveMessage.NativeFlowMessage.NativeFlowButton:
         return InteractiveMessage.NativeFlowMessage.NativeFlowButton(
@@ -249,7 +247,7 @@ class Section:
 
     title: str = ""
     highlight_label: str = ""
-    rows: List[Row] = field(default_factory=list)
+    rows: list[Row] = field(default_factory=list)
 
     def add_row(
         self,
@@ -257,7 +255,7 @@ class Section:
         description: str = "",
         id: str = "",
         header: str = "",
-    ) -> "Section":
+    ) -> Section:
         """Append a row to this section.
 
         :returns: ``self`` for fluent chaining.
@@ -292,10 +290,10 @@ class SelectionButton:
 
     def __init__(self, title: str) -> None:
         self.title = title
-        self.sections: List[Section] = []
+        self.sections: list[Section] = []
         self._current_section_index: int = -1
 
-    def add_section(self, title: str = "", highlight_label: str = "") -> "SelectionButton":
+    def add_section(self, title: str = "", highlight_label: str = "") -> SelectionButton:
         """Add a new section to the selection list.
 
         :param title: Section header text.
@@ -312,7 +310,7 @@ class SelectionButton:
         description: str = "",
         id: str = "",
         header: str = "",
-    ) -> "SelectionButton":
+    ) -> SelectionButton:
         """Add a row to the current section.
 
         :raises RuntimeError: If no section has been created yet.
@@ -368,11 +366,11 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
 
     def __init__(self) -> None:
         super().__init__()
-        self._buttons: List[Union[ButtonType, SelectionButton]] = []
-        self._media: Optional[bytes] = None
-        self._media_type: Optional[str] = None  # "image", "video", "document"
-        self._media_mimetype: Optional[str] = None
-        self._params: Dict[str, Any] = {}
+        self._buttons: list[ButtonType | SelectionButton] = []
+        self._media: bytes | None = None
+        self._media_type: str | None = None  # "image", "video", "document"
+        self._media_mimetype: str | None = None
+        self._params: dict[str, Any] = {}
 
     # -- Setters (fluent API) ------------------------------------------------
 
@@ -421,7 +419,7 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
         self._context_info = context_info
         return self
 
-    def set_params(self, params: Dict[str, Any]) -> Self:
+    def set_params(self, params: dict[str, Any]) -> Self:
         """Set native-flow message-level parameters.
 
         :param params: A dictionary of parameters to be serialised as JSON.
@@ -432,7 +430,7 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
 
     # -- Media setters -------------------------------------------------------
 
-    def set_image(self, image: Union[str, bytes]) -> Self:
+    def set_image(self, image: str | bytes) -> Self:
         """Attach an image to the message header.
 
         :param image: URL string or raw bytes of the image.
@@ -442,7 +440,7 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
         self._media_type = "image"
         return self
 
-    def set_video(self, video: Union[str, bytes]) -> Self:
+    def set_video(self, video: str | bytes) -> Self:
         """Attach a video to the message header.
 
         :param video: URL string or raw bytes of the video.
@@ -452,7 +450,7 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
         self._media_type = "video"
         return self
 
-    def set_document(self, document: Union[str, bytes], mimetype: str = "application/pdf") -> Self:
+    def set_document(self, document: str | bytes, mimetype: str = "application/pdf") -> Self:
         """Attach a document to the message header.
 
         :param document: URL string or raw bytes of the document.
@@ -627,7 +625,7 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
 
     def _build_header(
         self,
-        uploaded_media: Optional[Dict[str, Any]] = None,
+        uploaded_media: dict[str, Any] | None = None,
     ) -> InteractiveMessage.Header:
         """Construct the ``InteractiveMessage.Header`` protobuf.
 
@@ -680,7 +678,7 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
                 )
         return header
 
-    def _upload_media(self, client: "NewClient") -> Optional[Dict[str, Any]]:
+    def _upload_media(self, client: NewClient) -> dict[str, Any] | None:
         """Upload the attached media using the synchronous client."""
         if self._media is None:
             return None
@@ -697,7 +695,7 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
             "mimetype": _magic.from_buffer(self._media, mime=True),
         }
 
-    async def _aupload_media(self, client: "NewAClient") -> Optional[Dict[str, Any]]:
+    async def _aupload_media(self, client: NewAClient) -> dict[str, Any] | None:
         """Upload the attached media using the asynchronous client."""
         if self._media is None:
             return None
@@ -716,13 +714,13 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
 
     def _build_native_flow_buttons(
         self,
-    ) -> List[InteractiveMessage.NativeFlowMessage.NativeFlowButton]:
+    ) -> list[InteractiveMessage.NativeFlowMessage.NativeFlowButton]:
         """Convert all internal buttons to ``NativeFlowButton`` protobufs."""
         return [btn.to_native_flow() for btn in self._buttons]
 
     def _build_interactive_message(
         self,
-        uploaded_media: Optional[Dict[str, Any]] = None,
+        uploaded_media: dict[str, Any] | None = None,
     ) -> InteractiveMessage:
         """Assemble the ``InteractiveMessage`` protobuf."""
         interactive = InteractiveMessage(
@@ -738,7 +736,7 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
             interactive.contextInfo.MergeFrom(self._context_info)
         return interactive
 
-    def to_card(self, client: "NewClient") -> InteractiveMessage:
+    def to_card(self, client: NewClient) -> InteractiveMessage:
         """Build this button message as a carousel card (synchronous).
 
         Uploads media if present and returns an ``InteractiveMessage`` suitable
@@ -750,7 +748,7 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
         uploaded = self._upload_media(client)
         return self._build_interactive_message(uploaded)
 
-    async def to_acard(self, client: "NewAClient") -> InteractiveMessage:
+    async def to_acard(self, client: NewAClient) -> InteractiveMessage:
         """Build this button message as a carousel card (asynchronous).
 
         :param client: The asynchronous neonize client.
@@ -761,7 +759,7 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
 
     # -- CustomInteractiveMessage contract -----------------------------------
 
-    def prepare_send(self, client: "NewClient") -> Message:
+    def prepare_send(self, client: NewClient) -> Message:
         """Build the full ``Message`` protobuf (synchronous).
 
         :param client: The synchronous neonize client.
@@ -771,7 +769,7 @@ class ButtonMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
         interactive = self._build_interactive_message(uploaded)
         return Message(interactiveMessage=interactive)
 
-    async def prepare_asend(self, client: "NewAClient") -> Message:
+    async def prepare_asend(self, client: NewAClient) -> Message:
         """Build the full ``Message`` protobuf (asynchronous).
 
         :param client: The asynchronous neonize client.

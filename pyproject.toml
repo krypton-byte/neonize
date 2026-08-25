@@ -91,6 +91,12 @@ exclude = [
 ]
 line-length = 100
 
+[tool.ruff.lint]
+# Explicit, deterministic rule set: real errors (E4/E7/E9), pyflakes (F) and
+# import sorting (I). Broader opinionated suites (UP/B/SIM/TRY/...) can be
+# enabled incrementally once the existing findings are addressed.
+select = ["E4", "E7", "E9", "F", "I"]
+
 [tool.ruff.format]
 # Like Black, use double quotes for strings.
 quote-style = "double"

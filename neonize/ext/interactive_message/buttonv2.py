@@ -24,9 +24,9 @@ Example::
 from __future__ import annotations
 
 import uuid as _uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from io import BytesIO
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Self, Union
+from typing import TYPE_CHECKING, Self
 
 from ...proto.waE2E.WAWebProtobufsE2E_pb2 import (
     ButtonsMessage,
@@ -94,8 +94,8 @@ class ButtonV2Message(CustomInteractiveMessage, InteractiveMessageBuilder):
 
     def __init__(self) -> None:
         super().__init__()
-        self._buttons: List[ButtonV2Item] = []
-        self._thumbnail: Optional[bytes] = None
+        self._buttons: list[ButtonV2Item] = []
+        self._thumbnail: bytes | None = None
 
     # -- Setters (fluent API) ------------------------------------------------
 
@@ -144,7 +144,7 @@ class ButtonV2Message(CustomInteractiveMessage, InteractiveMessageBuilder):
         self._context_info = context_info
         return self
 
-    def set_thumbnail(self, thumbnail: Union[str, bytes]) -> Self:
+    def set_thumbnail(self, thumbnail: str | bytes) -> Self:
         """Set a thumbnail image for the location header.
 
         :param thumbnail: URL string or raw image bytes.
@@ -156,7 +156,7 @@ class ButtonV2Message(CustomInteractiveMessage, InteractiveMessageBuilder):
 
     # -- Button adders -------------------------------------------------------
 
-    def add_button(self, display_text: str, button_id: Optional[str] = None) -> Self:
+    def add_button(self, display_text: str, button_id: str | None = None) -> Self:
         """Add a response button.
 
         :param display_text: Label on the button.
@@ -194,7 +194,7 @@ class ButtonV2Message(CustomInteractiveMessage, InteractiveMessageBuilder):
 
     # -- CustomInteractiveMessage contract -----------------------------------
 
-    def prepare_send(self, client: "NewClient") -> Message:
+    def prepare_send(self, client: NewClient) -> Message:
         """Build the full ``Message`` protobuf (synchronous).
 
         :param client: The synchronous neonize client.
@@ -205,7 +205,7 @@ class ButtonV2Message(CustomInteractiveMessage, InteractiveMessageBuilder):
             raise ValueError("ButtonV2Message requires at least one button.")
         return Message(buttonsMessage=self._build_buttons_message())
 
-    async def prepare_asend(self, client: "NewAClient") -> Message:
+    async def prepare_asend(self, client: NewAClient) -> Message:
         """Build the full ``Message`` protobuf (asynchronous).
 
         :param client: The asynchronous neonize client.

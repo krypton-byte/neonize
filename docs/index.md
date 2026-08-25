@@ -66,14 +66,17 @@ from neonize.events import MessageEv, ConnectedEv, event
 # Initialize client
 client = NewClient("my_bot")
 
+
 @client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     print("🎉 Bot connected successfully!")
+
 
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     if event.message.conversation == "hi":
         client.reply_message("Hello! 👋", event.message)
+
 
 # Start the bot
 client.connect()

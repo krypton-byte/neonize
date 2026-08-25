@@ -21,9 +21,11 @@ from neonize.events import ConnectedEv, event
 
 client = NewClient("my_bot")
 
+
 @client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     print("✅ Successfully authenticated!")
+
 
 client.connect()
 event.wait()
@@ -48,16 +50,18 @@ from neonize.events import event
 
 client = NewClient("my_bot")
 
+
 # Custom QR code handler
 @client.qr
 def on_qr_code(client: NewClient, qr_data: bytes):
     print("📱 Scan this QR code with your WhatsApp:")
     # Display QR code in terminal
     segno.make_qr(qr_data).terminal(compact=True)
-    
+
     # Or save to file
     segno.make_qr(qr_data).save("qr_code.png", scale=10)
     print("QR code saved to qr_code.png")
+
 
 client.connect()
 event.wait()
@@ -72,15 +76,16 @@ import base64
 from io import BytesIO
 import segno
 
+
 @client.qr
 def on_qr_code(client: NewClient, qr_data: bytes):
     # Create QR code image
     buffer = BytesIO()
-    segno.make_qr(qr_data).save(buffer, kind='png', scale=10)
-    
+    segno.make_qr(qr_data).save(buffer, kind="png", scale=10)
+
     # Convert to base64 for embedding in HTML
     qr_base64 = base64.b64encode(buffer.getvalue()).decode()
-    
+
     # Now you can send this to your web frontend
     print(f"data:image/png;base64,{qr_base64}")
 ```
@@ -97,15 +102,17 @@ from neonize.events import PairStatusEv, event
 
 client = NewClient("my_bot")
 
+
 @client.event(PairStatusEv)
 def on_pair_status(client: NewClient, event: PairStatusEv):
     if event.ID.User:
         print(f"✅ Logged in as: {event.ID.User}")
 
+
 # Request pairing code for your phone number
 pairing_code = client.pair_phone(
     "1234567890",  # Your phone number (without + or country code)
-    show_push_notification=True
+    show_push_notification=True,
 )
 
 print(f"🔑 Your pairing code: {pairing_code}")
@@ -123,6 +130,7 @@ from neonize.events import event
 
 client = NewClient("my_bot")
 
+
 @client.paircode
 def on_pair_code(client: NewClient, code: str, connected: bool):
     if not connected:
@@ -135,6 +143,7 @@ def on_pair_code(client: NewClient, code: str, connected: bool):
         print(f"5. Enter: {code}")
     else:
         print("✅ Device successfully paired!")
+
 
 # Request pairing code
 client.pair_phone("1234567890", show_push_notification=True)
@@ -171,10 +180,7 @@ client = NewClient("my_bot")
 client = NewClient("my_bot", database="./sessions/my_bot.db")
 
 # PostgreSQL database
-client = NewClient(
-    "my_bot",
-    database="postgresql://user:pass@localhost/whatsapp"
-)
+client = NewClient("my_bot", database="postgresql://user:pass@localhost/whatsapp")
 ```
 
 ### Multiple Sessions
@@ -267,10 +273,7 @@ import os
 from neonize.client import NewClient
 
 # Use PostgreSQL for production
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql://user:pass@localhost:5432/whatsapp"
-)
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:pass@localhost:5432/whatsapp")
 
 client = NewClient("production_bot", database=DATABASE_URL)
 ```
@@ -283,6 +286,7 @@ If the QR code doesn't display in your terminal:
 
 ```python
 import segno
+
 
 @client.qr
 def on_qr_code(client: NewClient, qr_data: bytes):

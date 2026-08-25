@@ -20,6 +20,7 @@ Base:
     - :class:`InteractiveMessageBuilder` – Mixin with shared title/body/footer.
 """
 
+from .ai_rich import AIRichMessage, Post, Product, Reel, Source
 from .base import CustomInteractiveMessage, InteractiveMessageBuilder
 from .button import (
     AddressButton,
@@ -37,7 +38,6 @@ from .button import (
 )
 from .buttonv2 import ButtonV2Item, ButtonV2Message
 from .carousel import CarouselMessage
-from .ai_rich import AIRichMessage, Product, Reel, Post, Source
 
 __all__ = [
     # Base

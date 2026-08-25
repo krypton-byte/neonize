@@ -110,12 +110,7 @@ We use:
 Example:
 
 ```python
-def send_message(
-    self,
-    to: JID,
-    message: str,
-    link_preview: bool = False
-) -> SendResponse:
+def send_message(self, to: JID, message: str, link_preview: bool = False) -> SendResponse:
     """Send a text message to the specified JID.
 
     :param to: The recipient's JID

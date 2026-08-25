@@ -12,14 +12,16 @@ from neonize.events import MessageEv, event
 
 client = NewClient("my_bot")
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     # Get message text
     text = event.Message.conversation
-    
+
     if text:
         print(f"Received: {text}")
         client.reply_message(f"You said: {text}", event)
+
 
 client.connect()
 event.wait()
@@ -161,21 +163,21 @@ def on_message(client: NewClient, event: MessageEv):
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
-    
+
     # Check if message has context (reply, mentions, etc.)
-    if hasattr(msg, 'extendedTextMessage') and msg.extendedTextMessage.contextInfo:
+    if hasattr(msg, "extendedTextMessage") and msg.extendedTextMessage.contextInfo:
         context = msg.extendedTextMessage.contextInfo
-        
+
         # Quoted message (reply)
         if context.quotedMessage:
             quoted_text = context.quotedMessage.conversation
             print(f"Reply to: {quoted_text}")
-        
+
         # Mentions
         if context.mentionedJID:
             mentions = context.mentionedJID
             print(f"Mentioned: {mentions}")
-        
+
         # Forwarded message
         if context.isForwarded:
             print("This is a forwarded message")
@@ -220,23 +222,24 @@ def on_message(client: NewClient, event: MessageEv):
 ```python
 from tqdm import tqdm
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
-    
+
     if msg.documentMessage:
         file_size = msg.documentMessage.fileLength
         filename = msg.documentMessage.fileName
-        
+
         print(f"Downloading {filename} ({file_size} bytes)...")
-        
+
         # Download
         data = client.download_any(msg)
-        
+
         # Save
         with open(f"downloads/{filename}", "wb") as f:
             f.write(data)
-        
+
         print("Download complete!")
 ```
 
@@ -247,10 +250,11 @@ def on_message(client: NewClient, event: MessageEv):
 ```python
 ADMIN_NUMBERS = ["1234567890", "0987654321"]
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     sender = event.Info.MessageSource.Sender.User
-    
+
     # Only respond to admins
     if sender in ADMIN_NUMBERS:
         text = event.Message.conversation
@@ -332,40 +336,46 @@ Available commands:
 ```python
 from typing import Callable, Dict
 
+
 class CommandHandler:
     def __init__(self):
         self.commands: Dict[str, Callable] = {}
-    
+
     def command(self, name: str):
         def decorator(func: Callable):
             self.commands[name] = func
             return func
+
         return decorator
-    
+
     def handle(self, client: NewClient, event: MessageEv):
         text = event.Message.conversation or ""
-        
+
         if not text.startswith("/"):
             return
-        
+
         parts = text.split()
         command = parts[0][1:]
         args = parts[1:]
-        
+
         if command in self.commands:
             self.commands[command](client, event, args)
 
+
 # Usage
 handler = CommandHandler()
+
 
 @handler.command("start")
 def start_command(client: NewClient, event: MessageEv, args):
     client.reply_message("Welcome! Use /help for commands", event)
 
+
 @handler.command("info")
 def info_command(client: NewClient, event: MessageEv, args):
     sender = event.Info.PushName
     client.reply_message(f"Hello {sender}!", event)
+
 
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
@@ -379,11 +389,12 @@ def on_message(client: NewClient, event: MessageEv):
 ```python
 from neonize.events import ReceiptEv
 
+
 @client.event(ReceiptEv)
 def on_receipt(client: NewClient, event: ReceiptEv):
     receipt_type = event.Type
     message_ids = event.MessageIDs
-    
+
     print(f"Receipt type: {receipt_type}")
     print(f"Message IDs: {message_ids}")
 ```
@@ -393,6 +404,7 @@ def on_receipt(client: NewClient, event: ReceiptEv):
 ```python
 from neonize.utils.enum import ReceiptType
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     # Auto mark as read
@@ -400,7 +412,7 @@ def on_message(client: NewClient, event: MessageEv):
         [event.Info.ID],
         chat=event.Info.MessageSource.Chat,
         sender=event.Info.MessageSource.Sender,
-        receipt=ReceiptType.READ
+        receipt=ReceiptType.READ,
     )
 ```
 
@@ -427,10 +439,12 @@ from concurrent.futures import ThreadPoolExecutor
 
 executor = ThreadPoolExecutor(max_workers=5)
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     # Process message in background
     executor.submit(process_message_async, client, event)
+
 
 def process_message_async(client: NewClient, event: MessageEv):
     # Long-running task
@@ -448,17 +462,18 @@ import time
 last_message_time = defaultdict(float)
 RATE_LIMIT = 2  # seconds
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     sender = event.Info.MessageSource.Sender.User
     current_time = time.time()
-    
+
     # Check rate limit
     if current_time - last_message_time[sender] < RATE_LIMIT:
         return  # Ignore message
-    
+
     last_message_time[sender] = current_time
-    
+
     # Process message
     handle_message(client, event)
 ```

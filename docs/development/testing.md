@@ -69,6 +69,7 @@ tests/
 import pytest
 from neonize.client import NewClient
 
+
 def test_client_creation():
     """Test creating a new client."""
     client = NewClient("test_bot")
@@ -82,10 +83,12 @@ def test_client_creation():
 import pytest
 from neonize.client import NewClient
 
+
 @pytest.fixture
 def client():
     """Create a test client."""
     return NewClient("test_bot", database=":memory:")
+
 
 def test_send_message(client):
     """Test sending a message."""
@@ -99,14 +102,15 @@ def test_send_message(client):
 from unittest.mock import Mock, patch
 from neonize.client import NewClient
 
+
 def test_send_message_mock():
     """Test sending message with mocked network call."""
-    with patch('neonize.client.NewClient.send_message') as mock_send:
+    with patch("neonize.client.NewClient.send_message") as mock_send:
         mock_send.return_value = Mock(ID="test123")
-        
+
         client = NewClient("test")
         result = client.send_message(Mock(), "test")
-        
+
         assert result.ID == "test123"
         mock_send.assert_called_once()
 ```
@@ -116,6 +120,7 @@ def test_send_message_mock():
 ```python
 import pytest
 from neonize.aioze.client import NewAClient
+
 
 @pytest.mark.asyncio
 async def test_async_client():
@@ -171,6 +176,7 @@ def test_send_and_receive():
 ```python
 import pytest
 
+
 @pytest.mark.skip(reason="Not implemented yet")
 def test_future_feature():
     pass
@@ -180,6 +186,7 @@ def test_future_feature():
 
 ```python
 import sys
+
 
 @pytest.mark.skipif(sys.platform == "win32", reason="Unix only")
 def test_unix_feature():
@@ -200,11 +207,15 @@ def test_known_bug():
 ```python
 import pytest
 
-@pytest.mark.parametrize("input,expected", [
-    ("hello", "HELLO"),
-    ("world", "WORLD"),
-    ("test", "TEST"),
-])
+
+@pytest.mark.parametrize(
+    "input,expected",
+    [
+        ("hello", "HELLO"),
+        ("world", "WORLD"),
+        ("test", "TEST"),
+    ],
+)
 def test_uppercase(input, expected):
     assert input.upper() == expected
 ```
@@ -218,6 +229,7 @@ def test_uppercase(input, expected):
 def test_send_message_returns_message_id():
     pass
 
+
 # Bad
 def test_1():
     pass
@@ -230,6 +242,7 @@ def test_1():
 def test_client_connects_successfully():
     client = NewClient("test")
     assert client.is_connected is False
+
 
 # Bad - tests multiple behaviors
 def test_everything():
@@ -308,15 +321,16 @@ jobs:
 import time
 import pytest
 
+
 def test_send_message_performance():
     """Test message sending performance."""
     client = NewClient("perf_test")
-    
+
     start = time.time()
     # Perform operation
     client.send_message(Mock(), "test")
     duration = time.time() - start
-    
+
     assert duration < 1.0  # Should complete in under 1 second
 ```
 

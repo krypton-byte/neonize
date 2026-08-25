@@ -37,7 +37,8 @@ Example::
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, List, Optional, Self, Sequence, Union
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, Self
 
 from ...proto.waE2E.WAWebProtobufsE2E_pb2 import (
     ContextInfo,
@@ -61,7 +62,7 @@ class CarouselMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
 
     def __init__(self) -> None:
         super().__init__()
-        self._cards: List[InteractiveMessage] = []
+        self._cards: list[InteractiveMessage] = []
 
     # -- Setters (fluent API) ------------------------------------------------
 
@@ -94,7 +95,7 @@ class CarouselMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
 
     # -- Card management -----------------------------------------------------
 
-    def add_card(self, card: Union[InteractiveMessage, Sequence[InteractiveMessage]]) -> Self:
+    def add_card(self, card: InteractiveMessage | Sequence[InteractiveMessage]) -> Self:
         """Append one or more cards to the carousel.
 
         Each card must have ``header.hasMediaAttachment`` set to ``True``.
@@ -129,7 +130,7 @@ class CarouselMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
 
     # -- CustomInteractiveMessage contract -----------------------------------
 
-    def prepare_send(self, client: "NewClient") -> Message:
+    def prepare_send(self, client: NewClient) -> Message:
         """Build the full ``Message`` protobuf (synchronous).
 
         :param client: The synchronous neonize client.
@@ -137,7 +138,7 @@ class CarouselMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
         """
         return Message(interactiveMessage=self._build_interactive_message())
 
-    async def prepare_asend(self, client: "NewAClient") -> Message:
+    async def prepare_asend(self, client: NewAClient) -> Message:
         """Build the full ``Message`` protobuf (asynchronous).
 
         :param client: The asynchronous neonize client.

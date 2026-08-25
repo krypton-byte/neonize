@@ -93,9 +93,11 @@ client = NewAClient("async_bot")
 
 # register event handlers on client.event here...
 
+
 async def main():
     await client.connect()  # captures the running event loop
-    await client.idle()     # keeps the bot alive
+    await client.idle()  # keeps the bot alive
+
 
 asyncio.run(main())  # ✅ standard entry point
 ```

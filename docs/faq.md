@@ -114,10 +114,7 @@ WhatsApp has undocumented rate limits. To avoid bans:
 Yes, Neonize is production-ready. Use PostgreSQL for production databases:
 
 ```python
-client = NewClient(
-    "bot",
-    database="postgresql://user:pass@localhost/db"
-)
+client = NewClient("bot", database="postgresql://user:pass@localhost/db")
 ```
 
 ### How many messages can Neonize handle?
@@ -166,6 +163,7 @@ async def main():
     await client.connect()  # ← sets up the event loop
     await client.idle()
 
+
 asyncio.run(main())
 ```
 
@@ -193,6 +191,7 @@ Enable debug logging to see details:
 
 ```python
 import logging
+
 logging.basicConfig(level=logging.DEBUG)
 ```
 
@@ -236,10 +235,7 @@ ffmpeg -version
 Yes, recommended for production:
 
 ```python
-client = NewClient(
-    "bot",
-    database="postgresql://user:password@localhost:5432/whatsapp"
-)
+client = NewClient("bot", database="postgresql://user:password@localhost:5432/whatsapp")
 ```
 
 ### Where is session data stored?
@@ -360,9 +356,11 @@ a summary of what changed and how to migrate your code.
 # ❌ Old pattern
 client = NewAClient("db.sqlite3")
 
+
 async def main():
     await client.connect()
     await client.idle()
+
 
 client.loop.run_until_complete(main())  # ← deprecated
 ```
@@ -371,9 +369,11 @@ client.loop.run_until_complete(main())  # ← deprecated
 # ✅ New pattern
 client = NewAClient("db.sqlite3")
 
+
 async def main():
     await client.connect()  # internally calls asyncio.get_running_loop()
     await client.idle()
+
 
 asyncio.run(main())  # ← modern standard
 ```
@@ -402,6 +402,7 @@ def interrupted(*_):
     loop = asyncio.get_event_loop()
     asyncio.run_coroutine_threadsafe(ClientFactory.stop(), loop)
 
+
 signal.signal(signal.SIGINT, interrupted)
 ```
 
@@ -421,6 +422,7 @@ async def main():
 # ❌ Old pattern
 client = NewAClient("db.sqlite3")
 
+
 async def greet():
     for signame in {"SIGINT", "SIGTERM"}:
         client.loop.add_signal_handler(  # ← client.loop was None or wrong
@@ -429,12 +431,14 @@ async def greet():
         )
     await client.connect()
 
+
 client.loop.run_until_complete(greet())
 ```
 
 ```python
 # ✅ New pattern
 client = NewAClient("db.sqlite3")
+
 
 async def greet():
     for signame in {"SIGINT", "SIGTERM"}:
@@ -444,6 +448,7 @@ async def greet():
         )
     await client.connect()
     # ...
+
 
 asyncio.run(greet())
 ```

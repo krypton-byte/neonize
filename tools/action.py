@@ -2,8 +2,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, Path(__file__).parent.parent.__str__())
-from tools.version import Version
 import os
+
+from tools.version import Version
 
 if __name__ == "__main__":
     version = Version()

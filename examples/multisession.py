@@ -3,22 +3,22 @@ import os
 import signal
 import sys
 from datetime import timedelta
+
 from neonize.client import ClientFactory, NewClient
 from neonize.events import (
+    CallOfferEv,
     ConnectedEv,
     MessageEv,
     PairStatusEv,
-    event,
     ReceiptEv,
-    CallOfferEv,
+    event,
 )
-
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
-    Message,
+    DeviceListMetadata,
     FutureProofMessage,
     InteractiveMessage,
+    Message,
     MessageContextInfo,
-    DeviceListMetadata,
 )
 from neonize.types import MessageServerID
 from neonize.utils import log

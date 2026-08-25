@@ -1,14 +1,16 @@
-from .version import Version
-from neonize.utils.platform import generated_name
-from colorama import Fore, init
 import argparse
-from pathlib import Path
-import sys
 import platform
+import sys
+from pathlib import Path
+
 import requests
+from colorama import Fore, init
 from tqdm import tqdm
 
+from neonize.utils.platform import generated_name
+
 from .github import Github
+from .version import Version
 
 sys.path.insert(0, Path(__file__).parent.__str__())
 

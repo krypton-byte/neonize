@@ -1,9 +1,9 @@
-from colorama import init, Fore
-from pathlib import Path
 import re
+from pathlib import Path
+
+from colorama import Fore, init
 
 from .value_changer import ValueChanger
-
 
 init()
 

@@ -1,7 +1,6 @@
 from httpx import ConnectTimeout, HTTPStatusError
-from linkpreview import Link
+from linkpreview import Link, LinkPreview
 from linkpreview import LinkGrabber as fallback_LinkGrabber
-from linkpreview import LinkPreview
 from linkpreview.exceptions import InvalidMimeTypeError
 
 from .grabber import LinkGrabber

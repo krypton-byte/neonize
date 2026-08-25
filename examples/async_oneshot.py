@@ -4,6 +4,7 @@ import os
 import signal
 import sys
 import traceback
+
 from neonize.aioze.client import NewAClient
 from neonize.utils import jid, log
 
@@ -18,7 +19,7 @@ async def on_exit():
 
 
 async def greet():
-    for signame in {"SIGINT", "SIGTERM", "SIGABRT"}:
+    for signame in ("SIGINT", "SIGTERM", "SIGABRT"):
         asyncio.get_running_loop().add_signal_handler(
             getattr(signal, signame),
             lambda: asyncio.create_task(on_exit()),

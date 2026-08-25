@@ -101,14 +101,17 @@ from neonize.events import MessageEv, ConnectedEv, event
 # Initialize client
 client = NewClient("your_bot_name")
 
+
 @client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     print("🎉 Bot connected successfully!")
+
 
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     if event.message.conversation == "hi":
         client.reply_message("Hello! 👋", event.message)
+
 
 # Start the bot
 client.connect()
@@ -124,14 +127,17 @@ from neonize.aioze.events import MessageEv, ConnectedEv
 
 client = NewAClient("async_bot")
 
+
 @client.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv):
     if event.Message.conversation == "ping":
         await client.reply_message("pong! 🏓", event)
 
+
 async def main():
     await client.connect()
     await client.idle()  # Keep receiving events
+
 
 asyncio.run(main())
 ```
@@ -155,16 +161,15 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 # Initialize the WhatsApp client
-client = NewClient(
-    name="my-whatsapp-bot",
-    database="./neonize.db"
-)
+client = NewClient(name="my-whatsapp-bot", database="./neonize.db")
+
 
 # Handle successful connection
 @client.event(ConnectedEv)
 def on_connected(client: NewClient, event: ConnectedEv):
     print("🎉 Successfully connected to WhatsApp!")
     print(f"📱 Device: {event.device}")
+
 
 # Start the client
 client.connect()
@@ -185,9 +190,7 @@ with open("image.jpg", "rb") as f:
     image_data = f.read()
 
 image_msg = client.build_image_message(
-    image_data,
-    caption="Check out this amazing image! 📸",
-    mime_type="image/jpeg"
+    image_data, caption="Check out this amazing image! 📸", mime_type="image/jpeg"
 )
 client.send_message(jid, message=image_msg)
 
@@ -199,7 +202,7 @@ doc_msg = client.build_document_message(
     doc_data,
     filename="document.pdf",
     caption="Here is the document you requested",
-    mime_type="application/pdf"
+    mime_type="application/pdf",
 )
 client.send_message(jid, message=doc_msg)
 ```
@@ -210,15 +213,16 @@ client.send_message(jid, message=doc_msg)
 from neonize.events import MessageEv, ReceiptEv, PresenceEv
 from datetime import datetime
 
+
 # Handle incoming text messages
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     message_text = event.message.conversation
     sender_jid = event.info.message_source.sender
     chat_jid = event.info.message_source.chat
-    
+
     print(f"📨 Received from {sender_jid}: {message_text}")
-    
+
     # Auto-reply functionality
     if message_text and message_text.lower() == "hello":
         client.send_message(chat_jid, text="Hello there! 👋")
@@ -235,10 +239,12 @@ def on_message(client: NewClient, event: MessageEv):
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         client.send_message(chat_jid, text=f"🕐 Current time: {current_time}")
 
+
 # Handle message receipts (delivery status)
 @client.event(ReceiptEv)
 def on_receipt(client: NewClient, event: ReceiptEv):
     print(f"📧 Message {event.receipt.type}: {event.message_ids}")
+
 
 # Handle typing indicators
 @client.event(PresenceEv)
@@ -259,10 +265,7 @@ participants = [
     build_jid("0987654321"),
 ]
 
-group_info = client.create_group(
-    "My Awesome Group 🚀",
-    participants
-)
+group_info = client.create_group("My Awesome Group 🚀", participants)
 print(f"🎉 Group created: {group_info.jid}")
 
 # Get group information
@@ -272,40 +275,23 @@ print(f"📝 Description: {group_info.group_desc}")
 print(f"👥 Participants: {len(group_info.participants)}")
 
 # Add participants to group
-client.update_group_participants(
-    group_jid,
-    [user_jid],
-    "add"
-)
+client.update_group_participants(group_jid, [user_jid], "add")
 
 # Remove participants from group
-client.update_group_participants(
-    group_jid,
-    [user_jid],
-    "remove"
-)
+client.update_group_participants(group_jid, [user_jid], "remove")
 
 # Update group name
-client.update_group_name(
-    group_jid,
-    "New Group Name 🎯"
-)
+client.update_group_name(group_jid, "New Group Name 🎯")
 
 # Update group description
-client.update_group_description(
-    group_jid,
-    "This is our updated group description"
-)
+client.update_group_description(group_jid, "This is our updated group description")
 ```
 
 ### 🔍 Contact & Profile Management
 
 ```python
 # Get user profile information
-profile = client.get_profile_picture(
-    user_jid,
-    full_resolution=True
-)
+profile = client.get_profile_picture(user_jid, full_resolution=True)
 print(f"👤 Profile picture URL: {profile.url}")
 print(f"🆔 Profile ID: {profile.id}")
 
@@ -333,9 +319,10 @@ from neonize.utils.enum import VoteType
 poll_msg = client.build_poll_vote_creation(
     "What's your favorite programming language?",
     ["Python 🐍", "Go 🚀", "JavaScript 💛", "Rust 🦀"],
-    VoteType.SINGLE_SELECT
+    VoteType.SINGLE_SELECT,
 )
 client.send_message(chat_jid, message=poll_msg)
+
 
 # Handle poll responses
 @client.event(MessageEv)
@@ -398,9 +385,11 @@ The event system in Neonize is built around decorators and type-safe events:
 def on_message(client: NewClient, event: MessageEv):
     handle_message(event)
 
+
 @client.event(ReceiptEv)
 def on_receipt(client: NewClient, event: ReceiptEv):
     handle_receipt(event)
+
 
 # Asynchronous event handling
 @async_client.event(MessageEv)
@@ -443,10 +432,12 @@ for device in client_factory.get_all_devices():
 # session instead of pairing a new one.
 new_account = client_factory.new_client(uuid="my-second-account", new_device=True)
 
+
 # Register shared event handlers
 @client_factory.event(ConnectedEv)
 async def on_connected(client: NewAClient, event: ConnectedEv):
     print(f"⚡ Client connected")
+
 
 @client_factory.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv):
@@ -454,9 +445,11 @@ async def on_message(client: NewAClient, event: MessageEv):
     if text == "ping":
         await client.reply_message("pong!", event)
 
+
 async def main():
-    await client_factory.run()      # connect() all clients
+    await client_factory.run()  # connect() all clients
     await client_factory.idle_all()  # keep running
+
 
 asyncio.run(main())
 ```
@@ -518,10 +511,14 @@ For high-performance and scalable applications:
 client = NewClient("my_bot", database="postgres://username:password@localhost:5432/dbname")
 
 # With SSL disabled
-client = NewClient("my_bot", database="postgres://username:password@localhost:5432/dbname?sslmode=disable")
+client = NewClient(
+    "my_bot", database="postgres://username:password@localhost:5432/dbname?sslmode=disable"
+)
 
 # With SSL required
-client = NewClient("my_bot", database="postgres://username:password@localhost:5432/dbname?sslmode=require")
+client = NewClient(
+    "my_bot", database="postgres://username:password@localhost:5432/dbname?sslmode=require"
+)
 ```
 
 ### Connection Pool Settings
@@ -546,10 +543,12 @@ from neonize.utils.jid import build_jid
 
 whatsapp_client = NewAClient("fastapi_bot")
 
+
 @whatsapp_client.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv):
     if event.Message.conversation == "/api_status":
         await client.reply_message("API is running! ✅", event)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -558,7 +557,9 @@ async def lifespan(app: FastAPI):
     yield
     await whatsapp_client.disconnect()
 
+
 app = FastAPI(lifespan=lifespan)
+
 
 @app.get("/send-message")
 async def send_message(phone: str, message: str):
@@ -575,9 +576,10 @@ from django.apps import AppConfig
 from neonize.client import NewClient
 import threading
 
+
 class WhatsAppConfig(AppConfig):
-    name = 'whatsapp_integration'
-    
+    name = "whatsapp_integration"
+
     def ready(self):
         self.whatsapp_client = NewClient("django_bot")
         thread = threading.Thread(target=self.whatsapp_client.connect)
@@ -595,25 +597,27 @@ import threading
 app = Flask(__name__)
 whatsapp_client = NewClient("flask_bot")
 
-@app.route('/webhook', methods=['POST'])
+
+@app.route("/webhook", methods=["POST"])
 def webhook():
     data = request.json
-    phone = data.get('phone')
-    message = data.get('message')
-    
+    phone = data.get("phone")
+    message = data.get("message")
+
     if phone and message:
         jid = build_jid(phone)
         whatsapp_client.send_message(jid, text=message)
         return jsonify({"status": "success"})
-    
+
     return jsonify({"status": "error"}), 400
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Start WhatsApp client in background
     thread = threading.Thread(target=whatsapp_client.connect)
     thread.daemon = True
     thread.start()
-    
+
     app.run(debug=True)
 ```
 

@@ -3,7 +3,8 @@ from __future__ import annotations
 import asyncio
 import ctypes
 from asyncio import Event as IOEvent
-from typing import TYPE_CHECKING, Awaitable, Callable, Coroutine, Dict, Type, TypeVar
+from collections.abc import Awaitable, Callable, Coroutine
+from typing import TYPE_CHECKING, TypeVar
 
 import segno
 from google.protobuf.message import Message
@@ -65,44 +66,44 @@ if TYPE_CHECKING:
 EventType = TypeVar("EventType", bound=Message)
 event = IOEvent()
 __all__ = [
-    "QREv",
-    "PairStatusEv",
-    "ConnectedEv",
-    "KeepAliveTimeoutEv",
-    "KeepAliveRestoredEv",
-    "LoggedOutEv",
-    "StreamReplacedEv",
-    "TemporaryBanEv",
-    "ConnectFailureEv",
-    "ClientOutdatedEv",
-    "StreamErrorEv",
-    "DisconnectedEv",
-    "HistorySyncEv",
-    "NewsLetterMessageMetaEv",
-    "MessageEv",
-    "ReceiptEv",
-    "ChatPresenceEv",
-    "PresenceEv",
-    "JoinedGroupEv",
-    "GroupInfoEv",
-    "PictureEv",
-    "IdentityChangeEv",
-    "PrivacySettingsEv",
-    "OfflineSyncPreviewEv",
-    "OfflineSyncCompletedEv",
-    "BlocklistEv",
     "BlocklistChangeEv",
-    "NewsletterJoinEv",
-    "NewsletterLeaveEv",
-    "NewsletterMuteChangeEv",
-    "NewsletterLiveUpdateEv",
-    "CallOfferEv",
+    "BlocklistEv",
     "CallAcceptEv",
-    "CallPreAcceptEv",
-    "CallTransportEv",
+    "CallOfferEv",
     "CallOfferNoticeEv",
+    "CallPreAcceptEv",
     "CallRelayLatencyEv",
     "CallTerminateEv",
+    "CallTransportEv",
+    "ChatPresenceEv",
+    "ClientOutdatedEv",
+    "ConnectFailureEv",
+    "ConnectedEv",
+    "DisconnectedEv",
+    "GroupInfoEv",
+    "HistorySyncEv",
+    "IdentityChangeEv",
+    "JoinedGroupEv",
+    "KeepAliveRestoredEv",
+    "KeepAliveTimeoutEv",
+    "LoggedOutEv",
+    "MessageEv",
+    "NewsLetterMessageMetaEv",
+    "NewsletterJoinEv",
+    "NewsletterLeaveEv",
+    "NewsletterLiveUpdateEv",
+    "NewsletterMuteChangeEv",
+    "OfflineSyncCompletedEv",
+    "OfflineSyncPreviewEv",
+    "PairStatusEv",
+    "PictureEv",
+    "PresenceEv",
+    "PrivacySettingsEv",
+    "QREv",
+    "ReceiptEv",
+    "StreamErrorEv",
+    "StreamReplacedEv",
+    "TemporaryBanEv",
     "UnknownCallEventEv",
 ]
 
@@ -118,7 +119,7 @@ class Event:
         """
         self.client = client
         self.blocking_func = self.paircode(self.default_paircode_cb)
-        self.list_func: Dict[int, Callable[[NewAClient, Message], Coroutine[None, None, None]]] = {}
+        self.list_func: dict[int, Callable[[NewAClient, Message], Coroutine[None, None, None]]] = {}
         self._qr = self.__onqr
 
     def execute(self, uuid: int, binary: int, size: int, code: int):
@@ -144,9 +145,7 @@ class Event:
             self.client.connected = True
         handler = self.list_func.get(code)
         if handler is not None:
-            asyncio.run_coroutine_threadsafe(
-                handler(self.client, message), event_global_loop
-            )
+            asyncio.run_coroutine_threadsafe(handler(self.client, message), event_global_loop)
 
     async def __onqr(self, _: NewAClient, data_qr: bytes):
         """
@@ -208,7 +207,7 @@ class Event:
             log.info("Pair code: %s", data)
 
     def __call__(
-        self, event: Type[EventType]
+        self, event: type[EventType]
     ) -> Callable[[Callable[[NewAClient, EventType], Awaitable[None]]], None]:
         """
         Registers a callback function for a specific event type.
@@ -228,10 +227,10 @@ class Event:
 class EventsManager:
     def __init__(self, client_factory: ClientFactory):
         self.client_factory = client_factory
-        self.list_func: Dict[int, Callable[[NewAClient, Message], Awaitable[None]]] = {}
+        self.list_func: dict[int, Callable[[NewAClient, Message], Awaitable[None]]] = {}
 
     def __call__(
-        self, event: Type[EventType]
+        self, event: type[EventType]
     ) -> Callable[[Callable[[NewAClient, EventType], Awaitable[None]]], None]:
         """
         Registers a callback function for a specific event type.

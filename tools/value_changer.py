@@ -1,5 +1,5 @@
 import ast
-from typing import Dict, List, Optional, TypeVar, overload
+from typing import TypeVar, overload
 
 const_type = str | float | int
 
@@ -13,8 +13,8 @@ class Changer(ast.NodeVisitor):
     """
 
     rules = {}  # Dictionary containing replacement rules for variables
-    extract_rules: List[str] = []  # List of variable names to extract
-    extract_result: Dict[str, const_type] = {}  # Extracted variable values
+    extract_rules: list[str] = []  # List of variable names to extract
+    extract_result: dict[str, const_type] = {}  # Extracted variable values
 
     def visit_Assign(self, node: ast.Assign):
         """
@@ -47,7 +47,7 @@ class Changer(ast.NodeVisitor):
         self.rules.update(rules)
         return self
 
-    def extract(self, vars_name: List[str]):
+    def extract(self, vars_name: list[str]):
         """
         Specifies which variable values should be extracted from the AST.
 
@@ -102,7 +102,7 @@ class ValueChanger:
     @overload
     def extract(self, name: str) -> const_type: ...
 
-    def extract(self, name: str, expect_type: Optional[type[const_type]] = None) -> const_type:
+    def extract(self, name: str, expect_type: type[const_type] | None = None) -> const_type:
         """
         Extracts the assigned value of a specified variable from the source code.
 
@@ -117,7 +117,7 @@ class ValueChanger:
         changer.extract([name]).visit(self.node)
         return changer.extract_result[name]
 
-    def extracts(self, names: List[str]) -> Dict[str, const_type]:
+    def extracts(self, names: list[str]) -> dict[str, const_type]:
         """
         Extracts assigned values for multiple variables from the source code.
 

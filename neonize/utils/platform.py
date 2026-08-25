@@ -2,7 +2,6 @@ import os
 import platform
 import shutil
 import sys
-from typing import Dict
 
 
 def arch_normalizer(arch_: str) -> str:
@@ -14,7 +13,7 @@ def arch_normalizer(arch_: str) -> str:
     :return: The normalized architecture name.
     :rtype: str
     """
-    arch: Dict[str, str] = {
+    arch: dict[str, str] = {
         "aarch64": "arm64",
         "x86_64": "amd64",
     }

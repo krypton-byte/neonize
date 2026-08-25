@@ -39,10 +39,7 @@ client = NewClient("my_bot")
 client = NewClient("my_bot", database="./sessions/bot.db")
 
 # PostgreSQL database
-client = NewClient(
-    "production_bot",
-    database="postgresql://user:pass@localhost:5432/whatsapp"
-)
+client = NewClient("production_bot", database="postgresql://user:pass@localhost:5432/whatsapp")
 
 # Custom device properties
 from neonize.proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2 import DeviceProps
@@ -141,17 +138,11 @@ print(f"Sent: {response.ID}")
 
 # With link preview
 client.send_message(
-    recipient,
-    "Check this: https://github.com/krypton-byte/neonize",
-    link_preview=True
+    recipient, "Check this: https://github.com/krypton-byte/neonize", link_preview=True
 )
 
 # With ghost mentions
-client.send_message(
-    recipient,
-    "Secret mention",
-    ghost_mentions="@1234567890"
-)
+client.send_message(recipient, "Secret mention", ghost_mentions="@1234567890")
 ```
 
 ### reply_message()
@@ -180,17 +171,14 @@ response = client.reply_message(
 ```python
 from neonize.events import MessageEv
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     # Reply to message
     client.reply_message("Thanks!", event)
-    
+
     # Private reply in group
-    client.reply_message(
-        "This is private",
-        event,
-        reply_privately=True
-    )
+    client.reply_message("This is private", event, reply_privately=True)
 ```
 
 ### edit_message()
@@ -260,11 +248,7 @@ response = client.send_image(
 client.send_image(recipient, "photo.jpg", caption="Check this!")
 
 # From URL
-client.send_image(
-    recipient,
-    "https://example.com/image.jpg",
-    caption="Downloaded image"
-)
+client.send_image(recipient, "https://example.com/image.jpg", caption="Downloaded image")
 
 # From bytes
 with open("image.jpg", "rb") as f:
@@ -353,7 +337,7 @@ client.send_document(
     "report.pdf",
     filename="Monthly_Report.pdf",
     caption="Here's the report",
-    title="Monthly Report"
+    title="Monthly Report",
 )
 ```
 
@@ -377,13 +361,7 @@ response = client.send_sticker(
 client.send_sticker(recipient, "sticker.webp")
 
 # With metadata
-client.send_sticker(
-    recipient,
-    "image.png",
-    name="@MyBot",
-    packname="2024",
-    crop=True
-)
+client.send_sticker(recipient, "image.png", name="@MyBot", packname="2024", crop=True)
 ```
 
 ### download_any()
@@ -403,15 +381,16 @@ data = client.download_any(
 ```python
 from neonize.events import MessageEv
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     msg = event.Message
-    
+
     # Download to memory
     if msg.imageMessage:
         image_data = client.download_any(msg)
         print(f"Downloaded {len(image_data)} bytes")
-    
+
     # Download to file
     if msg.documentMessage:
         filename = msg.documentMessage.fileName
@@ -499,9 +478,11 @@ Register event handlers for a specific event type.
 ```python
 from neonize.events import MessageEv, ReceiptEv
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv):
     print("Message received!")
+
 
 @client.event(ReceiptEv)
 def on_receipt(client: NewClient, event: ReceiptEv):

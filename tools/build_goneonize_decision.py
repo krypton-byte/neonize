@@ -1,11 +1,12 @@
-from io import BytesIO
+import glob
 import os
 import sys
-from .github import Github
-from zipfile import ZipFile
 from hashlib import md5
+from io import BytesIO
 from pathlib import Path
-import glob
+from zipfile import ZipFile
+
+from .github import Github
 
 goneonize = Path(__file__).parent.parent / "goneonize"
 

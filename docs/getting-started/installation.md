@@ -59,6 +59,7 @@ After installation, verify that Neonize is correctly installed:
 
 ```python
 import neonize
+
 print(neonize.__version__)
 ```
 

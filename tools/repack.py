@@ -1,9 +1,9 @@
-from enum import Enum
-from pathlib import Path
-import shutil
-import subprocess
 import os
 import platform
+import shutil
+import subprocess
+from enum import Enum
+from pathlib import Path
 
 WORKDIR = Path(__file__).parent.parent
 fname = "-".join(
