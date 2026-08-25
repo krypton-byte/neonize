@@ -478,21 +478,18 @@ We welcome contributions! Here's how you can help:
 git clone https://github.com/krypton-byte/neonize.git
 cd neonize
 
-# Install dependencies with Poetry
-poetry install --with dev
+# Install dependencies with uv (Python 3.10+, Go 1.25+ for goneonize)
+uv sync --dev
 
-# Or install with pip in development mode
-pip install -e .
-
-# Run the basic example
-python examples/basic.py
+# Build the shared library locally
+CGO_ENABLED=1 uv run task build goneonize
 
 # Run tests
-python -m pytest
-
-# Build documentation
-cd docs && make html
+uv run --with pytest python -m pytest
 ```
+
+📖 See [CONTRIBUTING.md](CONTRIBUTING.md) for our branching model,
+conventional-commit standards and how releases work.
 
 ### Code Standards
 

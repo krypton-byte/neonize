@@ -128,7 +128,10 @@ def repack(_os: OS, arch: ARCH):
                 print(wheel.replace("py3-none-any", f"py310-none-{_os.value}_{arch_value}"))
         subprocess.call(["wheel", "pack", WORKDIR / "dist" / fname], cwd=WORKDIR / "dist")
         os.remove(WORKDIR / "dist" / wheel_name)
-        os.remove(WORKDIR / "dist" / (fname + ".tar.gz"))
+        # uv build --wheel produces no sdist tarball; only remove it when present.
+        tarball = WORKDIR / "dist" / (fname + ".tar.gz")
+        if tarball.exists():
+            os.remove(tarball)
         shutil.rmtree(WORKDIR / "dist" / fname)
     except FileNotFoundError:
         print("general wheel file not found\nhint: uv build")

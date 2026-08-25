@@ -37,6 +37,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
+          base: dev
           commit-message: "build(deps): update goneonize golang dependencies"
           branch: chore/golang-deps
           delete-branch: true
@@ -80,6 +81,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
+          base: dev
           commit-message: "chore(proto): sync whatsapp proto definitions from whatsmeow main"
           branch: chore/whatsmeow-proto
           delete-branch: true
