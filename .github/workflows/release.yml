@@ -52,10 +52,20 @@ jobs:
           fi
       - name: Resolve previous release tag
         id: previous_tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "previous_tag=$(git ls-remote --tags origin \
-            | grep -oE 'refs/tags/[0-9]+\.[0-9]+\.[0-9]+$' \
-            | sed 's|refs/tags/||' | sort -V | tail -1)" >> "$GITHUB_OUTPUT"
+          # Prefer the latest *published* release: its assets are guaranteed
+          # to exist for the "download prebuilt" shortcut. Fall back to the
+          # newest pure-SemVer tag when no release exists yet.
+          PREV=$(gh api "repos/${{ github.repository }}/releases/latest" --jq .tag_name 2>/dev/null || true)
+          if [ -z "$PREV" ]; then
+            PREV=$(git ls-remote --tags origin \
+              | grep -oE 'refs/tags/[0-9]+\.[0-9]+\.[0-9]+$' \
+              | sed 's|refs/tags/||' | sort -V | tail -1)
+          fi
+          echo "Using previous release/tag: $PREV"
+          echo "previous_tag=$PREV" >> "$GITHUB_OUTPUT"
       - uses: astral-sh/setup-uv@v5
       - name: Validate semantic-release configuration
         run: |
