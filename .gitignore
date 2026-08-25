@@ -2,6 +2,7 @@
 sharedlib/
 goneonize/*.h
 *.lock
+!uv.lock
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

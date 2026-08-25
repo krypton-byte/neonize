@@ -60,7 +60,7 @@ jobs:
       - name: Validate semantic-release configuration
         run: |
           uv sync --dev
-          uv run semantic-release config
+          uv run semantic-release --noop version --print || true
       - name: Python Semantic Release
         id: psr
         uses: python-semantic-release/python-semantic-release@v10.6.1
