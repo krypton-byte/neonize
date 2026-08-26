@@ -77,15 +77,18 @@ from neonize.events import ConnectedEv, MessageEv
 
 client = NewClient("session.db")
 
+
 @client.event(ConnectedEv)
 def on_connected(client: NewClient, _: ConnectedEv) -> None:
     print("Connected")
+
 
 @client.event(MessageEv)
 def on_message(client: NewClient, message: MessageEv) -> None:
     text = message.Message.conversation or message.Message.extendedTextMessage.text
     if text == "ping":
         client.reply_message("pong", message)
+
 
 client.connect()
 ```
@@ -99,9 +102,11 @@ from neonize.aioze.events import ConnectedEv, MessageEv
 
 client = NewAClient("async_session.db")
 
+
 @client.event(ConnectedEv)
 async def on_connected(client: NewAClient, _: ConnectedEv) -> None:
     print("Connected")
+
 
 @client.event(MessageEv)
 async def on_message(client: NewAClient, message: MessageEv) -> None:
@@ -109,9 +114,11 @@ async def on_message(client: NewAClient, message: MessageEv) -> None:
     if text == "ping":
         await client.reply_message("pong", message)
 
+
 async def main():
     await client.connect()
     await client.idle()
+
 
 asyncio.run(main())
 ```
@@ -137,7 +144,9 @@ with open("photo.jpg", "rb") as f:
 
 # Document
 with open("report.pdf", "rb") as f:
-    msg = client.build_document_message(f.read(), filename="report.pdf", mime_type="application/pdf")
+    msg = client.build_document_message(
+        f.read(), filename="report.pdf", mime_type="application/pdf"
+    )
     client.send_message(jid, message=msg)
 ```
 
@@ -147,6 +156,7 @@ with open("report.pdf", "rb") as f:
 from neonize.events import MessageEv, ReceiptEv, PresenceEv
 from neonize.utils.message import extract_text
 
+
 @client.event(MessageEv)
 def on_message(client: NewClient, event: MessageEv) -> None:
     text = extract_text(event.Message)
@@ -155,9 +165,11 @@ def on_message(client: NewClient, event: MessageEv) -> None:
     if text == "help":
         client.reply_message("Available commands: help, time", event)
 
+
 @client.event(ReceiptEv)
 def on_receipt(client: NewClient, event: ReceiptEv) -> None:
     print(f"Receipt: {event.Receipt.Type} for {event.MessageIDs}")
+
 
 @client.event(PresenceEv)
 def on_presence(client: NewClient, event: PresenceEv) -> None:
@@ -198,18 +210,22 @@ for device in factory.get_all_devices():
 # Pair a new account
 factory.new_client(uuid="second-account", new_device=True)
 
+
 @factory.event(ConnectedEv)
 async def on_connected(client: NewAClient, event: ConnectedEv) -> None:
     print("Client connected")
+
 
 @factory.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv) -> None:
     if event.Message.conversation == "ping":
         await client.reply_message("pong", event)
 
+
 async def main():
     await factory.run()
     await factory.idle_all()
+
 
 asyncio.run(main())
 ```
@@ -225,10 +241,12 @@ from neonize.utils.jid import build_jid
 
 client = NewAClient("fastapi_bot")
 
+
 @client.event(MessageEv)
 async def on_message(client: NewAClient, event: MessageEv) -> None:
     if event.Message.conversation == "/status":
         await client.reply_message("API is running", event)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -236,7 +254,9 @@ async def lifespan(app: FastAPI):
     yield
     await client.disconnect()
 
+
 app = FastAPI(lifespan=lifespan)
+
 
 @app.get("/send")
 async def send(phone: str, message: str):
@@ -259,7 +279,9 @@ client = NewClient("bot", database="./session.db")
 client = NewClient("bot", database="postgres://user:pass@localhost:5432/neonize")
 
 # Connection pooling
-client = NewClient("bot", database="postgres://user:pass@localhost/neonize?pool_min_conns=5&pool_max_conns=20")
+client = NewClient(
+    "bot", database="postgres://user:pass@localhost/neonize?pool_min_conns=5&pool_max_conns=20"
+)
 
 # In-memory (testing only)
 client = NewClient("bot", database=":memory:")
