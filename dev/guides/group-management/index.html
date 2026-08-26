@@ -2301,28 +2301,34 @@ objects — see <a href="../../core-concepts/jid-and-addressing/">JID and Addres
 <tr>
 <th>Method</th>
 <th>Purpose</th>
+<th>Raises</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>set_group_name(jid, name)</code></td>
 <td>Rename the group</td>
+<td><code>SetGroupNameError</code></td>
 </tr>
 <tr>
 <td><code>set_group_topic(jid, topic)</code></td>
 <td>Set description/topic</td>
+<td><code>SetGroupTopicError</code></td>
 </tr>
 <tr>
 <td><code>set_group_photo(jid, path_or_bytes)</code></td>
 <td>Change the picture</td>
+<td><code>SetGroupPhotoError</code></td>
 </tr>
 <tr>
 <td><code>set_group_announce(jid, locked)</code></td>
 <td>Only admins may send messages</td>
+<td><code>SetGroupAnnounceError</code></td>
 </tr>
 <tr>
 <td><code>set_group_locked(jid, locked)</code></td>
 <td>Only admins may edit group info</td>
+<td><code>SetGroupLockedError</code></td>
 </tr>
 </tbody>
 </table>
@@ -2330,7 +2336,7 @@ objects — see <a href="../../core-concepts/jid-and-addressing/">JID and Addres
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">client</span><span class="o">.</span><span class="n">set_group_announce</span><span class="p">(</span><span class="n">group_jid</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>      <span class="c1"># admin-only chat</span>
 </span></code></pre></div>
 <h2 id="leaving-and-linking">Leaving and Linking<a class="headerlink" href="#leaving-and-linking" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">client</span><span class="o">.</span><span class="n">leave_group</span><span class="p">(</span><span class="n">group_jid</span><span class="p">)</span>          <span class="c1"># exit the group</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">client</span><span class="o">.</span><span class="n">leave_group</span><span class="p">(</span><span class="n">group_jid</span><span class="p">)</span>          <span class="c1"># raises LeaveGroupError on failure</span>
 </span></code></pre></div>
 <p>Communities (linked groups) connect child groups to a parent:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">client</span><span class="o">.</span><span class="n">link_group</span><span class="p">(</span><span class="n">child_jid</span><span class="p">,</span> <span class="n">parent_jid</span><span class="p">)</span>

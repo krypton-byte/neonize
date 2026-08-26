@@ -2273,12 +2273,16 @@ Each handler receives the client instance and the typed event object.</p>
 </table>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nd">@client</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">MessageEv</span><span class="p">)</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">on_message</span><span class="p">(</span><span class="n">client</span><span class="p">:</span> <span class="n">NewClient</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">MessageEv</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">text</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Message</span><span class="o">.</span><span class="n">conversation</span> <span class="ow">or</span> <span class="n">message</span><span class="o">.</span><span class="n">Message</span><span class="o">.</span><span class="n">extendedTextMessage</span><span class="o">.</span><span class="n">text</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">chat</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Info</span><span class="o">.</span><span class="n">MessageSource</span><span class="o">.</span><span class="n">Chat</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="k">if</span> <span class="n">text</span> <span class="o">==</span> <span class="s2">"ping"</span><span class="p">:</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="n">client</span><span class="o">.</span><span class="n">reply_message</span><span class="p">(</span><span class="s2">"pong"</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">neonize</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">text</span> <span class="o">=</span> <span class="n">extract_text</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">Message</span><span class="p">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">chat</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Info</span><span class="o">.</span><span class="n">MessageSource</span><span class="o">.</span><span class="n">Chat</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="k">if</span> <span class="n">text</span> <span class="o">==</span> <span class="s2">"ping"</span><span class="p">:</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="n">client</span><span class="o">.</span><span class="n">reply_message</span><span class="p">(</span><span class="s2">"pong"</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 </span></code></pre></div>
+<p><code>extract_text()</code> handles plain text, extended text (with mentions/links),
+and the caption fields of image, video and document messages in one call.</p>
 <h2 id="4-connect">4. Connect<a class="headerlink" href="#4-connect" title="Permanent link">&para;</a></h2>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 </span></code></pre></div>
@@ -2297,14 +2301,16 @@ stored and every future <code>connect()</code> reuses it silently.</p>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
 </span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nd">@client</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">MessageEv</span><span class="p">)</span>
 </span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">on_message</span><span class="p">(</span><span class="n">client</span><span class="p">:</span> <span class="n">NewClient</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">MessageEv</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="n">text</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Message</span><span class="o">.</span><span class="n">conversation</span> <span class="ow">or</span> <span class="n">message</span><span class="o">.</span><span class="n">Message</span><span class="o">.</span><span class="n">extendedTextMessage</span><span class="o">.</span><span class="n">text</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="n">chat</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Info</span><span class="o">.</span><span class="n">MessageSource</span><span class="o">.</span><span class="n">Chat</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="k">if</span> <span class="n">text</span> <span class="o">==</span> <span class="s2">"ping"</span><span class="p">:</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>        <span class="n">client</span><span class="o">.</span><span class="n">reply_message</span><span class="p">(</span><span class="s2">"pong"</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">neonize</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="n">text</span> <span class="o">=</span> <span class="n">extract_text</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">Message</span><span class="p">)</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="n">chat</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">Info</span><span class="o">.</span><span class="n">MessageSource</span><span class="o">.</span><span class="n">Chat</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="k">if</span> <span class="n">text</span> <span class="o">==</span> <span class="s2">"ping"</span><span class="p">:</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>        <span class="n">client</span><span class="o">.</span><span class="n">reply_message</span><span class="p">(</span><span class="s2">"pong"</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>    <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 </span></code></pre></div>
 <p>Run it:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python<span class="w"> </span>bot.py
@@ -2316,6 +2322,13 @@ stored and every future <code>connect()</code> reuses it silently.</p>
 <li>Understand the event system in depth: <a href="../../core-concepts/event-model/">Event Model</a></li>
 <li>Use asyncio instead of threads: <a href="../../async/">Async Client</a></li>
 </ul>
+<div class="admonition info">
+<p class="admonition-title">Phone number strings</p>
+<p>You can pass a phone number string directly to <code>send_message()</code> without
+building a JID first:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">client</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="s2">"6281234567890"</span><span class="p">,</span> <span class="s2">"Hello!"</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
 
 
 
