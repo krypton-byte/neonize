@@ -127,6 +127,28 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.4.6 (2026-08-26)
+
+### Bug Fixes
+
+- Prevent Go panics in UploadNewsletter and GetNewsletterMessages
+  ([`85d4a89`](https://github.com/krypton-byte/neonize/commit/85d4a89faa10625530378ff6b43cf010f9935e38))
+
+- **ci**: Resolve lint-python and proto-sync CI failures
+  ([`1982d68`](https://github.com/krypton-byte/neonize/commit/1982d6821551070c39cfad7e335a003cc72d38c3))
+
+### Documentation
+
+- Rewrite README and replace branding assets with mascot
+  ([`a29bfae`](https://github.com/krypton-byte/neonize/commit/a29bfae261d089b6ca227564a8fe922cb1f2c483))
+
+- Sync mascot.png from assets/ to docs/assets/
+  ([`c112f9b`](https://github.com/krypton-byte/neonize/commit/c112f9bd1f24438b6e84e4e1ea730dd4a7252cf1))
+
+- **logo**: Mascot
+  ([`6c9c4be`](https://github.com/krypton-byte/neonize/commit/6c9c4be85b9bda6f10eac91ceb21aaa939f2da0d))
+
+
 ## v0.4.5 (2026-08-26)
 
 ### Bug Fixes
