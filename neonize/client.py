@@ -386,7 +386,6 @@ class ChatSettingsStore:
         return return_.LocalChatSettings
 
 
-
 def _ensure_jid(value: JID | str, server: str = "s.whatsapp.net") -> JID:
     """Coerce a phone-number string into a :class:`JID`.
 
