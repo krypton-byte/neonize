@@ -84,19 +84,32 @@ jobs:
           if [ -z "$NEXT" ]; then
             echo "No release to make."
             echo "release=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "Next version: $NEXT"
-            echo "version=$NEXT" >> "$GITHUB_OUTPUT"
-            echo "tag=$NEXT" >> "$GITHUB_OUTPUT"
-            echo "release=true" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          # Check if tag already exists — skip if it does
+          if git ls-remote --tags origin | grep -qE "refs/tags/${NEXT}$"; then
+            echo "Tag $NEXT already exists — skipping release."
+            echo "release=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "Next version: $NEXT"
+          echo "version=$NEXT" >> "$GITHUB_OUTPUT"
+          echo "tag=$NEXT" >> "$GITHUB_OUTPUT"
+          echo "release=true" >> "$GITHUB_OUTPUT"
       - name: Create release commit, tag and GitHub Release
         if: steps.psr.outputs.release == 'true'
         env:
           NEXT: ${{ steps.psr.outputs.version }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          uv run semantic-release version
+          # Run PSR for real — commit, tag, push version files
+          PSR_OUTPUT=$(uv run semantic-release version 2>&1) || true
+          echo "$PSR_OUTPUT"
+          # If PSR decided no release, bail out
+          if echo "$PSR_OUTPUT" | grep -q 'No release will be made'; then
+            echo "PSR decided no release — aborting."
+            exit 1
+          fi
           git push origin master
           git push origin "$NEXT"
           gh release create "$NEXT" \
