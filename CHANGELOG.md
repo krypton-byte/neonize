@@ -127,6 +127,14 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.4.5 (2026-08-26)
+
+### Bug Fixes
+
+- Improve error hierarchy, DX, and documentation for Priority 1 + 2
+  ([`222fbb6`](https://github.com/krypton-byte/neonize/commit/222fbb698bd6270ca40b22fa510795ab91edb3fe))
+
+
 ## v0.4.4 (2026-08-26)
 
 ### Bug Fixes
