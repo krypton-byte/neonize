@@ -10,7 +10,9 @@ Source embedded from
 python examples/async_basic.py
 ```
 
+```python
 --8<-- "examples/async_basic.py"
+```
 
 ## Notes
 

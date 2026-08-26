@@ -10,7 +10,9 @@ Source embedded from
 python examples/interactive_async.py
 ```
 
+```python
 --8<-- "examples/interactive_async.py"
+```
 
 ## Related Pages
 

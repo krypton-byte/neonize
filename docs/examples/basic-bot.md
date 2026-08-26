@@ -19,7 +19,9 @@ Pair with the printed QR code, then send any of the commands handled in the
 
 ## Source
 
+```python
 --8<-- "examples/basic.py"
+```
 
 ## Highlights
 

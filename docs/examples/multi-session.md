@@ -10,7 +10,9 @@ Source embedded from
 python examples/multisession_async.py
 ```
 
+```python
 --8<-- "examples/multisession_async.py"
+```
 
 ## Key Ideas
 
