@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import shlex
+import shutil
 import subprocess
 import tempfile
 import uuid
@@ -17,6 +18,44 @@ from .iofile import (
 )
 
 log = logging.getLogger(__name__)
+
+
+# -- Startup diagnostic ------------------------------------------------------
+
+_ffmpeg_checked = False
+
+
+def check_ffmpeg_available() -> bool:
+    """Check whether ``ffmpeg`` and ``ffprobe`` are on the system PATH.
+
+    Returns *True* if both binaries are found, *False* otherwise.  The check
+    is performed only once per process; subsequent calls return the cached
+    result.
+
+    A warning is logged when the tools are missing so that users see a clear
+    message before a media operation fails with an obscure ``FileNotFoundError``.
+    """
+    global _ffmpeg_checked  # noqa: PLW0603
+    if _ffmpeg_checked:
+        return True
+    _ffmpeg_checked = True
+
+    ffmpeg_found = shutil.which("ffmpeg") is not None
+    ffprobe_found = shutil.which("ffprobe") is not None
+    if not (ffmpeg_found and ffprobe_found):
+        missing = []
+        if not ffmpeg_found:
+            missing.append("ffmpeg")
+        if not ffprobe_found:
+            missing.append("ffprobe")
+        log.warning(
+            "neonize: %s not found on PATH -- media operations "
+            "(stickers, voice notes, video, thumbnails) will fail.  "
+            "Install FFmpeg: https://ffmpeg.org/download.html",
+            " and ".join(missing),
+        )
+        return False
+    return True
 
 
 class ImageFormat(Enum):

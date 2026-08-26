@@ -55,10 +55,12 @@ client.send_presence(Presence.UNAVAILABLE)  # offline
 from neonize.utils.enum import ChatPresence, ChatPresenceMedia
 
 client.send_chat_presence(chat, ChatPresence.COMPOSING, ChatPresenceMedia.TEXT)
+# ... preparing reply ...
 client.send_chat_presence(chat, ChatPresence.PAUSED, ChatPresenceMedia.TEXT)
 ```
 
-Incoming indicators arrive as `ChatPresenceEv`.
+Raises `SendPresenceError` if the server rejects the update.  Incoming
+indicators from other users arrive as `ChatPresenceEv`.
 
 ### Subscribing to a contact's presence
 
@@ -128,8 +130,12 @@ Reject an incoming call so it rings neither side:
 
 ```python
 from neonize.events import CallOfferEv
+from neonize.exc import RejectCallError
 
 @client.event(CallOfferEv)
 def on_call(client: NewClient, ev: CallOfferEv) -> None:
-    client.reject_call(ev.Call.From, ev.Info.ID)
+    try:
+        client.reject_call(ev.Call.From, ev.Info.ID)
+    except RejectCallError as exc:
+        log.warning("Failed to reject call: %s", exc)
 ```

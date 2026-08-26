@@ -232,20 +232,18 @@ class ContactStore:
         return model
 
     def put_contact_name(self, user: JID, fullname: str, firstname: str):
-        """
-        This method is used to update the contact name in the contact store. It takes the user's JID,
-        full name and first name as input parameters,
-        then calls the PutContactName method of the client with the user's JID, full name and first name.
-        If there is an error, it returns a ContactStoreError with the error message.
+        """Update the locally-stored display name for a contact.
 
-        :param user: The JID of the user whose contact name is to be updated
+        This writes to the **local** contact store only; it does not notify the
+        remote user.
+
+        :param user: JID of the contact to rename.
         :type user: JID
-        :param fullname: The full name of the user
+        :param fullname: Full display name.
         :type fullname: str
-        :param firstname: The first name of the user
+        :param firstname: Short / first name.
         :type firstname: str
-        :return: If there is an error, return a ContactStoreError with the error message, else None
-        :rtype: ContactStoreError or None
+        :raises ContactStoreError: If the Go core reports an error.
         """
         user_bytes = user.SerializeToString()
         err = self.__client.PutContactName(
@@ -256,7 +254,7 @@ class ContactStore:
             firstname.encode(),
         ).decode()
         if err:
-            return ContactStoreError(err)
+            raise ContactStoreError(err)
 
     def put_all_contact_name(self, contact_entry: list[ContactEntry]):
         """
@@ -388,6 +386,29 @@ class ChatSettingsStore:
         return return_.LocalChatSettings
 
 
+
+def _ensure_jid(value: JID | str, server: str = "s.whatsapp.net") -> JID:
+    """Coerce a phone-number string into a :class:`JID`.
+
+    If *value* is already a ``JID`` instance it is returned unchanged.
+    If it is a ``str`` of digits it is treated as a phone number and
+    wrapped with :func:`build_jid`.  Strings containing ``@`` are
+    assumed to be full JID strings and parsed via ``Jid2String`` in
+    reverse (by splitting on ``@``).
+
+    :param value: A JID object **or** a phone number string.
+    :param server: WhatsApp server suffix, default ``s.whatsapp.net``.
+    :return: A ``JID`` protobuf ready for the Go core.
+    :rtype: JID
+    """
+    if isinstance(value, JID):
+        return value
+    if "@" in value:
+        user, srv = value.rsplit("@", 1)
+        return JID(User=user, Server=srv, Device=0, RawAgent=0, Integrator=0, IsEmpty=False)
+    return build_jid(value, server)
+
+
 class NewClient:
     def __init__(
         self,
@@ -399,19 +420,28 @@ class NewClient:
     ):
         """Initializes a new client instance.
 
-        :param name: The name or identifier for the new client.
+        :param name: The name or identifier for the new client, also used as the
+            default database file name when *uuid* is not supplied.
         :type name: str
-        :param jid: Optional. The JID (Jabber Identifier) for the client. If not provided, first client is used.
-        :param qrCallback: Optional. A callback function for handling QR code updates, defaults to None.
-        :type qrCallback: Optional[Callable[[NewClient, bytes], None]], optional
-        :param messageCallback: Optional. A callback function for handling incoming messages, defaults to None.
-        :type messageCallback: Optional[Callable[[NewClient, MessageSource, Message], None]], optional
-        :param uuid: Optional. A unique identifier for the client, defaults to None.
-        :type uuid: Optional[str], optional
-        :param new_device: Optional. Pair a brand-new account (fresh QR) even if the
-            database already stores other sessions; without it, connecting without a
-            jid resumes the FIRST stored session. Requires uuid. Defaults to False.
-        :type new_device: bool, optional
+        :param jid: Optional JID to resume a specific existing session.  When
+            *None*, the first stored session is resumed (or a new QR-pairing
+            session is started).
+        :type jid: JID | None
+        :param props: Optional device properties forwarded to the Go core.
+        :type props: DeviceProps | None
+        :param uuid: Optional unique identifier for the client session.  When
+            *None*, falls back to *jid.User* or *name*.
+        :type uuid: str | None
+        :param new_device: Pair a brand-new account (fresh QR) even if the
+            database already stores other sessions; without it, connecting
+            without a *jid* resumes the first stored session.
+        :type new_device: bool
+
+        .. note::
+
+           To handle QR codes, register a callback via
+           ``client.event.qr(my_qr_handler)`` **before** calling
+           ``client.connect()``.
         """
         self.name = name
         self.device_props = props
@@ -596,7 +626,7 @@ class NewClient:
 
     def send_message(
         self,
-        to: JID,
+        to: JID | str,
         message: Message | str,
         link_preview: bool = False,
         ghost_mentions: str | None = None,
@@ -605,8 +635,10 @@ class NewClient:
     ) -> SendResponse:
         """Send a message to the specified JID.
 
-        :param to: The JID to send the message to.
-        :type to: JID
+        :param to: The recipient.  A :class:`JID` **or** a phone-number
+            string (e.g. ``"6281234567890"``) -- strings are
+            auto-wrapped via :func:`build_jid`.
+        :type to: JID | str
         :param message: The message to send.
         :type message: typing.Union[Message, str]
         :param link_preview: Whether to send a link preview, defaults to False
@@ -621,6 +653,7 @@ class NewClient:
         :return: The response from the server.
         :rtype: SendResponse
         """
+        to = _ensure_jid(to)
         to_bytes = to.SerializeToString()
         if isinstance(message, str):
             mentioned_groups = self._parse_group_mention(message)
@@ -785,7 +818,7 @@ class NewClient:
         """
         return self.send_message(chat, self.build_revoke(chat, sender, message_id))
 
-    def reject_call(self, call_from: JID, call_id: str) -> str:
+    def reject_call(self, call_from: JID, call_id: str) -> None:
         """Reject (decline) an incoming call.
 
         Wraps whatsmeow's ``Client.RejectCall``: the call is terminated on the same
@@ -796,13 +829,16 @@ class NewClient:
         :type call_from: JID
         :param call_id: The call id (CallOffer id).
         :type call_id: str
-        :return: An empty string on success, otherwise the error text.
-        :rtype: str
+        :raises RejectCallError: If the server rejects the request.
         """
+        from .exc import RejectCallError
+
         jidbuf = call_from.SerializeToString()
-        return self.__client.RejectCall(
+        err = self.__client.RejectCall(
             self.uuid, jidbuf, len(jidbuf), ctypes.create_string_buffer(call_id.encode())
         ).decode()
+        if err:
+            raise RejectCallError(err)
 
     def build_poll_vote_creation(
         self,
@@ -813,16 +849,17 @@ class NewClient:
     ) -> Message:
         """Build a poll vote creation message.
 
-        :param name: The name of the poll.
+        :param name: The question / title of the poll.
         :type name: str
-        :param options: The options for the poll.
-        :type options: List[str]
-        :param selectable_count: The number of selectable options.
-        :type selectable_count: int
-        :param quoted: A message that the poll message is a reply to, defaults to None
-        :type quoted: Optional[neonize_proto.Message], optional
-        :return: The poll vote creation message.
+        :param options: The answer options for the poll (2--12 items).
+        :type options: list[str]
+        :param selectable_count: How many options a voter may choose.
+        :type selectable_count: VoteType
+        :param quoted: Optional message to quote (reply to).
+        :type quoted: neonize_proto.Message | None
+        :return: A ``Message`` protobuf ready for :meth:`send_message`.
         :rtype: Message
+        :raises BuildPollVoteCreationError: If the Go core rejects the payload.
         """
         options_buf = neonize_proto.ArrayString(data=options).SerializeToString()
         bytes_ptr = self.__client.BuildPollVoteCreation(
@@ -1998,8 +2035,8 @@ class NewClient:
         """
         return self.__client.GenerateMessageID(self.uuid).decode()
 
-    def send_chat_presence(self, jid: JID, state: ChatPresence, media: ChatPresenceMedia) -> str:
-        """Sends chat presence information.
+    def send_chat_presence(self, jid: JID, state: ChatPresence, media: ChatPresenceMedia) -> None:
+        """Sends chat presence information (typing / recording indicators).
 
         :param jid: The JID (Jabber Identifier) of the chat.
         :type jid: JID
@@ -2007,13 +2044,16 @@ class NewClient:
         :type state: ChatPresence
         :param media: The chat presence media information.
         :type media: ChatPresenceMedia
-        :return: A string indicating the result or status of the presence information sending.
-        :rtype: str
+        :raises SendPresenceError: If the server rejects the presence update.
         """
+        from .exc import SendPresenceError
+
         jidbyte = jid.SerializeToString()
-        return self.__client.SendChatPresence(
+        err = self.__client.SendChatPresence(
             self.uuid, jidbyte, len(jidbyte), state.value, media.value
         ).decode()
+        if err:
+            raise SendPresenceError(err)
 
     def is_on_whatsapp(self, *numbers: str) -> Sequence[IsOnWhatsAppResponse]:
         """
@@ -2153,20 +2193,23 @@ class NewClient:
             raise GetGroupInfoError(model.Error)
         return model.GroupInfo
 
-    def set_group_name(self, jid: JID, name: str) -> str:
-        """Sets the name of a group.
+    def set_group_name(self, jid: JID, name: str) -> None:
+        """Rename a group.
 
         :param jid: The JID (Jabber Identifier) of the group.
         :type jid: JID
-        :param name: The new name to be set for the group.
+        :param name: The new name for the group.
         :type name: str
-        :return: A string indicating the result or an error status. Empty string if successful.
-        :rtype: str
+        :raises SetGroupNameError: If renaming the group fails.
         """
+        from .exc import SetGroupNameError
+
         jidbuf = jid.SerializeToString()
-        return self.__client.SetGroupName(
+        err = self.__client.SetGroupName(
             self.uuid, jidbuf, len(jidbuf), ctypes.create_string_buffer(name.encode())
         ).decode()
+        if err:
+            raise SetGroupNameError(err)
 
     def set_group_photo(self, jid: JID, file_or_bytes: str | bytes) -> str:
         """Sets the photo of a group.
@@ -2276,16 +2319,19 @@ class NewClient:
             raise SendMessageError(model.Error)
         return model.SendResponse
 
-    def leave_group(self, jid: JID) -> str:
-        """Leaves a group.
+    def leave_group(self, jid: JID) -> None:
+        """Leave a group.
 
         :param jid: The JID (Jabber Identifier) of the target group.
         :type jid: JID
-        :return: A string indicating the result or an error status. Empty string if successful.
-        :rtype: str
+        :raises LeaveGroupError: If leaving the group fails.
         """
+        from .exc import LeaveGroupError
+
         jid_buf = jid.SerializeToString()
-        return self.__client.LeaveGroup(self.uuid, jid_buf, len(jid_buf)).decode()
+        err = self.__client.LeaveGroup(self.uuid, jid_buf, len(jid_buf)).decode()
+        if err:
+            raise LeaveGroupError(err)
 
     def get_group_invite_link(self, jid: JID, revoke: bool = False) -> str:
         """Gets or revokes the invite link for a group.
@@ -3420,6 +3466,9 @@ class NewClient:
         :type proxy_settings: ProxySettings | None
         :raises NeonizeError: If connection setup fails.
         """
+        from .utils.ffmpeg import check_ffmpeg_available
+
+        check_ffmpeg_available()
         # Convert the list of functions to a bytearray
         d = bytearray(list(self.event.list_func))
         _log_.debug("🔒 Attempting to connect to the WhatsApp servers.")

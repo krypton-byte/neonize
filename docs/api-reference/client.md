@@ -9,6 +9,13 @@ from neonize.client import NewClient
 client = NewClient("session.db")
 ```
 
+## JID Helper
+
+`send_message` and other send methods accept a phone-number string directly.
+Under the hood they call this helper to coerce the value into a `JID`:
+
+::: neonize.client._ensure_jid
+
 ## Constructor
 
 ::: neonize.client.NewClient

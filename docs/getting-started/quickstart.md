@@ -48,12 +48,17 @@ def on_message(client: NewClient, message: MessageEv) -> None:
 ```python
 @client.event(MessageEv)
 def on_message(client: NewClient, message: MessageEv) -> None:
-    text = message.Message.conversation or message.Message.extendedTextMessage.text
+    from neonize import extract_text
+
+    text = extract_text(message.Message)
     chat = message.Info.MessageSource.Chat
 
     if text == "ping":
         client.reply_message("pong", message)
 ```
+
+`extract_text()` handles plain text, extended text (with mentions/links),
+and the caption fields of image, video and document messages in one call.
 
 ## 4. Connect
 
@@ -79,7 +84,9 @@ def on_connected(client: NewClient, _: ConnectedEv) -> None:
 
 @client.event(MessageEv)
 def on_message(client: NewClient, message: MessageEv) -> None:
-    text = message.Message.conversation or message.Message.extendedTextMessage.text
+    from neonize import extract_text
+
+    text = extract_text(message.Message)
     chat = message.Info.MessageSource.Chat
 
     if text == "ping":
@@ -101,3 +108,11 @@ python bot.py
 - Send images, videos, documents and stickers: [Sending Messages](../guides/sending-messages.md)
 - Understand the event system in depth: [Event Model](../core-concepts/event-model.md)
 - Use asyncio instead of threads: [Async Client](../async/index.md)
+
+!!! info "Phone number strings"
+    You can pass a phone number string directly to `send_message()` without
+    building a JID first:
+
+    ```python
+    client.send_message("6281234567890", "Hello!")
+    ```

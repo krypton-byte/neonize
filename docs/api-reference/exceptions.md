@@ -1,27 +1,36 @@
 # Exceptions
 
-All Neonize errors live in `neonize.exc` and derive from `Exception`. There
-is one exception class per failing operation, so `except` clauses can be as
-narrow or broad as you like.
+All Neonize errors live in `neonize.exc` and inherit from
+`NeonizeError`. There is one exception class per failing operation, so
+`except` clauses can be as narrow or broad as you like.
+
+```python
+from neonize.exc import NeonizeError
+
+try:
+    client.send_message("6281234567890", "hello")
+except NeonizeError as exc:
+    print(f"Library error: {exc}")
+```
 
 ## Hierarchy
 
 ```text
-Exception
-└── NeonizeError            (base for library-level errors)
-    └── UnsupportedEvent
-Exception
-├── UploadError / DownloadError
-├── SendMessageError
-├── PairPhoneError
-├── CreateGroupError
-├── ... (one class per operation, see table below)
-└── ContactStoreError / FFProbeError / ConvertStickerError
+NeonizeError
+├── Transport:      UploadError, DownloadError
+├── Messaging:      SendMessageError, BuildPollVoteError, ...
+├── Group:          CreateGroupError, LeaveGroupError, SetGroupNameError, ...
+├── Newsletter:     CreateNewsletterError, FollowNewsletterError, ...
+├── Contact:        ContactStoreError, GetUserInfoError, PairPhoneError, ...
+├── Privacy:        GetBlocklistError, SetPrivacySettingError, ...
+├── Presence:       SendPresenceError, SubscribePresenceError, ...
+├── Chat Settings:  PutMutedUntilError, PutPinnedError, ...
+├── State:          LogoutError, UnsupportedEvent, ...
+└── Media:          ConvertStickerError, FFProbeError
 ```
 
-`NeonizeError` is the semantic base class; most operation errors currently
-derive directly from `Exception`, so catch concrete classes for precise
-handling.
+Every exception listed in the table below is a subclass of
+`NeonizeError`, so a single `except NeonizeError` catches all of them.
 
 ## Operation Errors
 
@@ -53,8 +62,11 @@ handling.
 | `GetNewsletterMessagesError` / `GetNewsletterMessageUpdateError` | Channel history |
 | `NewsletterSendReactionError` / `NewsletterMarkViewedError` / `NewsletterSubscribeLiveUpdatesError` / `NewsletterToggleMuteError` | Channel actions |
 | `GetSubscribedNewslettersError` | `get_subscribed_newletters` |
-| `SendPresenceError` | `send_presence` |
+| `SendPresenceError` | `send_presence`, `send_chat_presence` |
 | `SubscribePresenceError` | `subscribe_presence` |
+| `RejectCallError` | `reject_call` |
+| `LeaveGroupError` | `leave_group` |
+| `SetGroupNameError` | `set_group_name` |
 | `SetPrivacySettingError` | `set_privacy_setting` |
 | `SetDefaultDisappearingTimerError` / `SetDisappearingTimerError` | Disappearing timers |
 | `SetGroupAnnounceError` / `SetGroupLockedError` / `SetGroupTopicError` | Group settings |

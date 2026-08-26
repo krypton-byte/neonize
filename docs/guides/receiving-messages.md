@@ -47,8 +47,16 @@ elif m.reactionMessage:
 ```
 
 !!! tip "Text shortcut"
-    `m.conversation or m.extendedTextMessage.text` covers nearly all text
-    messages. Guard against `None` when the message is media-only.
+    Use `extract_text()` to get the text from any message type in one call:
+
+    ```python
+    from neonize import extract_text
+
+    text = extract_text(ev.Message)   # conversation, extendedText, caption, or ""
+    ```
+
+    This covers plain text, extended text (mentions / links), and the
+    caption fields of image, video and document messages.
 
 ## Downloading Media
 
@@ -104,6 +112,8 @@ client.send_chat_presence(chat, ChatPresence.COMPOSING, ChatPresenceMedia.TEXT)
 # ... do work ...
 client.send_chat_presence(chat, ChatPresence.PAUSED, ChatPresenceMedia.TEXT)
 ```
+
+Raises `SendPresenceError` if the presence update fails.
 
 ## Undecryptable Messages
 

@@ -62,13 +62,13 @@ Pending join requests can be inspected with
 
 ## Settings
 
-| Method | Purpose |
-| --- | --- |
-| `set_group_name(jid, name)` | Rename the group |
-| `set_group_topic(jid, topic)` | Set description/topic |
-| `set_group_photo(jid, path_or_bytes)` | Change the picture |
-| `set_group_announce(jid, locked)` | Only admins may send messages |
-| `set_group_locked(jid, locked)` | Only admins may edit group info |
+| Method | Purpose | Raises |
+| --- | --- | --- |
+| `set_group_name(jid, name)` | Rename the group | `SetGroupNameError` |
+| `set_group_topic(jid, topic)` | Set description/topic | `SetGroupTopicError` |
+| `set_group_photo(jid, path_or_bytes)` | Change the picture | `SetGroupPhotoError` |
+| `set_group_announce(jid, locked)` | Only admins may send messages | `SetGroupAnnounceError` |
+| `set_group_locked(jid, locked)` | Only admins may edit group info | `SetGroupLockedError` |
 
 ```python
 client.set_group_name(group_jid, "New Name")
@@ -78,7 +78,7 @@ client.set_group_announce(group_jid, True)      # admin-only chat
 ## Leaving and Linking
 
 ```python
-client.leave_group(group_jid)          # exit the group
+client.leave_group(group_jid)          # raises LeaveGroupError on failure
 ```
 
 Communities (linked groups) connect child groups to a parent:

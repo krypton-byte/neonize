@@ -5,12 +5,19 @@ containing the message ID and send timestamp.
 
 ## Text
 
+Pass a phone number string directly — it is auto-wrapped into a JID:
+
+```python
+client.send_message("628123456789", "Hello from Neonize")
+```
+
+Or build a JID explicitly when you need a non-default server (e.g. groups):
+
 ```python
 from neonize.utils import build_jid
 
-chat = build_jid("628123456789")
-
-client.send_message(chat, "Hello from Neonize")
+group = build_jid("120363001234567890", "g.us")
+client.send_message(group, "Hello group")
 ```
 
 `send_message` also accepts a raw protobuf `Message`, which every

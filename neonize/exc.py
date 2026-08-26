@@ -1,266 +1,287 @@
-# class InvalidInviteLink(Exception):
-#     pass
+"""Exception hierarchy for the neonize library.
 
+All neonize-specific exceptions inherit from :class:`NeonizeError`, so
+callers can write a single ``except NeonizeError`` to catch any library
+error.
+
+The hierarchy is organized by domain:
+
+- **Transport** -- upload, download, proxy, connection.
+- **Messaging** -- send, build, react, poll.
+- **Group** -- create, join, leave, invite, settings.
+- **Newsletter** -- follow, subscribe, reactions, mute.
+- **Contact** -- store, profile, presence.
+- **Chat Settings** -- mute, pin, archive.
+- **Media** -- sticker conversion, FFmpeg.
+
+Users who need finer-grained handling can catch the specific subclass;
+everyone else can rely on the common base.
+"""
+
+# ---------------------------------------------------------------------------
+# Base
+# ---------------------------------------------------------------------------
 
 class NeonizeError(Exception):
-    pass
+    """Base class for all neonize-specific errors.
 
+    Catch this to handle any error originating from the neonize library
+    without enumerating every individual exception type.
+    """
 
-class UploadError(Exception):
-    pass
 
+# ---------------------------------------------------------------------------
+# Transport
+# ---------------------------------------------------------------------------
 
-class DownloadError(Exception):
-    pass
+class UploadError(NeonizeError):
+    """Raised when media upload to WhatsApp servers fails."""
 
+class DownloadError(NeonizeError):
+    """Raised when media download from WhatsApp servers fails."""
 
-class InviteLinkError(Exception):
-    pass
 
+# ---------------------------------------------------------------------------
+# Messaging
+# ---------------------------------------------------------------------------
 
-class GetGroupInfoError(Exception):
-    pass
+class SendMessageError(NeonizeError):
+    """Raised when sending a message fails."""
 
+class BuildPollVoteError(NeonizeError):
+    """Raised when building a poll vote message fails."""
 
-class SetGroupPhotoError(Exception):
-    pass
+class BuildPollVoteCreationError(NeonizeError):
+    """Raised when building a poll creation message fails."""
 
+class DecryptPollVoteError(NeonizeError):
+    """Raised when decrypting a poll vote fails."""
 
-class GetGroupInviteLinkError(Exception):
-    pass
 
+# ---------------------------------------------------------------------------
+# Group
+# ---------------------------------------------------------------------------
 
-class CreateGroupError(Exception):
-    pass
+class CreateGroupError(NeonizeError):
+    """Raised when creating a WhatsApp group fails."""
 
+class GetGroupInfoError(NeonizeError):
+    """Raised when retrieving group information fails."""
 
-class IsOnWhatsAppError(Exception):
-    pass
+class GetGroupInviteLinkError(NeonizeError):
+    """Raised when retrieving a group invite link fails."""
 
+class GetJoinedGroupsError(NeonizeError):
+    """Raised when listing joined groups fails."""
 
-class GetUserInfoError(Exception):
-    pass
+class GetLinkedGroupParticipantsError(NeonizeError):
+    """Raised when retrieving linked group participants fails."""
 
+class GetGroupRequestParticipantsError(NeonizeError):
+    """Raised when retrieving group join-request participants fails."""
 
-class SendMessageError(Exception):
-    pass
+class GetSubGroupsError(NeonizeError):
+    """Raised when retrieving sub-groups fails."""
 
+class JoinGroupWithInviteError(NeonizeError):
+    """Raised when joining a group via invite link fails."""
 
-class BuildPollVoteError(Exception):
-    pass
+class InviteLinkError(NeonizeError):
+    """Raised when processing an invite link fails."""
 
+class LinkGroupError(NeonizeError):
+    """Raised when linking parent/child groups fails."""
 
-class CreateNewsletterError(Exception):
-    pass
+class UnlinkGroupError(NeonizeError):
+    """Raised when unlinking parent/child groups fails."""
 
+class SetGroupPhotoError(NeonizeError):
+    """Raised when setting a group photo fails."""
 
-class FollowNewsletterError(Exception):
-    pass
+class SetGroupAnnounceError(NeonizeError):
+    """Raised when toggling group announce mode fails."""
 
+class SetGroupLockedError(NeonizeError):
+    """Raised when toggling group lock fails."""
 
-class GetBlocklistError(Exception):
-    pass
+class SetGroupTopicError(NeonizeError):
+    """Raised when setting the group topic/description fails."""
 
+class UpdateGroupParticipantsError(NeonizeError):
+    """Raised when updating group participants (promote/demote/remove) fails."""
 
-class GetContactQrLinkError(Exception):
-    pass
 
+# ---------------------------------------------------------------------------
+# Newsletter / Channel
+# ---------------------------------------------------------------------------
 
-class GetGroupRequestParticipantsError(Exception):
-    pass
+class CreateNewsletterError(NeonizeError):
+    """Raised when creating a newsletter/channel fails."""
 
+class FollowNewsletterError(NeonizeError):
+    """Raised when following a newsletter fails."""
 
-class GetJoinedGroupsError(Exception):
-    pass
+class UnfollowNewsletterError(NeonizeError):
+    """Raised when unfollowing a newsletter fails."""
 
+class GetNewsletterInfoError(NeonizeError):
+    """Raised when retrieving newsletter information fails."""
 
-class GetLinkedGroupParticipantsError(Exception):
-    pass
+class GetNewsletterInfoWithInviteError(NeonizeError):
+    """Raised when resolving newsletter info from an invite link fails."""
 
+class GetNewsletterMessagesError(NeonizeError):
+    """Raised when fetching newsletter messages fails."""
 
-class GetNewsletterInfoError(Exception):
-    pass
+class GetNewsletterMessageUpdateError(NeonizeError):
+    """Raised when fetching newsletter message updates fails."""
 
+class GetSubscribedNewslettersError(NeonizeError):
+    """Raised when listing subscribed newsletters fails."""
 
-class GetNewsletterInfoWithInviteError(Exception):
-    pass
+class NewsletterMarkViewedError(NeonizeError):
+    """Raised when marking a newsletter message as viewed fails."""
 
+class NewsletterSendReactionError(NeonizeError):
+    """Raised when sending a reaction to a newsletter message fails."""
 
-class GetNewsletterMessageUpdateError(Exception):
-    pass
+class NewsletterSubscribeLiveUpdatesError(NeonizeError):
+    """Raised when subscribing to newsletter live updates fails."""
 
+class NewsletterToggleMuteError(NeonizeError):
+    """Raised when toggling newsletter mute state fails."""
 
-class GetNewsletterMessagesError(Exception):
-    pass
 
+# ---------------------------------------------------------------------------
+# Contact & Profile
+# ---------------------------------------------------------------------------
 
-class GetProfilePictureError(Exception):
-    pass
+class ContactStoreError(NeonizeError):
+    """Raised when a contact store operation fails."""
 
+class GetContactQrLinkError(NeonizeError):
+    """Raised when retrieving a contact QR link fails."""
 
-class GetStatusPrivacyError(Exception):
-    pass
+class GetProfilePictureError(NeonizeError):
+    """Raised when retrieving a profile picture fails."""
 
+class GetUserInfoError(NeonizeError):
+    """Raised when retrieving user information fails."""
 
-class GetSubGroupsError(Exception):
-    pass
+class GetUserDevicesError(NeonizeError):
+    """Raised when listing a user's devices fails."""
 
+class GetJIDFromStoreError(NeonizeError):
+    """Raised when resolving a JID from the local store fails."""
 
-class GetSubscribedNewslettersError(Exception):
-    pass
+class IsOnWhatsAppError(NeonizeError):
+    """Raised when checking WhatsApp registration status fails."""
 
+class PairPhoneError(NeonizeError):
+    """Raised when pairing via phone number fails."""
 
-class GetUserDevicesError(Exception):
-    pass
+class ResolveContactQRLinkError(NeonizeError):
+    """Raised when resolving a contact QR link fails."""
 
+class ResolveBusinessMessageLinkError(NeonizeError):
+    """Raised when resolving a business message link fails."""
 
-class JoinGroupWithInviteError(Exception):
-    pass
 
+# ---------------------------------------------------------------------------
+# Privacy & Status
+# ---------------------------------------------------------------------------
 
-class LinkGroupError(Exception):
-    pass
+class GetBlocklistError(NeonizeError):
+    """Raised when retrieving the blocklist fails."""
 
+class UpdateBlocklistError(NeonizeError):
+    """Raised when updating the blocklist fails."""
 
-class LogoutError(Exception):
-    pass
+class GetStatusPrivacyError(NeonizeError):
+    """Raised when retrieving status privacy settings fails."""
 
+class SetPrivacySettingError(NeonizeError):
+    """Raised when changing a privacy setting fails."""
 
-class MarkReadError(Exception):
-    pass
 
+# ---------------------------------------------------------------------------
+# Presence & Calls
+# ---------------------------------------------------------------------------
 
-class NewsletterMarkViewedError(Exception):
-    pass
+class SendPresenceError(NeonizeError):
+    """Raised when sending a presence update (typing/composing) fails."""
 
+class SubscribePresenceError(NeonizeError):
+    """Raised when subscribing to a user's presence fails."""
 
-class NewsletterSendReactionError(Exception):
-    pass
 
+# ---------------------------------------------------------------------------
+# Chat Settings
+# ---------------------------------------------------------------------------
 
-class NewsletterSubscribeLiveUpdatesError(Exception):
-    pass
+class GetChatSettingsError(NeonizeError):
+    """Raised when retrieving local chat settings fails."""
 
+class PutMutedUntilError(NeonizeError):
+    """Raised when muting a chat until a specific time fails."""
 
-class NewsletterToggleMuteError(Exception):
-    pass
+class PutPinnedError(NeonizeError):
+    """Raised when pinning/unpinning a chat fails."""
 
+class PutArchivedError(NeonizeError):
+    """Raised when archiving/unarchiving a chat fails."""
 
-class PairPhoneError(Exception):
-    pass
 
+# ---------------------------------------------------------------------------
+# State & Misc
+# ---------------------------------------------------------------------------
 
-class ResolveContactQRLinkError(Exception):
-    pass
+class LogoutError(NeonizeError):
+    """Raised when logging out fails."""
 
+class MarkReadError(NeonizeError):
+    """Raised when marking a message as read fails."""
 
-class ResolveBusinessMessageLinkError(Exception):
-    pass
+class SendAppStateError(NeonizeError):
+    """Raised when sending app state sync fails."""
 
+class SetDefaultDisappearingTimerError(NeonizeError):
+    """Raised when setting the default disappearing message timer fails."""
 
-class SendAppStateError(Exception):
-    pass
+class SetDisappearingTimerError(NeonizeError):
+    """Raised when setting a per-chat disappearing message timer fails."""
 
+class SetPassiveError(NeonizeError):
+    """Raised when toggling passive mode fails."""
 
-class SetDefaultDisappearingTimerError(Exception):
-    pass
+class SetStatusMessageError(NeonizeError):
+    """Raised when setting the status/about message fails."""
 
+class SetProxyAddressError(NeonizeError):
+    """Raised when configuring the proxy address fails."""
 
-class SetDisappearingTimerError(Exception):
-    pass
+class UnsupportedEvent(NeonizeError):
+    """Raised when an unrecognized event code is received from the Go core."""
 
 
-class SetGroupAnnounceError(Exception):
-    pass
+class RejectCallError(NeonizeError):
+    """Raised when rejecting an incoming call fails."""
 
 
-class SetGroupLockedError(Exception):
-    pass
+class LeaveGroupError(NeonizeError):
+    """Raised when leaving a group fails."""
 
 
-class SetGroupTopicError(Exception):
-    pass
+class SetGroupNameError(NeonizeError):
+    """Raised when renaming a group fails."""
 
 
-class SetPrivacySettingError(Exception):
-    pass
+# ---------------------------------------------------------------------------
+# Media
+# ---------------------------------------------------------------------------
 
+class ConvertStickerError(NeonizeError):
+    """Raised when converting an image/video to sticker format fails."""
 
-class SetPassiveError(Exception):
-    pass
-
-
-class SetStatusMessageError(Exception):
-    pass
-
-
-class SetProxyAddressError(Exception):
-    pass
-
-
-class SubscribePresenceError(Exception):
-    pass
-
-
-class UnfollowNewsletterError(Exception):
-    pass
-
-
-class UnlinkGroupError(Exception):
-    pass
-
-
-class UpdateBlocklistError(Exception):
-    pass
-
-
-class UpdateGroupParticipantsError(Exception):
-    pass
-
-
-class UnsupportedEvent(Exception):
-    pass
-
-
-class ContactStoreError(Exception):
-    pass
-
-
-class FFProbeError(Exception):
-    pass
-
-
-class PutMutedUntilError(Exception):
-    pass
-
-
-class PutPinnedError(Exception):
-    pass
-
-
-class PutArchivedError(Exception):
-    pass
-
-
-class GetChatSettingsError(Exception):
-    pass
-
-
-class SendPresenceError(Exception):
-    pass
-
-
-class DecryptPollVoteError(Exception):
-    pass
-
-
-class BuildPollVoteCreationError(Exception):
-    pass
-
-
-class GetJIDFromStoreError(Exception):
-    pass
-
-
-class ConvertStickerError(Exception):
-    pass
+class FFProbeError(NeonizeError):
+    """Raised when ffprobe fails to analyse a media file."""

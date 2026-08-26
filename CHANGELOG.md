@@ -6,12 +6,33 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- `extract_text()` exported as a public top-level function (`from neonize import extract_text`) for convenient text extraction from incoming messages.
+- `check_ffmpeg_available()` runs at connect time and logs a clear warning if FFmpeg is missing, instead of crashing later during media operations.
 - Zensical-powered documentation site with version selector (mike), mkdocstrings API reference, and embedded runnable examples.
 - Continuous integration gate for pull requests: ruff lint, Go build/vet, proto drift check, pytest, and FFI smoke test.
 - Branching model documented in CONTRIBUTING.md: feature branches target `dev`, merges to `master` trigger the release pipeline.
 
 ### Changed
 
+- **BREAKING:** `reject_call()`, `leave_group()`, `set_group_name()`, and `send_chat_presence()` no longer return error strings on failure -- they now **raise** their corresponding exception. Update any code that captured the return value:
+
+  ```python
+  # Before (0.4.x and earlier)
+  result = client.reject_call(call)  # returns str on error
+  if result:
+      print("error:", result)
+
+  # After
+  try:
+      client.reject_call(call)  # raises RejectCallError on error
+  except RejectCallError as e:
+      print("error:", e)
+  ```
+
+  Affected exceptions: `RejectCallError`, `LeaveGroupError`, `SetGroupNameError`, `SendPresenceError`.
+
+- **All custom exceptions now inherit from `NeonizeError`** instead of bare `Exception`. Code using `except Exception` will still work, but you can now use the more specific `except NeonizeError` to catch all library errors.
+- `send_message()` accepts plain phone-number strings directly: `client.send_message("6281234567890", "hello")` -- no need to call `build_jid()` first for individual chats.
 - Migrated versioning from bump-my-version to Python Semantic Release (tag-driven, conventional commits).
 - Release pipeline redesigned: PSR computes version, paths-filter detects goneonize changes, prebuilt binaries reused when unchanged.
 - Pinned ruff to a deterministic rule set (`E4`, `E7`, `E9`, `F`, `I`) to prevent CI drift across versions.

@@ -1,5 +1,6 @@
 import ctypes
 import ctypes.util
+import logging
 import os
 from dataclasses import dataclass
 from pathlib import Path
@@ -8,6 +9,8 @@ from typing import Any
 
 from .download import __GONEONIZE_VERSION__, download
 from .utils.platform import generated_name
+
+_log = logging.getLogger(__name__)
 
 func_string = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_void_p)  # qr
 func = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_bool)  # blocking
@@ -21,20 +24,44 @@ func_callback_bytes2 = ctypes.CFUNCTYPE(None, ctypes.c_void_p, ctypes.c_int)  # 
 
 def load_goneonize():
     last_error: Exception | None = None
-    for _ in range(3):
+    binary_name = generated_name()
+    binary_path = Path(__file__).parent / binary_name
+    for attempt in range(1, 4):
         try:
-            gocode = ctypes.CDLL(f"{root_dir}/{generated_name()}")
+            gocode = ctypes.CDLL(str(binary_path))
             gocode.GetVersion.restype = ctypes.c_char_p
-            if gocode.GetVersion().decode() != __GONEONIZE_VERSION__:
-                raise Exception("Invalid Version")
+            loaded_version = gocode.GetVersion().decode()
+            if loaded_version != __GONEONIZE_VERSION__:
+                raise RuntimeError(
+                    f"goneonize version mismatch: found {loaded_version}, "
+                    f"expected {__GONEONIZE_VERSION__}. "
+                    f"Delete {binary_path} and re-run to re-download."
+                )
+            _log.debug("loaded goneonize %s (attempt %d)", loaded_version, attempt)
             return gocode
-        except OSError as e:
-            print("e", e)
-            raise e
-        except Exception as e:
-            last_error = e
-            download()
-    raise RuntimeError(f"failed to load goneonize after 3 attempts; last error: {last_error}")
+        except OSError as exc:
+            _log.warning(
+                "attempt %d/3: failed to load %s: %s",
+                attempt,
+                binary_name,
+                exc,
+            )
+            raise
+        except Exception as exc:
+            last_error = exc
+            _log.info(
+                "attempt %d/3: version mismatch or missing binary, downloading...",
+                attempt,
+            )
+            try:
+                download()
+            except Exception as dl_exc:
+                _log.warning("download attempt %d failed: %s", attempt, dl_exc)
+    raise RuntimeError(
+        f"failed to load goneonize after 3 attempts; last error: {last_error}. "
+        f"Ensure that the platform '{binary_name}' is supported and that "
+        f"no firewall is blocking downloads from GitHub."
+    )
 
 
 class Bytes(ctypes.Structure):

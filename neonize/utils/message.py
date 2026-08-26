@@ -29,13 +29,27 @@ def get_message_type(message: Message) -> MediaMessageType | TextMessageType:
     raise IndexError()
 
 
-def extract_text(message: Message):
-    """
-    Extracts text content from a message.
+def extract_text(message: Message) -> str:
+    """Extract the human-readable text from a message of any type.
 
-    :param message: The message object.
+    This is a convenience helper that inspects the message oneof fields and
+    returns the relevant text payload.  It covers plain conversation, extended
+    text (with mentions / links), and the caption fields of image, video, and
+    document messages.
+
+    .. code-block:: python
+
+       from neonize.utils import extract_text
+
+       @client.event(MessageEv)
+       def on_message(client: NewClient, msg: MessageEv):
+           text = extract_text(msg.Message)
+           if text == "ping":
+               client.reply_message("pong", msg)
+
+    :param message: The ``Message`` protobuf to extract text from.
     :type message: Message
-    :return: The extracted text content.
+    :return: The extracted text, or an empty string if no text field is present.
     :rtype: str
     """
     if message.imageMessage.ListFields():

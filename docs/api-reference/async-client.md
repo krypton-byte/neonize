@@ -11,6 +11,15 @@ client = NewAClient("session.db")
 await client.connect()
 ```
 
+## JID Helper
+
+The async client uses the same `_ensure_jid` helper as the sync client.
+Phone-number strings passed to `send_message` are auto-wrapped:
+
+::: neonize.aioze.client._ensure_jid
+
+## Constructor
+
 ::: neonize.aioze.client.NewAClient
     options:
       members:

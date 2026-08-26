@@ -24,6 +24,24 @@ jid = build_jid("628123456789")            # -> JID(User="628123456789", Server=
 text = Jid2String(jid)
 ```
 
+## Message Helpers
+
+::: neonize.utils.message.extract_text
+    options:
+      members: false
+
+::: neonize.utils.message.get_message_type
+    options:
+      members: false
+
+```python
+from neonize import extract_text
+from neonize.utils import get_message_type
+
+text = extract_text(ev.Message)     # "" if no text field
+msg_type = get_message_type(ev.Message)  # e.g. ImageMessage, str for conversation
+```
+
 ## Media Helpers
 
 ::: neonize.utils.get_bytes_from_name_or_url
@@ -31,6 +49,10 @@ text = Jid2String(jid)
       members: false
 
 ::: neonize.utils.save_file_to_temp_directory
+    options:
+      members: false
+
+::: neonize.utils.ffmpeg.check_ffmpeg_available
     options:
       members: false
 
