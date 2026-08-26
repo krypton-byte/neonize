@@ -57,8 +57,8 @@ theme:
   name: material
   variant: modern
   language: en
-  logo: assets/logo.png
-  favicon: assets/favicon.png
+  logo: assets/mascot.png
+  favicon: assets/mascot.png
   font:
     text: Inter
     code: JetBrains Mono
