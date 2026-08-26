@@ -127,6 +127,19 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.4.7 (2026-08-26)
+
+### Bug Fixes
+
+- **ci**: Prevent release failure when tag already exists
+  ([`5275cc1`](https://github.com/krypton-byte/neonize/commit/5275cc1393a025f3a96366b40daa91b0bb0a4562))
+
+### Documentation
+
+- Wrap snippet includes in code fences for example pages
+  ([`10f4a81`](https://github.com/krypton-byte/neonize/commit/10f4a81d6ef998b3bbc5579857d4a0e7cf916e3d))
+
+
 ## v0.4.6 (2026-08-26)
 
 ### Bug Fixes
