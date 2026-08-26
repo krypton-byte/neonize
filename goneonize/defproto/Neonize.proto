@@ -34,9 +34,9 @@ message UploadResponse {
     required string url = 1;
     required string DirectPath = 2;
     required string Handle = 3;
-    required bytes MediaKey = 4;
-    required bytes FileEncSHA256 = 5;
-    required bytes FileSHA256 = 6;
+    optional bytes MediaKey = 4;
+    optional bytes FileEncSHA256 = 5;
+    optional bytes FileSHA256 = 6;
     required uint32 FileLength = 7;
 }
 
@@ -401,7 +401,7 @@ message NewsletterMessage {
     required int64 MessageServerID = 1;
     required int64 ViewsCount = 2;
     repeated Reaction ReactionCounts = 3;
-    required WAWebProtobufsE2E.Message Message = 4;
+    optional WAWebProtobufsE2E.Message Message = 4;
 }
 
 message GetNewsletterMessageUpdateReturnFunction {
