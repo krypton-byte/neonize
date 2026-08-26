@@ -1,0 +1,38 @@
+/* ---------------------------------------------------------------------------
+   Neonize documentation - custom styles
+   Enterprise-grade refinements on top of the Material theme.
+   --------------------------------------------------------------------------- */
+
+/* Slightly tighten the header height for a denser, more product-like feel. */
+.md-header {
+  --md-header-height: 3.2rem;
+}
+
+/* Feature grid used on the landing page. */
+.tx-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.tx-feature-grid .tx-feature {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.4rem;
+  padding: 1rem 1.25rem;
+}
+
+.tx-feature-grid .tx-feature h3 {
+  margin-top: 0;
+}
+
+/* Method matrix tables: compact and readable. */
+.md-typeset table:not([class]) th,
+.md-typeset table:not([class]) td {
+  padding: 0.5em 0.8em;
+}
+
+/* Inline code inside headings should not wrap awkwardly. */
+.md-typeset h2 code {
+  font-size: 0.9em;
+}
