@@ -105,3 +105,16 @@ All notable changes to this project are documented in this file.
 - Button support for WhatsApp messages.
 
 <!-- version list -->
+
+## v0.4.4 (2026-08-26)
+
+### Bug Fixes
+
+- Correct PSR flags in release workflow (--noop does not exist)
+  ([`0ffc642`](https://github.com/krypton-byte/neonize/commit/0ffc642cbbafd94c7da41e3a09f21d7e261e8bb2))
+
+- Populate CHANGELOG.md with missing entries from recent releases
+  ([`a064ed5`](https://github.com/krypton-byte/neonize/commit/a064ed55477a719f9e523f8d909c2cab283f265d))
+
+- Resolve go vet errors, ruff format drift and PSR action bug
+  ([`77c76bb`](https://github.com/krypton-byte/neonize/commit/77c76bbbc42eaaea6d0cacb23ab1bc6479bf4956))
