@@ -1,315 +1,166 @@
-# API Reference
+# Sync Client (`NewClient`)
 
-Welcome to the Neonize API reference documentation. This section provides detailed information about all classes, methods, and utilities available in the Neonize library.
-
-## Core Modules
-
-### [Client](client.md)
-The main synchronous client for interacting with WhatsApp.
-
-- `NewClient` - Synchronous WhatsApp client
-- Connection management
-- Message sending/receiving
-- Media handling
-- Group operations
-
-### [Async Client](async-client.md)
-Asynchronous client for high-performance applications.
-
-- `NewAClient` - Async WhatsApp client
-- Async/await support
-- Concurrent operations
-- Event handling
-
-### [Events](events.md)
-Event system for handling WhatsApp events.
-
-- `MessageEv` - Message events
-- `ReceiptEv` - Read receipts
-- `PresenceEv` - Online/offline status
-- `GroupInfoEv` - Group updates
-- And more...
-
-### [Types](types.md)
-Type definitions and data structures.
-
-- JID types
-- Message types
-- Contact information
-- Group metadata
-
-### [Utils](utils.md)
-Utility functions and helpers.
-
-- `build_jid()` - JID construction
-- `build_jid_from_number()` - JID from phone number
-- Media utilities
-- Encoding/decoding helpers
-
-### [Exceptions](exceptions.md)
-Exception classes for error handling.
-
-- `SendMessageError`
-- `DownloadMediaError`
-- `ConnectionError`
-- Custom exceptions
-
-## Protocol Buffers
-
-### [Proto Messages](proto.md)
-WhatsApp protocol buffer definitions.
-
-- Message structures
-- Media messages
-- Group messages
-- Status messages
-
-## Quick Reference
-
-### Common Operations
+The synchronous client. Construct it with the path of the SQLite session
+database, register event handlers, and connect.
 
 ```python
 from neonize.client import NewClient
-from neonize.utils import build_jid
-from neonize.events import MessageEv
 
-# Create client
-client = NewClient("my_bot")
-
-# Connect
-client.connect()
-
-# Send message
-recipient = build_jid("1234567890")
-client.send_message(recipient, "Hello!")
-
-
-# Handle events
-@client.event(MessageEv)
-def on_message(client: NewClient, event: MessageEv):
-    print(f"Received: {event.Message.conversation}")
+client = NewClient("session.db")
 ```
 
-### Type Hints
+## Constructor
 
-```python
-from typing import Optional
-from neonize.client import NewClient
-from neonize.events import MessageEv
-from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import Message
+::: neonize.client.NewClient
+    options:
+      members:
+        - __init__
+        - connect
+        - connect_with_proxy
+        - disconnect
+        - stop
+        - logout
+        - get_me
+        - set_passive
+        - set_force_activate_delivery_receipts
 
+## Sending
 
-def send_text(client: NewClient, recipient: str, text: str, quote: Optional[Message] = None) -> str:
-    """Send a text message.
+::: neonize.client.NewClient
+    options:
+      members:
+        - send_message
+        - reply_message
+        - edit_message
+        - revoke_message
+        - build_revoke
+        - build_reaction
+        - send_image
+        - send_video
+        - send_audio
+        - send_document
+        - send_sticker
+        - send_stickerpack
+        - send_album
+        - send_contact
+        - send_interactive_message
+        - send_fb_message
+        - pin_message
+        - mark_read
+        - upload
 
-    Args:
-        client: WhatsApp client
-        recipient: Recipient JID
-        text: Message text
-        quote: Optional message to quote
+## Message Builders
 
-    Returns:
-        Message ID
-    """
-    if quote:
-        response = client.reply_message(text, quote)
-    else:
-        response = client.send_message(recipient, text)
+::: neonize.client.NewClient
+    options:
+      members:
+        - build_image_message
+        - build_video_message
+        - build_audio_message
+        - build_document_message
+        - build_sticker_message
+        - build_stickerpack_message
+        - build_album_content
+        - build_reply_message
+        - build_poll_vote_creation
+        - build_poll_vote
 
-    return response.ID
-```
+## Media Download
 
-## Module Index
+::: neonize.client.NewClient
+    options:
+      members:
+        - download_any
+        - download_media_with_path
 
-| Module | Description |
-|--------|-------------|
-| `neonize.client` | Synchronous WhatsApp client |
-| `neonize.aioze.client` | Asynchronous WhatsApp client |
-| `neonize.events` | Event definitions and handlers |
-| `neonize.types` | Type definitions |
-| `neonize.utils` | Utility functions |
-| `neonize.exc` | Exception classes |
-| `neonize.proto` | Protocol buffer messages |
-| `neonize.const` | Constants and enums |
-| `neonize.download` | Media download utilities |
-| `neonize.builder` | Message builder utilities |
+## Groups
 
-## Class Hierarchy
+::: neonize.client.NewClient
+    options:
+      members:
+        - create_group
+        - get_joined_groups
+        - get_group_info
+        - get_group_info_from_link
+        - get_group_info_from_invite
+        - get_group_invite_link
+        - join_group_with_link
+        - join_group_with_invite
+        - update_group_participants
+        - get_group_request_participants
+        - get_linked_group_participants
+        - get_sub_groups
+        - set_group_name
+        - set_group_topic
+        - set_group_photo
+        - set_group_announce
+        - set_group_locked
+        - leave_group
+        - link_group
+        - unlink_group
 
-```
-NewClient
-├── Connection Management
-│   ├── connect()
-│   ├── disconnect()
-│   └── logout()
-├── Message Operations
-│   ├── send_message()
-│   ├── reply_message()
-│   ├── edit_message()
-│   └── revoke_message()
-├── Media Operations
-│   ├── send_image()
-│   ├── send_video()
-│   ├── send_audio()
-│   ├── send_document()
-│   └── download_any()
-├── Group Operations
-│   ├── get_group_info()
-│   ├── create_group()
-│   ├── update_group_name()
-│   └── add_participants()
-└── Utility Methods
-    ├── get_me()
-    ├── is_on_whatsapp()
-    ├── get_contact()
-    └── mark_read()
+## Contacts and Presence
 
-NewAClient (inherits from NewClient)
-└── Async versions of all methods
-```
+::: neonize.client.NewClient
+    options:
+      members:
+        - is_on_whatsapp
+        - get_user_info
+        - get_user_devices
+        - get_profile_picture
+        - get_contact_qr_link
+        - resolve_contact_qr_link
+        - resolve_business_message_link
+        - subscribe_presence
+        - send_presence
+        - send_chat_presence
+        - get_privacy_settings
+        - set_privacy_setting
+        - get_blocklist
+        - update_blocklist
+        - get_lid_from_pn
+        - get_pn_from_lid
+        - reject_call
 
-## Event Types
+## Profile
 
-| Event | Trigger | Handler Signature |
-|-------|---------|------------------|
-| `MessageEv` | New message received | `(client, event: MessageEv)` |
-| `ReceiptEv` | Message receipt | `(client, event: ReceiptEv)` |
-| `PresenceEv` | User presence change | `(client, event: PresenceEv)` |
-| `GroupInfoEv` | Group info update | `(client, event: GroupInfoEv)` |
-| `PictureEv` | Profile picture change | `(client, event: PictureEv)` |
-| `ConnectedEv` | Client connected | `(client, event: ConnectedEv)` |
-| `PairStatusEv` | Pairing status change | `(client, event: PairStatusEv)` |
-| `LoggedInEv` | Successfully logged in | `(client, event: LoggedInEv)` |
+::: neonize.client.NewClient
+    options:
+      members:
+        - set_profile_name
+        - set_profile_photo
+        - set_status_message
+        - set_default_disappearing_timer
+        - set_disappearing_timer
+        - get_status_privacy
 
-## Constants and Enums
+## Newsletters (Channels)
 
-### Message Types
+::: neonize.client.NewClient
+    options:
+      members:
+        - create_newsletter
+        - get_newsletter_info
+        - get_newsletter_info_with_invite
+        - follow_newsletter
+        - unfollow_newsletter
+        - get_newsletter_messages
+        - get_newsletter_message_update
+        - newsletter_send_reaction
+        - newsletter_mark_viewed
+        - newsletter_subscribe_live_updates
+        - newsletter_toggle_mute
+        - upload_newsletter
+        - get_subscribed_newletters
 
-```python
-from neonize.const import MessageType
+## Utilities
 
-MessageType.TEXT
-MessageType.IMAGE
-MessageType.VIDEO
-MessageType.AUDIO
-MessageType.DOCUMENT
-MessageType.STICKER
-MessageType.CONTACT
-MessageType.LOCATION
-MessageType.POLL
-```
-
-### Receipt Types
-
-```python
-from neonize.utils.enum import ReceiptType
-
-ReceiptType.READ
-ReceiptType.PLAYED
-ReceiptType.SENDER
-```
-
-### Vote Types
-
-```python
-from neonize.utils.enum import VoteType
-
-VoteType.SINGLE  # Single choice poll
-VoteType.MULTIPLE  # Multiple choice poll
-```
-
-## Advanced Topics
-
-### Custom Event Handlers
-
-```python
-from neonize.events import MessageEv
-from typing import Callable
-
-
-def rate_limit(max_calls: int, period: float) -> Callable:
-    """Decorator to rate limit event handlers."""
-    import time
-    from collections import deque
-
-    calls = deque()
-
-    def decorator(func: Callable) -> Callable:
-        def wrapper(client, event: MessageEv):
-            now = time.time()
-
-            # Remove old calls
-            while calls and calls[0] < now - period:
-                calls.popleft()
-
-            if len(calls) >= max_calls:
-                return  # Rate limited
-
-            calls.append(now)
-            return func(client, event)
-
-        return wrapper
-
-    return decorator
-
-
-# Usage
-@client.event(MessageEv)
-@rate_limit(max_calls=5, period=60)
-def on_message(client, event: MessageEv):
-    # Handle message (max 5 per minute)
-    pass
-```
-
-### Middleware Pattern
-
-```python
-from typing import List, Callable
-
-
-class Middleware:
-    def __init__(self):
-        self.middlewares: List[Callable] = []
-
-    def use(self, func: Callable):
-        self.middlewares.append(func)
-        return func
-
-    def run(self, client, event):
-        for middleware in self.middlewares:
-            result = middleware(client, event)
-            if result is False:
-                return False  # Stop processing
-        return True
-
-
-# Usage
-middleware = Middleware()
-
-
-@middleware.use
-def log_messages(client, event):
-    print(f"Message from {event.Info.PushName}")
-    return True  # Continue
-
-
-@middleware.use
-def filter_spam(client, event):
-    text = event.Message.conversation or ""
-    if "spam" in text.lower():
-        return False  # Stop processing
-    return True
-
-
-@client.event(MessageEv)
-def on_message(client, event: MessageEv):
-    if middleware.run(client, event):
-        # Process message
-        pass
-```
-
-## See Also
-
-- [User Guide](../user-guide/index.md) - Learn how to use Neonize
-- [Examples](../examples/index.md) - Code examples
-- [GitHub Repository](https://github.com/krypton-byte/neonize) - Source code
+::: neonize.client.NewClient
+    options:
+      members:
+        - generate_message_id
+        - decrypt_poll_vote
+        - get_message_for_retry
+        - send_app_state
+        - PairPhone
+        - set_proxy_address

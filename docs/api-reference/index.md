@@ -1,60 +1,36 @@
-# API Reference
+# API Reference Overview
 
-Complete API reference for Neonize.
-
-## Overview
-
-This section provides comprehensive API documentation for all Neonize modules, classes, and functions.
+Neonize ships two mirrored clients plus shared event, error and utility
+modules. This section documents every public symbol; signatures are
+extracted from the source at build time, so they always match the release.
 
 ## Modules
 
-### Core Client
+| Module | Contents |
+| --- | --- |
+| `neonize.client` | `NewClient` — synchronous client, `ClientFactory` for multi-session sync use |
+| `neonize.aioze.client` | `NewAClient`, `ClientFactory` — asyncio mirror with identical methods |
+| `neonize.events` / `neonize.aioze.events` | Typed event classes and the dispatcher |
+| `neonize.types` | Public type aliases (`MessageServerID`, message type variables) |
+| `neonize.exc` | Exception hierarchy (one class per failed operation) |
+| `neonize.utils` | JID helpers, enums, FFmpeg wrapper, logging, platform detection |
+| `neonize.ext.interactive_message` | Builders for buttons, lists and carousels |
 
-::: neonize.client.NewClient
-    options:
-      show_root_heading: true
-      show_source: true
+## Conventions
 
-### Async Client
+- Destinations are `JID` protobuf objects (see
+  [JID and Addressing](../core-concepts/jid-and-addressing.md)).
+- Send methods return `SendResponse`; failures raise a specific exception
+  from `neonize.exc`.
+- Media inputs accept local paths, bytes or URLs unless stated otherwise.
+- Every method's docstring lists parameters, return types and raised
+  exceptions in Sphinx reST format — mkdocstrings renders them inline below.
 
-::: neonize.aioze.client.NewAClient
-    options:
-      show_root_heading: true
-      show_source: true
+## Pages
 
-### Events
-
-::: neonize.events
-    options:
-      show_root_heading: true
-      show_source: true
-
-### Types
-
-::: neonize.types
-    options:
-      show_root_heading: true
-      show_source: true
-
-### Utilities
-
-::: neonize.utils
-    options:
-      show_root_heading: true
-      show_source: true
-
-### Exceptions
-
-::: neonize.exc
-    options:
-      show_root_heading: true
-      show_source: true
-
-## Quick Links
-
-- [Client Reference](client.md) - Synchronous client methods
-- [Async Client Reference](async-client.md) - Asynchronous client methods
-- [Events Reference](events.md) - Event types and handlers
-- [Types Reference](types.md) - Data types and models
-- [Utils Reference](utils.md) - Utility functions
-- [Exceptions Reference](exceptions.md) - Exception classes
+1. [Sync Client](client.md) — full `NewClient` reference
+2. [Async Client](async-client.md) — `NewAClient` and `ClientFactory`
+3. [Events](events.md) — all event types
+4. [Types](types.md) — aliases and helper types
+5. [Exceptions](exceptions.md) — error hierarchy
+6. [Utilities](utils.md) — enums, JID helpers, media utilities

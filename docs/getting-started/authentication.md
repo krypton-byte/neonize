@@ -1,359 +1,105 @@
 # Authentication
 
-Learn how to authenticate your WhatsApp account with Neonize using different methods.
+WhatsApp multidevice supports two linking methods. Both produce the same
+result: a persistent session stored in your SQLite database.
 
-## Authentication Methods
+## Method 1: QR Code (default)
 
-Neonize supports two primary authentication methods:
-
-1. **QR Code Authentication** - Scan QR code with your phone
-2. **Pairing Code Authentication** - Enter a pairing code on your phone
-
-## QR Code Authentication
-
-This is the default and simplest authentication method.
-
-### Basic QR Code Login
+Calling `client.connect()` with an empty session store prints a QR code to
+the terminal. Scan it from the phone:
 
 ```python
 from neonize.client import NewClient
-from neonize.events import ConnectedEv, event
 
-client = NewClient("my_bot")
-
-
-@client.event(ConnectedEv)
-def on_connected(client: NewClient, event: ConnectedEv):
-    print("✅ Successfully authenticated!")
-
-
+client = NewClient("session.db")
 client.connect()
-event.wait()
 ```
 
-When you run this code:
+### Custom QR handling
 
-1. A QR code will be displayed in your terminal
-2. Open WhatsApp on your phone
-3. Go to **Settings** → **Linked Devices**
-4. Tap **Link a Device**
-5. Scan the displayed QR code
-
-### Custom QR Code Handler
-
-You can customize how the QR code is displayed:
+Pass `qrCallback` to render the QR yourself — for example in a web UI. The
+callback receives the client and the raw PNG bytes of the QR image.
 
 ```python
-import segno
 from neonize.client import NewClient
-from neonize.events import event
 
-client = NewClient("my_bot")
+def on_qr(client: NewClient, qr_png: bytes) -> None:
+    # qr_png is a PNG-encoded QR image; serve it, save it, or print it.
+    with open("qr.png", "wb") as f:
+        f.write(qr_png)
 
-
-# Custom QR code handler
-@client.qr
-def on_qr_code(client: NewClient, qr_data: bytes):
-    print("📱 Scan this QR code with your WhatsApp:")
-    # Display QR code in terminal
-    segno.make_qr(qr_data).terminal(compact=True)
-
-    # Or save to file
-    segno.make_qr(qr_data).save("qr_code.png", scale=10)
-    print("QR code saved to qr_code.png")
-
-
+client = NewClient("session.db")
 client.connect()
-event.wait()
 ```
 
-### QR Code for Web Applications
+!!! note "QR rotation"
+    WhatsApp rotates QR codes periodically while pairing is pending. The
+    callback fires again for each refresh until the code is scanned or it
+    times out.
 
-For web applications, you can generate a QR code image:
+## Method 2: Phone-Number Link Code
 
-```python
-import base64
-from io import BytesIO
-import segno
-
-
-@client.qr
-def on_qr_code(client: NewClient, qr_data: bytes):
-    # Create QR code image
-    buffer = BytesIO()
-    segno.make_qr(qr_data).save(buffer, kind="png", scale=10)
-
-    # Convert to base64 for embedding in HTML
-    qr_base64 = base64.b64encode(buffer.getvalue()).decode()
-
-    # Now you can send this to your web frontend
-    print(f"data:image/png;base64,{qr_base64}")
-```
-
-## Pairing Code Authentication
-
-Pairing codes provide an alternative authentication method without QR codes.
-
-### Basic Pairing Code
+`PairPhone` returns an 8-character code that you enter on the phone instead
+of scanning anything. Useful for headless servers where showing a QR is
+inconvenient.
 
 ```python
 from neonize.client import NewClient
-from neonize.events import PairStatusEv, event
-
-client = NewClient("my_bot")
-
-
-@client.event(PairStatusEv)
-def on_pair_status(client: NewClient, event: PairStatusEv):
-    if event.ID.User:
-        print(f"✅ Logged in as: {event.ID.User}")
-
-
-# Request pairing code for your phone number
-pairing_code = client.pair_phone(
-    "1234567890",  # Your phone number (without + or country code)
-    show_push_notification=True,
-)
-
-print(f"🔑 Your pairing code: {pairing_code}")
-print("Enter this code in WhatsApp → Linked Devices → Link with phone number")
-
-client.connect()
-event.wait()
-```
-
-### Pairing Code with Custom Callback
-
-```python
-from neonize.client import NewClient
-from neonize.events import event
-
-client = NewClient("my_bot")
-
-
-@client.paircode
-def on_pair_code(client: NewClient, code: str, connected: bool):
-    if not connected:
-        print(f"🔑 Your pairing code: {code}")
-        print("Enter this code in WhatsApp:")
-        print("1. Open WhatsApp on your phone")
-        print("2. Go to Settings → Linked Devices")
-        print("3. Tap 'Link a Device'")
-        print("4. Choose 'Link with phone number'")
-        print(f"5. Enter: {code}")
-    else:
-        print("✅ Device successfully paired!")
-
-
-# Request pairing code
-client.pair_phone("1234567890", show_push_notification=True)
-client.connect()
-event.wait()
-```
-
-### International Phone Numbers
-
-For international numbers, include the country code:
-
-```python
-# US number
-client.pair_phone("1234567890")  # Country code 1 is implied
-
-# UK number
-client.pair_phone("447123456789")  # Include country code
-
-# India number
-client.pair_phone("919876543210")  # Include country code
-```
-
-## Session Management
-
-### Understanding Sessions
-
-When you authenticate, Neonize stores session data in a database file. This allows you to reconnect without re-authenticating.
-
-```python
-# Session stored in my_bot.db (SQLite)
-client = NewClient("my_bot")
-
-# Custom database path
-client = NewClient("my_bot", database="./sessions/my_bot.db")
-
-# PostgreSQL database
-client = NewClient("my_bot", database="postgresql://user:pass@localhost/whatsapp")
-```
-
-### Multiple Sessions
-
-You can manage multiple WhatsApp accounts:
-
-```python
-# Bot 1
-client1 = NewClient("bot_1", database="./sessions/bot1.db")
-
-# Bot 2
-client2 = NewClient("bot_2", database="./sessions/bot2.db")
-
-# Each maintains its own session
-```
-
-### Logout and Re-authentication
-
-To logout and clear the session:
-
-```python
-from neonize.client import NewClient
-
-client = NewClient("my_bot")
-
-# Logout (clears session)
-client.logout()
-
-# Next time you connect, you'll need to authenticate again
-```
-
-## Device Information
-
-Customize how your bot appears in WhatsApp:
-
-```python
-from neonize.client import NewClient
-from neonize.proto.waCompanionReg.WAWebProtobufsCompanionReg_pb2 import DeviceProps
 from neonize.utils.enum import ClientType
+from neonize.proto.waCommon_pb2 import ClientName
 
-# Create custom device properties
-device_props = DeviceProps(
-    os="Neonize Bot",
-    version=DeviceProps.AppVersion(
-        primary=0,
-        secondary=1,
-        tertiary=0,
-    ),
-    platformType=DeviceProps.PlatformType.CHROME,
-    requireFullSync=False,
+client = NewClient("session.db")
+
+code: str = client.PairPhone(
+    "628123456789",          # phone number in international format, no + or spaces
+    show_push_notification=True,
+    client_name=ClientName.LINUX,
 )
-
-client = NewClient("my_bot", props=device_props)
+print(f"Enter this code on your phone: {code}")
 ```
 
-## Security Best Practices
+Then on the phone: **Settings > Linked Devices > Link a Device > Link with
+phone number instead**, and type the code.
 
-### Protecting Session Data
+## Reconnecting
 
-1. **Never commit session files to version control**
-
-```gitignore
-# .gitignore
-*.db
-sessions/
-```
-
-2. **Use environment variables for sensitive data**
+Nothing special is required — construct the client with the same database
+file and connect:
 
 ```python
-import os
-
-DATABASE_URL = os.getenv("WHATSAPP_DB_URL", "./bot.db")
-client = NewClient("bot", database=DATABASE_URL)
+client = NewClient("session.db")   # loads the stored session
+client.connect()                   # no QR, straight to ConnectedEv
 ```
 
-3. **Secure file permissions**
-
-```bash
-# Linux/macOS
-chmod 600 bot.db
-```
-
-### Production Deployment
-
-For production environments:
+To resume a specific session when the database holds several, pass its JID:
 
 ```python
-import os
-from neonize.client import NewClient
+from neonize.utils import build_jid
 
-# Use PostgreSQL for production
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:pass@localhost:5432/whatsapp")
-
-client = NewClient("production_bot", database=DATABASE_URL)
+client = NewClient("session.db", jid=build_jid("628123456789"))
 ```
 
-## Troubleshooting Authentication
+## Multi-Device Sessions
 
-### QR Code Not Displaying
-
-If the QR code doesn't display in your terminal:
+One SQLite file can hold multiple linked devices, each identified by a UUID.
 
 ```python
-import segno
-
-
-@client.qr
-def on_qr_code(client: NewClient, qr_data: bytes):
-    # Save to file instead
-    segno.make_qr(qr_data).save("qr_code.png", scale=10)
-    print("QR code saved to qr_code.png - scan with WhatsApp")
+work = NewClient("session.db", uuid="work-bot")
+home = NewClient("session.db", uuid="home-bot")
 ```
 
-### Pairing Code Not Working
+See [Sessions and Storage](../core-concepts/sessions-and-storage.md) and the
+[multi-session example](../examples/multi-session.md).
 
-Common issues:
+## Logging Out
 
-1. **Wrong phone number format** - Remove spaces, dashes, and the + symbol
-2. **Code expired** - Pairing codes expire after a few minutes
-3. **Already linked** - Unlink old devices first
+`logout()` unlinks the device and clears the stored session. The next
+connect will require pairing again.
 
 ```python
-# Correct format
-client.pair_phone("1234567890")  # ✅
-
-# Incorrect formats
-client.pair_phone("+1 234-567-890")  # ❌
-client.pair_phone("(123) 456-7890")  # ❌
+client.logout()
 ```
 
-### Connection Issues
-
-If you can't connect:
-
-```python
-import logging
-
-# Enable debug logging
-logging.basicConfig(level=logging.DEBUG)
-
-client = NewClient("my_bot")
-client.connect()
-```
-
-### Session Corrupted
-
-If your session is corrupted:
-
-```python
-import os
-
-# Delete the session file
-if os.path.exists("my_bot.db"):
-    os.remove("my_bot.db")
-
-# Re-authenticate
-client = NewClient("my_bot")
-client.connect()
-```
-
-## Next Steps
-
-Now that you understand authentication, learn more about:
-
-- [Event System](../user-guide/event-system.md) - Handle WhatsApp events
-- [Sending Messages](../user-guide/sending-messages.md) - Send messages and media
-- [Client Configuration](../user-guide/client-configuration.md) - Advanced client setup
-
-!!! info "Session Persistence"
-    Once authenticated, your session persists across restarts. You only need to authenticate once per session/device.
-
-!!! warning "Account Security"
-    - Never share your session database file
-    - Use strong passwords for PostgreSQL databases
-    - Regularly monitor linked devices in WhatsApp settings
+!!! warning "Irreversible"
+    After logout the session cannot be recovered — pair again via QR or link
+    code.

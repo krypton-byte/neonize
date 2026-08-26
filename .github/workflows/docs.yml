@@ -1,62 +1,133 @@
-name: Deploy MkDocs to GitHub Pages
+name: Documentation
+
+# Build, validate and deploy the documentation site.
+#
+# Deployment uses mike so GitHub Pages serves a version selector:
+#   - pushes to master/dev        -> "dev" version
+#   - pushes of release tags      -> "<major.minor>" version + "latest"
+#   - manual dispatch w/o input   -> "dev"
+#   - manual dispatch w/ version  -> that exact version
+#
+# Pull requests only run the strict build (no deployment).
 
 on:
   push:
-    branches:
-      - master
+    branches: [master, dev]
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "neonize/**"
+      - ".github/workflows/docs.yml"
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+
+  pull_request:
+    branches: [master, dev]
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "neonize/**"
+      - ".github/workflows/docs.yml"
+
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish (e.g. 0.4). Empty = dev."
+        required: false
+        type: string
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SITE_BRANCH: gh-pages
 
 jobs:
-  build:
+  validate:
+    name: Validate Documentation
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Fetch all history for git-revision-date plugin
-      
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-      
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+
       - name: Install dependencies
+        run: uv sync --group docs --no-install-project
+
+      - name: Check nav completeness
         run: |
-          uv sync --group docs
-      
-      - name: Configure Git for mkdocs-git-revision-date
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      
-      - name: Build MkDocs site
-        run: |
-          uv run task docs-build
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./site
+          # Every file listed in mkdocs.yml nav must exist.
+          uv run python - <<'PY'
+          import re, sys, pathlib
+          cfg = pathlib.Path("mkdocs.yml").read_text()
+          missing = []
+          for m in re.finditer(r":\s*([A-Za-z0-9_/\-\.]+\.md)\s*$", cfg, re.M):
+              if not (pathlib.Path("docs") / m.group(1)).exists():
+                  missing.append(m.group(1))
+          if missing:
+              print("Missing pages:", *missing, sep="\n  ")
+              sys.exit(1)
+          print("Nav complete.")
+          PY
+
+      - name: Strict build (CI parity)
+        run: uv run --no-sync zensical build -f mkdocs.yml -s
 
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    name: Deploy Documentation
+    needs: validate
     runs-on: ubuntu-latest
-    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' || github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') || github.event_name == 'push' && github.ref == 'refs/heads/dev' || github.event_name == 'workflow_dispatch'
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history: mike needs existing versions + tags
+
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Install dependencies
+        run: uv sync --group docs --no-install-project
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Resolve target version
+        id: version
+        run: |
+          case "${GITHUB_EVENT_NAME}" in
+            workflow_dispatch)
+              VERSION="${{ inputs.version }}"
+              [ -z "$VERSION" ] && VERSION="dev"
+              ;;
+            *)
+              if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+                VERSION="${GITHUB_REF_NAME%.*}"     # 1.2.3 -> 1.2
+              else
+                VERSION="dev"
+              fi
+              ;;
+          esac
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy documentation (mike)
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          ARGS=(--branch "$SITE_BRANCH" --push)
+
+          if [ "$VERSION" = "dev" ]; then
+            uv run --no-sync mike deploy "${ARGS[@]}" --update-aliases dev
+            uv run --no-sync mike set-default "${ARGS[@]}" dev
+          else
+            uv run --no-sync mike deploy "${ARGS[@]}" --update-aliases "$VERSION" latest
+            uv run --no-sync mike set-default "${ARGS[@]}" latest
+          fi
+
+      - name: List deployed versions
+        run: uv run --no-sync mike list --branch "$SITE_BRANCH"
