@@ -73,12 +73,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-      - name: Compute next version (PSR)
+      - name: Compute next version (PSR dry-run)
         id: psr
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          NEXT=$(uv run semantic-release version --noop --print 2>/dev/null || true)
+          NEXT=$(uv run semantic-release version \
+            --no-commit --no-tag --no-push --no-vcs-release \
+            --print 2>/dev/null || true)
           if [ -z "$NEXT" ]; then
             echo "No release to make."
             echo "release=false" >> "$GITHUB_OUTPUT"
