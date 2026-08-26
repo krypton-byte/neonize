@@ -585,7 +585,7 @@ func StopAll() {
 
 //export Stop
 func Stop(id *C.char) {
-	utils.Noop.Infof("Stopping client with ID:", C.GoString(id)) // utils.Logger
+	utils.Noop.Infof("Stopping client with ID: %s", C.GoString(id)) // utils.Logger
 	if client, exists := clients[C.GoString(id)]; exists {
 		client.Disconnect()
 		delete(clients, C.GoString(id))
@@ -839,7 +839,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				joined := utils.EncodeJoinedGroup(v)
 				messageEvent := MessageEvent{
 					eventType: 21,
-					message:   &joined,
+					message:   joined,
 				}
 				eventChan <- &messageEvent
 			}

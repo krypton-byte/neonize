@@ -739,8 +739,8 @@ func EncodePresence(presence *events.Presence) defproto.Presence {
 	}
 }
 
-func EncodeJoinedGroup(joined *events.JoinedGroup) defproto.JoinedGroup {
-	joinedGroup := defproto.JoinedGroup{
+func EncodeJoinedGroup(joined *events.JoinedGroup) *defproto.JoinedGroup {
+	joinedGroup := &defproto.JoinedGroup{
 		Reason:    &joined.Reason,
 		Type:      &joined.Type,
 		CreateKey: &joined.CreateKey,

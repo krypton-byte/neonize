@@ -84,7 +84,7 @@ requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 [tool.ruff]
 exclude = [
-    "proto","*.pyi"
+    "proto","*.pyi", "docs"
 ]
 line-length = 100
 
@@ -95,6 +95,7 @@ line-length = 100
 select = ["E4", "E7", "E9", "F", "I"]
 
 [tool.ruff.format]
+exclude = ["docs"]
 # Like Black, use double quotes for strings.
 quote-style = "double"
 

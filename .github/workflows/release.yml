@@ -67,15 +67,39 @@ jobs:
           echo "Using previous release/tag: $PREV"
           echo "previous_tag=$PREV" >> "$GITHUB_OUTPUT"
       - uses: astral-sh/setup-uv@v5
-      - name: Validate semantic-release configuration
+      - name: Install dependencies
+        run: uv sync --dev
+      - name: Configure git identity
         run: |
-          uv sync --dev
-          uv run semantic-release --noop version --print || true
-      - name: Python Semantic Release
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Compute next version (PSR)
         id: psr
-        uses: python-semantic-release/python-semantic-release@v10.6.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          NEXT=$(uv run semantic-release version --noop --print 2>/dev/null || true)
+          if [ -z "$NEXT" ]; then
+            echo "No release to make."
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Next version: $NEXT"
+            echo "version=$NEXT" >> "$GITHUB_OUTPUT"
+            echo "tag=$NEXT" >> "$GITHUB_OUTPUT"
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Create release commit, tag and GitHub Release
+        if: steps.psr.outputs.release == 'true'
+        env:
+          NEXT: ${{ steps.psr.outputs.version }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          uv run semantic-release version
+          git push origin master
+          git push origin "$NEXT"
+          gh release create "$NEXT" \
+            --title "v$NEXT" \
+            --generate-notes
 
   changes:
     needs: release-version
