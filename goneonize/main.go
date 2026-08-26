@@ -392,7 +392,10 @@ func ProtoReturnV3(data proto.Message) *C.struct_BytesReturn {
 	data_buf, err := proto.MarshalOptions{}.MarshalAppend((*bufPtr)[:0], data)
 	if err != nil {
 		bufPool.Put(bufPtr)
-		panic(err)
+		// Return an empty BytesReturn instead of panicking. The Python side
+		// will receive an empty protobuf message, which unmarshals as a
+		// zero-value struct — the same as a successful call with no data.
+		return (*C.struct_BytesReturn)(C.calloc(1, C.size_t(unsafe.Sizeof(C.struct_BytesReturn{}))))
 	}
 	result := (*C.struct_BytesReturn)(C.malloc(C.size_t(unsafe.Sizeof(C.struct_BytesReturn{}))))
 	result.size = C.size_t(len(data_buf))
@@ -1711,9 +1714,11 @@ func GetNewsletterMessageUpdate(id *C.char, JIDByte *C.uchar, JIDSize C.int, Cou
 	}
 	NewsletterMessages := []*defproto.NewsletterMessage{}
 	for _, msg := range newsletterMessage {
-		NewsletterMessages = append(NewsletterMessages, utils.EncodeNewsletterMessage(msg))
+		if encoded := utils.EncodeNewsletterMessage(msg); encoded != nil {
+			NewsletterMessages = append(NewsletterMessages, encoded)
+		}
 	}
-	if newsletterMessage != nil {
+	if len(NewsletterMessages) > 0 {
 		return_.NewsletterMessage = NewsletterMessages
 	}
 	return ProtoReturnV3(&return_)
@@ -1738,9 +1743,11 @@ func GetNewsletterMessages(id *C.char, JIDByte *C.uchar, JIDSize C.int, Count C.
 	}
 	NewsletterMessages := []*defproto.NewsletterMessage{}
 	for _, msg := range newsletterMessage {
-		NewsletterMessages = append(NewsletterMessages, utils.EncodeNewsletterMessage(msg))
+		if encoded := utils.EncodeNewsletterMessage(msg); encoded != nil {
+			NewsletterMessages = append(NewsletterMessages, encoded)
+		}
 	}
-	if newsletterMessage != nil {
+	if len(NewsletterMessages) > 0 {
 		return_.NewsletterMessage = NewsletterMessages
 	}
 	return ProtoReturnV3(&return_)
