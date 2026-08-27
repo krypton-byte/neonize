@@ -372,6 +372,12 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
     ]
     gocode.GetProfilePicture.restype = ctypes.POINTER(Bytes)
+    gocode.GetBusinessProfile.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
+    gocode.GetBusinessProfile.restype = ctypes.POINTER(Bytes)
     gocode.GetStatusPrivacy.argtypes = [ctypes.c_char_p]
     gocode.GetStatusPrivacy.restype = ctypes.POINTER(Bytes)
     gocode.GetSubGroups.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]

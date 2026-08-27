@@ -359,6 +359,42 @@ func EncodeProfilePictureInfo(profilePictureInfo types.ProfilePictureInfo) *defp
 	}
 }
 
+func EncodeBusinessHoursConfig(cfg types.BusinessHoursConfig) *defproto.BusinessHoursConfig {
+	return &defproto.BusinessHoursConfig{
+		DayOfWeek: &cfg.DayOfWeek,
+		Mode:      &cfg.Mode,
+		OpenTime:  &cfg.OpenTime,
+		CloseTime: &cfg.CloseTime,
+	}
+}
+
+func EncodeCategory(category types.Category) *defproto.Category {
+	return &defproto.Category{
+		ID:   &category.ID,
+		Name: &category.Name,
+	}
+}
+
+func EncodeBusinessProfile(profile types.BusinessProfile) *defproto.BusinessProfile {
+	categories := []*defproto.Category{}
+	for _, category := range profile.Categories {
+		categories = append(categories, EncodeCategory(category))
+	}
+	businessHours := []*defproto.BusinessHoursConfig{}
+	for _, cfg := range profile.BusinessHours {
+		businessHours = append(businessHours, EncodeBusinessHoursConfig(cfg))
+	}
+	return &defproto.BusinessProfile{
+		JID:                   EncodeJidProto(profile.JID),
+		Address:               &profile.Address,
+		Email:                 &profile.Email,
+		Categories:            categories,
+		ProfileOptions:        profile.ProfileOptions,
+		BusinessHoursTimeZone: &profile.BusinessHoursTimeZone,
+		BusinessHours:         businessHours,
+	}
+}
+
 func EncodeNewsletterReactionSettings(reactionSettings types.NewsletterReactionSettings) *defproto.NewsletterReactionSettings {
 	var reactionMode defproto.NewsletterReactionSettings_NewsletterReactionsMode
 	switch reactionSettings.Value {

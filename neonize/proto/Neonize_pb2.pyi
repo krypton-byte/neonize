@@ -4175,3 +4175,137 @@ class Stop(_message.Message):
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___Stop: _TypeAlias = Stop  # noqa: Y015
+
+@_typing.final
+class BusinessHoursConfig(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    DAYOFWEEK_FIELD_NUMBER: _builtins.int
+    MODE_FIELD_NUMBER: _builtins.int
+    OPENTIME_FIELD_NUMBER: _builtins.int
+    CLOSETIME_FIELD_NUMBER: _builtins.int
+    DayOfWeek: _builtins.str
+    Mode: _builtins.str
+    OpenTime: _builtins.str
+    CloseTime: _builtins.str
+    def __init__(
+        self,
+        *,
+        DayOfWeek: _builtins.str | None = ...,
+        Mode: _builtins.str | None = ...,
+        OpenTime: _builtins.str | None = ...,
+        CloseTime: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["CloseTime", b"CloseTime", "DayOfWeek", b"DayOfWeek", "Mode", b"Mode", "OpenTime", b"OpenTime"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["CloseTime", b"CloseTime", "DayOfWeek", b"DayOfWeek", "Mode", b"Mode", "OpenTime", b"OpenTime"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___BusinessHoursConfig: _TypeAlias = BusinessHoursConfig  # noqa: Y015
+
+@_typing.final
+class Category(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ID_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    ID: _builtins.str
+    Name: _builtins.str
+    def __init__(
+        self,
+        *,
+        ID: _builtins.str | None = ...,
+        Name: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "Name", b"Name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "Name", b"Name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___Category: _TypeAlias = Category  # noqa: Y015
+
+@_typing.final
+class BusinessProfile(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    @_typing.final
+    class ProfileOptionsEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
+        def __init__(
+            self,
+            *,
+            key: _builtins.str | None = ...,
+            value: _builtins.str | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    JID_FIELD_NUMBER: _builtins.int
+    ADDRESS_FIELD_NUMBER: _builtins.int
+    EMAIL_FIELD_NUMBER: _builtins.int
+    CATEGORIES_FIELD_NUMBER: _builtins.int
+    PROFILEOPTIONS_FIELD_NUMBER: _builtins.int
+    BUSINESSHOURSTIMEZONE_FIELD_NUMBER: _builtins.int
+    BUSINESSHOURS_FIELD_NUMBER: _builtins.int
+    Address: _builtins.str
+    Email: _builtins.str
+    BusinessHoursTimeZone: _builtins.str
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Categories(self) -> _containers.RepeatedCompositeFieldContainer[Global___Category]: ...
+    @_builtins.property
+    def ProfileOptions(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]: ...
+    @_builtins.property
+    def BusinessHours(self) -> _containers.RepeatedCompositeFieldContainer[Global___BusinessHoursConfig]: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Address: _builtins.str | None = ...,
+        Email: _builtins.str | None = ...,
+        Categories: _abc.Iterable[Global___Category] | None = ...,
+        ProfileOptions: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
+        BusinessHoursTimeZone: _builtins.str | None = ...,
+        BusinessHours: _abc.Iterable[Global___BusinessHoursConfig] | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Address", b"Address", "BusinessHoursTimeZone", b"BusinessHoursTimeZone", "Email", b"Email", "JID", b"JID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Address", b"Address", "BusinessHours", b"BusinessHours", "BusinessHoursTimeZone", b"BusinessHoursTimeZone", "Categories", b"Categories", "Email", b"Email", "JID", b"JID", "ProfileOptions", b"ProfileOptions"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___BusinessProfile: _TypeAlias = BusinessProfile  # noqa: Y015
+
+@_typing.final
+class GetBusinessProfileReturnFunction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    PROFILE_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    Error: _builtins.str
+    @_builtins.property
+    def Profile(self) -> Global___BusinessProfile: ...
+    def __init__(
+        self,
+        *,
+        Profile: Global___BusinessProfile | None = ...,
+        Error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "Profile", b"Profile"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "Profile", b"Profile"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___GetBusinessProfileReturnFunction: _TypeAlias = GetBusinessProfileReturnFunction  # noqa: Y015

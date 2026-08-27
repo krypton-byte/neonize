@@ -9956,6 +9956,270 @@ func (*Stop) Descriptor() ([]byte, []int) {
 	return file_Neonize_proto_rawDescGZIP(), []int{138}
 }
 
+type BusinessHoursConfig struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	DayOfWeek     *string                `protobuf:"bytes,1,opt,name=DayOfWeek" json:"DayOfWeek,omitempty"`
+	Mode          *string                `protobuf:"bytes,2,opt,name=Mode" json:"Mode,omitempty"`
+	OpenTime      *string                `protobuf:"bytes,3,opt,name=OpenTime" json:"OpenTime,omitempty"`
+	CloseTime     *string                `protobuf:"bytes,4,opt,name=CloseTime" json:"CloseTime,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BusinessHoursConfig) Reset() {
+	*x = BusinessHoursConfig{}
+	mi := &file_Neonize_proto_msgTypes[139]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BusinessHoursConfig) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BusinessHoursConfig) ProtoMessage() {}
+
+func (x *BusinessHoursConfig) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[139]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BusinessHoursConfig.ProtoReflect.Descriptor instead.
+func (*BusinessHoursConfig) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{139}
+}
+
+func (x *BusinessHoursConfig) GetDayOfWeek() string {
+	if x != nil && x.DayOfWeek != nil {
+		return *x.DayOfWeek
+	}
+	return ""
+}
+
+func (x *BusinessHoursConfig) GetMode() string {
+	if x != nil && x.Mode != nil {
+		return *x.Mode
+	}
+	return ""
+}
+
+func (x *BusinessHoursConfig) GetOpenTime() string {
+	if x != nil && x.OpenTime != nil {
+		return *x.OpenTime
+	}
+	return ""
+}
+
+func (x *BusinessHoursConfig) GetCloseTime() string {
+	if x != nil && x.CloseTime != nil {
+		return *x.CloseTime
+	}
+	return ""
+}
+
+type Category struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ID            *string                `protobuf:"bytes,1,opt,name=ID" json:"ID,omitempty"`
+	Name          *string                `protobuf:"bytes,2,opt,name=Name" json:"Name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Category) Reset() {
+	*x = Category{}
+	mi := &file_Neonize_proto_msgTypes[140]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Category) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Category) ProtoMessage() {}
+
+func (x *Category) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[140]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Category.ProtoReflect.Descriptor instead.
+func (*Category) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{140}
+}
+
+func (x *Category) GetID() string {
+	if x != nil && x.ID != nil {
+		return *x.ID
+	}
+	return ""
+}
+
+func (x *Category) GetName() string {
+	if x != nil && x.Name != nil {
+		return *x.Name
+	}
+	return ""
+}
+
+type BusinessProfile struct {
+	state                 protoimpl.MessageState `protogen:"open.v1"`
+	JID                   *JID                   `protobuf:"bytes,1,opt,name=JID" json:"JID,omitempty"`
+	Address               *string                `protobuf:"bytes,2,opt,name=Address" json:"Address,omitempty"`
+	Email                 *string                `protobuf:"bytes,3,opt,name=Email" json:"Email,omitempty"`
+	Categories            []*Category            `protobuf:"bytes,4,rep,name=Categories" json:"Categories,omitempty"`
+	ProfileOptions        map[string]string      `protobuf:"bytes,5,rep,name=ProfileOptions" json:"ProfileOptions,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	BusinessHoursTimeZone *string                `protobuf:"bytes,6,opt,name=BusinessHoursTimeZone" json:"BusinessHoursTimeZone,omitempty"`
+	BusinessHours         []*BusinessHoursConfig `protobuf:"bytes,7,rep,name=BusinessHours" json:"BusinessHours,omitempty"`
+	unknownFields         protoimpl.UnknownFields
+	sizeCache             protoimpl.SizeCache
+}
+
+func (x *BusinessProfile) Reset() {
+	*x = BusinessProfile{}
+	mi := &file_Neonize_proto_msgTypes[141]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BusinessProfile) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BusinessProfile) ProtoMessage() {}
+
+func (x *BusinessProfile) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[141]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BusinessProfile.ProtoReflect.Descriptor instead.
+func (*BusinessProfile) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{141}
+}
+
+func (x *BusinessProfile) GetJID() *JID {
+	if x != nil {
+		return x.JID
+	}
+	return nil
+}
+
+func (x *BusinessProfile) GetAddress() string {
+	if x != nil && x.Address != nil {
+		return *x.Address
+	}
+	return ""
+}
+
+func (x *BusinessProfile) GetEmail() string {
+	if x != nil && x.Email != nil {
+		return *x.Email
+	}
+	return ""
+}
+
+func (x *BusinessProfile) GetCategories() []*Category {
+	if x != nil {
+		return x.Categories
+	}
+	return nil
+}
+
+func (x *BusinessProfile) GetProfileOptions() map[string]string {
+	if x != nil {
+		return x.ProfileOptions
+	}
+	return nil
+}
+
+func (x *BusinessProfile) GetBusinessHoursTimeZone() string {
+	if x != nil && x.BusinessHoursTimeZone != nil {
+		return *x.BusinessHoursTimeZone
+	}
+	return ""
+}
+
+func (x *BusinessProfile) GetBusinessHours() []*BusinessHoursConfig {
+	if x != nil {
+		return x.BusinessHours
+	}
+	return nil
+}
+
+type GetBusinessProfileReturnFunction struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Profile       *BusinessProfile       `protobuf:"bytes,1,opt,name=Profile" json:"Profile,omitempty"`
+	Error         *string                `protobuf:"bytes,2,opt,name=Error" json:"Error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetBusinessProfileReturnFunction) Reset() {
+	*x = GetBusinessProfileReturnFunction{}
+	mi := &file_Neonize_proto_msgTypes[142]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetBusinessProfileReturnFunction) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetBusinessProfileReturnFunction) ProtoMessage() {}
+
+func (x *GetBusinessProfileReturnFunction) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[142]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetBusinessProfileReturnFunction.ProtoReflect.Descriptor instead.
+func (*GetBusinessProfileReturnFunction) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{142}
+}
+
+func (x *GetBusinessProfileReturnFunction) GetProfile() *BusinessProfile {
+	if x != nil {
+		return x.Profile
+	}
+	return nil
+}
+
+func (x *GetBusinessProfileReturnFunction) GetError() string {
+	if x != nil && x.Error != nil {
+		return *x.Error
+	}
+	return ""
+}
+
 var File_Neonize_proto protoreflect.FileDescriptor
 
 const file_Neonize_proto_rawDesc = "" +
@@ -10694,7 +10958,31 @@ const file_Neonize_proto_rawDesc = "" +
 	"\aMessage\x18\x01 \x02(\tR\aMessage\x12\x14\n" +
 	"\x05Level\x18\x02 \x02(\tR\x05Level\x12\x12\n" +
 	"\x04Name\x18\x03 \x02(\tR\x04Name\"\x06\n" +
-	"\x04Stop*!\n" +
+	"\x04Stop\"\x81\x01\n" +
+	"\x13BusinessHoursConfig\x12\x1c\n" +
+	"\tDayOfWeek\x18\x01 \x01(\tR\tDayOfWeek\x12\x12\n" +
+	"\x04Mode\x18\x02 \x01(\tR\x04Mode\x12\x1a\n" +
+	"\bOpenTime\x18\x03 \x01(\tR\bOpenTime\x12\x1c\n" +
+	"\tCloseTime\x18\x04 \x01(\tR\tCloseTime\".\n" +
+	"\bCategory\x12\x0e\n" +
+	"\x02ID\x18\x01 \x01(\tR\x02ID\x12\x12\n" +
+	"\x04Name\x18\x02 \x01(\tR\x04Name\"\xa7\x03\n" +
+	"\x0fBusinessProfile\x12\x1e\n" +
+	"\x03JID\x18\x01 \x01(\v2\f.neonize.JIDR\x03JID\x12\x18\n" +
+	"\aAddress\x18\x02 \x01(\tR\aAddress\x12\x14\n" +
+	"\x05Email\x18\x03 \x01(\tR\x05Email\x121\n" +
+	"\n" +
+	"Categories\x18\x04 \x03(\v2\x11.neonize.CategoryR\n" +
+	"Categories\x12T\n" +
+	"\x0eProfileOptions\x18\x05 \x03(\v2,.neonize.BusinessProfile.ProfileOptionsEntryR\x0eProfileOptions\x124\n" +
+	"\x15BusinessHoursTimeZone\x18\x06 \x01(\tR\x15BusinessHoursTimeZone\x12B\n" +
+	"\rBusinessHours\x18\a \x03(\v2\x1c.neonize.BusinessHoursConfigR\rBusinessHours\x1aA\n" +
+	"\x13ProfileOptionsEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"l\n" +
+	" GetBusinessProfileReturnFunction\x122\n" +
+	"\aProfile\x18\x01 \x01(\v2\x18.neonize.BusinessProfileR\aProfile\x12\x14\n" +
+	"\x05Error\x18\x02 \x01(\tR\x05Error*!\n" +
 	"\x0eAddressingMode\x12\x06\n" +
 	"\x02PN\x10\x01\x12\a\n" +
 	"\x03LID\x10\x02*A\n" +
@@ -10735,7 +11023,7 @@ func file_Neonize_proto_rawDescGZIP() []byte {
 }
 
 var file_Neonize_proto_enumTypes = make([]protoimpl.EnumInfo, 20)
-var file_Neonize_proto_msgTypes = make([]protoimpl.MessageInfo, 139)
+var file_Neonize_proto_msgTypes = make([]protoimpl.MessageInfo, 144)
 var file_Neonize_proto_goTypes = []any{
 	(AddressingMode)(0),                                       // 0: neonize.AddressingMode
 	(NewsletterRole)(0),                                       // 1: neonize.NewsletterRole
@@ -10896,13 +11184,18 @@ var file_Neonize_proto_goTypes = []any{
 	(*BuildMessageReturnFunction)(nil),                  // 156: neonize.BuildMessageReturnFunction
 	(*LogEntry)(nil),                                    // 157: neonize.LogEntry
 	(*Stop)(nil),                                        // 158: neonize.Stop
-	(*waVnameCert.VerifiedNameCertificate)(nil),         // 159: WAWebProtobufsVnameCert.VerifiedNameCertificate
-	(*waVnameCert.VerifiedNameCertificate_Details)(nil), // 160: WAWebProtobufsVnameCert.VerifiedNameCertificate.Details
-	(*waE2E.Message)(nil),                               // 161: WAWebProtobufsE2E.Message
-	(*waWeb.WebMessageInfo)(nil),                        // 162: WAWebProtobufsWeb.WebMessageInfo
-	(*waSyncAction.SyncActionValue)(nil),                // 163: WAWebProtobufSyncAction.SyncActionValue
-	(*waHistorySync.HistorySync)(nil),                   // 164: WAWebProtobufsHistorySync.HistorySync
-	(*waE2E.PollVoteMessage)(nil),                       // 165: WAWebProtobufsE2E.PollVoteMessage
+	(*BusinessHoursConfig)(nil),                         // 159: neonize.BusinessHoursConfig
+	(*Category)(nil),                                    // 160: neonize.Category
+	(*BusinessProfile)(nil),                             // 161: neonize.BusinessProfile
+	(*GetBusinessProfileReturnFunction)(nil),            // 162: neonize.GetBusinessProfileReturnFunction
+	nil,                                                 // 163: neonize.BusinessProfile.ProfileOptionsEntry
+	(*waVnameCert.VerifiedNameCertificate)(nil),         // 164: WAWebProtobufsVnameCert.VerifiedNameCertificate
+	(*waVnameCert.VerifiedNameCertificate_Details)(nil), // 165: WAWebProtobufsVnameCert.VerifiedNameCertificate.Details
+	(*waE2E.Message)(nil),                               // 166: WAWebProtobufsE2E.Message
+	(*waWeb.WebMessageInfo)(nil),                        // 167: WAWebProtobufsWeb.WebMessageInfo
+	(*waSyncAction.SyncActionValue)(nil),                // 168: WAWebProtobufSyncAction.SyncActionValue
+	(*waHistorySync.HistorySync)(nil),                   // 169: WAWebProtobufsHistorySync.HistorySync
+	(*waE2E.PollVoteMessage)(nil),                       // 170: WAWebProtobufsE2E.PollVoteMessage
 }
 var file_Neonize_proto_depIdxs = []int32{
 	24,  // 0: neonize.MessageInfo.MessageSource:type_name -> neonize.MessageSource
@@ -10917,8 +11210,8 @@ var file_Neonize_proto_depIdxs = []int32{
 	20,  // 9: neonize.MessageSource.RecipientAlt:type_name -> neonize.JID
 	20,  // 10: neonize.MessageSource.BroadcastListOwner:type_name -> neonize.JID
 	23,  // 11: neonize.MessageSource.BroadcastRecipients:type_name -> neonize.BroadcastRecipient
-	159, // 12: neonize.VerifiedName.Certificate:type_name -> WAWebProtobufsVnameCert.VerifiedNameCertificate
-	160, // 13: neonize.VerifiedName.Details:type_name -> WAWebProtobufsVnameCert.VerifiedNameCertificate.Details
+	164, // 12: neonize.VerifiedName.Certificate:type_name -> WAWebProtobufsVnameCert.VerifiedNameCertificate
+	165, // 13: neonize.VerifiedName.Details:type_name -> WAWebProtobufsVnameCert.VerifiedNameCertificate.Details
 	20,  // 14: neonize.IsOnWhatsAppResponse.JID:type_name -> neonize.JID
 	26,  // 15: neonize.IsOnWhatsAppResponse.VerifiedName:type_name -> neonize.VerifiedName
 	26,  // 16: neonize.UserInfo.VerifiedName:type_name -> neonize.VerifiedName
@@ -10946,7 +11239,7 @@ var file_Neonize_proto_depIdxs = []int32{
 	38,  // 38: neonize.GroupInfo.GroupIsDefaultSub:type_name -> neonize.GroupIsDefaultSub
 	40,  // 39: neonize.GroupInfo.Participants:type_name -> neonize.GroupParticipant
 	42,  // 40: neonize.SendResponse.DebugTimings:type_name -> neonize.MessageDebugTimings
-	161, // 41: neonize.SendResponse.Message:type_name -> WAWebProtobufsE2E.Message
+	166, // 41: neonize.SendResponse.Message:type_name -> WAWebProtobufsE2E.Message
 	43,  // 42: neonize.SendMessageReturnFunction.SendResponse:type_name -> neonize.SendResponse
 	41,  // 43: neonize.GetGroupInfoReturnFunction.GroupInfo:type_name -> neonize.GroupInfo
 	20,  // 44: neonize.JoinGroupWithLinkReturnFunction.Jid:type_name -> neonize.JID
@@ -10956,7 +11249,7 @@ var file_Neonize_proto_depIdxs = []int32{
 	20,  // 48: neonize.GetUserInfoSingleReturnFunction.JID:type_name -> neonize.JID
 	28,  // 49: neonize.GetUserInfoSingleReturnFunction.UserInfo:type_name -> neonize.UserInfo
 	53,  // 50: neonize.GetUserInfoReturnFunction.UsersInfo:type_name -> neonize.GetUserInfoSingleReturnFunction
-	161, // 51: neonize.BuildPollVoteReturnFunction.PollVote:type_name -> WAWebProtobufsE2E.Message
+	166, // 51: neonize.BuildPollVoteReturnFunction.PollVote:type_name -> WAWebProtobufsE2E.Message
 	76,  // 52: neonize.CreateNewsLetterReturnFunction.NewsletterMetadata:type_name -> neonize.NewsletterMetadata
 	77,  // 53: neonize.GetBlocklistReturnFunction.Blocklist:type_name -> neonize.Blocklist
 	20,  // 54: neonize.GroupParticipantRequest.Participant:type_name -> neonize.JID
@@ -10967,10 +11260,10 @@ var file_Neonize_proto_depIdxs = []int32{
 	37,  // 59: neonize.ReqCreateGroup.GroupLinkedParent:type_name -> neonize.GroupLinkedParent
 	20,  // 60: neonize.JIDArray.JIDS:type_name -> neonize.JID
 	21,  // 61: neonize.Message.Info:type_name -> neonize.MessageInfo
-	161, // 62: neonize.Message.Message:type_name -> WAWebProtobufsE2E.Message
-	162, // 63: neonize.Message.SourceWebMsg:type_name -> WAWebProtobufsWeb.WebMessageInfo
+	166, // 62: neonize.Message.Message:type_name -> WAWebProtobufsE2E.Message
+	167, // 63: neonize.Message.SourceWebMsg:type_name -> WAWebProtobufsWeb.WebMessageInfo
 	65,  // 64: neonize.Message.NewsLetterMeta:type_name -> neonize.NewsLetterMessageMeta
-	161, // 65: neonize.Message.Raw:type_name -> WAWebProtobufsE2E.Message
+	166, // 65: neonize.Message.Raw:type_name -> WAWebProtobufsE2E.Message
 	5,   // 66: neonize.WrappedNewsletterState.Type:type_name -> neonize.WrappedNewsletterState.NewsletterState
 	6,   // 67: neonize.NewsletterReactionSettings.Value:type_name -> neonize.NewsletterReactionSettings.NewsletterReactionsMode
 	72,  // 68: neonize.NewsletterSetting.ReactionCodes:type_name -> neonize.NewsletterReactionSettings
@@ -10988,7 +11281,7 @@ var file_Neonize_proto_depIdxs = []int32{
 	75,  // 80: neonize.NewsletterMetadata.ViewerMeta:type_name -> neonize.NewsletterViewerMetadata
 	20,  // 81: neonize.Blocklist.JIDs:type_name -> neonize.JID
 	78,  // 82: neonize.NewsletterMessage.ReactionCounts:type_name -> neonize.Reaction
-	161, // 83: neonize.NewsletterMessage.Message:type_name -> WAWebProtobufsE2E.Message
+	166, // 83: neonize.NewsletterMessage.Message:type_name -> WAWebProtobufsE2E.Message
 	79,  // 84: neonize.GetNewsletterMessageUpdateReturnFunction.NewsletterMessage:type_name -> neonize.NewsletterMessage
 	8,   // 85: neonize.PrivacySettings.GroupAdd:type_name -> neonize.PrivacySettings.PrivacySetting
 	8,   // 86: neonize.PrivacySettings.LastSeen:type_name -> neonize.PrivacySettings.PrivacySetting
@@ -11017,7 +11310,7 @@ var file_Neonize_proto_depIdxs = []int32{
 	97,  // 109: neonize.ResolveContactQRLinkReturnFunction.ContactQrLink:type_name -> neonize.ContactQRLinkTarget
 	20,  // 110: neonize.BusinessMessageLinkTarget.JID:type_name -> neonize.JID
 	99,  // 111: neonize.ResolveBusinessMessageLinkReturnFunction.MessageLinkTarget:type_name -> neonize.BusinessMessageLinkTarget
-	163, // 112: neonize.MutationInfo.Value:type_name -> WAWebProtobufSyncAction.SyncActionValue
+	168, // 112: neonize.MutationInfo.Value:type_name -> WAWebProtobufSyncAction.SyncActionValue
 	11,  // 113: neonize.PatchInfo.Type:type_name -> neonize.PatchInfo.WAPatchName
 	101, // 114: neonize.PatchInfo.Mutations:type_name -> neonize.MutationInfo
 	20,  // 115: neonize.ContactEntry.JID:type_name -> neonize.JID
@@ -11034,7 +11327,7 @@ var file_Neonize_proto_depIdxs = []int32{
 	3,   // 126: neonize.ConnectFailure.Reason:type_name -> neonize.ConnectFailureReason
 	83,  // 127: neonize.ConnectFailure.Raw:type_name -> neonize.Node
 	83,  // 128: neonize.StreamError.Raw:type_name -> neonize.Node
-	164, // 129: neonize.HistorySync.Data:type_name -> WAWebProtobufsHistorySync.HistorySync
+	169, // 129: neonize.HistorySync.Data:type_name -> WAWebProtobufsHistorySync.HistorySync
 	24,  // 130: neonize.Receipt.MessageSource:type_name -> neonize.MessageSource
 	14,  // 131: neonize.Receipt.Type:type_name -> neonize.Receipt.ReceiptType
 	24,  // 132: neonize.ChatPresence.MessageSource:type_name -> neonize.MessageSource
@@ -11099,17 +11392,22 @@ var file_Neonize_proto_depIdxs = []int32{
 	21,  // 191: neonize.UndecryptableMessage.Info:type_name -> neonize.MessageInfo
 	19,  // 192: neonize.UndecryptableMessage.DecryptFailMode:type_name -> neonize.UndecryptableMessage.DecryptFailModeT
 	40,  // 193: neonize.UpdateGroupParticipantsReturnFunction.participants:type_name -> neonize.GroupParticipant
-	161, // 194: neonize.GetMessageForRetryReturnFunction.Message:type_name -> WAWebProtobufsE2E.Message
+	166, // 194: neonize.GetMessageForRetryReturnFunction.Message:type_name -> WAWebProtobufsE2E.Message
 	153, // 195: neonize.ReturnFunctionWithError.LocalChatSettings:type_name -> neonize.LocalChatSettings
-	165, // 196: neonize.ReturnFunctionWithError.PollVoteMessage:type_name -> WAWebProtobufsE2E.PollVoteMessage
+	170, // 196: neonize.ReturnFunctionWithError.PollVoteMessage:type_name -> WAWebProtobufsE2E.PollVoteMessage
 	63,  // 197: neonize.ReturnFunctionWithError.GetLinkedGroupsParticipants:type_name -> neonize.JIDArray
 	20,  // 198: neonize.SendRequestExtra.InlineBotJID:type_name -> neonize.JID
-	161, // 199: neonize.BuildMessageReturnFunction.Message:type_name -> WAWebProtobufsE2E.Message
-	200, // [200:200] is the sub-list for method output_type
-	200, // [200:200] is the sub-list for method input_type
-	200, // [200:200] is the sub-list for extension type_name
-	200, // [200:200] is the sub-list for extension extendee
-	0,   // [0:200] is the sub-list for field type_name
+	166, // 199: neonize.BuildMessageReturnFunction.Message:type_name -> WAWebProtobufsE2E.Message
+	20,  // 200: neonize.BusinessProfile.JID:type_name -> neonize.JID
+	160, // 201: neonize.BusinessProfile.Categories:type_name -> neonize.Category
+	163, // 202: neonize.BusinessProfile.ProfileOptions:type_name -> neonize.BusinessProfile.ProfileOptionsEntry
+	159, // 203: neonize.BusinessProfile.BusinessHours:type_name -> neonize.BusinessHoursConfig
+	161, // 204: neonize.GetBusinessProfileReturnFunction.Profile:type_name -> neonize.BusinessProfile
+	205, // [205:205] is the sub-list for method output_type
+	205, // [205:205] is the sub-list for method input_type
+	205, // [205:205] is the sub-list for extension type_name
+	205, // [205:205] is the sub-list for extension extendee
+	0,   // [0:205] is the sub-list for field type_name
 }
 
 func init() { file_Neonize_proto_init() }
@@ -11134,7 +11432,7 @@ func file_Neonize_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_Neonize_proto_rawDesc), len(file_Neonize_proto_rawDesc)),
 			NumEnums:      20,
-			NumMessages:   139,
+			NumMessages:   144,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
