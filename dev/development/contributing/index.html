@@ -2207,10 +2207,13 @@ authoritative document is
 <a href="https://github.com/krypton-byte/neonize/blob/master/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a>
 in the repository root.</p>
 <h2 id="branching-model">Branching Model<a class="headerlink" href="#branching-model" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>feature/xxx --&gt; PR --&gt; dev ----------&gt; PR --&gt; master
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                       (CI gate)             (CI gate + auto release)
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>hotfix ---------------^
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+    feature["feature/xxx"] --&gt; PR1["PR"] --&gt; dev["dev"]
+    dev --&gt; PR2["PR"] --&gt; master["master"]
+    hotfix["hotfix"] --&gt; dev
+
+    PR1 -.- CI1["CI gate"]
+    PR2 -.- CI2["CI gate + auto release"]</code></pre>
 <table>
 <thead>
 <tr>
@@ -2262,16 +2265,16 @@ the version is computed from them by Python Semantic Release:</p>
 </tbody>
 </table>
 <h2 id="local-development">Local Development<a class="headerlink" href="#local-development" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:krypton-byte/neonize.git
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>neonize
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>uv<span class="w"> </span>sync<span class="w"> </span>--dev<span class="w"> </span>--group<span class="w"> </span>docs
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># lint and test</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>uvx<span class="w"> </span>ruff<span class="w"> </span>check<span class="w"> </span>.
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>uv<span class="w"> </span>run<span class="w"> </span>--with<span class="w"> </span>pytest<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>-q
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:krypton-byte/neonize.git
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>neonize
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>uv<span class="w"> </span>sync<span class="w"> </span>--dev<span class="w"> </span>--group<span class="w"> </span>docs
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># lint and test</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>uvx<span class="w"> </span>ruff<span class="w"> </span>check<span class="w"> </span>.
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>uv<span class="w"> </span>run<span class="w"> </span>--with<span class="w"> </span>pytest<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>-q
 </span></code></pre></div>
 <p>Go-side changes live under <code>goneonize/</code> and are validated with:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>goneonize<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>./...<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>go<span class="w"> </span>vet<span class="w"> </span>./...
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>goneonize<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>./...<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>go<span class="w"> </span>vet<span class="w"> </span>./...
 </span></code></pre></div>
 <h2 id="pull-requests">Pull Requests<a class="headerlink" href="#pull-requests" title="Permanent link">&para;</a></h2>
 <ol>
@@ -2409,8 +2412,16 @@ the version is computed from them by Python Semantic Release:</p>
       <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.sections","navigation.tabs","navigation.tabs.sticky","navigation.top","navigation.path","navigation.tracking","navigation.instant","navigation.instant.progress","navigation.expand","navigation.indexes","navigation.footer","content.code.copy","content.code.annotate","content.code.line_highlight","content.tabs.link","content.tooltips","search.suggest","search.highlight","search.share","toc.follow","toc.integrate"],"search":"../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":{"alias":true,"default":"latest","provider":"mike"}}</script>
     
     
+<!-- Context7 Chat Widget -->
+<script
+  src="https://context7.com/widget.js"
+  data-library="/krypton-byte/neonize"
+  data-placeholder="Ask me anything about Neonize..."
+></script>
+
       <script src="../../assets/javascripts/bundle.49251538.min.js"></script>
       
     
+
   </body>
 </html>

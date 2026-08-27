@@ -2310,8 +2310,8 @@ the Go core's own SQLite store.</p>
 <p>The synchronous client runs the WhatsApp event loop on a background thread.
 Events are dispatched to your registered handlers from there — handlers run
 sequentially, so a slow handler delays subsequent events.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Go thread:  WebSocket -&gt; goneonize -&gt; ctypes callback -&gt; Event dispatcher -&gt; your handlers
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+    WS["WebSocket"] --&gt; GN["goneonize"] --&gt; CB["ctypes callback"] --&gt; ED["Event dispatcher"] --&gt; HD["Your handlers"]</code></pre>
 <p>The async client dispatches into asyncio coroutines instead; see
 <a href="../../async/best-practices/">Best Practices</a> for the implications.</p>
 <h2 id="version-coupling">Version Coupling<a class="headerlink" href="#version-coupling" title="Permanent link">&para;</a></h2>
@@ -2447,8 +2447,16 @@ from source yourself, keep them in sync — see
       <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.sections","navigation.tabs","navigation.tabs.sticky","navigation.top","navigation.path","navigation.tracking","navigation.instant","navigation.instant.progress","navigation.expand","navigation.indexes","navigation.footer","content.code.copy","content.code.annotate","content.code.line_highlight","content.tabs.link","content.tooltips","search.suggest","search.highlight","search.share","toc.follow","toc.integrate"],"search":"../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":{"alias":true,"default":"latest","provider":"mike"}}</script>
     
     
+<!-- Context7 Chat Widget -->
+<script
+  src="https://context7.com/widget.js"
+  data-library="/krypton-byte/neonize"
+  data-placeholder="Ask me anything about Neonize..."
+></script>
+
       <script src="../../assets/javascripts/bundle.49251538.min.js"></script>
       
     
+
   </body>
 </html>
