@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ctypes
 import logging
+import weakref
 from collections.abc import Callable
 from threading import Event as EventThread
 from typing import TYPE_CHECKING, TypeVar
@@ -108,7 +109,7 @@ event = EventThread()
 class EventsManager:
     def __init__(self, client_factory: ClientFactory):
         self.client_factory = client_factory
-        self.list_func: dict[int, Callable[[NewClient, Message], None]] = {}
+        self.list_func: dict[int, Callable[[NewClient, Message], None] | weakref.WeakMethod] = {}
 
     def __call__(
         self, event: type[EventType]
@@ -119,11 +120,14 @@ class EventsManager:
         :param event: The type of event to register the callback for.
         :type event: Type[EventType]
         :return: A decorator that registers the callback function.
-        :rtype: Callablae[[Callable[[NewClient, EventType], None]], None]
+        :rtype: Callable[[Callable[[NewClient, EventType], None]], None]
         """
 
         def callback(func: Callable[[NewClient, EventType], None]) -> None:
-            self.list_func.update({EVENT_TO_INT[event]: func})
+            if hasattr(func, "__self__") and func.__self__ is not None:
+                self.list_func[EVENT_TO_INT[event]] = weakref.WeakMethod(func)
+            else:
+                self.list_func[EVENT_TO_INT[event]] = func
 
         return callback
 
@@ -139,7 +143,7 @@ class Event:
         """
         self.client = client
         self.paircode_cb = self.paircode(self.default_paircode_cb)
-        self.list_func: dict[int, Callable[[NewClient, Message], None]] = {}
+        self.list_func: dict[int, Callable[[NewClient, Message], None] | weakref.WeakMethod] = {}
         self._qr = self.__onqr
 
     def execute(self, uuid: int, binary: int, size: int, code: int):  # Demands Attention
@@ -162,7 +166,12 @@ class Event:
             self.client.connected = True
         handler = self.list_func.get(code)
         if handler is not None:
-            handler(self.client, message)
+            if isinstance(handler, weakref.WeakMethod):
+                func = handler()
+                if func is not None:
+                    func(self.client, message)
+            else:
+                handler(self.client, message)
 
     def __onqr(self, _: NewClient, data_qr: bytes):
         """
@@ -230,6 +239,9 @@ class Event:
         """
 
         def callback(func: Callable[[NewClient, EventType], None]) -> None:
-            self.list_func.update({EVENT_TO_INT[event]: func})
+            if hasattr(func, "__self__") and func.__self__ is not None:
+                self.list_func[EVENT_TO_INT[event]] = weakref.WeakMethod(func)
+            else:
+                self.list_func[EVENT_TO_INT[event]] = func
 
         return callback

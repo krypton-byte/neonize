@@ -45,11 +45,11 @@ _log_queue = queue.Queue()
 
 def _worker():
     while True:
-        binary, size = _log_queue.get()
-        if binary is None:
+        data = _log_queue.get()
+        if data is None:
             break  # sentinel for shutdown
         try:
-            log_msg = LogEntry.FromString(ctypes.string_at(binary, size))
+            log_msg = LogEntry.FromString(data)
             if log_msg.Name == "Client":
                 log = clientlogger
             elif log_msg.Name == "Database":
@@ -70,7 +70,13 @@ _thread.start()
 
 
 def log_whatsmeow(binary: int, size: int):
-    _log_queue.put((binary, size))
+    if not binary or size <= 0:
+        return
+    try:
+        data = ctypes.string_at(binary, size)
+        _log_queue.put(data)
+    except Exception:
+        pass
 
 
 def shutdown_log_worker():
