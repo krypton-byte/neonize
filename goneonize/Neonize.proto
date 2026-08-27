@@ -941,3 +941,27 @@ message LogEntry {
 }
 
 message Stop{}
+
+message BusinessHoursConfig {
+    optional string DayOfWeek = 1;
+    optional string Mode = 2;
+    optional string OpenTime = 3;
+    optional string CloseTime = 4;
+}
+message Category {
+    optional string ID = 1;
+    optional string Name = 2;
+}
+message BusinessProfile {
+    optional JID JID = 1;
+    optional string Address = 2;
+    optional string Email = 3;
+    repeated Category Categories = 4;
+    map<string, string> ProfileOptions = 5;
+    optional string BusinessHoursTimeZone = 6;
+    repeated BusinessHoursConfig BusinessHours = 7;
+}
+message GetBusinessProfileReturnFunction{
+    optional BusinessProfile Profile = 1;
+    optional string Error = 2;
+}

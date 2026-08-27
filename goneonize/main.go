@@ -2146,6 +2146,26 @@ func GetProfilePicture(id *C.char, JIDByte *C.uchar, JIDSize C.int, paramsByte *
 	return ProtoReturnV3(&return_)
 }
 
+//export GetBusinessProfile
+func GetBusinessProfile(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesReturn {
+	var neonizeJID defproto.JID
+	return_ := defproto.GetBusinessProfileReturnFunction{}
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &neonizeJID)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	profile, err_profile := clients[C.GoString(id)].GetBusinessProfile(context.Background(), utils.DecodeJidProto(&neonizeJID))
+	if err_profile != nil {
+		return_.Error = proto.String(err_profile.Error())
+		return ProtoReturnV3(&return_)
+	}
+	if profile != nil {
+		return_.Profile = utils.EncodeBusinessProfile(*profile)
+	}
+	return ProtoReturnV3(&return_)
+}
+
 //export GetStatusPrivacy
 func GetStatusPrivacy(id *C.char) *C.struct_BytesReturn {
 	return_ := defproto.GetStatusPrivacyReturnFunction{}
