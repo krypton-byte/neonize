@@ -267,6 +267,16 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
     ]
     gocode.BuildRevoke.restype = ctypes.POINTER(Bytes)
+    gocode.RequestHistorySync.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_longlong,
+        ctypes.c_int,
+    ]
+    gocode.RequestHistorySync.restype = ctypes.POINTER(Bytes)
     gocode.CreateGroup.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.CreateGroup.restype = ctypes.POINTER(Bytes)
     gocode.GenerateMessageID.argtypes = [ctypes.c_char_p]

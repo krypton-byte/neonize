@@ -2595,3 +2595,55 @@ func FreeString(str *C.char) {
 		C.free(unsafe.Pointer(str))
 	}
 }
+
+// RequestHistorySync asks the user's primary device for older messages.
+//
+// WhatsApp keeps no server-side archive for a linked device, so messages older
+// than what the client already holds can only be obtained by asking the phone.
+// The request is anchored on a message the client already has; the phone
+// answers with up to `count` messages immediately preceding it.
+//
+// The answer arrives asynchronously as a HistorySync event with syncType
+// ON_DEMAND, not as the return value of this call.
+//
+//export RequestHistorySync
+func RequestHistorySync(
+	id *C.char,
+	ChatByte *C.uchar, ChatSize C.int,
+	messageID *C.char,
+	fromMe C.int,
+	timestamp C.longlong,
+	count C.int,
+) *C.struct_BytesReturn {
+	return_ := defproto.SendMessageReturnFunction{}
+	client, ok := clients[C.GoString(id)]
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var chat defproto.JID
+	if err := proto.Unmarshal(getByteByAddr(ChatByte, ChatSize), &chat); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	info := types.MessageInfo{
+		MessageSource: types.MessageSource{
+			Chat:     utils.DecodeJidProto(&chat),
+			IsFromMe: int(fromMe) != 0,
+		},
+		ID:        types.MessageID(C.GoString(messageID)),
+		Timestamp: time.Unix(int64(timestamp), 0),
+	}
+	message := client.BuildHistorySyncRequest(&info, int(count))
+	if message == nil {
+		return_.Error = proto.String("failed to build history sync request")
+		return ProtoReturnV3(&return_)
+	}
+	resp, err := client.SendPeerMessage(context.Background(), message)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.SendResponse = utils.EncodeSendResponse(resp)
+	return ProtoReturnV3(&return_)
+}
