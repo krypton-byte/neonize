@@ -975,6 +975,29 @@ class NewClient:
         else:
             return build_revoke(chat, sender, message_id, self.get_me().JID)
 
+    def send_peer_message(self, message: Message) -> SendResponse:
+        """Send an already-built protocol message to your own devices.
+
+        Peer messages carry the ``PeerDataOperationRequest`` family — on-demand
+        history, full history sync over a time window, placeholder resends,
+        chunk retries. whatsmeow ships a builder for only one of them, so this
+        takes a constructed message and lets the caller choose the operation.
+
+        :param message: The protocol message to send.
+        :type message: Message
+        :raises SendMessageError: If the message could not be sent.
+        :return: Send response for the outgoing peer message.
+        :rtype: SendResponse
+        """
+        buf = message.SerializeToString()
+        bytes_ptr = self.__client.SendPeerMessage(self.uuid, buf, len(buf))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = SendMessageReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise SendMessageError(model.Error)
+        return model.SendResponse
+
     def request_history_sync(
         self,
         chat: JID,

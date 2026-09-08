@@ -2647,3 +2647,34 @@ func RequestHistorySync(
 	return_.SendResponse = utils.EncodeSendResponse(resp)
 	return ProtoReturnV3(&return_)
 }
+
+// SendPeerMessage sends an already-built protocol message to the user's own
+// devices.
+//
+// Peer messages carry the PeerDataOperationRequest family — on-demand history,
+// full history sync over a time window, placeholder resends, chunk retries.
+// whatsmeow only ships a builder for one of them, so rather than binding each
+// operation separately this takes a serialised waE2E.Message and lets the caller
+// construct whichever request it needs.
+//
+//export SendPeerMessage
+func SendPeerMessage(id *C.char, messageByte *C.uchar, messageSize C.int) *C.struct_BytesReturn {
+	return_ := defproto.SendMessageReturnFunction{}
+	client, ok := clients[C.GoString(id)]
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var message waE2E.Message
+	if err := proto.Unmarshal(getByteByAddr(messageByte, messageSize), &message); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	resp, err := client.SendPeerMessage(context.Background(), &message)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.SendResponse = utils.EncodeSendResponse(resp)
+	return ProtoReturnV3(&return_)
+}
