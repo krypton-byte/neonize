@@ -267,6 +267,12 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
     ]
     gocode.BuildRevoke.restype = ctypes.POINTER(Bytes)
+    gocode.SendPeerMessage.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
+    gocode.SendPeerMessage.restype = ctypes.POINTER(Bytes)
     gocode.RequestHistorySync.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -731,6 +737,7 @@ if not os.environ.get("SPHINX"):
         "JoinGroupWithLink",
         "SendMessage",
         "BuildRevoke",
+        "SendPeerMessage",
         "RequestHistorySync",
         "CreateGroup",
         "IsOnWhatsApp",
