@@ -143,16 +143,25 @@ func getButtonTypeFromMessage(msg *waE2E.Message) string {
 }
 
 // shouldAddBotNode reports whether the <bot biz_bot="1"/> node should be
-// appended for the given chat. Controlled by the NEONIZE_BOT_TAG env var:
+// appended for the given chat. WhatsApp renders that node as an "AI" badge on
+// the message and counts the sender's traffic as automated, so it is a claim
+// about the account and not only about one message. A library cannot know
+// whether its caller wants that claim made, and the caller that does want it
+// can say so; the caller that does not should not have to know the node exists.
+// So it is opt-in, through the NEONIZE_BOT_TAG env var:
 //
-//	"on"  (default) - append the bot node in 1:1 chats (upstream behavior)
-//	"off"           - never append the bot node
+//	"on"            - append the bot node in 1:1 chats (upstream behavior)
+//	unset (default) - never append it
+//
+// The variable is read by the Go runtime from the environment the process
+// started with, so a host that wants the node sets it before launch; setting it
+// from inside a running process does not reach here.
 func shouldAddBotNode(isPrivate bool) bool {
 	switch strings.ToLower(strings.TrimSpace(os.Getenv("NEONIZE_BOT_TAG"))) {
-	case "off", "none", "false", "0":
-		return false
-	default:
+	case "on", "true", "1", "yes":
 		return isPrivate
+	default:
+		return false
 	}
 }
 
