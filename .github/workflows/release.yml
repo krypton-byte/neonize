@@ -456,6 +456,9 @@ jobs:
     env:
       UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-version.outputs.tag }}
       - uses: actions/download-artifact@v4
         with:
           merge-multiple: true
@@ -465,10 +468,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ls -lah sharedlib
-          gh release upload "${{ needs.release-version.outputs.tag }}" sharedlib/* --clobber
+          gh release upload "${{ needs.release-version.outputs.tag }}" sharedlib/* -R "${{ github.repository }}" --clobber
       - uses: astral-sh/setup-uv@v5
       - name: Publish to PyPI
         if: env.UV_PUBLISH_TOKEN != ''
         run: |
-          uv build
-          uv publish
+          uv publish sharedlib/*.whl
