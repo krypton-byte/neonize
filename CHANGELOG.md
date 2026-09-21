@@ -127,6 +127,30 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.5.0 (2026-09-21)
+
+### Bug Fixes
+
+- **ci**: Harden release workflow against existing tags and non-fast-forward
+  ([`3f00f55`](https://github.com/krypton-byte/neonize/commit/3f00f55eeb343ab437d3d30fa9024c11e95b3e90))
+
+- **memory**: FFI memory safety, weakref GC protection, and code cleanup
+  ([`6ae24e7`](https://github.com/krypton-byte/neonize/commit/6ae24e7c415191788384f96035b6ca8afb3bebcb))
+
+- **proto**: Regenerate with protoc 34.1 to match CI toolchain
+  ([`81160e2`](https://github.com/krypton-byte/neonize/commit/81160e2b1ec9e9538c42568ada52e11af2954cc2))
+
+### Documentation
+
+- Convert text flow diagrams to Mermaid and add Context7 chat widget
+  ([`0905e05`](https://github.com/krypton-byte/neonize/commit/0905e05df901e48f0e0cf457e88b02b95e8d20a5))
+
+### Features
+
+- **whatsmeow**: Update whatsmeow, sync protobufs, and fix edge-case panics
+  ([`6a12440`](https://github.com/krypton-byte/neonize/commit/6a1244026845d813147a948eba477f65c894b1cd))
+
+
 ## v0.4.7 (2026-08-26)
 
 ### Bug Fixes
