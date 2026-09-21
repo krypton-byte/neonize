@@ -326,7 +326,7 @@ jobs:
           mkdir LIBS
           BASE="https://github.com/${{ github.repository }}/releases/download/${{ needs.release-version.outputs.previous_tag }}"
           for f in ${{ steps.targets.outputs.libs }}; do
-            curl -fsSL -o "LIBS/$f" "$BASE/$f"
+            curl -fsSL -o "LIBS/neonize-$f" "$BASE/neonize-$f"
           done
           curl -fsSL -o "LIBS/neonize-linux-riscv64.so" "$BASE/neonize-linux-riscv64.so"
       - name: Build shared libraries (goneonize changed)
@@ -365,8 +365,8 @@ jobs:
         run: |
           for t in ${{ steps.targets.outputs.libs }}; do
             arch="${t##*-}"
-            cp "LIBS/$t" neonize/
-            export GOOS=linux GOARCH="$arch"
+            cp "LIBS/neonize-$t" neonize/
+            export GOOS=linux GOARCH="${arch%.*}"
             unset CC CXX
             uv build --wheel
             uv run task repack
@@ -409,7 +409,7 @@ jobs:
           mkdir LIBS
           BASE="https://github.com/${{ github.repository }}/releases/download/${{ needs.release-version.outputs.previous_tag }}"
           for f in ${{ steps.targets.outputs.libs }}; do
-            curl -fsSL -o "LIBS/$f" "$BASE/$f"
+            curl -fsSL -o "LIBS/neonize-$f" "$BASE/neonize-$f"
           done
       - name: Build shared libraries (goneonize changed)
         if: needs.changes.outputs.goneonize == 'true'
@@ -433,8 +433,8 @@ jobs:
         run: |
           for t in ${{ steps.targets.outputs.libs }}; do
             arch="${t##*-}"
-            cp "LIBS/$t" neonize/
-            export CGO_ENABLED=1 GOOS=darwin GOARCH="$arch"
+            cp "LIBS/neonize-$t" neonize/
+            export CGO_ENABLED=1 GOOS=darwin GOARCH="${arch%.*}"
             unset CC CXX
             uv build --wheel
             uv run task repack
