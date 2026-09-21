@@ -192,6 +192,8 @@ message SendResponse {
     required int64 ServerID = 3;
     required MessageDebugTimings DebugTimings = 4;
     optional WAWebProtobufsE2E.Message Message = 5;
+    optional JID Sender = 6;
+    optional JID Chat = 7;
 }
 
 message SendMessageReturnFunction {
@@ -889,6 +891,10 @@ message UndecryptableMessage {
         DECRYPT_FAIL_HIDE = 2;
     }
     required DecryptFailModeT DecryptFailMode = 3;
+}
+message RotateADVSecret {
+    required string OldSecret = 1;
+    required string NewSecret = 2;
 }
 message UpdateGroupParticipantsReturnFunction {
     optional string Error = 1;

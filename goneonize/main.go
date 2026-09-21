@@ -411,6 +411,9 @@ func ProtoReturnV3(data proto.Message) *C.struct_BytesReturn {
 }
 
 func getBytesAndSize(data []byte) (*C.char, C.size_t) {
+	if len(data) == 0 {
+		return nil, 0
+	}
 	messageSourceCDATA := (*C.char)(unsafe.Pointer(&data[0]))
 	messageSourceCSize := C.size_t(len(data))
 	return messageSourceCDATA, messageSourceCSize
@@ -1090,6 +1093,18 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				messageEvent := MessageEvent{
 					eventType: 44,
 					message:   undecryptableMessage,
+				}
+				eventChan <- &messageEvent
+			}
+		case *events.RotateADVSecret:
+			if _, ok := subscribers[45]; ok {
+				rot := defproto.RotateADVSecret{
+					OldSecret: proto.String(v.OldSecret),
+					NewSecret: proto.String(v.NewSecret),
+				}
+				messageEvent := MessageEvent{
+					eventType: 45,
+					message:   &rot,
 				}
 				eventChan <- &messageEvent
 			}
@@ -1884,6 +1899,10 @@ func PairPhone(id *C.char, pairPhoneByte *C.uchar, pairPhoneSize C.int) *C.struc
 	}
 
 	client := clients[C.GoString(id)]
+	if client == nil {
+		return_.Error = proto.String("client is nil: ensure client is connected before calling PairPhone, or pass pairphone to connect()")
+		return ProtoReturnV3(&return_)
+	}
 	code, err := client.PairPhone(
 		context.Background(),
 		*pairPhoneParams.Phone,
@@ -2515,6 +2534,8 @@ func SendFBMessage(id *C.char, to *C.uchar, toSize C.int, message *C.uchar, mess
 		ID:           proto.String(resp.ID),
 		ServerID:     proto.Int64(int64(resp.ServerID)),
 		DebugTimings: utils.EncodeMessageDebugTimings(resp.DebugTimings),
+		Sender:       utils.EncodeJidProto(resp.Sender),
+		Chat:         utils.EncodeJidProto(resp.Chat),
 	}
 	_return.SendResponse = &response
 	return ProtoReturnV3(&_return)

@@ -32,6 +32,7 @@ class HandshakeMessage(_message.Message):
         HANDSHAKE_PQ_MODE_UNKNOWN: HandshakeMessage._HandshakePqMode.ValueType  # 0
         XXKEM: HandshakeMessage._HandshakePqMode.ValueType  # 1
         XXKEM_FS: HandshakeMessage._HandshakePqMode.ValueType  # 2
+        XXKEM_EPH: HandshakeMessage._HandshakePqMode.ValueType  # 9
         WA_CLASSICAL: HandshakeMessage._HandshakePqMode.ValueType  # 3
         WA_PQ: HandshakeMessage._HandshakePqMode.ValueType  # 4
         IKKEM: HandshakeMessage._HandshakePqMode.ValueType  # 5
@@ -43,6 +44,7 @@ class HandshakeMessage(_message.Message):
     HANDSHAKE_PQ_MODE_UNKNOWN: HandshakeMessage.HandshakePqMode.ValueType  # 0
     XXKEM: HandshakeMessage.HandshakePqMode.ValueType  # 1
     XXKEM_FS: HandshakeMessage.HandshakePqMode.ValueType  # 2
+    XXKEM_EPH: HandshakeMessage.HandshakePqMode.ValueType  # 9
     WA_CLASSICAL: HandshakeMessage.HandshakePqMode.ValueType  # 3
     WA_PQ: HandshakeMessage.HandshakePqMode.ValueType  # 4
     IKKEM: HandshakeMessage.HandshakePqMode.ValueType  # 5
@@ -553,6 +555,8 @@ class ClientPayload(_message.Message):
             BLUE_VR: ClientPayload.UserAgent._Platform.ValueType  # 36
             AR_WRIST: ClientPayload.UserAgent._Platform.ValueType  # 37
             WAIL: ClientPayload.UserAgent._Platform.ValueType  # 38
+            WORK_ANDROID: ClientPayload.UserAgent._Platform.ValueType  # 39
+            WORK_IOS: ClientPayload.UserAgent._Platform.ValueType  # 40
 
         class Platform(_Platform, metaclass=_PlatformEnumTypeWrapper): ...
         ANDROID: ClientPayload.UserAgent.Platform.ValueType  # 0
@@ -594,6 +598,8 @@ class ClientPayload(_message.Message):
         BLUE_VR: ClientPayload.UserAgent.Platform.ValueType  # 36
         AR_WRIST: ClientPayload.UserAgent.Platform.ValueType  # 37
         WAIL: ClientPayload.UserAgent.Platform.ValueType  # 38
+        WORK_ANDROID: ClientPayload.UserAgent.Platform.ValueType  # 39
+        WORK_IOS: ClientPayload.UserAgent.Platform.ValueType  # 40
 
         @_typing.final
         class AppVersion(_message.Message):

@@ -47,6 +47,7 @@ from .proto.Neonize_pb2 import PairStatus as PairStatusEv
 from .proto.Neonize_pb2 import Picture as PictureEv
 from .proto.Neonize_pb2 import Presence as PresenceEv
 from .proto.Neonize_pb2 import Receipt as ReceiptEv
+from .proto.Neonize_pb2 import RotateADVSecret as RotateADVSecretEv
 from .proto.Neonize_pb2 import StreamError as StreamErrorEv
 from .proto.Neonize_pb2 import StreamReplaced as StreamReplacedEv
 from .proto.Neonize_pb2 import TemporaryBan as TemporaryBanEv
@@ -100,6 +101,7 @@ EVENT_TO_INT: dict[type[Message], int] = {
     CallTerminateEv: 42,
     UnknownCallEventEV: 43,
     UndecryptableMessageEv: 44,
+    RotateADVSecretEv: 45,
 }
 INT_TO_EVENT: dict[int, type[Message]] = {code: ev for ev, code in EVENT_TO_INT.items()}
 

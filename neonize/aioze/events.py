@@ -44,6 +44,7 @@ from ..proto.Neonize_pb2 import PairStatus as PairStatusEv
 from ..proto.Neonize_pb2 import Picture as PictureEv
 from ..proto.Neonize_pb2 import Presence as PresenceEv
 from ..proto.Neonize_pb2 import Receipt as ReceiptEv
+from ..proto.Neonize_pb2 import RotateADVSecret as RotateADVSecretEv
 from ..proto.Neonize_pb2 import StreamError as StreamErrorEv
 from ..proto.Neonize_pb2 import StreamReplaced as StreamReplacedEv
 from ..proto.Neonize_pb2 import TemporaryBan as TemporaryBanEv
@@ -101,6 +102,7 @@ __all__ = [
     "PrivacySettingsEv",
     "QREv",
     "ReceiptEv",
+    "RotateADVSecretEv",
     "StreamErrorEv",
     "StreamReplacedEv",
     "TemporaryBanEv",

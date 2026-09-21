@@ -172,6 +172,8 @@ func EncodeSendResponse(sendResponse whatsmeow.SendResponse) *defproto.SendRespo
 		ID:           proto.String(sendResponse.ID),
 		ServerID:     proto.Int64(int64(sendResponse.ServerID)),
 		DebugTimings: EncodeMessageDebugTimings(sendResponse.DebugTimings),
+		Sender:       EncodeJidProto(sendResponse.Sender),
+		Chat:         EncodeJidProto(sendResponse.Chat),
 	}
 }
 

@@ -29,6 +29,9 @@ import (
 )
 
 func getBytesAndSize(data []byte) (*C.char, C.size_t) {
+	if len(data) == 0 {
+		return nil, 0
+	}
 	messageSourceCDATA := (*C.char)(unsafe.Pointer(&data[0]))
 	messageSourceCSize := C.size_t(len(data))
 	return messageSourceCDATA, messageSourceCSize
