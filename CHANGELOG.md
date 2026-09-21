@@ -127,6 +127,14 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.5.1 (2026-09-21)
+
+### Bug Fixes
+
+- **ci**: Fix shared library copy path in linux and darwin release jobs
+  ([`00d1502`](https://github.com/krypton-byte/neonize/commit/00d1502859d61053acf3163859ee091b961daf28))
+
+
 ## v0.5.0 (2026-09-21)
 
 ### Bug Fixes
