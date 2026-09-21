@@ -856,6 +856,8 @@ class SendResponse(_message.Message):
     SERVERID_FIELD_NUMBER: _builtins.int
     DEBUGTIMINGS_FIELD_NUMBER: _builtins.int
     MESSAGE_FIELD_NUMBER: _builtins.int
+    SENDER_FIELD_NUMBER: _builtins.int
+    CHAT_FIELD_NUMBER: _builtins.int
     Timestamp: _builtins.int
     ID: _builtins.str
     ServerID: _builtins.int
@@ -863,6 +865,10 @@ class SendResponse(_message.Message):
     def DebugTimings(self) -> Global___MessageDebugTimings: ...
     @_builtins.property
     def Message(self) -> _WAWebProtobufsE2E_pb2.Message: ...
+    @_builtins.property
+    def Sender(self) -> Global___JID: ...
+    @_builtins.property
+    def Chat(self) -> Global___JID: ...
     def __init__(
         self,
         *,
@@ -871,10 +877,12 @@ class SendResponse(_message.Message):
         ServerID: _builtins.int | None = ...,
         DebugTimings: Global___MessageDebugTimings | None = ...,
         Message: _WAWebProtobufsE2E_pb2.Message | None = ...,
+        Sender: Global___JID | None = ...,
+        Chat: Global___JID | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["DebugTimings", b"DebugTimings", "ID", b"ID", "Message", b"Message", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Chat", b"Chat", "DebugTimings", b"DebugTimings", "ID", b"ID", "Message", b"Message", "Sender", b"Sender", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["DebugTimings", b"DebugTimings", "ID", b"ID", "Message", b"Message", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Chat", b"Chat", "DebugTimings", b"DebugTimings", "ID", b"ID", "Message", b"Message", "Sender", b"Sender", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
@@ -3966,6 +3974,28 @@ class UndecryptableMessage(_message.Message):
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___UndecryptableMessage: _TypeAlias = UndecryptableMessage  # noqa: Y015
+
+@_typing.final
+class RotateADVSecret(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    OLDSECRET_FIELD_NUMBER: _builtins.int
+    NEWSECRET_FIELD_NUMBER: _builtins.int
+    OldSecret: _builtins.str
+    NewSecret: _builtins.str
+    def __init__(
+        self,
+        *,
+        OldSecret: _builtins.str | None = ...,
+        NewSecret: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["NewSecret", b"NewSecret", "OldSecret", b"OldSecret"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["NewSecret", b"NewSecret", "OldSecret", b"OldSecret"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___RotateADVSecret: _TypeAlias = RotateADVSecret  # noqa: Y015
 
 @_typing.final
 class UpdateGroupParticipantsReturnFunction(_message.Message):

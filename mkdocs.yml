@@ -55,6 +55,7 @@ nav:
 
 theme:
   name: material
+  custom_dir: overrides
   variant: modern
   language: en
   logo: assets/mascot.png

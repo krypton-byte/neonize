@@ -29,6 +29,7 @@ class GroupHistory(_message.Message):
     UNCOUNTEDASSOCIATEDMESSAGELISTS_FIELD_NUMBER: _builtins.int
     COMMENTMESSAGES_FIELD_NUMBER: _builtins.int
     OUTOFWINDOWPINNEDMESSAGES_FIELD_NUMBER: _builtins.int
+    THEMEMESSAGE_FIELD_NUMBER: _builtins.int
     @_builtins.property
     def messages(self) -> _containers.RepeatedCompositeFieldContainer[_WAWebProtobufsWeb_pb2.WebMessageInfo]: ...
     @_builtins.property
@@ -37,6 +38,8 @@ class GroupHistory(_message.Message):
     def commentMessages(self) -> _containers.RepeatedCompositeFieldContainer[_WAWebProtobufsWeb_pb2.WebMessageInfo]: ...
     @_builtins.property
     def outOfWindowPinnedMessages(self) -> _containers.RepeatedCompositeFieldContainer[_WAWebProtobufsWeb_pb2.WebMessageInfo]: ...
+    @_builtins.property
+    def themeMessage(self) -> _WAWebProtobufsWeb_pb2.WebMessageInfo: ...
     def __init__(
         self,
         *,
@@ -44,10 +47,11 @@ class GroupHistory(_message.Message):
         uncountedAssociatedMessageLists: _abc.Iterable[Global___UnCountedAssociatedMessageList] | None = ...,
         commentMessages: _abc.Iterable[_WAWebProtobufsWeb_pb2.WebMessageInfo] | None = ...,
         outOfWindowPinnedMessages: _abc.Iterable[_WAWebProtobufsWeb_pb2.WebMessageInfo] | None = ...,
+        themeMessage: _WAWebProtobufsWeb_pb2.WebMessageInfo | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["themeMessage", b"themeMessage"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["commentMessages", b"commentMessages", "messages", b"messages", "outOfWindowPinnedMessages", b"outOfWindowPinnedMessages", "uncountedAssociatedMessageLists", b"uncountedAssociatedMessageLists"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["commentMessages", b"commentMessages", "messages", b"messages", "outOfWindowPinnedMessages", b"outOfWindowPinnedMessages", "themeMessage", b"themeMessage", "uncountedAssociatedMessageLists", b"uncountedAssociatedMessageLists"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
@@ -135,6 +139,7 @@ class GroupHistoryWithMessageBytes(_message.Message):
     UNCOUNTEDASSOCIATEDMESSAGELISTS_FIELD_NUMBER: _builtins.int
     COMMENTMESSAGES_FIELD_NUMBER: _builtins.int
     OUTOFWINDOWPINNEDMESSAGES_FIELD_NUMBER: _builtins.int
+    THEMEMESSAGE_FIELD_NUMBER: _builtins.int
     @_builtins.property
     def messages(self) -> _containers.RepeatedCompositeFieldContainer[Global___WebMessageInfoWithMessageBytes]: ...
     @_builtins.property
@@ -143,6 +148,8 @@ class GroupHistoryWithMessageBytes(_message.Message):
     def commentMessages(self) -> _containers.RepeatedCompositeFieldContainer[Global___WebMessageInfoWithMessageBytes]: ...
     @_builtins.property
     def outOfWindowPinnedMessages(self) -> _containers.RepeatedCompositeFieldContainer[Global___WebMessageInfoWithMessageBytes]: ...
+    @_builtins.property
+    def themeMessage(self) -> Global___WebMessageInfoWithMessageBytes: ...
     def __init__(
         self,
         *,
@@ -150,10 +157,11 @@ class GroupHistoryWithMessageBytes(_message.Message):
         uncountedAssociatedMessageLists: _abc.Iterable[Global___UnCountedAssociatedMessageListWithMessageBytes] | None = ...,
         commentMessages: _abc.Iterable[Global___WebMessageInfoWithMessageBytes] | None = ...,
         outOfWindowPinnedMessages: _abc.Iterable[Global___WebMessageInfoWithMessageBytes] | None = ...,
+        themeMessage: Global___WebMessageInfoWithMessageBytes | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["themeMessage", b"themeMessage"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["commentMessages", b"commentMessages", "messages", b"messages", "outOfWindowPinnedMessages", b"outOfWindowPinnedMessages", "uncountedAssociatedMessageLists", b"uncountedAssociatedMessageLists"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["commentMessages", b"commentMessages", "messages", b"messages", "outOfWindowPinnedMessages", b"outOfWindowPinnedMessages", "themeMessage", b"themeMessage", "uncountedAssociatedMessageLists", b"uncountedAssociatedMessageLists"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 

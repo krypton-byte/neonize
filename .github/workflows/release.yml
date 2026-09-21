@@ -86,9 +86,9 @@ jobs:
             echo "release=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          # Check if tag already exists — skip if it does
-          if git ls-remote --tags origin | grep -qE "refs/tags/${NEXT}$"; then
-            echo "Tag $NEXT already exists — skipping release."
+          # Check if release already exists via GitHub API (more reliable than git ls-remote)
+          if gh release view "$NEXT" > /dev/null 2>&1; then
+            echo "Release $NEXT already exists on GitHub — skipping."
             echo "release=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -110,11 +110,18 @@ jobs:
             echo "PSR decided no release — aborting."
             exit 1
           fi
+          # Pull latest master first to avoid non-fast-forward rejection
+          git pull --rebase origin master
           git push origin master
-          git push origin "$NEXT"
-          gh release create "$NEXT" \
-            --title "v$NEXT" \
-            --generate-notes
+          # Only create release if it doesn't already exist
+          if ! gh release view "$NEXT" > /dev/null 2>&1; then
+            git push origin "$NEXT"
+            gh release create "$NEXT" \
+              --title "v$NEXT" \
+              --generate-notes
+          else
+            echo "Release $NEXT already exists — skipping gh release create."
+          fi
 
   changes:
     needs: release-version

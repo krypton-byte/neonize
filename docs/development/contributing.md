@@ -7,10 +7,14 @@ in the repository root.
 
 ## Branching Model
 
-```text
-feature/xxx --> PR --> dev ----------> PR --> master
-                       (CI gate)             (CI gate + auto release)
-hotfix ---------------^
+```mermaid
+flowchart LR
+    feature["feature/xxx"] --> PR1["PR"] --> dev["dev"]
+    dev --> PR2["PR"] --> master["master"]
+    hotfix["hotfix"] --> dev
+
+    PR1 -.- CI1["CI gate"]
+    PR2 -.- CI2["CI gate + auto release"]
 ```
 
 | Branch | Purpose | Releases |

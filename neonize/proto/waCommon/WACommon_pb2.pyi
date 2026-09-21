@@ -245,3 +245,31 @@ class LimitSharing(_message.Message):
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___LimitSharing: _TypeAlias = LimitSharing  # noqa: Y015
+
+@_typing.final
+class ACP2Setting(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ENABLED_FIELD_NUMBER: _builtins.int
+    TRIGGER_FIELD_NUMBER: _builtins.int
+    SETTINGTIMESTAMP_FIELD_NUMBER: _builtins.int
+    INITIATEDBYME_FIELD_NUMBER: _builtins.int
+    enabled: _builtins.bool
+    trigger: Global___LimitSharing.Trigger.ValueType
+    settingTimestamp: _builtins.int
+    initiatedByMe: _builtins.bool
+    def __init__(
+        self,
+        *,
+        enabled: _builtins.bool | None = ...,
+        trigger: Global___LimitSharing.Trigger.ValueType | None = ...,
+        settingTimestamp: _builtins.int | None = ...,
+        initiatedByMe: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["enabled", b"enabled", "initiatedByMe", b"initiatedByMe", "settingTimestamp", b"settingTimestamp", "trigger", b"trigger"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["enabled", b"enabled", "initiatedByMe", b"initiatedByMe", "settingTimestamp", b"settingTimestamp", "trigger", b"trigger"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___ACP2Setting: _TypeAlias = ACP2Setting  # noqa: Y015
