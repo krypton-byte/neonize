@@ -127,6 +127,14 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.5.2 (2026-09-21)
+
+### Bug Fixes
+
+- **ci**: Checkout repository and publish downloaded wheels in publish job
+  ([`3f7c691`](https://github.com/krypton-byte/neonize/commit/3f7c691053a320c1e228bd9eb8e0d39601b15f14))
+
+
 ## v0.5.1 (2026-09-21)
 
 ### Bug Fixes

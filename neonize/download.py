@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 from .utils.platform import generated_name
 
-__GONEONIZE_VERSION__ = "0.5.1"
+__GONEONIZE_VERSION__ = "0.5.2"
 __GIT_RELEASE_URL__ = "https://github.com/krypton-byte/neonize"
 
 
