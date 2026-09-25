@@ -974,6 +974,83 @@ class NewClient:
         else:
             return build_revoke(chat, sender, message_id, self.get_me().JID)
 
+    def send_peer_message(self, message: Message) -> SendResponse:
+        """Send an already-built protocol message to your own devices.
+
+        Peer messages carry the ``PeerDataOperationRequest`` family — on-demand
+        history, full history sync over a time window, placeholder resends,
+        chunk retries. whatsmeow ships a builder for only one of them, so this
+        takes a constructed message and lets the caller choose the operation.
+
+        :param message: The protocol message to send.
+        :type message: Message
+        :raises SendMessageError: If the message could not be sent.
+        :return: Send response for the outgoing peer message.
+        :rtype: SendResponse
+        """
+        buf = message.SerializeToString()
+        bytes_ptr = self.__client.SendPeerMessage(self.uuid, buf, len(buf))
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = SendMessageReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise SendMessageError(model.Error)
+        return model.SendResponse
+
+    def request_history_sync(
+        self,
+        chat: JID,
+        message_id: str,
+        from_me: bool,
+        timestamp: int,
+        count: int = 50,
+    ) -> SendResponse:
+        """Ask the primary device (the phone) for older messages in a chat.
+
+        WhatsApp keeps no server-side archive for a linked device, so history
+        older than what this client already holds can only be obtained by
+        asking the phone for it. The request is anchored on a message you
+        already have: the phone answers with up to ``count`` messages
+        immediately preceding it.
+
+        The answer does **not** come back from this call. It arrives
+        asynchronously as a :class:`HistorySyncEv` whose ``Data.syncType`` is
+        ``ON_DEMAND``; page further back by re-anchoring on the oldest message
+        you hold and calling this again.
+
+        The phone must be online to answer.
+
+        :param chat: The chat to fetch history for.
+        :type chat: JID
+        :param message_id: ID of the oldest message currently held (the anchor).
+        :type message_id: str
+        :param from_me: Whether that anchor message was sent by this account.
+        :type from_me: bool
+        :param timestamp: Unix timestamp (seconds) of the anchor message.
+        :type timestamp: int
+        :param count: How many messages to ask for, defaults to 50.
+        :type count: int, optional
+        :raises SendMessageError: If the request could not be sent.
+        :return: Send response for the outgoing peer message.
+        :rtype: SendResponse
+        """
+        chat_buf = chat.SerializeToString()
+        bytes_ptr = self.__client.RequestHistorySync(
+            self.uuid,
+            chat_buf,
+            len(chat_buf),
+            message_id.encode(),
+            1 if from_me else 0,
+            int(timestamp),
+            count,
+        )
+        protobytes = bytes_ptr.contents.get_bytes()
+        free_bytes(bytes_ptr)
+        model = SendMessageReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise SendMessageError(model.Error)
+        return model.SendResponse
+
     def build_sticker_message(
         self,
         file: str | bytes,
