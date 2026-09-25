@@ -1,5 +1,9 @@
 <div align="center">
-<img src="assets/mascot.png" width="20%" alt="Neonize">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/banner_light.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/banner_dark.png">
+  <img src="assets/banner_dark.png" alt="Neonize - WhatsApp automation for Python" width="100%">
+</picture>
 
 # Neonize
 

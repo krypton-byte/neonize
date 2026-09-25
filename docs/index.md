@@ -1,8 +1,8 @@
 # Neonize
 
-<div align="center">
-<img src="assets/mascot.png" width="15%" alt="Neonize">
-</div>
+![Neonize - WhatsApp automation for Python](assets/banner_dark.png#only-light)
+
+![Neonize - WhatsApp automation for Python](assets/banner_light.png#only-dark)
 
 Neonize is a Python library for WhatsApp automation. A native Go core built on
 [whatsmeow](https://github.com/tulir/whatsmeow) is compiled into a shared

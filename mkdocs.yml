@@ -58,8 +58,8 @@ theme:
   custom_dir: overrides
   variant: modern
   language: en
-  logo: assets/mascot.png
-  favicon: assets/mascot.png
+  logo: assets/logo.png
+  favicon: assets/favicon.png
   font:
     text: Inter
     code: JetBrains Mono
