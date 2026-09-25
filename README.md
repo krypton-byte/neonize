@@ -1,10 +1,9 @@
 <div align="center">
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/09c8821c-ea89-4daa-bab7-fd7d51c960df">
-    <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/79d3e91a-79d7-4013-949f-d2d0d7d5c5bb">
-<img alt="neonize_light" src="https://github.com/user-attachments/assets/79d3e91a-79d7-4013-949f-d2d0d7d5c5bb" />
-
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner_light.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/banner_dark.png">
+<img alt="Neonize - WhatsApp automation for Python" src="assets/banner_dark.png" width="100%">
   </picture>
 </p>
 
