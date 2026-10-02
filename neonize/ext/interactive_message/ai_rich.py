@@ -577,7 +577,34 @@ class AIRichMessage(CustomInteractiveMessage, InteractiveMessageBuilder):
         self._sections.append(_new_layout("Single", primitive))
         return self
 
-    def add_code(self, language: str, code: str) -> Self:
+    def add_html(
+      self,
+      html: str,
+      *,
+      fallback_text: str = "HTML interaktif",
+      trusted_sources: list[str] | None = None,
+  ) -> Self:
+      """Add an experimental HTML rich-response primitive."""
+      if not html.strip():
+          raise ValueError("html must not be empty")
+      self._submessages.append(
+          AIRichResponseSubMessage(
+              messageType=AI_RICH_RESPONSE_TEXT,
+              messageText=fallback_text,
+          )
+      )
+      self._sections.append(
+          _new_layout(
+              "Single",
+              {
+                  "__typename": "GenAIaeacdsnwHtmlPrimitive",
+                  "payload": html,
+                  "trusted_sources": trusted_sources or [],
+              },
+          )
+      )
+      return self
+      def add_code(self, language: str, code: str) -> Self:
         """Add a syntax-highlighted code block."""
         code_blocks, unified = _tokenize_code(code, language)
         self._submessages.append(
