@@ -143,16 +143,25 @@ func getButtonTypeFromMessage(msg *waE2E.Message) string {
 }
 
 // shouldAddBotNode reports whether the <bot biz_bot="1"/> node should be
-// appended for the given chat. Controlled by the NEONIZE_BOT_TAG env var:
+// appended for the given chat. WhatsApp renders that node as an "AI" badge on
+// the message and counts the sender's traffic as automated, so it is a claim
+// about the account and not only about one message. A library cannot know
+// whether its caller wants that claim made, and the caller that does want it
+// can say so; the caller that does not should not have to know the node exists.
+// So it is opt-in, through the NEONIZE_BOT_TAG env var:
 //
-//	"on"  (default) - append the bot node in 1:1 chats (upstream behavior)
-//	"off"           - never append the bot node
+//	"on"            - append the bot node in 1:1 chats (upstream behavior)
+//	unset (default) - never append it
+//
+// The variable is read by the Go runtime from the environment the process
+// started with, so a host that wants the node sets it before launch; setting it
+// from inside a running process does not reach here.
 func shouldAddBotNode(isPrivate bool) bool {
 	switch strings.ToLower(strings.TrimSpace(os.Getenv("NEONIZE_BOT_TAG"))) {
-	case "off", "none", "false", "0":
-		return false
-	default:
+	case "on", "true", "1", "yes":
 		return isPrivate
+	default:
+		return false
 	}
 }
 
@@ -2615,4 +2624,87 @@ func FreeString(str *C.char) {
 	if str != nil {
 		C.free(unsafe.Pointer(str))
 	}
+}
+
+// RequestHistorySync asks the user's primary device for older messages.
+//
+// WhatsApp keeps no server-side archive for a linked device, so messages older
+// than what the client already holds can only be obtained by asking the phone.
+// The request is anchored on a message the client already has; the phone
+// answers with up to `count` messages immediately preceding it.
+//
+// The answer arrives asynchronously as a HistorySync event with syncType
+// ON_DEMAND, not as the return value of this call.
+//
+//export RequestHistorySync
+func RequestHistorySync(
+	id *C.char,
+	ChatByte *C.uchar, ChatSize C.int,
+	messageID *C.char,
+	fromMe C.int,
+	timestamp C.longlong,
+	count C.int,
+) *C.struct_BytesReturn {
+	return_ := defproto.SendMessageReturnFunction{}
+	client, ok := clients[C.GoString(id)]
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var chat defproto.JID
+	if err := proto.Unmarshal(getByteByAddr(ChatByte, ChatSize), &chat); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	info := types.MessageInfo{
+		MessageSource: types.MessageSource{
+			Chat:     utils.DecodeJidProto(&chat),
+			IsFromMe: int(fromMe) != 0,
+		},
+		ID:        types.MessageID(C.GoString(messageID)),
+		Timestamp: time.Unix(int64(timestamp), 0),
+	}
+	message := client.BuildHistorySyncRequest(&info, int(count))
+	if message == nil {
+		return_.Error = proto.String("failed to build history sync request")
+		return ProtoReturnV3(&return_)
+	}
+	resp, err := client.SendPeerMessage(context.Background(), message)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.SendResponse = utils.EncodeSendResponse(resp)
+	return ProtoReturnV3(&return_)
+}
+
+// SendPeerMessage sends an already-built protocol message to the user's own
+// devices.
+//
+// Peer messages carry the PeerDataOperationRequest family — on-demand history,
+// full history sync over a time window, placeholder resends, chunk retries.
+// whatsmeow only ships a builder for one of them, so rather than binding each
+// operation separately this takes a serialised waE2E.Message and lets the caller
+// construct whichever request it needs.
+//
+//export SendPeerMessage
+func SendPeerMessage(id *C.char, messageByte *C.uchar, messageSize C.int) *C.struct_BytesReturn {
+	return_ := defproto.SendMessageReturnFunction{}
+	client, ok := clients[C.GoString(id)]
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var message waE2E.Message
+	if err := proto.Unmarshal(getByteByAddr(messageByte, messageSize), &message); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	resp, err := client.SendPeerMessage(context.Background(), &message)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.SendResponse = utils.EncodeSendResponse(resp)
+	return ProtoReturnV3(&return_)
 }
