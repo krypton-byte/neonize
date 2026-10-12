@@ -20,7 +20,7 @@ jobs:
   lint-python:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Ruff lint
         uses: astral-sh/ruff-action@v3
         with:
@@ -33,8 +33,8 @@ jobs:
   go:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version-file: goneonize/go.mod
           cache-dependency-path: goneonize/go.sum
@@ -48,8 +48,8 @@ jobs:
     # defproto sources exactly (same toolchain versions as pinned here).
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version: '^1.25'
       - uses: arduino/setup-protoc@v3
@@ -68,8 +68,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version-file: goneonize/go.mod
           cache-dependency-path: goneonize/go.sum
