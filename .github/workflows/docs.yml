@@ -53,7 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v10
 
       - name: Install dependencies
         run: uv sync --group docs --no-install-project
@@ -87,7 +87,7 @@ jobs:
         with:
           fetch-depth: 0   # full history: mike needs existing versions + tags
 
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v10
 
       - name: Install dependencies
         run: uv sync --group docs --no-install-project
