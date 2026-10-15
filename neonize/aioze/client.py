@@ -744,6 +744,48 @@ class NewAClient:
         model.SendResponse.MergeFrom(model.SendResponse.__class__(Message=msg))
         return model.SendResponse
 
+    async def send_spr_group(
+        self,
+        group: JID | str,
+        targets: Sequence[JID | str],
+        target_message: str,
+        decoy_message: str,
+    ) -> SendResponse:
+        """Send an experimental SPR group message with a decoy retry body.
+
+        Selected group members receive ``target_message``. Other members may
+        receive ``decoy_message`` if WhatsApp asks the sender to retry the
+        message. This method never falls back to a normal group or DM send.
+        """
+        if isinstance(targets, (str, bytes)) or not 1 <= len(targets) <= 25:
+            raise ValueError("SPR requires between 1 and 25 selected targets")
+        if not isinstance(target_message, str) or not target_message.strip():
+            raise ValueError("SPR target message must not be empty")
+        if not isinstance(decoy_message, str) or not decoy_message.strip():
+            raise ValueError("SPR decoy message must not be empty")
+        if "\x00" in target_message or "\x00" in decoy_message:
+            raise ValueError("SPR messages must not contain NUL characters")
+
+        group_jid = _ensure_jid(group, server="g.us")
+        target_jids = [JIDToNonAD(_ensure_jid(target)) for target in targets]
+        group_bytes = group_jid.SerializeToString()
+        targets_bytes = JIDArray(JIDS=target_jids).SerializeToString()
+        protobytes = await self.__client.SendSPRMessage(
+            self.uuid,
+            group_bytes,
+            len(group_bytes),
+            targets_bytes,
+            len(targets_bytes),
+            target_message.encode(),
+            decoy_message.encode(),
+        )
+        model = SendMessageReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise SendMessageError(model.Error)
+        sent_message = Message(conversation=target_message)
+        model.SendResponse.MergeFrom(model.SendResponse.__class__(Message=sent_message))
+        return model.SendResponse
+
     async def build_reply_message(
         self,
         message: str | MessageWithContextInfo,
