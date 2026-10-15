@@ -144,16 +144,25 @@ func getButtonTypeFromMessage(msg *waE2E.Message) string {
 }
 
 // shouldAddBotNode reports whether the <bot biz_bot="1"/> node should be
-// appended for the given chat. Controlled by the NEONIZE_BOT_TAG env var:
+// appended for the given chat. WhatsApp renders that node as an "AI" badge on
+// the message and counts the sender's traffic as automated, so it is a claim
+// about the account and not only about one message. A library cannot know
+// whether its caller wants that claim made, and the caller that does want it
+// can say so; the caller that does not should not have to know the node exists.
+// So it is opt-in, through the NEONIZE_BOT_TAG env var:
 //
-//	"on"  (default) - append the bot node in 1:1 chats (upstream behavior)
-//	"off"           - never append the bot node
+//	"on"            - append the bot node in 1:1 chats (upstream behavior)
+//	unset (default) - never append it
+//
+// The variable is read by the Go runtime from the environment the process
+// started with, so a host that wants the node sets it before launch; setting it
+// from inside a running process does not reach here.
 func shouldAddBotNode(isPrivate bool) bool {
 	switch strings.ToLower(strings.TrimSpace(os.Getenv("NEONIZE_BOT_TAG"))) {
-	case "off", "none", "false", "0":
-		return false
-	default:
+	case "on", "true", "1", "yes":
 		return isPrivate
+	default:
+		return false
 	}
 }
 
@@ -332,6 +341,139 @@ func GetPNFromLID(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesRe
 	if err != nil {
 		return_.Error = proto.String(err.Error())
 	}
+	return ProtoReturnV3(&return_)
+}
+
+//export SendSPRMessage
+func SendSPRMessage(id *C.char, groupByte *C.uchar, groupSize C.int, targetsByte *C.uchar, targetsSize C.int, targetText *C.char, decoyText *C.char) *C.struct_BytesReturn {
+	return_ := defproto.SendMessageReturnFunction{}
+	clientID := C.GoString(id)
+	client := clients[clientID]
+	if client == nil {
+		return_.Error = proto.String("client is nil")
+		return ProtoReturnV3(&return_)
+	}
+
+	var groupProto defproto.JID
+	if err := proto.Unmarshal(getByteByAddr(groupByte, groupSize), &groupProto); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	group := utils.DecodeJidProto(&groupProto)
+	if group.Server != types.GroupServer || group.User == "" {
+		return_.Error = proto.String("SPR destination must be a WhatsApp group")
+		return ProtoReturnV3(&return_)
+	}
+
+	var targetsProto defproto.JIDArray
+	if err := proto.Unmarshal(getByteByAddr(targetsByte, targetsSize), &targetsProto); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	if len(targetsProto.JIDS) == 0 || len(targetsProto.JIDS) > 25 {
+		return_.Error = proto.String("SPR requires between 1 and 25 selected targets")
+		return ProtoReturnV3(&return_)
+	}
+	targetTextValue := strings.TrimSpace(C.GoString(targetText))
+	decoyTextValue := strings.TrimSpace(C.GoString(decoyText))
+	if targetTextValue == "" || decoyTextValue == "" {
+		return_.Error = proto.String("SPR target and decoy messages must not be empty")
+		return ProtoReturnV3(&return_)
+	}
+
+	ctx := context.Background()
+	groupInfo, err := client.GetGroupInfo(ctx, group)
+	if err != nil {
+		return_.Error = proto.String(fmt.Sprintf("failed to verify SPR group members: %v", err))
+		return ProtoReturnV3(&return_)
+	}
+	participants := make([]types.JID, 0, len(targetsProto.JIDS))
+	targetKeys := make([]string, 0, len(targetsProto.JIDS))
+	seenTargets := make(map[string]bool)
+	for _, targetProto := range targetsProto.JIDS {
+		target := utils.DecodeJidProto(targetProto).ToNonAD()
+		if target.User == "" || (target.Server != types.DefaultUserServer && target.Server != types.HiddenUserServer) {
+			return_.Error = proto.String("SPR targets must be individual WhatsApp accounts")
+			return ProtoReturnV3(&return_)
+		}
+		if seenTargets[target.String()] {
+			continue
+		}
+		isMember := false
+		targetAliases := []types.JID{target}
+		for _, member := range groupInfo.Participants {
+			for _, memberJID := range []types.JID{member.JID, member.PhoneNumber, member.LID} {
+				if !memberJID.IsEmpty() && memberJID.ToNonAD() == target {
+					isMember = true
+					targetAliases = append(targetAliases, member.JID, member.PhoneNumber, member.LID)
+					break
+				}
+			}
+			if isMember {
+				break
+			}
+		}
+		if !isMember {
+			return_.Error = proto.String(fmt.Sprintf("SPR target %s is not a member of group %s", target, group))
+			return ProtoReturnV3(&return_)
+		}
+		participants = append(participants, target)
+		for _, alias := range targetAliases {
+			if alias.IsEmpty() {
+				continue
+			}
+			key := alias.ToNonAD().String()
+			if !seenTargets[key] {
+				seenTargets[key] = true
+				targetKeys = append(targetKeys, key)
+			}
+		}
+	}
+	if len(participants) == 0 {
+		return_.Error = proto.String("SPR requires at least one unique target")
+		return ProtoReturnV3(&return_)
+	}
+
+	secret := make([]byte, 32)
+	if _, err := cryptorand.Read(secret); err != nil {
+		return_.Error = proto.String(fmt.Sprintf("failed to generate SPR message secret: %v", err))
+		return ProtoReturnV3(&return_)
+	}
+	storeValue, ok := sprRetryStores.Load(clientID)
+	if !ok {
+		return_.Error = proto.String("SPR retry store is unavailable")
+		return ProtoReturnV3(&return_)
+	}
+	sprStore := storeValue.(*sprRetryStore)
+	messageID := client.GenerateMessageID()
+	if err := sprStore.put(sprRetryMessage{
+		Group:         group.String(),
+		MessageID:     string(messageID),
+		Targets:       targetKeys,
+		TargetMessage: targetTextValue,
+		DecoyMessage:  decoyTextValue,
+	}); err != nil {
+		return_.Error = proto.String(fmt.Sprintf("failed to save SPR retry data: %v", err))
+		return ProtoReturnV3(&return_)
+	}
+
+	message := waE2E.Message{
+		Conversation: proto.String(targetTextValue),
+		MessageContextInfo: &waE2E.MessageContextInfo{
+			MessageSecret: secret,
+		},
+	}
+	extra := whatsmeow.SendRequestExtra{
+		ID:                   messageID,
+		GroupParticipants:    participants,
+		RotateGroupSenderKey: true,
+	}
+	response, err := client.SendMessage(ctx, group, &message, extra)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.SendResponse = utils.EncodeSendResponse(response)
 	return ProtoReturnV3(&return_)
 }
 
@@ -527,139 +669,6 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 	// fmt.Println("SendMessage: Returning proto response")
 	// result := ProtoReturnV3(&return_)
 	// fmt.Println("size of result:", int(result.size))
-	return ProtoReturnV3(&return_)
-}
-
-//export SendSPRMessage
-func SendSPRMessage(id *C.char, groupByte *C.uchar, groupSize C.int, targetsByte *C.uchar, targetsSize C.int, targetText *C.char, decoyText *C.char) *C.struct_BytesReturn {
-	return_ := defproto.SendMessageReturnFunction{}
-	clientID := C.GoString(id)
-	client := clients[clientID]
-	if client == nil {
-		return_.Error = proto.String("client is nil")
-		return ProtoReturnV3(&return_)
-	}
-
-	var groupProto defproto.JID
-	if err := proto.Unmarshal(getByteByAddr(groupByte, groupSize), &groupProto); err != nil {
-		return_.Error = proto.String(err.Error())
-		return ProtoReturnV3(&return_)
-	}
-	group := utils.DecodeJidProto(&groupProto)
-	if group.Server != types.GroupServer || group.User == "" {
-		return_.Error = proto.String("SPR destination must be a WhatsApp group")
-		return ProtoReturnV3(&return_)
-	}
-
-	var targetsProto defproto.JIDArray
-	if err := proto.Unmarshal(getByteByAddr(targetsByte, targetsSize), &targetsProto); err != nil {
-		return_.Error = proto.String(err.Error())
-		return ProtoReturnV3(&return_)
-	}
-	if len(targetsProto.JIDS) == 0 || len(targetsProto.JIDS) > 25 {
-		return_.Error = proto.String("SPR requires between 1 and 25 selected targets")
-		return ProtoReturnV3(&return_)
-	}
-	targetTextValue := strings.TrimSpace(C.GoString(targetText))
-	decoyTextValue := strings.TrimSpace(C.GoString(decoyText))
-	if targetTextValue == "" || decoyTextValue == "" {
-		return_.Error = proto.String("SPR target and decoy messages must not be empty")
-		return ProtoReturnV3(&return_)
-	}
-
-	ctx := context.Background()
-	groupInfo, err := client.GetGroupInfo(ctx, group)
-	if err != nil {
-		return_.Error = proto.String(fmt.Sprintf("failed to verify SPR group members: %v", err))
-		return ProtoReturnV3(&return_)
-	}
-	participants := make([]types.JID, 0, len(targetsProto.JIDS))
-	targetKeys := make([]string, 0, len(targetsProto.JIDS))
-	seenTargets := make(map[string]bool)
-	for _, targetProto := range targetsProto.JIDS {
-		target := utils.DecodeJidProto(targetProto).ToNonAD()
-		if target.User == "" || (target.Server != types.DefaultUserServer && target.Server != types.HiddenUserServer) {
-			return_.Error = proto.String("SPR targets must be individual WhatsApp accounts")
-			return ProtoReturnV3(&return_)
-		}
-		if seenTargets[target.String()] {
-			continue
-		}
-		isMember := false
-		targetAliases := []types.JID{target}
-		for _, member := range groupInfo.Participants {
-			for _, memberJID := range []types.JID{member.JID, member.PhoneNumber, member.LID} {
-				if !memberJID.IsEmpty() && memberJID.ToNonAD() == target {
-					isMember = true
-					targetAliases = append(targetAliases, member.JID, member.PhoneNumber, member.LID)
-					break
-				}
-			}
-			if isMember {
-				break
-			}
-		}
-		if !isMember {
-			return_.Error = proto.String(fmt.Sprintf("SPR target %s is not a member of group %s", target, group))
-			return ProtoReturnV3(&return_)
-		}
-		participants = append(participants, target)
-		for _, alias := range targetAliases {
-			if alias.IsEmpty() {
-				continue
-			}
-			key := alias.ToNonAD().String()
-			if !seenTargets[key] {
-				seenTargets[key] = true
-				targetKeys = append(targetKeys, key)
-			}
-		}
-	}
-	if len(participants) == 0 {
-		return_.Error = proto.String("SPR requires at least one unique target")
-		return ProtoReturnV3(&return_)
-	}
-
-	secret := make([]byte, 32)
-	if _, err := cryptorand.Read(secret); err != nil {
-		return_.Error = proto.String(fmt.Sprintf("failed to generate SPR message secret: %v", err))
-		return ProtoReturnV3(&return_)
-	}
-	storeValue, ok := sprRetryStores.Load(clientID)
-	if !ok {
-		return_.Error = proto.String("SPR retry store is unavailable")
-		return ProtoReturnV3(&return_)
-	}
-	sprStore := storeValue.(*sprRetryStore)
-	messageID := client.GenerateMessageID()
-	if err := sprStore.put(sprRetryMessage{
-		Group:         group.String(),
-		MessageID:     string(messageID),
-		Targets:       targetKeys,
-		TargetMessage: targetTextValue,
-		DecoyMessage:  decoyTextValue,
-	}); err != nil {
-		return_.Error = proto.String(fmt.Sprintf("failed to save SPR retry data: %v", err))
-		return ProtoReturnV3(&return_)
-	}
-
-	message := waE2E.Message{
-		Conversation: proto.String(targetTextValue),
-		MessageContextInfo: &waE2E.MessageContextInfo{
-			MessageSecret: secret,
-		},
-	}
-	extra := whatsmeow.SendRequestExtra{
-		ID:                   messageID,
-		GroupParticipants:    participants,
-		RotateGroupSenderKey: true,
-	}
-	response, err := client.SendMessage(ctx, group, &message, extra)
-	if err != nil {
-		return_.Error = proto.String(err.Error())
-		return ProtoReturnV3(&return_)
-	}
-	return_.SendResponse = utils.EncodeSendResponse(response)
 	return ProtoReturnV3(&return_)
 }
 
@@ -2753,4 +2762,87 @@ func FreeString(str *C.char) {
 	if str != nil {
 		C.free(unsafe.Pointer(str))
 	}
+}
+
+// RequestHistorySync asks the user's primary device for older messages.
+//
+// WhatsApp keeps no server-side archive for a linked device, so messages older
+// than what the client already holds can only be obtained by asking the phone.
+// The request is anchored on a message the client already has; the phone
+// answers with up to `count` messages immediately preceding it.
+//
+// The answer arrives asynchronously as a HistorySync event with syncType
+// ON_DEMAND, not as the return value of this call.
+//
+//export RequestHistorySync
+func RequestHistorySync(
+	id *C.char,
+	ChatByte *C.uchar, ChatSize C.int,
+	messageID *C.char,
+	fromMe C.int,
+	timestamp C.longlong,
+	count C.int,
+) *C.struct_BytesReturn {
+	return_ := defproto.SendMessageReturnFunction{}
+	client, ok := clients[C.GoString(id)]
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var chat defproto.JID
+	if err := proto.Unmarshal(getByteByAddr(ChatByte, ChatSize), &chat); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	info := types.MessageInfo{
+		MessageSource: types.MessageSource{
+			Chat:     utils.DecodeJidProto(&chat),
+			IsFromMe: int(fromMe) != 0,
+		},
+		ID:        types.MessageID(C.GoString(messageID)),
+		Timestamp: time.Unix(int64(timestamp), 0),
+	}
+	message := client.BuildHistorySyncRequest(&info, int(count))
+	if message == nil {
+		return_.Error = proto.String("failed to build history sync request")
+		return ProtoReturnV3(&return_)
+	}
+	resp, err := client.SendPeerMessage(context.Background(), message)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.SendResponse = utils.EncodeSendResponse(resp)
+	return ProtoReturnV3(&return_)
+}
+
+// SendPeerMessage sends an already-built protocol message to the user's own
+// devices.
+//
+// Peer messages carry the PeerDataOperationRequest family — on-demand history,
+// full history sync over a time window, placeholder resends, chunk retries.
+// whatsmeow only ships a builder for one of them, so rather than binding each
+// operation separately this takes a serialised waE2E.Message and lets the caller
+// construct whichever request it needs.
+//
+//export SendPeerMessage
+func SendPeerMessage(id *C.char, messageByte *C.uchar, messageSize C.int) *C.struct_BytesReturn {
+	return_ := defproto.SendMessageReturnFunction{}
+	client, ok := clients[C.GoString(id)]
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var message waE2E.Message
+	if err := proto.Unmarshal(getByteByAddr(messageByte, messageSize), &message); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	resp, err := client.SendPeerMessage(context.Background(), &message)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.SendResponse = utils.EncodeSendResponse(resp)
+	return ProtoReturnV3(&return_)
 }
