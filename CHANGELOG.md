@@ -127,6 +127,19 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.6.0 (2026-10-15)
+
+### Documentation
+
+- Switch the README and docs banners to the light/dark artwork
+  ([`84bb1b2`](https://github.com/krypton-byte/neonize/commit/84bb1b2f49ea8a3a24673dc680d008dad921b787))
+
+### Features
+
+- Add SPR group send transport
+  ([`9e188d1`](https://github.com/krypton-byte/neonize/commit/9e188d19ca6f017f1dc6064b5a338c21194fcead))
+
+
 ## v0.5.2 (2026-09-21)
 
 ### Bug Fixes
