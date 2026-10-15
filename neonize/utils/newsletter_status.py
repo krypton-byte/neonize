@@ -7,7 +7,6 @@ from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
     Message,
     VideoMessage,
 )
-
 from .enum import MediaType
 
 

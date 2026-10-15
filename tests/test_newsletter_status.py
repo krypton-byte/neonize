@@ -1,5 +1,5 @@
 from neonize.proto.Neonize_pb2 import UploadResponse
-from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import AudioMessage, ImageMessage, VideoMessage
+from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import AudioMessage, VideoMessage
 from neonize.utils.enum import MediaType
 from neonize.utils.newsletter_status import build_newsletter_status_media_message
 
