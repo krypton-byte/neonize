@@ -13,6 +13,7 @@ import "C"
 
 import (
 	"context"
+	cryptorand "crypto/rand"
 	// "crypto/sha256"
 	// "encoding/hex"
 	"fmt"
@@ -538,6 +539,139 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 	return ProtoReturnV3(&return_)
 }
 
+//export SendSPRMessage
+func SendSPRMessage(id *C.char, groupByte *C.uchar, groupSize C.int, targetsByte *C.uchar, targetsSize C.int, targetText *C.char, decoyText *C.char) *C.struct_BytesReturn {
+	return_ := defproto.SendMessageReturnFunction{}
+	clientID := C.GoString(id)
+	client := clients[clientID]
+	if client == nil {
+		return_.Error = proto.String("client is nil")
+		return ProtoReturnV3(&return_)
+	}
+
+	var groupProto defproto.JID
+	if err := proto.Unmarshal(getByteByAddr(groupByte, groupSize), &groupProto); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	group := utils.DecodeJidProto(&groupProto)
+	if group.Server != types.GroupServer || group.User == "" {
+		return_.Error = proto.String("SPR destination must be a WhatsApp group")
+		return ProtoReturnV3(&return_)
+	}
+
+	var targetsProto defproto.JIDArray
+	if err := proto.Unmarshal(getByteByAddr(targetsByte, targetsSize), &targetsProto); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	if len(targetsProto.JIDS) == 0 || len(targetsProto.JIDS) > 25 {
+		return_.Error = proto.String("SPR requires between 1 and 25 selected targets")
+		return ProtoReturnV3(&return_)
+	}
+	targetTextValue := strings.TrimSpace(C.GoString(targetText))
+	decoyTextValue := strings.TrimSpace(C.GoString(decoyText))
+	if targetTextValue == "" || decoyTextValue == "" {
+		return_.Error = proto.String("SPR target and decoy messages must not be empty")
+		return ProtoReturnV3(&return_)
+	}
+
+	ctx := context.Background()
+	groupInfo, err := client.GetGroupInfo(ctx, group)
+	if err != nil {
+		return_.Error = proto.String(fmt.Sprintf("failed to verify SPR group members: %v", err))
+		return ProtoReturnV3(&return_)
+	}
+	participants := make([]types.JID, 0, len(targetsProto.JIDS))
+	targetKeys := make([]string, 0, len(targetsProto.JIDS))
+	seenTargets := make(map[string]bool)
+	for _, targetProto := range targetsProto.JIDS {
+		target := utils.DecodeJidProto(targetProto).ToNonAD()
+		if target.User == "" || (target.Server != types.DefaultUserServer && target.Server != types.HiddenUserServer) {
+			return_.Error = proto.String("SPR targets must be individual WhatsApp accounts")
+			return ProtoReturnV3(&return_)
+		}
+		if seenTargets[target.String()] {
+			continue
+		}
+		isMember := false
+		targetAliases := []types.JID{target}
+		for _, member := range groupInfo.Participants {
+			for _, memberJID := range []types.JID{member.JID, member.PhoneNumber, member.LID} {
+				if !memberJID.IsEmpty() && memberJID.ToNonAD() == target {
+					isMember = true
+					targetAliases = append(targetAliases, member.JID, member.PhoneNumber, member.LID)
+					break
+				}
+			}
+			if isMember {
+				break
+			}
+		}
+		if !isMember {
+			return_.Error = proto.String(fmt.Sprintf("SPR target %s is not a member of group %s", target, group))
+			return ProtoReturnV3(&return_)
+		}
+		participants = append(participants, target)
+		for _, alias := range targetAliases {
+			if alias.IsEmpty() {
+				continue
+			}
+			key := alias.ToNonAD().String()
+			if !seenTargets[key] {
+				seenTargets[key] = true
+				targetKeys = append(targetKeys, key)
+			}
+		}
+	}
+	if len(participants) == 0 {
+		return_.Error = proto.String("SPR requires at least one unique target")
+		return ProtoReturnV3(&return_)
+	}
+
+	secret := make([]byte, 32)
+	if _, err := cryptorand.Read(secret); err != nil {
+		return_.Error = proto.String(fmt.Sprintf("failed to generate SPR message secret: %v", err))
+		return ProtoReturnV3(&return_)
+	}
+	storeValue, ok := sprRetryStores.Load(clientID)
+	if !ok {
+		return_.Error = proto.String("SPR retry store is unavailable")
+		return ProtoReturnV3(&return_)
+	}
+	sprStore := storeValue.(*sprRetryStore)
+	messageID := client.GenerateMessageID()
+	if err := sprStore.put(sprRetryMessage{
+		Group:         group.String(),
+		MessageID:     string(messageID),
+		Targets:       targetKeys,
+		TargetMessage: targetTextValue,
+		DecoyMessage:  decoyTextValue,
+	}); err != nil {
+		return_.Error = proto.String(fmt.Sprintf("failed to save SPR retry data: %v", err))
+		return ProtoReturnV3(&return_)
+	}
+
+	message := waE2E.Message{
+		Conversation: proto.String(targetTextValue),
+		MessageContextInfo: &waE2E.MessageContextInfo{
+			MessageSecret: secret,
+		},
+	}
+	extra := whatsmeow.SendRequestExtra{
+		ID:                   messageID,
+		GroupParticipants:    participants,
+		RotateGroupSenderKey: true,
+	}
+	response, err := client.SendMessage(ctx, group, &message, extra)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.SendResponse = utils.EncodeSendResponse(response)
+	return ProtoReturnV3(&return_)
+}
+
 //export PinMessage
 func PinMessage(id *C.char, ChatJIDByte *C.uchar, ChatJIDSize C.int, SenderJIDByte *C.uchar, SenderJIDSize C.int, messageID *C.char, seconds C.int) *C.struct_BytesReturn {
 	client := clients[C.GoString(id)]
@@ -600,7 +734,8 @@ func StopAll() {
 
 //export Stop
 func Stop(id *C.char) {
-	utils.Noop.Infof("Stopping client with ID: %s", C.GoString(id)) // utils.Logger
+	utils.Noop.Infof("Stopping client with ID: %s", C.GoString(id))
+	sprRetryStores.Delete(C.GoString(id)) // utils.Logger
 	if client, exists := clients[C.GoString(id)]; exists {
 		client.Disconnect()
 		delete(clients, C.GoString(id))
@@ -667,6 +802,9 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 	clientLog := utils.NewLogger("Client", C.GoString(logLevel), utils.Callback(logCb))
 	client := whatsmeow.NewClient(deviceStore, clientLog)
 	clients[uuid] = client
+	sprStore := newSPRRetryStore(C.GoString(db))
+	sprRetryStores.Store(uuid, sprStore)
+	installSPRRetryHooks(client, sprStore)
 	if err := applyProxySettings(client, proxySettingsRaw); err != nil {
 		return C.CString(err.Error())
 	}

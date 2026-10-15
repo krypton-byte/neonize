@@ -250,6 +250,16 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
     ]
     gocode.SendMessage.restype = ctypes.POINTER(Bytes)
+    gocode.SendSPRMessage.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+    ]
+    gocode.SendSPRMessage.restype = ctypes.POINTER(Bytes)
     gocode.SendChatPresence.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -736,6 +746,7 @@ if not os.environ.get("SPHINX"):
         "GetGroupInviteLink",
         "JoinGroupWithLink",
         "SendMessage",
+        "SendSPRMessage",
         "BuildRevoke",
         "SendPeerMessage",
         "RequestHistorySync",
