@@ -672,6 +672,158 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 	return ProtoReturnV3(&return_)
 }
 
+//export SendNewsletterStatus
+func SendNewsletterStatus(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uchar, messageSize C.int, mediaHandle *C.char) *C.struct_BytesReturn {
+	return_ := defproto.SendMessageReturnFunction{}
+	client := clients[C.GoString(id)]
+	if client == nil {
+		return_.Error = proto.String("client is nil")
+		return ProtoReturnV3(&return_)
+	}
+	if !client.IsConnected() || !client.IsLoggedIn() {
+		return_.Error = proto.String("WhatsApp client is not connected")
+		return ProtoReturnV3(&return_)
+	}
+
+	var jidProto defproto.JID
+	if err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &jidProto); err != nil {
+		return_.Error = proto.String(fmt.Sprintf("invalid channel JID: %v", err))
+		return ProtoReturnV3(&return_)
+	}
+	channel := utils.DecodeJidProto(&jidProto)
+	if channel.Server != types.NewsletterServer || channel.User == "" {
+		return_.Error = proto.String("destination must be a WhatsApp Channel JID")
+		return ProtoReturnV3(&return_)
+	}
+
+	var message waE2E.Message
+	if err := proto.Unmarshal(getByteByAddr(messageByte, messageSize), &message); err != nil {
+		return_.Error = proto.String(fmt.Sprintf("invalid Story payload: %v", err))
+		return ProtoReturnV3(&return_)
+	}
+	mediaType := ""
+	switch {
+	case message.Conversation != nil || message.ExtendedTextMessage != nil:
+	case message.ImageMessage != nil:
+		mediaType = "image"
+	case message.VideoMessage != nil:
+		mediaType = "video"
+	case message.AudioMessage != nil:
+		mediaType = "audio"
+	default:
+		return_.Error = proto.String("Channel Story supports text, image, video, and audio payloads")
+		return ProtoReturnV3(&return_)
+	}
+	handle := C.GoString(mediaHandle)
+	if mediaType != "" && handle == "" {
+		return_.Error = proto.String("media handle is required for Channel Story media")
+		return ProtoReturnV3(&return_)
+	}
+	if mediaType == "" && handle != "" {
+		return_.Error = proto.String("media handle cannot be used with a text-only Channel Story")
+		return ProtoReturnV3(&return_)
+	}
+
+	plaintext, err := proto.Marshal(&message)
+	if err != nil {
+		return_.Error = proto.String(fmt.Sprintf("failed to encode Story payload: %v", err))
+		return ProtoReturnV3(&return_)
+	}
+	idMessage := client.GenerateMessageID()
+	attrs := waBinary.Attrs{"to": channel, "id": idMessage}
+	if handle != "" {
+		attrs["media_id"] = handle
+	}
+	plaintextAttrs := waBinary.Attrs{}
+	if mediaType != "" {
+		plaintextAttrs["mediatype"] = mediaType
+	}
+	node := waBinary.Node{
+		Tag:   "status",
+		Attrs: attrs,
+		Content: []waBinary.Node{{
+			Tag:     "plaintext",
+			Attrs:   plaintextAttrs,
+			Content: plaintext,
+		}},
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 75*time.Second)
+	defer cancel()
+	internal := client.DangerousInternals()
+	statusEcho := make(chan types.MessageServerID, 1)
+	eventHandlerID := client.AddEventHandler(func(event any) {
+		statusMessage, ok := event.(*events.Message)
+		if !ok || !statusMessage.Info.IsNewsletterStatus || statusMessage.Info.ID != idMessage || statusMessage.Info.Chat != channel {
+			return
+		}
+		select {
+		case statusEcho <- statusMessage.Info.ServerID:
+		default:
+		}
+	})
+	defer client.RemoveEventHandler(eventHandlerID)
+	response := internal.WaitResponse(string(idMessage))
+	if _, err := internal.SendNodeAndGetData(ctx, node); err != nil {
+		internal.CancelResponse(string(idMessage), response)
+		return_.Error = proto.String(fmt.Sprintf("failed to send Channel Story stanza: %v", err))
+		return ProtoReturnV3(&return_)
+	}
+	var ack *waBinary.Node
+	select {
+	case ack = <-response:
+	case <-ctx.Done():
+		internal.CancelResponse(string(idMessage), response)
+		return_.Error = proto.String("timed out waiting for WhatsApp to acknowledge the Channel Story")
+		return ProtoReturnV3(&return_)
+	}
+	if ack == nil || ack.Tag != "ack" {
+		return_.Error = proto.String("WhatsApp returned an unexpected Channel Story response")
+		return ProtoReturnV3(&return_)
+	}
+	ackAttrs := ack.AttrGetter()
+	if code := ackAttrs.Int("error"); code != 0 {
+		return_.Error = proto.String(fmt.Sprintf("WhatsApp rejected the Channel Story (error %d)", code))
+		return ProtoReturnV3(&return_)
+	}
+	if class := ackAttrs.OptionalString("class"); class != "" && class != "status" {
+		return_.Error = proto.String(fmt.Sprintf("unexpected WhatsApp acknowledgement class %q", class))
+		return ProtoReturnV3(&return_)
+	}
+
+	var timestamp int64
+	if sentAt := ackAttrs.UnixTime("t"); !sentAt.IsZero() {
+		timestamp = sentAt.Unix()
+	}
+	var serverID types.MessageServerID
+	select {
+	case serverID = <-statusEcho:
+	case <-time.After(3 * time.Second):
+		// WhatsApp acknowledges a Channel Story before echoing its server ID.
+		// Keep the send successful if that later echo is missing or delayed.
+	}
+	return_.SendResponse = &defproto.SendResponse{
+		Timestamp: proto.Int64(timestamp),
+		ID:        proto.String(string(idMessage)),
+		ServerID:  proto.Int64(int64(serverID)),
+		DebugTimings: &defproto.MessageDebugTimings{
+			Queue:           proto.Int64(0),
+			Marshal_:        proto.Int64(0),
+			GetParticipants: proto.Int64(0),
+			GetDevices:      proto.Int64(0),
+			GroupEncrypt:    proto.Int64(0),
+			PeerEncrypt:     proto.Int64(0),
+			Send:            proto.Int64(0),
+			Resp:            proto.Int64(0),
+			Retry:           proto.Int64(0),
+		},
+		Sender:  utils.EncodeJidProto(client.Store.GetJID()),
+		Chat:    utils.EncodeJidProto(channel),
+		Message: &message,
+	}
+	return ProtoReturnV3(&return_)
+}
+
 //export PinMessage
 func PinMessage(id *C.char, ChatJIDByte *C.uchar, ChatJIDSize C.int, SenderJIDByte *C.uchar, SenderJIDSize C.int, messageID *C.char, seconds C.int) *C.struct_BytesReturn {
 	client := clients[C.GoString(id)]

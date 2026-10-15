@@ -158,6 +158,8 @@ Under the hood they call this helper to coerce the value into a `JID`:
         - newsletter_subscribe_live_updates
         - newsletter_toggle_mute
         - upload_newsletter
+        - send_newsletter_status
+        - supports_newsletter_status
         - get_subscribed_newletters
 
 ## Utilities

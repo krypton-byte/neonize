@@ -86,8 +86,45 @@ client.newsletter_mark_viewed(meta.ID, [MessageServerID(12345)])
 ## Uploading to a Channel
 
 ```python
-resp = client.upload_newsletter(media_bytes, MediaType.Photo, newsletter_jid)
+from neonize.utils.enum import MediaType
+
+resp = client.upload_newsletter(media_bytes, MediaType.MediaImage)
 ```
+
+## Publishing a Channel Story
+
+A Channel Story is a temporary status shown around the Channel profile for up
+to 24 hours. It uses a separate native WhatsApp status transport; it is not a
+regular feed post sent with `send_message` and it is not a personal
+`status@broadcast`. WhatsApp only accepts it when the account and Channel have
+the required status-producer permission and feature rollout.
+
+Text Story:
+
+```python
+from neonize.utils.enum import MediaType
+
+status = client.send_newsletter_status(
+    "123456789@newsletter",
+    "Thanks for following our Channel!",
+)
+print(status.ID, status.ServerID)  # ServerID may be 0 if the echo is delayed.
+```
+
+Image, video, or audio Story:
+
+```python
+status = client.send_newsletter_status(
+    "123456789@newsletter",
+    media="story.jpg",  # local path, URL, or bytes
+    media_type=MediaType.MediaImage,
+    caption="A short update for followers",
+)
+```
+
+Use `await client.send_newsletter_status(...)` with `NewAClient`. Channel
+Stories require a goneonize shared library built with the Story transport; an
+older binary reports that the feature is unavailable.
 
 !!! note "One-way traffic"
     Channels do not support replies from followers. Bots interact by

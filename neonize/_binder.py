@@ -250,6 +250,16 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
     ]
     gocode.SendMessage.restype = ctypes.POINTER(Bytes)
+    if hasattr(gocode, "SendNewsletterStatus"):
+        gocode.SendNewsletterStatus.argtypes = [
+            ctypes.c_char_p,
+            ctypes.c_char_p,
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_int,
+            ctypes.c_char_p,
+        ]
+        gocode.SendNewsletterStatus.restype = ctypes.POINTER(Bytes)
     gocode.SendSPRMessage.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -746,6 +756,7 @@ if not os.environ.get("SPHINX"):
         "GetGroupInviteLink",
         "JoinGroupWithLink",
         "SendMessage",
+        "SendNewsletterStatus",
         "SendSPRMessage",
         "BuildRevoke",
         "SendPeerMessage",

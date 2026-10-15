@@ -194,6 +194,7 @@ from ..utils.iofile import (
 )
 from ..utils.jid import Jid2String, JIDToNonAD, build_jid, jid_is_lid
 from ..utils.log import log, log_whatsmeow
+from ..utils.newsletter_status import build_newsletter_status_media_message
 from ..utils.sticker import aio_convert_to_sticker, aio_convert_to_webp
 from . import events as _events_module
 from .events import Event, EventsManager
@@ -2141,6 +2142,11 @@ class NewAClient:
         """
         return self.__client.IsLoggedIn(self.uuid)
 
+    @property
+    def supports_newsletter_status(self) -> bool:
+        """Whether the loaded native library can publish Channel Stories."""
+        return callable(getattr(self.__client, "SendNewsletterStatus", None))
+
     async def get_user_info(
         self, *jid: JID
     ) -> RepeatedCompositeFieldContainer[GetUserInfoSingleReturnFunction]:
@@ -2927,6 +2933,95 @@ class NewAClient:
         if model.Error:
             raise UploadError(model.Error)
         return model.UploadResponse
+
+    async def send_newsletter_status(
+        self,
+        to: JID | str,
+        message: str | Message | None = None,
+        *,
+        media: str | bytes | None = None,
+        media_type: MediaType | None = None,
+        caption: str | None = None,
+    ) -> SendResponse:
+        """Publish a temporary WhatsApp Channel Story.
+
+        This uses the Channel Status stanza and is separate from
+        :meth:`send_message`, which publishes a permanent Channel feed update.
+        The channel must be eligible for status creation and the logged-in
+        account must have permission to post.
+
+        ``message`` may be a text-only string or an existing message protobuf.
+        For media, pass a file path, URL, or bytes in ``media``; media is
+        uploaded through the unencrypted newsletter upload path. Supported
+        media are images, videos, and audio. ``caption`` overrides a string
+        passed as ``message`` when media is supplied.
+
+        WhatsApp sends the server ID in a later sender echo. Neonize waits up
+        to three seconds for that echo; ``ServerID`` is 0 if it does not arrive.
+        """
+        channel = _ensure_jid(to, "newsletter")
+        if channel.Server != "newsletter" or not channel.User:
+            raise ValueError("destination must be a WhatsApp Channel JID")
+        send_status = getattr(self.__client, "SendNewsletterStatus", None)
+        if not callable(send_status):
+            raise SendMessageError(
+                "The loaded Neonize native library does not include Channel Story transport."
+            )
+
+        media_handle = ""
+        if media is not None:
+            media_bytes = await get_bytes_from_name_or_url_async(media)
+            if not media_bytes:
+                raise ValueError("Channel Story media must not be empty")
+            detected_type = MediaType.from_magic(media_bytes)
+            selected_type = media_type or detected_type
+            if selected_type not in {
+                MediaType.MediaImage,
+                MediaType.MediaVideo,
+                MediaType.MediaAudio,
+            }:
+                raise ValueError("Channel Stories only support image, video, or audio media")
+            if selected_type != detected_type:
+                raise ValueError(
+                    f"media_type {selected_type.name} does not match the uploaded file"
+                )
+            upload = await self.upload_newsletter(media_bytes, selected_type)
+            status_caption = caption
+            if status_caption is None and isinstance(message, str):
+                status_caption = message
+            status_message = build_newsletter_status_media_message(
+                upload,
+                selected_type,
+                magic.from_buffer(media_bytes, mime=True),
+                status_caption,
+            )
+            media_handle = upload.Handle
+        elif isinstance(message, str):
+            if not message.strip():
+                raise ValueError("Channel Story text must not be empty")
+            status_message = Message(conversation=message)
+        elif isinstance(message, Message):
+            status_message = message
+        else:
+            raise ValueError("provide text or media for the Channel Story")
+
+        jid_bytes = channel.SerializeToString()
+        message_bytes = status_message.SerializeToString()
+        payload = await send_status(
+            self.uuid,
+            jid_bytes,
+            len(jid_bytes),
+            message_bytes,
+            len(message_bytes),
+            media_handle.encode("utf-8"),
+        )
+        result = SendMessageReturnFunction.FromString(payload)
+        if result.Error:
+            raise SendMessageError(result.Error)
+        result.SendResponse.MergeFrom(
+            result.SendResponse.__class__(Message=status_message)
+        )
+        return result.SendResponse
 
     async def create_group(
         self,
