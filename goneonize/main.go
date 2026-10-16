@@ -1096,6 +1096,62 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				}
 				eventChan <- &messageEvent
 			}
+		case *events.Archive:
+			if _, ok := subscribers[46]; ok {
+				chatState := defproto.ChatArchive{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				messageEvent := MessageEvent{
+					eventType: 46,
+					message:   &chatState,
+				}
+				eventChan <- &messageEvent
+			}
+		case *events.Pin:
+			if _, ok := subscribers[47]; ok {
+				chatState := defproto.ChatPin{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				messageEvent := MessageEvent{
+					eventType: 47,
+					message:   &chatState,
+				}
+				eventChan <- &messageEvent
+			}
+		case *events.Mute:
+			if _, ok := subscribers[48]; ok {
+				chatState := defproto.ChatMute{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				messageEvent := MessageEvent{
+					eventType: 48,
+					message:   &chatState,
+				}
+				eventChan <- &messageEvent
+			}
+		case *events.MarkChatAsRead:
+			if _, ok := subscribers[49]; ok {
+				chatState := defproto.ChatMarkAsRead{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				messageEvent := MessageEvent{
+					eventType: 49,
+					message:   &chatState,
+				}
+				eventChan <- &messageEvent
+			}
 		case *events.RotateADVSecret:
 			if _, ok := subscribers[45]; ok {
 				rot := defproto.RotateADVSecret{
