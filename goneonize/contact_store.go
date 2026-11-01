@@ -23,7 +23,7 @@ func PutPushName(id *C.char, user *C.uchar, userSize C.int, pushname *C.char) *C
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
 	}
-	status, prev_name, err := clients[C.GoString(id)].Store.Contacts.PutPushName(context.Background(), utils.DecodeJidProto(&userJID), C.GoString(pushname))
+	status, prev_name, err := clientFor(C.GoString(id)).Store.Contacts.PutPushName(context.Background(), utils.DecodeJidProto(&userJID), C.GoString(pushname))
 	return_.PreviousName = proto.String(prev_name)
 	return_.Status = &status
 	if err != nil {
@@ -41,7 +41,7 @@ func PutBusinessName(id *C.char, user *C.uchar, userSize C.int, businessName *C.
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
 	}
-	status, prev_name, err := clients[C.GoString(id)].Store.Contacts.PutBusinessName(context.Background(), utils.DecodeJidProto(&userJID), C.GoString(businessName))
+	status, prev_name, err := clientFor(C.GoString(id)).Store.Contacts.PutBusinessName(context.Background(), utils.DecodeJidProto(&userJID), C.GoString(businessName))
 	return_.PreviousName = proto.String(prev_name)
 	return_.Status = &status
 	if err != nil {
@@ -57,7 +57,7 @@ func PutContactName(id *C.char, user *C.uchar, userSize C.int, fullName, firstNa
 	if err != nil {
 		return C.CString(err.Error())
 	}
-	err_ := clients[C.GoString(id)].Store.Contacts.PutContactName(context.Background(), utils.DecodeJidProto(&userJID), C.GoString(fullName), C.GoString(firstName))
+	err_ := clientFor(C.GoString(id)).Store.Contacts.PutContactName(context.Background(), utils.DecodeJidProto(&userJID), C.GoString(fullName), C.GoString(firstName))
 	if err_ != nil {
 		return C.CString(err_.Error())
 	}
@@ -75,7 +75,7 @@ func PutAllContactNames(id *C.char, contacts *C.uchar, contactsSize C.int) *C.ch
 	for i, centry := range entry.ContactEntry {
 		contactEntry[i] = *utils.DecodeContactEntry(centry)
 	}
-	err_r := clients[C.GoString(id)].Store.Contacts.PutAllContactNames(context.Background(), contactEntry)
+	err_r := clientFor(C.GoString(id)).Store.Contacts.PutAllContactNames(context.Background(), contactEntry)
 	if err_r != nil {
 		return C.CString(err_r.Error())
 	}
@@ -91,7 +91,7 @@ func GetContact(id *C.char, user *C.uchar, userSize C.int) *C.struct_BytesReturn
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
 	}
-	contact_info, err_ := clients[C.GoString(id)].Store.Contacts.GetContact(context.Background(), utils.DecodeJidProto(&userJID))
+	contact_info, err_ := clientFor(C.GoString(id)).Store.Contacts.GetContact(context.Background(), utils.DecodeJidProto(&userJID))
 	return_ := defproto.ContactsGetContactReturnFunction{
 		ContactInfo: utils.EncodeContactInfo(contact_info),
 	}
@@ -103,7 +103,7 @@ func GetContact(id *C.char, user *C.uchar, userSize C.int) *C.struct_BytesReturn
 
 //export GetAllContacts
 func GetAllContacts(id *C.char) *C.struct_BytesReturn {
-	contacts, err := clients[C.GoString(id)].Store.Contacts.GetAllContacts(context.Background())
+	contacts, err := clientFor(C.GoString(id)).Store.Contacts.GetAllContacts(context.Background())
 	return_ := defproto.ContactsGetAllContactsReturnFunction{
 		Contact: utils.EncodeContacts(contacts),
 	}

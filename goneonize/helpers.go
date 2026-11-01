@@ -31,7 +31,7 @@ var bufPool = sync.Pool{
 // getClient retrieves a whatsmeow client by its UUID string.
 // Returns nil if the client does not exist.
 func getClient(id *C.char) *whatsmeow.Client {
-	return clients[C.GoString(id)]
+	return clientFor(C.GoString(id))
 }
 
 // unmarshalJID decodes a protobuf-encoded JID from C memory into a Go types.JID.
