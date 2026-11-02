@@ -65,6 +65,8 @@ async def aio_convert_to_sticker(
     enforce_not_broken=False,
     animated_gif=False,
     is_webm=False,
+    quality=75,
+    compression_level=4,
 ):
     async with AFFmpeg(file) as ffmpeg:
         sticker = await ffmpeg.cv_to_webp(
@@ -72,13 +74,15 @@ async def aio_convert_to_sticker(
             animated_gif=animated_gif,
             max_sticker_size=MAX_STICKER_SIZE,
             is_webm=is_webm,
+            quality=quality,
+            compression_level=compression_level,
         )
     if not WEBPMUX_IS_AVAILABLE:
         return sticker, False
 
     exif_filename = TemporaryFile(prefix=None, touch=False).__enter__()
-    with open(exif_filename.path, "wb") as f_file:
-        f_file.write(add_exif(name=name, packname=packname))
+    with open(exif_filename.path, "wb") as file:
+        file.write(add_exif(name=name, packname=packname))
     temp = tempfile.gettempdir() + "/" + f"{uuid.uuid4()}" + ".webp"
     async with AFFmpeg(sticker) as ffmpeg:
         cmd = [
@@ -92,10 +96,35 @@ async def aio_convert_to_sticker(
         ]
         await ffmpeg.call(cmd)
     exif_filename.__exit__(None, None, None)
-    with open(temp, "rb") as f_file:
-        buf = f_file.read()
+    with open(temp, "rb") as file:
+        buf = file.read()
     os.remove(temp)
     return buf, True
+
+
+async def aio_add_exif_to_sticker(sticker, name, packname):
+    if not WEBPMUX_IS_AVAILABLE:
+        return None
+    exif_filename = TemporaryFile(prefix=None, touch=False).__enter__()
+    with open(exif_filename.path, "wb") as file:
+        file.write(add_exif(name=name, packname=packname))
+    temp = tempfile.gettempdir() + "/" + f"{uuid.uuid4()}" + ".webp"
+    async with AFFmpeg(sticker) as ffmpeg:
+        cmd = [
+            "webpmux",
+            "-set",
+            "exif",
+            f"{exif_filename.path}",
+            ffmpeg.filepath,
+            "-o",
+            temp,
+        ]
+        await ffmpeg.call(cmd)
+    exif_filename.__exit__(None, None, None)
+    with open(temp, "rb") as file:
+        buf = file.read()
+    os.remove(temp)
+    return buf
 
 
 def convert_to_sticker(
@@ -105,6 +134,8 @@ def convert_to_sticker(
     enforce_not_broken=False,
     animated_gif=False,
     is_webm=False,
+    quality=75,
+    compression_level=4,
 ):
     with FFmpeg(file) as ffmpeg:
         sticker = ffmpeg.cv_to_webp(
@@ -112,13 +143,15 @@ def convert_to_sticker(
             animated_gif=animated_gif,
             max_sticker_size=MAX_STICKER_SIZE,
             is_webm=is_webm,
+            quality=quality,
+            compression_level=compression_level,
         )
     if not WEBPMUX_IS_AVAILABLE:
         return sticker, False
 
     exif_filename = TemporaryFile(prefix=None, touch=False).__enter__()
-    with open(exif_filename.path, "wb") as f_file:
-        f_file.write(add_exif(name=name, packname=packname))
+    with open(exif_filename.path, "wb") as file:
+        file.write(add_exif(name=name, packname=packname))
     temp = tempfile.gettempdir() + "/" + f"{uuid.uuid4()}" + ".webp"
     with FFmpeg(sticker) as ffmpeg:
         cmd = [
@@ -132,17 +165,49 @@ def convert_to_sticker(
         ]
         ffmpeg.call(cmd)
     exif_filename.__exit__(None, None, None)
-    with open(temp, "rb") as f_file:
-        buf = f_file.read()
+    with open(temp, "rb") as file:
+        buf = file.read()
     os.remove(temp)
     return buf, True
+
+
+def add_exif_to_sticker(sticker, name, packname):
+    if not WEBPMUX_IS_AVAILABLE:
+        return None
+    exif_filename = TemporaryFile(prefix=None, touch=False).__enter__()
+    with open(exif_filename.path, "wb") as file:
+        file.write(add_exif(name=name, packname=packname))
+    temp = tempfile.gettempdir() + "/" + f"{uuid.uuid4()}" + ".webp"
+    with FFmpeg(sticker) as ffmpeg:
+        cmd = [
+            "webpmux",
+            "-set",
+            "exif",
+            f"{exif_filename.path}",
+            ffmpeg.filepath,
+            "-o",
+            temp,
+        ]
+        ffmpeg.call(cmd)
+    exif_filename.__exit__(None, None, None)
+    with open(temp, "rb") as file:
+        buf = file.read()
+    os.remove(temp)
+    return buf
 
 
 astick_sem = asyncio.Semaphore(20)
 
 
 async def aio_convert_to_webp(
-    sticker, name, packname, crop=False, passthrough=True, transparent=False
+    sticker,
+    name,
+    packname,
+    crop=False,
+    passthrough=True,
+    transparent=False,
+    quality=75,
+    compression_level=4,
 ):
     sticker = await get_bytes_from_name_or_url_async(sticker)
     animated = is_webm = is_image = saved_exif = stk = False
@@ -176,13 +241,15 @@ async def aio_convert_to_webp(
                 enforce_not_broken=True,
                 animated_gif=transparent,
                 is_webm=is_webm,
+                quality=quality,
+                compression_level=compression_level,
             )
         if saved_exif:
             io_save = BytesIO(sticker)
         else:
             stk = Image.open(BytesIO(sticker))
             io_save = BytesIO()
-    if not saved_exif and stk:
+    if not saved_exif:
         stk.save(
             io_save,
             format="webp",
@@ -196,7 +263,16 @@ async def aio_convert_to_webp(
 stick_sem = threading.Semaphore(20)
 
 
-def convert_to_webp(sticker, name, packname, crop=False, passthrough=True, transparent=False):
+def convert_to_webp(
+    sticker,
+    name,
+    packname,
+    crop=False,
+    passthrough=True,
+    transparent=False,
+    quality=75,
+    compression_level=4,
+):
     sticker = get_bytes_from_name_or_url(sticker)
     animated = is_webm = is_image = saved_exif = stk = False
     mime = magic.from_buffer(sticker, mime=True)
@@ -229,13 +305,15 @@ def convert_to_webp(sticker, name, packname, crop=False, passthrough=True, trans
                 enforce_not_broken=True,
                 animated_gif=transparent,
                 is_webm=is_webm,
+                quality=quality,
+                compression_level=compression_level,
             )
         if saved_exif:
             io_save = BytesIO(sticker)
         else:
             stk = Image.open(BytesIO(sticker))
             io_save = BytesIO()
-    if not saved_exif and stk:
+    if not saved_exif:
         stk.save(
             io_save,
             format="webp",

@@ -127,6 +127,19 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.6.1 (2026-11-02)
+
+### Bug Fixes
+
+- **goneonize**: Build with current whatsmeow
+  ([`38a0d3a`](https://github.com/krypton-byte/neonize/commit/38a0d3a2296e7df239ed3fbac5b6e8fb4765df59))
+
+### Continuous Integration
+
+- Update workflow actions to current majors
+  ([`d8dd283`](https://github.com/krypton-byte/neonize/commit/d8dd28301e00a548e0326e9afab01ee60007e075))
+
+
 ## v0.6.0 (2026-10-15)
 
 ### Documentation

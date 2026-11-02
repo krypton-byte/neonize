@@ -24,7 +24,7 @@ from uuid import uuid4
 import magic
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 from linkpreview import link_preview
-from PIL import Image, ImageSequence
+from PIL import Image, ImageFilter, ImageSequence
 
 from ._binder import (
     ProxySettings,
@@ -200,7 +200,7 @@ from .utils.enum import (
 from .utils.ffmpeg import FFmpeg
 from .utils.iofile import get_bytes_from_name_or_url, prepare_zip_file_content
 from .utils.jid import Jid2String, JIDToNonAD, build_jid, jid_is_lid
-from .utils.sticker import convert_to_sticker, convert_to_webp
+from .utils.sticker import add_exif_to_sticker, convert_to_sticker, convert_to_webp
 
 _log_ = logging.getLogger(__name__)
 
@@ -228,7 +228,9 @@ class ContactStore:
         :rtype: ContactsPutPushNameReturnFunction
         """
         user_bytes = user.SerializeToString()
-        protobytes = self.__client.PutPushName(user_bytes, len(user_bytes), pushname.encode())
+        protobytes = self.__client.PutPushName(
+            self.uuid, user_bytes, len(user_bytes), pushname.encode()
+        )
         model = ContactsPutPushNameReturnFunction.FromString(protobytes)
         if model.Error:
             raise ContactStoreError(model.Error)
@@ -1103,6 +1105,8 @@ class NewClient:
         crop: bool = False,
         enforce_not_broken: bool = False,
         animated_gif: bool = False,
+        quality: int = 75,
+        compression_level: int = 4,
         passthrough: bool = False,
     ) -> Message:
         """
@@ -1124,6 +1128,10 @@ class NewClient:
         :type enforce_not_broken: bool, optional
         :param animated_gif: Ensure transparent media are properly processed, defaults to False
         :type animated_gif: bool, optional
+        :param quality: Directly set sticker quality, ranges from 0-100, defaults to 75
+        :type quality: int, optional
+        :param compression_level: Directly set sticker processor compression_level, ranges from 1-6, defaults to 4
+        :type compression_level: int, optional
         :param passthrough: Don't process sticker, send as is, defaults to False.
         :type passthrough: bool, optional
         :return: The constructed sticker message
@@ -1138,6 +1146,13 @@ class NewClient:
             img = Image.open(io_save)
             if len(ImageSequence.all_frames(img)) < 2:
                 is_image = True
+        elif mime == "image/gif":
+            io_save = BytesIO(sticker)
+            img = Image.open(io_save)
+            if len(ImageSequence.all_frames(img)) < 2:
+                is_image = True
+            else:
+                animated_gif = True
         elif mime == "video/webm":
             is_webm = True
         elif (mime := mime.split("/"))[0] == "image":
@@ -1151,7 +1166,14 @@ class NewClient:
         elif not passthrough:
             animated = True
             sticker, saved_exif = convert_to_sticker(
-                sticker, name, packname, enforce_not_broken, animated_gif, is_webm
+                sticker,
+                name,
+                packname,
+                enforce_not_broken,
+                animated_gif,
+                is_webm,
+                quality,
+                compression_level,
             )
             if saved_exif:
                 io_save = BytesIO(sticker)
@@ -1161,6 +1183,10 @@ class NewClient:
         else:
             if not is_webp:
                 raise ConvertStickerError("File is not a webp, which is required for passthrough.")
+            if name or packname:
+                b = add_exif_to_sticker(sticker, name, packname)
+                io_save = BytesIO(b) if b else io_save
+
         if not (passthrough or saved_exif):
             stk.save(
                 io_save,
@@ -1196,6 +1222,8 @@ class NewClient:
         crop: bool = False,
         enforce_not_broken: bool = False,
         animated_gif: bool = False,
+        quality: int = 75,
+        compression_level: int = 4,
         passthrough: bool = False,
         add_msg_secret: bool = False,
     ) -> SendResponse:
@@ -1218,6 +1246,10 @@ class NewClient:
         :type enforce_not_broken: bool, optional
         :param animated_gif: Ensure transparent media are properly processed, defaults to False
         :type animated_gif: bool, optional
+        :param quality: Directly set sticker quality, ranges from 0-100, defaults to 75
+        :type quality: int, optional
+        :param compression_level: Directly set sticker processor compression_level, ranges from 1-6, defaults to 4
+        :type compression_level: int, optional
         :param passthrough: Don't process sticker, send as is, defaults to False.
         :type passthrough: bool, optional
         :param add_msg_secret: Whether to generate 32 random bytes for messageSecret inside MessageContextInfo before sending, defaults to False
@@ -1235,6 +1267,8 @@ class NewClient:
                 crop,
                 enforce_not_broken,
                 animated_gif,
+                quality,
+                compression_level,
                 passthrough,
             ),
             add_msg_secret=add_msg_secret,
@@ -1340,6 +1374,8 @@ class NewClient:
         publisher: str = "",
         crop: bool = False,
         animated_gif: bool = False,
+        quality: int = 75,
+        compression_level: int = 4,
         passthrough: bool = False,
     ) -> list[Message]:
         """Builds a list of sticker-pack messages from image or video files.
@@ -1373,6 +1409,8 @@ class NewClient:
             crop=crop,
             passthrough=passthrough,
             transparent=animated_gif,
+            quality=quality,
+            compression_level=compression_level,
         )
 
         def ensure_non_broken_packs(stickers):
@@ -1412,6 +1450,8 @@ class NewClient:
         publisher: str = "",
         crop: bool = False,
         animated_gif: bool = False,
+        quality: int = 75,
+        compression_level: int = 4,
         passthrough: bool = False,
         add_msg_secret: bool = False,
     ) -> list[SendResponse]:
@@ -1430,6 +1470,12 @@ class NewClient:
         :type publisher: str, optional
         :param crop: Whether to crop-center the image, defaults to False
         :type crop: bool, optional
+        :param animated_gif: Ensure transparent media are properly processed, defaults to False
+        :type animated_gif: bool, optional
+        :param quality: Directly set sticker quality, ranges from 0-100, defaults to 75
+        :type quality: int, optional
+        :param compression_level: Directly set sticker processor compression_level, ranges from 1-6, defaults to 4
+        :type compression_level: int, optional
         :param add_msg_secret: Whether to generate 32 random bytes for messageSecret inside MessageContextInfo before sending, defaults to False
         :type add_msg_secret: bool, optional
         :return: A list of response(s) from the send message function.
@@ -1437,7 +1483,15 @@ class NewClient:
         """
         responses = []
         msgs = self.build_stickerpack_message(
-            files, quoted, packname, publisher, crop, animated_gif, passthrough
+            files,
+            quoted,
+            packname,
+            publisher,
+            crop,
+            animated_gif,
+            quality,
+            compression_level,
+            passthrough,
         )
         for msg in msgs:
             response = self.send_message(
@@ -1456,6 +1510,7 @@ class NewClient:
         viewonce: bool = False,
         gifplayback: bool = False,
         is_gif: bool = False,
+        spoiler: bool = False,
         ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
         skip_sidecar: bool = False,
@@ -1476,6 +1531,8 @@ class NewClient:
         :type gifplayback: bool, optional
         :param is_gif: Optional. Whether the video to be sent is a gif. Defaults to False.
         :type is_gif: bool, optional
+        :param spoiler: Optional. Whether the image's thumbnail should be blurred. Defaults to False.
+        :type spoiler: bool, optional
         :return: A video message with the given parameters.
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
@@ -1507,6 +1564,14 @@ class NewClient:
                 pass
             if is_avc:
                 buff = ffmpeg.to_mp4_copy()
+        if spoiler:
+            img = Image.open(BytesIO(thumbnail))
+            if img.mode != "RGB":
+                img = img.convert("RGB")
+            img = img.filter(ImageFilter.GaussianBlur(radius=12))
+            thumbnail = BytesIO()
+            img.save(thumbnail, format="jpeg")
+            thumbnail = thumbnail.getvalue()
         upload = self.upload(buff)
         message = Message(
             videoMessage=VideoMessage(
@@ -1548,6 +1613,7 @@ class NewClient:
         viewonce: bool = False,
         gifplayback: bool = False,
         is_gif: bool = False,
+        spoiler: bool = False,
         ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
         skip_sidecar: bool = False,
@@ -1569,6 +1635,8 @@ class NewClient:
         :type gifplayback: bool, optional
         :param is_gif: Optional. Whether the video to be sent is a gif. Defaults to False.
         :type is_gif: bool, optional
+        :param spoiler: Optional. Whether the image's thumbnail should be blurred. Defaults to False.
+        :type spoiler: bool, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
         :param mentions_are_lids: whether mentions contained in message or ghost_mentions are lids, defaults to False.
@@ -1589,6 +1657,7 @@ class NewClient:
                 viewonce,
                 gifplayback,
                 is_gif,
+                spoiler,
                 ghost_mentions,
                 mentions_are_lids,
                 skip_sidecar,
@@ -1602,6 +1671,7 @@ class NewClient:
         caption: str | None = None,
         quoted: neonize_proto.Message | None = None,
         viewonce: bool = False,
+        spoiler: bool = False,
         ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
     ) -> Message:
@@ -1620,6 +1690,8 @@ class NewClient:
         :type quoted: Optional[neonize_proto.Message], optional
         :param viewonce: Whether the image message should be viewable only once, defaults to False.
         :type viewonce: bool, optional
+        :param spoiler: Optional. Whether the image's thumbnail should be blurred. Defaults to False.
+        :type spoiler: bool, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
         :param mentions_are_lids: whether mentions contained in message or ghost_mentions are lids, defaults to False.
@@ -1630,6 +1702,10 @@ class NewClient:
         n_file = get_bytes_from_name_or_url(file)
         img = Image.open(BytesIO(n_file))
         img.thumbnail(AspectRatioMethod(*img.size, res=200))
+        if spoiler:
+            if img.mode != "RGB":
+                img = img.convert("RGB")
+            img = img.filter(ImageFilter.GaussianBlur(radius=12))
         thumbnail = BytesIO()
         img_saveable = img if img.mode == "RGB" else img.convert("RGB")
         img_saveable.save(thumbnail, format="jpeg")
@@ -1668,6 +1744,7 @@ class NewClient:
         caption: str | None = None,
         quoted: neonize_proto.Message | None = None,
         viewonce: bool = False,
+        spoiler: bool = False,
         ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
         add_msg_secret: bool = False,
@@ -1684,6 +1761,8 @@ class NewClient:
         :type quoted: Optional[Message], optional
         :param viewonce: Optional. Whether the image should be viewonce. Defaults to False.
         :type viewonce: bool, optional
+        :param spoiler: Optional. Whether the image's thumbnail should be blurred. Defaults to False.
+        :type spoiler: bool, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
         :param mentions_are_lids: whether mentions contained in message or ghost_mentions are lids, defaults to False.
@@ -1701,6 +1780,7 @@ class NewClient:
                 quoted,
                 viewonce=viewonce,
                 ghost_mentions=ghost_mentions,
+                spoiler=spoiler,
                 mentions_are_lids=mentions_are_lids,
             ),
             add_msg_secret=add_msg_secret,
@@ -1744,6 +1824,7 @@ class NewClient:
         files: list,
         caption: str | None = None,
         quoted: neonize_proto.Message | None = None,
+        spoiler: bool = False,
         ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
         add_msg_secret: bool = False,
@@ -1758,6 +1839,8 @@ class NewClient:
         :type caption: Optional[str], optional
         :param quoted: Optional. The message to which the album is a reply. Defaults to None.
         :type quoted: Optional[Message], optional
+        :param spoiler: Optional. Whether the image's thumbnail should be blurred. Defaults to False.
+        :type spoiler: bool, optional
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
         :param add_msg_secret: Optional. Whether to generate 32 random bytes for messageSecret inside MessageContextInfo before sending, defaults to False
@@ -1817,6 +1900,7 @@ class NewClient:
                     msg_association,
                     caption=caption,
                     quoted=quoted,
+                    spoiler=spoiler,
                     ghost_mentions=ghost_mentions,
                     mentions_are_lids=mentions_are_lids,
                 )
@@ -1830,6 +1914,7 @@ class NewClient:
                         media_type,
                         msg_association,
                         quoted=quoted,
+                        spoiler=spoiler,
                     )
                     for file, media_type in medias[1:]
                 ]
@@ -2201,7 +2286,7 @@ class NewClient:
         """
         if numbers:
             numbers_buf = " ".join(numbers).encode()
-            protobytes = self.__client.IsOnWhatsApp(self.uuid, numbers_buf, len(numbers_buf))
+            protobytes = self.__client.IsOnWhatsApp(self.uuid, numbers_buf)
             model = IsOnWhatsAppReturnFunction.FromString(protobytes)
             if model.Error:
                 raise IsOnWhatsAppError(model.Error)
@@ -2849,15 +2934,21 @@ class NewClient:
         if err:
             raise SetPassiveError(err)
 
-    def set_status_message(self, msg: str):
+    def set_status_message(self, msg: str, emoji: str = "", seconds: int = 0):
         """
         Sets a status message for a client using the client's UUID.
 
         :param msg: The status message to be set.
         :type msg: str
+        :param emoji: Optional status emoji, defaults to none.
+        :type emoji: str
+        :param seconds: Optional duration in seconds after which the status expires, defaults to 0 (no expiry).
+        :type seconds: int
         :raises SetStatusMessageError: If there is an error while setting the status message.
         """
-        err = self.__client.SetStatusMessage(self.uuid, msg.encode()).decode()
+        err = self.__client.SetStatusMessage(
+            self.uuid, msg.encode(), emoji.encode(), seconds
+        ).decode()
         if err:
             raise SetStatusMessageError(err)
 

@@ -262,6 +262,8 @@ class AFFmpeg:
         animated_gif: bool = False,
         max_sticker_size: int = 0,
         is_webm=False,
+        quality=75,
+        compression_level=4,
     ) -> bytes:
         """
         This function converts a given file to webp format using ffmpeg.
@@ -327,8 +329,12 @@ class AFFmpeg:
                     "picture",
                     "-fs",
                     f"{MAX_STICKER_FILESIZE}",
-                    "-q:v",
+                    "-b:v",
                     bitrate,
+                    "-q:v",
+                    str(quality),
+                    "-compression_level",
+                    str(compression_level),
                 ]
             )
         ffmpeg_command.append(temp)
@@ -605,6 +611,8 @@ class FFmpeg:
         animated_gif: bool = False,
         max_sticker_size: int = 0,
         is_webm=False,
+        quality=75,
+        compression_level=4,
     ) -> bytes:
         """
         This function converts a given file to webp format using ffmpeg.
@@ -670,8 +678,12 @@ class FFmpeg:
                     "picture",
                     "-fs",
                     f"{MAX_STICKER_FILESIZE}",
-                    "-q:v",
+                    "-b:v",
                     bitrate,
+                    "-q:v",
+                    str(quality),
+                    "-compression_level",
+                    str(compression_level),
                 ]
             )
         ffmpeg_command.append(temp)
