@@ -169,7 +169,12 @@ from ..proto.waE2E.WAWebProtobufsE2E_pb2 import (
 from ..proto.waMsgApplication.WAMsgApplication_pb2 import MessageApplication
 from ..types import MessageServerID, MessageWithContextInfo
 from ..utils import add_exif, gen_vcard, get_message_type, validate_link
-from ..utils.calc import AspectRatioMethod, auto_sticker, original_sticker
+from ..utils.calc import (
+    AspectRatioMethod,
+    auto_sticker,
+    get_sidecar_from_upload,
+    original_sticker,
+)
 from ..utils.enum import (
     BlocklistAction,
     ChatPresence,
@@ -1475,6 +1480,7 @@ class NewAClient:
         spoiler: bool = False,
         ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
+        skip_sidecar: bool = False,
     ) -> Message:
         """
         This function is used to build a video message. It uploads a video file, extracts necessary information,
@@ -1497,6 +1503,8 @@ class NewAClient:
         :return: A video message with the given parameters.
         :param ghost_mentions: List of users to tag silently (Takes precedence over auto detected mentions)
         :type ghost_mentions: str, optional
+        :param skip_sidecar: Optional. Whether to skip generation of sidecar, defaults to False
+        :type skip_sidecar: bool, optional
         :rtype: Message
         """
         io = BytesIO(await get_bytes_from_name_or_url_async(file))
@@ -1505,9 +1513,22 @@ class NewAClient:
         if is_gif:
             async with AFFmpeg(file) as ffmpeg:
                 buff = file = await ffmpeg.gif_to_mp4()
+        is_avc = False
         async with AFFmpeg(file) as ffmpeg:
-            duration = int((await ffmpeg.extract_info()).format.duration)
-            thumbnail = await ffmpeg.extract_thumbnail()
+            info = await ffmpeg.extract_info()
+            duration = int(info.format.duration)
+            try:
+                thumbnail = await ffmpeg.extract_thumbnail()
+            except Exception:
+                thumbnail = await get_bytes_from_name_or_url_async(
+                    "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"
+                )
+            try:
+                is_avc = any(s.is_avc for s in info.streams)
+            except Exception:
+                pass
+            if is_avc:
+                buff = await ffmpeg.to_mp4_copy()
         if spoiler:
             img = Image.open(BytesIO(thumbnail))
             if img.mode != "RGB":
@@ -1542,6 +1563,8 @@ class NewAClient:
                 ),
             )
         )
+        if is_avc and not skip_sidecar:
+            message.videoMessage.streamingSidecar = get_sidecar_from_upload(buff, upload.MediaKey)
         if quoted:
             message.videoMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
         return message
@@ -1558,6 +1581,7 @@ class NewAClient:
         spoiler: bool = False,
         ghost_mentions: str | None = None,
         mentions_are_lids: bool = False,
+        skip_sidecar: bool = False,
         add_msg_secret: bool = False,
     ) -> SendResponse:
         """Sends a video to the specified recipient.
@@ -1597,6 +1621,7 @@ class NewAClient:
                 spoiler,
                 ghost_mentions,
                 mentions_are_lids,
+                skip_sidecar,
             ),
             add_msg_secret=add_msg_secret,
         )

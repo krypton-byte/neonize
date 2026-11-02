@@ -387,6 +387,78 @@ class AFFmpeg:
         os.remove(temp)
         return buf
 
+    async def to_mp4_copy(self) -> bytes:
+        """Remuxes video to MP4 container using stream copy and faststart (no re-encoding)."""
+        temp = os.path.join(tempfile.gettempdir(), f"{uuid.uuid4()}.mp4")
+        await self.call(
+            [
+                "ffmpeg",
+                "-fflags",
+                "+genpts+igndts",
+                "-err_detect",
+                "ignore_err",
+                "-max_error_rate",
+                "1.0",
+                "-i",
+                self.filepath,
+                "-map",
+                "0:v",
+                "-map",
+                "0:a?",
+                "-c:v",
+                "copy",
+                "-c:a",
+                "copy",
+                "-movflags",
+                "+faststart",
+                temp,
+                "-y",
+            ]
+        )
+        try:
+            with open(temp, "rb") as file:
+                buf = file.read()
+        finally:
+            if os.path.exists(temp):
+                os.remove(temp)
+        return buf
+
+    async def to_mp4_reencode(self) -> bytes:
+        """Converts/re-encodes video to H.264 with AAC copy and faststart."""
+        temp = os.path.join(tempfile.gettempdir(), f"{uuid.uuid4()}.mp4")
+        await self.call(
+            [
+                "ffmpeg",
+                "-fflags",
+                "+genpts+igndts",
+                "-err_detect",
+                "ignore_err",
+                "-max_error_rate",
+                "1.0",
+                "-i",
+                self.filepath,
+                "-map",
+                "0:v",
+                "-map",
+                "0:a?",
+                "-c:v",
+                "libx264",
+                "-c:a",
+                "copy",
+                "-movflags",
+                "+faststart",
+                temp,
+                "-y",
+            ]
+        )
+        try:
+            with open(temp, "rb") as file:
+                buf = file.read()
+        finally:
+            if os.path.exists(temp):
+                os.remove(temp)
+        return buf
+
     async def to_mp3(self) -> bytes:
         temp = tempfile.gettempdir() + "/" + uuid.uuid4().__str__() + ".mp3"
         await self.call(
@@ -661,6 +733,78 @@ class FFmpeg:
         with open(temp, "rb") as file:
             buf = file.read()
         os.remove(temp)
+        return buf
+
+    def to_mp4_copy(self) -> bytes:
+        """Remuxes video to MP4 container using stream copy and faststart (no re-encoding)."""
+        temp = os.path.join(tempfile.gettempdir(), f"{uuid.uuid4()}.mp4")
+        self.call(
+            [
+                "ffmpeg",
+                "-fflags",
+                "+genpts+igndts",
+                "-err_detect",
+                "ignore_err",
+                "-max_error_rate",
+                "1.0",
+                "-i",
+                self.filepath,
+                "-map",
+                "0:v",
+                "-map",
+                "0:a?",
+                "-c:v",
+                "copy",
+                "-c:a",
+                "copy",
+                "-movflags",
+                "+faststart",
+                temp,
+                "-y",
+            ]
+        )
+        try:
+            with open(temp, "rb") as file:
+                buf = file.read()
+        finally:
+            if os.path.exists(temp):
+                os.remove(temp)
+        return buf
+
+    def to_mp4_reencode(self) -> bytes:
+        """Converts/re-encodes video to H.264 with AAC copy and faststart."""
+        temp = os.path.join(tempfile.gettempdir(), f"{uuid.uuid4()}.mp4")
+        self.call(
+            [
+                "ffmpeg",
+                "-fflags",
+                "+genpts+igndts",
+                "-err_detect",
+                "ignore_err",
+                "-max_error_rate",
+                "1.0",
+                "-i",
+                self.filepath,
+                "-map",
+                "0:v",
+                "-map",
+                "0:a?",
+                "-c:v",
+                "libx264",
+                "-c:a",
+                "copy",
+                "-movflags",
+                "+faststart",
+                temp,
+                "-y",
+            ]
+        )
+        try:
+            with open(temp, "rb") as file:
+                buf = file.read()
+        finally:
+            if os.path.exists(temp):
+                os.remove(temp)
         return buf
 
     def to_mp3(self) -> bytes:
