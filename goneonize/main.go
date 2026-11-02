@@ -344,6 +344,8 @@ func GetPNFromLID(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesRe
 	return ProtoReturnV3(&return_)
 }
 
+const sprSupported = false
+
 //export SendSPRMessage
 func SendSPRMessage(id *C.char, groupByte *C.uchar, groupSize C.int, targetsByte *C.uchar, targetsSize C.int, targetText *C.char, decoyText *C.char) *C.struct_BytesReturn {
 	return_ := defproto.SendMessageReturnFunction{}
@@ -351,6 +353,12 @@ func SendSPRMessage(id *C.char, groupByte *C.uchar, groupSize C.int, targetsByte
 	client := clients[clientID]
 	if client == nil {
 		return_.Error = proto.String("client is nil")
+		return ProtoReturnV3(&return_)
+	}
+	// SPR needs SendRequestExtra.GroupParticipants and RotateGroupSenderKey,
+	// which whatsmeow does not have yet.
+	if !sprSupported {
+		return_.Error = proto.String("SPR group send is not supported by this whatsmeow version")
 		return ProtoReturnV3(&return_)
 	}
 
@@ -464,9 +472,7 @@ func SendSPRMessage(id *C.char, groupByte *C.uchar, groupSize C.int, targetsByte
 		},
 	}
 	extra := whatsmeow.SendRequestExtra{
-		ID:                   messageID,
-		GroupParticipants:    participants,
-		RotateGroupSenderKey: true,
+		ID: messageID,
 	}
 	response, err := client.SendMessage(ctx, group, &message, extra)
 	if err != nil {
