@@ -223,7 +223,9 @@ class ContactStore:
         :rtype: ContactsPutPushNameReturnFunction
         """
         user_bytes = user.SerializeToString()
-        protobytes = self.__client.PutPushName(user_bytes, len(user_bytes), pushname.encode())
+        protobytes = self.__client.PutPushName(
+            self.uuid, user_bytes, len(user_bytes), pushname.encode()
+        )
         model = ContactsPutPushNameReturnFunction.FromString(protobytes)
         if model.Error:
             raise ContactStoreError(model.Error)
@@ -2174,7 +2176,7 @@ class NewClient:
         """
         if numbers:
             numbers_buf = " ".join(numbers).encode()
-            protobytes = self.__client.IsOnWhatsApp(self.uuid, numbers_buf, len(numbers_buf))
+            protobytes = self.__client.IsOnWhatsApp(self.uuid, numbers_buf)
             model = IsOnWhatsAppReturnFunction.FromString(protobytes)
             if model.Error:
                 raise IsOnWhatsAppError(model.Error)

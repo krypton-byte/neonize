@@ -468,6 +468,7 @@ if not os.environ.get("SPHINX"):
     ]
     gocode.NewsletterToggleMute.restype = ctypes.c_void_p
     gocode.Disconnect.argtypes = [ctypes.c_char_p]
+    gocode.Disconnect.restype = None
     gocode.ResolveContactQRLink.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     gocode.ResolveContactQRLink.restype = ctypes.POINTER(Bytes)
     gocode.ResolveBusinessMessageLink.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
@@ -487,7 +488,7 @@ if not os.environ.get("SPHINX"):
     ]
     gocode.SetDisappearingTimer.restype = ctypes.c_void_p
     gocode.SetForceActiveDeliveryReceipts.argtypes = [ctypes.c_char_p, ctypes.c_bool]
-    gocode.SetForceActiveDeliveryReceipts.restype = ctypes.c_void_p
+    gocode.SetForceActiveDeliveryReceipts.restype = None
     gocode.SetGroupAnnounce.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -629,9 +630,9 @@ if not os.environ.get("SPHINX"):
     gocode.DecryptPollVote.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.DecryptPollVote.restype = ctypes.POINTER(Bytes)
     gocode.Stop.argtypes = [ctypes.c_char_p]
-    gocode.Stop.restype = ctypes.c_void_p
+    gocode.Stop.restype = None
     gocode.StopAll.argtypes = []
-    gocode.StopAll.restype = ctypes.c_void_p
+    gocode.StopAll.restype = None
     gocode.FreeBytesStruct.argtypes = [ctypes.POINTER(Bytes)]
     gocode.FreeBytesStruct.restype = None
 
@@ -723,15 +724,14 @@ if not os.environ.get("SPHINX"):
         "GetAllDevices",
         "SendPresence",
         "SetPushName",
-        "SetForceActiveDeliveryReceipts",
-        "Stop",
-        "StopAll",
     ):
         getattr(gocode, _string_returning_func).errcheck = consume_cstring
 
     # Attach consume_bytes_struct errcheck to every FFI function returning POINTER(Bytes).
     # After this, callers receive a plain ``bytes`` object and the C-heap struct is freed automatically.
     for _bytes_returning_func in (
+        "DecryptPollVote",
+        "SendFBMessage",
         "GetLIDFromPN",
         "GetPNFromLID",
         "PinMessage",
