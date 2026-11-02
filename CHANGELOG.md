@@ -127,6 +127,36 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.8.0 (2026-11-02)
+
+### Bug Fixes
+
+- Map PatchInfo.Type to the right app state collection
+  ([`c22dd84`](https://github.com/krypton-byte/neonize/commit/c22dd8436b95b97b3df92235aefe21dc30ecdba5))
+
+### Documentation
+
+- Switch the README and docs banners to the light/dark artwork
+  ([`7ae28b4`](https://github.com/krypton-byte/neonize/commit/7ae28b4db40ee402df7edd2af6bf1b17f044de1d))
+
+### Features
+
+- Add fetch_app_state and request_app_state_recovery
+  ([`2de735a`](https://github.com/krypton-byte/neonize/commit/2de735a611b59fbf6e640127c579cdafcf14ac62))
+
+- Forward archive, pin, mute and mark-as-read app state events
+  ([`2fee9e4`](https://github.com/krypton-byte/neonize/commit/2fee9e4c00af9124e400be3eae448cee0539427b))
+
+- Forward the chat deleted app state event
+  ([`5ff608f`](https://github.com/krypton-byte/neonize/commit/5ff608f931b1aad627cba26186deb9c5df3a71ce))
+
+- Forward the delete-message-for-me app state event
+  ([`4bda92e`](https://github.com/krypton-byte/neonize/commit/4bda92e723c66ce59bb30f6cae9df1cd1e3dcb33))
+
+- Forward the message starred app state event
+  ([`33d571e`](https://github.com/krypton-byte/neonize/commit/33d571e16291d313ea72e7ae61027d293b4262d1))
+
+
 ## v0.7.0 (2026-11-02)
 
 ### Bug Fixes
