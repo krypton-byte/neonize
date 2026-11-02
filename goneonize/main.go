@@ -959,6 +959,18 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 			}
 		case *events.Message:
 			if _, ok := subscribers[17]; ok {
+				// Newer WhatsApp clients wrap edits in a secret-encrypted message.
+				// Decrypt it before encoding the event for Python so consumers
+				// receive the usual protocolMessage with MESSAGE_EDIT.
+				if encrypted := v.Message.GetSecretEncryptedMessage(); encrypted != nil &&
+					encrypted.GetSecretEncType() == waE2E.SecretEncryptedMessage_MESSAGE_EDIT {
+					decrypted, err := client.DecryptSecretEncryptedMessage(ctx, v)
+					if err != nil {
+						clientLog.Warnf("Failed to decrypt encrypted message edit %s: %v", v.Info.ID, err)
+					} else {
+						v.Message = decrypted
+					}
+				}
 				messageSource := utils.EncodeEventTypesMessage(v)
 				messageEvent := MessageEvent{
 					eventType: 17,
