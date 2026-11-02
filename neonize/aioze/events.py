@@ -20,6 +20,11 @@ from ..proto.Neonize_pb2 import CallPreAccept as CallPreAcceptEv
 from ..proto.Neonize_pb2 import CallRelayLatency as CallRelayLatencyEv
 from ..proto.Neonize_pb2 import CallTerminate as CallTerminateEv
 from ..proto.Neonize_pb2 import CallTransport as CallTransportEv
+from ..proto.Neonize_pb2 import ChatArchive as ChatArchiveEv
+from ..proto.Neonize_pb2 import ChatDelete as ChatDeleteEv
+from ..proto.Neonize_pb2 import ChatMarkAsRead as ChatMarkAsReadEv
+from ..proto.Neonize_pb2 import ChatMute as ChatMuteEv
+from ..proto.Neonize_pb2 import ChatPin as ChatPinEv
 from ..proto.Neonize_pb2 import ChatPresence as ChatPresenceEv
 from ..proto.Neonize_pb2 import ClientOutdated as ClientOutdatedEv
 from ..proto.Neonize_pb2 import Connected as ConnectedEv
@@ -33,6 +38,7 @@ from ..proto.Neonize_pb2 import KeepAliveRestored as KeepAliveRestoredEv
 from ..proto.Neonize_pb2 import KeepAliveTimeout as KeepAliveTimeoutEv
 from ..proto.Neonize_pb2 import LoggedOut as LoggedOutEv
 from ..proto.Neonize_pb2 import Message as MessageEv
+from ..proto.Neonize_pb2 import MessageDeleteForMe as MessageDeleteForMeEv
 from ..proto.Neonize_pb2 import MessageStar as MessageStarEv
 from ..proto.Neonize_pb2 import NewsletterJoin as NewsletterJoinEv
 from ..proto.Neonize_pb2 import NewsletterLeave as NewsletterLeaveEv
@@ -75,8 +81,13 @@ __all__ = [
     "CallOfferNoticeEv",
     "CallPreAcceptEv",
     "CallRelayLatencyEv",
+    "ChatArchiveEv",
+    "ChatMarkAsReadEv",
+    "ChatMuteEv",
+    "ChatPinEv",
     "CallTerminateEv",
     "CallTransportEv",
+    "ChatDeleteEv",
     "ChatPresenceEv",
     "ClientOutdatedEv",
     "ConnectFailureEv",
@@ -89,6 +100,7 @@ __all__ = [
     "KeepAliveRestoredEv",
     "KeepAliveTimeoutEv",
     "LoggedOutEv",
+    "MessageDeleteForMeEv",
     "MessageEv",
     "MessageStarEv",
     "NewsLetterMessageMetaEv",
