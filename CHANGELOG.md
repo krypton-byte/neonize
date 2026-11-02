@@ -127,6 +127,57 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.7.0 (2026-11-02)
+
+### Bug Fixes
+
+- Decrypt secret-encrypted WhatsApp message edits
+  ([`4f8ef91`](https://github.com/krypton-byte/neonize/commit/4f8ef911c94ad8082bfef35bced8cdd873df9aca))
+
+- Fail closed on unsupported SPR group send transport
+  ([`8afebf4`](https://github.com/krypton-byte/neonize/commit/8afebf45a54ac9a94e0925044ddb9fe5fd3b3c76))
+
+- Handle LID senders in revoke and quotes
+  ([`ca6b24d`](https://github.com/krypton-byte/neonize/commit/ca6b24d15707a8b2309e8a34ded42e377ed8eb33))
+
+- **ffi**: Correct a few binding declarations
+  ([`7439b2f`](https://github.com/krypton-byte/neonize/commit/7439b2f3e322655c434053004efe0fd8fd7b969d))
+
+- **goneonize**: Build with current whatsmeow
+  ([`38a0d3a`](https://github.com/krypton-byte/neonize/commit/38a0d3a2296e7df239ed3fbac5b6e8fb4765df59))
+
+- **goneonize**: Don't block forever in FetchMe after Stop
+  ([`551ff67`](https://github.com/krypton-byte/neonize/commit/551ff67e0090c8484b91f02d231e83ee3c9b311c))
+
+- **goneonize**: Let Stop end the QR and pair-code login waits
+  ([`5eb236e`](https://github.com/krypton-byte/neonize/commit/5eb236e903d6e107de87fd91b835bc3eef60cda4))
+
+- **goneonize**: Stop waiting for QR events once the client is stopped
+  ([`ce75a7c`](https://github.com/krypton-byte/neonize/commit/ce75a7c6630a4a6d75d4a2fcaa7ccb204f0e832d))
+
+### Continuous Integration
+
+- Update workflow actions to current majors
+  ([`d8dd283`](https://github.com/krypton-byte/neonize/commit/d8dd28301e00a548e0326e9afab01ee60007e075))
+
+### Features
+
+- Add spoiler option for images, videos and albums
+  ([`c979b5f`](https://github.com/krypton-byte/neonize/commit/c979b5f59f1b1d7e6526fd62b881a4771e92e96b))
+
+- Decrypt secret-encrypted message edits
+  ([`938573d`](https://github.com/krypton-byte/neonize/commit/938573dfcd74fbc952d804b83d8a869fe858d1bc))
+
+- Support emoji and duration in set_status_message
+  ([`bb73f7f`](https://github.com/krypton-byte/neonize/commit/bb73f7f07b1c1dc582ad1fa5bf67262c4d9a3df1))
+
+- **sticker**: Expose quality and compression_level
+  ([`f445e79`](https://github.com/krypton-byte/neonize/commit/f445e791f0dbb244b1280f6b2274bffac282dbf2))
+
+- **video**: Remux H.264 videos and attach a streaming sidecar
+  ([`3f9b51b`](https://github.com/krypton-byte/neonize/commit/3f9b51b269689ff3b67e8e67e562e7c32d216ab4))
+
+
 ## v0.6.1 (2026-11-02)
 
 ### Bug Fixes
