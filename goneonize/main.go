@@ -1267,6 +1267,111 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				}
 				eventChan <- &messageEvent
 			}
+		case *events.Archive:
+			if _, ok := subscribers[46]; ok {
+				chatState := defproto.ChatArchive{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				messageEvent := MessageEvent{
+					eventType: 46,
+					message:   &chatState,
+				}
+				eventChan <- &messageEvent
+			}
+		case *events.Pin:
+			if _, ok := subscribers[47]; ok {
+				chatState := defproto.ChatPin{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				messageEvent := MessageEvent{
+					eventType: 47,
+					message:   &chatState,
+				}
+				eventChan <- &messageEvent
+			}
+		case *events.Mute:
+			if _, ok := subscribers[48]; ok {
+				chatState := defproto.ChatMute{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				messageEvent := MessageEvent{
+					eventType: 48,
+					message:   &chatState,
+				}
+				eventChan <- &messageEvent
+			}
+		case *events.MarkChatAsRead:
+			if _, ok := subscribers[49]; ok {
+				chatState := defproto.ChatMarkAsRead{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				messageEvent := MessageEvent{
+					eventType: 49,
+					message:   &chatState,
+				}
+				eventChan <- &messageEvent
+			}
+		case *events.DeleteChat:
+			if _, ok := subscribers[51]; ok {
+				chatState := defproto.ChatDelete{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+					DeleteMedia:  proto.Bool(v.DeleteMedia),
+				}
+				messageEvent := MessageEvent{
+					eventType: 51,
+					message:   &chatState,
+				}
+				eventChan <- &messageEvent
+			}
+		case *events.DeleteForMe:
+			if _, ok := subscribers[52]; ok {
+				deleted := defproto.MessageDeleteForMe{
+					ChatJID:      utils.EncodeJidProto(v.ChatJID),
+					SenderJID:    utils.EncodeJidProto(v.SenderJID),
+					IsFromMe:     proto.Bool(v.IsFromMe),
+					MessageID:    proto.String(v.MessageID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				messageEvent := MessageEvent{
+					eventType: 52,
+					message:   &deleted,
+				}
+				eventChan <- &messageEvent
+			}
+		case *events.Star:
+			if _, ok := subscribers[53]; ok {
+				starred := defproto.MessageStar{
+					ChatJID:      utils.EncodeJidProto(v.ChatJID),
+					SenderJID:    utils.EncodeJidProto(v.SenderJID),
+					IsFromMe:     proto.Bool(v.IsFromMe),
+					MessageID:    proto.String(v.MessageID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				messageEvent := MessageEvent{
+					eventType: 53,
+					message:   &starred,
+				}
+				eventChan <- &messageEvent
+			}
 		case *events.RotateADVSecret:
 			if _, ok := subscribers[45]; ok {
 				rot := defproto.RotateADVSecret{
@@ -2118,6 +2223,24 @@ func SendAppState(id *C.char, patchByte *C.uchar, patchSize C.int) *C.char {
 		return C.CString(err_unmarshal.Error())
 	}
 	err := clientFor(C.GoString(id)).SendAppState(context.Background(), *utils.DecodePatchInfo(&patchInfo))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
+//export FetchAppState
+func FetchAppState(id *C.char, name *C.char, fullSync C.int) *C.char {
+	err := clientFor(C.GoString(id)).FetchAppState(context.Background(), appstate.WAPatchName(C.GoString(name)), fullSync != 0, false)
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
+//export RequestAppStateRecovery
+func RequestAppStateRecovery(id *C.char, name *C.char) *C.char {
+	_, err := clientFor(C.GoString(id)).SendPeerMessage(context.Background(), whatsmeow.BuildAppStateRecoveryRequest(appstate.WAPatchName(C.GoString(name))))
 	if err != nil {
 		return C.CString(err.Error())
 	}

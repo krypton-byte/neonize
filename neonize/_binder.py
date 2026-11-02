@@ -477,6 +477,10 @@ if not os.environ.get("SPHINX"):
     gocode.PairPhone.restype = ctypes.POINTER(Bytes)
     gocode.SendAppState.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.SendAppState.restype = ctypes.c_void_p
+    gocode.FetchAppState.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.FetchAppState.restype = ctypes.c_void_p
+    gocode.RequestAppStateRecovery.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+    gocode.RequestAppStateRecovery.restype = ctypes.c_void_p
     gocode.SetDefaultDisappearingTimer.argtypes = [ctypes.c_char_p, ctypes.c_int64]
     gocode.SetDefaultDisappearingTimer.restype = ctypes.c_void_p
     gocode.SetDisappearingTimer.argtypes = [
@@ -711,6 +715,8 @@ if not os.environ.get("SPHINX"):
         "NewsletterSendReaction",
         "NewsletterToggleMute",
         "SendAppState",
+        "FetchAppState",
+        "RequestAppStateRecovery",
         "SetDefaultDisappearingTimer",
         "SetDisappearingTimer",
         "SetGroupAnnounce",

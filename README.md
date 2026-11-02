@@ -1,11 +1,11 @@
 <div align="center">
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/banner_light.png">
-    <source media="(prefers-color-scheme: light)" srcset="assets/banner_dark.png">
-<img alt="Neonize - WhatsApp automation for Python" src="assets/banner_dark.png" width="100%">
-  </picture>
-</p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/banner_light.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/banner_dark.png">
+  <img src="assets/banner_dark.png" alt="Neonize - WhatsApp automation for Python" width="100%">
+</picture>
+
+# Neonize
 
 ### WhatsApp Automation for Python
 

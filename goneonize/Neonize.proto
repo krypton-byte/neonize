@@ -896,6 +896,60 @@ message RotateADVSecret {
     required string OldSecret = 1;
     required string NewSecret = 2;
 }
+// Chat state changes made on the phone (app state sync): archive, pin, mute
+// and mark-as-read. JID is the chat; Timestamp is in seconds.
+message ChatArchive { //46
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.ArchiveChatAction Action = 3;
+    required bool FromFullSync = 4;
+}
+message ChatPin { //47
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.PinAction Action = 3;
+    required bool FromFullSync = 4;
+}
+message ChatMute { //48
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.MuteAction Action = 3;
+    required bool FromFullSync = 4;
+}
+message ChatMarkAsRead { //49
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.MarkChatAsReadAction Action = 3;
+    required bool FromFullSync = 4;
+}
+// Chat deleted on the phone (app state sync).
+message ChatDelete { //51
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.DeleteChatAction Action = 3;
+    required bool FromFullSync = 4;
+    required bool DeleteMedia = 5;
+}
+// Message deleted for the current user on another device (app state sync).
+message MessageDeleteForMe { //52
+    required JID ChatJID = 1;
+    optional JID SenderJID = 2;
+    required bool IsFromMe = 3;
+    required string MessageID = 4;
+    required int64 Timestamp = 5;
+    optional WAWebProtobufSyncAction.DeleteMessageForMeAction Action = 6;
+    required bool FromFullSync = 7;
+}
+// Message starred or unstarred on another device (app state sync).
+message MessageStar { //53
+    required JID ChatJID = 1;
+    optional JID SenderJID = 2;
+    required bool IsFromMe = 3;
+    required string MessageID = 4;
+    required int64 Timestamp = 5;
+    optional WAWebProtobufSyncAction.StarAction Action = 6;
+    required bool FromFullSync = 7;
+}
 message UpdateGroupParticipantsReturnFunction {
     optional string Error = 1;
     repeated GroupParticipant participants = 2;
