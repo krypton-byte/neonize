@@ -856,6 +856,8 @@ class SendResponse(_message.Message):
     SERVERID_FIELD_NUMBER: _builtins.int
     DEBUGTIMINGS_FIELD_NUMBER: _builtins.int
     MESSAGE_FIELD_NUMBER: _builtins.int
+    SENDER_FIELD_NUMBER: _builtins.int
+    CHAT_FIELD_NUMBER: _builtins.int
     Timestamp: _builtins.int
     ID: _builtins.str
     ServerID: _builtins.int
@@ -863,6 +865,10 @@ class SendResponse(_message.Message):
     def DebugTimings(self) -> Global___MessageDebugTimings: ...
     @_builtins.property
     def Message(self) -> _WAWebProtobufsE2E_pb2.Message: ...
+    @_builtins.property
+    def Sender(self) -> Global___JID: ...
+    @_builtins.property
+    def Chat(self) -> Global___JID: ...
     def __init__(
         self,
         *,
@@ -871,10 +877,12 @@ class SendResponse(_message.Message):
         ServerID: _builtins.int | None = ...,
         DebugTimings: Global___MessageDebugTimings | None = ...,
         Message: _WAWebProtobufsE2E_pb2.Message | None = ...,
+        Sender: Global___JID | None = ...,
+        Chat: Global___JID | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["DebugTimings", b"DebugTimings", "ID", b"ID", "Message", b"Message", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Chat", b"Chat", "DebugTimings", b"DebugTimings", "ID", b"ID", "Message", b"Message", "Sender", b"Sender", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["DebugTimings", b"DebugTimings", "ID", b"ID", "Message", b"Message", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Chat", b"Chat", "DebugTimings", b"DebugTimings", "ID", b"ID", "Message", b"Message", "Sender", b"Sender", "ServerID", b"ServerID", "Timestamp", b"Timestamp"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
@@ -3966,6 +3974,284 @@ class UndecryptableMessage(_message.Message):
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___UndecryptableMessage: _TypeAlias = UndecryptableMessage  # noqa: Y015
+
+@_typing.final
+class RotateADVSecret(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    OLDSECRET_FIELD_NUMBER: _builtins.int
+    NEWSECRET_FIELD_NUMBER: _builtins.int
+    OldSecret: _builtins.str
+    NewSecret: _builtins.str
+    def __init__(
+        self,
+        *,
+        OldSecret: _builtins.str | None = ...,
+        NewSecret: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["NewSecret", b"NewSecret", "OldSecret", b"OldSecret"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["NewSecret", b"NewSecret", "OldSecret", b"OldSecret"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___RotateADVSecret: _TypeAlias = RotateADVSecret  # noqa: Y015
+
+@_typing.final
+class ChatArchive(_message.Message):
+    """Chat state changes made on the phone (app state sync): archive, pin, mute
+    and mark-as-read. JID is the chat; Timestamp is in seconds.
+    46
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.ArchiveChatAction: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.ArchiveChatAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___ChatArchive: _TypeAlias = ChatArchive  # noqa: Y015
+
+@_typing.final
+class ChatPin(_message.Message):
+    """47"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.PinAction: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.PinAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___ChatPin: _TypeAlias = ChatPin  # noqa: Y015
+
+@_typing.final
+class ChatMute(_message.Message):
+    """48"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.MuteAction: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.MuteAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___ChatMute: _TypeAlias = ChatMute  # noqa: Y015
+
+@_typing.final
+class ChatMarkAsRead(_message.Message):
+    """49"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.MarkChatAsReadAction: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.MarkChatAsReadAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___ChatMarkAsRead: _TypeAlias = ChatMarkAsRead  # noqa: Y015
+
+@_typing.final
+class ChatDelete(_message.Message):
+    """Chat deleted on the phone (app state sync).
+    51
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    DELETEMEDIA_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    DeleteMedia: _builtins.bool
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.DeleteChatAction: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.DeleteChatAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+        DeleteMedia: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "DeleteMedia", b"DeleteMedia", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "DeleteMedia", b"DeleteMedia", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___ChatDelete: _TypeAlias = ChatDelete  # noqa: Y015
+
+@_typing.final
+class MessageDeleteForMe(_message.Message):
+    """Message deleted for the current user on another device (app state sync).
+    52
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    CHATJID_FIELD_NUMBER: _builtins.int
+    SENDERJID_FIELD_NUMBER: _builtins.int
+    ISFROMME_FIELD_NUMBER: _builtins.int
+    MESSAGEID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    IsFromMe: _builtins.bool
+    MessageID: _builtins.str
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def ChatJID(self) -> Global___JID: ...
+    @_builtins.property
+    def SenderJID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.DeleteMessageForMeAction: ...
+    def __init__(
+        self,
+        *,
+        ChatJID: Global___JID | None = ...,
+        SenderJID: Global___JID | None = ...,
+        IsFromMe: _builtins.bool | None = ...,
+        MessageID: _builtins.str | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.DeleteMessageForMeAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "ChatJID", b"ChatJID", "FromFullSync", b"FromFullSync", "IsFromMe", b"IsFromMe", "MessageID", b"MessageID", "SenderJID", b"SenderJID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "ChatJID", b"ChatJID", "FromFullSync", b"FromFullSync", "IsFromMe", b"IsFromMe", "MessageID", b"MessageID", "SenderJID", b"SenderJID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___MessageDeleteForMe: _TypeAlias = MessageDeleteForMe  # noqa: Y015
+
+@_typing.final
+class MessageStar(_message.Message):
+    """Message starred or unstarred on another device (app state sync).
+    53
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    CHATJID_FIELD_NUMBER: _builtins.int
+    SENDERJID_FIELD_NUMBER: _builtins.int
+    ISFROMME_FIELD_NUMBER: _builtins.int
+    MESSAGEID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    IsFromMe: _builtins.bool
+    MessageID: _builtins.str
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def ChatJID(self) -> Global___JID: ...
+    @_builtins.property
+    def SenderJID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.StarAction: ...
+    def __init__(
+        self,
+        *,
+        ChatJID: Global___JID | None = ...,
+        SenderJID: Global___JID | None = ...,
+        IsFromMe: _builtins.bool | None = ...,
+        MessageID: _builtins.str | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.StarAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "ChatJID", b"ChatJID", "FromFullSync", b"FromFullSync", "IsFromMe", b"IsFromMe", "MessageID", b"MessageID", "SenderJID", b"SenderJID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "ChatJID", b"ChatJID", "FromFullSync", b"FromFullSync", "IsFromMe", b"IsFromMe", "MessageID", b"MessageID", "SenderJID", b"SenderJID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___MessageStar: _TypeAlias = MessageStar  # noqa: Y015
 
 @_typing.final
 class UpdateGroupParticipantsReturnFunction(_message.Message):

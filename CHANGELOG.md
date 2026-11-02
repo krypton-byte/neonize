@@ -127,6 +127,123 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.7.0 (2026-11-02)
+
+### Bug Fixes
+
+- Decrypt secret-encrypted WhatsApp message edits
+  ([`4f8ef91`](https://github.com/krypton-byte/neonize/commit/4f8ef911c94ad8082bfef35bced8cdd873df9aca))
+
+- Fail closed on unsupported SPR group send transport
+  ([`8afebf4`](https://github.com/krypton-byte/neonize/commit/8afebf45a54ac9a94e0925044ddb9fe5fd3b3c76))
+
+- Handle LID senders in revoke and quotes
+  ([`ca6b24d`](https://github.com/krypton-byte/neonize/commit/ca6b24d15707a8b2309e8a34ded42e377ed8eb33))
+
+- **ffi**: Correct a few binding declarations
+  ([`7439b2f`](https://github.com/krypton-byte/neonize/commit/7439b2f3e322655c434053004efe0fd8fd7b969d))
+
+- **goneonize**: Build with current whatsmeow
+  ([`38a0d3a`](https://github.com/krypton-byte/neonize/commit/38a0d3a2296e7df239ed3fbac5b6e8fb4765df59))
+
+- **goneonize**: Don't block forever in FetchMe after Stop
+  ([`551ff67`](https://github.com/krypton-byte/neonize/commit/551ff67e0090c8484b91f02d231e83ee3c9b311c))
+
+- **goneonize**: Let Stop end the QR and pair-code login waits
+  ([`5eb236e`](https://github.com/krypton-byte/neonize/commit/5eb236e903d6e107de87fd91b835bc3eef60cda4))
+
+- **goneonize**: Stop waiting for QR events once the client is stopped
+  ([`ce75a7c`](https://github.com/krypton-byte/neonize/commit/ce75a7c6630a4a6d75d4a2fcaa7ccb204f0e832d))
+
+### Continuous Integration
+
+- Update workflow actions to current majors
+  ([`d8dd283`](https://github.com/krypton-byte/neonize/commit/d8dd28301e00a548e0326e9afab01ee60007e075))
+
+### Features
+
+- Add spoiler option for images, videos and albums
+  ([`c979b5f`](https://github.com/krypton-byte/neonize/commit/c979b5f59f1b1d7e6526fd62b881a4771e92e96b))
+
+- Decrypt secret-encrypted message edits
+  ([`938573d`](https://github.com/krypton-byte/neonize/commit/938573dfcd74fbc952d804b83d8a869fe858d1bc))
+
+- Support emoji and duration in set_status_message
+  ([`bb73f7f`](https://github.com/krypton-byte/neonize/commit/bb73f7f07b1c1dc582ad1fa5bf67262c4d9a3df1))
+
+- **sticker**: Expose quality and compression_level
+  ([`f445e79`](https://github.com/krypton-byte/neonize/commit/f445e791f0dbb244b1280f6b2274bffac282dbf2))
+
+- **video**: Remux H.264 videos and attach a streaming sidecar
+  ([`3f9b51b`](https://github.com/krypton-byte/neonize/commit/3f9b51b269689ff3b67e8e67e562e7c32d216ab4))
+
+
+## v0.6.1 (2026-11-02)
+
+### Bug Fixes
+
+- **goneonize**: Build with current whatsmeow
+  ([`38a0d3a`](https://github.com/krypton-byte/neonize/commit/38a0d3a2296e7df239ed3fbac5b6e8fb4765df59))
+
+### Continuous Integration
+
+- Update workflow actions to current majors
+  ([`d8dd283`](https://github.com/krypton-byte/neonize/commit/d8dd28301e00a548e0326e9afab01ee60007e075))
+
+
+## v0.6.0 (2026-10-15)
+
+### Documentation
+
+- Switch the README and docs banners to the light/dark artwork
+  ([`84bb1b2`](https://github.com/krypton-byte/neonize/commit/84bb1b2f49ea8a3a24673dc680d008dad921b787))
+
+### Features
+
+- Add SPR group send transport
+  ([`9e188d1`](https://github.com/krypton-byte/neonize/commit/9e188d19ca6f017f1dc6064b5a338c21194fcead))
+
+
+## v0.5.2 (2026-09-21)
+
+### Bug Fixes
+
+- **ci**: Checkout repository and publish downloaded wheels in publish job
+  ([`3f7c691`](https://github.com/krypton-byte/neonize/commit/3f7c691053a320c1e228bd9eb8e0d39601b15f14))
+
+
+## v0.5.1 (2026-09-21)
+
+### Bug Fixes
+
+- **ci**: Fix shared library copy path in linux and darwin release jobs
+  ([`00d1502`](https://github.com/krypton-byte/neonize/commit/00d1502859d61053acf3163859ee091b961daf28))
+
+
+## v0.5.0 (2026-09-21)
+
+### Bug Fixes
+
+- **ci**: Harden release workflow against existing tags and non-fast-forward
+  ([`3f00f55`](https://github.com/krypton-byte/neonize/commit/3f00f55eeb343ab437d3d30fa9024c11e95b3e90))
+
+- **memory**: FFI memory safety, weakref GC protection, and code cleanup
+  ([`6ae24e7`](https://github.com/krypton-byte/neonize/commit/6ae24e7c415191788384f96035b6ca8afb3bebcb))
+
+- **proto**: Regenerate with protoc 34.1 to match CI toolchain
+  ([`81160e2`](https://github.com/krypton-byte/neonize/commit/81160e2b1ec9e9538c42568ada52e11af2954cc2))
+
+### Documentation
+
+- Convert text flow diagrams to Mermaid and add Context7 chat widget
+  ([`0905e05`](https://github.com/krypton-byte/neonize/commit/0905e05df901e48f0e0cf457e88b02b95e8d20a5))
+
+### Features
+
+- **whatsmeow**: Update whatsmeow, sync protobufs, and fix edge-case panics
+  ([`6a12440`](https://github.com/krypton-byte/neonize/commit/6a1244026845d813147a948eba477f65c894b1cd))
+
+
 ## v0.4.7 (2026-08-26)
 
 ### Bug Fixes

@@ -27,7 +27,7 @@ from waCommon import WACommon_pb2 as waCommon_dot_WACommon__pb2
 from waWeb import WAWebProtobufsWeb_pb2 as waWeb_dot_WAWebProtobufsWeb__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n/waGroupHistory/WAWebProtobufsGroupHistory.proto\x12\x1aWAWebProtobufsGroupHistory\x1a\x1dwaE2E/WAWebProtobufsE2E.proto\x1a\x17waCommon/WACommon.proto\x1a\x1dwaWeb/WAWebProtobufsWeb.proto\"\xaa\x02\n\x0cGroupHistory\x12\x33\n\x08messages\x18\x01 \x03(\x0b\x32!.WAWebProtobufsWeb.WebMessageInfo\x12\x63\n\x1funcountedAssociatedMessageLists\x18\x02 \x03(\x0b\x32:.WAWebProtobufsGroupHistory.UnCountedAssociatedMessageList\x12:\n\x0f\x63ommentMessages\x18\x03 \x03(\x0b\x32!.WAWebProtobufsWeb.WebMessageInfo\x12\x44\n\x19outOfWindowPinnedMessages\x18\x04 \x03(\x0b\x32!.WAWebProtobufsWeb.WebMessageInfo\"\xd2\x01\n\x1eUnCountedAssociatedMessageList\x12\x33\n\x08messages\x18\x01 \x03(\x0b\x32!.WAWebProtobufsWeb.WebMessageInfo\x12+\n\rparentMessage\x18\x02 \x01(\x0b\x32\x14.WACommon.MessageKey\x12N\n\x0f\x61ssociationType\x18\x03 \x01(\x0e\x32\x35.WAWebProtobufsE2E.MessageAssociation.AssociationType\"Y\n\x1eWebMessageInfoWithMessageBytes\x12!\n\x03key\x18\x01 \x01(\x0b\x32\x14.WACommon.MessageKey\x12\x14\n\x0cmessageBytes\x18\x02 \x01(\x0c\"\xab\x01\n.UnCountedAssociatedMessageListWithMessageBytes\x12L\n\x08messages\x18\x01 \x03(\x0b\x32:.WAWebProtobufsGroupHistory.WebMessageInfoWithMessageBytes\x12+\n\rparentMessage\x18\x02 \x01(\x0b\x32\x14.WACommon.MessageKey\"\x95\x03\n\x1cGroupHistoryWithMessageBytes\x12L\n\x08messages\x18\x01 \x03(\x0b\x32:.WAWebProtobufsGroupHistory.WebMessageInfoWithMessageBytes\x12s\n\x1funcountedAssociatedMessageLists\x18\x02 \x03(\x0b\x32J.WAWebProtobufsGroupHistory.UnCountedAssociatedMessageListWithMessageBytes\x12S\n\x0f\x63ommentMessages\x18\x03 \x03(\x0b\x32:.WAWebProtobufsGroupHistory.WebMessageInfoWithMessageBytes\x12]\n\x19outOfWindowPinnedMessages\x18\x04 \x03(\x0b\x32:.WAWebProtobufsGroupHistory.WebMessageInfoWithMessageBytesB*Z(go.mau.fi/whatsmeow/proto/waGroupHistory')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n/waGroupHistory/WAWebProtobufsGroupHistory.proto\x12\x1aWAWebProtobufsGroupHistory\x1a\x1dwaE2E/WAWebProtobufsE2E.proto\x1a\x17waCommon/WACommon.proto\x1a\x1dwaWeb/WAWebProtobufsWeb.proto\"\xe3\x02\n\x0cGroupHistory\x12\x33\n\x08messages\x18\x01 \x03(\x0b\x32!.WAWebProtobufsWeb.WebMessageInfo\x12\x63\n\x1funcountedAssociatedMessageLists\x18\x02 \x03(\x0b\x32:.WAWebProtobufsGroupHistory.UnCountedAssociatedMessageList\x12:\n\x0f\x63ommentMessages\x18\x03 \x03(\x0b\x32!.WAWebProtobufsWeb.WebMessageInfo\x12\x44\n\x19outOfWindowPinnedMessages\x18\x04 \x03(\x0b\x32!.WAWebProtobufsWeb.WebMessageInfo\x12\x37\n\x0cthemeMessage\x18\x05 \x01(\x0b\x32!.WAWebProtobufsWeb.WebMessageInfo\"\xd2\x01\n\x1eUnCountedAssociatedMessageList\x12\x33\n\x08messages\x18\x01 \x03(\x0b\x32!.WAWebProtobufsWeb.WebMessageInfo\x12+\n\rparentMessage\x18\x02 \x01(\x0b\x32\x14.WACommon.MessageKey\x12N\n\x0f\x61ssociationType\x18\x03 \x01(\x0e\x32\x35.WAWebProtobufsE2E.MessageAssociation.AssociationType\"Y\n\x1eWebMessageInfoWithMessageBytes\x12!\n\x03key\x18\x01 \x01(\x0b\x32\x14.WACommon.MessageKey\x12\x14\n\x0cmessageBytes\x18\x02 \x01(\x0c\"\xab\x01\n.UnCountedAssociatedMessageListWithMessageBytes\x12L\n\x08messages\x18\x01 \x03(\x0b\x32:.WAWebProtobufsGroupHistory.WebMessageInfoWithMessageBytes\x12+\n\rparentMessage\x18\x02 \x01(\x0b\x32\x14.WACommon.MessageKey\"\xe7\x03\n\x1cGroupHistoryWithMessageBytes\x12L\n\x08messages\x18\x01 \x03(\x0b\x32:.WAWebProtobufsGroupHistory.WebMessageInfoWithMessageBytes\x12s\n\x1funcountedAssociatedMessageLists\x18\x02 \x03(\x0b\x32J.WAWebProtobufsGroupHistory.UnCountedAssociatedMessageListWithMessageBytes\x12S\n\x0f\x63ommentMessages\x18\x03 \x03(\x0b\x32:.WAWebProtobufsGroupHistory.WebMessageInfoWithMessageBytes\x12]\n\x19outOfWindowPinnedMessages\x18\x04 \x03(\x0b\x32:.WAWebProtobufsGroupHistory.WebMessageInfoWithMessageBytes\x12P\n\x0cthemeMessage\x18\x05 \x01(\x0b\x32:.WAWebProtobufsGroupHistory.WebMessageInfoWithMessageBytesB*Z(go.mau.fi/whatsmeow/proto/waGroupHistory')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -36,13 +36,13 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z(go.mau.fi/whatsmeow/proto/waGroupHistory'
   _globals['_GROUPHISTORY']._serialized_start=167
-  _globals['_GROUPHISTORY']._serialized_end=465
-  _globals['_UNCOUNTEDASSOCIATEDMESSAGELIST']._serialized_start=468
-  _globals['_UNCOUNTEDASSOCIATEDMESSAGELIST']._serialized_end=678
-  _globals['_WEBMESSAGEINFOWITHMESSAGEBYTES']._serialized_start=680
-  _globals['_WEBMESSAGEINFOWITHMESSAGEBYTES']._serialized_end=769
-  _globals['_UNCOUNTEDASSOCIATEDMESSAGELISTWITHMESSAGEBYTES']._serialized_start=772
-  _globals['_UNCOUNTEDASSOCIATEDMESSAGELISTWITHMESSAGEBYTES']._serialized_end=943
-  _globals['_GROUPHISTORYWITHMESSAGEBYTES']._serialized_start=946
-  _globals['_GROUPHISTORYWITHMESSAGEBYTES']._serialized_end=1351
+  _globals['_GROUPHISTORY']._serialized_end=522
+  _globals['_UNCOUNTEDASSOCIATEDMESSAGELIST']._serialized_start=525
+  _globals['_UNCOUNTEDASSOCIATEDMESSAGELIST']._serialized_end=735
+  _globals['_WEBMESSAGEINFOWITHMESSAGEBYTES']._serialized_start=737
+  _globals['_WEBMESSAGEINFOWITHMESSAGEBYTES']._serialized_end=826
+  _globals['_UNCOUNTEDASSOCIATEDMESSAGELISTWITHMESSAGEBYTES']._serialized_start=829
+  _globals['_UNCOUNTEDASSOCIATEDMESSAGELISTWITHMESSAGEBYTES']._serialized_end=1000
+  _globals['_GROUPHISTORYWITHMESSAGEBYTES']._serialized_start=1003
+  _globals['_GROUPHISTORYWITHMESSAGEBYTES']._serialized_end=1490
 # @@protoc_insertion_point(module_scope)

@@ -72,8 +72,9 @@ The synchronous client runs the WhatsApp event loop on a background thread.
 Events are dispatched to your registered handlers from there — handlers run
 sequentially, so a slow handler delays subsequent events.
 
-```text
-Go thread:  WebSocket -> goneonize -> ctypes callback -> Event dispatcher -> your handlers
+```mermaid
+flowchart LR
+    WS["WebSocket"] --> GN["goneonize"] --> CB["ctypes callback"] --> ED["Event dispatcher"] --> HD["Your handlers"]
 ```
 
 The async client dispatches into asyncio coroutines instead; see

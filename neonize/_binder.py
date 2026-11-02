@@ -250,6 +250,16 @@ if not os.environ.get("SPHINX"):
         ctypes.c_int,
     ]
     gocode.SendMessage.restype = ctypes.POINTER(Bytes)
+    gocode.SendSPRMessage.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+    ]
+    gocode.SendSPRMessage.restype = ctypes.POINTER(Bytes)
     gocode.SendChatPresence.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -267,6 +277,22 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
     ]
     gocode.BuildRevoke.restype = ctypes.POINTER(Bytes)
+    gocode.SendPeerMessage.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
+    gocode.SendPeerMessage.restype = ctypes.POINTER(Bytes)
+    gocode.RequestHistorySync.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_longlong,
+        ctypes.c_int,
+    ]
+    gocode.RequestHistorySync.restype = ctypes.POINTER(Bytes)
     gocode.CreateGroup.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.CreateGroup.restype = ctypes.POINTER(Bytes)
     gocode.GenerateMessageID.argtypes = [ctypes.c_char_p]
@@ -448,6 +474,7 @@ if not os.environ.get("SPHINX"):
     ]
     gocode.NewsletterToggleMute.restype = ctypes.c_void_p
     gocode.Disconnect.argtypes = [ctypes.c_char_p]
+    gocode.Disconnect.restype = None
     gocode.ResolveContactQRLink.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     gocode.ResolveContactQRLink.restype = ctypes.POINTER(Bytes)
     gocode.ResolveBusinessMessageLink.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
@@ -456,6 +483,10 @@ if not os.environ.get("SPHINX"):
     gocode.PairPhone.restype = ctypes.POINTER(Bytes)
     gocode.SendAppState.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.SendAppState.restype = ctypes.c_void_p
+    gocode.FetchAppState.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.FetchAppState.restype = ctypes.c_void_p
+    gocode.RequestAppStateRecovery.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+    gocode.RequestAppStateRecovery.restype = ctypes.c_void_p
     gocode.SetDefaultDisappearingTimer.argtypes = [ctypes.c_char_p, ctypes.c_int64]
     gocode.SetDefaultDisappearingTimer.restype = ctypes.c_void_p
     gocode.SetDisappearingTimer.argtypes = [
@@ -467,7 +498,7 @@ if not os.environ.get("SPHINX"):
     ]
     gocode.SetDisappearingTimer.restype = ctypes.c_void_p
     gocode.SetForceActiveDeliveryReceipts.argtypes = [ctypes.c_char_p, ctypes.c_bool]
-    gocode.SetForceActiveDeliveryReceipts.restype = ctypes.c_void_p
+    gocode.SetForceActiveDeliveryReceipts.restype = None
     gocode.SetGroupAnnounce.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -499,7 +530,12 @@ if not os.environ.get("SPHINX"):
     gocode.SetPrivacySetting.restype = ctypes.POINTER(Bytes)
     gocode.SetPassive.argtypes = [ctypes.c_char_p, ctypes.c_bool]
     gocode.SetPassive.restype = ctypes.c_void_p
-    gocode.SetStatusMessage.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+    gocode.SetStatusMessage.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
     gocode.SetStatusMessage.restype = ctypes.c_void_p
     gocode.SubscribePresence.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.SubscribePresence.restype = ctypes.c_void_p
@@ -609,9 +645,9 @@ if not os.environ.get("SPHINX"):
     gocode.DecryptPollVote.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.DecryptPollVote.restype = ctypes.POINTER(Bytes)
     gocode.Stop.argtypes = [ctypes.c_char_p]
-    gocode.Stop.restype = ctypes.c_void_p
+    gocode.Stop.restype = None
     gocode.StopAll.argtypes = []
-    gocode.StopAll.restype = ctypes.c_void_p
+    gocode.StopAll.restype = None
     gocode.FreeBytesStruct.argtypes = [ctypes.POINTER(Bytes)]
     gocode.FreeBytesStruct.restype = None
 
@@ -634,9 +670,31 @@ if not os.environ.get("SPHINX"):
         finally:
             gocode.FreeString(result)
 
+    def consume_bytes_struct(result, func, arguments):
+        """ctypes errcheck for FFI functions returning a Go-allocated
+        ``*C.struct_BytesReturn``.
+
+        Copies the binary payload into a Python ``bytes`` object, then
+        **unconditionally** frees both the inner ``data`` buffer and the struct
+        itself via ``FreeBytesStruct`` inside a ``finally`` block.  This
+        guarantees zero C-heap leaks even when:
+
+        * An exception is raised during protobuf deserialization,
+        * An ``asyncio`` task is cancelled while awaiting ``to_thread``,
+        * Any other unexpected error interrupts the caller.
+        """
+        if not result:
+            return b""
+        try:
+            contents = result.contents
+            if not contents.ptr or contents.size == 0:
+                return b""
+            return ctypes.string_at(contents.ptr, contents.size)
+        finally:
+            gocode.FreeBytesStruct(result)
+
     gocode.SetPushName.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     gocode.SetPushName.restype = ctypes.c_void_p
-    gocode.SetPushName.errcheck = consume_cstring
     gocode.SetProxyAddress.argtypes = [ctypes.c_char_p, ctypes.POINTER(_CProxySettings)]
     gocode.SetProxyAddress.restype = ctypes.c_void_p
     gocode.SetProxyAddress.errcheck = consume_cstring
@@ -663,6 +721,8 @@ if not os.environ.get("SPHINX"):
         "NewsletterSendReaction",
         "NewsletterToggleMute",
         "SendAppState",
+        "FetchAppState",
+        "RequestAppStateRecovery",
         "SetDefaultDisappearingTimer",
         "SetDisappearingTimer",
         "SetGroupAnnounce",
@@ -683,10 +743,99 @@ if not os.environ.get("SPHINX"):
         "SetPushName",
     ):
         getattr(gocode, _string_returning_func).errcheck = consume_cstring
+
+    # Attach consume_bytes_struct errcheck to every FFI function returning POINTER(Bytes).
+    # After this, callers receive a plain ``bytes`` object and the C-heap struct is freed automatically.
+    for _bytes_returning_func in (
+        "DecryptPollVote",
+        "SendFBMessage",
+        "GetLIDFromPN",
+        "GetPNFromLID",
+        "PinMessage",
+        "TestStruct",
+        "Upload",
+        "UploadNewsletter",
+        "DownloadAny",
+        "DownloadMediaWithPath",
+        "GetGroupInfo",
+        "SetGroupPhoto",
+        "SetProfilePhoto",
+        "GetGroupInviteLink",
+        "JoinGroupWithLink",
+        "SendMessage",
+        "SendSPRMessage",
+        "BuildRevoke",
+        "SendPeerMessage",
+        "RequestHistorySync",
+        "CreateGroup",
+        "IsOnWhatsApp",
+        "GetUserInfo",
+        "GetMe",
+        "BuildPollVoteCreation",
+        "BuildPollVote",
+        "BuildReaction",
+        "CreateNewsletter",
+        "GetBlocklist",
+        "GetContactQRLink",
+        "GetGroupInfoFromInvite",
+        "GetGroupInfoFromLink",
+        "GetGroupRequestParticipants",
+        "GetJoinedGroups",
+        "GetLinkedGroupsParticipants",
+        "GetNewsletterInfo",
+        "GetNewsletterInfoWithInvite",
+        "GetNewsletterMessageUpdate",
+        "GetNewsletterMessages",
+        "GetPrivacySettings",
+        "GetProfilePicture",
+        "GetStatusPrivacy",
+        "GetSubGroups",
+        "GetSubscribedNewsletters",
+        "GetUserDevices",
+        "NewsletterSubscribeLiveUpdates",
+        "ResolveContactQRLink",
+        "ResolveBusinessMessageLink",
+        "PairPhone",
+        "SetPrivacySetting",
+        "UpdateBlocklist",
+        "UpdateGroupParticipants",
+        "GetMessageForRetry",
+        "PutPushName",
+        "GetContact",
+        "GetAllContacts",
+        "GetChatSettings",
+        "Download",
+        "GetBusinessProfile",
+        "GetStatus",
+        "NewsletterCreate",
+        "NewsletterGetMetadata",
+    ):
+        try:
+            getattr(gocode, _bytes_returning_func).errcheck = consume_bytes_struct
+        except AttributeError:
+            pass
+
 else:
     gocode: Any = object()
 
+    def consume_cstring(result, func, arguments):  # noqa: E303
+        return b""
 
-def free_bytes(bytes_ptr: ctypes._Pointer):
-    # print("Freeing bytes", bytes_ptr)
-    gocode.FreeBytesStruct(bytes_ptr)
+    def consume_bytes_struct(result, func, arguments):
+        return b""
+
+
+def free_bytes(bytes_ptr):
+    """Free a Go-allocated ``BytesReturn`` struct pointer.
+
+    After the ``consume_bytes_struct`` errcheck hook is active, FFI calls
+    return plain ``bytes`` and this function becomes a safe no-op.  It is
+    kept for backward compatibility with any code that still calls it
+    explicitly.
+    """
+    if bytes_ptr is None or isinstance(bytes_ptr, (bytes, bytearray)):
+        return
+    try:
+        gocode.FreeBytesStruct(bytes_ptr)
+    except Exception:
+        pass

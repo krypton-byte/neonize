@@ -192,6 +192,8 @@ message SendResponse {
     required int64 ServerID = 3;
     required MessageDebugTimings DebugTimings = 4;
     optional WAWebProtobufsE2E.Message Message = 5;
+    optional JID Sender = 6;
+    optional JID Chat = 7;
 }
 
 message SendMessageReturnFunction {
@@ -890,6 +892,64 @@ message UndecryptableMessage {
     }
     required DecryptFailModeT DecryptFailMode = 3;
 }
+message RotateADVSecret {
+    required string OldSecret = 1;
+    required string NewSecret = 2;
+}
+// Chat state changes made on the phone (app state sync): archive, pin, mute
+// and mark-as-read. JID is the chat; Timestamp is in seconds.
+message ChatArchive { //46
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.ArchiveChatAction Action = 3;
+    required bool FromFullSync = 4;
+}
+message ChatPin { //47
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.PinAction Action = 3;
+    required bool FromFullSync = 4;
+}
+message ChatMute { //48
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.MuteAction Action = 3;
+    required bool FromFullSync = 4;
+}
+message ChatMarkAsRead { //49
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.MarkChatAsReadAction Action = 3;
+    required bool FromFullSync = 4;
+}
+// Chat deleted on the phone (app state sync).
+message ChatDelete { //51
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.DeleteChatAction Action = 3;
+    required bool FromFullSync = 4;
+    required bool DeleteMedia = 5;
+}
+// Message deleted for the current user on another device (app state sync).
+message MessageDeleteForMe { //52
+    required JID ChatJID = 1;
+    optional JID SenderJID = 2;
+    required bool IsFromMe = 3;
+    required string MessageID = 4;
+    required int64 Timestamp = 5;
+    optional WAWebProtobufSyncAction.DeleteMessageForMeAction Action = 6;
+    required bool FromFullSync = 7;
+}
+// Message starred or unstarred on another device (app state sync).
+message MessageStar { //53
+    required JID ChatJID = 1;
+    optional JID SenderJID = 2;
+    required bool IsFromMe = 3;
+    required string MessageID = 4;
+    required int64 Timestamp = 5;
+    optional WAWebProtobufSyncAction.StarAction Action = 6;
+    required bool FromFullSync = 7;
+}
 message UpdateGroupParticipantsReturnFunction {
     optional string Error = 1;
     repeated GroupParticipant participants = 2;
@@ -941,3 +1001,27 @@ message LogEntry {
 }
 
 message Stop{}
+
+message BusinessHoursConfig {
+    optional string DayOfWeek = 1;
+    optional string Mode = 2;
+    optional string OpenTime = 3;
+    optional string CloseTime = 4;
+}
+message Category {
+    optional string ID = 1;
+    optional string Name = 2;
+}
+message BusinessProfile {
+    optional JID JID = 1;
+    optional string Address = 2;
+    optional string Email = 3;
+    repeated Category Categories = 4;
+    map<string, string> ProfileOptions = 5;
+    optional string BusinessHoursTimeZone = 6;
+    repeated BusinessHoursConfig BusinessHours = 7;
+}
+message GetBusinessProfileReturnFunction{
+    optional BusinessProfile Profile = 1;
+    optional string Error = 2;
+}

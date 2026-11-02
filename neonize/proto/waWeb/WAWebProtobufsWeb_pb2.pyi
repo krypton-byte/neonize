@@ -278,6 +278,14 @@ class WebMessageInfo(_message.Message):
         IDENTITY_TRUST_UNMARKED: WebMessageInfo._StubType.ValueType  # 227
         IDENTITY_TRUST_REVOKED: WebMessageInfo._StubType.ValueType  # 228
         CTWA_CONSUMER_DISCLOSURE: WebMessageInfo._StubType.ValueType  # 230
+        CHANGE_ACP2_SETTING: WebMessageInfo._StubType.ValueType  # 240
+        BIZ_CALLBACK_ENABLED: WebMessageInfo._StubType.ValueType  # 247
+        EPHEMERAL_CHANGED_FOR_COEX: WebMessageInfo._StubType.ValueType  # 248
+        UGC_BOT_PROFILE_UPDATED: WebMessageInfo._StubType.ValueType  # 249
+        ORDER_EPHEMERAL_EXEMPTION: WebMessageInfo._StubType.ValueType  # 250
+        CAMEO_CHAT_CREATED: WebMessageInfo._StubType.ValueType  # 254
+        CAMEO_TRANSITIONED: WebMessageInfo._StubType.ValueType  # 256
+        SENDER_SIDE_CONTACT_INFO: WebMessageInfo._StubType.ValueType  # 255
 
     class StubType(_StubType, metaclass=_StubTypeEnumTypeWrapper): ...
     UNKNOWN: WebMessageInfo.StubType.ValueType  # 0
@@ -510,6 +518,14 @@ class WebMessageInfo(_message.Message):
     IDENTITY_TRUST_UNMARKED: WebMessageInfo.StubType.ValueType  # 227
     IDENTITY_TRUST_REVOKED: WebMessageInfo.StubType.ValueType  # 228
     CTWA_CONSUMER_DISCLOSURE: WebMessageInfo.StubType.ValueType  # 230
+    CHANGE_ACP2_SETTING: WebMessageInfo.StubType.ValueType  # 240
+    BIZ_CALLBACK_ENABLED: WebMessageInfo.StubType.ValueType  # 247
+    EPHEMERAL_CHANGED_FOR_COEX: WebMessageInfo.StubType.ValueType  # 248
+    UGC_BOT_PROFILE_UPDATED: WebMessageInfo.StubType.ValueType  # 249
+    ORDER_EPHEMERAL_EXEMPTION: WebMessageInfo.StubType.ValueType  # 250
+    CAMEO_CHAT_CREATED: WebMessageInfo.StubType.ValueType  # 254
+    CAMEO_TRANSITIONED: WebMessageInfo.StubType.ValueType  # 256
+    SENDER_SIDE_CONTACT_INFO: WebMessageInfo.StubType.ValueType  # 255
 
     class _Status:
         ValueType = _typing.NewType("ValueType", _builtins.int)

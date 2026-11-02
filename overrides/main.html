@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+<!-- Context7 Chat Widget -->
+<script
+  src="https://context7.com/widget.js"
+  data-library="/krypton-byte/neonize"
+  data-placeholder="Ask me anything about Neonize..."
+></script>
+{{ super() }}
+{% endblock %}
