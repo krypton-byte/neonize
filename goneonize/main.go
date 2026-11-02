@@ -2039,6 +2039,24 @@ func SendAppState(id *C.char, patchByte *C.uchar, patchSize C.int) *C.char {
 	return C.CString("")
 }
 
+//export FetchAppState
+func FetchAppState(id *C.char, name *C.char, fullSync C.int) *C.char {
+	err := clients[C.GoString(id)].FetchAppState(context.Background(), appstate.WAPatchName(C.GoString(name)), fullSync != 0, false)
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
+//export RequestAppStateRecovery
+func RequestAppStateRecovery(id *C.char, name *C.char) *C.char {
+	_, err := clients[C.GoString(id)].SendPeerMessage(context.Background(), whatsmeow.BuildAppStateRecoveryRequest(appstate.WAPatchName(C.GoString(name))))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
 //export SetDefaultDisappearingTimer
 func SetDefaultDisappearingTimer(id *C.char, timer C.int64_t) *C.char {
 	err := clients[C.GoString(id)].SetDefaultDisappearingTimer(context.Background(), time.Duration(int64(timer)))

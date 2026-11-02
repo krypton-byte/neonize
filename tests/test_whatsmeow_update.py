@@ -170,3 +170,19 @@ def test_message_star_event_is_registered():
     parsed = MessageStar.FromString(evt.SerializeToString())
     assert parsed.ChatJID.User == "5551" and parsed.MessageID == "3EB0ABC"
     assert parsed.IsFromMe and parsed.Action.starred
+
+
+def test_app_state_repair_methods_exist():
+    import inspect
+
+    from neonize.client import NewClient
+
+    assert list(inspect.signature(NewClient.fetch_app_state).parameters) == [
+        "self",
+        "name",
+        "full_sync",
+    ]
+    assert list(inspect.signature(NewClient.request_app_state_recovery).parameters) == [
+        "self",
+        "name",
+    ]

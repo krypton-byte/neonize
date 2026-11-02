@@ -2563,6 +2563,38 @@ class NewClient:
         if err:
             raise SendAppStateError(err)
 
+    def fetch_app_state(self, name: str, full_sync: bool = False):
+        """Fetches an app state collection (``regular_high``, ``regular_low``,
+        ``regular``, ``critical_block`` or ``critical_unblock_low``) from the
+        server, applying the pending patches. With ``full_sync`` the local copy
+        is discarded and downloaded again.
+
+        :param name: Name of the collection.
+        :type name: str
+        :param full_sync: Download the whole collection again, defaults to False.
+        :type full_sync: bool, optional
+        :raises SendAppStateError: If the sync fails, for example with
+            ``mismatching LTHash``.
+        """
+        err = self.__client.FetchAppState(self.uuid, name.encode(), 1 if full_sync else 0).decode()
+        if err:
+            raise SendAppStateError(err)
+
+    def request_app_state_recovery(self, name: str):
+        """Asks the primary device for a recovery snapshot of an app state
+        collection that keeps failing with ``mismatching LTHash`` even after a
+        full sync (see tulir/whatsmeow#858). The answer arrives later as a peer
+        message and replaces the local copy; the phone may only answer while
+        WhatsApp is open.
+
+        :param name: Name of the collection.
+        :type name: str
+        :raises SendAppStateError: If the request cannot be sent.
+        """
+        err = self.__client.RequestAppStateRecovery(self.uuid, name.encode()).decode()
+        if err:
+            raise SendAppStateError(err)
+
     def set_default_disappearing_timer(self, timer: timedelta | int):
         """
         Sets a default disappearing timer for messages. The timer can be specified as a timedelta or an integer.
