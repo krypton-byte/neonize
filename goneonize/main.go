@@ -2303,6 +2303,34 @@ func SetGroupLocked(id *C.char, JIDByte *C.uchar, JIDSize C.int, locked C.bool) 
 	return C.CString("")
 }
 
+//export SetGroupJoinApprovalMode
+func SetGroupJoinApprovalMode(id *C.char, JIDByte *C.uchar, JIDSize C.int, mode C.bool) *C.char {
+	var JID defproto.JID
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	err_approval := clientFor(C.GoString(id)).SetGroupJoinApprovalMode(context.Background(), utils.DecodeJidProto(&JID), bool(mode))
+	if err_approval != nil {
+		return C.CString(err_approval.Error())
+	}
+	return C.CString("")
+}
+
+//export SetGroupMemberAddMode
+func SetGroupMemberAddMode(id *C.char, JIDByte *C.uchar, JIDSize C.int, mode *C.char) *C.char {
+	var JID defproto.JID
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	err_mode := clientFor(C.GoString(id)).SetGroupMemberAddMode(context.Background(), utils.DecodeJidProto(&JID), types.GroupMemberAddMode(C.GoString(mode)))
+	if err_mode != nil {
+		return C.CString(err_mode.Error())
+	}
+	return C.CString("")
+}
+
 //export SetGroupTopic
 func SetGroupTopic(id *C.char, JIDByte *C.uchar, JIDSize C.int, previousID, newID, topic *C.char) *C.char {
 	var JID defproto.JID
@@ -2440,6 +2468,37 @@ func UpdateGroupParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int, partic
 		ParticipantChanges[i] = utils.DecodeJidProto(participant)
 	}
 	participants, err_changes := clientFor(C.GoString(id)).UpdateGroupParticipants(context.Background(), utils.DecodeJidProto(&JID), ParticipantChanges, whatsmeow.ParticipantChange(C.GoString(action)))
+	if err_changes != nil {
+		return_.Error = proto.String(err_changes.Error())
+	}
+	neonizeParticipants := make([]*defproto.GroupParticipant, len(participants))
+	for i, participant := range participants {
+		neonizeParticipants[i] = utils.EncodeGroupParticipant(participant)
+	}
+	return_.Participants = neonizeParticipants
+	return ProtoReturnV3(&return_)
+}
+
+//export UpdateGroupRequestParticipants
+func UpdateGroupRequestParticipants(id *C.char, JIDByte *C.uchar, JIDSize C.int, participantsChanges *C.uchar, participantSize C.int, action *C.char) *C.struct_BytesReturn {
+	var JID defproto.JID
+	var jidArray defproto.JIDArray
+	return_ := defproto.UpdateGroupParticipantsReturnFunction{}
+	err := proto.Unmarshal(getByteByAddr(JIDByte, JIDSize), &JID)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	err_ := proto.Unmarshal(getByteByAddr(participantsChanges, participantSize), &jidArray)
+	if err_ != nil {
+		return_.Error = proto.String(err_.Error())
+		return ProtoReturnV3(&return_)
+	}
+	ParticipantChanges := make([]types.JID, len(jidArray.JIDS))
+	for i, participant := range jidArray.JIDS {
+		ParticipantChanges[i] = utils.DecodeJidProto(participant)
+	}
+	participants, err_changes := clientFor(C.GoString(id)).UpdateGroupRequestParticipants(context.Background(), utils.DecodeJidProto(&JID), ParticipantChanges, whatsmeow.ParticipantRequestChange(C.GoString(action)))
 	if err_changes != nil {
 		return_.Error = proto.String(err_changes.Error())
 	}

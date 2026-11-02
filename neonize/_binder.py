@@ -513,6 +513,29 @@ if not os.environ.get("SPHINX"):
         ctypes.c_bool,
     ]
     gocode.SetGroupLocked.restype = ctypes.c_void_p
+    gocode.SetGroupJoinApprovalMode.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_bool,
+    ]
+    gocode.SetGroupJoinApprovalMode.restype = ctypes.c_void_p
+    gocode.SetGroupMemberAddMode.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+    ]
+    gocode.SetGroupMemberAddMode.restype = ctypes.c_void_p
+    gocode.UpdateGroupRequestParticipants.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+    ]
+    gocode.UpdateGroupRequestParticipants.restype = ctypes.POINTER(Bytes)
     gocode.SetGroupTopic.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -727,6 +750,8 @@ if not os.environ.get("SPHINX"):
         "SetDisappearingTimer",
         "SetGroupAnnounce",
         "SetGroupLocked",
+        "SetGroupJoinApprovalMode",
+        "SetGroupMemberAddMode",
         "SetGroupTopic",
         "SetPassive",
         "SetStatusMessage",
@@ -799,6 +824,7 @@ if not os.environ.get("SPHINX"):
         "SetPrivacySetting",
         "UpdateBlocklist",
         "UpdateGroupParticipants",
+        "UpdateGroupRequestParticipants",
         "GetMessageForRetry",
         "PutPushName",
         "GetContact",

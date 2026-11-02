@@ -190,7 +190,6 @@ def test_app_state_repair_methods_exist():
         ]
 
 
-
 def test_get_business_profile_methods_exist():
     import inspect
 
@@ -201,4 +200,29 @@ def test_get_business_profile_methods_exist():
         assert list(inspect.signature(cls.get_business_profile).parameters) == [
             "self",
             "jid",
+        ]
+
+
+def test_group_join_and_member_add_methods_exist():
+    import inspect
+
+    from neonize.aioze.client import NewAClient
+    from neonize.client import NewClient
+
+    for cls in (NewClient, NewAClient):
+        assert list(inspect.signature(cls.set_group_join_approval_mode).parameters) == [
+            "self",
+            "jid",
+            "mode",
+        ]
+        assert list(inspect.signature(cls.set_group_member_add_mode).parameters) == [
+            "self",
+            "jid",
+            "mode",
+        ]
+        assert list(inspect.signature(cls.update_group_request_participants).parameters) == [
+            "self",
+            "jid",
+            "participants",
+            "action",
         ]
