@@ -9507,6 +9507,280 @@ func (x *RotateADVSecret) GetNewSecret() string {
 	return ""
 }
 
+// Chat state changes made on the phone (app state sync): archive, pin, mute
+// and mark-as-read. JID is the chat; Timestamp is in seconds.
+type ChatArchive struct {
+	state         protoimpl.MessageState          `protogen:"open.v1"`
+	JID           *JID                            `protobuf:"bytes,1,req,name=JID" json:"JID,omitempty"`
+	Timestamp     *int64                          `protobuf:"varint,2,req,name=Timestamp" json:"Timestamp,omitempty"`
+	Action        *waSyncAction.ArchiveChatAction `protobuf:"bytes,3,opt,name=Action" json:"Action,omitempty"`
+	FromFullSync  *bool                           `protobuf:"varint,4,req,name=FromFullSync" json:"FromFullSync,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChatArchive) Reset() {
+	*x = ChatArchive{}
+	mi := &file_Neonize_proto_msgTypes[132]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatArchive) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatArchive) ProtoMessage() {}
+
+func (x *ChatArchive) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[132]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatArchive.ProtoReflect.Descriptor instead.
+func (*ChatArchive) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{132}
+}
+
+func (x *ChatArchive) GetJID() *JID {
+	if x != nil {
+		return x.JID
+	}
+	return nil
+}
+
+func (x *ChatArchive) GetTimestamp() int64 {
+	if x != nil && x.Timestamp != nil {
+		return *x.Timestamp
+	}
+	return 0
+}
+
+func (x *ChatArchive) GetAction() *waSyncAction.ArchiveChatAction {
+	if x != nil {
+		return x.Action
+	}
+	return nil
+}
+
+func (x *ChatArchive) GetFromFullSync() bool {
+	if x != nil && x.FromFullSync != nil {
+		return *x.FromFullSync
+	}
+	return false
+}
+
+type ChatPin struct {
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	JID           *JID                    `protobuf:"bytes,1,req,name=JID" json:"JID,omitempty"`
+	Timestamp     *int64                  `protobuf:"varint,2,req,name=Timestamp" json:"Timestamp,omitempty"`
+	Action        *waSyncAction.PinAction `protobuf:"bytes,3,opt,name=Action" json:"Action,omitempty"`
+	FromFullSync  *bool                   `protobuf:"varint,4,req,name=FromFullSync" json:"FromFullSync,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChatPin) Reset() {
+	*x = ChatPin{}
+	mi := &file_Neonize_proto_msgTypes[133]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatPin) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatPin) ProtoMessage() {}
+
+func (x *ChatPin) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[133]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatPin.ProtoReflect.Descriptor instead.
+func (*ChatPin) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{133}
+}
+
+func (x *ChatPin) GetJID() *JID {
+	if x != nil {
+		return x.JID
+	}
+	return nil
+}
+
+func (x *ChatPin) GetTimestamp() int64 {
+	if x != nil && x.Timestamp != nil {
+		return *x.Timestamp
+	}
+	return 0
+}
+
+func (x *ChatPin) GetAction() *waSyncAction.PinAction {
+	if x != nil {
+		return x.Action
+	}
+	return nil
+}
+
+func (x *ChatPin) GetFromFullSync() bool {
+	if x != nil && x.FromFullSync != nil {
+		return *x.FromFullSync
+	}
+	return false
+}
+
+type ChatMute struct {
+	state         protoimpl.MessageState   `protogen:"open.v1"`
+	JID           *JID                     `protobuf:"bytes,1,req,name=JID" json:"JID,omitempty"`
+	Timestamp     *int64                   `protobuf:"varint,2,req,name=Timestamp" json:"Timestamp,omitempty"`
+	Action        *waSyncAction.MuteAction `protobuf:"bytes,3,opt,name=Action" json:"Action,omitempty"`
+	FromFullSync  *bool                    `protobuf:"varint,4,req,name=FromFullSync" json:"FromFullSync,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChatMute) Reset() {
+	*x = ChatMute{}
+	mi := &file_Neonize_proto_msgTypes[134]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatMute) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatMute) ProtoMessage() {}
+
+func (x *ChatMute) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[134]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatMute.ProtoReflect.Descriptor instead.
+func (*ChatMute) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{134}
+}
+
+func (x *ChatMute) GetJID() *JID {
+	if x != nil {
+		return x.JID
+	}
+	return nil
+}
+
+func (x *ChatMute) GetTimestamp() int64 {
+	if x != nil && x.Timestamp != nil {
+		return *x.Timestamp
+	}
+	return 0
+}
+
+func (x *ChatMute) GetAction() *waSyncAction.MuteAction {
+	if x != nil {
+		return x.Action
+	}
+	return nil
+}
+
+func (x *ChatMute) GetFromFullSync() bool {
+	if x != nil && x.FromFullSync != nil {
+		return *x.FromFullSync
+	}
+	return false
+}
+
+type ChatMarkAsRead struct {
+	state         protoimpl.MessageState             `protogen:"open.v1"`
+	JID           *JID                               `protobuf:"bytes,1,req,name=JID" json:"JID,omitempty"`
+	Timestamp     *int64                             `protobuf:"varint,2,req,name=Timestamp" json:"Timestamp,omitempty"`
+	Action        *waSyncAction.MarkChatAsReadAction `protobuf:"bytes,3,opt,name=Action" json:"Action,omitempty"`
+	FromFullSync  *bool                              `protobuf:"varint,4,req,name=FromFullSync" json:"FromFullSync,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChatMarkAsRead) Reset() {
+	*x = ChatMarkAsRead{}
+	mi := &file_Neonize_proto_msgTypes[135]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChatMarkAsRead) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChatMarkAsRead) ProtoMessage() {}
+
+func (x *ChatMarkAsRead) ProtoReflect() protoreflect.Message {
+	mi := &file_Neonize_proto_msgTypes[135]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChatMarkAsRead.ProtoReflect.Descriptor instead.
+func (*ChatMarkAsRead) Descriptor() ([]byte, []int) {
+	return file_Neonize_proto_rawDescGZIP(), []int{135}
+}
+
+func (x *ChatMarkAsRead) GetJID() *JID {
+	if x != nil {
+		return x.JID
+	}
+	return nil
+}
+
+func (x *ChatMarkAsRead) GetTimestamp() int64 {
+	if x != nil && x.Timestamp != nil {
+		return *x.Timestamp
+	}
+	return 0
+}
+
+func (x *ChatMarkAsRead) GetAction() *waSyncAction.MarkChatAsReadAction {
+	if x != nil {
+		return x.Action
+	}
+	return nil
+}
+
+func (x *ChatMarkAsRead) GetFromFullSync() bool {
+	if x != nil && x.FromFullSync != nil {
+		return *x.FromFullSync
+	}
+	return false
+}
+
 type UpdateGroupParticipantsReturnFunction struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Error         *string                `protobuf:"bytes,1,opt,name=Error" json:"Error,omitempty"`
@@ -9517,7 +9791,7 @@ type UpdateGroupParticipantsReturnFunction struct {
 
 func (x *UpdateGroupParticipantsReturnFunction) Reset() {
 	*x = UpdateGroupParticipantsReturnFunction{}
-	mi := &file_Neonize_proto_msgTypes[132]
+	mi := &file_Neonize_proto_msgTypes[136]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9529,7 +9803,7 @@ func (x *UpdateGroupParticipantsReturnFunction) String() string {
 func (*UpdateGroupParticipantsReturnFunction) ProtoMessage() {}
 
 func (x *UpdateGroupParticipantsReturnFunction) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[132]
+	mi := &file_Neonize_proto_msgTypes[136]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9542,7 +9816,7 @@ func (x *UpdateGroupParticipantsReturnFunction) ProtoReflect() protoreflect.Mess
 
 // Deprecated: Use UpdateGroupParticipantsReturnFunction.ProtoReflect.Descriptor instead.
 func (*UpdateGroupParticipantsReturnFunction) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{132}
+	return file_Neonize_proto_rawDescGZIP(), []int{136}
 }
 
 func (x *UpdateGroupParticipantsReturnFunction) GetError() string {
@@ -9575,7 +9849,7 @@ const (
 
 func (x *GetMessageForRetryReturnFunction) Reset() {
 	*x = GetMessageForRetryReturnFunction{}
-	mi := &file_Neonize_proto_msgTypes[133]
+	mi := &file_Neonize_proto_msgTypes[137]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9587,7 +9861,7 @@ func (x *GetMessageForRetryReturnFunction) String() string {
 func (*GetMessageForRetryReturnFunction) ProtoMessage() {}
 
 func (x *GetMessageForRetryReturnFunction) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[133]
+	mi := &file_Neonize_proto_msgTypes[137]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9600,7 +9874,7 @@ func (x *GetMessageForRetryReturnFunction) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetMessageForRetryReturnFunction.ProtoReflect.Descriptor instead.
 func (*GetMessageForRetryReturnFunction) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{133}
+	return file_Neonize_proto_rawDescGZIP(), []int{137}
 }
 
 func (x *GetMessageForRetryReturnFunction) GetIsEmpty() bool {
@@ -9637,7 +9911,7 @@ type LocalChatSettings struct {
 
 func (x *LocalChatSettings) Reset() {
 	*x = LocalChatSettings{}
-	mi := &file_Neonize_proto_msgTypes[134]
+	mi := &file_Neonize_proto_msgTypes[138]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9649,7 +9923,7 @@ func (x *LocalChatSettings) String() string {
 func (*LocalChatSettings) ProtoMessage() {}
 
 func (x *LocalChatSettings) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[134]
+	mi := &file_Neonize_proto_msgTypes[138]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9662,7 +9936,7 @@ func (x *LocalChatSettings) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LocalChatSettings.ProtoReflect.Descriptor instead.
 func (*LocalChatSettings) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{134}
+	return file_Neonize_proto_rawDescGZIP(), []int{138}
 }
 
 func (x *LocalChatSettings) GetFound() bool {
@@ -9709,7 +9983,7 @@ type ReturnFunctionWithError struct {
 
 func (x *ReturnFunctionWithError) Reset() {
 	*x = ReturnFunctionWithError{}
-	mi := &file_Neonize_proto_msgTypes[135]
+	mi := &file_Neonize_proto_msgTypes[139]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9721,7 +9995,7 @@ func (x *ReturnFunctionWithError) String() string {
 func (*ReturnFunctionWithError) ProtoMessage() {}
 
 func (x *ReturnFunctionWithError) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[135]
+	mi := &file_Neonize_proto_msgTypes[139]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9734,7 +10008,7 @@ func (x *ReturnFunctionWithError) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReturnFunctionWithError.ProtoReflect.Descriptor instead.
 func (*ReturnFunctionWithError) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{135}
+	return file_Neonize_proto_rawDescGZIP(), []int{139}
 }
 
 func (x *ReturnFunctionWithError) GetError() string {
@@ -9813,7 +10087,7 @@ type SendRequestExtra struct {
 
 func (x *SendRequestExtra) Reset() {
 	*x = SendRequestExtra{}
-	mi := &file_Neonize_proto_msgTypes[136]
+	mi := &file_Neonize_proto_msgTypes[140]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9825,7 +10099,7 @@ func (x *SendRequestExtra) String() string {
 func (*SendRequestExtra) ProtoMessage() {}
 
 func (x *SendRequestExtra) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[136]
+	mi := &file_Neonize_proto_msgTypes[140]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9838,7 +10112,7 @@ func (x *SendRequestExtra) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SendRequestExtra.ProtoReflect.Descriptor instead.
 func (*SendRequestExtra) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{136}
+	return file_Neonize_proto_rawDescGZIP(), []int{140}
 }
 
 func (x *SendRequestExtra) GetID() string {
@@ -9886,7 +10160,7 @@ type BuildMessageReturnFunction struct {
 
 func (x *BuildMessageReturnFunction) Reset() {
 	*x = BuildMessageReturnFunction{}
-	mi := &file_Neonize_proto_msgTypes[137]
+	mi := &file_Neonize_proto_msgTypes[141]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9898,7 +10172,7 @@ func (x *BuildMessageReturnFunction) String() string {
 func (*BuildMessageReturnFunction) ProtoMessage() {}
 
 func (x *BuildMessageReturnFunction) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[137]
+	mi := &file_Neonize_proto_msgTypes[141]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9911,7 +10185,7 @@ func (x *BuildMessageReturnFunction) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BuildMessageReturnFunction.ProtoReflect.Descriptor instead.
 func (*BuildMessageReturnFunction) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{137}
+	return file_Neonize_proto_rawDescGZIP(), []int{141}
 }
 
 func (x *BuildMessageReturnFunction) GetError() string {
@@ -9939,7 +10213,7 @@ type LogEntry struct {
 
 func (x *LogEntry) Reset() {
 	*x = LogEntry{}
-	mi := &file_Neonize_proto_msgTypes[138]
+	mi := &file_Neonize_proto_msgTypes[142]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9951,7 +10225,7 @@ func (x *LogEntry) String() string {
 func (*LogEntry) ProtoMessage() {}
 
 func (x *LogEntry) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[138]
+	mi := &file_Neonize_proto_msgTypes[142]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9964,7 +10238,7 @@ func (x *LogEntry) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LogEntry.ProtoReflect.Descriptor instead.
 func (*LogEntry) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{138}
+	return file_Neonize_proto_rawDescGZIP(), []int{142}
 }
 
 func (x *LogEntry) GetMessage() string {
@@ -9996,7 +10270,7 @@ type Stop struct {
 
 func (x *Stop) Reset() {
 	*x = Stop{}
-	mi := &file_Neonize_proto_msgTypes[139]
+	mi := &file_Neonize_proto_msgTypes[143]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10008,7 +10282,7 @@ func (x *Stop) String() string {
 func (*Stop) ProtoMessage() {}
 
 func (x *Stop) ProtoReflect() protoreflect.Message {
-	mi := &file_Neonize_proto_msgTypes[139]
+	mi := &file_Neonize_proto_msgTypes[143]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10021,7 +10295,7 @@ func (x *Stop) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Stop.ProtoReflect.Descriptor instead.
 func (*Stop) Descriptor() ([]byte, []int) {
-	return file_Neonize_proto_rawDescGZIP(), []int{139}
+	return file_Neonize_proto_rawDescGZIP(), []int{143}
 }
 
 var File_Neonize_proto protoreflect.FileDescriptor
@@ -10733,7 +11007,27 @@ const file_Neonize_proto_rawDesc = "" +
 	"\x11DECRYPT_FAIL_HIDE\x10\x02\"M\n" +
 	"\x0fRotateADVSecret\x12\x1c\n" +
 	"\tOldSecret\x18\x01 \x02(\tR\tOldSecret\x12\x1c\n" +
-	"\tNewSecret\x18\x02 \x02(\tR\tNewSecret\"|\n" +
+	"\tNewSecret\x18\x02 \x02(\tR\tNewSecret\"\xb3\x01\n" +
+	"\vChatArchive\x12\x1e\n" +
+	"\x03JID\x18\x01 \x02(\v2\f.neonize.JIDR\x03JID\x12\x1c\n" +
+	"\tTimestamp\x18\x02 \x02(\x03R\tTimestamp\x12B\n" +
+	"\x06Action\x18\x03 \x01(\v2*.WAWebProtobufSyncAction.ArchiveChatActionR\x06Action\x12\"\n" +
+	"\fFromFullSync\x18\x04 \x02(\bR\fFromFullSync\"\xa7\x01\n" +
+	"\aChatPin\x12\x1e\n" +
+	"\x03JID\x18\x01 \x02(\v2\f.neonize.JIDR\x03JID\x12\x1c\n" +
+	"\tTimestamp\x18\x02 \x02(\x03R\tTimestamp\x12:\n" +
+	"\x06Action\x18\x03 \x01(\v2\".WAWebProtobufSyncAction.PinActionR\x06Action\x12\"\n" +
+	"\fFromFullSync\x18\x04 \x02(\bR\fFromFullSync\"\xa9\x01\n" +
+	"\bChatMute\x12\x1e\n" +
+	"\x03JID\x18\x01 \x02(\v2\f.neonize.JIDR\x03JID\x12\x1c\n" +
+	"\tTimestamp\x18\x02 \x02(\x03R\tTimestamp\x12;\n" +
+	"\x06Action\x18\x03 \x01(\v2#.WAWebProtobufSyncAction.MuteActionR\x06Action\x12\"\n" +
+	"\fFromFullSync\x18\x04 \x02(\bR\fFromFullSync\"\xb9\x01\n" +
+	"\x0eChatMarkAsRead\x12\x1e\n" +
+	"\x03JID\x18\x01 \x02(\v2\f.neonize.JIDR\x03JID\x12\x1c\n" +
+	"\tTimestamp\x18\x02 \x02(\x03R\tTimestamp\x12E\n" +
+	"\x06Action\x18\x03 \x01(\v2-.WAWebProtobufSyncAction.MarkChatAsReadActionR\x06Action\x12\"\n" +
+	"\fFromFullSync\x18\x04 \x02(\bR\fFromFullSync\"|\n" +
 	"%UpdateGroupParticipantsReturnFunction\x12\x14\n" +
 	"\x05Error\x18\x01 \x01(\tR\x05Error\x12=\n" +
 	"\fparticipants\x18\x02 \x03(\v2\x19.neonize.GroupParticipantR\fparticipants\"\x8f\x01\n" +
@@ -10808,7 +11102,7 @@ func file_Neonize_proto_rawDescGZIP() []byte {
 }
 
 var file_Neonize_proto_enumTypes = make([]protoimpl.EnumInfo, 20)
-var file_Neonize_proto_msgTypes = make([]protoimpl.MessageInfo, 140)
+var file_Neonize_proto_msgTypes = make([]protoimpl.MessageInfo, 144)
 var file_Neonize_proto_goTypes = []any{
 	(AddressingMode)(0),                                       // 0: neonize.AddressingMode
 	(NewsletterRole)(0),                                       // 1: neonize.NewsletterRole
@@ -10962,21 +11256,29 @@ var file_Neonize_proto_goTypes = []any{
 	(*UnknownCallEvent)(nil),                            // 149: neonize.UnknownCallEvent
 	(*UndecryptableMessage)(nil),                        // 150: neonize.UndecryptableMessage
 	(*RotateADVSecret)(nil),                             // 151: neonize.RotateADVSecret
-	(*UpdateGroupParticipantsReturnFunction)(nil),       // 152: neonize.UpdateGroupParticipantsReturnFunction
-	(*GetMessageForRetryReturnFunction)(nil),            // 153: neonize.GetMessageForRetryReturnFunction
-	(*LocalChatSettings)(nil),                           // 154: neonize.LocalChatSettings
-	(*ReturnFunctionWithError)(nil),                     // 155: neonize.ReturnFunctionWithError
-	(*SendRequestExtra)(nil),                            // 156: neonize.SendRequestExtra
-	(*BuildMessageReturnFunction)(nil),                  // 157: neonize.BuildMessageReturnFunction
-	(*LogEntry)(nil),                                    // 158: neonize.LogEntry
-	(*Stop)(nil),                                        // 159: neonize.Stop
-	(*waVnameCert.VerifiedNameCertificate)(nil),         // 160: WAWebProtobufsVnameCert.VerifiedNameCertificate
-	(*waVnameCert.VerifiedNameCertificate_Details)(nil), // 161: WAWebProtobufsVnameCert.VerifiedNameCertificate.Details
-	(*waE2E.Message)(nil),                               // 162: WAWebProtobufsE2E.Message
-	(*waWeb.WebMessageInfo)(nil),                        // 163: WAWebProtobufsWeb.WebMessageInfo
-	(*waSyncAction.SyncActionValue)(nil),                // 164: WAWebProtobufSyncAction.SyncActionValue
-	(*waHistorySync.HistorySync)(nil),                   // 165: WAWebProtobufsHistorySync.HistorySync
-	(*waE2E.PollVoteMessage)(nil),                       // 166: WAWebProtobufsE2E.PollVoteMessage
+	(*ChatArchive)(nil),                                 // 152: neonize.ChatArchive
+	(*ChatPin)(nil),                                     // 153: neonize.ChatPin
+	(*ChatMute)(nil),                                    // 154: neonize.ChatMute
+	(*ChatMarkAsRead)(nil),                              // 155: neonize.ChatMarkAsRead
+	(*UpdateGroupParticipantsReturnFunction)(nil),       // 156: neonize.UpdateGroupParticipantsReturnFunction
+	(*GetMessageForRetryReturnFunction)(nil),            // 157: neonize.GetMessageForRetryReturnFunction
+	(*LocalChatSettings)(nil),                           // 158: neonize.LocalChatSettings
+	(*ReturnFunctionWithError)(nil),                     // 159: neonize.ReturnFunctionWithError
+	(*SendRequestExtra)(nil),                            // 160: neonize.SendRequestExtra
+	(*BuildMessageReturnFunction)(nil),                  // 161: neonize.BuildMessageReturnFunction
+	(*LogEntry)(nil),                                    // 162: neonize.LogEntry
+	(*Stop)(nil),                                        // 163: neonize.Stop
+	(*waVnameCert.VerifiedNameCertificate)(nil),         // 164: WAWebProtobufsVnameCert.VerifiedNameCertificate
+	(*waVnameCert.VerifiedNameCertificate_Details)(nil), // 165: WAWebProtobufsVnameCert.VerifiedNameCertificate.Details
+	(*waE2E.Message)(nil),                               // 166: WAWebProtobufsE2E.Message
+	(*waWeb.WebMessageInfo)(nil),                        // 167: WAWebProtobufsWeb.WebMessageInfo
+	(*waSyncAction.SyncActionValue)(nil),                // 168: WAWebProtobufSyncAction.SyncActionValue
+	(*waHistorySync.HistorySync)(nil),                   // 169: WAWebProtobufsHistorySync.HistorySync
+	(*waSyncAction.ArchiveChatAction)(nil),              // 170: WAWebProtobufSyncAction.ArchiveChatAction
+	(*waSyncAction.PinAction)(nil),                      // 171: WAWebProtobufSyncAction.PinAction
+	(*waSyncAction.MuteAction)(nil),                     // 172: WAWebProtobufSyncAction.MuteAction
+	(*waSyncAction.MarkChatAsReadAction)(nil),           // 173: WAWebProtobufSyncAction.MarkChatAsReadAction
+	(*waE2E.PollVoteMessage)(nil),                       // 174: WAWebProtobufsE2E.PollVoteMessage
 }
 var file_Neonize_proto_depIdxs = []int32{
 	24,  // 0: neonize.MessageInfo.MessageSource:type_name -> neonize.MessageSource
@@ -10991,8 +11293,8 @@ var file_Neonize_proto_depIdxs = []int32{
 	20,  // 9: neonize.MessageSource.RecipientAlt:type_name -> neonize.JID
 	20,  // 10: neonize.MessageSource.BroadcastListOwner:type_name -> neonize.JID
 	23,  // 11: neonize.MessageSource.BroadcastRecipients:type_name -> neonize.BroadcastRecipient
-	160, // 12: neonize.VerifiedName.Certificate:type_name -> WAWebProtobufsVnameCert.VerifiedNameCertificate
-	161, // 13: neonize.VerifiedName.Details:type_name -> WAWebProtobufsVnameCert.VerifiedNameCertificate.Details
+	164, // 12: neonize.VerifiedName.Certificate:type_name -> WAWebProtobufsVnameCert.VerifiedNameCertificate
+	165, // 13: neonize.VerifiedName.Details:type_name -> WAWebProtobufsVnameCert.VerifiedNameCertificate.Details
 	20,  // 14: neonize.IsOnWhatsAppResponse.JID:type_name -> neonize.JID
 	26,  // 15: neonize.IsOnWhatsAppResponse.VerifiedName:type_name -> neonize.VerifiedName
 	26,  // 16: neonize.UserInfo.VerifiedName:type_name -> neonize.VerifiedName
@@ -11020,7 +11322,7 @@ var file_Neonize_proto_depIdxs = []int32{
 	38,  // 38: neonize.GroupInfo.GroupIsDefaultSub:type_name -> neonize.GroupIsDefaultSub
 	40,  // 39: neonize.GroupInfo.Participants:type_name -> neonize.GroupParticipant
 	42,  // 40: neonize.SendResponse.DebugTimings:type_name -> neonize.MessageDebugTimings
-	162, // 41: neonize.SendResponse.Message:type_name -> WAWebProtobufsE2E.Message
+	166, // 41: neonize.SendResponse.Message:type_name -> WAWebProtobufsE2E.Message
 	20,  // 42: neonize.SendResponse.Sender:type_name -> neonize.JID
 	20,  // 43: neonize.SendResponse.Chat:type_name -> neonize.JID
 	43,  // 44: neonize.SendMessageReturnFunction.SendResponse:type_name -> neonize.SendResponse
@@ -11032,7 +11334,7 @@ var file_Neonize_proto_depIdxs = []int32{
 	20,  // 50: neonize.GetUserInfoSingleReturnFunction.JID:type_name -> neonize.JID
 	28,  // 51: neonize.GetUserInfoSingleReturnFunction.UserInfo:type_name -> neonize.UserInfo
 	53,  // 52: neonize.GetUserInfoReturnFunction.UsersInfo:type_name -> neonize.GetUserInfoSingleReturnFunction
-	162, // 53: neonize.BuildPollVoteReturnFunction.PollVote:type_name -> WAWebProtobufsE2E.Message
+	166, // 53: neonize.BuildPollVoteReturnFunction.PollVote:type_name -> WAWebProtobufsE2E.Message
 	76,  // 54: neonize.CreateNewsLetterReturnFunction.NewsletterMetadata:type_name -> neonize.NewsletterMetadata
 	77,  // 55: neonize.GetBlocklistReturnFunction.Blocklist:type_name -> neonize.Blocklist
 	20,  // 56: neonize.GroupParticipantRequest.Participant:type_name -> neonize.JID
@@ -11043,10 +11345,10 @@ var file_Neonize_proto_depIdxs = []int32{
 	37,  // 61: neonize.ReqCreateGroup.GroupLinkedParent:type_name -> neonize.GroupLinkedParent
 	20,  // 62: neonize.JIDArray.JIDS:type_name -> neonize.JID
 	21,  // 63: neonize.Message.Info:type_name -> neonize.MessageInfo
-	162, // 64: neonize.Message.Message:type_name -> WAWebProtobufsE2E.Message
-	163, // 65: neonize.Message.SourceWebMsg:type_name -> WAWebProtobufsWeb.WebMessageInfo
+	166, // 64: neonize.Message.Message:type_name -> WAWebProtobufsE2E.Message
+	167, // 65: neonize.Message.SourceWebMsg:type_name -> WAWebProtobufsWeb.WebMessageInfo
 	65,  // 66: neonize.Message.NewsLetterMeta:type_name -> neonize.NewsLetterMessageMeta
-	162, // 67: neonize.Message.Raw:type_name -> WAWebProtobufsE2E.Message
+	166, // 67: neonize.Message.Raw:type_name -> WAWebProtobufsE2E.Message
 	5,   // 68: neonize.WrappedNewsletterState.Type:type_name -> neonize.WrappedNewsletterState.NewsletterState
 	6,   // 69: neonize.NewsletterReactionSettings.Value:type_name -> neonize.NewsletterReactionSettings.NewsletterReactionsMode
 	72,  // 70: neonize.NewsletterSetting.ReactionCodes:type_name -> neonize.NewsletterReactionSettings
@@ -11064,7 +11366,7 @@ var file_Neonize_proto_depIdxs = []int32{
 	75,  // 82: neonize.NewsletterMetadata.ViewerMeta:type_name -> neonize.NewsletterViewerMetadata
 	20,  // 83: neonize.Blocklist.JIDs:type_name -> neonize.JID
 	78,  // 84: neonize.NewsletterMessage.ReactionCounts:type_name -> neonize.Reaction
-	162, // 85: neonize.NewsletterMessage.Message:type_name -> WAWebProtobufsE2E.Message
+	166, // 85: neonize.NewsletterMessage.Message:type_name -> WAWebProtobufsE2E.Message
 	79,  // 86: neonize.GetNewsletterMessageUpdateReturnFunction.NewsletterMessage:type_name -> neonize.NewsletterMessage
 	8,   // 87: neonize.PrivacySettings.GroupAdd:type_name -> neonize.PrivacySettings.PrivacySetting
 	8,   // 88: neonize.PrivacySettings.LastSeen:type_name -> neonize.PrivacySettings.PrivacySetting
@@ -11093,7 +11395,7 @@ var file_Neonize_proto_depIdxs = []int32{
 	97,  // 111: neonize.ResolveContactQRLinkReturnFunction.ContactQrLink:type_name -> neonize.ContactQRLinkTarget
 	20,  // 112: neonize.BusinessMessageLinkTarget.JID:type_name -> neonize.JID
 	99,  // 113: neonize.ResolveBusinessMessageLinkReturnFunction.MessageLinkTarget:type_name -> neonize.BusinessMessageLinkTarget
-	164, // 114: neonize.MutationInfo.Value:type_name -> WAWebProtobufSyncAction.SyncActionValue
+	168, // 114: neonize.MutationInfo.Value:type_name -> WAWebProtobufSyncAction.SyncActionValue
 	11,  // 115: neonize.PatchInfo.Type:type_name -> neonize.PatchInfo.WAPatchName
 	101, // 116: neonize.PatchInfo.Mutations:type_name -> neonize.MutationInfo
 	20,  // 117: neonize.ContactEntry.JID:type_name -> neonize.JID
@@ -11110,7 +11412,7 @@ var file_Neonize_proto_depIdxs = []int32{
 	3,   // 128: neonize.ConnectFailure.Reason:type_name -> neonize.ConnectFailureReason
 	83,  // 129: neonize.ConnectFailure.Raw:type_name -> neonize.Node
 	83,  // 130: neonize.StreamError.Raw:type_name -> neonize.Node
-	165, // 131: neonize.HistorySync.Data:type_name -> WAWebProtobufsHistorySync.HistorySync
+	169, // 131: neonize.HistorySync.Data:type_name -> WAWebProtobufsHistorySync.HistorySync
 	24,  // 132: neonize.Receipt.MessageSource:type_name -> neonize.MessageSource
 	14,  // 133: neonize.Receipt.Type:type_name -> neonize.Receipt.ReceiptType
 	24,  // 134: neonize.ChatPresence.MessageSource:type_name -> neonize.MessageSource
@@ -11174,18 +11476,26 @@ var file_Neonize_proto_depIdxs = []int32{
 	83,  // 192: neonize.UnknownCallEvent.node:type_name -> neonize.Node
 	21,  // 193: neonize.UndecryptableMessage.Info:type_name -> neonize.MessageInfo
 	19,  // 194: neonize.UndecryptableMessage.DecryptFailMode:type_name -> neonize.UndecryptableMessage.DecryptFailModeT
-	40,  // 195: neonize.UpdateGroupParticipantsReturnFunction.participants:type_name -> neonize.GroupParticipant
-	162, // 196: neonize.GetMessageForRetryReturnFunction.Message:type_name -> WAWebProtobufsE2E.Message
-	154, // 197: neonize.ReturnFunctionWithError.LocalChatSettings:type_name -> neonize.LocalChatSettings
-	166, // 198: neonize.ReturnFunctionWithError.PollVoteMessage:type_name -> WAWebProtobufsE2E.PollVoteMessage
-	63,  // 199: neonize.ReturnFunctionWithError.GetLinkedGroupsParticipants:type_name -> neonize.JIDArray
-	20,  // 200: neonize.SendRequestExtra.InlineBotJID:type_name -> neonize.JID
-	162, // 201: neonize.BuildMessageReturnFunction.Message:type_name -> WAWebProtobufsE2E.Message
-	202, // [202:202] is the sub-list for method output_type
-	202, // [202:202] is the sub-list for method input_type
-	202, // [202:202] is the sub-list for extension type_name
-	202, // [202:202] is the sub-list for extension extendee
-	0,   // [0:202] is the sub-list for field type_name
+	20,  // 195: neonize.ChatArchive.JID:type_name -> neonize.JID
+	170, // 196: neonize.ChatArchive.Action:type_name -> WAWebProtobufSyncAction.ArchiveChatAction
+	20,  // 197: neonize.ChatPin.JID:type_name -> neonize.JID
+	171, // 198: neonize.ChatPin.Action:type_name -> WAWebProtobufSyncAction.PinAction
+	20,  // 199: neonize.ChatMute.JID:type_name -> neonize.JID
+	172, // 200: neonize.ChatMute.Action:type_name -> WAWebProtobufSyncAction.MuteAction
+	20,  // 201: neonize.ChatMarkAsRead.JID:type_name -> neonize.JID
+	173, // 202: neonize.ChatMarkAsRead.Action:type_name -> WAWebProtobufSyncAction.MarkChatAsReadAction
+	40,  // 203: neonize.UpdateGroupParticipantsReturnFunction.participants:type_name -> neonize.GroupParticipant
+	166, // 204: neonize.GetMessageForRetryReturnFunction.Message:type_name -> WAWebProtobufsE2E.Message
+	158, // 205: neonize.ReturnFunctionWithError.LocalChatSettings:type_name -> neonize.LocalChatSettings
+	174, // 206: neonize.ReturnFunctionWithError.PollVoteMessage:type_name -> WAWebProtobufsE2E.PollVoteMessage
+	63,  // 207: neonize.ReturnFunctionWithError.GetLinkedGroupsParticipants:type_name -> neonize.JIDArray
+	20,  // 208: neonize.SendRequestExtra.InlineBotJID:type_name -> neonize.JID
+	166, // 209: neonize.BuildMessageReturnFunction.Message:type_name -> WAWebProtobufsE2E.Message
+	210, // [210:210] is the sub-list for method output_type
+	210, // [210:210] is the sub-list for method input_type
+	210, // [210:210] is the sub-list for extension type_name
+	210, // [210:210] is the sub-list for extension extendee
+	0,   // [0:210] is the sub-list for field type_name
 }
 
 func init() { file_Neonize_proto_init() }
@@ -11199,7 +11509,7 @@ func file_Neonize_proto_init() {
 		(*NodeAttrs_Text)(nil),
 		(*NodeAttrs_Jid)(nil),
 	}
-	file_Neonize_proto_msgTypes[135].OneofWrappers = []any{
+	file_Neonize_proto_msgTypes[139].OneofWrappers = []any{
 		(*ReturnFunctionWithError_LocalChatSettings)(nil),
 		(*ReturnFunctionWithError_PollVoteMessage)(nil),
 		(*ReturnFunctionWithError_GetLinkedGroupsParticipants)(nil),
@@ -11210,7 +11520,7 @@ func file_Neonize_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_Neonize_proto_rawDesc), len(file_Neonize_proto_rawDesc)),
 			NumEnums:      20,
-			NumMessages:   140,
+			NumMessages:   144,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

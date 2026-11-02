@@ -896,6 +896,32 @@ message RotateADVSecret {
     required string OldSecret = 1;
     required string NewSecret = 2;
 }
+// Chat state changes made on the phone (app state sync): archive, pin, mute
+// and mark-as-read. JID is the chat; Timestamp is in seconds.
+message ChatArchive { //46
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.ArchiveChatAction Action = 3;
+    required bool FromFullSync = 4;
+}
+message ChatPin { //47
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.PinAction Action = 3;
+    required bool FromFullSync = 4;
+}
+message ChatMute { //48
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.MuteAction Action = 3;
+    required bool FromFullSync = 4;
+}
+message ChatMarkAsRead { //49
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.MarkChatAsReadAction Action = 3;
+    required bool FromFullSync = 4;
+}
 message UpdateGroupParticipantsReturnFunction {
     optional string Error = 1;
     repeated GroupParticipant participants = 2;
