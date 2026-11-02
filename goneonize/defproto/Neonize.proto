@@ -930,6 +930,16 @@ message ChatDelete { //51
     required bool FromFullSync = 4;
     required bool DeleteMedia = 5;
 }
+// Message deleted for the current user on another device (app state sync).
+message MessageDeleteForMe { //52
+    required JID ChatJID = 1;
+    optional JID SenderJID = 2;
+    required bool IsFromMe = 3;
+    required string MessageID = 4;
+    required int64 Timestamp = 5;
+    optional WAWebProtobufSyncAction.DeleteMessageForMeAction Action = 6;
+    required bool FromFullSync = 7;
+}
 message UpdateGroupParticipantsReturnFunction {
     optional string Error = 1;
     repeated GroupParticipant participants = 2;

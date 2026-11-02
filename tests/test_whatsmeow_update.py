@@ -118,3 +118,30 @@ def test_chat_delete_event_is_registered():
     )
     parsed = ChatDelete.FromString(evt.SerializeToString())
     assert parsed.JID.User == "5551" and parsed.Timestamp == 1792000000 and parsed.DeleteMedia
+
+
+def test_message_delete_for_me_event_is_registered():
+    from neonize.aioze import events as aio_events
+    from neonize.events import MessageDeleteForMeEv
+    from neonize.proto.Neonize_pb2 import MessageDeleteForMe
+    from neonize.proto.waSyncAction.WAWebProtobufSyncAction_pb2 import (
+        DeleteMessageForMeAction,
+    )
+
+    assert EVENT_TO_INT[MessageDeleteForMeEv] == 52
+    assert INT_TO_EVENT[52] is MessageDeleteForMeEv
+    assert "MessageDeleteForMeEv" in aio_events.__all__
+    assert aio_events.MessageDeleteForMeEv is MessageDeleteForMeEv
+
+    chat = JID(User="5551", RawAgent=0, Device=0, Integrator=0, Server="s.whatsapp.net")
+    evt = MessageDeleteForMe(
+        ChatJID=chat,
+        IsFromMe=True,
+        MessageID="3EB0ABC",
+        Timestamp=1792000000,
+        FromFullSync=False,
+        Action=DeleteMessageForMeAction(deleteMedia=True),
+    )
+    parsed = MessageDeleteForMe.FromString(evt.SerializeToString())
+    assert parsed.ChatJID.User == "5551" and parsed.MessageID == "3EB0ABC"
+    assert parsed.IsFromMe and parsed.Action.deleteMedia
