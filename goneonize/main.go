@@ -26,6 +26,7 @@ import (
 	"github.com/krypton-byte/neonize/defproto"
 	"github.com/krypton-byte/neonize/utils"
 	_ "github.com/mattn/go-sqlite3"
+	"go.mau.fi/util/jsontime"
 	"go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/appstate"
 	waBinary "go.mau.fi/whatsmeow/binary"
@@ -345,6 +346,8 @@ func GetPNFromLID(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesRe
 	return ProtoReturnV3(&return_)
 }
 
+const sprSupported = false
+
 //export SendSPRMessage
 func SendSPRMessage(id *C.char, groupByte *C.uchar, groupSize C.int, targetsByte *C.uchar, targetsSize C.int, targetText *C.char, decoyText *C.char) *C.struct_BytesReturn {
 	return_ := defproto.SendMessageReturnFunction{}
@@ -352,6 +355,12 @@ func SendSPRMessage(id *C.char, groupByte *C.uchar, groupSize C.int, targetsByte
 	client := clientFor(clientID)
 	if client == nil {
 		return_.Error = proto.String("client is nil")
+		return ProtoReturnV3(&return_)
+	}
+	// SPR needs SendRequestExtra.GroupParticipants and RotateGroupSenderKey,
+	// which whatsmeow does not have yet.
+	if !sprSupported {
+		return_.Error = proto.String("SPR group send is not supported by this whatsmeow version")
 		return ProtoReturnV3(&return_)
 	}
 
@@ -465,9 +474,7 @@ func SendSPRMessage(id *C.char, groupByte *C.uchar, groupSize C.int, targetsByte
 		},
 	}
 	extra := whatsmeow.SendRequestExtra{
-		ID:                   messageID,
-		GroupParticipants:    participants,
-		RotateGroupSenderKey: true,
+		ID: messageID,
 	}
 	response, err := client.SendMessage(ctx, group, &message, extra)
 	if err != nil {
@@ -951,6 +958,25 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 			}
 		case *events.Message:
 			if _, ok := subscribers[17]; ok {
+				if encMessage := v.Message.GetSecretEncryptedMessage(); encMessage != nil && encMessage.GetSecretEncType() == waE2E.SecretEncryptedMessage_MESSAGE_EDIT {
+					decrypted, err := client.DecryptSecretEncryptedMessage(ctx, v)
+					if err != nil {
+						clientLog.Warnf("failed to decrypt secret encrypted message edit %s: %v", v.Info.ID, err)
+					} else {
+						if decrypted.GetProtocolMessage().GetType() != waE2E.ProtocolMessage_MESSAGE_EDIT {
+							decrypted = &waE2E.Message{
+								ProtocolMessage: &waE2E.ProtocolMessage{
+									Key:           encMessage.GetTargetMessageKey(),
+									Type:          waE2E.ProtocolMessage_MESSAGE_EDIT.Enum(),
+									EditedMessage: decrypted,
+									TimestampMS:   proto.Int64(v.Info.Timestamp.UnixMilli()),
+								},
+							}
+						}
+						v.Message = decrypted
+						v.IsEdit = true
+					}
+				}
 				messageSource := utils.EncodeEventTypesMessage(v)
 				messageEvent := MessageEvent{
 					eventType: 17,
@@ -1298,21 +1324,34 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 			// }
 
 		} else {
-			qrChan, _ := client.GetQRChannel(context.Background())
+			// Tied to the client context so Stop also ends the QR wait below.
+			qrChan, _ := client.GetQRChannel(ctx)
 			err = client.Connect()
 			if err != nil {
 				return C.CString(err.Error())
 			}
-			for evt := range qrChan {
-				if evt.Event == "code" {
-					// Render the QR code here
-					// e.g. qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
-					// or just manually `echo 2@... | qrencode -t ansiutf8` in a terminal
-					qrFuncCb(evt.Code)
-					// C.free(unsafe.Pointer(cstr))
-				} else {
-					fmt.Println("Login event:", evt.Event)
-					logStatusCb(evt.Event)
+			// whatsmeow leaves the QR channel open when the client is
+			// disconnected on purpose, so also stop waiting once Stop
+			// cancels the client context.
+		waitForQR:
+			for {
+				select {
+				case evt, ok := <-qrChan:
+					if !ok {
+						break waitForQR
+					}
+					if evt.Event == "code" {
+						// Render the QR code here
+						// e.g. qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
+						// or just manually `echo 2@... | qrencode -t ansiutf8` in a terminal
+						qrFuncCb(evt.Code)
+						// C.free(unsafe.Pointer(cstr))
+					} else {
+						fmt.Println("Login event:", evt.Event)
+						logStatusCb(evt.Event)
+					}
+				case <-ctx.Done():
+					return C.CString("")
 				}
 			}
 		}
@@ -1325,9 +1364,15 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 	}
 
 	if int(pairphoneSize) > 0 {
-		for stat := range loginStateChan {
-			if stat {
-				break
+	waitForLogin:
+		for {
+			select {
+			case stat := <-loginStateChan:
+				if stat {
+					break waitForLogin
+				}
+			case <-ctx.Done():
+				return C.CString("")
 			}
 		}
 	}
@@ -2170,11 +2215,16 @@ func SetPassive(id *C.char, passive C.bool) *C.char {
 }
 
 //export SetStatusMessage
-func SetStatusMessage(id *C.char, msg *C.char) *C.char {
-	status := C.GoString(msg)
-	err := clientFor(C.GoString(id)).SetStatusMessage(context.Background(), types.SetStatusInput{
-		Text: &status,
-	})
+func SetStatusMessage(id *C.char, msg, emoji *C.char, seconds C.int) *C.char {
+	txt := C.GoString(msg)
+	status := types.SetStatusInput{Text: &txt}
+	if emojiText := C.GoString(emoji); emojiText != "" {
+		status.Emoji = &types.SetStatusEmoji{Content: emojiText}
+	}
+	if seconds > 0 {
+		status.Duration = jsontime.S(time.Duration(seconds) * time.Second)
+	}
+	err := clientFor(C.GoString(id)).SetStatusMessage(context.Background(), status)
 	if err != nil {
 		return C.CString(err.Error())
 	}
@@ -2689,12 +2739,21 @@ func SendFBMessage(id *C.char, to *C.uchar, toSize C.int, message *C.uchar, mess
 func main() {
 }
 
-func FetchMe(id string) *defproto.Device {
-	cli := clientFor(id).Store
+func FetchMe(ctx context.Context, id string) *defproto.Device {
+	client := clientFor(id)
+	if client == nil {
+		return nil
+	}
+	cli := client.Store
 
-	// Block until cli.ID is set
+	// Block until cli.ID is set, or until the client is stopped (a client
+	// stopped before it ever logged in never gets an ID)
 	for cli.ID == nil {
-		time.Sleep(100 * time.Millisecond) // Check 10 times per second
+		select {
+		case <-ctx.Done():
+			return nil
+		case <-time.After(100 * time.Millisecond):
+		}
 	}
 
 	device := defproto.Device{
@@ -2716,7 +2775,11 @@ func CallbackFunction(ctx context.Context, callback C.ptr_to_python_function_byt
 	uuid := C.CString(id)
 	defer C.free(unsafe.Pointer(uuid)) // released when the client's event loop exits; was leaked once per session
 	channel := getEventChannel(id)
-	buff, err := proto.Marshal(FetchMe(id))
+	me := FetchMe(ctx, id)
+	if me == nil {
+		return nil
+	}
+	buff, err := proto.Marshal(me)
 	if err != nil {
 		return err
 	}
