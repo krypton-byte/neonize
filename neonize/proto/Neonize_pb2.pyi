@@ -4210,6 +4210,50 @@ class MessageDeleteForMe(_message.Message):
 Global___MessageDeleteForMe: _TypeAlias = MessageDeleteForMe  # noqa: Y015
 
 @_typing.final
+class MessageStar(_message.Message):
+    """Message starred or unstarred on another device (app state sync).
+    53
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    CHATJID_FIELD_NUMBER: _builtins.int
+    SENDERJID_FIELD_NUMBER: _builtins.int
+    ISFROMME_FIELD_NUMBER: _builtins.int
+    MESSAGEID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    IsFromMe: _builtins.bool
+    MessageID: _builtins.str
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def ChatJID(self) -> Global___JID: ...
+    @_builtins.property
+    def SenderJID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.StarAction: ...
+    def __init__(
+        self,
+        *,
+        ChatJID: Global___JID | None = ...,
+        SenderJID: Global___JID | None = ...,
+        IsFromMe: _builtins.bool | None = ...,
+        MessageID: _builtins.str | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.StarAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "ChatJID", b"ChatJID", "FromFullSync", b"FromFullSync", "IsFromMe", b"IsFromMe", "MessageID", b"MessageID", "SenderJID", b"SenderJID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "ChatJID", b"ChatJID", "FromFullSync", b"FromFullSync", "IsFromMe", b"IsFromMe", "MessageID", b"MessageID", "SenderJID", b"SenderJID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___MessageStar: _TypeAlias = MessageStar  # noqa: Y015
+
+@_typing.final
 class UpdateGroupParticipantsReturnFunction(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
