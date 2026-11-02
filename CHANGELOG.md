@@ -127,6 +127,14 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.9.0 (2026-11-02)
+
+### Features
+
+- Add GetBusinessProfile
+  ([`0fb1dd8`](https://github.com/krypton-byte/neonize/commit/0fb1dd8356d7d1756eacc2407b93ee0b9f1519d0))
+
+
 ## v0.8.0 (2026-11-02)
 
 ### Bug Fixes
