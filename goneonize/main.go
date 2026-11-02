@@ -1306,21 +1306,34 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 			// }
 
 		} else {
-			qrChan, _ := client.GetQRChannel(context.Background())
+			// Tied to the client context so Stop also ends the QR wait below.
+			qrChan, _ := client.GetQRChannel(ctx)
 			err = client.Connect()
 			if err != nil {
 				return C.CString(err.Error())
 			}
-			for evt := range qrChan {
-				if evt.Event == "code" {
-					// Render the QR code here
-					// e.g. qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
-					// or just manually `echo 2@... | qrencode -t ansiutf8` in a terminal
-					qrFuncCb(evt.Code)
-					// C.free(unsafe.Pointer(cstr))
-				} else {
-					fmt.Println("Login event:", evt.Event)
-					logStatusCb(evt.Event)
+			// whatsmeow leaves the QR channel open when the client is
+			// disconnected on purpose, so also stop waiting once Stop
+			// cancels the client context.
+		waitForQR:
+			for {
+				select {
+				case evt, ok := <-qrChan:
+					if !ok {
+						break waitForQR
+					}
+					if evt.Event == "code" {
+						// Render the QR code here
+						// e.g. qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
+						// or just manually `echo 2@... | qrencode -t ansiutf8` in a terminal
+						qrFuncCb(evt.Code)
+						// C.free(unsafe.Pointer(cstr))
+					} else {
+						fmt.Println("Login event:", evt.Event)
+						logStatusCb(evt.Event)
+					}
+				case <-ctx.Done():
+					return C.CString("")
 				}
 			}
 		}
@@ -1333,9 +1346,15 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 	}
 
 	if int(pairphoneSize) > 0 {
-		for stat := range loginStateChan {
-			if stat {
-				break
+	waitForLogin:
+		for {
+			select {
+			case stat := <-loginStateChan:
+				if stat {
+					break waitForLogin
+				}
+			case <-ctx.Done():
+				return C.CString("")
 			}
 		}
 	}
@@ -2697,12 +2716,21 @@ func SendFBMessage(id *C.char, to *C.uchar, toSize C.int, message *C.uchar, mess
 func main() {
 }
 
-func FetchMe(id string) *defproto.Device {
-	cli := clients[id].Store
+func FetchMe(ctx context.Context, id string) *defproto.Device {
+	client := clients[id]
+	if client == nil {
+		return nil
+	}
+	cli := client.Store
 
-	// Block until cli.ID is set
+	// Block until cli.ID is set, or until the client is stopped (a client
+	// stopped before it ever logged in never gets an ID)
 	for cli.ID == nil {
-		time.Sleep(100 * time.Millisecond) // Check 10 times per second
+		select {
+		case <-ctx.Done():
+			return nil
+		case <-time.After(100 * time.Millisecond):
+		}
 	}
 
 	device := defproto.Device{
@@ -2724,7 +2752,11 @@ func CallbackFunction(ctx context.Context, callback C.ptr_to_python_function_byt
 	uuid := C.CString(id)
 	defer C.free(unsafe.Pointer(uuid)) // released when the client's event loop exits; was leaked once per session
 	channel := eventChannel[id]
-	buff, err := proto.Marshal(FetchMe(id))
+	me := FetchMe(ctx, id)
+	if me == nil {
+		return nil
+	}
+	buff, err := proto.Marshal(me)
 	if err != nil {
 		return err
 	}
