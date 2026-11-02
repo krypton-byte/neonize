@@ -592,7 +592,7 @@ class NewClient:
         sender = message.Info.MessageSource.Sender
         if jid_is_lid(sender):
             senderalt = message.Info.MessageSource.SenderAlt
-            sender = senderalt if senderalt.ListFields() else sender
+            sender = senderalt if senderalt.ListFields() and not senderalt.IsEmpty else sender
         return ContextInfo(
             stanzaID=message.Info.ID,
             participant=Jid2String(JIDToNonAD(sender)),
@@ -1021,7 +1021,8 @@ class NewClient:
             result = Message.FromString(protobytes)
             return result
         else:
-            return build_revoke(chat, sender, message_id, self.get_me().JID)
+            me = self.get_me()
+            return build_revoke(chat, sender, message_id, me.JID, me.LID)
 
     def send_peer_message(self, message: Message) -> SendResponse:
         """Send an already-built protocol message to your own devices.

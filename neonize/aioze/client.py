@@ -641,7 +641,7 @@ class NewAClient:
         sender = message.Info.MessageSource.Sender
         if jid_is_lid(sender):
             senderalt = message.Info.MessageSource.SenderAlt
-            sender = senderalt if senderalt.ListFields() else sender
+            sender = senderalt if senderalt.ListFields() and not senderalt.IsEmpty else sender
         return ContextInfo(
             stanzaID=message.Info.ID,
             participant=Jid2String(JIDToNonAD(sender)),
@@ -1065,7 +1065,8 @@ class NewAClient:
         :return: The constructed Message object for revoking the specified message.
         :rtype: Message
         """
-        return build_revoke(chat, sender, message_id, (await self.get_me()).JID)
+        me = await self.get_me()
+        return build_revoke(chat, sender, message_id, me.JID, me.LID)
 
     async def build_sticker_message(
         self,
