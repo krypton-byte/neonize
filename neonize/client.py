@@ -2824,15 +2824,21 @@ class NewClient:
         if err:
             raise SetPassiveError(err)
 
-    def set_status_message(self, msg: str):
+    def set_status_message(self, msg: str, emoji: str = "", seconds: int = 0):
         """
         Sets a status message for a client using the client's UUID.
 
         :param msg: The status message to be set.
         :type msg: str
+        :param emoji: Optional status emoji, defaults to none.
+        :type emoji: str
+        :param seconds: Optional duration in seconds after which the status expires, defaults to 0 (no expiry).
+        :type seconds: int
         :raises SetStatusMessageError: If there is an error while setting the status message.
         """
-        err = self.__client.SetStatusMessage(self.uuid, msg.encode()).decode()
+        err = self.__client.SetStatusMessage(
+            self.uuid, msg.encode(), emoji.encode(), seconds
+        ).decode()
         if err:
             raise SetStatusMessageError(err)
 
