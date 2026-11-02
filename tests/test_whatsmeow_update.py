@@ -74,6 +74,30 @@ def test_pair_phone_without_connect_raises_clean_error(tmp_path):
         c.PairPhone("1234567890", True)
 
 
+def test_chat_state_events_are_registered():
+    from neonize.aioze import events as aio_events
+    from neonize.events import ChatArchiveEv, ChatMarkAsReadEv, ChatMuteEv, ChatPinEv
+    from neonize.proto.Neonize_pb2 import ChatArchive
+    from neonize.proto.waSyncAction.WAWebProtobufSyncAction_pb2 import ArchiveChatAction
+
+    for code, name, ev in (
+        (46, "ChatArchiveEv", ChatArchiveEv),
+        (47, "ChatPinEv", ChatPinEv),
+        (48, "ChatMuteEv", ChatMuteEv),
+        (49, "ChatMarkAsReadEv", ChatMarkAsReadEv),
+    ):
+        assert EVENT_TO_INT[ev] == code
+        assert INT_TO_EVENT[code] is ev
+        assert name in aio_events.__all__ and getattr(aio_events, name) is ev
+
+    chat = JID(User="5551", RawAgent=0, Device=0, Integrator=0, Server="s.whatsapp.net")
+    evt = ChatArchive(
+        JID=chat, Timestamp=1792000000, FromFullSync=False, Action=ArchiveChatAction(archived=True)
+    )
+    parsed = ChatArchive.FromString(evt.SerializeToString())
+    assert parsed.JID.User == "5551" and parsed.Action.archived is True
+
+
 def test_chat_delete_event_is_registered():
     from neonize.aioze import events as aio_events
     from neonize.events import ChatDeleteEv
@@ -94,4 +118,3 @@ def test_chat_delete_event_is_registered():
     )
     parsed = ChatDelete.FromString(evt.SerializeToString())
     assert parsed.JID.User == "5551" and parsed.Timestamp == 1792000000 and parsed.DeleteMedia
-
