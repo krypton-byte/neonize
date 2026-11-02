@@ -922,6 +922,14 @@ message ChatMarkAsRead { //49
     optional WAWebProtobufSyncAction.MarkChatAsReadAction Action = 3;
     required bool FromFullSync = 4;
 }
+// Chat deleted on the phone (app state sync).
+message ChatDelete { //51
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.DeleteChatAction Action = 3;
+    required bool FromFullSync = 4;
+    required bool DeleteMedia = 5;
+}
 message UpdateGroupParticipantsReturnFunction {
     optional string Error = 1;
     repeated GroupParticipant participants = 2;

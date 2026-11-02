@@ -23,6 +23,7 @@ from .proto.Neonize_pb2 import CallRelayLatency as CallRelayLatencyEV
 from .proto.Neonize_pb2 import CallTerminate as CallTerminateEv
 from .proto.Neonize_pb2 import CallTransport as CallTransportEv
 from .proto.Neonize_pb2 import ChatArchive as ChatArchiveEv
+from .proto.Neonize_pb2 import ChatDelete as ChatDeleteEv
 from .proto.Neonize_pb2 import ChatMarkAsRead as ChatMarkAsReadEv
 from .proto.Neonize_pb2 import ChatMute as ChatMuteEv
 from .proto.Neonize_pb2 import ChatPin as ChatPinEv
@@ -110,6 +111,7 @@ EVENT_TO_INT: dict[type[Message], int] = {
     ChatPinEv: 47,
     ChatMuteEv: 48,
     ChatMarkAsReadEv: 49,
+    ChatDeleteEv: 51,
 }
 INT_TO_EVENT: dict[int, type[Message]] = {code: ev for ev, code in EVENT_TO_INT.items()}
 
