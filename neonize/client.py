@@ -47,6 +47,7 @@ from .exc import (
     DownloadError,
     FollowNewsletterError,
     GetBlocklistError,
+    GetBusinessProfileError,
     GetChatSettingsError,
     GetContactQrLinkError,
     GetGroupInfoError,
@@ -3311,6 +3312,29 @@ class NewClient:
         if model.Error:
             raise GetProfilePictureError(model)
         return model.Picture
+
+    def get_business_profile(self, jid: JID) -> neonize_proto.BusinessProfile:
+        """Get the business profile of a WhatsApp Business account.
+
+        Returns the public business information the account chose to publish:
+        address, email, categories, business hours and timezone.
+
+        :param jid: The JID of the business account.
+        :type jid: JID
+        :raises GetBusinessProfileError: If the profile cannot be retrieved.
+        :return: The business profile.
+        :rtype: neonize_proto.BusinessProfile
+        """
+        jid_bytes = jid.SerializeToString()
+        protobytes = self.__client.GetBusinessProfile(
+            self.uuid,
+            jid_bytes,
+            len(jid_bytes),
+        )
+        model = neonize_proto.GetBusinessProfileReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise GetBusinessProfileError(model.Error)
+        return model.Profile
 
     def get_status_privacy(
         self,

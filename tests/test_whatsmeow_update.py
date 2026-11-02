@@ -188,3 +188,17 @@ def test_app_state_repair_methods_exist():
             "self",
             "name",
         ]
+
+
+
+def test_get_business_profile_methods_exist():
+    import inspect
+
+    from neonize.aioze.client import NewAClient
+    from neonize.client import NewClient
+
+    for cls in (NewClient, NewAClient):
+        assert list(inspect.signature(cls.get_business_profile).parameters) == [
+            "self",
+            "jid",
+        ]

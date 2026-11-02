@@ -316,6 +316,10 @@ class SetPassiveError(NeonizeError):
     """Raised when toggling passive mode fails."""
 
 
+class GetBusinessProfileError(NeonizeError):
+    pass
+
+
 class SetStatusMessageError(NeonizeError):
     """Raised when setting the status/about message fails."""
 
