@@ -959,16 +959,23 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 			}
 		case *events.Message:
 			if _, ok := subscribers[17]; ok {
-				// Newer WhatsApp clients wrap edits in a secret-encrypted message.
-				// Decrypt it before encoding the event for Python so consumers
-				// receive the usual protocolMessage with MESSAGE_EDIT.
-				if encrypted := v.Message.GetSecretEncryptedMessage(); encrypted != nil &&
-					encrypted.GetSecretEncType() == waE2E.SecretEncryptedMessage_MESSAGE_EDIT {
+				if encMessage := v.Message.GetSecretEncryptedMessage(); encMessage != nil && encMessage.GetSecretEncType() == waE2E.SecretEncryptedMessage_MESSAGE_EDIT {
 					decrypted, err := client.DecryptSecretEncryptedMessage(ctx, v)
 					if err != nil {
-						clientLog.Warnf("Failed to decrypt encrypted message edit %s: %v", v.Info.ID, err)
+						clientLog.Warnf("failed to decrypt secret encrypted message edit %s: %v", v.Info.ID, err)
 					} else {
+						if decrypted.GetProtocolMessage().GetType() != waE2E.ProtocolMessage_MESSAGE_EDIT {
+							decrypted = &waE2E.Message{
+								ProtocolMessage: &waE2E.ProtocolMessage{
+									Key:           encMessage.GetTargetMessageKey(),
+									Type:          waE2E.ProtocolMessage_MESSAGE_EDIT.Enum(),
+									EditedMessage: decrypted,
+									TimestampMS:   proto.Int64(v.Info.Timestamp.UnixMilli()),
+								},
+							}
+						}
 						v.Message = decrypted
+						v.IsEdit = true
 					}
 				}
 				messageSource := utils.EncodeEventTypesMessage(v)
