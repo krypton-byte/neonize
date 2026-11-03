@@ -2981,12 +2981,10 @@ class NewClient:
             len(jids_proto),
             act_val.encode(),
         )
-        model = neonize_proto.UpdateGroupParticipantsReturnFunction.FromString(
-            protobytes.get_bytes()
-        )
+        model = neonize_proto.UpdateGroupParticipantsReturnFunction.FromString(protobytes)
         if model.Error:
             raise UpdateGroupRequestParticipantsError(model.Error)
-        return model.Participants
+        return model.participants
 
     def set_group_topic(self, jid: JID, previous_id: str, new_id: str, topic: str):
         """
