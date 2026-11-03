@@ -127,6 +127,9 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.10.0 (2026-11-03)
+
+
 ## v0.9.0 (2026-11-02)
 
 ### Features
