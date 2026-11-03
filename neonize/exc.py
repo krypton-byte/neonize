@@ -126,6 +126,18 @@ class SetGroupLockedError(NeonizeError):
     """Raised when toggling group lock fails."""
 
 
+class SetGroupJoinApprovalModeError(NeonizeError):
+    """Raised when toggling group join approval mode fails."""
+
+
+class SetGroupMemberAddModeError(NeonizeError):
+    """Raised when setting group member add mode fails."""
+
+
+class UpdateGroupRequestParticipantsError(NeonizeError):
+    """Raised when approving or rejecting group join request participants fails."""
+
+
 class SetGroupTopicError(NeonizeError):
     """Raised when setting the group topic/description fails."""
 

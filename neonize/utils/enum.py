@@ -383,6 +383,19 @@ class ParticipantRequestChange(Enum):
     REJECT = "reject"
 
 
+class GroupMemberAddMode(Enum):
+    """
+    Enumeration of group member add modes (who can add members).
+
+    Attributes:
+        ADMIN_ADD (str): Only admins can add members.
+        ALL_MEMBER_ADD (str): All members can add members.
+    """
+
+    ADMIN_ADD = "admin_add"
+    ALL_MEMBER_ADD = "all_member_add"
+
+
 class Presence(Enum):
     AVAILABLE = b"available"
     UNAVAILABLE = b"unavailable"

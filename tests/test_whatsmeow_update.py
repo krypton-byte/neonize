@@ -190,7 +190,6 @@ def test_app_state_repair_methods_exist():
         ]
 
 
-
 def test_get_business_profile_methods_exist():
     import inspect
 
@@ -202,3 +201,121 @@ def test_get_business_profile_methods_exist():
             "self",
             "jid",
         ]
+
+
+def test_group_join_and_member_add_methods_exist():
+    import inspect
+    from unittest.mock import MagicMock
+
+    from neonize.aioze.client import NewAClient
+    from neonize.client import NewClient
+    from neonize.exc import (
+        SetGroupJoinApprovalModeError,
+        SetGroupMemberAddModeError,
+        UpdateGroupRequestParticipantsError,
+    )
+    from neonize.proto.Neonize_pb2 import GroupParticipant, UpdateGroupParticipantsReturnFunction
+    from neonize.utils.enum import GroupMemberAddMode, ParticipantRequestChange
+
+    assert GroupMemberAddMode.ADMIN_ADD.value == "admin_add"
+    assert GroupMemberAddMode.ALL_MEMBER_ADD.value == "all_member_add"
+    assert ParticipantRequestChange.APPROVE.value == "approve"
+    assert ParticipantRequestChange.REJECT.value == "reject"
+
+    for cls in (NewClient, NewAClient):
+        assert list(inspect.signature(cls.set_group_join_approval_mode).parameters) == [
+            "self",
+            "jid",
+            "mode",
+        ]
+        assert list(inspect.signature(cls.set_group_member_add_mode).parameters) == [
+            "self",
+            "jid",
+            "mode",
+        ]
+        assert list(inspect.signature(cls.update_group_request_participants).parameters) == [
+            "self",
+            "jid",
+            "participants",
+            "action",
+        ]
+
+    def make_jid(user: str, server: str = "s.whatsapp.net") -> JID:
+        return JID(User=user, RawAgent=0, Device=0, Integrator=0, Server=server)
+
+    part_jid = make_jid("12345")
+    mock_ret = UpdateGroupParticipantsReturnFunction(
+        participants=[
+            GroupParticipant(
+                JID=part_jid,
+                LID=part_jid,
+                PhoneNumber=part_jid,
+                IsAdmin=False,
+                IsSuperAdmin=False,
+                DisplayName="",
+                Error=0,
+            )
+        ]
+    ).SerializeToString()
+
+    client = NewClient.__new__(NewClient)
+    client.uuid = b"test-uuid"
+    mock_binder = MagicMock()
+    mock_binder.UpdateGroupRequestParticipants.return_value = mock_ret
+    client._NewClient__client = mock_binder
+
+    group_jid = make_jid("group123", "g.us")
+    res = client.update_group_request_participants(
+        group_jid, [part_jid], ParticipantRequestChange.APPROVE
+    )
+    assert len(res) == 1
+    assert res[0].JID.User == "12345"
+
+    # Test error raising
+    import pytest
+
+    mock_err_ret = UpdateGroupParticipantsReturnFunction(Error="request failed").SerializeToString()
+    mock_binder.UpdateGroupRequestParticipants.return_value = mock_err_ret
+    with pytest.raises(UpdateGroupRequestParticipantsError, match="request failed"):
+        client.update_group_request_participants(
+            group_jid, [part_jid], ParticipantRequestChange.REJECT
+        )
+
+    mock_binder.SetGroupJoinApprovalMode.return_value = b"approval error"
+    with pytest.raises(SetGroupJoinApprovalModeError, match="approval error"):
+        client.set_group_join_approval_mode(group_jid, True)
+
+    mock_binder.SetGroupMemberAddMode.return_value = b"member add error"
+    with pytest.raises(SetGroupMemberAddModeError, match="member add error"):
+        client.set_group_member_add_mode(group_jid, GroupMemberAddMode.ADMIN_ADD)
+
+    import asyncio
+
+    async def _test_async():
+        aclient = NewAClient.__new__(NewAClient)
+        aclient.uuid = b"test-uuid"
+        mock_abinder = MagicMock()
+
+        async def _mock_update(*args, **kwargs):
+            return mock_ret
+
+        async def _mock_join_mode(*args, **kwargs):
+            return b""
+
+        async def _mock_member_mode(*args, **kwargs):
+            return b""
+
+        mock_abinder.UpdateGroupRequestParticipants = _mock_update
+        mock_abinder.SetGroupJoinApprovalMode = _mock_join_mode
+        mock_abinder.SetGroupMemberAddMode = _mock_member_mode
+        aclient._NewAClient__client = mock_abinder
+
+        ares = await aclient.update_group_request_participants(
+            group_jid, [part_jid], ParticipantRequestChange.APPROVE
+        )
+        assert len(ares) == 1
+        assert ares[0].JID.User == "12345"
+        await aclient.set_group_join_approval_mode(group_jid, False)
+        await aclient.set_group_member_add_mode(group_jid, GroupMemberAddMode.ALL_MEMBER_ADD)
+
+    asyncio.run(_test_async())

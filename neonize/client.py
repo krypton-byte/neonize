@@ -88,7 +88,9 @@ from .exc import (
     SetDefaultDisappearingTimerError,
     SetDisappearingTimerError,
     SetGroupAnnounceError,
+    SetGroupJoinApprovalModeError,
     SetGroupLockedError,
+    SetGroupMemberAddModeError,
     SetGroupPhotoError,
     SetGroupTopicError,
     SetPassiveError,
@@ -100,6 +102,7 @@ from .exc import (
     UnlinkGroupError,
     UpdateBlocklistError,
     UpdateGroupParticipantsError,
+    UpdateGroupRequestParticipantsError,
     UploadError,
 )
 from .ext.interactive_message.base import CustomInteractiveMessage
@@ -188,10 +191,12 @@ from .utils.enum import (
     ChatPresenceMedia,
     ClientName,
     ClientType,
+    GroupMemberAddMode,
     LogLevel,
     MediaType,
     MediaTypeToMMS,
     ParticipantChange,
+    ParticipantRequestChange,
     Presence,
     PrivacySetting,
     PrivacySettingType,
@@ -2913,6 +2918,73 @@ class NewClient:
         err = self.__client.SetGroupLocked(self.uuid, jid_proto, len(jid_proto), locked).decode()
         if err:
             raise SetGroupLockedError(err)
+
+    def set_group_join_approval_mode(self, jid: JID, mode: bool) -> None:
+        """Set whether admins must approve new members before they can join the group.
+
+        :param jid: The JID (Jabber ID) of the group to update.
+        :type jid: JID
+        :param mode: True to require admin approval, False to allow anyone with an invite to join.
+        :type mode: bool
+        :raises SetGroupJoinApprovalModeError: If the operation fails, an error with the reason is raised.
+        """
+        jid_proto = jid.SerializeToString()
+        err = self.__client.SetGroupJoinApprovalMode(
+            self.uuid, jid_proto, len(jid_proto), mode
+        ).decode()
+        if err:
+            raise SetGroupJoinApprovalModeError(err)
+
+    def set_group_member_add_mode(self, jid: JID, mode: GroupMemberAddMode | str) -> None:
+        """Set who can add members to the group.
+
+        :param jid: The JID (Jabber ID) of the group to update.
+        :type jid: JID
+        :param mode: GroupMemberAddMode.ADMIN_ADD or GroupMemberAddMode.ALL_MEMBER_ADD.
+        :type mode: GroupMemberAddMode | str
+        :raises SetGroupMemberAddModeError: If the operation fails.
+        """
+        jid_proto = jid.SerializeToString()
+        mode_val = mode.value if isinstance(mode, GroupMemberAddMode) else str(mode)
+        err = self.__client.SetGroupMemberAddMode(
+            self.uuid, jid_proto, len(jid_proto), mode_val.encode()
+        ).decode()
+        if err:
+            raise SetGroupMemberAddModeError(err)
+
+    def update_group_request_participants(
+        self,
+        jid: JID,
+        participants: list[JID],
+        action: ParticipantRequestChange | str,
+    ) -> RepeatedCompositeFieldContainer[GroupParticipant]:
+        """Update pending participant join requests for a group (approve or reject).
+
+        :param jid: The JID of the group to update.
+        :type jid: JID
+        :param participants: List of participant JIDs to approve or reject.
+        :type participants: list[JID]
+        :param action: ParticipantRequestChange.APPROVE or ParticipantRequestChange.REJECT.
+        :type action: ParticipantRequestChange | str
+        :return: Updated group participants.
+        :rtype: RepeatedCompositeFieldContainer[GroupParticipant]
+        :raises UpdateGroupRequestParticipantsError: If the operation fails.
+        """
+        jid_proto = jid.SerializeToString()
+        jids_proto = neonize_proto.JIDArray(JIDS=participants).SerializeToString()
+        act_val = action.value if isinstance(action, ParticipantRequestChange) else str(action)
+        protobytes = self.__client.UpdateGroupRequestParticipants(
+            self.uuid,
+            jid_proto,
+            len(jid_proto),
+            jids_proto,
+            len(jids_proto),
+            act_val.encode(),
+        )
+        model = neonize_proto.UpdateGroupParticipantsReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise UpdateGroupRequestParticipantsError(model.Error)
+        return model.participants
 
     def set_group_topic(self, jid: JID, previous_id: str, new_id: str, topic: str):
         """
