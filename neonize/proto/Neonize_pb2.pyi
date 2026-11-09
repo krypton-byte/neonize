@@ -4254,6 +4254,43 @@ class MessageStar(_message.Message):
 Global___MessageStar: _TypeAlias = MessageStar  # noqa: Y015
 
 @_typing.final
+class ChatClear(_message.Message):
+    """Chat cleared on the phone, messages removed but chat kept (app state sync).
+    54
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    DELETEMEDIA_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    DeleteMedia: _builtins.bool
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.ClearChatAction: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.ClearChatAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+        DeleteMedia: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "DeleteMedia", b"DeleteMedia", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "DeleteMedia", b"DeleteMedia", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___ChatClear: _TypeAlias = ChatClear  # noqa: Y015
+
+@_typing.final
 class UpdateGroupParticipantsReturnFunction(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 

@@ -1338,6 +1338,21 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				}
 				eventChan <- &messageEvent
 			}
+		case *events.ClearChat:
+			if _, ok := subscribers[54]; ok {
+				chatState := defproto.ChatClear{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+					DeleteMedia:  proto.Bool(v.DeleteMedia),
+				}
+				messageEvent := MessageEvent{
+					eventType: 54,
+					message:   &chatState,
+				}
+				eventChan <- &messageEvent
+			}
 		case *events.DeleteForMe:
 			if _, ok := subscribers[52]; ok {
 				deleted := defproto.MessageDeleteForMe{
