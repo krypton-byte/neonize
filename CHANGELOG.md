@@ -127,6 +127,24 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.11.0 (2026-11-20)
+
+### Bug Fixes
+
+- Keep exact expiration in group participant add request
+  ([`70167a9`](https://github.com/krypton-byte/neonize/commit/70167a909f6178725ee2bbc6966879c6af6d061c))
+
+### Chores
+
+- **deps**: Update whatsmeow, go dependencies, and sync whatsapp protos
+  ([`0448450`](https://github.com/krypton-byte/neonize/commit/0448450c8c01e55fef67149250e48c38429c5451))
+
+### Features
+
+- Forward the clear-chat app state event
+  ([`e798772`](https://github.com/krypton-byte/neonize/commit/e798772f581dac08462141e8f9138ae17473b599))
+
+
 ## v0.10.0 (2026-11-03)
 
 
