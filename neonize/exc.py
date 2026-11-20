@@ -367,3 +367,67 @@ class ConvertStickerError(NeonizeError):
 
 class FFProbeError(NeonizeError):
     """Raised when ffprobe fails to analyse a media file."""
+
+
+class DeleteMediaError(NeonizeError):
+    """Raised when deleting media from WhatsApp servers fails."""
+
+
+class FetchStickerPackError(NeonizeError):
+    """Raised when fetching a sticker pack fails."""
+
+
+class GetBotListV2Error(NeonizeError):
+    """Raised when retrieving the bot list fails."""
+
+
+class GetBotProfilesError(NeonizeError):
+    """Raised when retrieving bot profiles fails."""
+
+
+class GetOrderDetailsError(NeonizeError):
+    """Raised when retrieving order details fails."""
+
+
+class DecryptCommentError(NeonizeError):
+    """Raised when decrypting a comment message fails."""
+
+
+class DecryptReactionError(NeonizeError):
+    """Raised when decrypting a reaction message fails."""
+
+
+class EncryptCommentError(NeonizeError):
+    """Raised when encrypting a comment message fails."""
+
+
+class EncryptReactionError(NeonizeError):
+    """Raised when encrypting a reaction message fails."""
+
+
+class EncryptPollVoteError(NeonizeError):
+    """Raised when encrypting a poll vote fails."""
+
+
+class StoreLIDPNMappingError(NeonizeError):
+    """Raised when storing a LID-PN mapping fails."""
+
+
+class TryFetchPrivacySettingsError(NeonizeError):
+    """Raised when fetching privacy settings fails."""
+
+
+class MarkNotDirtyError(NeonizeError):
+    """Raised when marking a dirty state clean fails."""
+
+
+class SendMediaRetryReceiptError(NeonizeError):
+    """Raised when sending a media retry receipt fails."""
+
+
+class BuildUnavailableMessageRequestError(NeonizeError):
+    """Raised when building an unavailable message request fails."""
+
+
+class BuildEditError(NeonizeError):
+    """Raised when building an edited message fails."""

@@ -345,3 +345,97 @@ def test_group_join_and_member_add_methods_exist():
         await aclient.set_group_member_add_mode(group_jid, GroupMemberAddMode.ALL_MEMBER_ADD)
 
     asyncio.run(_test_async())
+
+
+def test_new_whatsmeow_events_registered():
+    from neonize.aioze import events as aio_events
+    from neonize.events import (
+        AppStateEv,
+        AppStateSyncCompleteEv,
+        AppStateSyncErrorEv,
+        BusinessNameEv,
+        CallRejectEv,
+        CATRefreshErrorEv,
+        ContactSyncEv,
+        FBCallEventEv,
+        LabelAssociationChatEv,
+        LabelAssociationMessageEv,
+        LabelEditEv,
+        ManualLoginReconnectEv,
+        MediaRetryEv,
+        NewsletterMilestoneEv,
+        NotifyAccountReachoutTimelockEv,
+        PairPasskeyConfirmationEv,
+        PairPasskeyErrorEv,
+        PushNameEv,
+        PushNameSettingEv,
+        QRScannedWithoutMultideviceEv,
+        UnarchiveChatsSettingEv,
+        UserAboutEv,
+        UserStatusMuteEv,
+    )
+
+    expected = {
+        29: ("MediaRetryEv", MediaRetryEv),
+        55: ("AppStateEv", AppStateEv),
+        56: ("AppStateSyncCompleteEv", AppStateSyncCompleteEv),
+        57: ("AppStateSyncErrorEv", AppStateSyncErrorEv),
+        58: ("ContactSyncEv", ContactSyncEv),
+        59: ("PushNameEv", PushNameEv),
+        60: ("PushNameSettingEv", PushNameSettingEv),
+        61: ("BusinessNameEv", BusinessNameEv),
+        62: ("UserAboutEv", UserAboutEv),
+        63: ("UserStatusMuteEv", UserStatusMuteEv),
+        64: ("UnarchiveChatsSettingEv", UnarchiveChatsSettingEv),
+        65: ("LabelEditEv", LabelEditEv),
+        66: ("LabelAssociationChatEv", LabelAssociationChatEv),
+        67: ("LabelAssociationMessageEv", LabelAssociationMessageEv),
+        68: ("CallRejectEv", CallRejectEv),
+        69: ("FBCallEventEv", FBCallEventEv),
+        70: ("NewsletterMilestoneEv", NewsletterMilestoneEv),
+        71: ("CATRefreshErrorEv", CATRefreshErrorEv),
+        72: ("ManualLoginReconnectEv", ManualLoginReconnectEv),
+        73: ("QRScannedWithoutMultideviceEv", QRScannedWithoutMultideviceEv),
+        74: ("NotifyAccountReachoutTimelockEv", NotifyAccountReachoutTimelockEv),
+        75: ("PairPasskeyConfirmationEv", PairPasskeyConfirmationEv),
+        76: ("PairPasskeyErrorEv", PairPasskeyErrorEv),
+    }
+
+    for code, (name, ev) in expected.items():
+        assert EVENT_TO_INT[ev] == code
+        assert INT_TO_EVENT[code] is ev
+        assert name in aio_events.__all__
+        assert getattr(aio_events, name) is ev
+
+
+def test_new_whatsmeow_client_methods_parity():
+    import inspect
+
+    from neonize.aioze.client import NewAClient
+    from neonize.client import NewClient
+
+    methods = {
+        "get_blocklist": ["self", "dhash"],
+        "update_blocklist": ["self", "jid", "action", "dhash"],
+        "delete_media": ["self", "media_type", "direct_path", "enc_file_hash", "enc_handle"],
+        "fetch_sticker_pack": ["self", "pack_id"],
+        "get_bot_list_v2": ["self"],
+        "get_bot_profiles": ["self", "bot_info"],
+        "get_order_details": ["self", "order_id", "token_base64"],
+        "decrypt_comment": ["self", "message"],
+        "decrypt_reaction": ["self", "message"],
+        "encrypt_comment": ["self", "root_msg_info", "comment"],
+        "encrypt_reaction": ["self", "root_msg_info", "reaction"],
+        "encrypt_poll_vote": ["self", "poll_info", "vote"],
+        "store_lid_pn_mapping": ["self", "first", "second"],
+        "try_fetch_privacy_settings": ["self", "ignore_cache"],
+        "mark_not_dirty": ["self", "clean_type", "timestamp"],
+        "send_media_retry_receipt": ["self", "message_info", "media_key"],
+        "build_unavailable_message_request": ["self", "chat", "sender", "message_id"],
+        "build_edit": ["self", "chat", "message_id", "new_content"],
+    }
+
+    for cls in (NewClient, NewAClient):
+        for method_name, expected_params in methods.items():
+            assert hasattr(cls, method_name), f"{cls.__name__} missing {method_name}"
+            assert list(inspect.signature(getattr(cls, method_name)).parameters) == expected_params

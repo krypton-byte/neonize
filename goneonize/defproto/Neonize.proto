@@ -92,6 +92,7 @@ message UserInfo {
     required string Status = 2;
     required string PictureID = 3;
     repeated JID Devices = 4;
+    optional JID LID = 5;
 }
 
 message Device {
@@ -391,9 +392,16 @@ message NewsletterMetadata {
 
 }
 
+message BlocklistItem {
+    required JID LID = 1;
+    required JID PN = 2;
+    required bool Active = 3;
+}
 message Blocklist {
     required string DHash = 1;
     repeated JID JIDs = 2;
+    optional AddressingMode AddressingMode = 3;
+    repeated BlocklistItem Items = 4;
 }
 message Reaction {
     required string type = 1;
@@ -786,8 +794,19 @@ message OfflineSyncPreview { //26
 message OfflineSyncCompleted { // 27
     required int32 Count = 1;
 }
-//MediaRetryError (not implemented yet) // 28
-//MediaRetry(not implemented yet) // 29
+message MediaRetryError { // 28
+    required int32 Code = 1;
+}
+message MediaRetry { // 29
+    optional bytes Ciphertext = 1;
+    optional bytes IV = 2;
+    optional MediaRetryError Error = 3;
+    required int64 Timestamp = 4;
+    required string MessageID = 5;
+    required JID ChatID = 6;
+    optional JID SenderID = 7;
+    required bool FromMe = 8;
+}
 
 message BlocklistEvent { // 30
     enum Actions {
@@ -995,6 +1014,7 @@ message SendRequestExtra {
     required bool Peer = 3;
     required int64 Timeout = 4;
     required string MediaHandle = 5;
+    optional bool CheckPermissions = 6;
 }
 
 message BuildMessageReturnFunction{
@@ -1032,4 +1052,238 @@ message BusinessProfile {
 message GetBusinessProfileReturnFunction{
     optional BusinessProfile Profile = 1;
     optional string Error = 2;
+}
+
+message StickerPackItem {
+    required bytes MediaKey = 1;
+    required bytes EncFileHash = 2;
+    required bytes FileHash = 3;
+    required string DirectPath = 4;
+    required string URL = 5;
+    required int64 FileSize = 6;
+    required string MimeType = 7;
+    required int32 Height = 8;
+    required int32 Width = 9;
+    repeated string Emojis = 10;
+    required string AccessibilityText = 11;
+    required string Handle = 12;
+    required bytes StickerHashWithoutMeta = 13;
+    required string PreviewWebpID = 14;
+}
+message StickerPack {
+    required string StickerPackID = 1;
+    required string Name = 2;
+    required string Publisher = 3;
+    required string Description = 4;
+    required string FileSize = 5;
+    required string ImageDataHash = 6;
+    repeated StickerPackItem Stickers = 7;
+    required int32 Animated = 8;
+    required int32 Lottie = 9;
+    repeated string PreviewImageIDs = 10;
+    required string TrayImageID = 11;
+    required string TrayImagePreview = 12;
+}
+message FetchStickerPackReturnFunction {
+    optional StickerPack StickerPack = 1;
+    optional string Error = 2;
+}
+
+message BotListInfo {
+    required JID BotJID = 1;
+    required string PersonaID = 2;
+}
+message BotListInfoArray {
+    repeated BotListInfo Bots = 1;
+}
+message GetBotListV2ReturnFunction {
+    repeated BotListInfo Bots = 1;
+    optional string Error = 2;
+}
+message BotProfileCommand {
+    required string Name = 1;
+    required string Description = 2;
+}
+message BotProfileInfo {
+    required JID JID = 1;
+    required string Name = 2;
+    required string Attributes = 3;
+    required string Description = 4;
+    required string Category = 5;
+    required bool IsDefault = 6;
+    repeated string Prompts = 7;
+    required string PersonaID = 8;
+    repeated BotProfileCommand Commands = 9;
+    required string CommandsDescription = 10;
+}
+message GetBotProfilesReturnFunction {
+    repeated BotProfileInfo Profiles = 1;
+    optional string Error = 2;
+}
+
+message OrderPrice {
+    required int64 Subtotal = 1;
+    required int64 Total = 2;
+    required string Currency = 3;
+    optional string PriceStatus = 4;
+}
+message OrderProduct {
+    required string ID = 1;
+    optional string ImageID = 2;
+    optional string ImageURL = 3;
+    required int64 Price = 4;
+    required string Currency = 5;
+    required string Name = 6;
+    required int32 Quantity = 7;
+}
+message OrderDetails {
+    required string ID = 1;
+    required int64 CreatedAt = 2;
+    optional string CatalogID = 3;
+    required OrderPrice Price = 4;
+    repeated OrderProduct Products = 5;
+}
+message GetOrderDetailsReturnFunction {
+    optional OrderDetails OrderDetails = 1;
+    optional string Error = 2;
+}
+
+message DecryptReactionReturnFunction {
+    optional WAWebProtobufsE2E.ReactionMessage Reaction = 1;
+    optional string Error = 2;
+}
+message EncryptReactionReturnFunction {
+    optional WAWebProtobufsE2E.EncReactionMessage EncReaction = 1;
+    optional string Error = 2;
+}
+message EncryptPollVoteReturnFunction {
+    optional WAWebProtobufsE2E.PollUpdateMessage PollUpdate = 1;
+    optional string Error = 2;
+}
+message TryFetchPrivacySettingsReturnFunction {
+    optional PrivacySettings Settings = 1;
+    optional string Error = 2;
+}
+
+// New events (codes 55-76)
+message AppState { // 55
+    repeated string Index = 1;
+    optional WAWebProtobufSyncAction.SyncActionValue Action = 2;
+}
+message AppStateSyncComplete { // 56
+    required string Name = 1;
+    required uint64 Version = 2;
+    required bool Recovery = 3;
+}
+message AppStateSyncError { // 57
+    required string Name = 1;
+    required string Error = 2;
+    required bool FullSync = 3;
+}
+message ContactSync { // 58
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.ContactAction Action = 3;
+    required bool FromFullSync = 4;
+}
+message PushName { // 59
+    required JID JID = 1;
+    optional JID JIDAlt = 2;
+    optional MessageInfo Message = 3;
+    required string OldPushName = 4;
+    required string NewPushName = 5;
+}
+message PushNameSetting { // 60
+    required int64 Timestamp = 1;
+    optional WAWebProtobufSyncAction.PushNameSetting Action = 2;
+    required bool FromFullSync = 3;
+}
+message BusinessName { // 61
+    required JID JID = 1;
+    optional MessageInfo Message = 2;
+    required string OldBusinessName = 3;
+    required string NewBusinessName = 4;
+}
+message UserAbout { // 62
+    required JID JID = 1;
+    required string Status = 2;
+    required int64 Timestamp = 3;
+}
+message UserStatusMute { // 63
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.UserStatusMuteAction Action = 3;
+    required bool FromFullSync = 4;
+}
+message UnarchiveChatsSetting { // 64
+    required int64 Timestamp = 1;
+    optional WAWebProtobufSyncAction.UnarchiveChatsSetting Action = 2;
+    required bool FromFullSync = 3;
+}
+message LabelEdit { // 65
+    required int64 Timestamp = 1;
+    required string LabelID = 2;
+    optional WAWebProtobufSyncAction.LabelEditAction Action = 3;
+    required bool FromFullSync = 4;
+}
+message LabelAssociationChat { // 66
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    required string LabelID = 3;
+    optional WAWebProtobufSyncAction.LabelAssociationAction Action = 4;
+    required bool FromFullSync = 5;
+}
+message LabelAssociationMessage { // 67
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    required string LabelID = 3;
+    required string MessageID = 4;
+    optional WAWebProtobufSyncAction.LabelAssociationAction Action = 5;
+    required bool FromFullSync = 6;
+}
+message CallReject { // 68
+    required BasicCallMeta CallMeta = 1;
+}
+message FBCallEvent { // 69
+    required string ID = 1;
+    required JID From = 2;
+    required JID Chat = 3;
+    required JID Actor = 4;
+    required int64 Timestamp = 5;
+    required string CallType = 6;
+    required string EventType = 7;
+    required int64 Duration = 8;
+    required string ParentID = 9;
+    required string ServerInfoData = 10;
+}
+message NewsletterMilestone { // 70
+    required JID ID = 1;
+    required int64 MessageServerID = 2;
+    required string Type = 3;
+    required int32 Value = 4;
+    required string ReactionCode = 5;
+    required int64 Timestamp = 6;
+    required string OpName = 7;
+}
+message CATRefreshError { // 71
+    required string Error = 1;
+}
+message ManualLoginReconnect { // 72
+}
+message QRScannedWithoutMultidevice { // 73
+}
+message NotifyAccountReachoutTimelock { // 74
+    required string EnforcementType = 1;
+    required bool IsActive = 2;
+    required int64 TimeEnforcementEnds = 3;
+    required int64 Timestamp = 4;
+    required string OpName = 5;
+}
+message PairPasskeyConfirmation { // 75
+    required string Code = 1;
+    required bool SkipHandoffUX = 2;
+}
+message PairPasskeyError { // 76
+    required string Error = 1;
+    required bool Continuation = 2;
 }

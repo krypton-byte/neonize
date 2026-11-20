@@ -13,15 +13,21 @@ from google.protobuf.message import Message
 from neonize.exc import UnsupportedEvent
 
 from .proto.Neonize_pb2 import QR as QREv
+from .proto.Neonize_pb2 import AppState as AppStateEv
+from .proto.Neonize_pb2 import AppStateSyncComplete as AppStateSyncCompleteEv
+from .proto.Neonize_pb2 import AppStateSyncError as AppStateSyncErrorEv
 from .proto.Neonize_pb2 import BlocklistChange as BlocklistChangeEv
 from .proto.Neonize_pb2 import BlocklistEvent as BlocklistEv
+from .proto.Neonize_pb2 import BusinessName as BusinessNameEv
 from .proto.Neonize_pb2 import CallAccept as CallAcceptEv
 from .proto.Neonize_pb2 import CallOffer as CallOfferEv
 from .proto.Neonize_pb2 import CallOfferNotice as CallOfferNoticeEv
 from .proto.Neonize_pb2 import CallPreAccept as CallPreAcceptEv
+from .proto.Neonize_pb2 import CallReject as CallRejectEv
 from .proto.Neonize_pb2 import CallRelayLatency as CallRelayLatencyEV
 from .proto.Neonize_pb2 import CallTerminate as CallTerminateEv
 from .proto.Neonize_pb2 import CallTransport as CallTransportEv
+from .proto.Neonize_pb2 import CATRefreshError as CATRefreshErrorEv
 from .proto.Neonize_pb2 import ChatArchive as ChatArchiveEv
 from .proto.Neonize_pb2 import ChatClear as ChatClearEv
 from .proto.Neonize_pb2 import ChatDelete as ChatDeleteEv
@@ -32,15 +38,22 @@ from .proto.Neonize_pb2 import ChatPresence as ChatPresenceEv
 from .proto.Neonize_pb2 import ClientOutdated as ClientOutdatedEv
 from .proto.Neonize_pb2 import Connected as ConnectedEv
 from .proto.Neonize_pb2 import ConnectFailure as ConnectFailureEv
+from .proto.Neonize_pb2 import ContactSync as ContactSyncEv
 from .proto.Neonize_pb2 import Device
 from .proto.Neonize_pb2 import Disconnected as DisconnectedEv
+from .proto.Neonize_pb2 import FBCallEvent as FBCallEventEv
 from .proto.Neonize_pb2 import GroupInfoEvent as GroupInfoEv
 from .proto.Neonize_pb2 import HistorySync as HistorySyncEv
 from .proto.Neonize_pb2 import IdentityChange as IdentityChangeEv
 from .proto.Neonize_pb2 import JoinedGroup as JoinedGroupEv
 from .proto.Neonize_pb2 import KeepAliveRestored as KeepAliveRestoredEv
 from .proto.Neonize_pb2 import KeepAliveTimeout as KeepAliveTimeoutEv
+from .proto.Neonize_pb2 import LabelAssociationChat as LabelAssociationChatEv
+from .proto.Neonize_pb2 import LabelAssociationMessage as LabelAssociationMessageEv
+from .proto.Neonize_pb2 import LabelEdit as LabelEditEv
 from .proto.Neonize_pb2 import LoggedOut as LoggedOutEv
+from .proto.Neonize_pb2 import ManualLoginReconnect as ManualLoginReconnectEv
+from .proto.Neonize_pb2 import MediaRetry as MediaRetryEv
 from .proto.Neonize_pb2 import Message as MessageEv
 from .proto.Neonize_pb2 import MessageDeleteForMe as MessageDeleteForMeEv
 from .proto.Neonize_pb2 import MessageStar as MessageStarEv
@@ -48,19 +61,29 @@ from .proto.Neonize_pb2 import NewsletterJoin as NewsletterJoinEv
 from .proto.Neonize_pb2 import NewsletterLeave as NewsletterLeaveEv
 from .proto.Neonize_pb2 import NewsletterLiveUpdate as NewsletterLiveUpdateEV
 from .proto.Neonize_pb2 import NewsLetterMessageMeta as NewsLetterMessageMetaEv
+from .proto.Neonize_pb2 import NewsletterMilestone as NewsletterMilestoneEv
 from .proto.Neonize_pb2 import NewsletterMuteChange as NewsletterMuteChangeEv
+from .proto.Neonize_pb2 import NotifyAccountReachoutTimelock as NotifyAccountReachoutTimelockEv
 from .proto.Neonize_pb2 import OfflineSyncCompleted as OfflineSyncCompletedEv
 from .proto.Neonize_pb2 import OfflineSyncPreview as OfflineSyncPreviewEv
+from .proto.Neonize_pb2 import PairPasskeyConfirmation as PairPasskeyConfirmationEv
+from .proto.Neonize_pb2 import PairPasskeyError as PairPasskeyErrorEv
 from .proto.Neonize_pb2 import PairStatus as PairStatusEv
 from .proto.Neonize_pb2 import Picture as PictureEv
 from .proto.Neonize_pb2 import Presence as PresenceEv
+from .proto.Neonize_pb2 import PushName as PushNameEv
+from .proto.Neonize_pb2 import PushNameSetting as PushNameSettingEv
+from .proto.Neonize_pb2 import QRScannedWithoutMultidevice as QRScannedWithoutMultideviceEv
 from .proto.Neonize_pb2 import Receipt as ReceiptEv
 from .proto.Neonize_pb2 import RotateADVSecret as RotateADVSecretEv
 from .proto.Neonize_pb2 import StreamError as StreamErrorEv
 from .proto.Neonize_pb2 import StreamReplaced as StreamReplacedEv
 from .proto.Neonize_pb2 import TemporaryBan as TemporaryBanEv
+from .proto.Neonize_pb2 import UnarchiveChatsSetting as UnarchiveChatsSettingEv
 from .proto.Neonize_pb2 import UndecryptableMessage as UndecryptableMessageEv
 from .proto.Neonize_pb2 import UnknownCallEvent as UnknownCallEventEV
+from .proto.Neonize_pb2 import UserAbout as UserAboutEv
+from .proto.Neonize_pb2 import UserStatusMute as UserStatusMuteEv
 from .proto.Neonize_pb2 import privacySettingsEvent as PrivacySettingsEv
 
 log = logging.getLogger(__name__)
@@ -94,6 +117,7 @@ EVENT_TO_INT: dict[type[Message], int] = {
     PrivacySettingsEv: 25,
     OfflineSyncPreviewEv: 26,
     OfflineSyncCompletedEv: 27,
+    MediaRetryEv: 29,
     BlocklistEv: 30,
     BlocklistChangeEv: 31,
     NewsletterJoinEv: 32,
@@ -118,6 +142,28 @@ EVENT_TO_INT: dict[type[Message], int] = {
     MessageDeleteForMeEv: 52,
     MessageStarEv: 53,
     ChatClearEv: 54,
+    AppStateEv: 55,
+    AppStateSyncCompleteEv: 56,
+    AppStateSyncErrorEv: 57,
+    ContactSyncEv: 58,
+    PushNameEv: 59,
+    PushNameSettingEv: 60,
+    BusinessNameEv: 61,
+    UserAboutEv: 62,
+    UserStatusMuteEv: 63,
+    UnarchiveChatsSettingEv: 64,
+    LabelEditEv: 65,
+    LabelAssociationChatEv: 66,
+    LabelAssociationMessageEv: 67,
+    CallRejectEv: 68,
+    FBCallEventEv: 69,
+    NewsletterMilestoneEv: 70,
+    CATRefreshErrorEv: 71,
+    ManualLoginReconnectEv: 72,
+    QRScannedWithoutMultideviceEv: 73,
+    NotifyAccountReachoutTimelockEv: 74,
+    PairPasskeyConfirmationEv: 75,
+    PairPasskeyErrorEv: 76,
 }
 INT_TO_EVENT: dict[int, type[Message]] = {code: ev for ev, code in EVENT_TO_INT.items()}
 

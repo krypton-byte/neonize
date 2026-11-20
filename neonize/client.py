@@ -37,16 +37,27 @@ from .builder import build_edit, build_revoke
 from .events import Event, EventsManager
 from .events import event as stop_event
 from .exc import (
+    BuildEditError,
     BuildPollVoteCreationError,
     BuildPollVoteError,
+    BuildUnavailableMessageRequestError,
     ContactStoreError,
     ConvertStickerError,
     CreateGroupError,
     CreateNewsletterError,
+    DecryptCommentError,
     DecryptPollVoteError,
+    DecryptReactionError,
+    DeleteMediaError,
     DownloadError,
+    EncryptCommentError,
+    EncryptPollVoteError,
+    EncryptReactionError,
+    FetchStickerPackError,
     FollowNewsletterError,
     GetBlocklistError,
+    GetBotListV2Error,
+    GetBotProfilesError,
     GetBusinessProfileError,
     GetChatSettingsError,
     GetContactQrLinkError,
@@ -60,6 +71,7 @@ from .exc import (
     GetNewsletterInfoWithInviteError,
     GetNewsletterMessagesError,
     GetNewsletterMessageUpdateError,
+    GetOrderDetailsError,
     GetProfilePictureError,
     GetStatusPrivacyError,
     GetSubGroupsError,
@@ -71,6 +83,7 @@ from .exc import (
     JoinGroupWithInviteError,
     LinkGroupError,
     LogoutError,
+    MarkNotDirtyError,
     MarkReadError,
     NeonizeError,
     NewsletterMarkViewedError,
@@ -83,6 +96,7 @@ from .exc import (
     PutPinnedError,
     ResolveContactQRLinkError,
     SendAppStateError,
+    SendMediaRetryReceiptError,
     SendMessageError,
     SendPresenceError,
     SetDefaultDisappearingTimerError,
@@ -97,7 +111,9 @@ from .exc import (
     SetPrivacySettingError,
     SetProxyAddressError,
     SetStatusMessageError,
+    StoreLIDPNMappingError,
     SubscribePresenceError,
+    TryFetchPrivacySettingsError,
     UnfollowNewsletterError,
     UnlinkGroupError,
     UpdateBlocklistError,
@@ -110,6 +126,8 @@ from .proto import Neonize_pb2 as neonize_proto
 from .proto.Neonize_pb2 import (
     JID,
     Blocklist,
+    BotListInfo,
+    BotProfileInfo,
     BuildMessageReturnFunction,
     Contact,
     ContactEntry,
@@ -138,6 +156,7 @@ from .proto.Neonize_pb2 import (
     MessageInfo,
     NewsletterMessage,
     NewsletterMetadata,
+    OrderDetails,
     PrivacySettings,
     ProfilePictureInfo,
     ReqCreateGroup,
@@ -147,6 +166,7 @@ from .proto.Neonize_pb2 import (
     SendResponse,
     SetGroupPhotoReturnFunction,
     StatusPrivacy,
+    StickerPack,
     UploadResponse,
     UploadReturnFunction,
 )
@@ -159,12 +179,15 @@ from .proto.waE2E.WAWebProtobufsE2E_pb2 import (
     ContactMessage,
     ContextInfo,
     DocumentMessage,
+    EncReactionMessage,
     ExtendedTextMessage,
     GroupMention,
     ImageMessage,
     Message,
     MessageAssociation,
+    PollUpdateMessage,
     PollVoteMessage,
+    ReactionMessage,
     StickerMessage,
     StickerPackMessage,
     VideoMessage,
@@ -3102,7 +3125,7 @@ class NewClient:
         if err:
             raise UnlinkGroupError(err)
 
-    def update_blocklist(self, jid: JID, action: BlocklistAction) -> Blocklist:
+    def update_blocklist(self, jid: JID, action: BlocklistAction, dhash: str = "") -> Blocklist:
         """
         Function to update the blocklist with a given action on a specific JID.
 
@@ -3110,13 +3133,15 @@ class NewClient:
         :type jid: JID
         :param action: The action to be performed (block or unblock) on the JID.
         :type action: BlocklistAction
+        :param dhash: Optional dhash from a previous blocklist response.
+        :type dhash: str
         :raises UpdateBlocklistError: If there is an error while updating the blocklist.
         :return: The updated blocklist.
         :rtype: Blocklist
         """
         jid_proto = jid.SerializeToString()
         protobytes = self.__client.UpdateBlocklist(
-            self.uuid, jid_proto, len(jid_proto), action.value.encode()
+            self.uuid, jid_proto, len(jid_proto), action.value.encode(), dhash.encode()
         )
         model = neonize_proto.GetBlocklistReturnFunction.FromString(protobytes)
         if model.Error:
@@ -3473,17 +3498,328 @@ class NewClient:
             raise GetUserDevicesError(model.Error)
         return model.JID
 
-    def get_blocklist(self) -> Blocklist:
+    def get_blocklist(self, dhash: str = "") -> Blocklist:
         """Retrieves the blocklist from the client.
 
+        :param dhash: Optional dhash from a previous blocklist response.
+        :type dhash: str
         :return: Blocklist: The retrieved blocklist.
         :raises GetBlocklistError: If there was an error retrieving the blocklist.
         """
-        protobytes = self.__client.GetBlocklist(self.uuid)
+        protobytes = self.__client.GetBlocklist(self.uuid, dhash.encode())
         model = neonize_proto.GetBlocklistReturnFunction.FromString(protobytes)
         if model.Error:
             raise GetBlocklistError(model.Error)
         return model.Blocklist
+
+    def delete_media(
+        self,
+        media_type: MediaType,
+        direct_path: str,
+        enc_file_hash: bytes,
+        enc_handle: str = "",
+    ) -> None:
+        """Delete media at the given direct path from WhatsApp servers.
+
+        :param media_type: The media type.
+        :type media_type: MediaType
+        :param direct_path: The direct path returned by upload.
+        :type direct_path: str
+        :param enc_file_hash: The encrypted file hash.
+        :type enc_file_hash: bytes
+        :param enc_handle: Optional encrypted handle.
+        :type enc_handle: str
+        :raises DeleteMediaError: If deleting the media fails.
+        """
+        err = self.__client.DeleteMedia(
+            self.uuid,
+            media_type.value.encode(),
+            direct_path.encode(),
+            enc_file_hash,
+            len(enc_file_hash),
+            enc_handle.encode(),
+        ).decode()
+        if err:
+            raise DeleteMediaError(err)
+
+    def fetch_sticker_pack(self, pack_id: str) -> StickerPack:
+        """Fetch a sticker pack by its ID.
+
+        :param pack_id: The sticker pack identifier.
+        :type pack_id: str
+        :return: The fetched sticker pack.
+        :rtype: StickerPack
+        :raises FetchStickerPackError: If fetching the sticker pack fails.
+        """
+        protobytes = self.__client.FetchStickerPack(self.uuid, pack_id.encode())
+        model = neonize_proto.FetchStickerPackReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise FetchStickerPackError(model.Error)
+        return model.StickerPack
+
+    def get_bot_list_v2(self) -> RepeatedCompositeFieldContainer[BotListInfo]:
+        """Retrieve the list of available WhatsApp bots.
+
+        :return: List of bot entries.
+        :rtype: RepeatedCompositeFieldContainer[BotListInfo]
+        :raises GetBotListV2Error: If retrieving the bot list fails.
+        """
+        protobytes = self.__client.GetBotListV2(self.uuid)
+        model = neonize_proto.GetBotListV2ReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise GetBotListV2Error(model.Error)
+        return model.Bots
+
+    def get_bot_profiles(
+        self, bot_info: list[BotListInfo]
+    ) -> RepeatedCompositeFieldContainer[BotProfileInfo]:
+        """Retrieve detailed profiles for the given bots.
+
+        :param bot_info: List of BotListInfo entries.
+        :type bot_info: list[BotListInfo]
+        :return: List of bot profile information.
+        :rtype: RepeatedCompositeFieldContainer[BotProfileInfo]
+        :raises GetBotProfilesError: If retrieving bot profiles fails.
+        """
+        arr_proto = neonize_proto.BotListInfoArray(Bots=bot_info).SerializeToString()
+        protobytes = self.__client.GetBotProfiles(self.uuid, arr_proto, len(arr_proto))
+        model = neonize_proto.GetBotProfilesReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise GetBotProfilesError(model.Error)
+        return model.Profiles
+
+    def get_order_details(self, order_id: str, token_base64: str) -> OrderDetails:
+        """Fetch details of a WhatsApp Business order.
+
+        :param order_id: Order ID from OrderMessage.
+        :type order_id: str
+        :param token_base64: Base64 token from OrderMessage.
+        :type token_base64: str
+        :return: Order details.
+        :rtype: OrderDetails
+        :raises GetOrderDetailsError: If fetching order details fails.
+        """
+        protobytes = self.__client.GetOrderDetails(
+            self.uuid, order_id.encode(), token_base64.encode()
+        )
+        model = neonize_proto.GetOrderDetailsReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise GetOrderDetailsError(model.Error)
+        return model.OrderDetails
+
+    def decrypt_comment(self, message: neonize_proto.Message) -> Message:
+        """Decrypt a comment message in a community announcement group.
+
+        :param message: The incoming Message event protobuf.
+        :type message: neonize_proto.Message
+        :return: The decrypted E2E Message.
+        :rtype: Message
+        :raises DecryptCommentError: If decryption fails.
+        """
+        msg_proto = message.SerializeToString()
+        protobytes = self.__client.DecryptComment(self.uuid, msg_proto, len(msg_proto))
+        model = BuildMessageReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise DecryptCommentError(model.Error)
+        return model.Message
+
+    def decrypt_reaction(self, message: neonize_proto.Message) -> ReactionMessage:
+        """Decrypt a reaction message in a community announcement group.
+
+        :param message: The incoming Message event protobuf.
+        :type message: neonize_proto.Message
+        :return: The decrypted ReactionMessage.
+        :rtype: ReactionMessage
+        :raises DecryptReactionError: If decryption fails.
+        """
+        msg_proto = message.SerializeToString()
+        protobytes = self.__client.DecryptReaction(self.uuid, msg_proto, len(msg_proto))
+        model = neonize_proto.DecryptReactionReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise DecryptReactionError(model.Error)
+        return model.Reaction
+
+    def encrypt_comment(self, root_msg_info: MessageInfo, comment: Message) -> Message:
+        """Encrypt a comment message for a community announcement group.
+
+        :param root_msg_info: MessageInfo of the root message.
+        :type root_msg_info: MessageInfo
+        :param comment: The comment E2E Message to encrypt.
+        :type comment: Message
+        :return: The encrypted E2E Message.
+        :rtype: Message
+        :raises EncryptCommentError: If encryption fails.
+        """
+        info_proto = root_msg_info.SerializeToString()
+        comment_proto = comment.SerializeToString()
+        protobytes = self.__client.EncryptComment(
+            self.uuid, info_proto, len(info_proto), comment_proto, len(comment_proto)
+        )
+        model = BuildMessageReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise EncryptCommentError(model.Error)
+        return model.Message
+
+    def encrypt_reaction(
+        self, root_msg_info: MessageInfo, reaction: ReactionMessage
+    ) -> EncReactionMessage:
+        """Encrypt a reaction message for a community announcement group.
+
+        :param root_msg_info: MessageInfo of the root message.
+        :type root_msg_info: MessageInfo
+        :param reaction: The ReactionMessage to encrypt.
+        :type reaction: ReactionMessage
+        :return: The encrypted EncReactionMessage.
+        :rtype: EncReactionMessage
+        :raises EncryptReactionError: If encryption fails.
+        """
+        info_proto = root_msg_info.SerializeToString()
+        reaction_proto = reaction.SerializeToString()
+        protobytes = self.__client.EncryptReaction(
+            self.uuid, info_proto, len(info_proto), reaction_proto, len(reaction_proto)
+        )
+        model = neonize_proto.EncryptReactionReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise EncryptReactionError(model.Error)
+        return model.EncReaction
+
+    def encrypt_poll_vote(self, poll_info: MessageInfo, vote: PollVoteMessage) -> PollUpdateMessage:
+        """Encrypt a poll vote message.
+
+        :param poll_info: MessageInfo of the poll creation message.
+        :type poll_info: MessageInfo
+        :param vote: The PollVoteMessage to encrypt.
+        :type vote: PollVoteMessage
+        :return: The encrypted PollUpdateMessage.
+        :rtype: PollUpdateMessage
+        :raises EncryptPollVoteError: If encryption fails.
+        """
+        info_proto = poll_info.SerializeToString()
+        vote_proto = vote.SerializeToString()
+        protobytes = self.__client.EncryptPollVote(
+            self.uuid, info_proto, len(info_proto), vote_proto, len(vote_proto)
+        )
+        model = neonize_proto.EncryptPollVoteReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise EncryptPollVoteError(model.Error)
+        return model.PollUpdate
+
+    def store_lid_pn_mapping(self, first: JID, second: JID) -> None:
+        """Store a LID-PN JID mapping in the client store.
+
+        :param first: First JID (LID or PN).
+        :type first: JID
+        :param second: Second JID (PN or LID).
+        :type second: JID
+        :raises StoreLIDPNMappingError: If storing the mapping fails.
+        """
+        first_proto = first.SerializeToString()
+        second_proto = second.SerializeToString()
+        err = self.__client.StoreLIDPNMapping(
+            self.uuid, first_proto, len(first_proto), second_proto, len(second_proto)
+        ).decode()
+        if err:
+            raise StoreLIDPNMappingError(err)
+
+    def try_fetch_privacy_settings(self, ignore_cache: bool = False) -> PrivacySettings:
+        """Fetch the user's privacy settings from cache or server.
+
+        :param ignore_cache: If True, force fetching from server.
+        :type ignore_cache: bool
+        :return: The user's privacy settings.
+        :rtype: PrivacySettings
+        :raises TryFetchPrivacySettingsError: If fetching fails.
+        """
+        protobytes = self.__client.TryFetchPrivacySettings(self.uuid, ignore_cache)
+        model = neonize_proto.TryFetchPrivacySettingsReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise TryFetchPrivacySettingsError(model.Error)
+        return model.Settings
+
+    def mark_not_dirty(self, clean_type: str, timestamp: int) -> None:
+        """Mark a dirty sync state type as clean.
+
+        :param clean_type: Dirty type name (e.g. "account_sync", "groups").
+        :type clean_type: str
+        :param timestamp: Unix timestamp in seconds.
+        :type timestamp: int
+        :raises MarkNotDirtyError: If the operation fails.
+        """
+        err = self.__client.MarkNotDirty(self.uuid, clean_type.encode(), timestamp).decode()
+        if err:
+            raise MarkNotDirtyError(err)
+
+    def send_media_retry_receipt(self, message_info: MessageInfo, media_key: bytes) -> None:
+        """Request the primary device to re-upload media for a message.
+
+        :param message_info: MessageInfo of the message with expired media.
+        :type message_info: MessageInfo
+        :param media_key: The media key bytes from the media message.
+        :type media_key: bytes
+        :raises SendMediaRetryReceiptError: If sending the receipt fails.
+        """
+        info_proto = message_info.SerializeToString()
+        err = self.__client.SendMediaRetryReceipt(
+            self.uuid, info_proto, len(info_proto), media_key, len(media_key)
+        ).decode()
+        if err:
+            raise SendMediaRetryReceiptError(err)
+
+    def build_unavailable_message_request(self, chat: JID, sender: JID, message_id: str) -> Message:
+        """Build a peer message requesting a copy of an undecryptable message.
+
+        :param chat: Chat JID.
+        :type chat: JID
+        :param sender: Sender JID.
+        :type sender: JID
+        :param message_id: ID of the unavailable message.
+        :type message_id: str
+        :return: Built E2E Message ready for send_peer_message.
+        :rtype: Message
+        :raises BuildUnavailableMessageRequestError: If building fails.
+        """
+        chat_proto = chat.SerializeToString()
+        sender_proto = sender.SerializeToString()
+        protobytes = self.__client.BuildUnavailableMessageRequest(
+            self.uuid,
+            chat_proto,
+            len(chat_proto),
+            sender_proto,
+            len(sender_proto),
+            message_id.encode(),
+        )
+        model = BuildMessageReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise BuildUnavailableMessageRequestError(model.Error)
+        return model.Message
+
+    def build_edit(self, chat: JID, message_id: str, new_content: Message) -> Message:
+        """Build an edited message wrapper.
+
+        :param chat: Chat JID.
+        :type chat: JID
+        :param message_id: ID of the message to edit.
+        :type message_id: str
+        :param new_content: New E2E message content.
+        :type new_content: Message
+        :return: Built E2E Message ready for send_message.
+        :rtype: Message
+        :raises BuildEditError: If building fails.
+        """
+        chat_proto = chat.SerializeToString()
+        content_proto = new_content.SerializeToString()
+        protobytes = self.__client.BuildEdit(
+            self.uuid,
+            chat_proto,
+            len(chat_proto),
+            message_id.encode(),
+            content_proto,
+            len(content_proto),
+        )
+        model = BuildMessageReturnFunction.FromString(protobytes)
+        if model.Error:
+            raise BuildEditError(model.Error)
+        return model.Message
 
     def get_me(self) -> Device:
         """

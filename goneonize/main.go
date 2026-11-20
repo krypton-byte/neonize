@@ -1399,6 +1399,247 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				}
 				eventChan <- &messageEvent
 			}
+		case *events.MediaRetry:
+			if _, ok := subscribers[29]; ok {
+				mr := defproto.MediaRetry{
+					Ciphertext: v.Ciphertext,
+					IV:         v.IV,
+					Timestamp:  proto.Int64(v.Timestamp.Unix()),
+					MessageID:  proto.String(v.MessageID),
+					ChatID:     utils.EncodeJidProto(v.ChatID),
+					FromMe:     proto.Bool(v.FromMe),
+				}
+				if !v.SenderID.IsEmpty() {
+					mr.SenderID = utils.EncodeJidProto(v.SenderID)
+				}
+				if v.Error != nil {
+					mr.Error = &defproto.MediaRetryError{Code: proto.Int32(int32(v.Error.Code))}
+				}
+				eventChan <- &MessageEvent{eventType: 29, message: &mr}
+			}
+		case *events.AppState:
+			if _, ok := subscribers[55]; ok {
+				ev := defproto.AppState{
+					Index:  v.Index,
+					Action: v.SyncActionValue,
+				}
+				eventChan <- &MessageEvent{eventType: 55, message: &ev}
+			}
+		case *events.AppStateSyncComplete:
+			if _, ok := subscribers[56]; ok {
+				ev := defproto.AppStateSyncComplete{
+					Name:     proto.String(string(v.Name)),
+					Version:  proto.Uint64(v.Version),
+					Recovery: proto.Bool(v.Recovery),
+				}
+				eventChan <- &MessageEvent{eventType: 56, message: &ev}
+			}
+		case *events.AppStateSyncError:
+			if _, ok := subscribers[57]; ok {
+				errStr := ""
+				if v.Error != nil {
+					errStr = v.Error.Error()
+				}
+				ev := defproto.AppStateSyncError{
+					Name:     proto.String(string(v.Name)),
+					Error:    proto.String(errStr),
+					FullSync: proto.Bool(v.FullSync),
+				}
+				eventChan <- &MessageEvent{eventType: 57, message: &ev}
+			}
+		case *events.Contact:
+			if _, ok := subscribers[58]; ok {
+				ev := defproto.ContactSync{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				eventChan <- &MessageEvent{eventType: 58, message: &ev}
+			}
+		case *events.PushName:
+			if _, ok := subscribers[59]; ok {
+				ev := defproto.PushName{
+					JID:         utils.EncodeJidProto(v.JID),
+					OldPushName: proto.String(v.OldPushName),
+					NewPushName: proto.String(v.NewPushName),
+				}
+				if !v.JIDAlt.IsEmpty() {
+					ev.JIDAlt = utils.EncodeJidProto(v.JIDAlt)
+				}
+				if v.Message != nil {
+					ev.Message = utils.EncodeMessageInfo(*v.Message)
+				}
+				eventChan <- &MessageEvent{eventType: 59, message: &ev}
+			}
+		case *events.PushNameSetting:
+			if _, ok := subscribers[60]; ok {
+				ev := defproto.PushNameSetting{
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				eventChan <- &MessageEvent{eventType: 60, message: &ev}
+			}
+		case *events.BusinessName:
+			if _, ok := subscribers[61]; ok {
+				ev := defproto.BusinessName{
+					JID:             utils.EncodeJidProto(v.JID),
+					OldBusinessName: proto.String(v.OldBusinessName),
+					NewBusinessName: proto.String(v.NewBusinessName),
+				}
+				if v.Message != nil {
+					ev.Message = utils.EncodeMessageInfo(*v.Message)
+				}
+				eventChan <- &MessageEvent{eventType: 61, message: &ev}
+			}
+		case *events.UserAbout:
+			if _, ok := subscribers[62]; ok {
+				ev := defproto.UserAbout{
+					JID:       utils.EncodeJidProto(v.JID),
+					Status:    proto.String(v.Status),
+					Timestamp: proto.Int64(v.Timestamp.Unix()),
+				}
+				eventChan <- &MessageEvent{eventType: 62, message: &ev}
+			}
+		case *events.UserStatusMute:
+			if _, ok := subscribers[63]; ok {
+				ev := defproto.UserStatusMute{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				eventChan <- &MessageEvent{eventType: 63, message: &ev}
+			}
+		case *events.UnarchiveChatsSetting:
+			if _, ok := subscribers[64]; ok {
+				ev := defproto.UnarchiveChatsSetting{
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				eventChan <- &MessageEvent{eventType: 64, message: &ev}
+			}
+		case *events.LabelEdit:
+			if _, ok := subscribers[65]; ok {
+				ev := defproto.LabelEdit{
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					LabelID:      proto.String(v.LabelID),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				eventChan <- &MessageEvent{eventType: 65, message: &ev}
+			}
+		case *events.LabelAssociationChat:
+			if _, ok := subscribers[66]; ok {
+				ev := defproto.LabelAssociationChat{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					LabelID:      proto.String(v.LabelID),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				eventChan <- &MessageEvent{eventType: 66, message: &ev}
+			}
+		case *events.LabelAssociationMessage:
+			if _, ok := subscribers[67]; ok {
+				ev := defproto.LabelAssociationMessage{
+					JID:          utils.EncodeJidProto(v.JID),
+					Timestamp:    proto.Int64(v.Timestamp.Unix()),
+					LabelID:      proto.String(v.LabelID),
+					MessageID:    proto.String(v.MessageID),
+					Action:       v.Action,
+					FromFullSync: proto.Bool(v.FromFullSync),
+				}
+				eventChan <- &MessageEvent{eventType: 67, message: &ev}
+			}
+		case *events.CallReject:
+			if _, ok := subscribers[68]; ok {
+				ev := defproto.CallReject{
+					CallMeta: utils.EncodeBasicCallMeta(v.BasicCallMeta),
+				}
+				eventChan <- &MessageEvent{eventType: 68, message: &ev}
+			}
+		case *events.FBCallEvent:
+			if _, ok := subscribers[69]; ok {
+				ev := defproto.FBCallEvent{
+					ID:             proto.String(v.ID),
+					From:           utils.EncodeJidProto(v.From),
+					Chat:           utils.EncodeJidProto(v.Chat),
+					Actor:          utils.EncodeJidProto(v.Actor),
+					Timestamp:      proto.Int64(v.Timestamp.Unix()),
+					CallType:       proto.String(v.CallType),
+					EventType:      proto.String(v.EventType),
+					Duration:       proto.Int64(int64(v.Duration)),
+					ParentID:       proto.String(v.ParentID),
+					ServerInfoData: proto.String(v.ServerInfoData),
+				}
+				eventChan <- &MessageEvent{eventType: 69, message: &ev}
+			}
+		case *events.NewsletterMilestone:
+			if _, ok := subscribers[70]; ok {
+				ev := defproto.NewsletterMilestone{
+					ID:              utils.EncodeJidProto(v.ID),
+					MessageServerID: proto.Int64(int64(v.MessageServerID)),
+					Type:            proto.String(v.Type),
+					Value:           proto.Int32(int32(v.Value)),
+					ReactionCode:    proto.String(v.ReactionCode),
+					Timestamp:       proto.Int64(v.Mex.Timestamp.Unix()),
+					OpName:          proto.String(v.Mex.OpName),
+				}
+				eventChan <- &MessageEvent{eventType: 70, message: &ev}
+			}
+		case *events.CATRefreshError:
+			if _, ok := subscribers[71]; ok {
+				errStr := ""
+				if v.Error != nil {
+					errStr = v.Error.Error()
+				}
+				ev := defproto.CATRefreshError{
+					Error: proto.String(errStr),
+				}
+				eventChan <- &MessageEvent{eventType: 71, message: &ev}
+			}
+		case *events.ManualLoginReconnect:
+			if _, ok := subscribers[72]; ok {
+				eventChan <- &MessageEvent{eventType: 72, message: &defproto.ManualLoginReconnect{}}
+			}
+		case *events.QRScannedWithoutMultidevice:
+			if _, ok := subscribers[73]; ok {
+				eventChan <- &MessageEvent{eventType: 73, message: &defproto.QRScannedWithoutMultidevice{}}
+			}
+		case *events.NotifyAccountReachoutTimelock:
+			if _, ok := subscribers[74]; ok {
+				ev := defproto.NotifyAccountReachoutTimelock{
+					EnforcementType:     proto.String(v.EnforcementType),
+					IsActive:            proto.Bool(v.IsActive),
+					TimeEnforcementEnds: proto.Int64(v.TimeEnforcementEnds.Time.Unix()),
+					Timestamp:           proto.Int64(v.Mex.Timestamp.Unix()),
+					OpName:              proto.String(v.Mex.OpName),
+				}
+				eventChan <- &MessageEvent{eventType: 74, message: &ev}
+			}
+		case *events.PairPasskeyConfirmation:
+			if _, ok := subscribers[75]; ok {
+				ev := defproto.PairPasskeyConfirmation{
+					Code:          proto.String(v.Code),
+					SkipHandoffUX: proto.Bool(v.SkipHandoffUX),
+				}
+				eventChan <- &MessageEvent{eventType: 75, message: &ev}
+			}
+		case *events.PairPasskeyError:
+			if _, ok := subscribers[76]; ok {
+				errStr := ""
+				if v.Error != nil {
+					errStr = v.Error.Error()
+				}
+				ev := defproto.PairPasskeyError{
+					Error:        proto.String(errStr),
+					Continuation: proto.Bool(v.Continuation),
+				}
+				eventChan <- &MessageEvent{eventType: 76, message: &ev}
+			}
 		}
 
 		// C.free(unsafe.Pointer(CData))
@@ -2444,7 +2685,7 @@ func UnlinkGroup(id *C.char, parentByte *C.uchar, parentSize C.int, childByte *C
 }
 
 //export UpdateBlocklist
-func UpdateBlocklist(id *C.char, jidByte *C.uchar, JIDSize C.int, action *C.char) *C.struct_BytesReturn {
+func UpdateBlocklist(id *C.char, jidByte *C.uchar, JIDSize C.int, action *C.char, dhash *C.char) *C.struct_BytesReturn {
 	var JID defproto.JID
 	return_ := defproto.GetBlocklistReturnFunction{}
 	err_j := proto.Unmarshal(getByteByAddr(jidByte, JIDSize), &JID)
@@ -2452,7 +2693,7 @@ func UpdateBlocklist(id *C.char, jidByte *C.uchar, JIDSize C.int, action *C.char
 		return_.Error = proto.String(err_j.Error())
 		return ProtoReturnV3(&return_)
 	}
-	blocklist, err := clientFor(C.GoString(id)).UpdateBlocklist(context.Background(), utils.DecodeJidProto(&JID), events.BlocklistChangeAction(C.GoString(action)), "")
+	blocklist, err := clientFor(C.GoString(id)).UpdateBlocklist(context.Background(), utils.DecodeJidProto(&JID), events.BlocklistChangeAction(C.GoString(action)), C.GoString(dhash))
 	if err != nil {
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
@@ -2660,8 +2901,8 @@ func GetUserDevices(id *C.char, JIDSByte *C.uchar, JIDSSize C.int) *C.struct_Byt
 }
 
 //export GetBlocklist
-func GetBlocklist(id *C.char) *C.struct_BytesReturn {
-	blocklist, err := clientFor(C.GoString(id)).GetBlocklist(context.Background(), "")
+func GetBlocklist(id *C.char, dhash *C.char) *C.struct_BytesReturn {
+	blocklist, err := clientFor(C.GoString(id)).GetBlocklist(context.Background(), C.GoString(dhash))
 	return_ := defproto.GetBlocklistReturnFunction{}
 	if err != nil {
 		return_.Error = proto.String(err.Error())
@@ -3127,6 +3368,340 @@ func SendPeerMessage(id *C.char, messageByte *C.uchar, messageSize C.int) *C.str
 		return ProtoReturnV3(&return_)
 	}
 	return_.SendResponse = utils.EncodeSendResponse(resp)
+	return ProtoReturnV3(&return_)
+}
+
+//export DeleteMedia
+func DeleteMedia(id *C.char, mediaType *C.char, directPath *C.char, encFileHash *C.uchar, encFileHashSize C.int, encHandle *C.char) *C.char {
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return C.CString("client not found for the given uuid")
+	}
+	err := client.DeleteMedia(
+		context.Background(),
+		whatsmeow.MediaType(C.GoString(mediaType)),
+		C.GoString(directPath),
+		getByteByAddr(encFileHash, encFileHashSize),
+		C.GoString(encHandle),
+	)
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
+//export FetchStickerPack
+func FetchStickerPack(id *C.char, packID *C.char) *C.struct_BytesReturn {
+	return_ := defproto.FetchStickerPackReturnFunction{}
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	pack, err := client.FetchStickerPack(context.Background(), C.GoString(packID))
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.StickerPack = utils.EncodeStickerPack(pack)
+	return ProtoReturnV3(&return_)
+}
+
+//export GetBotListV2
+func GetBotListV2(id *C.char) *C.struct_BytesReturn {
+	return_ := defproto.GetBotListV2ReturnFunction{}
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	bots, err := client.GetBotListV2(context.Background())
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	encoded := make([]*defproto.BotListInfo, len(bots))
+	for i, b := range bots {
+		encoded[i] = utils.EncodeBotListInfo(b)
+	}
+	return_.Bots = encoded
+	return ProtoReturnV3(&return_)
+}
+
+//export GetBotProfiles
+func GetBotProfiles(id *C.char, botInfoByte *C.uchar, botInfoSize C.int) *C.struct_BytesReturn {
+	return_ := defproto.GetBotProfilesReturnFunction{}
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var arr defproto.BotListInfoArray
+	if err := proto.Unmarshal(getByteByAddr(botInfoByte, botInfoSize), &arr); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	profiles, err := client.GetBotProfiles(context.Background(), utils.DecodeBotListInfoArray(&arr))
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	encoded := make([]*defproto.BotProfileInfo, len(profiles))
+	for i, p := range profiles {
+		encoded[i] = utils.EncodeBotProfileInfo(p)
+	}
+	return_.Profiles = encoded
+	return ProtoReturnV3(&return_)
+}
+
+//export GetOrderDetails
+func GetOrderDetails(id *C.char, orderID *C.char, tokenBase64 *C.char) *C.struct_BytesReturn {
+	return_ := defproto.GetOrderDetailsReturnFunction{}
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	order, err := client.GetOrderDetails(context.Background(), C.GoString(orderID), C.GoString(tokenBase64))
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.OrderDetails = utils.EncodeOrderDetails(order)
+	return ProtoReturnV3(&return_)
+}
+
+//export DecryptComment
+func DecryptComment(id *C.char, messageByte *C.uchar, messageSize C.int) *C.struct_BytesReturn {
+	return_ := defproto.BuildMessageReturnFunction{}
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var msgProto defproto.Message
+	if err := proto.Unmarshal(getByteByAddr(messageByte, messageSize), &msgProto); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	decrypted, err := client.DecryptComment(context.Background(), utils.DecodeEventTypesMessage(&msgProto))
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.Message = decrypted
+	return ProtoReturnV3(&return_)
+}
+
+//export DecryptReaction
+func DecryptReaction(id *C.char, messageByte *C.uchar, messageSize C.int) *C.struct_BytesReturn {
+	return_ := defproto.DecryptReactionReturnFunction{}
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var msgProto defproto.Message
+	if err := proto.Unmarshal(getByteByAddr(messageByte, messageSize), &msgProto); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	decrypted, err := client.DecryptReaction(context.Background(), utils.DecodeEventTypesMessage(&msgProto))
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.Reaction = decrypted
+	return ProtoReturnV3(&return_)
+}
+
+//export EncryptComment
+func EncryptComment(id *C.char, infoByte *C.uchar, infoSize C.int, commentByte *C.uchar, commentSize C.int) *C.struct_BytesReturn {
+	return_ := defproto.BuildMessageReturnFunction{}
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var infoProto defproto.MessageInfo
+	if err := proto.Unmarshal(getByteByAddr(infoByte, infoSize), &infoProto); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	var commentProto waE2E.Message
+	if err := proto.Unmarshal(getByteByAddr(commentByte, commentSize), &commentProto); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	encrypted, err := client.EncryptComment(context.Background(), utils.DecodeMessageInfo(&infoProto), &commentProto)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.Message = encrypted
+	return ProtoReturnV3(&return_)
+}
+
+//export EncryptReaction
+func EncryptReaction(id *C.char, infoByte *C.uchar, infoSize C.int, reactionByte *C.uchar, reactionSize C.int) *C.struct_BytesReturn {
+	return_ := defproto.EncryptReactionReturnFunction{}
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var infoProto defproto.MessageInfo
+	if err := proto.Unmarshal(getByteByAddr(infoByte, infoSize), &infoProto); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	var reactionProto waE2E.ReactionMessage
+	if err := proto.Unmarshal(getByteByAddr(reactionByte, reactionSize), &reactionProto); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	encrypted, err := client.EncryptReaction(context.Background(), utils.DecodeMessageInfo(&infoProto), &reactionProto)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.EncReaction = encrypted
+	return ProtoReturnV3(&return_)
+}
+
+//export EncryptPollVote
+func EncryptPollVote(id *C.char, infoByte *C.uchar, infoSize C.int, voteByte *C.uchar, voteSize C.int) *C.struct_BytesReturn {
+	return_ := defproto.EncryptPollVoteReturnFunction{}
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var infoProto defproto.MessageInfo
+	if err := proto.Unmarshal(getByteByAddr(infoByte, infoSize), &infoProto); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	var voteProto waE2E.PollVoteMessage
+	if err := proto.Unmarshal(getByteByAddr(voteByte, voteSize), &voteProto); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	encrypted, err := client.EncryptPollVote(context.Background(), utils.DecodeMessageInfo(&infoProto), &voteProto)
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.PollUpdate = encrypted
+	return ProtoReturnV3(&return_)
+}
+
+//export StoreLIDPNMapping
+func StoreLIDPNMapping(id *C.char, firstByte *C.uchar, firstSize C.int, secondByte *C.uchar, secondSize C.int) *C.char {
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return C.CString("client not found for the given uuid")
+	}
+	var firstJID, secondJID defproto.JID
+	if err := proto.Unmarshal(getByteByAddr(firstByte, firstSize), &firstJID); err != nil {
+		return C.CString(err.Error())
+	}
+	if err := proto.Unmarshal(getByteByAddr(secondByte, secondSize), &secondJID); err != nil {
+		return C.CString(err.Error())
+	}
+	client.StoreLIDPNMapping(context.Background(), utils.DecodeJidProto(&firstJID), utils.DecodeJidProto(&secondJID))
+	return C.CString("")
+}
+
+//export TryFetchPrivacySettings
+func TryFetchPrivacySettings(id *C.char, ignoreCache C.bool) *C.struct_BytesReturn {
+	return_ := defproto.TryFetchPrivacySettingsReturnFunction{}
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	settings, err := client.TryFetchPrivacySettings(context.Background(), bool(ignoreCache))
+	if err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	if settings != nil {
+		return_.Settings = utils.EncodePrivacySettings(*settings)
+	}
+	return ProtoReturnV3(&return_)
+}
+
+//export MarkNotDirty
+func MarkNotDirty(id *C.char, cleanType *C.char, ts C.longlong) *C.char {
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return C.CString("client not found for the given uuid")
+	}
+	err := client.MarkNotDirty(context.Background(), C.GoString(cleanType), time.Unix(int64(ts), 0))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
+//export SendMediaRetryReceipt
+func SendMediaRetryReceipt(id *C.char, infoByte *C.uchar, infoSize C.int, mediaKey *C.uchar, mediaKeySize C.int) *C.char {
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return C.CString("client not found for the given uuid")
+	}
+	var infoProto defproto.MessageInfo
+	if err := proto.Unmarshal(getByteByAddr(infoByte, infoSize), &infoProto); err != nil {
+		return C.CString(err.Error())
+	}
+	err := client.SendMediaRetryReceipt(context.Background(), utils.DecodeMessageInfo(&infoProto), getByteByAddr(mediaKey, mediaKeySize))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
+}
+
+//export BuildUnavailableMessageRequest
+func BuildUnavailableMessageRequest(id *C.char, chatByte *C.uchar, chatSize C.int, senderByte *C.uchar, senderSize C.int, msgID *C.char) *C.struct_BytesReturn {
+	return_ := defproto.BuildMessageReturnFunction{}
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var chatJID, senderJID defproto.JID
+	if err := proto.Unmarshal(getByteByAddr(chatByte, chatSize), &chatJID); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	if err := proto.Unmarshal(getByteByAddr(senderByte, senderSize), &senderJID); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.Message = client.BuildUnavailableMessageRequest(utils.DecodeJidProto(&chatJID), utils.DecodeJidProto(&senderJID), C.GoString(msgID))
+	return ProtoReturnV3(&return_)
+}
+
+//export BuildEdit
+func BuildEdit(id *C.char, chatByte *C.uchar, chatSize C.int, msgID *C.char, newContentByte *C.uchar, newContentSize C.int) *C.struct_BytesReturn {
+	return_ := defproto.BuildMessageReturnFunction{}
+	client, ok := lookupClient(C.GoString(id))
+	if !ok || client == nil {
+		return_.Error = proto.String("client not found for the given uuid")
+		return ProtoReturnV3(&return_)
+	}
+	var chatJID defproto.JID
+	if err := proto.Unmarshal(getByteByAddr(chatByte, chatSize), &chatJID); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	var newContent waE2E.Message
+	if err := proto.Unmarshal(getByteByAddr(newContentByte, newContentSize), &newContent); err != nil {
+		return_.Error = proto.String(err.Error())
+		return ProtoReturnV3(&return_)
+	}
+	return_.Message = client.BuildEdit(utils.DecodeJidProto(&chatJID), C.GoString(msgID), &newContent)
 	return ProtoReturnV3(&return_)
 }
 
