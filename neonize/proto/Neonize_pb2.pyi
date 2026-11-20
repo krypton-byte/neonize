@@ -660,12 +660,12 @@ class GroupParticipantAddRequest(_message.Message):
     CODE_FIELD_NUMBER: _builtins.int
     EXPIRATION_FIELD_NUMBER: _builtins.int
     Code: _builtins.str
-    Expiration: _builtins.float
+    Expiration: _builtins.int
     def __init__(
         self,
         *,
         Code: _builtins.str | None = ...,
-        Expiration: _builtins.float | None = ...,
+        Expiration: _builtins.int | None = ...,
     ) -> None: ...
     _HasFieldArgType: _TypeAlias = _typing.Literal["Code", b"Code", "Expiration", b"Expiration"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...

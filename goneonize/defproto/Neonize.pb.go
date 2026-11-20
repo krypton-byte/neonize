@@ -2519,7 +2519,7 @@ func (x *GroupIsDefaultSub) GetIsDefaultSubGroup() bool {
 type GroupParticipantAddRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Code          *string                `protobuf:"bytes,1,req,name=Code" json:"Code,omitempty"`
-	Expiration    *float32               `protobuf:"fixed32,2,req,name=Expiration" json:"Expiration,omitempty"`
+	Expiration    *int64                 `protobuf:"varint,2,req,name=Expiration" json:"Expiration,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2561,7 +2561,7 @@ func (x *GroupParticipantAddRequest) GetCode() string {
 	return ""
 }
 
-func (x *GroupParticipantAddRequest) GetExpiration() float32 {
+func (x *GroupParticipantAddRequest) GetExpiration() int64 {
 	if x != nil && x.Expiration != nil {
 		return *x.Expiration
 	}
@@ -10940,7 +10940,7 @@ const file_Neonize_proto_rawDesc = "" +
 	"\x1aGroupParticipantAddRequest\x12\x12\n" +
 	"\x04Code\x18\x01 \x02(\tR\x04Code\x12\x1e\n" +
 	"\n" +
-	"Expiration\x18\x02 \x02(\x02R\n" +
+	"Expiration\x18\x02 \x02(\x03R\n" +
 	"Expiration\"\xbd\x02\n" +
 	"\x10GroupParticipant\x12\x1e\n" +
 	"\x03JID\x18\x01 \x01(\v2\f.neonize.JIDR\x03JID\x12\x1e\n" +
