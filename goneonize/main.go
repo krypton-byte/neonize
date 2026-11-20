@@ -59,11 +59,11 @@ var (
 
 // Defaults to sqlite otherwise use postgres database url
 func getDB(db *C.char, dbLog utils.Logger) (*sqlstore.Container, error) {
-	container, err := sqlstore.New(context.TODO(), "sqlite3", fmt.Sprintf("file:%s?_foreign_keys=on", C.GoString(db)), dbLog)
-	if strings.HasPrefix(C.GoString(db), "postgres") {
-		container, err = sqlstore.New(context.TODO(), "postgres", C.GoString(db), dbLog)
+	dbStr := C.GoString(db)
+	if strings.HasPrefix(dbStr, "postgres") {
+		return sqlstore.New(context.TODO(), "postgres", dbStr, dbLog)
 	}
-	return container, err
+	return sqlstore.New(context.TODO(), "sqlite3", fmt.Sprintf("file:%s?_foreign_keys=on", dbStr), dbLog)
 }
 
 // getByteByAddr returns a zero-copy read-only Go slice view over C/Python memory.
@@ -523,23 +523,22 @@ func GetLIDFromPN(id *C.char, JIDByte *C.uchar, JIDSize C.int) *C.struct_BytesRe
 }
 
 func ProtoReturnV3(data proto.Message) *C.struct_BytesReturn {
-	// Marshal into a pooled buffer to avoid a fresh heap allocation on every
-	// call; the bytes are copied onto the C heap below, so the buffer can be
-	// returned to the pool immediately afterwards.
+	// Marshal into a pooled buffer, then copy into a single contiguous C-heap
+	// allocation (header + payload) to cut malloc/free overhead in half.
 	bufPtr := getBuf()
 	data_buf, err := proto.MarshalOptions{}.MarshalAppend((*bufPtr)[:0], data)
 	if err != nil {
 		putBuf(bufPtr)
-		// Return an empty BytesReturn instead of panicking. The Python side
-		// will receive an empty protobuf message, which unmarshals as a
-		// zero-value struct — the same as a successful call with no data.
 		return (*C.struct_BytesReturn)(C.calloc(1, C.size_t(unsafe.Sizeof(C.struct_BytesReturn{}))))
 	}
-	result := (*C.struct_BytesReturn)(C.malloc(C.size_t(unsafe.Sizeof(C.struct_BytesReturn{}))))
+	const hdrSize = unsafe.Sizeof(C.struct_BytesReturn{})
+	raw := C.malloc(C.size_t(hdrSize + uintptr(len(data_buf))))
+	result := (*C.struct_BytesReturn)(raw)
 	result.size = C.size_t(len(data_buf))
 	if len(data_buf) > 0 {
-		result.data = (*C.char)(C.malloc(result.size))
-		C.memcpy(unsafe.Pointer(result.data), unsafe.Pointer(&data_buf[0]), result.size)
+		dataPtr := unsafe.Add(raw, hdrSize)
+		C.memcpy(dataPtr, unsafe.Pointer(&data_buf[0]), result.size)
+		result.data = (*C.char)(dataPtr)
 	} else {
 		result.data = nil
 	}
@@ -650,7 +649,6 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 	// fmt.Println("SendMessage: Unmarshaling JID")
 	err := proto.Unmarshal(jid, &neonize_jid)
 	if err != nil {
-		fmt.Println("SendMessage: Error unmarshaling JID:", err.Error())
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
 	}
@@ -661,7 +659,6 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 	// fmt.Println("SendMessage: Unmarshaling message")
 	err_message := proto.Unmarshal(message_bytes, &message)
 	if err_message != nil {
-		fmt.Println("SendMessage: Error unmarshaling message:", err_message.Error())
 		return_.Error = proto.String(err_message.Error())
 		return ProtoReturnV3(&return_)
 	}
@@ -671,7 +668,6 @@ func SendMessage(id *C.char, JIDByte *C.uchar, JIDSize C.int, messageByte *C.uch
 	// fmt.Println("SendMessage: Sending message to WhatsApp")
 	sendresponse, err := client.SendMessage(context.Background(), utils.DecodeJidProto(&neonize_jid), &message, extra)
 	if err != nil {
-		fmt.Println("SendMessage: Error sending message:", err.Error())
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
 	}
@@ -705,13 +701,11 @@ func PinMessage(id *C.char, ChatJIDByte *C.uchar, ChatJIDSize C.int, SenderJIDBy
 	return_ := defproto.SendMessageReturnFunction{}
 	err := proto.Unmarshal(_chat_jid, &chat_jid)
 	if err != nil {
-		fmt.Println("SendMessage: Error unmarshaling JID:", err.Error())
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
 	}
 	err_message := proto.Unmarshal(_sender_jid, &sender_jid)
 	if err_message != nil {
-		fmt.Println("SendMessage: Error unmarshaling JID:", err_message.Error())
 		return_.Error = proto.String(err_message.Error())
 		return ProtoReturnV3(&return_)
 	}
@@ -734,7 +728,6 @@ func PinMessage(id *C.char, ChatJIDByte *C.uchar, ChatJIDSize C.int, SenderJIDBy
 	}
 	sendresponse, err := client.SendMessage(context.Background(), chat, &message)
 	if err != nil {
-		fmt.Println("SendMessage: Error sending message:", err.Error())
 		return_.Error = proto.String(err.Error())
 		return ProtoReturnV3(&return_)
 	}
@@ -776,7 +769,7 @@ func Stop(id *C.char) {
 
 //export Neonize
 func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice C.int, logLevel *C.char, qrCb C.ptr_to_python_function_string, logStatus C.ptr_to_python_function_string, event C.ptr_to_python_function_bytes, logCb C.ptr_to_python_function_callback_bytes2, subscribes *C.uchar, lenSubscriber C.int, devicePropsBuf *C.uchar, devicePropsSize C.int, pairphone *C.uchar, pairphoneSize C.int, proxySettingsRaw *C.struct_ProxySettings) *C.char {
-	subscribers := map[int]bool{}
+	var subscribers [128]bool
 	var deviceProps waCompanionReg.DeviceProps
 	loginStateChan := make(chan bool)
 	err_proto := proto.Unmarshal(getByteByAddr(devicePropsBuf, devicePropsSize), &deviceProps)
@@ -786,7 +779,9 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 		return C.CString(err_proto.Error())
 	}
 	for _, s := range getByteByAddr(subscribes, lenSubscriber) {
-		subscribers[int(s)] = true
+		if int(s) < len(subscribers) {
+			subscribers[int(s)] = true
+		}
 	}
 	dbLog := utils.NewLogger("Database", C.GoString(logLevel), utils.Callback(logCb))
 	// Make sure you add appropriate DB connector imports, e.g. github.com/mattn/go-sqlite3 for SQLite
@@ -833,7 +828,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 	eventHandler := func(evt interface{}) {
 		switch v := evt.(type) {
 		case *events.QR:
-			if _, ok := subscribers[1]; ok {
+			if subscribers[1] {
 				qr := defproto.QR{
 					Codes: v.Codes,
 				}
@@ -844,7 +839,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.PairError:
-			if _, ok := subscribers[2]; ok {
+			if subscribers[2] {
 				pair := utils.EncodePairError(v)
 				messageEvent := MessageEvent{
 					eventType: 2,
@@ -853,7 +848,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.PairSuccess:
-			if _, ok := subscribers[2]; ok {
+			if subscribers[2] {
 				pair := utils.EncodePairSuccess(v)
 				messageEvent := MessageEvent{
 					eventType: 2,
@@ -865,7 +860,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 			if int(pairphoneSize) > 0 {
 				loginStateChan <- true
 			}
-			if _, ok := subscribers[3]; ok {
+			if subscribers[3] {
 				connected := defproto.Connected{Status: proto.Bool(true)}
 				messageEvent := MessageEvent{
 					eventType: 3,
@@ -874,7 +869,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.KeepAliveTimeout:
-			if _, ok := subscribers[4]; ok {
+			if subscribers[4] {
 				timeout := defproto.KeepAliveTimeout{
 					ErrorCount:  proto.Int64(int64(v.ErrorCount)),
 					LastSuccess: proto.Int64(v.LastSuccess.Unix()),
@@ -886,7 +881,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.KeepAliveRestored:
-			if _, ok := subscribers[5]; ok {
+			if subscribers[5] {
 				restored := defproto.KeepAliveRestored{}
 				messageEvent := MessageEvent{
 					eventType: 5,
@@ -895,7 +890,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.LoggedOut:
-			if _, ok := subscribers[6]; ok {
+			if subscribers[6] {
 				logout := utils.EncodeLoggedOut(v)
 				messageEvent := MessageEvent{
 					eventType: 6,
@@ -904,7 +899,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.StreamReplaced:
-			if _, ok := subscribers[7]; ok {
+			if subscribers[7] {
 				stream := defproto.StreamReplaced{}
 				messageEvent := MessageEvent{
 					eventType: 7,
@@ -913,7 +908,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.TemporaryBan:
-			if _, ok := subscribers[8]; ok {
+			if subscribers[8] {
 				ban := utils.EncodeTemporaryBan(v)
 				messageEvent := MessageEvent{
 					eventType: 8,
@@ -922,7 +917,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.ConnectFailure:
-			if _, ok := subscribers[9]; ok {
+			if subscribers[9] {
 				failure := utils.EncodeConnectFailure(v)
 				messageEvent := MessageEvent{
 					eventType: 9,
@@ -931,7 +926,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.ClientOutdated:
-			if _, ok := subscribers[10]; ok {
+			if subscribers[10] {
 				outdated := defproto.ClientOutdated{}
 				messageEvent := MessageEvent{
 					eventType: 10,
@@ -940,7 +935,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.StreamError:
-			if _, ok := subscribers[11]; ok {
+			if subscribers[11] {
 				stream_error := defproto.StreamError{
 					Code: &v.Code,
 					Raw:  utils.EncodeNode(v.Raw),
@@ -952,7 +947,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.Disconnected:
-			if _, ok := subscribers[12]; ok {
+			if subscribers[12] {
 				disconnect := defproto.Disconnected{
 					Status: proto.Bool(true),
 				}
@@ -963,7 +958,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.HistorySync:
-			if _, ok := subscribers[13]; ok {
+			if subscribers[13] {
 				data := defproto.HistorySync{
 					Data: v.Data,
 				}
@@ -974,7 +969,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.Message:
-			if _, ok := subscribers[17]; ok {
+			if subscribers[17] {
 				if encMessage := v.Message.GetSecretEncryptedMessage(); encMessage != nil && encMessage.GetSecretEncType() == waE2E.SecretEncryptedMessage_MESSAGE_EDIT {
 					decrypted, err := client.DecryptSecretEncryptedMessage(ctx, v)
 					if err != nil {
@@ -1002,7 +997,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.Receipt:
-			if _, ok := subscribers[18]; ok {
+			if subscribers[18] {
 				receipt := utils.EncodeReceipts(v)
 				messageEvent := MessageEvent{
 					eventType: 18,
@@ -1011,7 +1006,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.ChatPresence:
-			if _, ok := subscribers[19]; ok {
+			if subscribers[19] {
 				presence := utils.EncodeChatPresence(v)
 				messageEvent := MessageEvent{
 					eventType: 19,
@@ -1020,7 +1015,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.Presence:
-			if _, ok := subscribers[20]; ok {
+			if subscribers[20] {
 				presence := utils.EncodePresence(v)
 				messageEvent := MessageEvent{
 					eventType: 20,
@@ -1029,7 +1024,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.JoinedGroup:
-			if _, ok := subscribers[21]; ok {
+			if subscribers[21] {
 				joined := utils.EncodeJoinedGroup(v)
 				messageEvent := MessageEvent{
 					eventType: 21,
@@ -1038,7 +1033,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.GroupInfo:
-			if _, ok := subscribers[22]; ok {
+			if subscribers[22] {
 				groupinfo := utils.EncodeGroupInfoEvent(v)
 				messageEvent := MessageEvent{
 					eventType: 22,
@@ -1047,7 +1042,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.Picture:
-			if _, ok := subscribers[23]; ok {
+			if subscribers[23] {
 				picture := defproto.Picture{
 					JID:       utils.EncodeJidProto(v.JID),
 					Author:    utils.EncodeJidProto(v.Author),
@@ -1061,7 +1056,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.IdentityChange:
-			if _, ok := subscribers[24]; ok {
+			if subscribers[24] {
 				identity := defproto.IdentityChange{
 					JID:       utils.EncodeJidProto(v.JID),
 					Timestamp: proto.Int64(v.Timestamp.Unix()),
@@ -1074,7 +1069,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.PrivacySettings:
-			if _, ok := subscribers[25]; ok {
+			if subscribers[25] {
 				privacy_event := defproto.PrivacySettingsEvent{
 					NewSettings:         utils.EncodePrivacySettings(v.NewSettings),
 					GroupAddChanged:     &v.GroupAddChanged,
@@ -1092,7 +1087,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.OfflineSyncPreview:
-			if _, ok := subscribers[26]; ok {
+			if subscribers[26] {
 				sync := defproto.OfflineSyncPreview{
 					Total:          proto.Int32(int32(v.Total)),
 					AppDataChanges: proto.Int32(int32(v.AppDataChanges)),
@@ -1107,7 +1102,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.OfflineSyncCompleted:
-			if _, ok := subscribers[27]; ok {
+			if subscribers[27] {
 				sync := defproto.OfflineSyncCompleted{
 					Count: proto.Int32(int32(v.Count)),
 				}
@@ -1118,7 +1113,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.Blocklist:
-			if _, ok := subscribers[30]; ok {
+			if subscribers[30] {
 				blocklist := utils.EncodeBlocklistEvent(v)
 				messageEvent := MessageEvent{
 					eventType: 30,
@@ -1127,7 +1122,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.BlocklistChange:
-			if _, ok := subscribers[31]; ok {
+			if subscribers[31] {
 				block := utils.EncodeBlocklistChange(v)
 				messageEvent := MessageEvent{
 					eventType: 31,
@@ -1136,7 +1131,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.NewsletterJoin:
-			if _, ok := subscribers[32]; ok {
+			if subscribers[32] {
 				newsletter := defproto.NewsletterJoin{
 					NewsletterMetadata: utils.EncodeNewsLetterMessageMetadata(v.NewsletterMetadata),
 				}
@@ -1147,7 +1142,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.NewsletterLeave:
-			if _, ok := subscribers[33]; ok {
+			if subscribers[33] {
 				leave := utils.EncodeNewsletterLeave(v)
 				messageEvent := MessageEvent{
 					eventType: 33,
@@ -1156,7 +1151,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.NewsletterMuteChange:
-			if _, ok := subscribers[34]; ok {
+			if subscribers[34] {
 				mute := utils.EncodeNewsletterMuteChange(v)
 				messageEvent := MessageEvent{
 					eventType: 34,
@@ -1165,7 +1160,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.NewsletterLiveUpdate:
-			if _, ok := subscribers[35]; ok {
+			if subscribers[35] {
 				update := utils.EncodeNewsletterLiveUpdate(v)
 				messageEvent := MessageEvent{
 					eventType: 35,
@@ -1174,7 +1169,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.CallOffer:
-			if _, ok := subscribers[36]; ok {
+			if subscribers[36] {
 				callOffer := defproto.CallOffer{
 					BasicCallMeta:  utils.EncodeBasicCallMeta(v.BasicCallMeta),
 					CallRemoteMeta: utils.EncodeCallRemoteMeta(v.CallRemoteMeta),
@@ -1187,7 +1182,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.CallAccept:
-			if _, ok := subscribers[37]; ok {
+			if subscribers[37] {
 				callAccept := defproto.CallAccept{
 					BasicCallMeta:  utils.EncodeBasicCallMeta(v.BasicCallMeta),
 					CallRemoteMeta: utils.EncodeCallRemoteMeta(v.CallRemoteMeta),
@@ -1200,7 +1195,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.CallPreAccept:
-			if _, ok := subscribers[38]; ok {
+			if subscribers[38] {
 				callPreAccept := defproto.CallPreAccept{
 					BasicCallMeta:  utils.EncodeBasicCallMeta(v.BasicCallMeta),
 					CallRemoteMeta: utils.EncodeCallRemoteMeta(v.CallRemoteMeta),
@@ -1213,7 +1208,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.CallTransport:
-			if _, ok := subscribers[39]; ok {
+			if subscribers[39] {
 				callTransport := defproto.CallTransport{
 					BasicCallMeta:  utils.EncodeBasicCallMeta(v.BasicCallMeta),
 					CallRemoteMeta: utils.EncodeCallRemoteMeta(v.CallRemoteMeta),
@@ -1226,7 +1221,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.CallOfferNotice:
-			if _, ok := subscribers[40]; ok {
+			if subscribers[40] {
 				callOfferNotice := defproto.CallOfferNotice{
 					BasicCallMeta: utils.EncodeBasicCallMeta(v.BasicCallMeta),
 					Media:         proto.String(v.Media),
@@ -1240,7 +1235,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.CallRelayLatency:
-			if _, ok := subscribers[41]; ok {
+			if subscribers[41] {
 				callRelayLatency := defproto.CallRelayLatency{
 					BasicCallMeta: utils.EncodeBasicCallMeta(v.BasicCallMeta),
 					Data:          utils.EncodeNode(v.Data),
@@ -1252,7 +1247,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.CallTerminate:
-			if _, ok := subscribers[42]; ok {
+			if subscribers[42] {
 				callTerminate := defproto.CallTerminate{
 					BasicCallMeta: utils.EncodeBasicCallMeta(v.BasicCallMeta),
 					Reason:        proto.String(v.Reason),
@@ -1265,7 +1260,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.UnknownCallEvent:
-			if _, ok := subscribers[43]; ok {
+			if subscribers[43] {
 				unknownCall := defproto.UnknownCallEvent{
 					Node: utils.EncodeNode(v.Node),
 				}
@@ -1276,7 +1271,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.UndecryptableMessage:
-			if _, ok := subscribers[44]; ok {
+			if subscribers[44] {
 				undecryptableMessage := utils.EncodeUndecryptableMessageEvent(*v)
 				messageEvent := MessageEvent{
 					eventType: 44,
@@ -1285,7 +1280,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.Archive:
-			if _, ok := subscribers[46]; ok {
+			if subscribers[46] {
 				chatState := defproto.ChatArchive{
 					JID:          utils.EncodeJidProto(v.JID),
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
@@ -1299,7 +1294,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.Pin:
-			if _, ok := subscribers[47]; ok {
+			if subscribers[47] {
 				chatState := defproto.ChatPin{
 					JID:          utils.EncodeJidProto(v.JID),
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
@@ -1313,7 +1308,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.Mute:
-			if _, ok := subscribers[48]; ok {
+			if subscribers[48] {
 				chatState := defproto.ChatMute{
 					JID:          utils.EncodeJidProto(v.JID),
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
@@ -1327,7 +1322,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.MarkChatAsRead:
-			if _, ok := subscribers[49]; ok {
+			if subscribers[49] {
 				chatState := defproto.ChatMarkAsRead{
 					JID:          utils.EncodeJidProto(v.JID),
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
@@ -1341,7 +1336,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.DeleteChat:
-			if _, ok := subscribers[51]; ok {
+			if subscribers[51] {
 				chatState := defproto.ChatDelete{
 					JID:          utils.EncodeJidProto(v.JID),
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
@@ -1356,7 +1351,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.ClearChat:
-			if _, ok := subscribers[54]; ok {
+			if subscribers[54] {
 				chatState := defproto.ChatClear{
 					JID:          utils.EncodeJidProto(v.JID),
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
@@ -1371,7 +1366,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.DeleteForMe:
-			if _, ok := subscribers[52]; ok {
+			if subscribers[52] {
 				deleted := defproto.MessageDeleteForMe{
 					ChatJID:      utils.EncodeJidProto(v.ChatJID),
 					SenderJID:    utils.EncodeJidProto(v.SenderJID),
@@ -1388,7 +1383,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.Star:
-			if _, ok := subscribers[53]; ok {
+			if subscribers[53] {
 				starred := defproto.MessageStar{
 					ChatJID:      utils.EncodeJidProto(v.ChatJID),
 					SenderJID:    utils.EncodeJidProto(v.SenderJID),
@@ -1405,7 +1400,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.RotateADVSecret:
-			if _, ok := subscribers[45]; ok {
+			if subscribers[45] {
 				rot := defproto.RotateADVSecret{
 					OldSecret: proto.String(v.OldSecret),
 					NewSecret: proto.String(v.NewSecret),
@@ -1417,7 +1412,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- messageEvent
 			}
 		case *events.MediaRetry:
-			if _, ok := subscribers[29]; ok {
+			if subscribers[29] {
 				mr := defproto.MediaRetry{
 					Ciphertext: v.Ciphertext,
 					IV:         v.IV,
@@ -1435,7 +1430,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 29, message: &mr}
 			}
 		case *events.AppState:
-			if _, ok := subscribers[55]; ok {
+			if subscribers[55] {
 				ev := defproto.AppState{
 					Index:  v.Index,
 					Action: v.SyncActionValue,
@@ -1443,7 +1438,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 55, message: &ev}
 			}
 		case *events.AppStateSyncComplete:
-			if _, ok := subscribers[56]; ok {
+			if subscribers[56] {
 				ev := defproto.AppStateSyncComplete{
 					Name:     proto.String(string(v.Name)),
 					Version:  proto.Uint64(v.Version),
@@ -1452,7 +1447,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 56, message: &ev}
 			}
 		case *events.AppStateSyncError:
-			if _, ok := subscribers[57]; ok {
+			if subscribers[57] {
 				errStr := ""
 				if v.Error != nil {
 					errStr = v.Error.Error()
@@ -1465,7 +1460,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 57, message: &ev}
 			}
 		case *events.Contact:
-			if _, ok := subscribers[58]; ok {
+			if subscribers[58] {
 				ev := defproto.ContactSync{
 					JID:          utils.EncodeJidProto(v.JID),
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
@@ -1475,7 +1470,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 58, message: &ev}
 			}
 		case *events.PushName:
-			if _, ok := subscribers[59]; ok {
+			if subscribers[59] {
 				ev := defproto.PushName{
 					JID:         utils.EncodeJidProto(v.JID),
 					OldPushName: proto.String(v.OldPushName),
@@ -1490,7 +1485,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 59, message: &ev}
 			}
 		case *events.PushNameSetting:
-			if _, ok := subscribers[60]; ok {
+			if subscribers[60] {
 				ev := defproto.PushNameSetting{
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
 					Action:       v.Action,
@@ -1499,7 +1494,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 60, message: &ev}
 			}
 		case *events.BusinessName:
-			if _, ok := subscribers[61]; ok {
+			if subscribers[61] {
 				ev := defproto.BusinessName{
 					JID:             utils.EncodeJidProto(v.JID),
 					OldBusinessName: proto.String(v.OldBusinessName),
@@ -1511,7 +1506,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 61, message: &ev}
 			}
 		case *events.UserAbout:
-			if _, ok := subscribers[62]; ok {
+			if subscribers[62] {
 				ev := defproto.UserAbout{
 					JID:       utils.EncodeJidProto(v.JID),
 					Status:    proto.String(v.Status),
@@ -1520,7 +1515,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 62, message: &ev}
 			}
 		case *events.UserStatusMute:
-			if _, ok := subscribers[63]; ok {
+			if subscribers[63] {
 				ev := defproto.UserStatusMute{
 					JID:          utils.EncodeJidProto(v.JID),
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
@@ -1530,7 +1525,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 63, message: &ev}
 			}
 		case *events.UnarchiveChatsSetting:
-			if _, ok := subscribers[64]; ok {
+			if subscribers[64] {
 				ev := defproto.UnarchiveChatsSetting{
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
 					Action:       v.Action,
@@ -1539,7 +1534,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 64, message: &ev}
 			}
 		case *events.LabelEdit:
-			if _, ok := subscribers[65]; ok {
+			if subscribers[65] {
 				ev := defproto.LabelEdit{
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
 					LabelID:      proto.String(v.LabelID),
@@ -1549,7 +1544,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 65, message: &ev}
 			}
 		case *events.LabelAssociationChat:
-			if _, ok := subscribers[66]; ok {
+			if subscribers[66] {
 				ev := defproto.LabelAssociationChat{
 					JID:          utils.EncodeJidProto(v.JID),
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
@@ -1560,7 +1555,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 66, message: &ev}
 			}
 		case *events.LabelAssociationMessage:
-			if _, ok := subscribers[67]; ok {
+			if subscribers[67] {
 				ev := defproto.LabelAssociationMessage{
 					JID:          utils.EncodeJidProto(v.JID),
 					Timestamp:    proto.Int64(v.Timestamp.Unix()),
@@ -1572,14 +1567,14 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 67, message: &ev}
 			}
 		case *events.CallReject:
-			if _, ok := subscribers[68]; ok {
+			if subscribers[68] {
 				ev := defproto.CallReject{
 					CallMeta: utils.EncodeBasicCallMeta(v.BasicCallMeta),
 				}
 				eventChan <- MessageEvent{eventType: 68, message: &ev}
 			}
 		case *events.FBCallEvent:
-			if _, ok := subscribers[69]; ok {
+			if subscribers[69] {
 				ev := defproto.FBCallEvent{
 					ID:             proto.String(v.ID),
 					From:           utils.EncodeJidProto(v.From),
@@ -1595,7 +1590,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 69, message: &ev}
 			}
 		case *events.NewsletterMilestone:
-			if _, ok := subscribers[70]; ok {
+			if subscribers[70] {
 				ev := defproto.NewsletterMilestone{
 					ID:              utils.EncodeJidProto(v.ID),
 					MessageServerID: proto.Int64(int64(v.MessageServerID)),
@@ -1608,7 +1603,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 70, message: &ev}
 			}
 		case *events.CATRefreshError:
-			if _, ok := subscribers[71]; ok {
+			if subscribers[71] {
 				errStr := ""
 				if v.Error != nil {
 					errStr = v.Error.Error()
@@ -1619,15 +1614,15 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 71, message: &ev}
 			}
 		case *events.ManualLoginReconnect:
-			if _, ok := subscribers[72]; ok {
+			if subscribers[72] {
 				eventChan <- MessageEvent{eventType: 72, message: &defproto.ManualLoginReconnect{}}
 			}
 		case *events.QRScannedWithoutMultidevice:
-			if _, ok := subscribers[73]; ok {
+			if subscribers[73] {
 				eventChan <- MessageEvent{eventType: 73, message: &defproto.QRScannedWithoutMultidevice{}}
 			}
 		case *events.NotifyAccountReachoutTimelock:
-			if _, ok := subscribers[74]; ok {
+			if subscribers[74] {
 				ev := defproto.NotifyAccountReachoutTimelock{
 					EnforcementType:     proto.String(v.EnforcementType),
 					IsActive:            proto.Bool(v.IsActive),
@@ -1638,7 +1633,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 74, message: &ev}
 			}
 		case *events.PairPasskeyConfirmation:
-			if _, ok := subscribers[75]; ok {
+			if subscribers[75] {
 				ev := defproto.PairPasskeyConfirmation{
 					Code:          proto.String(v.Code),
 					SkipHandoffUX: proto.Bool(v.SkipHandoffUX),
@@ -1646,7 +1641,7 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 				eventChan <- MessageEvent{eventType: 75, message: &ev}
 			}
 		case *events.PairPasskeyError:
-			if _, ok := subscribers[76]; ok {
+			if subscribers[76] {
 				errStr := ""
 				if v.Error != nil {
 					errStr = v.Error.Error()
@@ -1756,7 +1751,6 @@ func Neonize(db *C.char, id *C.char, JIDByte *C.uchar, JIDSize C.int, newDevice 
 	}
 
 	// Listen to Ctrl+C (you can also do something else that prevents the program from exiting)
-	println("Press Ctrl+C to exit")
 	if cbErr := CallbackFunction(ctx, event, uuid); cbErr != nil {
 		return C.CString(cbErr.Error())
 	}
@@ -3656,7 +3650,10 @@ func FreeBytesStruct(bytesReturn *C.struct_BytesReturn) {
 		return
 	}
 	if bytesReturn.data != nil {
-		C.free(unsafe.Pointer(bytesReturn.data))
+		inlinePtr := unsafe.Add(unsafe.Pointer(bytesReturn), unsafe.Sizeof(C.struct_BytesReturn{}))
+		if unsafe.Pointer(bytesReturn.data) != inlinePtr {
+			C.free(unsafe.Pointer(bytesReturn.data))
+		}
 	}
 	C.free(unsafe.Pointer(bytesReturn))
 }

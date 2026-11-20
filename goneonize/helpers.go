@@ -108,14 +108,17 @@ func stringError(err error) *C.char {
 	return nil
 }
 
-// allocBytesReturn creates a BytesReturn struct on the C heap from Go bytes.
-// The caller must eventually call FreeBytesStruct to release the memory.
+// allocBytesReturn creates a BytesReturn struct on the C heap from Go bytes
+// using a single contiguous allocation. FreeBytesStruct releases the block.
 func allocBytesReturn(data []byte) *C.struct_BytesReturn {
-	result := (*C.struct_BytesReturn)(C.malloc(C.size_t(unsafe.Sizeof(C.struct_BytesReturn{}))))
+	const hdrSize = unsafe.Sizeof(C.struct_BytesReturn{})
+	raw := C.malloc(C.size_t(hdrSize + uintptr(len(data))))
+	result := (*C.struct_BytesReturn)(raw)
 	result.size = C.size_t(len(data))
 	if len(data) > 0 {
-		result.data = (*C.char)(C.malloc(result.size))
-		C.memcpy(unsafe.Pointer(result.data), unsafe.Pointer(&data[0]), result.size)
+		dataPtr := unsafe.Add(raw, hdrSize)
+		C.memcpy(dataPtr, unsafe.Pointer(&data[0]), result.size)
+		result.data = (*C.char)(dataPtr)
 	} else {
 		result.data = nil
 	}
