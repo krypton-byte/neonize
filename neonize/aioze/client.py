@@ -1916,8 +1916,8 @@ class NewAClient:
         """
         image_count = video_count = 0
         medias = []
-        for file in files:
-            file = await get_bytes_from_name_or_url_async(file)
+        fetched_files = await asyncio.gather(*(get_bytes_from_name_or_url_async(f) for f in files))
+        for file in fetched_files:
             mime = magic.from_buffer(file[:4096], mime=True)
             media_type = mime.split("/")[0]
             if media_type == "image":

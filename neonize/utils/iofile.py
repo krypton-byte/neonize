@@ -3,6 +3,7 @@ import io
 import os
 import re
 import tempfile
+import weakref
 import zipfile
 from pathlib import Path
 
@@ -42,6 +43,20 @@ def get_bytes_from_name_or_url(args: str | bytes) -> bytes:
     return args
 
 
+_ASYNC_HTTP_CLIENTS: weakref.WeakKeyDictionary[asyncio.AbstractEventLoop, httpx.AsyncClient] = (
+    weakref.WeakKeyDictionary()
+)
+
+
+def _get_async_http_client() -> httpx.AsyncClient:
+    loop = asyncio.get_running_loop()
+    client = _ASYNC_HTTP_CLIENTS.get(loop)
+    if client is None or client.is_closed:
+        client = httpx.AsyncClient(timeout=30.0)
+        _ASYNC_HTTP_CLIENTS[loop] = client
+    return client
+
+
 async def get_bytes_from_name_or_url_async(args: str | bytes) -> bytes:
     """Gets bytes from either a file name or a URL.
 
@@ -52,10 +67,10 @@ async def get_bytes_from_name_or_url_async(args: str | bytes) -> bytes:
     """
     if isinstance(args, str):
         if URL_MATCH.match(args):
-            async with httpx.AsyncClient(timeout=30.0) as client:
-                resp = await client.get(args, headers=_DEFAULT_HEADERS)
-                resp.raise_for_status()
-                return resp.content
+            client = _get_async_http_client()
+            resp = await client.get(args, headers=_DEFAULT_HEADERS)
+            resp.raise_for_status()
+            return resp.content
         return await asyncio.to_thread(_read_file_bytes, args)
     return args
 
