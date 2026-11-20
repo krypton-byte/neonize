@@ -127,6 +127,14 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.12.2 (2026-11-20)
+
+### Performance Improvements
+
+- Single-alloc BytesReturn, fixed subscriber bitset, non-blocking aioze, and Postgres getDB fix
+  ([`7e733e2`](https://github.com/krypton-byte/neonize/commit/7e733e274f930035c69cfc1dba6502e43eff0c7b))
+
+
 ## v0.12.1 (2026-11-20)
 
 ### Performance Improvements
