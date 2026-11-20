@@ -107,7 +107,7 @@ func EncodeGroupIsDefaultSub(isDefaultSub types.GroupIsDefaultSub) *defproto.Gro
 func EncodeGroupParticipantAddRequest(addRequest types.GroupParticipantAddRequest) *defproto.GroupParticipantAddRequest {
 	return &defproto.GroupParticipantAddRequest{
 		Code:       &addRequest.Code,
-		Expiration: proto.Float32(float32(addRequest.Expiration.Unix())),
+		Expiration: proto.Int64(addRequest.Expiration.Unix()),
 	}
 }
 
