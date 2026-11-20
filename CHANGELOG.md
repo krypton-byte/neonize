@@ -127,6 +127,19 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.12.4 (2026-11-20)
+
+### Continuous Integration
+
+- Pin setup-uv@v10.3.3, ruff-action@v4.1.0, and protoc 36.0
+  ([`efd50a7`](https://github.com/krypton-byte/neonize/commit/efd50a72b3c473184a3f22af6bb6a0e03ace4251))
+
+### Performance Improvements
+
+- Remove uname subprocess on import, parallelize album fetch, and pool async httpx clients
+  ([`6a0d677`](https://github.com/krypton-byte/neonize/commit/6a0d677ec6be96333df80858615b905ff7819164))
+
+
 ## v0.12.3 (2026-11-20)
 
 ### Performance Improvements
