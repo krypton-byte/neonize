@@ -232,6 +232,12 @@ from .utils.jid import Jid2String, JIDToNonAD, build_jid, jid_is_lid
 from .utils.sticker import add_exif_to_sticker, convert_to_sticker, convert_to_webp
 
 _log_ = logging.getLogger(__name__)
+_YOUTUBE_URL_RE = re.compile(
+    r"(?:https?:)?//(?:www\.)?(?:youtube\.com/(?:[^/\n\s]+"
+    r"/\S+/|(?:v|e(?:mbed)?)/|\S*?[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})",
+    re.IGNORECASE,
+)
+_HTTP_LINK_RE = re.compile(r"https?://\S+")
 
 
 class ContactStore:
@@ -568,18 +574,13 @@ class NewClient:
         return gc_mentions
 
     def _generate_link_preview(self, text: str) -> ExtendedTextMessage | None:
-        youtube_url_pattern = re.compile(
-            r"(?:https?:)?//(?:www\.)?(?:youtube\.com/(?:[^/\n\s]+"
-            r"/\S+/|(?:v|e(?:mbed)?)/|\S*?[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})",
-            re.IGNORECASE,
-        )
-        links = re.findall(r"https?://\S+", text)
+        links = _HTTP_LINK_RE.findall(text)
         valid_links = list(filter(validate_link, links))
         if valid_links:
             preview = link_preview(valid_links[0])
             preview_type = (
                 ExtendedTextMessage.PreviewType.VIDEO
-                if re.match(youtube_url_pattern, valid_links[0])
+                if _YOUTUBE_URL_RE.match(valid_links[0])
                 else ExtendedTextMessage.PreviewType.NONE
             )
             msg = ExtendedTextMessage(
@@ -590,7 +591,7 @@ class NewClient:
             )
             if preview.absolute_image:
                 thumbnail = get_bytes_from_name_or_url(str(preview.absolute_image))
-                mimetype = magic.from_buffer(thumbnail, mime=True)
+                mimetype = magic.from_buffer(thumbnail[:4096], mime=True)
                 if "jpeg" in mimetype or "png" in mimetype:
                     image = Image.open(BytesIO(thumbnail))
                     upload = self.upload(thumbnail, MediaType.MediaLinkThumbnail)

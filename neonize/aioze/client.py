@@ -239,6 +239,28 @@ SyncFunctionParams = ParamSpec("SyncFunctionParams")
 ReturnType = TypeVar("ReturnType")
 
 
+_FAST_FFI_FUNCS = frozenset(
+    {
+        "IsConnected",
+        "IsLoggedIn",
+        "GenerateMessageID",
+        "GetMe",
+        "BuildEdit",
+        "BuildReaction",
+        "BuildRevoke",
+        "BuildUnavailableMessageRequest",
+        "StoreLIDPNMapping",
+        "SetForceActiveDeliveryReceipts",
+    }
+)
+_YOUTUBE_URL_RE = re.compile(
+    r"(?:https?:)?//(?:www\.)?(?:youtube\.com/(?:[^/\n\s]+"
+    r"/\S+/|(?:v|e(?:mbed)?)/|\S*?[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})",
+    re.IGNORECASE,
+)
+_HTTP_LINK_RE = re.compile(r"https?://\S+")
+
+
 class GoCode:
     @staticmethod
     def execute_sync_function(
@@ -263,7 +285,11 @@ class GoCode:
         return call
 
     def __getattr__(self, name: str, /) -> Any:
-        """Resolves and caches unknown attributes into thread-offloaded async FFI calls.
+        """Resolves and caches unknown attributes into async FFI calls.
+
+        Fast in-memory FFI functions execute directly without thread-pool
+        dispatch overhead; blocking/network FFI calls are offloaded via
+        ``asyncio.to_thread``.
 
         :param name: Name of the underlying goneonize FFI function.
         :type name: str
@@ -277,6 +303,14 @@ class GoCode:
                 return asyncio.to_thread(getattr(gocode, name), *args, **kwargs)
 
             return call
+
+        if name in _FAST_FFI_FUNCS:
+
+            async def fast_call(*args, **kwargs):
+                return func(*args, **kwargs)
+
+            setattr(self, name, fast_call)
+            return fast_call
 
         def cached_call(*args, **kwargs):
             return asyncio.to_thread(func, *args, **kwargs)
@@ -617,12 +651,7 @@ class NewAClient:
         return gc_mentions
 
     async def _generate_link_preview(self, text: str) -> ExtendedTextMessage | None:
-        youtube_url_pattern = re.compile(
-            r"(?:https?:)?//(?:www\.)?(?:youtube\.com/(?:[^/\n\s]+"
-            r"/\S+/|(?:v|e(?:mbed)?)/|\S*?[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})",
-            re.IGNORECASE,
-        )
-        links = re.findall(r"https?://\S+", text)
+        links = _HTTP_LINK_RE.findall(text)
         valid_links = list(filter(validate_link, links))
         if valid_links:
             preview = await link_preview(valid_links[0])
@@ -630,13 +659,13 @@ class NewAClient:
                 return None
             if not preview:
                 try:
-                    preview = fallback_link_preview(valid_links[0])
+                    preview = await asyncio.to_thread(fallback_link_preview, valid_links[0])
                 except (HTTPError, MaximumContentSizeError):
                     _log_.debug(f"Getting link preview failed for link: {valid_links[0]}")
                     return None
             preview_type = (
                 ExtendedTextMessage.PreviewType.VIDEO
-                if re.match(youtube_url_pattern, valid_links[0])
+                if _YOUTUBE_URL_RE.match(valid_links[0])
                 else ExtendedTextMessage.PreviewType.NONE
             )
             msg = ExtendedTextMessage(
@@ -647,9 +676,9 @@ class NewAClient:
             )
             if preview.absolute_image:
                 thumbnail = await get_bytes_from_name_or_url_async(str(preview.absolute_image))
-                mimetype = magic.from_buffer(thumbnail, mime=True)
+                mimetype = magic.from_buffer(thumbnail[:4096], mime=True)
                 if "jpeg" in mimetype or "png" in mimetype:
-                    image = Image.open(BytesIO(thumbnail))
+                    image = await asyncio.to_thread(Image.open, BytesIO(thumbnail))
                     upload = await self.upload(thumbnail, MediaType.MediaLinkThumbnail)
                     msg.MergeFrom(
                         ExtendedTextMessage(
@@ -1568,13 +1597,17 @@ class NewAClient:
             if is_avc:
                 buff = await ffmpeg.to_mp4_copy()
         if spoiler:
-            img = Image.open(BytesIO(thumbnail))
-            if img.mode != "RGB":
-                img = img.convert("RGB")
-            img = img.filter(ImageFilter.GaussianBlur(radius=12))
-            thumbnail = BytesIO()
-            img.save(thumbnail, format="jpeg")
-            thumbnail = thumbnail.getvalue()
+
+            def _blur_thumb(raw_thumb: bytes) -> bytes:
+                img = Image.open(BytesIO(raw_thumb))
+                if img.mode != "RGB":
+                    img = img.convert("RGB")
+                img = img.filter(ImageFilter.GaussianBlur(radius=12))
+                out = BytesIO()
+                img.save(out, format="jpeg")
+                return out.getvalue()
+
+            thumbnail = await asyncio.to_thread(_blur_thumb, thumbnail)
         upload = await self.upload(buff)
         message = Message(
             videoMessage=VideoMessage(
@@ -1587,7 +1620,7 @@ class NewAClient:
                 fileLength=upload.FileLength,
                 fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(buff, mime=True),
+                mimetype=magic.from_buffer(buff[:4096], mime=True),
                 JPEGThumbnail=thumbnail,
                 thumbnailDirectPath=upload.DirectPath,
                 thumbnailEncSHA256=upload.FileEncSHA256,
@@ -1602,7 +1635,9 @@ class NewAClient:
             )
         )
         if is_avc and not skip_sidecar:
-            message.videoMessage.streamingSidecar = get_sidecar_from_upload(buff, upload.MediaKey)
+            message.videoMessage.streamingSidecar = await asyncio.to_thread(
+                get_sidecar_from_upload, buff, upload.MediaKey
+            )
         if quoted:
             message.videoMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
         return message
