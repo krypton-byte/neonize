@@ -201,11 +201,26 @@ func DecodeContactEntry(entry *defproto.ContactEntry) *store.ContactEntry {
 
 func DecodeSendRequestExtra(extra *defproto.SendRequestExtra) whatsmeow.SendRequestExtra {
 	return whatsmeow.SendRequestExtra{
-		ID:           *extra.ID,
-		InlineBotJID: DecodeJidProto(extra.InlineBotJID),
-		Peer:         *extra.Peer,
-		Timeout:      time.Duration(*extra.Timeout),
+		ID:               *extra.ID,
+		InlineBotJID:     DecodeJidProto(extra.InlineBotJID),
+		Peer:             *extra.Peer,
+		Timeout:          time.Duration(*extra.Timeout),
+		CheckPermissions: extra.GetCheckPermissions(),
 	}
+}
+
+func DecodeBotListInfoArray(arr *defproto.BotListInfoArray) []types.BotListInfo {
+	if arr == nil {
+		return nil
+	}
+	bots := make([]types.BotListInfo, len(arr.Bots))
+	for i, b := range arr.Bots {
+		bots[i] = types.BotListInfo{
+			BotJID:    DecodeJidProto(b.BotJID),
+			PersonaID: b.GetPersonaID(),
+		}
+	}
+	return bots
 }
 
 func DecodeEventTypesMessage(message *defproto.Message) *events.Message {

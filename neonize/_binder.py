@@ -337,7 +337,7 @@ if not os.environ.get("SPHINX"):
     gocode.CreateNewsletter.restype = ctypes.POINTER(Bytes)
     gocode.FollowNewsletter.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.FollowNewsletter.restype = ctypes.c_void_p
-    gocode.GetBlocklist.argtypes = [ctypes.c_char_p]
+    gocode.GetBlocklist.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     gocode.GetBlocklist.restype = ctypes.POINTER(Bytes)
     gocode.GetContactQRLink.argtypes = [ctypes.c_char_p, ctypes.c_bool]
     gocode.GetContactQRLink.restype = ctypes.POINTER(Bytes)
@@ -581,6 +581,7 @@ if not os.environ.get("SPHINX"):
         ctypes.c_char_p,
         ctypes.c_int,
         ctypes.c_char_p,
+        ctypes.c_char_p,
     ]
     gocode.UpdateBlocklist.restype = ctypes.POINTER(Bytes)
     gocode.UpdateGroupParticipants.argtypes = [
@@ -677,6 +678,90 @@ if not os.environ.get("SPHINX"):
     gocode.FreeString.argtypes = [ctypes.c_void_p]
     gocode.FreeString.restype = None
 
+    gocode.DeleteMedia.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+    ]
+    gocode.DeleteMedia.restype = ctypes.c_void_p
+    gocode.FetchStickerPack.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+    gocode.FetchStickerPack.restype = ctypes.POINTER(Bytes)
+    gocode.GetBotListV2.argtypes = [ctypes.c_char_p]
+    gocode.GetBotListV2.restype = ctypes.POINTER(Bytes)
+    gocode.GetBotProfiles.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.GetBotProfiles.restype = ctypes.POINTER(Bytes)
+    gocode.GetOrderDetails.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
+    gocode.GetOrderDetails.restype = ctypes.POINTER(Bytes)
+    gocode.DecryptComment.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.DecryptComment.restype = ctypes.POINTER(Bytes)
+    gocode.DecryptReaction.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
+    gocode.DecryptReaction.restype = ctypes.POINTER(Bytes)
+    gocode.EncryptComment.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
+    gocode.EncryptComment.restype = ctypes.POINTER(Bytes)
+    gocode.EncryptReaction.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
+    gocode.EncryptReaction.restype = ctypes.POINTER(Bytes)
+    gocode.EncryptPollVote.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
+    gocode.EncryptPollVote.restype = ctypes.POINTER(Bytes)
+    gocode.StoreLIDPNMapping.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
+    gocode.StoreLIDPNMapping.restype = ctypes.c_void_p
+    gocode.TryFetchPrivacySettings.argtypes = [ctypes.c_char_p, ctypes.c_bool]
+    gocode.TryFetchPrivacySettings.restype = ctypes.POINTER(Bytes)
+    gocode.MarkNotDirty.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_longlong]
+    gocode.MarkNotDirty.restype = ctypes.c_void_p
+    gocode.SendMediaRetryReceipt.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
+    gocode.SendMediaRetryReceipt.restype = ctypes.c_void_p
+    gocode.BuildUnavailableMessageRequest.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+    ]
+    gocode.BuildUnavailableMessageRequest.restype = ctypes.POINTER(Bytes)
+    gocode.BuildEdit.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+    ]
+    gocode.BuildEdit.restype = ctypes.POINTER(Bytes)
+
     def consume_cstring(result, func, arguments):
         """ctypes errcheck for FFI functions returning a Go-allocated ``*C.char``.
 
@@ -766,6 +851,10 @@ if not os.environ.get("SPHINX"):
         "GetAllDevices",
         "SendPresence",
         "SetPushName",
+        "DeleteMedia",
+        "StoreLIDPNMapping",
+        "MarkNotDirty",
+        "SendMediaRetryReceipt",
     ):
         getattr(gocode, _string_returning_func).errcheck = consume_cstring
 
@@ -835,6 +924,18 @@ if not os.environ.get("SPHINX"):
         "GetStatus",
         "NewsletterCreate",
         "NewsletterGetMetadata",
+        "FetchStickerPack",
+        "GetBotListV2",
+        "GetBotProfiles",
+        "GetOrderDetails",
+        "DecryptComment",
+        "DecryptReaction",
+        "EncryptComment",
+        "EncryptReaction",
+        "EncryptPollVote",
+        "TryFetchPrivacySettings",
+        "BuildUnavailableMessageRequest",
+        "BuildEdit",
     ):
         try:
             getattr(gocode, _bytes_returning_func).errcheck = consume_bytes_struct

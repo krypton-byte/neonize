@@ -213,6 +213,9 @@ func EncodeUserInfo(userInfo types.UserInfo) *defproto.UserInfo {
 	if userInfo.VerifiedName != nil {
 		models.VerifiedName = EncodeVerifiedName(userInfo.VerifiedName)
 	}
+	if !userInfo.LID.IsEmpty() {
+		models.LID = EncodeJidProto(userInfo.LID)
+	}
 	return models
 }
 
@@ -484,16 +487,24 @@ func EncodeNewsLetterMessageMetadata(metadata types.NewsletterMetadata) *defprot
 
 func EncodeBlocklist(blocklist *types.Blocklist) *defproto.Blocklist {
 	JIDs := []*defproto.JID{}
+	items := make([]*defproto.BlocklistItem, 0, len(blocklist.Items))
 	for _, item := range blocklist.Items {
 		if !item.LID.IsEmpty() {
 			JIDs = append(JIDs, EncodeJidProto(item.LID))
 		} else if !item.PN.IsEmpty() {
 			JIDs = append(JIDs, EncodeJidProto(item.PN))
 		}
+		items = append(items, &defproto.BlocklistItem{
+			LID:    EncodeJidProto(item.LID),
+			PN:     EncodeJidProto(item.PN),
+			Active: proto.Bool(item.Active),
+		})
 	}
 	return &defproto.Blocklist{
-		DHash: &blocklist.DHash,
-		JIDs:  JIDs,
+		DHash:          &blocklist.DHash,
+		JIDs:           JIDs,
+		AddressingMode: EncodeAddressingMode(blocklist.AddressingMode),
+		Items:          items,
 	}
 }
 
@@ -1026,4 +1037,113 @@ func EncodeUndecryptableMessageEvent(undecryptableMessage events.UndecryptableMe
 		IsUnavailable:   &undecryptableMessage.IsUnavailable,
 		DecryptFailMode: &failMode,
 	}
+}
+
+func EncodeStickerPack(pack *types.StickerPack) *defproto.StickerPack {
+	if pack == nil {
+		return nil
+	}
+	stickers := make([]*defproto.StickerPackItem, len(pack.Stickers))
+	for i, s := range pack.Stickers {
+		stickers[i] = &defproto.StickerPackItem{
+			MediaKey:               s.MediaKey,
+			EncFileHash:            s.EncFileHash,
+			FileHash:               s.FileHash,
+			DirectPath:             proto.String(s.DirectPath),
+			URL:                    proto.String(s.URL),
+			FileSize:               proto.Int64(s.FileSize),
+			MimeType:               proto.String(s.MimeType),
+			Height:                 proto.Int32(int32(s.Height)),
+			Width:                  proto.Int32(int32(s.Width)),
+			Emojis:                 s.Emojis,
+			AccessibilityText:      proto.String(s.AccessibilityText),
+			Handle:                 proto.String(s.Handle),
+			StickerHashWithoutMeta: s.StickerHashWithoutMeta,
+			PreviewWebpID:          proto.String(s.PreviewWebpID),
+		}
+	}
+	return &defproto.StickerPack{
+		StickerPackID:    proto.String(pack.StickerPackID),
+		Name:             proto.String(pack.Name),
+		Publisher:        proto.String(pack.Publisher),
+		Description:      proto.String(pack.Description),
+		FileSize:         proto.String(pack.FileSize),
+		ImageDataHash:    proto.String(pack.ImageDataHash),
+		Stickers:         stickers,
+		Animated:         proto.Int32(int32(pack.Animated)),
+		Lottie:           proto.Int32(int32(pack.Lottie)),
+		PreviewImageIDs:  pack.PreviewImageIDs,
+		TrayImageID:      proto.String(pack.TrayImageID),
+		TrayImagePreview: proto.String(pack.TrayImagePreview),
+	}
+}
+
+func EncodeBotListInfo(bot types.BotListInfo) *defproto.BotListInfo {
+	return &defproto.BotListInfo{
+		BotJID:    EncodeJidProto(bot.BotJID),
+		PersonaID: proto.String(bot.PersonaID),
+	}
+}
+
+func EncodeBotProfileInfo(profile types.BotProfileInfo) *defproto.BotProfileInfo {
+	commands := make([]*defproto.BotProfileCommand, len(profile.Commands))
+	for i, c := range profile.Commands {
+		commands[i] = &defproto.BotProfileCommand{
+			Name:        proto.String(c.Name),
+			Description: proto.String(c.Description),
+		}
+	}
+	return &defproto.BotProfileInfo{
+		JID:                 EncodeJidProto(profile.JID),
+		Name:                proto.String(profile.Name),
+		Attributes:          proto.String(profile.Attributes),
+		Description:         proto.String(profile.Description),
+		Category:            proto.String(profile.Category),
+		IsDefault:           proto.Bool(profile.IsDefault),
+		Prompts:             profile.Prompts,
+		PersonaID:           proto.String(profile.PersonaID),
+		Commands:            commands,
+		CommandsDescription: proto.String(profile.CommandsDescription),
+	}
+}
+
+func EncodeOrderDetails(order *types.OrderDetails) *defproto.OrderDetails {
+	if order == nil {
+		return nil
+	}
+	products := make([]*defproto.OrderProduct, len(order.Products))
+	for i, p := range order.Products {
+		prod := &defproto.OrderProduct{
+			ID:       proto.String(p.ID),
+			Price:    proto.Int64(p.Price),
+			Currency: proto.String(p.Currency),
+			Name:     proto.String(p.Name),
+			Quantity: proto.Int32(int32(p.Quantity)),
+		}
+		if p.ImageID != "" {
+			prod.ImageID = proto.String(p.ImageID)
+		}
+		if p.ImageURL != "" {
+			prod.ImageURL = proto.String(p.ImageURL)
+		}
+		products[i] = prod
+	}
+	price := &defproto.OrderPrice{
+		Subtotal: proto.Int64(order.Price.Subtotal),
+		Total:    proto.Int64(order.Price.Total),
+		Currency: proto.String(order.Price.Currency),
+	}
+	if order.Price.PriceStatus != "" {
+		price.PriceStatus = proto.String(order.Price.PriceStatus)
+	}
+	details := &defproto.OrderDetails{
+		ID:        proto.String(order.ID),
+		CreatedAt: proto.Int64(order.CreatedAt.Unix()),
+		Price:     price,
+		Products:  products,
+	}
+	if order.CatalogID != "" {
+		details.CatalogID = proto.String(order.CatalogID)
+	}
+	return details
 }

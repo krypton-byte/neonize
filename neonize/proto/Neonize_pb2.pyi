@@ -392,12 +392,15 @@ class UserInfo(_message.Message):
     STATUS_FIELD_NUMBER: _builtins.int
     PICTUREID_FIELD_NUMBER: _builtins.int
     DEVICES_FIELD_NUMBER: _builtins.int
+    LID_FIELD_NUMBER: _builtins.int
     Status: _builtins.str
     PictureID: _builtins.str
     @_builtins.property
     def VerifiedName(self) -> Global___VerifiedName: ...
     @_builtins.property
     def Devices(self) -> _containers.RepeatedCompositeFieldContainer[Global___JID]: ...
+    @_builtins.property
+    def LID(self) -> Global___JID: ...
     def __init__(
         self,
         *,
@@ -405,10 +408,11 @@ class UserInfo(_message.Message):
         Status: _builtins.str | None = ...,
         PictureID: _builtins.str | None = ...,
         Devices: _abc.Iterable[Global___JID] | None = ...,
+        LID: Global___JID | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["PictureID", b"PictureID", "Status", b"Status", "VerifiedName", b"VerifiedName"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["LID", b"LID", "PictureID", b"PictureID", "Status", b"Status", "VerifiedName", b"VerifiedName"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["Devices", b"Devices", "PictureID", b"PictureID", "Status", b"Status", "VerifiedName", b"VerifiedName"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Devices", b"Devices", "LID", b"LID", "PictureID", b"PictureID", "Status", b"Status", "VerifiedName", b"VerifiedName"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
@@ -1769,23 +1773,57 @@ class NewsletterMetadata(_message.Message):
 Global___NewsletterMetadata: _TypeAlias = NewsletterMetadata  # noqa: Y015
 
 @_typing.final
+class BlocklistItem(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    LID_FIELD_NUMBER: _builtins.int
+    PN_FIELD_NUMBER: _builtins.int
+    ACTIVE_FIELD_NUMBER: _builtins.int
+    Active: _builtins.bool
+    @_builtins.property
+    def LID(self) -> Global___JID: ...
+    @_builtins.property
+    def PN(self) -> Global___JID: ...
+    def __init__(
+        self,
+        *,
+        LID: Global___JID | None = ...,
+        PN: Global___JID | None = ...,
+        Active: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Active", b"Active", "LID", b"LID", "PN", b"PN"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Active", b"Active", "LID", b"LID", "PN", b"PN"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___BlocklistItem: _TypeAlias = BlocklistItem  # noqa: Y015
+
+@_typing.final
 class Blocklist(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
     DHASH_FIELD_NUMBER: _builtins.int
     JIDS_FIELD_NUMBER: _builtins.int
+    ADDRESSINGMODE_FIELD_NUMBER: _builtins.int
+    ITEMS_FIELD_NUMBER: _builtins.int
     DHash: _builtins.str
+    AddressingMode: Global___AddressingMode.ValueType
     @_builtins.property
     def JIDs(self) -> _containers.RepeatedCompositeFieldContainer[Global___JID]: ...
+    @_builtins.property
+    def Items(self) -> _containers.RepeatedCompositeFieldContainer[Global___BlocklistItem]: ...
     def __init__(
         self,
         *,
         DHash: _builtins.str | None = ...,
         JIDs: _abc.Iterable[Global___JID] | None = ...,
+        AddressingMode: Global___AddressingMode.ValueType | None = ...,
+        Items: _abc.Iterable[Global___BlocklistItem] | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["DHash", b"DHash"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["AddressingMode", b"AddressingMode", "DHash", b"DHash"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["DHash", b"DHash", "JIDs", b"JIDs"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["AddressingMode", b"AddressingMode", "DHash", b"DHash", "Items", b"Items", "JIDs", b"JIDs"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
@@ -3484,6 +3522,72 @@ class OfflineSyncCompleted(_message.Message):
 Global___OfflineSyncCompleted: _TypeAlias = OfflineSyncCompleted  # noqa: Y015
 
 @_typing.final
+class MediaRetryError(_message.Message):
+    """28"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    CODE_FIELD_NUMBER: _builtins.int
+    Code: _builtins.int
+    def __init__(
+        self,
+        *,
+        Code: _builtins.int | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Code", b"Code"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Code", b"Code"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___MediaRetryError: _TypeAlias = MediaRetryError  # noqa: Y015
+
+@_typing.final
+class MediaRetry(_message.Message):
+    """29"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    CIPHERTEXT_FIELD_NUMBER: _builtins.int
+    IV_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    MESSAGEID_FIELD_NUMBER: _builtins.int
+    CHATID_FIELD_NUMBER: _builtins.int
+    SENDERID_FIELD_NUMBER: _builtins.int
+    FROMME_FIELD_NUMBER: _builtins.int
+    Ciphertext: _builtins.bytes
+    IV: _builtins.bytes
+    Timestamp: _builtins.int
+    MessageID: _builtins.str
+    FromMe: _builtins.bool
+    @_builtins.property
+    def Error(self) -> Global___MediaRetryError: ...
+    @_builtins.property
+    def ChatID(self) -> Global___JID: ...
+    @_builtins.property
+    def SenderID(self) -> Global___JID: ...
+    def __init__(
+        self,
+        *,
+        Ciphertext: _builtins.bytes | None = ...,
+        IV: _builtins.bytes | None = ...,
+        Error: Global___MediaRetryError | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        MessageID: _builtins.str | None = ...,
+        ChatID: Global___JID | None = ...,
+        SenderID: Global___JID | None = ...,
+        FromMe: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ChatID", b"ChatID", "Ciphertext", b"Ciphertext", "Error", b"Error", "FromMe", b"FromMe", "IV", b"IV", "MessageID", b"MessageID", "SenderID", b"SenderID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ChatID", b"ChatID", "Ciphertext", b"Ciphertext", "Error", b"Error", "FromMe", b"FromMe", "IV", b"IV", "MessageID", b"MessageID", "SenderID", b"SenderID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___MediaRetry: _TypeAlias = MediaRetry  # noqa: Y015
+
+@_typing.final
 class BlocklistEvent(_message.Message):
     """30"""
 
@@ -4413,10 +4517,12 @@ class SendRequestExtra(_message.Message):
     PEER_FIELD_NUMBER: _builtins.int
     TIMEOUT_FIELD_NUMBER: _builtins.int
     MEDIAHANDLE_FIELD_NUMBER: _builtins.int
+    CHECKPERMISSIONS_FIELD_NUMBER: _builtins.int
     ID: _builtins.str
     Peer: _builtins.bool
     Timeout: _builtins.int
     MediaHandle: _builtins.str
+    CheckPermissions: _builtins.bool
     @_builtins.property
     def InlineBotJID(self) -> Global___JID: ...
     def __init__(
@@ -4427,10 +4533,11 @@ class SendRequestExtra(_message.Message):
         Peer: _builtins.bool | None = ...,
         Timeout: _builtins.int | None = ...,
         MediaHandle: _builtins.str | None = ...,
+        CheckPermissions: _builtins.bool | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "InlineBotJID", b"InlineBotJID", "MediaHandle", b"MediaHandle", "Peer", b"Peer", "Timeout", b"Timeout"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["CheckPermissions", b"CheckPermissions", "ID", b"ID", "InlineBotJID", b"InlineBotJID", "MediaHandle", b"MediaHandle", "Peer", b"Peer", "Timeout", b"Timeout"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "InlineBotJID", b"InlineBotJID", "MediaHandle", b"MediaHandle", "Peer", b"Peer", "Timeout", b"Timeout"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["CheckPermissions", b"CheckPermissions", "ID", b"ID", "InlineBotJID", b"InlineBotJID", "MediaHandle", b"MediaHandle", "Peer", b"Peer", "Timeout", b"Timeout"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
@@ -4632,3 +4739,1163 @@ class GetBusinessProfileReturnFunction(_message.Message):
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___GetBusinessProfileReturnFunction: _TypeAlias = GetBusinessProfileReturnFunction  # noqa: Y015
+
+@_typing.final
+class StickerPackItem(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    MEDIAKEY_FIELD_NUMBER: _builtins.int
+    ENCFILEHASH_FIELD_NUMBER: _builtins.int
+    FILEHASH_FIELD_NUMBER: _builtins.int
+    DIRECTPATH_FIELD_NUMBER: _builtins.int
+    URL_FIELD_NUMBER: _builtins.int
+    FILESIZE_FIELD_NUMBER: _builtins.int
+    MIMETYPE_FIELD_NUMBER: _builtins.int
+    HEIGHT_FIELD_NUMBER: _builtins.int
+    WIDTH_FIELD_NUMBER: _builtins.int
+    EMOJIS_FIELD_NUMBER: _builtins.int
+    ACCESSIBILITYTEXT_FIELD_NUMBER: _builtins.int
+    HANDLE_FIELD_NUMBER: _builtins.int
+    STICKERHASHWITHOUTMETA_FIELD_NUMBER: _builtins.int
+    PREVIEWWEBPID_FIELD_NUMBER: _builtins.int
+    MediaKey: _builtins.bytes
+    EncFileHash: _builtins.bytes
+    FileHash: _builtins.bytes
+    DirectPath: _builtins.str
+    URL: _builtins.str
+    FileSize: _builtins.int
+    MimeType: _builtins.str
+    Height: _builtins.int
+    Width: _builtins.int
+    AccessibilityText: _builtins.str
+    Handle: _builtins.str
+    StickerHashWithoutMeta: _builtins.bytes
+    PreviewWebpID: _builtins.str
+    @_builtins.property
+    def Emojis(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
+    def __init__(
+        self,
+        *,
+        MediaKey: _builtins.bytes | None = ...,
+        EncFileHash: _builtins.bytes | None = ...,
+        FileHash: _builtins.bytes | None = ...,
+        DirectPath: _builtins.str | None = ...,
+        URL: _builtins.str | None = ...,
+        FileSize: _builtins.int | None = ...,
+        MimeType: _builtins.str | None = ...,
+        Height: _builtins.int | None = ...,
+        Width: _builtins.int | None = ...,
+        Emojis: _abc.Iterable[_builtins.str] | None = ...,
+        AccessibilityText: _builtins.str | None = ...,
+        Handle: _builtins.str | None = ...,
+        StickerHashWithoutMeta: _builtins.bytes | None = ...,
+        PreviewWebpID: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["AccessibilityText", b"AccessibilityText", "DirectPath", b"DirectPath", "EncFileHash", b"EncFileHash", "FileHash", b"FileHash", "FileSize", b"FileSize", "Handle", b"Handle", "Height", b"Height", "MediaKey", b"MediaKey", "MimeType", b"MimeType", "PreviewWebpID", b"PreviewWebpID", "StickerHashWithoutMeta", b"StickerHashWithoutMeta", "URL", b"URL", "Width", b"Width"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["AccessibilityText", b"AccessibilityText", "DirectPath", b"DirectPath", "Emojis", b"Emojis", "EncFileHash", b"EncFileHash", "FileHash", b"FileHash", "FileSize", b"FileSize", "Handle", b"Handle", "Height", b"Height", "MediaKey", b"MediaKey", "MimeType", b"MimeType", "PreviewWebpID", b"PreviewWebpID", "StickerHashWithoutMeta", b"StickerHashWithoutMeta", "URL", b"URL", "Width", b"Width"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___StickerPackItem: _TypeAlias = StickerPackItem  # noqa: Y015
+
+@_typing.final
+class StickerPack(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    STICKERPACKID_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    PUBLISHER_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    FILESIZE_FIELD_NUMBER: _builtins.int
+    IMAGEDATAHASH_FIELD_NUMBER: _builtins.int
+    STICKERS_FIELD_NUMBER: _builtins.int
+    ANIMATED_FIELD_NUMBER: _builtins.int
+    LOTTIE_FIELD_NUMBER: _builtins.int
+    PREVIEWIMAGEIDS_FIELD_NUMBER: _builtins.int
+    TRAYIMAGEID_FIELD_NUMBER: _builtins.int
+    TRAYIMAGEPREVIEW_FIELD_NUMBER: _builtins.int
+    StickerPackID: _builtins.str
+    Name: _builtins.str
+    Publisher: _builtins.str
+    Description: _builtins.str
+    FileSize: _builtins.str
+    ImageDataHash: _builtins.str
+    Animated: _builtins.int
+    Lottie: _builtins.int
+    TrayImageID: _builtins.str
+    TrayImagePreview: _builtins.str
+    @_builtins.property
+    def Stickers(self) -> _containers.RepeatedCompositeFieldContainer[Global___StickerPackItem]: ...
+    @_builtins.property
+    def PreviewImageIDs(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
+    def __init__(
+        self,
+        *,
+        StickerPackID: _builtins.str | None = ...,
+        Name: _builtins.str | None = ...,
+        Publisher: _builtins.str | None = ...,
+        Description: _builtins.str | None = ...,
+        FileSize: _builtins.str | None = ...,
+        ImageDataHash: _builtins.str | None = ...,
+        Stickers: _abc.Iterable[Global___StickerPackItem] | None = ...,
+        Animated: _builtins.int | None = ...,
+        Lottie: _builtins.int | None = ...,
+        PreviewImageIDs: _abc.Iterable[_builtins.str] | None = ...,
+        TrayImageID: _builtins.str | None = ...,
+        TrayImagePreview: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Animated", b"Animated", "Description", b"Description", "FileSize", b"FileSize", "ImageDataHash", b"ImageDataHash", "Lottie", b"Lottie", "Name", b"Name", "Publisher", b"Publisher", "StickerPackID", b"StickerPackID", "TrayImageID", b"TrayImageID", "TrayImagePreview", b"TrayImagePreview"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Animated", b"Animated", "Description", b"Description", "FileSize", b"FileSize", "ImageDataHash", b"ImageDataHash", "Lottie", b"Lottie", "Name", b"Name", "PreviewImageIDs", b"PreviewImageIDs", "Publisher", b"Publisher", "StickerPackID", b"StickerPackID", "Stickers", b"Stickers", "TrayImageID", b"TrayImageID", "TrayImagePreview", b"TrayImagePreview"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___StickerPack: _TypeAlias = StickerPack  # noqa: Y015
+
+@_typing.final
+class FetchStickerPackReturnFunction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    STICKERPACK_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    Error: _builtins.str
+    @_builtins.property
+    def StickerPack(self) -> Global___StickerPack: ...
+    def __init__(
+        self,
+        *,
+        StickerPack: Global___StickerPack | None = ...,
+        Error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "StickerPack", b"StickerPack"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "StickerPack", b"StickerPack"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___FetchStickerPackReturnFunction: _TypeAlias = FetchStickerPackReturnFunction  # noqa: Y015
+
+@_typing.final
+class BotListInfo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    BOTJID_FIELD_NUMBER: _builtins.int
+    PERSONAID_FIELD_NUMBER: _builtins.int
+    PersonaID: _builtins.str
+    @_builtins.property
+    def BotJID(self) -> Global___JID: ...
+    def __init__(
+        self,
+        *,
+        BotJID: Global___JID | None = ...,
+        PersonaID: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["BotJID", b"BotJID", "PersonaID", b"PersonaID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["BotJID", b"BotJID", "PersonaID", b"PersonaID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___BotListInfo: _TypeAlias = BotListInfo  # noqa: Y015
+
+@_typing.final
+class BotListInfoArray(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    BOTS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def Bots(self) -> _containers.RepeatedCompositeFieldContainer[Global___BotListInfo]: ...
+    def __init__(
+        self,
+        *,
+        Bots: _abc.Iterable[Global___BotListInfo] | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Bots", b"Bots"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___BotListInfoArray: _TypeAlias = BotListInfoArray  # noqa: Y015
+
+@_typing.final
+class GetBotListV2ReturnFunction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    BOTS_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    Error: _builtins.str
+    @_builtins.property
+    def Bots(self) -> _containers.RepeatedCompositeFieldContainer[Global___BotListInfo]: ...
+    def __init__(
+        self,
+        *,
+        Bots: _abc.Iterable[Global___BotListInfo] | None = ...,
+        Error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Bots", b"Bots", "Error", b"Error"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___GetBotListV2ReturnFunction: _TypeAlias = GetBotListV2ReturnFunction  # noqa: Y015
+
+@_typing.final
+class BotProfileCommand(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    Name: _builtins.str
+    Description: _builtins.str
+    def __init__(
+        self,
+        *,
+        Name: _builtins.str | None = ...,
+        Description: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Description", b"Description", "Name", b"Name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Description", b"Description", "Name", b"Name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___BotProfileCommand: _TypeAlias = BotProfileCommand  # noqa: Y015
+
+@_typing.final
+class BotProfileInfo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    ATTRIBUTES_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    CATEGORY_FIELD_NUMBER: _builtins.int
+    ISDEFAULT_FIELD_NUMBER: _builtins.int
+    PROMPTS_FIELD_NUMBER: _builtins.int
+    PERSONAID_FIELD_NUMBER: _builtins.int
+    COMMANDS_FIELD_NUMBER: _builtins.int
+    COMMANDSDESCRIPTION_FIELD_NUMBER: _builtins.int
+    Name: _builtins.str
+    Attributes: _builtins.str
+    Description: _builtins.str
+    Category: _builtins.str
+    IsDefault: _builtins.bool
+    PersonaID: _builtins.str
+    CommandsDescription: _builtins.str
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Prompts(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
+    @_builtins.property
+    def Commands(self) -> _containers.RepeatedCompositeFieldContainer[Global___BotProfileCommand]: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Name: _builtins.str | None = ...,
+        Attributes: _builtins.str | None = ...,
+        Description: _builtins.str | None = ...,
+        Category: _builtins.str | None = ...,
+        IsDefault: _builtins.bool | None = ...,
+        Prompts: _abc.Iterable[_builtins.str] | None = ...,
+        PersonaID: _builtins.str | None = ...,
+        Commands: _abc.Iterable[Global___BotProfileCommand] | None = ...,
+        CommandsDescription: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Attributes", b"Attributes", "Category", b"Category", "CommandsDescription", b"CommandsDescription", "Description", b"Description", "IsDefault", b"IsDefault", "JID", b"JID", "Name", b"Name", "PersonaID", b"PersonaID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Attributes", b"Attributes", "Category", b"Category", "Commands", b"Commands", "CommandsDescription", b"CommandsDescription", "Description", b"Description", "IsDefault", b"IsDefault", "JID", b"JID", "Name", b"Name", "PersonaID", b"PersonaID", "Prompts", b"Prompts"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___BotProfileInfo: _TypeAlias = BotProfileInfo  # noqa: Y015
+
+@_typing.final
+class GetBotProfilesReturnFunction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    PROFILES_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    Error: _builtins.str
+    @_builtins.property
+    def Profiles(self) -> _containers.RepeatedCompositeFieldContainer[Global___BotProfileInfo]: ...
+    def __init__(
+        self,
+        *,
+        Profiles: _abc.Iterable[Global___BotProfileInfo] | None = ...,
+        Error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "Profiles", b"Profiles"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___GetBotProfilesReturnFunction: _TypeAlias = GetBotProfilesReturnFunction  # noqa: Y015
+
+@_typing.final
+class OrderPrice(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    SUBTOTAL_FIELD_NUMBER: _builtins.int
+    TOTAL_FIELD_NUMBER: _builtins.int
+    CURRENCY_FIELD_NUMBER: _builtins.int
+    PRICESTATUS_FIELD_NUMBER: _builtins.int
+    Subtotal: _builtins.int
+    Total: _builtins.int
+    Currency: _builtins.str
+    PriceStatus: _builtins.str
+    def __init__(
+        self,
+        *,
+        Subtotal: _builtins.int | None = ...,
+        Total: _builtins.int | None = ...,
+        Currency: _builtins.str | None = ...,
+        PriceStatus: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Currency", b"Currency", "PriceStatus", b"PriceStatus", "Subtotal", b"Subtotal", "Total", b"Total"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Currency", b"Currency", "PriceStatus", b"PriceStatus", "Subtotal", b"Subtotal", "Total", b"Total"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___OrderPrice: _TypeAlias = OrderPrice  # noqa: Y015
+
+@_typing.final
+class OrderProduct(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ID_FIELD_NUMBER: _builtins.int
+    IMAGEID_FIELD_NUMBER: _builtins.int
+    IMAGEURL_FIELD_NUMBER: _builtins.int
+    PRICE_FIELD_NUMBER: _builtins.int
+    CURRENCY_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    QUANTITY_FIELD_NUMBER: _builtins.int
+    ID: _builtins.str
+    ImageID: _builtins.str
+    ImageURL: _builtins.str
+    Price: _builtins.int
+    Currency: _builtins.str
+    Name: _builtins.str
+    Quantity: _builtins.int
+    def __init__(
+        self,
+        *,
+        ID: _builtins.str | None = ...,
+        ImageID: _builtins.str | None = ...,
+        ImageURL: _builtins.str | None = ...,
+        Price: _builtins.int | None = ...,
+        Currency: _builtins.str | None = ...,
+        Name: _builtins.str | None = ...,
+        Quantity: _builtins.int | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Currency", b"Currency", "ID", b"ID", "ImageID", b"ImageID", "ImageURL", b"ImageURL", "Name", b"Name", "Price", b"Price", "Quantity", b"Quantity"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Currency", b"Currency", "ID", b"ID", "ImageID", b"ImageID", "ImageURL", b"ImageURL", "Name", b"Name", "Price", b"Price", "Quantity", b"Quantity"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___OrderProduct: _TypeAlias = OrderProduct  # noqa: Y015
+
+@_typing.final
+class OrderDetails(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ID_FIELD_NUMBER: _builtins.int
+    CREATEDAT_FIELD_NUMBER: _builtins.int
+    CATALOGID_FIELD_NUMBER: _builtins.int
+    PRICE_FIELD_NUMBER: _builtins.int
+    PRODUCTS_FIELD_NUMBER: _builtins.int
+    ID: _builtins.str
+    CreatedAt: _builtins.int
+    CatalogID: _builtins.str
+    @_builtins.property
+    def Price(self) -> Global___OrderPrice: ...
+    @_builtins.property
+    def Products(self) -> _containers.RepeatedCompositeFieldContainer[Global___OrderProduct]: ...
+    def __init__(
+        self,
+        *,
+        ID: _builtins.str | None = ...,
+        CreatedAt: _builtins.int | None = ...,
+        CatalogID: _builtins.str | None = ...,
+        Price: Global___OrderPrice | None = ...,
+        Products: _abc.Iterable[Global___OrderProduct] | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["CatalogID", b"CatalogID", "CreatedAt", b"CreatedAt", "ID", b"ID", "Price", b"Price"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["CatalogID", b"CatalogID", "CreatedAt", b"CreatedAt", "ID", b"ID", "Price", b"Price", "Products", b"Products"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___OrderDetails: _TypeAlias = OrderDetails  # noqa: Y015
+
+@_typing.final
+class GetOrderDetailsReturnFunction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ORDERDETAILS_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    Error: _builtins.str
+    @_builtins.property
+    def OrderDetails(self) -> Global___OrderDetails: ...
+    def __init__(
+        self,
+        *,
+        OrderDetails: Global___OrderDetails | None = ...,
+        Error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "OrderDetails", b"OrderDetails"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "OrderDetails", b"OrderDetails"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___GetOrderDetailsReturnFunction: _TypeAlias = GetOrderDetailsReturnFunction  # noqa: Y015
+
+@_typing.final
+class DecryptReactionReturnFunction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    REACTION_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    Error: _builtins.str
+    @_builtins.property
+    def Reaction(self) -> _WAWebProtobufsE2E_pb2.ReactionMessage: ...
+    def __init__(
+        self,
+        *,
+        Reaction: _WAWebProtobufsE2E_pb2.ReactionMessage | None = ...,
+        Error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "Reaction", b"Reaction"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "Reaction", b"Reaction"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___DecryptReactionReturnFunction: _TypeAlias = DecryptReactionReturnFunction  # noqa: Y015
+
+@_typing.final
+class EncryptReactionReturnFunction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ENCREACTION_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    Error: _builtins.str
+    @_builtins.property
+    def EncReaction(self) -> _WAWebProtobufsE2E_pb2.EncReactionMessage: ...
+    def __init__(
+        self,
+        *,
+        EncReaction: _WAWebProtobufsE2E_pb2.EncReactionMessage | None = ...,
+        Error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["EncReaction", b"EncReaction", "Error", b"Error"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["EncReaction", b"EncReaction", "Error", b"Error"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___EncryptReactionReturnFunction: _TypeAlias = EncryptReactionReturnFunction  # noqa: Y015
+
+@_typing.final
+class EncryptPollVoteReturnFunction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    POLLUPDATE_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    Error: _builtins.str
+    @_builtins.property
+    def PollUpdate(self) -> _WAWebProtobufsE2E_pb2.PollUpdateMessage: ...
+    def __init__(
+        self,
+        *,
+        PollUpdate: _WAWebProtobufsE2E_pb2.PollUpdateMessage | None = ...,
+        Error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "PollUpdate", b"PollUpdate"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "PollUpdate", b"PollUpdate"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___EncryptPollVoteReturnFunction: _TypeAlias = EncryptPollVoteReturnFunction  # noqa: Y015
+
+@_typing.final
+class TryFetchPrivacySettingsReturnFunction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    SETTINGS_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    Error: _builtins.str
+    @_builtins.property
+    def Settings(self) -> Global___PrivacySettings: ...
+    def __init__(
+        self,
+        *,
+        Settings: Global___PrivacySettings | None = ...,
+        Error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "Settings", b"Settings"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "Settings", b"Settings"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___TryFetchPrivacySettingsReturnFunction: _TypeAlias = TryFetchPrivacySettingsReturnFunction  # noqa: Y015
+
+@_typing.final
+class AppState(_message.Message):
+    """New events (codes 55-76)
+    55
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    INDEX_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def Index(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.SyncActionValue: ...
+    def __init__(
+        self,
+        *,
+        Index: _abc.Iterable[_builtins.str] | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.SyncActionValue | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "Index", b"Index"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___AppState: _TypeAlias = AppState  # noqa: Y015
+
+@_typing.final
+class AppStateSyncComplete(_message.Message):
+    """56"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: _builtins.int
+    VERSION_FIELD_NUMBER: _builtins.int
+    RECOVERY_FIELD_NUMBER: _builtins.int
+    Name: _builtins.str
+    Version: _builtins.int
+    Recovery: _builtins.bool
+    def __init__(
+        self,
+        *,
+        Name: _builtins.str | None = ...,
+        Version: _builtins.int | None = ...,
+        Recovery: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Name", b"Name", "Recovery", b"Recovery", "Version", b"Version"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Name", b"Name", "Recovery", b"Recovery", "Version", b"Version"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___AppStateSyncComplete: _TypeAlias = AppStateSyncComplete  # noqa: Y015
+
+@_typing.final
+class AppStateSyncError(_message.Message):
+    """57"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: _builtins.int
+    ERROR_FIELD_NUMBER: _builtins.int
+    FULLSYNC_FIELD_NUMBER: _builtins.int
+    Name: _builtins.str
+    Error: _builtins.str
+    FullSync: _builtins.bool
+    def __init__(
+        self,
+        *,
+        Name: _builtins.str | None = ...,
+        Error: _builtins.str | None = ...,
+        FullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "FullSync", b"FullSync", "Name", b"Name"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error", "FullSync", b"FullSync", "Name", b"Name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___AppStateSyncError: _TypeAlias = AppStateSyncError  # noqa: Y015
+
+@_typing.final
+class ContactSync(_message.Message):
+    """58"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.ContactAction: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.ContactAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___ContactSync: _TypeAlias = ContactSync  # noqa: Y015
+
+@_typing.final
+class PushName(_message.Message):
+    """59"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    JIDALT_FIELD_NUMBER: _builtins.int
+    MESSAGE_FIELD_NUMBER: _builtins.int
+    OLDPUSHNAME_FIELD_NUMBER: _builtins.int
+    NEWPUSHNAME_FIELD_NUMBER: _builtins.int
+    OldPushName: _builtins.str
+    NewPushName: _builtins.str
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def JIDAlt(self) -> Global___JID: ...
+    @_builtins.property
+    def Message(self) -> Global___MessageInfo: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        JIDAlt: Global___JID | None = ...,
+        Message: Global___MessageInfo | None = ...,
+        OldPushName: _builtins.str | None = ...,
+        NewPushName: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["JID", b"JID", "JIDAlt", b"JIDAlt", "Message", b"Message", "NewPushName", b"NewPushName", "OldPushName", b"OldPushName"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["JID", b"JID", "JIDAlt", b"JIDAlt", "Message", b"Message", "NewPushName", b"NewPushName", "OldPushName", b"OldPushName"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___PushName: _TypeAlias = PushName  # noqa: Y015
+
+@_typing.final
+class PushNameSetting(_message.Message):
+    """60"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.PushNameSetting: ...
+    def __init__(
+        self,
+        *,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.PushNameSetting | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___PushNameSetting: _TypeAlias = PushNameSetting  # noqa: Y015
+
+@_typing.final
+class BusinessName(_message.Message):
+    """61"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    MESSAGE_FIELD_NUMBER: _builtins.int
+    OLDBUSINESSNAME_FIELD_NUMBER: _builtins.int
+    NEWBUSINESSNAME_FIELD_NUMBER: _builtins.int
+    OldBusinessName: _builtins.str
+    NewBusinessName: _builtins.str
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Message(self) -> Global___MessageInfo: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Message: Global___MessageInfo | None = ...,
+        OldBusinessName: _builtins.str | None = ...,
+        NewBusinessName: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["JID", b"JID", "Message", b"Message", "NewBusinessName", b"NewBusinessName", "OldBusinessName", b"OldBusinessName"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["JID", b"JID", "Message", b"Message", "NewBusinessName", b"NewBusinessName", "OldBusinessName", b"OldBusinessName"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___BusinessName: _TypeAlias = BusinessName  # noqa: Y015
+
+@_typing.final
+class UserAbout(_message.Message):
+    """62"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    STATUS_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    Status: _builtins.str
+    Timestamp: _builtins.int
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Status: _builtins.str | None = ...,
+        Timestamp: _builtins.int | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["JID", b"JID", "Status", b"Status", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["JID", b"JID", "Status", b"Status", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___UserAbout: _TypeAlias = UserAbout  # noqa: Y015
+
+@_typing.final
+class UserStatusMute(_message.Message):
+    """63"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.UserStatusMuteAction: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.UserStatusMuteAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___UserStatusMute: _TypeAlias = UserStatusMute  # noqa: Y015
+
+@_typing.final
+class UnarchiveChatsSetting(_message.Message):
+    """64"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.UnarchiveChatsSetting: ...
+    def __init__(
+        self,
+        *,
+        Timestamp: _builtins.int | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.UnarchiveChatsSetting | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___UnarchiveChatsSetting: _TypeAlias = UnarchiveChatsSetting  # noqa: Y015
+
+@_typing.final
+class LabelEdit(_message.Message):
+    """65"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    LABELID_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    LabelID: _builtins.str
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.LabelEditAction: ...
+    def __init__(
+        self,
+        *,
+        Timestamp: _builtins.int | None = ...,
+        LabelID: _builtins.str | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.LabelEditAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "LabelID", b"LabelID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "LabelID", b"LabelID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___LabelEdit: _TypeAlias = LabelEdit  # noqa: Y015
+
+@_typing.final
+class LabelAssociationChat(_message.Message):
+    """66"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    LABELID_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    LabelID: _builtins.str
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.LabelAssociationAction: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        LabelID: _builtins.str | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.LabelAssociationAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "LabelID", b"LabelID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "LabelID", b"LabelID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___LabelAssociationChat: _TypeAlias = LabelAssociationChat  # noqa: Y015
+
+@_typing.final
+class LabelAssociationMessage(_message.Message):
+    """67"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    JID_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    LABELID_FIELD_NUMBER: _builtins.int
+    MESSAGEID_FIELD_NUMBER: _builtins.int
+    ACTION_FIELD_NUMBER: _builtins.int
+    FROMFULLSYNC_FIELD_NUMBER: _builtins.int
+    Timestamp: _builtins.int
+    LabelID: _builtins.str
+    MessageID: _builtins.str
+    FromFullSync: _builtins.bool
+    @_builtins.property
+    def JID(self) -> Global___JID: ...
+    @_builtins.property
+    def Action(self) -> _WAWebProtobufSyncAction_pb2.LabelAssociationAction: ...
+    def __init__(
+        self,
+        *,
+        JID: Global___JID | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        LabelID: _builtins.str | None = ...,
+        MessageID: _builtins.str | None = ...,
+        Action: _WAWebProtobufSyncAction_pb2.LabelAssociationAction | None = ...,
+        FromFullSync: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "LabelID", b"LabelID", "MessageID", b"MessageID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Action", b"Action", "FromFullSync", b"FromFullSync", "JID", b"JID", "LabelID", b"LabelID", "MessageID", b"MessageID", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___LabelAssociationMessage: _TypeAlias = LabelAssociationMessage  # noqa: Y015
+
+@_typing.final
+class CallReject(_message.Message):
+    """68"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    CALLMETA_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def CallMeta(self) -> Global___BasicCallMeta: ...
+    def __init__(
+        self,
+        *,
+        CallMeta: Global___BasicCallMeta | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["CallMeta", b"CallMeta"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["CallMeta", b"CallMeta"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___CallReject: _TypeAlias = CallReject  # noqa: Y015
+
+@_typing.final
+class FBCallEvent(_message.Message):
+    """69"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ID_FIELD_NUMBER: _builtins.int
+    FROM_FIELD_NUMBER: _builtins.int
+    CHAT_FIELD_NUMBER: _builtins.int
+    ACTOR_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    CALLTYPE_FIELD_NUMBER: _builtins.int
+    EVENTTYPE_FIELD_NUMBER: _builtins.int
+    DURATION_FIELD_NUMBER: _builtins.int
+    PARENTID_FIELD_NUMBER: _builtins.int
+    SERVERINFODATA_FIELD_NUMBER: _builtins.int
+    ID: _builtins.str
+    Timestamp: _builtins.int
+    CallType: _builtins.str
+    EventType: _builtins.str
+    Duration: _builtins.int
+    ParentID: _builtins.str
+    ServerInfoData: _builtins.str
+    @_builtins.property
+    def From(self) -> Global___JID: ...
+    @_builtins.property
+    def Chat(self) -> Global___JID: ...
+    @_builtins.property
+    def Actor(self) -> Global___JID: ...
+    def __init__(
+        self,
+        *,
+        ID: _builtins.str | None = ...,
+        From: Global___JID | None = ...,
+        Chat: Global___JID | None = ...,
+        Actor: Global___JID | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        CallType: _builtins.str | None = ...,
+        EventType: _builtins.str | None = ...,
+        Duration: _builtins.int | None = ...,
+        ParentID: _builtins.str | None = ...,
+        ServerInfoData: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Actor", b"Actor", "CallType", b"CallType", "Chat", b"Chat", "Duration", b"Duration", "EventType", b"EventType", "From", b"From", "ID", b"ID", "ParentID", b"ParentID", "ServerInfoData", b"ServerInfoData", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Actor", b"Actor", "CallType", b"CallType", "Chat", b"Chat", "Duration", b"Duration", "EventType", b"EventType", "From", b"From", "ID", b"ID", "ParentID", b"ParentID", "ServerInfoData", b"ServerInfoData", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___FBCallEvent: _TypeAlias = FBCallEvent  # noqa: Y015
+
+@_typing.final
+class NewsletterMilestone(_message.Message):
+    """70"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ID_FIELD_NUMBER: _builtins.int
+    MESSAGESERVERID_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    VALUE_FIELD_NUMBER: _builtins.int
+    REACTIONCODE_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    OPNAME_FIELD_NUMBER: _builtins.int
+    MessageServerID: _builtins.int
+    Type: _builtins.str
+    Value: _builtins.int
+    ReactionCode: _builtins.str
+    Timestamp: _builtins.int
+    OpName: _builtins.str
+    @_builtins.property
+    def ID(self) -> Global___JID: ...
+    def __init__(
+        self,
+        *,
+        ID: Global___JID | None = ...,
+        MessageServerID: _builtins.int | None = ...,
+        Type: _builtins.str | None = ...,
+        Value: _builtins.int | None = ...,
+        ReactionCode: _builtins.str | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        OpName: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "MessageServerID", b"MessageServerID", "OpName", b"OpName", "ReactionCode", b"ReactionCode", "Timestamp", b"Timestamp", "Type", b"Type", "Value", b"Value"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["ID", b"ID", "MessageServerID", b"MessageServerID", "OpName", b"OpName", "ReactionCode", b"ReactionCode", "Timestamp", b"Timestamp", "Type", b"Type", "Value", b"Value"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___NewsletterMilestone: _TypeAlias = NewsletterMilestone  # noqa: Y015
+
+@_typing.final
+class CATRefreshError(_message.Message):
+    """71"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ERROR_FIELD_NUMBER: _builtins.int
+    Error: _builtins.str
+    def __init__(
+        self,
+        *,
+        Error: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Error", b"Error"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___CATRefreshError: _TypeAlias = CATRefreshError  # noqa: Y015
+
+@_typing.final
+class ManualLoginReconnect(_message.Message):
+    """72"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___ManualLoginReconnect: _TypeAlias = ManualLoginReconnect  # noqa: Y015
+
+@_typing.final
+class QRScannedWithoutMultidevice(_message.Message):
+    """73"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___QRScannedWithoutMultidevice: _TypeAlias = QRScannedWithoutMultidevice  # noqa: Y015
+
+@_typing.final
+class NotifyAccountReachoutTimelock(_message.Message):
+    """74"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ENFORCEMENTTYPE_FIELD_NUMBER: _builtins.int
+    ISACTIVE_FIELD_NUMBER: _builtins.int
+    TIMEENFORCEMENTENDS_FIELD_NUMBER: _builtins.int
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    OPNAME_FIELD_NUMBER: _builtins.int
+    EnforcementType: _builtins.str
+    IsActive: _builtins.bool
+    TimeEnforcementEnds: _builtins.int
+    Timestamp: _builtins.int
+    OpName: _builtins.str
+    def __init__(
+        self,
+        *,
+        EnforcementType: _builtins.str | None = ...,
+        IsActive: _builtins.bool | None = ...,
+        TimeEnforcementEnds: _builtins.int | None = ...,
+        Timestamp: _builtins.int | None = ...,
+        OpName: _builtins.str | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["EnforcementType", b"EnforcementType", "IsActive", b"IsActive", "OpName", b"OpName", "TimeEnforcementEnds", b"TimeEnforcementEnds", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["EnforcementType", b"EnforcementType", "IsActive", b"IsActive", "OpName", b"OpName", "TimeEnforcementEnds", b"TimeEnforcementEnds", "Timestamp", b"Timestamp"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___NotifyAccountReachoutTimelock: _TypeAlias = NotifyAccountReachoutTimelock  # noqa: Y015
+
+@_typing.final
+class PairPasskeyConfirmation(_message.Message):
+    """75"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    CODE_FIELD_NUMBER: _builtins.int
+    SKIPHANDOFFUX_FIELD_NUMBER: _builtins.int
+    Code: _builtins.str
+    SkipHandoffUX: _builtins.bool
+    def __init__(
+        self,
+        *,
+        Code: _builtins.str | None = ...,
+        SkipHandoffUX: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Code", b"Code", "SkipHandoffUX", b"SkipHandoffUX"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Code", b"Code", "SkipHandoffUX", b"SkipHandoffUX"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___PairPasskeyConfirmation: _TypeAlias = PairPasskeyConfirmation  # noqa: Y015
+
+@_typing.final
+class PairPasskeyError(_message.Message):
+    """76"""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ERROR_FIELD_NUMBER: _builtins.int
+    CONTINUATION_FIELD_NUMBER: _builtins.int
+    Error: _builtins.str
+    Continuation: _builtins.bool
+    def __init__(
+        self,
+        *,
+        Error: _builtins.str | None = ...,
+        Continuation: _builtins.bool | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["Continuation", b"Continuation", "Error", b"Error"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["Continuation", b"Continuation", "Error", b"Error"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___PairPasskeyError: _TypeAlias = PairPasskeyError  # noqa: Y015
