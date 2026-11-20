@@ -158,7 +158,7 @@ jobs:
       - name: Install Protoc
         uses: arduino/setup-protoc@v3
         with:
-          version: "34.1"
+          version: "36.0"
           repo-token: ${{ secrets.PAT }}
       - name: Install protoc-gen-go
         run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.12
@@ -233,7 +233,7 @@ jobs:
       - name: Install Protoc
         uses: arduino/setup-protoc@v3
         with:
-          version: "34.1"
+          version: "36.0"
           repo-token: ${{ secrets.PAT }}
       - name: Install protoc-gen-go
         run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.12
@@ -309,7 +309,7 @@ jobs:
       - name: Install Protoc
         uses: arduino/setup-protoc@v3
         with:
-          version: "34.1"
+          version: "36.0"
           repo-token: ${{ secrets.PAT }}
       - name: Install protoc-gen-go
         run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.12
@@ -394,7 +394,7 @@ jobs:
       - name: Install Protoc
         uses: arduino/setup-protoc@v3
         with:
-          version: "34.1"
+          version: "36.0"
           repo-token: ${{ secrets.PAT }}
       - name: Install protoc-gen-go
         run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.12
