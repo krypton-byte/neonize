@@ -26,7 +26,15 @@ import (
 import (
 	"fmt"
 	"strings"
+	"sync"
 )
+
+var logBufPool = sync.Pool{
+	New: func() any {
+		b := make([]byte, 0, 512)
+		return &b
+	},
+}
 
 func getBytesAndSize(data []byte) (*C.char, C.size_t) {
 	if len(data) == 0 {
@@ -84,13 +92,19 @@ func (s *stdoutLogger) outputf(level, msg string, args ...interface{}) {
 		Level:   proto.String(level),
 		Name:    proto.String(s.mod),
 	}
-	buff, err := proto.Marshal(&log_msg)
+	bufPtr := logBufPool.Get().(*[]byte)
+	buff, err := proto.MarshalOptions{}.MarshalAppend((*bufPtr)[:0], &log_msg)
 	if err != nil {
+		logBufPool.Put(bufPtr)
 		// Silently skip log entries that fail to marshal rather than crashing the process
 		return
 	}
 	uchars, size := getBytesAndSize(buff)
 	C.call_c_func_callback_bytes2(s.callback, uchars, size)
+	*bufPtr = buff
+	if cap(*bufPtr) <= 64*1024 {
+		logBufPool.Put(bufPtr)
+	}
 }
 
 func (s *stdoutLogger) Errorf(msg string, args ...interface{}) { s.outputf("ERROR", msg, args...) }

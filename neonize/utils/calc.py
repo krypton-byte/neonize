@@ -53,14 +53,13 @@ def generate_streaming_sidecar(ciphertext: bytes, iv: bytes, mac_key: bytes) -> 
     data_size = len(full_data)
     num_chunks = math.ceil((data_size - IV_LENGTH) / CHUNK_SIZE)
 
+    mv = memoryview(full_data)
     sidecar = bytearray(num_chunks * HMAC_LENGTH)
 
     for c in range(num_chunks):
         start = c * CHUNK_SIZE
         end = min(start + IV_LENGTH + CHUNK_SIZE, data_size)
-        chunk = full_data[start:end]
-
-        sig = hmac.new(mac_key, chunk, hashlib.sha256).digest()[:HMAC_LENGTH]
+        sig = hmac.new(mac_key, mv[start:end], hashlib.sha256).digest()[:HMAC_LENGTH]
         sidecar[c * HMAC_LENGTH : (c + 1) * HMAC_LENGTH] = sig
 
     return bytes(sidecar)
@@ -100,9 +99,9 @@ def AspectRatioMethod(width: float, height: float, res: int = 1280) -> tuple[int
     :rtype: Tuple[int, int]
     """
     if width > height:
-        return (res, int(width / (width / res)))
+        return (res, int(height * res / width))
     elif width < height:
-        return (int(width / (height / res)), res)
+        return (int(width * res / height), res)
     return (res, res)
 
 

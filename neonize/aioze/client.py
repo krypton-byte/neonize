@@ -263,18 +263,26 @@ class GoCode:
         return call
 
     def __getattr__(self, name: str, /) -> Any:
-        """Resolves unknown attributes into thread-offloaded async FFI calls.
+        """Resolves and caches unknown attributes into thread-offloaded async FFI calls.
 
         :param name: Name of the underlying goneonize FFI function.
         :type name: str
         :return: An async callable forwarding its arguments to the FFI function.
         :rtype: Callable[..., Awaitable[Any]]
         """
+        func = getattr(gocode, name, None)
+        if func is None:
 
-        def call(*args, **kwargs):
-            return asyncio.to_thread(getattr(gocode, name), *args, **kwargs)
+            def call(*args, **kwargs):
+                return asyncio.to_thread(getattr(gocode, name), *args, **kwargs)
 
-        return call
+            return call
+
+        def cached_call(*args, **kwargs):
+            return asyncio.to_thread(func, *args, **kwargs)
+
+        setattr(self, name, cached_call)
+        return cached_call
 
 
 async_gocode = GoCode()

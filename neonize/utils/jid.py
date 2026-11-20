@@ -1,5 +1,3 @@
-import copy
-
 from ..proto.Neonize_pb2 import JID
 
 
@@ -12,10 +10,14 @@ def JIDToNonAD(jid: JID) -> JID:
     :return: A new JID object with RawAgent and Device set to 0.
     :rtype: JID
     """
-    new_jid = copy.deepcopy(jid)
-    new_jid.RawAgent = 0
-    new_jid.Device = 0
-    return new_jid
+    return JID(
+        User=jid.User,
+        RawAgent=0,
+        Device=0,
+        Integrator=jid.Integrator,
+        Server=jid.Server,
+        IsEmpty=jid.IsEmpty,
+    )
 
 
 def Jid2String(jid: JID) -> str:

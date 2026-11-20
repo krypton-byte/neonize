@@ -20,6 +20,10 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+// maxPooledBufCap caps buffers returned to bufPool so one huge payload
+// does not pin tens of megabytes in the pool indefinitely.
+const maxPooledBufCap = 256 * 1024
+
 // bufPool reuses byte slices for protobuf marshaling to reduce GC pressure.
 var bufPool = sync.Pool{
 	New: func() interface{} {
@@ -28,10 +32,38 @@ var bufPool = sync.Pool{
 	},
 }
 
+func getBuf() *[]byte {
+	return bufPool.Get().(*[]byte)
+}
+
+func putBuf(bufPtr *[]byte) {
+	if cap(*bufPtr) <= maxPooledBufCap {
+		bufPool.Put(bufPtr)
+	}
+}
+
+// cStrView creates a transient Go string backed by a C string without copying.
+// The returned string MUST NOT outlive the CGO call or be stored in long-lived maps/structs.
+func cStrView(s *C.char) string {
+	if s == nil {
+		return ""
+	}
+	n := int(C.strlen(s))
+	if n == 0 {
+		return ""
+	}
+	return unsafe.String((*byte)(unsafe.Pointer(s)), n)
+}
+
+// lookupClientC resolves a client using a zero-copy C string view.
+func lookupClientC(id *C.char) (*whatsmeow.Client, bool) {
+	return lookupClient(cStrView(id))
+}
+
 // getClient retrieves a whatsmeow client by its UUID string.
 // Returns nil if the client does not exist.
 func getClient(id *C.char) *whatsmeow.Client {
-	return clientFor(C.GoString(id))
+	return clientFor(cStrView(id))
 }
 
 // unmarshalJID decodes a protobuf-encoded JID from C memory into a Go types.JID.
@@ -67,13 +99,13 @@ func marshalBytesReturn(msg proto.Message) *C.struct_BytesReturn {
 	return ProtoReturnV3(msg)
 }
 
-// stringError returns a C string with the error message, or empty string on success.
-// The caller (Python side) must free the returned C string.
+// stringError returns a C string with the error message, or NULL on success.
+// Returning NULL avoids a malloc/memset/FreeString round-trip on the success path.
 func stringError(err error) *C.char {
 	if err != nil {
 		return C.CString(err.Error())
 	}
-	return C.CString("")
+	return nil
 }
 
 // allocBytesReturn creates a BytesReturn struct on the C heap from Go bytes.

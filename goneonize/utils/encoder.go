@@ -129,7 +129,7 @@ func EncodeGroupParticipant(participant types.GroupParticipant) *defproto.GroupP
 
 // send.go
 func EncodeGroupInfo(info *types.GroupInfo) *defproto.GroupInfo {
-	participants := []*defproto.GroupParticipant{}
+	participants := make([]*defproto.GroupParticipant, 0, len(info.Participants))
 	for _, participant := range info.Participants {
 		participants = append(participants, EncodeGroupParticipant(participant))
 	}
@@ -201,7 +201,7 @@ func EncodeIsOnWhatsApp(isOnWhatsApp types.IsOnWhatsAppResponse) *defproto.IsOnW
 }
 
 func EncodeUserInfo(userInfo types.UserInfo) *defproto.UserInfo {
-	devices := []*defproto.JID{}
+	devices := make([]*defproto.JID, 0, len(userInfo.Devices))
 	for _, jid := range userInfo.Devices {
 		devices = append(devices, EncodeJidProto(jid))
 	}
@@ -231,7 +231,7 @@ func EncodeAddressingMode(mode_types types.AddressingMode) *defproto.AddressingM
 }
 
 func EncodeBroadcastRecipients(recipients []types.BroadcastRecipient) []*defproto.BroadcastRecipient {
-	models := []*defproto.BroadcastRecipient{}
+	models := make([]*defproto.BroadcastRecipient, 0, len(recipients))
 	for _, recipient := range recipients {
 		models = append(models, &defproto.BroadcastRecipient{
 			LID: EncodeJidProto(recipient.LID),
@@ -381,11 +381,11 @@ func EncodeCategory(category types.Category) *defproto.Category {
 }
 
 func EncodeBusinessProfile(profile types.BusinessProfile) *defproto.BusinessProfile {
-	categories := []*defproto.Category{}
+	categories := make([]*defproto.Category, 0, len(profile.Categories))
 	for _, category := range profile.Categories {
 		categories = append(categories, EncodeCategory(category))
 	}
-	businessHours := []*defproto.BusinessHoursConfig{}
+	businessHours := make([]*defproto.BusinessHoursConfig, 0, len(profile.BusinessHours))
 	for _, cfg := range profile.BusinessHours {
 		businessHours = append(businessHours, EncodeBusinessHoursConfig(cfg))
 	}
@@ -486,7 +486,7 @@ func EncodeNewsLetterMessageMetadata(metadata types.NewsletterMetadata) *defprot
 }
 
 func EncodeBlocklist(blocklist *types.Blocklist) *defproto.Blocklist {
-	JIDs := []*defproto.JID{}
+	JIDs := make([]*defproto.JID, 0, len(blocklist.Items))
 	items := make([]*defproto.BlocklistItem, 0, len(blocklist.Items))
 	for _, item := range blocklist.Items {
 		if !item.LID.IsEmpty() {
@@ -512,7 +512,7 @@ func EncodeNewsletterMessage(message *types.NewsletterMessage) *defproto.Newslet
 	if message == nil {
 		return nil
 	}
-	reacts := []*defproto.Reaction{}
+	reacts := make([]*defproto.Reaction, 0, len(message.ReactionCounts))
 	for react, count := range message.ReactionCounts {
 		reacts = append(reacts, &defproto.Reaction{
 			Type:  proto.String(react),
@@ -562,7 +562,7 @@ func EncodePrivacySettings(privacySetting types.PrivacySettings) *defproto.Priva
 
 func EncodeStatusPrivacy(statusPrivacy types.StatusPrivacy) *defproto.StatusPrivacy {
 	var ptype defproto.StatusPrivacy_StatusPrivacyType
-	JIDS := []*defproto.JID{}
+	JIDS := make([]*defproto.JID, 0, len(statusPrivacy.List))
 	switch statusPrivacy.Type {
 	case types.StatusPrivacyTypeBlacklist:
 		ptype = defproto.StatusPrivacy_BLACKLIST
@@ -682,16 +682,16 @@ func EncodeTemporaryBan(ban *events.TemporaryBan) *defproto.TemporaryBan {
 }
 
 func EncodeNodeAttrs(attrs waBinary.Attrs) []*defproto.NodeAttrs {
-	n_attr := []*defproto.NodeAttrs{}
+	n_attr := make([]*defproto.NodeAttrs, 0, len(attrs))
 	for k, v := range attrs {
 		attr := defproto.NodeAttrs{Name: proto.String(k)}
 		switch value := v.(type) {
 		case int:
-			attr.Value = &defproto.NodeAttrs_Integer{Integer: *proto.Int64(int64(value))}
+			attr.Value = &defproto.NodeAttrs_Integer{Integer: int64(value)}
 		case int32:
-			attr.Value = &defproto.NodeAttrs_Integer{Integer: *proto.Int64(int64(value))}
+			attr.Value = &defproto.NodeAttrs_Integer{Integer: int64(value)}
 		case int64:
-			attr.Value = &defproto.NodeAttrs_Integer{Integer: *proto.Int64(int64(value))}
+			attr.Value = &defproto.NodeAttrs_Integer{Integer: value}
 		case bool:
 			attr.Value = &defproto.NodeAttrs_Boolean{Boolean: value}
 		case string:
