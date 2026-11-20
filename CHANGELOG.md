@@ -127,6 +127,14 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.12.3 (2026-11-20)
+
+### Performance Improvements
+
+- Native StreamingSidecar, O(1) n_frames, DownloadAnyToFile, mention fast-path, and non-blocking PIL
+  ([`d0ced20`](https://github.com/krypton-byte/neonize/commit/d0ced20c883ca9bcbd5c6d10c178d807d0529372))
+
+
 ## v0.12.2 (2026-11-20)
 
 ### Performance Improvements
