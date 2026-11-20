@@ -127,6 +127,14 @@ All notable changes to this project are documented in this file.
 
 <!-- version list -->
 
+## v0.12.1 (2026-11-20)
+
+### Performance Improvements
+
+- Implement low-level CGO/Go/Python optimizations and safety fixes
+  ([`fdb28c1`](https://github.com/krypton-byte/neonize/commit/fdb28c16dd2044ac7a8055284e9923c3d3171653))
+
+
 ## v0.12.0 (2026-11-20)
 
 
