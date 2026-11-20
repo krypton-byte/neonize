@@ -207,6 +207,7 @@ class UploadResponse(_message.Message):
     FILEENCSHA256_FIELD_NUMBER: _builtins.int
     FILESHA256_FIELD_NUMBER: _builtins.int
     FILELENGTH_FIELD_NUMBER: _builtins.int
+    STREAMINGSIDECAR_FIELD_NUMBER: _builtins.int
     url: _builtins.str
     DirectPath: _builtins.str
     Handle: _builtins.str
@@ -214,6 +215,7 @@ class UploadResponse(_message.Message):
     FileEncSHA256: _builtins.bytes
     FileSHA256: _builtins.bytes
     FileLength: _builtins.int
+    StreamingSidecar: _builtins.bytes
     def __init__(
         self,
         *,
@@ -224,10 +226,11 @@ class UploadResponse(_message.Message):
         FileEncSHA256: _builtins.bytes | None = ...,
         FileSHA256: _builtins.bytes | None = ...,
         FileLength: _builtins.int | None = ...,
+        StreamingSidecar: _builtins.bytes | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["DirectPath", b"DirectPath", "FileEncSHA256", b"FileEncSHA256", "FileLength", b"FileLength", "FileSHA256", b"FileSHA256", "Handle", b"Handle", "MediaKey", b"MediaKey", "url", b"url"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["DirectPath", b"DirectPath", "FileEncSHA256", b"FileEncSHA256", "FileLength", b"FileLength", "FileSHA256", b"FileSHA256", "Handle", b"Handle", "MediaKey", b"MediaKey", "StreamingSidecar", b"StreamingSidecar", "url", b"url"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["DirectPath", b"DirectPath", "FileEncSHA256", b"FileEncSHA256", "FileLength", b"FileLength", "FileSHA256", b"FileSHA256", "Handle", b"Handle", "MediaKey", b"MediaKey", "url", b"url"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["DirectPath", b"DirectPath", "FileEncSHA256", b"FileEncSHA256", "FileLength", b"FileLength", "FileSHA256", b"FileSHA256", "Handle", b"Handle", "MediaKey", b"MediaKey", "StreamingSidecar", b"StreamingSidecar", "url", b"url"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 

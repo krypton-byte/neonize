@@ -38,6 +38,7 @@ message UploadResponse {
     optional bytes FileEncSHA256 = 5;
     optional bytes FileSHA256 = 6;
     required uint32 FileLength = 7;
+    optional bytes StreamingSidecar = 8;
 }
 
 enum AddressingMode {

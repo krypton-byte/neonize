@@ -18,13 +18,14 @@ import (
 // Function
 func EncodeUploadResponse(response whatsmeow.UploadResponse) *defproto.UploadResponse {
 	return &defproto.UploadResponse{
-		Url:           &response.URL,
-		DirectPath:    &response.DirectPath,
-		Handle:        &response.Handle,
-		MediaKey:      response.MediaKey,
-		FileEncSHA256: response.FileEncSHA256,
-		FileSHA256:    response.FileSHA256,
-		FileLength:    proto.Uint32(uint32(response.FileLength)),
+		Url:              &response.URL,
+		DirectPath:       &response.DirectPath,
+		Handle:           &response.Handle,
+		MediaKey:         response.MediaKey,
+		FileEncSHA256:    response.FileEncSHA256,
+		FileSHA256:       response.FileSHA256,
+		FileLength:       proto.Uint32(uint32(response.FileLength)),
+		StreamingSidecar: response.StreamingSidecar,
 	}
 }
 
