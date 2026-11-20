@@ -2,7 +2,6 @@ import asyncio
 import json
 import logging
 import os
-import shlex
 import shutil
 import subprocess
 import tempfile
@@ -216,6 +215,22 @@ class FFProbeInfo:
     streams: list[Stream]
 
 
+def _write_bytes(path: str | os.PathLike[str], data: bytes) -> None:
+    with open(path, "wb") as file:
+        file.write(data)
+
+
+def _read_and_remove(path: str) -> bytes:
+    try:
+        with open(path, "rb") as file:
+            return file.read()
+    finally:
+        try:
+            os.remove(path)
+        except FileNotFoundError:
+            pass
+
+
 class AFFmpeg:
     def __init__(self, data: bytes | str, prefix: str | None = None) -> None:
         """
@@ -230,19 +245,19 @@ class AFFmpeg:
         """
         self.__file_data = data
         self.prefix = prefix
+        self._info: FFProbeInfo | None = None
 
     async def __aenter__(self):
         if isinstance(self.__file_data, str):
             if URL_MATCH.match(self.__file_data):
                 self.filename = TemporaryFile(prefix=self.prefix, touch=False).__enter__()
-                with open(self.filename.path, "wb") as file:
-                    file.write(await get_bytes_from_name_or_url_async(self.__file_data))
+                data = await get_bytes_from_name_or_url_async(self.__file_data)
+                await asyncio.to_thread(_write_bytes, self.filename.path, data)
             else:
                 self.filename = self.__file_data
         else:
             self.filename = TemporaryFile(prefix=self.prefix, touch=False).__enter__()
-            with open(self.filename.path, "wb") as file:
-                file.write(self.__file_data)
+            await asyncio.to_thread(_write_bytes, self.filename.path, self.__file_data)
         return self
 
     async def __aexit__(self, *args, **kwargs):
@@ -339,33 +354,25 @@ class AFFmpeg:
             )
         ffmpeg_command.append(temp)
         await self.call(ffmpeg_command)
-        with open(temp, "rb") as file:
-            buf = file.read()
-        os.remove(temp)
-        return buf
+        return await asyncio.to_thread(_read_and_remove, temp)
 
     async def call(self, cmd: list[str]):
-        cmd_str = shlex.join(cmd) if any(" " in part for part in cmd) else " ".join(cmd)
-        popen = await asyncio.create_subprocess_shell(
-            cmd_str if os.name == "nt" else shlex.join(cmd),
+        popen = await asyncio.create_subprocess_exec(
+            *cmd,
             stderr=asyncio.subprocess.PIPE,
             stdout=asyncio.subprocess.PIPE,
             stdin=subprocess.DEVNULL,
-            # shell=True if os.name == "nt" else False,
         )
-        stdout, stderr = await popen.communicate()  # type: ignore
+        stdout, stderr = await popen.communicate()
         if popen.returncode != 0:
-            raise RuntimeError(
-                # type: ignore
-                f"stderr: {stderr} Return code: {popen.returncode}"
-            )
+            raise RuntimeError(f"stderr: {stderr} Return code: {popen.returncode}")
         return stdout
 
     async def gif_to_mp4(self) -> bytes:
         """
         This function convertes a gif to mp4 format.
         """
-        temp = tempfile.gettempdir() + "/" + uuid.uuid4().__str__() + ".mp4"
+        temp = os.path.join(tempfile.gettempdir(), f"{uuid.uuid4()}.mp4")
         await self.call(
             [
                 "ffmpeg",
@@ -382,10 +389,7 @@ class AFFmpeg:
                 temp,
             ]
         )
-        with open(temp, "rb") as file:
-            buf = file.read()
-        os.remove(temp)
-        return buf
+        return await asyncio.to_thread(_read_and_remove, temp)
 
     async def to_mp4_copy(self) -> bytes:
         """Remuxes video to MP4 container using stream copy and faststart (no re-encoding)."""
@@ -415,13 +419,7 @@ class AFFmpeg:
                 "-y",
             ]
         )
-        try:
-            with open(temp, "rb") as file:
-                buf = file.read()
-        finally:
-            if os.path.exists(temp):
-                os.remove(temp)
-        return buf
+        return await asyncio.to_thread(_read_and_remove, temp)
 
     async def to_mp4_reencode(self) -> bytes:
         """Converts/re-encodes video to H.264 with AAC copy and faststart."""
@@ -451,16 +449,10 @@ class AFFmpeg:
                 "-y",
             ]
         )
-        try:
-            with open(temp, "rb") as file:
-                buf = file.read()
-        finally:
-            if os.path.exists(temp):
-                os.remove(temp)
-        return buf
+        return await asyncio.to_thread(_read_and_remove, temp)
 
     async def to_mp3(self) -> bytes:
-        temp = tempfile.gettempdir() + "/" + uuid.uuid4().__str__() + ".mp3"
+        temp = os.path.join(tempfile.gettempdir(), f"{uuid.uuid4()}.mp3")
         await self.call(
             [
                 "ffmpeg",
@@ -476,10 +468,7 @@ class AFFmpeg:
                 temp,
             ]
         )
-        with open(temp, "rb") as file:
-            buf = file.read()
-        os.remove(temp)
-        return buf
+        return await asyncio.to_thread(_read_and_remove, temp)
 
     async def extract_thumbnail(
         self,
@@ -536,6 +525,8 @@ class AFFmpeg:
         :return: An FFProbeInfo object containing the format and streams of the media file.
         :rtype: FFProbeInfo
         """
+        if self._info is not None:
+            return self._info
         data = json.loads(
             await self.call(
                 [
@@ -551,7 +542,7 @@ class AFFmpeg:
         )
         streams: list[dict] = data["streams"]
         format: dict = data["format"]
-        return FFProbeInfo(
+        self._info = FFProbeInfo(
             format=Format(
                 **{i: format.get(i, None) for i, _ in Format.__dataclass_fields__.items()}
             ),
@@ -565,6 +556,7 @@ class AFFmpeg:
                 for data in streams
             ],
         )
+        return self._info
 
 
 class FFmpeg:
@@ -579,6 +571,7 @@ class FFmpeg:
         :param prefix: The prefix for the temporary file, if one is created. If None, no prefix is used.
         :type prefix: Optional[str], optional
         """
+        self._info: FFProbeInfo | None = None
         if isinstance(data, str):
             if URL_MATCH.match(data):
                 self.filename = TemporaryFile(prefix=prefix, touch=False).__enter__()
@@ -688,32 +681,27 @@ class FFmpeg:
             )
         ffmpeg_command.append(temp)
         self.call(ffmpeg_command)
-        with open(temp, "rb") as file:
-            buf = file.read()
-        os.remove(temp)
-        return buf
+        return _read_and_remove(temp)
 
     def call(self, cmd: list[str]):
-        popen = subprocess.Popen(
+        completed = subprocess.run(
             cmd,
             stderr=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stdin=subprocess.DEVNULL,
+            timeout=60,
         )
-        out = popen.stdout.read()  # type: ignore
-        popen.wait(10)
-        if popen.returncode != 0:
+        if completed.returncode != 0:
             raise RuntimeError(
-                # type: ignore
-                f"stderr: {popen.stderr.read().decode()} Return code: {popen.returncode}"
+                f"stderr: {completed.stderr.decode(errors='replace')} Return code: {completed.returncode}"
             )
-        return out
+        return completed.stdout
 
     def gif_to_mp4(self) -> bytes:
         """
         This function convertes a gif to mp4 format.
         """
-        temp = tempfile.gettempdir() + "/" + uuid.uuid4().__str__() + ".mp4"
+        temp = os.path.join(tempfile.gettempdir(), f"{uuid.uuid4()}.mp4")
         self.call(
             [
                 "ffmpeg",
@@ -730,10 +718,7 @@ class FFmpeg:
                 temp,
             ]
         )
-        with open(temp, "rb") as file:
-            buf = file.read()
-        os.remove(temp)
-        return buf
+        return _read_and_remove(temp)
 
     def to_mp4_copy(self) -> bytes:
         """Remuxes video to MP4 container using stream copy and faststart (no re-encoding)."""
@@ -808,7 +793,7 @@ class FFmpeg:
         return buf
 
     def to_mp3(self) -> bytes:
-        temp = tempfile.gettempdir() + "/" + uuid.uuid4().__str__() + ".mp3"
+        temp = os.path.join(tempfile.gettempdir(), f"{uuid.uuid4()}.mp3")
         self.call(
             [
                 "ffmpeg",
@@ -824,10 +809,7 @@ class FFmpeg:
                 temp,
             ]
         )
-        with open(temp, "rb") as file:
-            buf = file.read()
-        os.remove(temp)
-        return buf
+        return _read_and_remove(temp)
 
     def extract_thumbnail(
         self,
@@ -884,6 +866,8 @@ class FFmpeg:
         :return: An FFProbeInfo object containing the format and streams of the media file.
         :rtype: FFProbeInfo
         """
+        if self._info is not None:
+            return self._info
         data = json.loads(
             self.call(
                 [
@@ -899,7 +883,7 @@ class FFmpeg:
         )
         streams: list[dict] = data["streams"]
         format: dict = data["format"]
-        return FFProbeInfo(
+        self._info = FFProbeInfo(
             format=Format(
                 **{i: format.get(i, None) for i, _ in Format.__dataclass_fields__.items()}
             ),
@@ -913,3 +897,4 @@ class FFmpeg:
                 for data in streams
             ],
         )
+        return self._info

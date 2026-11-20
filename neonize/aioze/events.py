@@ -196,11 +196,10 @@ class Event:
         :param code: The index of the function to be executed from the list of functions.
         :type code: int
         """
-        if code not in INT_TO_EVENT:
+        event_cls = INT_TO_EVENT.get(code)
+        if event_cls is None:
             raise UnsupportedEvent()
-        # print("key", code, "uuid", uuid, "size", size)
-        # print(f"Executing function for event code {ctypes.string_at(code, size)} with UUID {uuid}")
-        message = INT_TO_EVENT[code].FromString(ctypes.string_at(binary, size))
+        message = event_cls.FromString(ctypes.string_at(binary, size))
 
         if code == 0:
             self.client.me = message

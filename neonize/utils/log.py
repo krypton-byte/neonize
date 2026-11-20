@@ -40,13 +40,14 @@ clientlogger = logging.getLogger("whatsmeow.Client")
 dblogger = logging.getLogger("Whatsmeow.Database")
 
 
-_log_queue = queue.Queue()
+_log_queue: queue.Queue[bytes | None] = queue.Queue(maxsize=10000)
 
 
 def _worker():
     while True:
         data = _log_queue.get()
         if data is None:
+            _log_queue.task_done()
             break  # sentinel for shutdown
         try:
             log_msg = LogEntry.FromString(data)
@@ -74,11 +75,13 @@ def log_whatsmeow(binary: int, size: int):
         return
     try:
         data = ctypes.string_at(binary, size)
-        _log_queue.put(data)
+        _log_queue.put_nowait(data)
+    except queue.Full:
+        pass
     except Exception:
         pass
 
 
 def shutdown_log_worker():
-    _log_queue.put((None, 0))
-    _thread.join()
+    _log_queue.put(None)
+    _thread.join(timeout=5.0)

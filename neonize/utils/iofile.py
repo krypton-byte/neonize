@@ -1,3 +1,4 @@
+import asyncio
 import io
 import os
 import re
@@ -11,6 +12,17 @@ import requests
 from .log import log
 
 URL_MATCH = re.compile(r"^https?://")
+_DEFAULT_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+}
+_SYNC_SESSION = requests.Session()
+_SYNC_SESSION.headers.update(_DEFAULT_HEADERS)
+
+
+def _read_file_bytes(path: str) -> bytes:
+    with open(path, "rb") as file:
+        return file.read()
 
 
 def get_bytes_from_name_or_url(args: str | bytes) -> bytes:
@@ -21,18 +33,13 @@ def get_bytes_from_name_or_url(args: str | bytes) -> bytes:
     :return: The bytes extracted from the specified file name or URL.
     :rtype: bytes
     """
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
-    }
     if isinstance(args, str):
         if URL_MATCH.match(args):
-            return requests.get(args, headers=headers).content
-        else:
-            with open(args, "rb") as file:
-                return file.read()
-    else:
-        return args
+            resp = _SYNC_SESSION.get(args, timeout=30)
+            resp.raise_for_status()
+            return resp.content
+        return _read_file_bytes(args)
+    return args
 
 
 async def get_bytes_from_name_or_url_async(args: str | bytes) -> bytes:
@@ -43,19 +50,14 @@ async def get_bytes_from_name_or_url_async(args: str | bytes) -> bytes:
     :return: The bytes extracted from the specified file name or URL.
     :rtype: bytes
     """
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
-    }
     if isinstance(args, str):
         if URL_MATCH.match(args):
-            async with httpx.AsyncClient(timeout=None) as client:
-                return (await client.get(args, headers=headers)).content
-        else:
-            with open(args, "rb") as file:
-                return file.read()
-    else:
-        return args
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                resp = await client.get(args, headers=_DEFAULT_HEADERS)
+                resp.raise_for_status()
+                return resp.content
+        return await asyncio.to_thread(_read_file_bytes, args)
+    return args
 
 
 def write_from_bytesio_or_filename(fn_or_bytesio: io.BytesIO | str, data: bytes):
@@ -101,15 +103,23 @@ class TemporaryFile:
             params["suffix"] = suffix
         if dir is not None:
             params["dir"] = dir
-        self.path = Path(tempfile.mktemp(**params))
-        if touch:
-            self.path.touch()
+        fd, name = tempfile.mkstemp(**params)
+        os.close(fd)
+        self.path = Path(name)
+        if not touch:
+            try:
+                os.unlink(self.path)
+            except FileNotFoundError:
+                pass
 
     def __enter__(self):
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        os.remove(self.path)
+        try:
+            os.remove(self.path)
+        except FileNotFoundError:
+            pass
         log.debug("exc_type: %r, exc_value: %r, traceback: %r" % (exc_type, exc_value, traceback))
 
 

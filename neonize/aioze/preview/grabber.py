@@ -61,7 +61,7 @@ class LinkGrabber:
 
             size = 0
             start = time.time()
-            content = b""
+            chunks = bytearray()
             async for chunk in r.aiter_bytes(self.chunk_size):
                 if time.time() - start > self.receive_timeout:
                     raise TimeoutError("timeout reached")
@@ -70,6 +70,6 @@ class LinkGrabber:
                 if size > self.maxsize:
                     raise MaximumContentSizeError("response too large")
 
-                content += chunk
+                chunks.extend(chunk)
 
-            return content.decode(), url
+            return chunks.decode(), url
