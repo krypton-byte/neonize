@@ -279,13 +279,43 @@ class WebMessageInfo(_message.Message):
         IDENTITY_TRUST_REVOKED: WebMessageInfo._StubType.ValueType  # 228
         CTWA_CONSUMER_DISCLOSURE: WebMessageInfo._StubType.ValueType  # 230
         CHANGE_ACP2_SETTING: WebMessageInfo._StubType.ValueType  # 240
+        BIZ_CALLBACK_DISABLED: WebMessageInfo._StubType.ValueType  # 244
         BIZ_CALLBACK_ENABLED: WebMessageInfo._StubType.ValueType  # 247
         EPHEMERAL_CHANGED_FOR_COEX: WebMessageInfo._StubType.ValueType  # 248
         UGC_BOT_PROFILE_UPDATED: WebMessageInfo._StubType.ValueType  # 249
         ORDER_EPHEMERAL_EXEMPTION: WebMessageInfo._StubType.ValueType  # 250
+        GROUP_DEFAULT_SUB_GROUP_DEMOTE: WebMessageInfo._StubType.ValueType  # 251
+        BIZ_BUSINESS_BROADCAST_ENTRY_POINT: WebMessageInfo._StubType.ValueType  # 252
+        BOT_INLINE_TOS_CHAT: WebMessageInfo._StubType.ValueType  # 253
         CAMEO_CHAT_CREATED: WebMessageInfo._StubType.ValueType  # 254
-        CAMEO_TRANSITIONED: WebMessageInfo._StubType.ValueType  # 256
         SENDER_SIDE_CONTACT_INFO: WebMessageInfo._StubType.ValueType  # 255
+        CAMEO_TRANSITIONED: WebMessageInfo._StubType.ValueType  # 256
+        CAMEO_REGISTERED_WITH_NEW_CHAT: WebMessageInfo._StubType.ValueType  # 257
+        PRIVACY_SYSTEM_MESSAGE: WebMessageInfo._StubType.ValueType  # 258
+        BIZ_AI_LEARNING_ENABLED_DISCLOSURE: WebMessageInfo._StubType.ValueType  # 259
+        BIZ_AI_LEARNING_DISABLED_DISCLOSURE: WebMessageInfo._StubType.ValueType  # 260
+        BIZ_AI_REPLIES_MUTED_HISTORICAL_CHAT: WebMessageInfo._StubType.ValueType  # 261
+        INVITE_FROM_IG: WebMessageInfo._StubType.ValueType  # 262
+        GROUP_ADMIN_FIRST_JOIN_VIA_LINK: WebMessageInfo._StubType.ValueType  # 263
+        GROUP_ADMIN_FLOOD_JOIN_VIA_LINK: WebMessageInfo._StubType.ValueType  # 264
+        BIZ_AI_REPLIES_MUTED_IRRELEVANT_HISTORICAL_CHAT: WebMessageInfo._StubType.ValueType  # 265
+        PENDING_INVITE_CREATED: WebMessageInfo._StubType.ValueType  # 266
+        CAMEO_CHAT_EXPIRED: WebMessageInfo._StubType.ValueType  # 267
+        GROUP_PUSHNAME_SHARED: WebMessageInfo._StubType.ValueType  # 270
+        BIZ_POST_SEND_OPT_OUT: WebMessageInfo._StubType.ValueType  # 271
+        BB_PRO_BROADCAST_CHAT_CARD: WebMessageInfo._StubType.ValueType  # 272
+        BOT_PROACTIVE_MESSAGE_ENABLED: WebMessageInfo._StubType.ValueType  # 273
+        BOT_PROACTIVE_MESSAGE_DISABLED: WebMessageInfo._StubType.ValueType  # 274
+        BOT_PROACTIVE_MESSAGE_FIRST_TIME: WebMessageInfo._StubType.ValueType  # 275
+        DYNAMIC_AUDIENCE_LIST_CREATE: WebMessageInfo._StubType.ValueType  # 276
+        DYNAMIC_AUDIENCE_LIST_UPDATE_LINK: WebMessageInfo._StubType.ValueType  # 277
+        CHAT_WITH_BUSINESS_IN_DIRECTORY: WebMessageInfo._StubType.ValueType  # 283
+        META_AI_THREAD_CREATED: WebMessageInfo._StubType.ValueType  # 284
+        META_AI_CONNECTOR_LINKED: WebMessageInfo._StubType.ValueType  # 285
+        SPLIT_PAYMENT_MARKED_AS_PAID: WebMessageInfo._StubType.ValueType  # 289
+        POLL_OPTIONS_REMOVED: WebMessageInfo._StubType.ValueType  # 290
+        POLL_ADDED_OPTION_REMOVED: WebMessageInfo._StubType.ValueType  # 291
+        GROUP_CUSTOM_REACTIONS: WebMessageInfo._StubType.ValueType  # 293
 
     class StubType(_StubType, metaclass=_StubTypeEnumTypeWrapper): ...
     UNKNOWN: WebMessageInfo.StubType.ValueType  # 0
@@ -519,13 +549,43 @@ class WebMessageInfo(_message.Message):
     IDENTITY_TRUST_REVOKED: WebMessageInfo.StubType.ValueType  # 228
     CTWA_CONSUMER_DISCLOSURE: WebMessageInfo.StubType.ValueType  # 230
     CHANGE_ACP2_SETTING: WebMessageInfo.StubType.ValueType  # 240
+    BIZ_CALLBACK_DISABLED: WebMessageInfo.StubType.ValueType  # 244
     BIZ_CALLBACK_ENABLED: WebMessageInfo.StubType.ValueType  # 247
     EPHEMERAL_CHANGED_FOR_COEX: WebMessageInfo.StubType.ValueType  # 248
     UGC_BOT_PROFILE_UPDATED: WebMessageInfo.StubType.ValueType  # 249
     ORDER_EPHEMERAL_EXEMPTION: WebMessageInfo.StubType.ValueType  # 250
+    GROUP_DEFAULT_SUB_GROUP_DEMOTE: WebMessageInfo.StubType.ValueType  # 251
+    BIZ_BUSINESS_BROADCAST_ENTRY_POINT: WebMessageInfo.StubType.ValueType  # 252
+    BOT_INLINE_TOS_CHAT: WebMessageInfo.StubType.ValueType  # 253
     CAMEO_CHAT_CREATED: WebMessageInfo.StubType.ValueType  # 254
-    CAMEO_TRANSITIONED: WebMessageInfo.StubType.ValueType  # 256
     SENDER_SIDE_CONTACT_INFO: WebMessageInfo.StubType.ValueType  # 255
+    CAMEO_TRANSITIONED: WebMessageInfo.StubType.ValueType  # 256
+    CAMEO_REGISTERED_WITH_NEW_CHAT: WebMessageInfo.StubType.ValueType  # 257
+    PRIVACY_SYSTEM_MESSAGE: WebMessageInfo.StubType.ValueType  # 258
+    BIZ_AI_LEARNING_ENABLED_DISCLOSURE: WebMessageInfo.StubType.ValueType  # 259
+    BIZ_AI_LEARNING_DISABLED_DISCLOSURE: WebMessageInfo.StubType.ValueType  # 260
+    BIZ_AI_REPLIES_MUTED_HISTORICAL_CHAT: WebMessageInfo.StubType.ValueType  # 261
+    INVITE_FROM_IG: WebMessageInfo.StubType.ValueType  # 262
+    GROUP_ADMIN_FIRST_JOIN_VIA_LINK: WebMessageInfo.StubType.ValueType  # 263
+    GROUP_ADMIN_FLOOD_JOIN_VIA_LINK: WebMessageInfo.StubType.ValueType  # 264
+    BIZ_AI_REPLIES_MUTED_IRRELEVANT_HISTORICAL_CHAT: WebMessageInfo.StubType.ValueType  # 265
+    PENDING_INVITE_CREATED: WebMessageInfo.StubType.ValueType  # 266
+    CAMEO_CHAT_EXPIRED: WebMessageInfo.StubType.ValueType  # 267
+    GROUP_PUSHNAME_SHARED: WebMessageInfo.StubType.ValueType  # 270
+    BIZ_POST_SEND_OPT_OUT: WebMessageInfo.StubType.ValueType  # 271
+    BB_PRO_BROADCAST_CHAT_CARD: WebMessageInfo.StubType.ValueType  # 272
+    BOT_PROACTIVE_MESSAGE_ENABLED: WebMessageInfo.StubType.ValueType  # 273
+    BOT_PROACTIVE_MESSAGE_DISABLED: WebMessageInfo.StubType.ValueType  # 274
+    BOT_PROACTIVE_MESSAGE_FIRST_TIME: WebMessageInfo.StubType.ValueType  # 275
+    DYNAMIC_AUDIENCE_LIST_CREATE: WebMessageInfo.StubType.ValueType  # 276
+    DYNAMIC_AUDIENCE_LIST_UPDATE_LINK: WebMessageInfo.StubType.ValueType  # 277
+    CHAT_WITH_BUSINESS_IN_DIRECTORY: WebMessageInfo.StubType.ValueType  # 283
+    META_AI_THREAD_CREATED: WebMessageInfo.StubType.ValueType  # 284
+    META_AI_CONNECTOR_LINKED: WebMessageInfo.StubType.ValueType  # 285
+    SPLIT_PAYMENT_MARKED_AS_PAID: WebMessageInfo.StubType.ValueType  # 289
+    POLL_OPTIONS_REMOVED: WebMessageInfo.StubType.ValueType  # 290
+    POLL_ADDED_OPTION_REMOVED: WebMessageInfo.StubType.ValueType  # 291
+    GROUP_CUSTOM_REACTIONS: WebMessageInfo.StubType.ValueType  # 293
 
     class _Status:
         ValueType = _typing.NewType("ValueType", _builtins.int)
@@ -620,6 +680,8 @@ class WebMessageInfo(_message.Message):
     SCHEDULEDMESSAGEMETADATA_FIELD_NUMBER: _builtins.int
     DECISIONID_FIELD_NUMBER: _builtins.int
     DECISIONSOURCES_FIELD_NUMBER: _builtins.int
+    EVENTINVITEADDITIONALMETADATA_FIELD_NUMBER: _builtins.int
+    GROUPHISTORYLASTCOUNTEDMESSAGETIMESTAMP_FIELD_NUMBER: _builtins.int
     messageTimestamp: _builtins.int
     status: Global___WebMessageInfo.Status.ValueType
     participant: _builtins.str
@@ -658,6 +720,7 @@ class WebMessageInfo(_message.Message):
     hsmTag: _builtins.str
     ephemeralExpirationTimestamp: _builtins.int
     decisionID: _builtins.str
+    groupHistoryLastCountedMessageTimestamp: _builtins.int
     @_builtins.property
     def key(self) -> _WACommon_pb2.MessageKey: ...
     @_builtins.property
@@ -726,6 +789,8 @@ class WebMessageInfo(_message.Message):
     def scheduledMessageMetadata(self) -> Global___ScheduledMessageMetadata: ...
     @_builtins.property
     def decisionSources(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
+    @_builtins.property
+    def eventInviteAdditionalMetadata(self) -> Global___EventInviteAdditionalMetadata: ...
     def __init__(
         self,
         *,
@@ -801,10 +866,12 @@ class WebMessageInfo(_message.Message):
         scheduledMessageMetadata: Global___ScheduledMessageMetadata | None = ...,
         decisionID: _builtins.str | None = ...,
         decisionSources: _abc.Iterable[_builtins.str] | None = ...,
+        eventInviteAdditionalMetadata: Global___EventInviteAdditionalMetadata | None = ...,
+        groupHistoryLastCountedMessageTimestamp: _builtins.int | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "decisionID", b"decisionID", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralExpirationTimestamp", b"ephemeralExpirationTimestamp", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "hsmTag", b"hsmTag", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "nonJIDMentions", b"nonJIDMentions", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quarantinedMessage", b"quarantinedMessage", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "scheduledMessageMetadata", b"scheduledMessageMetadata", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusPsa", b"statusPsa", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "verifiedBizName", b"verifiedBizName"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "decisionID", b"decisionID", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralExpirationTimestamp", b"ephemeralExpirationTimestamp", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "eventInviteAdditionalMetadata", b"eventInviteAdditionalMetadata", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "groupHistoryLastCountedMessageTimestamp", b"groupHistoryLastCountedMessageTimestamp", "hsmTag", b"hsmTag", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "nonJIDMentions", b"nonJIDMentions", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quarantinedMessage", b"quarantinedMessage", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "scheduledMessageMetadata", b"scheduledMessageMetadata", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusPsa", b"statusPsa", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "verifiedBizName", b"verifiedBizName"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "decisionID", b"decisionID", "decisionSources", b"decisionSources", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralExpirationTimestamp", b"ephemeralExpirationTimestamp", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "eventResponses", b"eventResponses", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "hsmTag", b"hsmTag", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "labels", b"labels", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageAddOns", b"messageAddOns", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubParameters", b"messageStubParameters", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "nonJIDMentions", b"nonJIDMentions", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "pollUpdates", b"pollUpdates", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quarantinedMessage", b"quarantinedMessage", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reactions", b"reactions", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "scheduledMessageMetadata", b"scheduledMessageMetadata", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusMentionSources", b"statusMentionSources", "statusMentions", b"statusMentions", "statusPsa", b"statusPsa", "supportAiCitations", b"supportAiCitations", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "userReceipt", b"userReceipt", "verifiedBizName", b"verifiedBizName"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["agentID", b"agentID", "bizPrivacyStatus", b"bizPrivacyStatus", "botMessageInvokerJID", b"botMessageInvokerJID", "botTargetID", b"botTargetID", "broadcast", b"broadcast", "clearMedia", b"clearMedia", "commentMetadata", b"commentMetadata", "decisionID", b"decisionID", "decisionSources", b"decisionSources", "duration", b"duration", "ephemeralDuration", b"ephemeralDuration", "ephemeralExpirationTimestamp", b"ephemeralExpirationTimestamp", "ephemeralOffToOn", b"ephemeralOffToOn", "ephemeralOutOfSync", b"ephemeralOutOfSync", "ephemeralStartTimestamp", b"ephemeralStartTimestamp", "eventAdditionalMetadata", b"eventAdditionalMetadata", "eventInviteAdditionalMetadata", b"eventInviteAdditionalMetadata", "eventResponses", b"eventResponses", "finalLiveLocation", b"finalLiveLocation", "futureproofData", b"futureproofData", "groupHistoryBundleInfo", b"groupHistoryBundleInfo", "groupHistoryIndividualMessageInfo", b"groupHistoryIndividualMessageInfo", "groupHistoryLastCountedMessageTimestamp", b"groupHistoryLastCountedMessageTimestamp", "hsmTag", b"hsmTag", "ignore", b"ignore", "interactiveMessageAdditionalMetadata", b"interactiveMessageAdditionalMetadata", "is1PBizBotMessage", b"is1PBizBotMessage", "isGroupHistoryMessage", b"isGroupHistoryMessage", "isMentionedInStatus", b"isMentionedInStatus", "isSupportAiMessage", b"isSupportAiMessage", "keepInChat", b"keepInChat", "key", b"key", "labels", b"labels", "mediaCiphertextSHA256", b"mediaCiphertextSHA256", "mediaData", b"mediaData", "message", b"message", "messageAddOns", b"messageAddOns", "messageC2STimestamp", b"messageC2STimestamp", "messageSecret", b"messageSecret", "messageStubParameters", b"messageStubParameters", "messageStubType", b"messageStubType", "messageTimestamp", b"messageTimestamp", "multicast", b"multicast", "newsletterServerID", b"newsletterServerID", "nonJIDMentions", b"nonJIDMentions", "originalSelfAuthorUserJIDString", b"originalSelfAuthorUserJIDString", "participant", b"participant", "paymentInfo", b"paymentInfo", "photoChange", b"photoChange", "pinInChat", b"pinInChat", "pollAdditionalMetadata", b"pollAdditionalMetadata", "pollUpdates", b"pollUpdates", "premiumMessageInfo", b"premiumMessageInfo", "pushName", b"pushName", "quarantinedMessage", b"quarantinedMessage", "quotedPaymentInfo", b"quotedPaymentInfo", "quotedStickerData", b"quotedStickerData", "reactions", b"reactions", "reportingTokenInfo", b"reportingTokenInfo", "revokeMessageTimestamp", b"revokeMessageTimestamp", "scheduledMessageMetadata", b"scheduledMessageMetadata", "starred", b"starred", "status", b"status", "statusAlreadyViewed", b"statusAlreadyViewed", "statusMentionMessageInfo", b"statusMentionMessageInfo", "statusMentionSources", b"statusMentionSources", "statusMentions", b"statusMentions", "statusPsa", b"statusPsa", "supportAiCitations", b"supportAiCitations", "targetMessageID", b"targetMessageID", "urlNumber", b"urlNumber", "urlText", b"urlText", "userReceipt", b"userReceipt", "verifiedBizName", b"verifiedBizName"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
@@ -1156,6 +1223,230 @@ class WebFeatures(_message.Message):
 Global___WebFeatures: _TypeAlias = WebFeatures  # noqa: Y015
 
 @_typing.final
+class PollAdditionalMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    @_typing.final
+    class PollOptionReplayEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        class _Type:
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
+
+        class _TypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[PollAdditionalMetadata.PollOptionReplayEntry._Type.ValueType], _builtins.type):
+            DESCRIPTOR: _descriptor.EnumDescriptor
+            UNKNOWN: PollAdditionalMetadata.PollOptionReplayEntry._Type.ValueType  # 0
+            EDIT: PollAdditionalMetadata.PollOptionReplayEntry._Type.ValueType  # 1
+            ADD: PollAdditionalMetadata.PollOptionReplayEntry._Type.ValueType  # 2
+            REVOKE: PollAdditionalMetadata.PollOptionReplayEntry._Type.ValueType  # 3
+
+        class Type(_Type, metaclass=_TypeEnumTypeWrapper): ...
+        UNKNOWN: PollAdditionalMetadata.PollOptionReplayEntry.Type.ValueType  # 0
+        EDIT: PollAdditionalMetadata.PollOptionReplayEntry.Type.ValueType  # 1
+        ADD: PollAdditionalMetadata.PollOptionReplayEntry.Type.ValueType  # 2
+        REVOKE: PollAdditionalMetadata.PollOptionReplayEntry.Type.ValueType  # 3
+
+        TYPE_FIELD_NUMBER: _builtins.int
+        MESSAGEKEY_FIELD_NUMBER: _builtins.int
+        SERVERTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+        EDITTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+        OPTIONHASHES_FIELD_NUMBER: _builtins.int
+        REVOKEDMESSAGEKEY_FIELD_NUMBER: _builtins.int
+        type: Global___PollAdditionalMetadata.PollOptionReplayEntry.Type.ValueType
+        serverTimestampMS: _builtins.int
+        editTimestampMS: _builtins.int
+        @_builtins.property
+        def messageKey(self) -> _WACommon_pb2.MessageKey: ...
+        @_builtins.property
+        def optionHashes(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bytes]: ...
+        @_builtins.property
+        def revokedMessageKey(self) -> _WACommon_pb2.MessageKey: ...
+        def __init__(
+            self,
+            *,
+            type: Global___PollAdditionalMetadata.PollOptionReplayEntry.Type.ValueType | None = ...,
+            messageKey: _WACommon_pb2.MessageKey | None = ...,
+            serverTimestampMS: _builtins.int | None = ...,
+            editTimestampMS: _builtins.int | None = ...,
+            optionHashes: _abc.Iterable[_builtins.bytes] | None = ...,
+            revokedMessageKey: _WACommon_pb2.MessageKey | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["editTimestampMS", b"editTimestampMS", "messageKey", b"messageKey", "revokedMessageKey", b"revokedMessageKey", "serverTimestampMS", b"serverTimestampMS", "type", b"type"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["editTimestampMS", b"editTimestampMS", "messageKey", b"messageKey", "optionHashes", b"optionHashes", "revokedMessageKey", b"revokedMessageKey", "serverTimestampMS", b"serverTimestampMS", "type", b"type"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    @_typing.final
+    class PollOptionReplayBase(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        @_typing.final
+        class Option(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
+
+            OPTIONHASH_FIELD_NUMBER: _builtins.int
+            ENTEREDTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+            ADDMESSAGEKEY_FIELD_NUMBER: _builtins.int
+            optionHash: _builtins.bytes
+            enteredTimestampMS: _builtins.int
+            @_builtins.property
+            def addMessageKey(self) -> _WACommon_pb2.MessageKey: ...
+            def __init__(
+                self,
+                *,
+                optionHash: _builtins.bytes | None = ...,
+                enteredTimestampMS: _builtins.int | None = ...,
+                addMessageKey: _WACommon_pb2.MessageKey | None = ...,
+            ) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["addMessageKey", b"addMessageKey", "enteredTimestampMS", b"enteredTimestampMS", "optionHash", b"optionHash"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["addMessageKey", b"addMessageKey", "enteredTimestampMS", b"enteredTimestampMS", "optionHash", b"optionHash"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+        BOUNDARYTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+        EDITTIMESTAMPMS_FIELD_NUMBER: _builtins.int
+        OPTIONS_FIELD_NUMBER: _builtins.int
+        boundaryTimestampMS: _builtins.int
+        editTimestampMS: _builtins.int
+        @_builtins.property
+        def options(self) -> _containers.RepeatedCompositeFieldContainer[Global___PollAdditionalMetadata.PollOptionReplayBase.Option]: ...
+        def __init__(
+            self,
+            *,
+            boundaryTimestampMS: _builtins.int | None = ...,
+            editTimestampMS: _builtins.int | None = ...,
+            options: _abc.Iterable[Global___PollAdditionalMetadata.PollOptionReplayBase.Option] | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["boundaryTimestampMS", b"boundaryTimestampMS", "editTimestampMS", b"editTimestampMS"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["boundaryTimestampMS", b"boundaryTimestampMS", "editTimestampMS", b"editTimestampMS", "options", b"options"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    @_typing.final
+    class PollNameHashHistoryEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        EDITSTANZAID_FIELD_NUMBER: _builtins.int
+        POLLNAMEHASH_FIELD_NUMBER: _builtins.int
+        editStanzaID: _builtins.str
+        pollNameHash: _builtins.bytes
+        def __init__(
+            self,
+            *,
+            editStanzaID: _builtins.str | None = ...,
+            pollNameHash: _builtins.bytes | None = ...,
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["editStanzaID", b"editStanzaID", "pollNameHash", b"pollNameHash"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["editStanzaID", b"editStanzaID", "pollNameHash", b"pollNameHash"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    POLLINVALIDATED_FIELD_NUMBER: _builtins.int
+    POLLNAMEHASHHISTORY_FIELD_NUMBER: _builtins.int
+    ORIGINALOPTIONS_FIELD_NUMBER: _builtins.int
+    POLLOPTIONREPLAYENTRIES_FIELD_NUMBER: _builtins.int
+    POLLOPTIONREPLAYBASE_FIELD_NUMBER: _builtins.int
+    pollInvalidated: _builtins.bool
+    @_builtins.property
+    def pollNameHashHistory(self) -> _containers.RepeatedCompositeFieldContainer[Global___PollAdditionalMetadata.PollNameHashHistoryEntry]: ...
+    @_builtins.property
+    def originalOptions(self) -> _containers.RepeatedCompositeFieldContainer[_WAWebProtobufsE2E_pb2.PollCreationMessage.Option]: ...
+    @_builtins.property
+    def pollOptionReplayEntries(self) -> _containers.RepeatedCompositeFieldContainer[Global___PollAdditionalMetadata.PollOptionReplayEntry]: ...
+    @_builtins.property
+    def pollOptionReplayBase(self) -> Global___PollAdditionalMetadata.PollOptionReplayBase: ...
+    def __init__(
+        self,
+        *,
+        pollInvalidated: _builtins.bool | None = ...,
+        pollNameHashHistory: _abc.Iterable[Global___PollAdditionalMetadata.PollNameHashHistoryEntry] | None = ...,
+        originalOptions: _abc.Iterable[_WAWebProtobufsE2E_pb2.PollCreationMessage.Option] | None = ...,
+        pollOptionReplayEntries: _abc.Iterable[Global___PollAdditionalMetadata.PollOptionReplayEntry] | None = ...,
+        pollOptionReplayBase: Global___PollAdditionalMetadata.PollOptionReplayBase | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["pollInvalidated", b"pollInvalidated", "pollOptionReplayBase", b"pollOptionReplayBase"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["originalOptions", b"originalOptions", "pollInvalidated", b"pollInvalidated", "pollNameHashHistory", b"pollNameHashHistory", "pollOptionReplayBase", b"pollOptionReplayBase", "pollOptionReplayEntries", b"pollOptionReplayEntries"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___PollAdditionalMetadata: _TypeAlias = PollAdditionalMetadata  # noqa: Y015
+
+@_typing.final
+class EventInviteAdditionalMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    class _RsvpStatus:
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
+
+    class _RsvpStatusEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[EventInviteAdditionalMetadata._RsvpStatus.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
+        RSVP_STATUS_UNKNOWN: EventInviteAdditionalMetadata._RsvpStatus.ValueType  # 0
+        GOING: EventInviteAdditionalMetadata._RsvpStatus.ValueType  # 1
+        NOT_GOING: EventInviteAdditionalMetadata._RsvpStatus.ValueType  # 2
+        MAYBE: EventInviteAdditionalMetadata._RsvpStatus.ValueType  # 3
+        NO_RESPONSE: EventInviteAdditionalMetadata._RsvpStatus.ValueType  # 4
+
+    class RsvpStatus(_RsvpStatus, metaclass=_RsvpStatusEnumTypeWrapper): ...
+    RSVP_STATUS_UNKNOWN: EventInviteAdditionalMetadata.RsvpStatus.ValueType  # 0
+    GOING: EventInviteAdditionalMetadata.RsvpStatus.ValueType  # 1
+    NOT_GOING: EventInviteAdditionalMetadata.RsvpStatus.ValueType  # 2
+    MAYBE: EventInviteAdditionalMetadata.RsvpStatus.ValueType  # 3
+    NO_RESPONSE: EventInviteAdditionalMetadata.RsvpStatus.ValueType  # 4
+
+    class _AccessStatus:
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
+
+    class _AccessStatusEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[EventInviteAdditionalMetadata._AccessStatus.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
+        ACCESS_STATUS_UNKNOWN: EventInviteAdditionalMetadata._AccessStatus.ValueType  # 0
+        HAS_ACCESS: EventInviteAdditionalMetadata._AccessStatus.ValueType  # 1
+        LEFT_EVENT: EventInviteAdditionalMetadata._AccessStatus.ValueType  # 2
+        REMOVED_FROM_INVITE_LIST: EventInviteAdditionalMetadata._AccessStatus.ValueType  # 3
+        UNAVAILABLE: EventInviteAdditionalMetadata._AccessStatus.ValueType  # 4
+
+    class AccessStatus(_AccessStatus, metaclass=_AccessStatusEnumTypeWrapper): ...
+    ACCESS_STATUS_UNKNOWN: EventInviteAdditionalMetadata.AccessStatus.ValueType  # 0
+    HAS_ACCESS: EventInviteAdditionalMetadata.AccessStatus.ValueType  # 1
+    LEFT_EVENT: EventInviteAdditionalMetadata.AccessStatus.ValueType  # 2
+    REMOVED_FROM_INVITE_LIST: EventInviteAdditionalMetadata.AccessStatus.ValueType  # 3
+    UNAVAILABLE: EventInviteAdditionalMetadata.AccessStatus.ValueType  # 4
+
+    ISUPDATED_FIELD_NUMBER: _builtins.int
+    SELFACCESSSTATUS_FIELD_NUMBER: _builtins.int
+    SELFRSVPSTATUS_FIELD_NUMBER: _builtins.int
+    SELFADDITIONALGUESTCOUNT_FIELD_NUMBER: _builtins.int
+    SELFINVITEELASTUPDATEDTSUSEC_FIELD_NUMBER: _builtins.int
+    isUpdated: _builtins.bool
+    selfAccessStatus: Global___EventInviteAdditionalMetadata.AccessStatus.ValueType
+    selfRsvpStatus: Global___EventInviteAdditionalMetadata.RsvpStatus.ValueType
+    selfAdditionalGuestCount: _builtins.int
+    selfInviteeLastUpdatedTSUsec: _builtins.int
+    def __init__(
+        self,
+        *,
+        isUpdated: _builtins.bool | None = ...,
+        selfAccessStatus: Global___EventInviteAdditionalMetadata.AccessStatus.ValueType | None = ...,
+        selfRsvpStatus: Global___EventInviteAdditionalMetadata.RsvpStatus.ValueType | None = ...,
+        selfAdditionalGuestCount: _builtins.int | None = ...,
+        selfInviteeLastUpdatedTSUsec: _builtins.int | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["isUpdated", b"isUpdated", "selfAccessStatus", b"selfAccessStatus", "selfAdditionalGuestCount", b"selfAdditionalGuestCount", "selfInviteeLastUpdatedTSUsec", b"selfInviteeLastUpdatedTSUsec", "selfRsvpStatus", b"selfRsvpStatus"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["isUpdated", b"isUpdated", "selfAccessStatus", b"selfAccessStatus", "selfAdditionalGuestCount", b"selfAdditionalGuestCount", "selfInviteeLastUpdatedTSUsec", b"selfInviteeLastUpdatedTSUsec", "selfRsvpStatus", b"selfRsvpStatus"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___EventInviteAdditionalMetadata: _TypeAlias = EventInviteAdditionalMetadata  # noqa: Y015
+
+@_typing.final
 class PinInChat(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -1218,6 +1509,7 @@ class MessageAddOn(_message.Message):
         EVENT_RESPONSE: MessageAddOn._MessageAddOnType.ValueType  # 2
         POLL_UPDATE: MessageAddOn._MessageAddOnType.ValueType  # 3
         PIN_IN_CHAT: MessageAddOn._MessageAddOnType.ValueType  # 4
+        REQUEST_LOCATION_UPDATE: MessageAddOn._MessageAddOnType.ValueType  # 5
 
     class MessageAddOnType(_MessageAddOnType, metaclass=_MessageAddOnTypeEnumTypeWrapper): ...
     UNDEFINED: MessageAddOn.MessageAddOnType.ValueType  # 0
@@ -1225,6 +1517,7 @@ class MessageAddOn(_message.Message):
     EVENT_RESPONSE: MessageAddOn.MessageAddOnType.ValueType  # 2
     POLL_UPDATE: MessageAddOn.MessageAddOnType.ValueType  # 3
     PIN_IN_CHAT: MessageAddOn.MessageAddOnType.ValueType  # 4
+    REQUEST_LOCATION_UPDATE: MessageAddOn.MessageAddOnType.ValueType  # 5
 
     MESSAGEADDONTYPE_FIELD_NUMBER: _builtins.int
     MESSAGEADDON_FIELD_NUMBER: _builtins.int
@@ -1584,49 +1877,6 @@ class PollUpdate(_message.Message):
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
 Global___PollUpdate: _TypeAlias = PollUpdate  # noqa: Y015
-
-@_typing.final
-class PollAdditionalMetadata(_message.Message):
-    DESCRIPTOR: _descriptor.Descriptor
-
-    @_typing.final
-    class PollNameHashHistoryEntry(_message.Message):
-        DESCRIPTOR: _descriptor.Descriptor
-
-        EDITSTANZAID_FIELD_NUMBER: _builtins.int
-        POLLNAMEHASH_FIELD_NUMBER: _builtins.int
-        editStanzaID: _builtins.str
-        pollNameHash: _builtins.bytes
-        def __init__(
-            self,
-            *,
-            editStanzaID: _builtins.str | None = ...,
-            pollNameHash: _builtins.bytes | None = ...,
-        ) -> None: ...
-        _HasFieldArgType: _TypeAlias = _typing.Literal["editStanzaID", b"editStanzaID", "pollNameHash", b"pollNameHash"]  # noqa: Y015
-        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-        _ClearFieldArgType: _TypeAlias = _typing.Literal["editStanzaID", b"editStanzaID", "pollNameHash", b"pollNameHash"]  # noqa: Y015
-        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-        def WhichOneof(self, oneof_group: _Never) -> None: ...
-
-    POLLINVALIDATED_FIELD_NUMBER: _builtins.int
-    POLLNAMEHASHHISTORY_FIELD_NUMBER: _builtins.int
-    pollInvalidated: _builtins.bool
-    @_builtins.property
-    def pollNameHashHistory(self) -> _containers.RepeatedCompositeFieldContainer[Global___PollAdditionalMetadata.PollNameHashHistoryEntry]: ...
-    def __init__(
-        self,
-        *,
-        pollInvalidated: _builtins.bool | None = ...,
-        pollNameHashHistory: _abc.Iterable[Global___PollAdditionalMetadata.PollNameHashHistoryEntry] | None = ...,
-    ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["pollInvalidated", b"pollInvalidated"]  # noqa: Y015
-    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["pollInvalidated", b"pollInvalidated", "pollNameHashHistory", b"pollNameHashHistory"]  # noqa: Y015
-    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-    def WhichOneof(self, oneof_group: _Never) -> None: ...
-
-Global___PollAdditionalMetadata: _TypeAlias = PollAdditionalMetadata  # noqa: Y015
 
 @_typing.final
 class InteractiveMessageAdditionalMetadata(_message.Message):

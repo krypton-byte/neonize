@@ -19,34 +19,6 @@ else:
 DESCRIPTOR: _descriptor.FileDescriptor
 
 @_typing.final
-class Reportable(_message.Message):
-    DESCRIPTOR: _descriptor.Descriptor
-
-    MINVERSION_FIELD_NUMBER: _builtins.int
-    MAXVERSION_FIELD_NUMBER: _builtins.int
-    NOTREPORTABLEMINVERSION_FIELD_NUMBER: _builtins.int
-    NEVER_FIELD_NUMBER: _builtins.int
-    minVersion: _builtins.int
-    maxVersion: _builtins.int
-    notReportableMinVersion: _builtins.int
-    never: _builtins.bool
-    def __init__(
-        self,
-        *,
-        minVersion: _builtins.int = ...,
-        maxVersion: _builtins.int = ...,
-        notReportableMinVersion: _builtins.int = ...,
-        never: _builtins.bool = ...,
-    ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
-    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["maxVersion", b"maxVersion", "minVersion", b"minVersion", "never", b"never", "notReportableMinVersion", b"notReportableMinVersion"]  # noqa: Y015
-    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-    def WhichOneof(self, oneof_group: _Never) -> None: ...
-
-Global___Reportable: _TypeAlias = Reportable  # noqa: Y015
-
-@_typing.final
 class Config(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -72,19 +44,16 @@ class Config(_message.Message):
         def WhichOneof(self, oneof_group: _Never) -> None: ...
 
     FIELD_FIELD_NUMBER: _builtins.int
-    VERSION_FIELD_NUMBER: _builtins.int
-    version: _builtins.int
     @_builtins.property
     def field(self) -> _containers.MessageMap[_builtins.int, Global___Field]: ...
     def __init__(
         self,
         *,
         field: _abc.Mapping[_builtins.int, Global___Field] | None = ...,
-        version: _builtins.int = ...,
     ) -> None: ...
     _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["field", b"field", "version", b"version"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["field", b"field"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
@@ -117,12 +86,10 @@ class Field(_message.Message):
 
     MINVERSION_FIELD_NUMBER: _builtins.int
     MAXVERSION_FIELD_NUMBER: _builtins.int
-    NOTREPORTABLEMINVERSION_FIELD_NUMBER: _builtins.int
     ISMESSAGE_FIELD_NUMBER: _builtins.int
     SUBFIELD_FIELD_NUMBER: _builtins.int
     minVersion: _builtins.int
     maxVersion: _builtins.int
-    notReportableMinVersion: _builtins.int
     isMessage: _builtins.bool
     @_builtins.property
     def subfield(self) -> _containers.MessageMap[_builtins.int, Global___Field]: ...
@@ -131,13 +98,12 @@ class Field(_message.Message):
         *,
         minVersion: _builtins.int = ...,
         maxVersion: _builtins.int = ...,
-        notReportableMinVersion: _builtins.int = ...,
         isMessage: _builtins.bool = ...,
         subfield: _abc.Mapping[_builtins.int, Global___Field] | None = ...,
     ) -> None: ...
     _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["isMessage", b"isMessage", "maxVersion", b"maxVersion", "minVersion", b"minVersion", "notReportableMinVersion", b"notReportableMinVersion", "subfield", b"subfield"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["isMessage", b"isMessage", "maxVersion", b"maxVersion", "minVersion", b"minVersion", "subfield", b"subfield"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 

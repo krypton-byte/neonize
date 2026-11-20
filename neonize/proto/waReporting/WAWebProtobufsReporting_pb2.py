@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)waReporting/WAWebProtobufsReporting.proto\x12\x17WAWebProtobufsReporting\"d\n\nReportable\x12\x12\n\nminVersion\x18\x01 \x01(\r\x12\x12\n\nmaxVersion\x18\x02 \x01(\r\x12\x1f\n\x17notReportableMinVersion\x18\x03 \x01(\r\x12\r\n\x05never\x18\x04 \x01(\x08\"\xa2\x01\n\x06\x43onfig\x12\x39\n\x05\x66ield\x18\x01 \x03(\x0b\x32*.WAWebProtobufsReporting.Config.FieldEntry\x12\x0f\n\x07version\x18\x02 \x01(\r\x1aL\n\nFieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\r\x12-\n\x05value\x18\x02 \x01(\x0b\x32\x1e.WAWebProtobufsReporting.Field:\x02\x38\x01\"\xf4\x01\n\x05\x46ield\x12\x12\n\nminVersion\x18\x01 \x01(\r\x12\x12\n\nmaxVersion\x18\x02 \x01(\r\x12\x1f\n\x17notReportableMinVersion\x18\x03 \x01(\r\x12\x11\n\tisMessage\x18\x04 \x01(\x08\x12>\n\x08subfield\x18\x05 \x03(\x0b\x32,.WAWebProtobufsReporting.Field.SubfieldEntry\x1aO\n\rSubfieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\r\x12-\n\x05value\x18\x02 \x01(\x0b\x32\x1e.WAWebProtobufsReporting.Field:\x02\x38\x01\x42\'Z%go.mau.fi/whatsmeow/proto/waReportingb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)waReporting/WAWebProtobufsReporting.proto\x12\x17WAWebProtobufsReporting\"\x91\x01\n\x06\x43onfig\x12\x39\n\x05\x66ield\x18\x01 \x03(\x0b\x32*.WAWebProtobufsReporting.Config.FieldEntry\x1aL\n\nFieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\r\x12-\n\x05value\x18\x02 \x01(\x0b\x32\x1e.WAWebProtobufsReporting.Field:\x02\x38\x01\"\xd3\x01\n\x05\x46ield\x12\x12\n\nminVersion\x18\x01 \x01(\r\x12\x12\n\nmaxVersion\x18\x02 \x01(\r\x12\x11\n\tisMessage\x18\x04 \x01(\x08\x12>\n\x08subfield\x18\x05 \x03(\x0b\x32,.WAWebProtobufsReporting.Field.SubfieldEntry\x1aO\n\rSubfieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\r\x12-\n\x05value\x18\x02 \x01(\x0b\x32\x1e.WAWebProtobufsReporting.Field:\x02\x38\x01\x42\'Z%go.mau.fi/whatsmeow/proto/waReportingb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -36,14 +36,12 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_CONFIG_FIELDENTRY']._serialized_options = b'8\001'
   _globals['_FIELD_SUBFIELDENTRY']._loaded_options = None
   _globals['_FIELD_SUBFIELDENTRY']._serialized_options = b'8\001'
-  _globals['_REPORTABLE']._serialized_start=70
-  _globals['_REPORTABLE']._serialized_end=170
-  _globals['_CONFIG']._serialized_start=173
-  _globals['_CONFIG']._serialized_end=335
-  _globals['_CONFIG_FIELDENTRY']._serialized_start=259
-  _globals['_CONFIG_FIELDENTRY']._serialized_end=335
-  _globals['_FIELD']._serialized_start=338
-  _globals['_FIELD']._serialized_end=582
-  _globals['_FIELD_SUBFIELDENTRY']._serialized_start=503
-  _globals['_FIELD_SUBFIELDENTRY']._serialized_end=582
+  _globals['_CONFIG']._serialized_start=71
+  _globals['_CONFIG']._serialized_end=216
+  _globals['_CONFIG_FIELDENTRY']._serialized_start=140
+  _globals['_CONFIG_FIELDENTRY']._serialized_end=216
+  _globals['_FIELD']._serialized_start=219
+  _globals['_FIELD']._serialized_end=430
+  _globals['_FIELD_SUBFIELDENTRY']._serialized_start=351
+  _globals['_FIELD_SUBFIELDENTRY']._serialized_end=430
 # @@protoc_insertion_point(module_scope)

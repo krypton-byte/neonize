@@ -3,6 +3,7 @@ package WAWebProtobufsHistorySync;
 option go_package = "go.mau.fi/whatsmeow/proto/waHistorySync";
 
 import "waSyncAction/WAWebProtobufSyncAction.proto";
+import "waAea/WAWebProtobufsAea.proto";
 import "waChatLockSettings/WAWebProtobufsChatLockSettings.proto";
 import "waE2E/WAWebProtobufsE2E.proto";
 import "waCommon/WACommon.proto";
@@ -34,6 +35,7 @@ message HistorySync {
 		PUSH_NAME = 4;
 		NON_BLOCKING_DATA = 5;
 		ON_DEMAND = 6;
+		RECENT_CONVERSATIONS_ON_DEMAND = 9;
 	}
 
 	required HistorySyncType syncType = 1;
@@ -56,6 +58,9 @@ message HistorySync {
 	optional bytes nctSalt = 19;
 	repeated InlineContact inlineContacts = 20;
 	optional bool inlineContactsProvided = 21;
+	repeated StickerMetadata favoriteStickers = 22;
+	optional OmittedConversationMetadata omittedConversationMetadata = 25;
+	optional string omittedConversationMetadataSnapshotID = 26;
 }
 
 message Conversation {
@@ -137,6 +142,25 @@ message Conversation {
 	optional string authAgentObaPhoneNumber = 62;
 	optional IdentityVerificationState identityVerification = 63;
 	optional WACommon.ACP2Setting acp2Setting = 64;
+	optional bool acp2HistoryWithheld = 65;
+	repeated GroupRootKey groupRootKeys = 66;
+	optional bool isWorkGroup = 67;
+	optional int32 nonE2EeType = 68;
+	optional WAWebProtobufsAea.NonE2EEAttestation.AccountType contactAccountEncryptionAttestationType = 69;
+}
+
+message Account {
+	enum PnLearnState {
+		UNSET = 0;
+		SHARED = 1;
+		HIDDEN = 2;
+	}
+
+	optional string lid = 1;
+	optional string username = 2;
+	optional string countryCode = 3;
+	optional bool isUsernameDeleted = 4;
+	optional PnLearnState pnLearnState = 6;
 }
 
 message GroupParticipant {
@@ -162,9 +186,24 @@ message PastParticipant {
 	optional uint64 leaveTS = 3;
 }
 
+message OmittedConversationMetadata {
+	optional string snapshotID = 1;
+	optional uint64 snapshotTimestampMS = 2;
+	optional uint32 batchIndex = 3;
+	optional uint32 batchCount = 4;
+	optional bool complete = 5;
+	repeated Conversation conversations = 6;
+}
+
 message IdentityVerificationState {
 	optional bool verified = 1;
 	optional uint64 actionSeq = 2;
+}
+
+message GroupRootKey {
+	optional string keyID = 1;
+	optional bytes rootKey = 2;
+	optional bool isCurrent = 3;
 }
 
 message PhoneNumberToLIDMapping {
@@ -178,13 +217,6 @@ message InlineContact {
 	optional string fullName = 3;
 	optional string firstName = 4;
 	optional string username = 5;
-}
-
-message Account {
-	optional string lid = 1;
-	optional string username = 2;
-	optional string countryCode = 3;
-	optional bool isUsernameDeleted = 4;
 }
 
 message HistorySyncMsg {

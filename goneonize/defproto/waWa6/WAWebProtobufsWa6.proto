@@ -159,6 +159,9 @@ message ClientPayload {
 			DESKTOP = 2;
 			WEARABLE = 3;
 			VR = 4;
+			SMART_DISPLAY = 5;
+			SMART_SPEAKER = 6;
+			AGENT = 7;
 		}
 
 		enum DistributionChannel {
@@ -217,6 +220,7 @@ message ClientPayload {
 			WAIL = 38;
 			WORK_ANDROID = 39;
 			WORK_IOS = 40;
+			AUTOMOTIVE = 41;
 		}
 
 		message AppVersion {
@@ -244,6 +248,11 @@ message ClientPayload {
 		optional DeviceType deviceType = 15;
 		optional string deviceModelType = 16;
 		optional DistributionChannel distributionChannel = 17;
+	}
+
+	message IntegrationAttestation {
+		optional string staticUnbound = 1;
+		optional string onlineSigned = 3;
 	}
 
 	message InteropData {
@@ -299,4 +308,6 @@ message ClientPayload {
 	optional int32 processingQueueSize = 46;
 	repeated string pairedPeripherals = 47;
 	optional bytes testIsolationID = 48;
+	optional int64 messageSts = 49;
+	optional IntegrationAttestation integrationAttestation = 50;
 }

@@ -245,13 +245,43 @@ message WebMessageInfo {
 		IDENTITY_TRUST_REVOKED = 228;
 		CTWA_CONSUMER_DISCLOSURE = 230;
 		CHANGE_ACP2_SETTING = 240;
+		BIZ_CALLBACK_DISABLED = 244;
 		BIZ_CALLBACK_ENABLED = 247;
 		EPHEMERAL_CHANGED_FOR_COEX = 248;
 		UGC_BOT_PROFILE_UPDATED = 249;
 		ORDER_EPHEMERAL_EXEMPTION = 250;
+		GROUP_DEFAULT_SUB_GROUP_DEMOTE = 251;
+		BIZ_BUSINESS_BROADCAST_ENTRY_POINT = 252;
+		BOT_INLINE_TOS_CHAT = 253;
 		CAMEO_CHAT_CREATED = 254;
-		CAMEO_TRANSITIONED = 256;
 		SENDER_SIDE_CONTACT_INFO = 255;
+		CAMEO_TRANSITIONED = 256;
+		CAMEO_REGISTERED_WITH_NEW_CHAT = 257;
+		PRIVACY_SYSTEM_MESSAGE = 258;
+		BIZ_AI_LEARNING_ENABLED_DISCLOSURE = 259;
+		BIZ_AI_LEARNING_DISABLED_DISCLOSURE = 260;
+		BIZ_AI_REPLIES_MUTED_HISTORICAL_CHAT = 261;
+		INVITE_FROM_IG = 262;
+		GROUP_ADMIN_FIRST_JOIN_VIA_LINK = 263;
+		GROUP_ADMIN_FLOOD_JOIN_VIA_LINK = 264;
+		BIZ_AI_REPLIES_MUTED_IRRELEVANT_HISTORICAL_CHAT = 265;
+		PENDING_INVITE_CREATED = 266;
+		CAMEO_CHAT_EXPIRED = 267;
+		GROUP_PUSHNAME_SHARED = 270;
+		BIZ_POST_SEND_OPT_OUT = 271;
+		BB_PRO_BROADCAST_CHAT_CARD = 272;
+		BOT_PROACTIVE_MESSAGE_ENABLED = 273;
+		BOT_PROACTIVE_MESSAGE_DISABLED = 274;
+		BOT_PROACTIVE_MESSAGE_FIRST_TIME = 275;
+		DYNAMIC_AUDIENCE_LIST_CREATE = 276;
+		DYNAMIC_AUDIENCE_LIST_UPDATE_LINK = 277;
+		CHAT_WITH_BUSINESS_IN_DIRECTORY = 283;
+		META_AI_THREAD_CREATED = 284;
+		META_AI_CONNECTOR_LINKED = 285;
+		SPLIT_PAYMENT_MARKED_AS_PAID = 289;
+		POLL_OPTIONS_REMOVED = 290;
+		POLL_ADDED_OPTION_REMOVED = 291;
+		GROUP_CUSTOM_REACTIONS = 293;
 	}
 
 	enum Status {
@@ -335,6 +365,8 @@ message WebMessageInfo {
 	optional ScheduledMessageMetadata scheduledMessageMetadata = 81;
 	optional string decisionID = 82;
 	repeated string decisionSources = 83;
+	optional EventInviteAdditionalMetadata eventInviteAdditionalMetadata = 84;
+	optional uint64 groupHistoryLastCountedMessageTimestamp = 85;
 }
 
 message PaymentInfo {
@@ -463,6 +495,71 @@ message WebFeatures {
 	optional Flag noDeleteMessageTimeLimit = 49;
 }
 
+message PollAdditionalMetadata {
+	message PollOptionReplayEntry {
+		enum Type {
+			UNKNOWN = 0;
+			EDIT = 1;
+			ADD = 2;
+			REVOKE = 3;
+		}
+
+		optional Type type = 1;
+		optional WACommon.MessageKey messageKey = 2;
+		optional int64 serverTimestampMS = 3;
+		optional int64 editTimestampMS = 4;
+		repeated bytes optionHashes = 5;
+		optional WACommon.MessageKey revokedMessageKey = 6;
+	}
+
+	message PollOptionReplayBase {
+		message Option {
+			optional bytes optionHash = 1;
+			optional int64 enteredTimestampMS = 2;
+			optional WACommon.MessageKey addMessageKey = 3;
+		}
+
+		optional int64 boundaryTimestampMS = 1;
+		optional int64 editTimestampMS = 2;
+		repeated Option options = 3;
+	}
+
+	message PollNameHashHistoryEntry {
+		optional string editStanzaID = 1;
+		optional bytes pollNameHash = 2;
+	}
+
+	optional bool pollInvalidated = 1;
+	repeated PollNameHashHistoryEntry pollNameHashHistory = 2;
+	repeated WAWebProtobufsE2E.PollCreationMessage.Option originalOptions = 3;
+	repeated PollOptionReplayEntry pollOptionReplayEntries = 4;
+	optional PollOptionReplayBase pollOptionReplayBase = 5;
+}
+
+message EventInviteAdditionalMetadata {
+	enum RsvpStatus {
+		RSVP_STATUS_UNKNOWN = 0;
+		GOING = 1;
+		NOT_GOING = 2;
+		MAYBE = 3;
+		NO_RESPONSE = 4;
+	}
+
+	enum AccessStatus {
+		ACCESS_STATUS_UNKNOWN = 0;
+		HAS_ACCESS = 1;
+		LEFT_EVENT = 2;
+		REMOVED_FROM_INVITE_LIST = 3;
+		UNAVAILABLE = 4;
+	}
+
+	optional bool isUpdated = 1;
+	optional AccessStatus selfAccessStatus = 2;
+	optional RsvpStatus selfRsvpStatus = 3;
+	optional uint32 selfAdditionalGuestCount = 4;
+	optional int64 selfInviteeLastUpdatedTSUsec = 5;
+}
+
 message PinInChat {
 	enum Type {
 		UNKNOWN_TYPE = 0;
@@ -484,6 +581,7 @@ message MessageAddOn {
 		EVENT_RESPONSE = 2;
 		POLL_UPDATE = 3;
 		PIN_IN_CHAT = 4;
+		REQUEST_LOCATION_UPDATE = 5;
 	}
 
 	optional MessageAddOnType messageAddOnType = 1;
@@ -573,16 +671,6 @@ message PollUpdate {
 	optional int64 serverTimestampMS = 4;
 	optional bool unread = 5;
 	optional WAWebProtobufsE2E.PollUpdateMessageMetadata metadata = 6;
-}
-
-message PollAdditionalMetadata {
-	message PollNameHashHistoryEntry {
-		optional string editStanzaID = 1;
-		optional bytes pollNameHash = 2;
-	}
-
-	optional bool pollInvalidated = 1;
-	repeated PollNameHashHistoryEntry pollNameHashHistory = 2;
 }
 
 message InteractiveMessageAdditionalMetadata {
