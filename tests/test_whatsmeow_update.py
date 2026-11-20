@@ -172,6 +172,32 @@ def test_message_star_event_is_registered():
     assert parsed.IsFromMe and parsed.Action.starred
 
 
+def test_chat_clear_event_is_registered():
+    from neonize.aioze import events as aio_events
+    from neonize.events import ChatClearEv
+    from neonize.proto.Neonize_pb2 import ChatClear
+    from neonize.proto.waSyncAction.WAWebProtobufSyncAction_pb2 import (
+        ClearChatAction,
+    )
+
+    assert EVENT_TO_INT[ChatClearEv] == 54
+    assert INT_TO_EVENT[54] is ChatClearEv
+    assert "ChatClearEv" in aio_events.__all__
+    assert aio_events.ChatClearEv is ChatClearEv
+
+    chat = JID(User="5551", RawAgent=0, Device=0, Integrator=0, Server="s.whatsapp.net")
+    evt = ChatClear(
+        JID=chat,
+        Timestamp=1792000000,
+        FromFullSync=False,
+        DeleteMedia=True,
+        Action=ClearChatAction(),
+    )
+    parsed = ChatClear.FromString(evt.SerializeToString())
+    assert parsed.JID.User == "5551" and parsed.Timestamp == 1792000000
+    assert parsed.DeleteMedia and not parsed.FromFullSync
+
+
 def test_app_state_repair_methods_exist():
     import inspect
 

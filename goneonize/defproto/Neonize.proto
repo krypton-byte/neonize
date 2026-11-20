@@ -950,6 +950,14 @@ message MessageStar { //53
     optional WAWebProtobufSyncAction.StarAction Action = 6;
     required bool FromFullSync = 7;
 }
+// Chat cleared on the phone, messages removed but chat kept (app state sync).
+message ChatClear { //54
+    required JID JID = 1;
+    required int64 Timestamp = 2;
+    optional WAWebProtobufSyncAction.ClearChatAction Action = 3;
+    required bool FromFullSync = 4;
+    required bool DeleteMedia = 5;
+}
 message UpdateGroupParticipantsReturnFunction {
     optional string Error = 1;
     repeated GroupParticipant participants = 2;
