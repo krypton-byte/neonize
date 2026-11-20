@@ -141,6 +141,10 @@ class ExtendedContentMessage(_message.Message):
         FB_PROFILE_DIRECTORY_ITEM: ExtendedContentMessage._ExtendedContentType.ValueType  # 1013
         FB_FEED_POST_REACTION_REPLY: ExtendedContentMessage._ExtendedContentType.ValueType  # 1014
         FB_QUICKSNAP_REPLY: ExtendedContentMessage._ExtendedContentType.ValueType  # 1015
+        MSG_STATUS_REPLY: ExtendedContentMessage._ExtendedContentType.ValueType  # 1016
+        FB_GROUP_POST: ExtendedContentMessage._ExtendedContentType.ValueType  # 1017
+        FB_DAILY_GAME_CHALLENGE: ExtendedContentMessage._ExtendedContentType.ValueType  # 1018
+        FB_QUICKSNAP_REACTION_REPLY: ExtendedContentMessage._ExtendedContentType.ValueType  # 1019
         MSG_EXTERNAL_LINK_SHARE: ExtendedContentMessage._ExtendedContentType.ValueType  # 2000
         MSG_P2P_PAYMENT: ExtendedContentMessage._ExtendedContentType.ValueType  # 2001
         MSG_LOCATION_SHARING: ExtendedContentMessage._ExtendedContentType.ValueType  # 2002
@@ -177,6 +181,10 @@ class ExtendedContentMessage(_message.Message):
         MSG_MOMENT_LINK: ExtendedContentMessage._ExtendedContentType.ValueType  # 2061
         MSG_HORIZON_WEEL: ExtendedContentMessage._ExtendedContentType.ValueType  # 2062
         MSG_MOMENT_ADDED: ExtendedContentMessage._ExtendedContentType.ValueType  # 2063
+        MSG_STORYTELLING_PROMPT: ExtendedContentMessage._ExtendedContentType.ValueType  # 2067
+        MSG_SUPERVISION_INVITE: ExtendedContentMessage._ExtendedContentType.ValueType  # 2068
+        MSG_SOCIAL_CUE_MLE: ExtendedContentMessage._ExtendedContentType.ValueType  # 2069
+        MSG_SOCIAL_CUE_POST: ExtendedContentMessage._ExtendedContentType.ValueType  # 2070
         RTC_AUDIO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3000
         RTC_VIDEO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3001
         RTC_MISSED_AUDIO_CALL: ExtendedContentMessage._ExtendedContentType.ValueType  # 3002
@@ -226,6 +234,10 @@ class ExtendedContentMessage(_message.Message):
     FB_PROFILE_DIRECTORY_ITEM: ExtendedContentMessage.ExtendedContentType.ValueType  # 1013
     FB_FEED_POST_REACTION_REPLY: ExtendedContentMessage.ExtendedContentType.ValueType  # 1014
     FB_QUICKSNAP_REPLY: ExtendedContentMessage.ExtendedContentType.ValueType  # 1015
+    MSG_STATUS_REPLY: ExtendedContentMessage.ExtendedContentType.ValueType  # 1016
+    FB_GROUP_POST: ExtendedContentMessage.ExtendedContentType.ValueType  # 1017
+    FB_DAILY_GAME_CHALLENGE: ExtendedContentMessage.ExtendedContentType.ValueType  # 1018
+    FB_QUICKSNAP_REACTION_REPLY: ExtendedContentMessage.ExtendedContentType.ValueType  # 1019
     MSG_EXTERNAL_LINK_SHARE: ExtendedContentMessage.ExtendedContentType.ValueType  # 2000
     MSG_P2P_PAYMENT: ExtendedContentMessage.ExtendedContentType.ValueType  # 2001
     MSG_LOCATION_SHARING: ExtendedContentMessage.ExtendedContentType.ValueType  # 2002
@@ -262,6 +274,10 @@ class ExtendedContentMessage(_message.Message):
     MSG_MOMENT_LINK: ExtendedContentMessage.ExtendedContentType.ValueType  # 2061
     MSG_HORIZON_WEEL: ExtendedContentMessage.ExtendedContentType.ValueType  # 2062
     MSG_MOMENT_ADDED: ExtendedContentMessage.ExtendedContentType.ValueType  # 2063
+    MSG_STORYTELLING_PROMPT: ExtendedContentMessage.ExtendedContentType.ValueType  # 2067
+    MSG_SUPERVISION_INVITE: ExtendedContentMessage.ExtendedContentType.ValueType  # 2068
+    MSG_SOCIAL_CUE_MLE: ExtendedContentMessage.ExtendedContentType.ValueType  # 2069
+    MSG_SOCIAL_CUE_POST: ExtendedContentMessage.ExtendedContentType.ValueType  # 2070
     RTC_AUDIO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3000
     RTC_VIDEO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3001
     RTC_MISSED_AUDIO_CALL: ExtendedContentMessage.ExtendedContentType.ValueType  # 3002

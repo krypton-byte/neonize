@@ -47,6 +47,7 @@ enum PeerDataOperationRequestType {
 	BUSINESS_BROADCAST_INSIGHTS_DELIVERED_TO = 12;
 	BUSINESS_BROADCAST_INSIGHTS_REFRESH = 13;
 	CONTACT_REFRESH_REQUEST = 14;
+	RECENT_CONVERSATIONS_ON_DEMAND_REQUEST = 15;
 }
 
 enum HistorySyncType {
@@ -59,6 +60,7 @@ enum HistorySyncType {
 	ON_DEMAND = 6;
 	NO_HISTORY = 7;
 	MESSAGE_ACCESS_STATUS = 8;
+	RECENT_CONVERSATIONS_ON_DEMAND = 9;
 }
 
 enum MediaKeyDomain {
@@ -331,6 +333,58 @@ message SecretEncryptedMessage {
 	optional string remoteKeyID = 5;
 }
 
+message VpcRequestMessage {
+	enum ScopeHint {
+		UNKNOWN = 0;
+		WA_ONLY = 1;
+		WAFFLE = 2;
+		WA_META_AI = 3;
+		META_AI_ONLY = 4;
+		FOA_ONLY = 5;
+	}
+
+	optional uint32 payloadSchemaVersion = 1;
+	optional string requestID = 2;
+	optional ScopeHint scopeHint = 3;
+}
+
+message RequestLocationUpdateMessage {
+	enum UpdateType {
+		UNKNOWN = 0;
+		CANCEL = 1;
+	}
+
+	optional WACommon.MessageKey key = 1;
+	optional UpdateType updateType = 2;
+	optional int64 senderTimestampMS = 3;
+}
+
+message EventInviteMessage {
+	enum EventStatus {
+		UNKNOWN = 0;
+		ACTIVE = 1;
+		CANCELED = 2;
+		SUSPENDED = 3;
+		DELETED = 4;
+		LEFT_EVENT = 5;
+		REMOVED_FROM_INVITE_LIST = 6;
+	}
+
+	optional ContextInfo contextInfo = 1;
+	optional string eventID = 2;
+	optional string eventTitle = 3;
+	optional bytes JPEGThumbnail = 4;
+	optional int64 startTime = 5;
+	optional string caption = 6;
+	optional bool isCanceled = 7;
+	optional int64 endTime = 8;
+	optional string callLink = 9;
+	optional string coverImageHandle = 10;
+	optional string locationName = 11;
+	optional int64 lastUpdatedTSUsec = 12;
+	optional EventStatus status = 13;
+}
+
 message GroupInviteMessage {
 	enum GroupType {
 		DEFAULT = 0;
@@ -568,6 +622,27 @@ message StatusQuotedMessage {
 	optional string text = 2;
 	optional bytes thumbnail = 3;
 	optional WACommon.MessageKey originalStatusID = 4;
+}
+
+message PaymentDetailsMessage {
+	enum Status {
+		STATUS_UNKNOWN = 0;
+		SUCCESS = 1;
+	}
+
+	enum ServiceType {
+		UNKNOWN = 0;
+		UPI = 1;
+	}
+
+	optional ServiceType serviceType = 1;
+	optional Money amount = 2;
+	optional string payeeName = 3;
+	optional string payerName = 4;
+	optional int64 transactionTimestampMS = 5;
+	optional string transactionID = 6;
+	optional Status status = 7;
+	optional ContextInfo contextInfo = 17;
 }
 
 message SplitPaymentParticipant {
@@ -846,6 +921,27 @@ message PeerDataOperationRequestMessage {
 		optional string agmID = 5;
 	}
 
+	message HistorySyncOnDemandRequest {
+		enum Mode {
+			MODE_UNSPECIFIED = 0;
+			INITIAL_REVERSE_HISTORY = 1;
+		}
+
+		optional string chatJID = 1;
+		optional string oldestMsgID = 2;
+		optional bool oldestMsgFromMe = 3;
+		optional int32 onDemandMsgCount = 4;
+		optional int64 oldestMsgTimestampMS = 5;
+		optional string accountLid = 6;
+		optional bool supportInlineResponse = 7;
+		optional Mode mode = 8;
+	}
+
+	message RecentConversationsOnDemandRequest {
+		optional uint32 conversationCount = 1;
+		optional uint32 messagesPerConversation = 2;
+	}
+
 	message BizBroadcastInsightsRefreshRequest {
 		optional string campaignID = 1;
 	}
@@ -880,16 +976,6 @@ message PeerDataOperationRequestMessage {
 		optional FullHistorySyncOnDemandConfig fullHistorySyncOnDemandConfig = 3;
 	}
 
-	message HistorySyncOnDemandRequest {
-		optional string chatJID = 1;
-		optional string oldestMsgID = 2;
-		optional bool oldestMsgFromMe = 3;
-		optional int32 onDemandMsgCount = 4;
-		optional int64 oldestMsgTimestampMS = 5;
-		optional string accountLid = 6;
-		optional bool supportInlineResponse = 7;
-	}
-
 	message RequestUrlPreview {
 		optional string URL = 1;
 		optional bool includeHqThumbnail = 2;
@@ -911,6 +997,7 @@ message PeerDataOperationRequestMessage {
 	optional CompanionCanonicalUserNonceFetchRequest companionCanonicalUserNonceFetchRequest = 10;
 	optional BizBroadcastInsightsContactListRequest bizBroadcastInsightsContactListRequest = 11;
 	optional BizBroadcastInsightsRefreshRequest bizBroadcastInsightsRefreshRequest = 12;
+	optional RecentConversationsOnDemandRequest recentConversationsOnDemandRequest = 13;
 }
 
 message SharedDeviceContactHashKey {
@@ -978,6 +1065,9 @@ message ProtocolMessage {
 		ACP2_SETTING = 39;
 		SHARED_DEVICE_CONTACT_HASH_KEY_SHARE = 40;
 		SHARED_DEVICE_CONTACT_HASH_KEY_REQUEST = 41;
+		GROUP_ROOT_KEY_REQUEST = 42;
+		MEMBERSHIP_FORM_KEY_FINGERPRINT_VERIFICATION = 43;
+		GROUP_ROOT_KEY_SHARE = 44;
 	}
 
 	optional WACommon.MessageKey key = 1;
@@ -1013,6 +1103,10 @@ message ProtocolMessage {
 	optional WACommon.ACP2Setting acp2Setting = 35;
 	optional SharedDeviceContactHashKeyShare sharedDeviceContactHashKeyShare = 36;
 	optional SharedDeviceContactHashKeyRequest sharedDeviceContactHashKeyRequest = 37;
+	repeated string additionalPromptIDs = 38;
+	optional GroupRootKeyRequest groupRootKeyRequest = 39;
+	optional MembershipFormKeyFingerprintVerification membershipFormKeyFingerprintVerification = 40;
+	optional GroupRootKeyShare groupRootKeyShare = 41;
 }
 
 message CloudAPIThreadControlNotification {
@@ -1087,6 +1181,26 @@ message MusicMessage {
 	enum MusicMessageStyle {
 		UNKNOWN = 0;
 		VINYL = 1;
+		MESSAGE_BUBBLE = 2;
+		LYRICS = 3;
+	}
+
+	message Lyrics {
+		message Line {
+			message WordOffset {
+				optional int32 startIndex = 1;
+				optional int32 endIndex = 2;
+				optional int64 startOffsetMS = 3;
+				optional int64 endOffsetMS = 4;
+			}
+
+			optional int64 startTimeInMS = 1;
+			optional int64 endTimeInMS = 2;
+			optional string text = 3;
+			repeated WordOffset wordOffsets = 4;
+		}
+
+		repeated Line lines = 1;
 	}
 
 	optional EmbeddedMusic embeddedMusic = 1;
@@ -1094,6 +1208,7 @@ message MusicMessage {
 	optional string artworkUri = 3;
 	optional int32 style = 4;
 	optional ContextInfo contextInfo = 5;
+	optional Lyrics lyrics = 6;
 }
 
 message ExtendedTextMessage {
@@ -1177,6 +1292,7 @@ message LinkPreviewMetadata {
 	optional string videoContentURL = 7;
 	optional EmbeddedMusic musicMetadata = 8;
 	optional string videoContentCaption = 9;
+	optional string videoID = 10;
 }
 
 message PaymentLinkMetadata {
@@ -1314,6 +1430,12 @@ message ContextInfo {
 		MOTION_PHOTO_CHILD = 6;
 		HEVC_VIDEO_PARENT = 7;
 		HEVC_VIDEO_CHILD = 8;
+		AV1_VIDEO_PARENT = 9;
+		AV1_VIDEO_CHILD = 10;
+		STREAMED_VIDEO_PARENT = 11;
+		STREAMED_VIDEO_CHILD = 12;
+		ORIGINAL_VIDEO_CHILD = 13;
+		ORIGINAL_IMAGE_CHILD = 14;
 	}
 
 	enum StatusAttributionType {
@@ -1379,11 +1501,14 @@ message ContextInfo {
 		enum AudienceType {
 			UNKNOWN = 0;
 			CLOSE_FRIENDS = 1;
+			CUSTOM_LIST = 2;
+			ORG = 3;
 		}
 
 		optional AudienceType audienceType = 1;
 		optional string listName = 2;
 		optional string listEmoji = 3;
+		optional string orgID = 4;
 	}
 
 	message DataSharingContext {
@@ -1466,6 +1591,14 @@ message ContextInfo {
 		optional int32 agmSubtitleStrategy = 31;
 		optional int32 agmHeaderInteractionStrategy = 32;
 		optional bool containsCtwaFlowsAutoLabel = 33;
+		optional string productID = 34;
+		optional bool containsCtwaPromo = 35;
+		optional string ctwaPromoResponseID = 36;
+		optional string ctwaPromoOfferID = 37;
+		optional string ctwaPromoAdEntryID = 38;
+		optional uint64 ctwaPromoResponseExpiresAtSeconds = 39;
+		optional uint32 ctwaPromoSchemaVersion = 40;
+		optional string ctwaPromoAdgroupID = 41;
 	}
 
 	message AdReplyInfo {
@@ -1578,6 +1711,10 @@ message ContextInfo {
 	optional WAWebProtobufsAICommon.AIProvenance aiProvenance = 81;
 	repeated uint32 experienceIDs = 82 [packed=true];
 	optional string partnerDeepLinkToken = 83;
+	optional uint32 sourceExperienceID = 84;
+	repeated uint32 sourceExperienceIDs = 85 [packed=true];
+	optional bytes foaMutualsSignature = 86;
+	optional fixed32 forwardReachScore = 87;
 }
 
 message MessageAssociation {
@@ -1603,6 +1740,10 @@ message MessageAssociation {
 		STATUS_REACTION = 18;
 		HEVC_VIDEO_DUAL_UPLOAD = 19;
 		POLL_ADD_OPTION = 20;
+		AV1_VIDEO_DUAL_UPLOAD = 21;
+		STREAMED_HD_VIDEO_DUAL_UPLOAD = 22;
+		ORIGINAL_VIDEO_DUAL_UPLOAD = 23;
+		ORIGINAL_IMAGE_DUAL_UPLOAD = 24;
 	}
 
 	optional AssociationType associationType = 1;
@@ -1648,6 +1789,7 @@ message MessageContextInfo {
 	optional bytes associatedPrimaryIdentityKey = 19;
 	optional string teeContextAnchorMessageID = 20;
 	optional WACommon.ACP2Setting acp2Setting = 21;
+	optional bool lightE2Ee = 22;
 }
 
 message InteractiveAnnotation {
@@ -1884,6 +2026,13 @@ message Message {
 	optional FutureProofMessage newsletterScheduledMessage = 132;
 	optional FutureProofMessage acp2SettingMessage = 133;
 	optional FutureProofMessage audioStickerMessage = 134;
+	optional ImageMessage instantImageMessage = 135;
+	optional RequestLocationMessage requestLocationMessage = 136;
+	optional FutureProofMessage botGroupParticipantMessage = 137;
+	optional RequestLocationUpdateMessage requestLocationUpdateMessage = 138;
+	optional VpcRequestMessage vpcRequestMessage = 139;
+	optional VideoMessage instantVideoMessage = 140;
+	optional PaymentDetailsMessage paymentDetailsMessage = 141;
 }
 
 message AlbumMessage {
@@ -2064,20 +2213,12 @@ message DeviceSentMessage {
 	optional string phash = 3;
 }
 
-message RequestPhoneNumberMessage {
+message RequestLocationMessage {
 	optional ContextInfo contextInfo = 1;
 }
 
-message EventInviteMessage {
+message RequestPhoneNumberMessage {
 	optional ContextInfo contextInfo = 1;
-	optional string eventID = 2;
-	optional string eventTitle = 3;
-	optional bytes JPEGThumbnail = 4;
-	optional int64 startTime = 5;
-	optional string caption = 6;
-	optional bool isCanceled = 7;
-	optional int64 endTime = 8;
-	optional string callLink = 9;
 }
 
 message NewsletterFollowerInviteMessage {
@@ -2278,6 +2419,12 @@ message FullHistorySyncOnDemandRequestMetadata {
 	optional string requestID = 1;
 	optional string businessProduct = 2;
 	optional bytes opaqueClientData = 3;
+	optional CoexConnectionDescriptor connection = 4;
+}
+
+message CoexConnectionDescriptor {
+	optional int64 providerID = 1;
+	optional string product = 2;
 }
 
 message AppStateFatalExceptionNotification {
@@ -2355,9 +2502,11 @@ message ChatStockImageWallpaper {
 }
 
 message ChatSolidColorWallpaper {
-	optional string colorLight = 1;
-	optional string colorDark = 2;
+	optional fixed32 backgroundLightArgb = 1;
+	optional fixed32 backgroundDarkArgb = 2;
 	optional bool isDoodleEnabled = 3;
+	optional fixed32 doodleLightArgb = 4;
+	optional fixed32 doodleDarkArgb = 5;
 }
 
 message ChatDefaultWallpaper {
@@ -2454,6 +2603,7 @@ message DocumentMessage {
 	optional uint32 thumbnailWidth = 19;
 	optional string caption = 20;
 	optional string accessibilityLabel = 21;
+	optional string qrURL = 23;
 }
 
 message URLMetadata {
@@ -2648,6 +2798,7 @@ message UrlTrackingMap {
 message MemberLabel {
 	optional string label = 1;
 	optional int64 labelTimestamp = 2;
+	optional bool showAdminBadge = 3;
 }
 
 message AIRichResponseMessage {
@@ -2673,4 +2824,14 @@ message GroupRootKeyShareEntry {
 	optional string keyID = 2;
 	optional int64 expiryTimestampMS = 3;
 	optional int64 createdTimestampMS = 4;
+}
+
+message MembershipFormKeyFingerprintVerification {
+	optional string requestID = 1;
+	optional string keyID = 2;
+	optional bytes keyFingerprint = 3;
+}
+
+message GroupRootKeyRequest {
+	optional string keyID = 1;
 }

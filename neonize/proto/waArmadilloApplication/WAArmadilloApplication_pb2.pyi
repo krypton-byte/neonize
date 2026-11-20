@@ -727,6 +727,75 @@ class Armadillo(_message.Message):
             def WhichOneof(self, oneof_group: _Never) -> None: ...
 
         @_typing.final
+        class HomebaseSharingControl(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
+
+            class _HomebaseSharingControlReason:
+                ValueType = _typing.NewType("ValueType", _builtins.int)
+                V: _TypeAlias = ValueType  # noqa: Y015
+
+            class _HomebaseSharingControlReasonEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlReason.ValueType], _builtins.type):
+                DESCRIPTOR: _descriptor.EnumDescriptor
+                REASON_UNSPECIFIED: Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlReason.ValueType  # 0
+                AUTHORIZE_NEWLY_ENABLED: Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlReason.ValueType  # 1
+                AUTHORIZE_REAUTHORIZED: Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlReason.ValueType  # 2
+                REVOKE_USER_REQUESTED: Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlReason.ValueType  # 3
+                REVOKE_STATE_LOST: Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlReason.ValueType  # 4
+                REVOKE_DISAPPEARING_MESSAGES_ENABLED: Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlReason.ValueType  # 5
+                REVOKE_MESSAGE_SHARING_PERMISSIONS_DISABLED: Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlReason.ValueType  # 6
+                REVOKE_FEATURE_TURNED_OFF: Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlReason.ValueType  # 7
+
+            class HomebaseSharingControlReason(_HomebaseSharingControlReason, metaclass=_HomebaseSharingControlReasonEnumTypeWrapper): ...
+            REASON_UNSPECIFIED: Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlReason.ValueType  # 0
+            AUTHORIZE_NEWLY_ENABLED: Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlReason.ValueType  # 1
+            AUTHORIZE_REAUTHORIZED: Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlReason.ValueType  # 2
+            REVOKE_USER_REQUESTED: Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlReason.ValueType  # 3
+            REVOKE_STATE_LOST: Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlReason.ValueType  # 4
+            REVOKE_DISAPPEARING_MESSAGES_ENABLED: Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlReason.ValueType  # 5
+            REVOKE_MESSAGE_SHARING_PERMISSIONS_DISABLED: Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlReason.ValueType  # 6
+            REVOKE_FEATURE_TURNED_OFF: Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlReason.ValueType  # 7
+
+            class _HomebaseSharingControlOperation:
+                ValueType = _typing.NewType("ValueType", _builtins.int)
+                V: _TypeAlias = ValueType  # noqa: Y015
+
+            class _HomebaseSharingControlOperationEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlOperation.ValueType], _builtins.type):
+                DESCRIPTOR: _descriptor.EnumDescriptor
+                OPERATION_UNSPECIFIED: Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlOperation.ValueType  # 0
+                AUTHORIZE: Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlOperation.ValueType  # 1
+                REVOKE: Armadillo.Content.HomebaseSharingControl._HomebaseSharingControlOperation.ValueType  # 2
+
+            class HomebaseSharingControlOperation(_HomebaseSharingControlOperation, metaclass=_HomebaseSharingControlOperationEnumTypeWrapper): ...
+            OPERATION_UNSPECIFIED: Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlOperation.ValueType  # 0
+            AUTHORIZE: Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlOperation.ValueType  # 1
+            REVOKE: Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlOperation.ValueType  # 2
+
+            PROTOCOLVERSION_FIELD_NUMBER: _builtins.int
+            OPERATION_FIELD_NUMBER: _builtins.int
+            REASON_FIELD_NUMBER: _builtins.int
+            AUTHORIZATIONEPOCHID_FIELD_NUMBER: _builtins.int
+            MESSAGELIMIT_FIELD_NUMBER: _builtins.int
+            protocolVersion: _builtins.int
+            operation: Global___Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlOperation.ValueType
+            reason: Global___Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlReason.ValueType
+            authorizationEpochID: _builtins.str
+            messageLimit: _builtins.int
+            def __init__(
+                self,
+                *,
+                protocolVersion: _builtins.int | None = ...,
+                operation: Global___Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlOperation.ValueType | None = ...,
+                reason: Global___Armadillo.Content.HomebaseSharingControl.HomebaseSharingControlReason.ValueType | None = ...,
+                authorizationEpochID: _builtins.str | None = ...,
+                messageLimit: _builtins.int | None = ...,
+            ) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["authorizationEpochID", b"authorizationEpochID", "messageLimit", b"messageLimit", "operation", b"operation", "protocolVersion", b"protocolVersion", "reason", b"reason"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["authorizationEpochID", b"authorizationEpochID", "messageLimit", b"messageLimit", "operation", b"operation", "protocolVersion", b"protocolVersion", "reason", b"reason"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+        @_typing.final
         class ScreenshotAction(_message.Message):
             DESCRIPTOR: _descriptor.Descriptor
 
@@ -911,6 +980,7 @@ class Armadillo(_message.Message):
         NOTEREPLYMESSAGE_FIELD_NUMBER: _builtins.int
         RAVENMESSAGEMSGR_FIELD_NUMBER: _builtins.int
         NETWORKVERIFICATIONMESSAGE_FIELD_NUMBER: _builtins.int
+        HOMEBASESHARINGCONTROL_FIELD_NUMBER: _builtins.int
         @_builtins.property
         def commonSticker(self) -> Global___Armadillo.Content.CommonSticker: ...
         @_builtins.property
@@ -935,6 +1005,8 @@ class Armadillo(_message.Message):
         def ravenMessageMsgr(self) -> Global___Armadillo.Content.RavenMessage: ...
         @_builtins.property
         def networkVerificationMessage(self) -> Global___Armadillo.Content.NetworkVerificationMessage: ...
+        @_builtins.property
+        def homebaseSharingControl(self) -> Global___Armadillo.Content.HomebaseSharingControl: ...
         def __init__(
             self,
             *,
@@ -950,12 +1022,13 @@ class Armadillo(_message.Message):
             noteReplyMessage: Global___Armadillo.Content.NoteReplyMessage | None = ...,
             ravenMessageMsgr: Global___Armadillo.Content.RavenMessage | None = ...,
             networkVerificationMessage: Global___Armadillo.Content.NetworkVerificationMessage | None = ...,
+            homebaseSharingControl: Global___Armadillo.Content.HomebaseSharingControl | None = ...,
         ) -> None: ...
-        _HasFieldArgType: _TypeAlias = _typing.Literal["bumpExistingMessage", b"bumpExistingMessage", "commonSticker", b"commonSticker", "content", b"content", "extendedContentMessage", b"extendedContentMessage", "extendedMessageContentWithSear", b"extendedMessageContentWithSear", "imageGalleryMessage", b"imageGalleryMessage", "networkVerificationMessage", b"networkVerificationMessage", "noteReplyMessage", b"noteReplyMessage", "paymentsTransactionMessage", b"paymentsTransactionMessage", "ravenActionNotifMessage", b"ravenActionNotifMessage", "ravenMessage", b"ravenMessage", "ravenMessageMsgr", b"ravenMessageMsgr", "screenshotAction", b"screenshotAction"]  # noqa: Y015
+        _HasFieldArgType: _TypeAlias = _typing.Literal["bumpExistingMessage", b"bumpExistingMessage", "commonSticker", b"commonSticker", "content", b"content", "extendedContentMessage", b"extendedContentMessage", "extendedMessageContentWithSear", b"extendedMessageContentWithSear", "homebaseSharingControl", b"homebaseSharingControl", "imageGalleryMessage", b"imageGalleryMessage", "networkVerificationMessage", b"networkVerificationMessage", "noteReplyMessage", b"noteReplyMessage", "paymentsTransactionMessage", b"paymentsTransactionMessage", "ravenActionNotifMessage", b"ravenActionNotifMessage", "ravenMessage", b"ravenMessage", "ravenMessageMsgr", b"ravenMessageMsgr", "screenshotAction", b"screenshotAction"]  # noqa: Y015
         def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-        _ClearFieldArgType: _TypeAlias = _typing.Literal["bumpExistingMessage", b"bumpExistingMessage", "commonSticker", b"commonSticker", "content", b"content", "extendedContentMessage", b"extendedContentMessage", "extendedMessageContentWithSear", b"extendedMessageContentWithSear", "imageGalleryMessage", b"imageGalleryMessage", "networkVerificationMessage", b"networkVerificationMessage", "noteReplyMessage", b"noteReplyMessage", "paymentsTransactionMessage", b"paymentsTransactionMessage", "ravenActionNotifMessage", b"ravenActionNotifMessage", "ravenMessage", b"ravenMessage", "ravenMessageMsgr", b"ravenMessageMsgr", "screenshotAction", b"screenshotAction"]  # noqa: Y015
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["bumpExistingMessage", b"bumpExistingMessage", "commonSticker", b"commonSticker", "content", b"content", "extendedContentMessage", b"extendedContentMessage", "extendedMessageContentWithSear", b"extendedMessageContentWithSear", "homebaseSharingControl", b"homebaseSharingControl", "imageGalleryMessage", b"imageGalleryMessage", "networkVerificationMessage", b"networkVerificationMessage", "noteReplyMessage", b"noteReplyMessage", "paymentsTransactionMessage", b"paymentsTransactionMessage", "ravenActionNotifMessage", b"ravenActionNotifMessage", "ravenMessage", b"ravenMessage", "ravenMessageMsgr", b"ravenMessageMsgr", "screenshotAction", b"screenshotAction"]  # noqa: Y015
         def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
-        _WhichOneofReturnType_content: _TypeAlias = _typing.Literal["commonSticker", "screenshotAction", "extendedContentMessage", "ravenMessage", "ravenActionNotifMessage", "extendedMessageContentWithSear", "imageGalleryMessage", "paymentsTransactionMessage", "bumpExistingMessage", "noteReplyMessage", "ravenMessageMsgr", "networkVerificationMessage"]  # noqa: Y015
+        _WhichOneofReturnType_content: _TypeAlias = _typing.Literal["commonSticker", "screenshotAction", "extendedContentMessage", "ravenMessage", "ravenActionNotifMessage", "extendedMessageContentWithSear", "imageGalleryMessage", "paymentsTransactionMessage", "bumpExistingMessage", "noteReplyMessage", "ravenMessageMsgr", "networkVerificationMessage", "homebaseSharingControl"]  # noqa: Y015
         _WhichOneofArgType_content: _TypeAlias = _typing.Literal["content", b"content"]  # noqa: Y015
         def WhichOneof(self, oneof_group: _WhichOneofArgType_content) -> _WhichOneofReturnType_content | None: ...
 

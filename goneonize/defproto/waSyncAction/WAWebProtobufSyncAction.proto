@@ -106,6 +106,11 @@ enum MutationProps {
 	SHARED_DEVICE_ALLOWLIST_ACTION = 94;
 	CONTACT_MANAGER_METADATA_ACTION = 95;
 	BUSINESS_FOLDER_ACTIVATION_ACTION = 96;
+	GROUP_HISTORY_TOGGLE_ACTION = 97;
+	BB_PRO_PENDING_CUSTOMER_BASE_ACTION = 98;
+	COMMUNITY_NESTING_STATE_ACTION = 99;
+	SHARED_DEVICE_SECRET_ACTION = 100;
+	HATCH_CVM_SECRET_ACTION = 101;
 	SHARE_OWN_PN = 10001;
 	BUSINESS_BROADCAST_ACTION = 10002;
 	AI_THREAD_DELETE_ACTION = 10003;
@@ -163,6 +168,11 @@ message CallLogRecord {
 	message ParticipantInfo {
 		optional string userJID = 1;
 		optional CallResult callResult = 2;
+		optional GuestInfo guestInfo = 3;
+	}
+
+	message GuestInfo {
+		optional string pushName = 1;
 	}
 
 	optional CallResult callResult = 1;
@@ -182,6 +192,26 @@ message CallLogRecord {
 	optional CallType callType = 15;
 }
 
+message CommunityNestingStateAction {
+	enum NestingState {
+		PLATFORM_DEFAULT = 0;
+		NESTED = 1;
+		UNNESTED = 2;
+	}
+
+	optional NestingState nestingState = 1;
+}
+
+message GroupHistoryToggleAction {
+	enum GroupHistoryToggleMode {
+		GROUP_HISTORY_TOGGLE_MODE_UNKNOWN = 0;
+		GROUP_HISTORY_TOGGLE_MODE_ON = 1;
+		GROUP_HISTORY_TOGGLE_MODE_OFF = 2;
+	}
+
+	optional GroupHistoryToggleMode groupHistoryToggleMode = 1;
+}
+
 message WASARootSecretAction {
 	message RootSecretEntry {
 		enum Status {
@@ -199,6 +229,13 @@ message WASARootSecretAction {
 }
 
 message SettingsSyncAction {
+	enum MediaAutoDownloadQualitySetting {
+		MEDIA_AUTO_DOWNLOAD_QUALITY_UNKNOWN = 0;
+		MEDIA_AUTO_DOWNLOAD_QUALITY_STANDARD = 1;
+		MEDIA_AUTO_DOWNLOAD_QUALITY_HD = 2;
+		MEDIA_AUTO_DOWNLOAD_QUALITY_AUTO = 3;
+	}
+
 	enum MediaQualitySetting {
 		MEDIA_QUALITY_UNKNOWN = 0;
 		STANDARD = 1;
@@ -248,6 +285,7 @@ message SettingsSyncAction {
 		CHAT_THEME_ID = 32;
 		COLOR_SCHEME_ID = 33;
 		STOCK_WALLPAPER_IMAGE_ID = 34;
+		MEDIA_AUTO_DOWNLOAD_QUALITY = 35;
 	}
 
 	enum SettingPlatform {
@@ -292,6 +330,7 @@ message SettingsSyncAction {
 	optional string chatThemeID = 32;
 	optional string colorSchemeID = 33;
 	optional string stockWallpaperImageID = 34;
+	optional MediaAutoDownloadQualitySetting mediaAutoDownloadQuality = 35;
 }
 
 message InteractiveMessageAction {
@@ -482,6 +521,7 @@ message LabelEditAction {
 		MENTIONS_AND_REPLIES = 17;
 		REQUESTS = 18;
 		BUSINESS = 19;
+		ONE_ON_ONE = 20;
 	}
 
 	optional string name = 1;
@@ -616,6 +656,11 @@ enum MutationName {
 	SHARED_DEVICE_ALLOWLIST_ACTION = shared_device_allowlist;
 	CONTACT_MANAGER_METADATA_ACTION = contact_manager_metadata;
 	BUSINESS_FOLDER_ACTIVATION_ACTION = business_folder_activation;
+	GROUP_HISTORY_TOGGLE_ACTION = group_history_toggle;
+	BB_PRO_PENDING_CUSTOMER_BASE_ACTION = bb_pro_pending_customer_base_action;
+	COMMUNITY_NESTING_STATE_ACTION = community_nesting_state;
+	SHARED_DEVICE_SECRET_ACTION = shared_device_secret;
+	HATCH_CVM_SECRET_ACTION = hatch_cvm_secret;
 	SHARE_OWN_PN = shareOwnPn;
 	BUSINESS_BROADCAST_ACTION = broadcast;
 	AI_THREAD_DELETE_ACTION = ai_thread_delete;
@@ -730,6 +775,15 @@ message SyncActionValue {
 	optional SharedDeviceAllowlistAction sharedDeviceAllowlistAction = 94;
 	optional ContactManagerMetadataAction contactManagerMetadataAction = 95;
 	optional BusinessFolderActivationAction businessFolderActivationAction = 96;
+	optional GroupHistoryToggleAction groupHistoryToggleAction = 97;
+	optional BBProPendingCustomerBaseAction bbProPendingCustomerBaseAction = 98;
+	optional CommunityNestingStateAction communityNestingStateAction = 99;
+	optional SharedDeviceSecretAction sharedDeviceSecretAction = 100;
+	optional HatchCVMSecretAction hatchCvmSecretAction = 101;
+}
+
+message BBProPendingCustomerBaseAction {
+	optional bool pending = 1;
 }
 
 message BusinessFolderActivationAction {
@@ -738,6 +792,11 @@ message BusinessFolderActivationAction {
 
 message CtwaMessageReceivedAction {
 	optional bool isCtwaMessageReceived = 1;
+}
+
+message HatchCVMSecretAction {
+	optional bytes secret = 1;
+	optional int64 generation = 2;
 }
 
 message CoexV2VersionAction {
@@ -858,6 +917,7 @@ message LidContactAction {
 	optional string fullName = 1;
 	optional string firstName = 2;
 	optional string username = 3;
+	optional string birthday = 4;
 }
 
 message FavoritesAction {
@@ -1106,6 +1166,11 @@ message MuteAction {
 	optional int64 muteEveryoneMentionEndTimestamp = 4;
 }
 
+message SharedDeviceSecretAction {
+	optional bytes secret = 1;
+	optional int64 ttlMS = 2;
+}
+
 message SharedDeviceAllowlistAction {
 	optional bool allowed = 1;
 }
@@ -1117,6 +1182,7 @@ message ContactAction {
 	optional bool saveOnPrimaryAddressbook = 4;
 	optional string pnJID = 5;
 	optional string username = 6;
+	optional string birthday = 7;
 }
 
 message StarAction {

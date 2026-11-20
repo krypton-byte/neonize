@@ -76,6 +76,8 @@ class _BotMetricsEntryPointEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_
     NEW_CHAT_LIST: _BotMetricsEntryPoint.ValueType  # 56
     CONTACTS_TAB: _BotMetricsEntryPoint.ValueType  # 57
     NEW_3P_AGENT_CREATION: _BotMetricsEntryPoint.ValueType  # 58
+    SHARE: _BotMetricsEntryPoint.ValueType  # 59
+    BIRTHDAY_BANNER: _BotMetricsEntryPoint.ValueType  # 60
 
 class BotMetricsEntryPoint(_BotMetricsEntryPoint, metaclass=_BotMetricsEntryPointEnumTypeWrapper): ...
 
@@ -129,6 +131,8 @@ CHATLIST_SEARCH: BotMetricsEntryPoint.ValueType  # 55
 NEW_CHAT_LIST: BotMetricsEntryPoint.ValueType  # 56
 CONTACTS_TAB: BotMetricsEntryPoint.ValueType  # 57
 NEW_3P_AGENT_CREATION: BotMetricsEntryPoint.ValueType  # 58
+SHARE: BotMetricsEntryPoint.ValueType  # 59
+BIRTHDAY_BANNER: BotMetricsEntryPoint.ValueType  # 60
 Global___BotMetricsEntryPoint: _TypeAlias = BotMetricsEntryPoint  # noqa: Y015
 
 class _BotMetricsThreadEntryPoint:
@@ -883,6 +887,24 @@ class BotCapabilityMetadata(_message.Message):
         AI_RICH_RESPONSE_REMINDERS_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 69
         AI_STOP_GENERATION_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 70
         AI_RICH_RESPONSE_3P_LINKING_CARD_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 71
+        HATCH_NOTIFICATION_METADATA_EVENT_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 72
+        AI_SUGGESTED_REPLIES_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 73
+        RICH_RESPONSE_IN_APP_SURVEY_BLOKS: BotCapabilityMetadata._BotCapabilityType.ValueType  # 74
+        RICH_RESPONSE_IMAGE_SOURCE_ATTRIBUTION: BotCapabilityMetadata._BotCapabilityType.ValueType  # 75
+        HATCH_CONNECTOR_ACTION_CARD_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 76
+        HATCH_SECURE_CREDENTIAL_CARD_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 77
+        HATCH_BROWSER_TASK_CARD_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 78
+        HATCH_ARTIFACT_CARD_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 79
+        AI_STUDY_CENTER_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 80
+        AI_MUSE_JARVIS_SCHEMA_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 81
+        AI_STUDY_QUIZ_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 82
+        HATCH_CVM_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 83
+        RICH_RESPONSE_SOCIAL_ENTITY_PREFETCH_SCHEDULER_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 84
+        AI_MUSE_JARVIS_EXTENDED_CARDS_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 85
+        AI_INTERJECTIONS_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 86
+        AI_RICH_RESPONSE_READ_ALOUD_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 87
+        AI_RICH_RESPONSE_ITEM_LISTS_ENABLED: BotCapabilityMetadata._BotCapabilityType.ValueType  # 88
+        RICH_RESPONSE_SIDE_BY_SIDE_BUFFER_BOTH: BotCapabilityMetadata._BotCapabilityType.ValueType  # 89
 
     class BotCapabilityType(_BotCapabilityType, metaclass=_BotCapabilityTypeEnumTypeWrapper): ...
     UNKNOWN: BotCapabilityMetadata.BotCapabilityType.ValueType  # 0
@@ -957,6 +979,24 @@ class BotCapabilityMetadata(_message.Message):
     AI_RICH_RESPONSE_REMINDERS_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 69
     AI_STOP_GENERATION_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 70
     AI_RICH_RESPONSE_3P_LINKING_CARD_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 71
+    HATCH_NOTIFICATION_METADATA_EVENT_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 72
+    AI_SUGGESTED_REPLIES_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 73
+    RICH_RESPONSE_IN_APP_SURVEY_BLOKS: BotCapabilityMetadata.BotCapabilityType.ValueType  # 74
+    RICH_RESPONSE_IMAGE_SOURCE_ATTRIBUTION: BotCapabilityMetadata.BotCapabilityType.ValueType  # 75
+    HATCH_CONNECTOR_ACTION_CARD_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 76
+    HATCH_SECURE_CREDENTIAL_CARD_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 77
+    HATCH_BROWSER_TASK_CARD_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 78
+    HATCH_ARTIFACT_CARD_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 79
+    AI_STUDY_CENTER_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 80
+    AI_MUSE_JARVIS_SCHEMA_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 81
+    AI_STUDY_QUIZ_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 82
+    HATCH_CVM_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 83
+    RICH_RESPONSE_SOCIAL_ENTITY_PREFETCH_SCHEDULER_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 84
+    AI_MUSE_JARVIS_EXTENDED_CARDS_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 85
+    AI_INTERJECTIONS_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 86
+    AI_RICH_RESPONSE_READ_ALOUD_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 87
+    AI_RICH_RESPONSE_ITEM_LISTS_ENABLED: BotCapabilityMetadata.BotCapabilityType.ValueType  # 88
+    RICH_RESPONSE_SIDE_BY_SIDE_BUFFER_BOTH: BotCapabilityMetadata.BotCapabilityType.ValueType  # 89
 
     CAPABILITIES_FIELD_NUMBER: _builtins.int
     @_builtins.property
@@ -1231,20 +1271,25 @@ class BotMessageOrigin(_message.Message):
     class _BotMessageOriginTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[BotMessageOrigin._BotMessageOriginType.ValueType], _builtins.type):
         DESCRIPTOR: _descriptor.EnumDescriptor
         BOT_MESSAGE_ORIGIN_TYPE_AI_INITIATED: BotMessageOrigin._BotMessageOriginType.ValueType  # 0
+        BOT_MESSAGE_ORIGIN_TYPE_META_AI_THREAD_WELCOME: BotMessageOrigin._BotMessageOriginType.ValueType  # 1
 
     class BotMessageOriginType(_BotMessageOriginType, metaclass=_BotMessageOriginTypeEnumTypeWrapper): ...
     BOT_MESSAGE_ORIGIN_TYPE_AI_INITIATED: BotMessageOrigin.BotMessageOriginType.ValueType  # 0
+    BOT_MESSAGE_ORIGIN_TYPE_META_AI_THREAD_WELCOME: BotMessageOrigin.BotMessageOriginType.ValueType  # 1
 
     TYPE_FIELD_NUMBER: _builtins.int
+    PROACTIVEMESSAGECAMPAIGNID_FIELD_NUMBER: _builtins.int
     type: Global___BotMessageOrigin.BotMessageOriginType.ValueType
+    proactiveMessageCampaignID: _builtins.str
     def __init__(
         self,
         *,
         type: Global___BotMessageOrigin.BotMessageOriginType.ValueType | None = ...,
+        proactiveMessageCampaignID: _builtins.str | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["type", b"type"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["proactiveMessageCampaignID", b"proactiveMessageCampaignID", "type", b"type"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["type", b"type"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["proactiveMessageCampaignID", b"proactiveMessageCampaignID", "type", b"type"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 
@@ -1268,12 +1313,14 @@ class AIThreadInfo(_message.Message):
             DEFAULT: AIThreadInfo.AIThreadClientInfo._AIThreadType.ValueType  # 1
             INCOGNITO: AIThreadInfo.AIThreadClientInfo._AIThreadType.ValueType  # 2
             SIDE_CHAT: AIThreadInfo.AIThreadClientInfo._AIThreadType.ValueType  # 3
+            PRIVATE_SEARCH_CHAT: AIThreadInfo.AIThreadClientInfo._AIThreadType.ValueType  # 4
 
         class AIThreadType(_AIThreadType, metaclass=_AIThreadTypeEnumTypeWrapper): ...
         UNKNOWN: AIThreadInfo.AIThreadClientInfo.AIThreadType.ValueType  # 0
         DEFAULT: AIThreadInfo.AIThreadClientInfo.AIThreadType.ValueType  # 1
         INCOGNITO: AIThreadInfo.AIThreadClientInfo.AIThreadType.ValueType  # 2
         SIDE_CHAT: AIThreadInfo.AIThreadClientInfo.AIThreadType.ValueType  # 3
+        PRIVATE_SEARCH_CHAT: AIThreadInfo.AIThreadClientInfo.AIThreadType.ValueType  # 4
 
         TYPE_FIELD_NUMBER: _builtins.int
         SOURCECHATJID_FIELD_NUMBER: _builtins.int
@@ -2554,6 +2601,29 @@ class BotPttPromptMetadata(_message.Message):
 Global___BotPttPromptMetadata: _TypeAlias = BotPttPromptMetadata  # noqa: Y015
 
 @_typing.final
+class BotInterjectionMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    TARGETPROMPTMESSAGEID_FIELD_NUMBER: _builtins.int
+    FOLDEDPROMPTMESSAGEIDS_FIELD_NUMBER: _builtins.int
+    targetPromptMessageID: _builtins.str
+    @_builtins.property
+    def foldedPromptMessageIDs(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
+    def __init__(
+        self,
+        *,
+        targetPromptMessageID: _builtins.str | None = ...,
+        foldedPromptMessageIDs: _abc.Iterable[_builtins.str] | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["targetPromptMessageID", b"targetPromptMessageID"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["foldedPromptMessageIDs", b"foldedPromptMessageIDs", "targetPromptMessageID", b"targetPromptMessageID"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___BotInterjectionMetadata: _TypeAlias = BotInterjectionMetadata  # noqa: Y015
+
+@_typing.final
 class BotMetadata(_message.Message):
     DESCRIPTOR: _descriptor.Descriptor
 
@@ -2600,6 +2670,7 @@ class BotMetadata(_message.Message):
     PTTPROMPTMETADATA_FIELD_NUMBER: _builtins.int
     BOTHISTORYSHAREMETADATA_FIELD_NUMBER: _builtins.int
     RESPONSESTOPPEDBYUSER_FIELD_NUMBER: _builtins.int
+    INTERJECTIONMETADATA_FIELD_NUMBER: _builtins.int
     INTERNALMETADATA_FIELD_NUMBER: _builtins.int
     personaID: _builtins.str
     invokerJID: _builtins.str
@@ -2680,6 +2751,8 @@ class BotMetadata(_message.Message):
     def pttPromptMetadata(self) -> Global___BotPttPromptMetadata: ...
     @_builtins.property
     def botHistoryShareMetadata(self) -> Global___BotHistoryShareMetadata: ...
+    @_builtins.property
+    def interjectionMetadata(self) -> Global___BotInterjectionMetadata: ...
     def __init__(
         self,
         *,
@@ -2726,11 +2799,12 @@ class BotMetadata(_message.Message):
         pttPromptMetadata: Global___BotPttPromptMetadata | None = ...,
         botHistoryShareMetadata: Global___BotHistoryShareMetadata | None = ...,
         responseStoppedByUser: _builtins.bool | None = ...,
+        interjectionMetadata: Global___BotInterjectionMetadata | None = ...,
         internalMetadata: _builtins.bytes | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["aiConversationContext", b"aiConversationContext", "aiMediaCollectionMetadata", b"aiMediaCollectionMetadata", "botAgeCollectionMetadata", b"botAgeCollectionMetadata", "botDocumentMessageMetadata", b"botDocumentMessageMetadata", "botGroupMetadata", b"botGroupMetadata", "botHistoryShareMetadata", b"botHistoryShareMetadata", "botInfrastructureDiagnostics", b"botInfrastructureDiagnostics", "botLinkedAccountsMetadata", b"botLinkedAccountsMetadata", "botMessageOriginMetadata", b"botMessageOriginMetadata", "botMetricsMetadata", b"botMetricsMetadata", "botModeSelectionMetadata", b"botModeSelectionMetadata", "botPromotionMessageMetadata", b"botPromotionMessageMetadata", "botQuotaMetadata", b"botQuotaMetadata", "botRenderingConfigMetadata", b"botRenderingConfigMetadata", "botResponseID", b"botResponseID", "botThreadInfo", b"botThreadInfo", "capabilityMetadata", b"capabilityMetadata", "commandMetadata", b"commandMetadata", "conversationStarterPromptID", b"conversationStarterPromptID", "imagineMetadata", b"imagineMetadata", "inThreadSurveyMetadata", b"inThreadSurveyMetadata", "internalMetadata", b"internalMetadata", "invokerJID", b"invokerJID", "memoryMetadata", b"memoryMetadata", "memuMetadata", b"memuMetadata", "messageDisclaimerText", b"messageDisclaimerText", "modelMetadata", b"modelMetadata", "personaID", b"personaID", "pluginMetadata", b"pluginMetadata", "progressIndicatorMetadata", b"progressIndicatorMetadata", "pttPromptMetadata", b"pttPromptMetadata", "regenerateMetadata", b"regenerateMetadata", "reminderMetadata", b"reminderMetadata", "renderingMetadata", b"renderingMetadata", "resolvedToolCallMetadata", b"resolvedToolCallMetadata", "responseStoppedByUser", b"responseStoppedByUser", "richResponseSourcesMetadata", b"richResponseSourcesMetadata", "sessionMetadata", b"sessionMetadata", "sessionTransparencyMetadata", b"sessionTransparencyMetadata", "subscriptionUpsellMetadata", b"subscriptionUpsellMetadata", "suggestedPromptMetadata", b"suggestedPromptMetadata", "timezone", b"timezone", "unifiedResponseMutation", b"unifiedResponseMutation", "verificationMetadata", b"verificationMetadata"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["aiConversationContext", b"aiConversationContext", "aiMediaCollectionMetadata", b"aiMediaCollectionMetadata", "botAgeCollectionMetadata", b"botAgeCollectionMetadata", "botDocumentMessageMetadata", b"botDocumentMessageMetadata", "botGroupMetadata", b"botGroupMetadata", "botHistoryShareMetadata", b"botHistoryShareMetadata", "botInfrastructureDiagnostics", b"botInfrastructureDiagnostics", "botLinkedAccountsMetadata", b"botLinkedAccountsMetadata", "botMessageOriginMetadata", b"botMessageOriginMetadata", "botMetricsMetadata", b"botMetricsMetadata", "botModeSelectionMetadata", b"botModeSelectionMetadata", "botPromotionMessageMetadata", b"botPromotionMessageMetadata", "botQuotaMetadata", b"botQuotaMetadata", "botRenderingConfigMetadata", b"botRenderingConfigMetadata", "botResponseID", b"botResponseID", "botThreadInfo", b"botThreadInfo", "capabilityMetadata", b"capabilityMetadata", "commandMetadata", b"commandMetadata", "conversationStarterPromptID", b"conversationStarterPromptID", "imagineMetadata", b"imagineMetadata", "inThreadSurveyMetadata", b"inThreadSurveyMetadata", "interjectionMetadata", b"interjectionMetadata", "internalMetadata", b"internalMetadata", "invokerJID", b"invokerJID", "memoryMetadata", b"memoryMetadata", "memuMetadata", b"memuMetadata", "messageDisclaimerText", b"messageDisclaimerText", "modelMetadata", b"modelMetadata", "personaID", b"personaID", "pluginMetadata", b"pluginMetadata", "progressIndicatorMetadata", b"progressIndicatorMetadata", "pttPromptMetadata", b"pttPromptMetadata", "regenerateMetadata", b"regenerateMetadata", "reminderMetadata", b"reminderMetadata", "renderingMetadata", b"renderingMetadata", "resolvedToolCallMetadata", b"resolvedToolCallMetadata", "responseStoppedByUser", b"responseStoppedByUser", "richResponseSourcesMetadata", b"richResponseSourcesMetadata", "sessionMetadata", b"sessionMetadata", "sessionTransparencyMetadata", b"sessionTransparencyMetadata", "subscriptionUpsellMetadata", b"subscriptionUpsellMetadata", "suggestedPromptMetadata", b"suggestedPromptMetadata", "timezone", b"timezone", "unifiedResponseMutation", b"unifiedResponseMutation", "verificationMetadata", b"verificationMetadata"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["aiConversationContext", b"aiConversationContext", "aiMediaCollectionMetadata", b"aiMediaCollectionMetadata", "botAgeCollectionMetadata", b"botAgeCollectionMetadata", "botDocumentMessageMetadata", b"botDocumentMessageMetadata", "botGroupMetadata", b"botGroupMetadata", "botHistoryShareMetadata", b"botHistoryShareMetadata", "botInfrastructureDiagnostics", b"botInfrastructureDiagnostics", "botLinkedAccountsMetadata", b"botLinkedAccountsMetadata", "botMessageOriginMetadata", b"botMessageOriginMetadata", "botMetricsMetadata", b"botMetricsMetadata", "botModeSelectionMetadata", b"botModeSelectionMetadata", "botPromotionMessageMetadata", b"botPromotionMessageMetadata", "botQuotaMetadata", b"botQuotaMetadata", "botRenderingConfigMetadata", b"botRenderingConfigMetadata", "botResponseID", b"botResponseID", "botThreadInfo", b"botThreadInfo", "capabilityMetadata", b"capabilityMetadata", "commandMetadata", b"commandMetadata", "conversationStarterPromptID", b"conversationStarterPromptID", "imagineMetadata", b"imagineMetadata", "inThreadSurveyMetadata", b"inThreadSurveyMetadata", "internalMetadata", b"internalMetadata", "invokerJID", b"invokerJID", "memoryMetadata", b"memoryMetadata", "memuMetadata", b"memuMetadata", "messageDisclaimerText", b"messageDisclaimerText", "modelMetadata", b"modelMetadata", "personaID", b"personaID", "pluginMetadata", b"pluginMetadata", "progressIndicatorMetadata", b"progressIndicatorMetadata", "pttPromptMetadata", b"pttPromptMetadata", "regenerateMetadata", b"regenerateMetadata", "reminderMetadata", b"reminderMetadata", "renderingMetadata", b"renderingMetadata", "resolvedToolCallMetadata", b"resolvedToolCallMetadata", "responseStoppedByUser", b"responseStoppedByUser", "richResponseSourcesMetadata", b"richResponseSourcesMetadata", "sessionMetadata", b"sessionMetadata", "sessionTransparencyMetadata", b"sessionTransparencyMetadata", "subscriptionUpsellMetadata", b"subscriptionUpsellMetadata", "suggestedPromptMetadata", b"suggestedPromptMetadata", "timezone", b"timezone", "unifiedResponseMutation", b"unifiedResponseMutation", "verificationMetadata", b"verificationMetadata"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["aiConversationContext", b"aiConversationContext", "aiMediaCollectionMetadata", b"aiMediaCollectionMetadata", "botAgeCollectionMetadata", b"botAgeCollectionMetadata", "botDocumentMessageMetadata", b"botDocumentMessageMetadata", "botGroupMetadata", b"botGroupMetadata", "botHistoryShareMetadata", b"botHistoryShareMetadata", "botInfrastructureDiagnostics", b"botInfrastructureDiagnostics", "botLinkedAccountsMetadata", b"botLinkedAccountsMetadata", "botMessageOriginMetadata", b"botMessageOriginMetadata", "botMetricsMetadata", b"botMetricsMetadata", "botModeSelectionMetadata", b"botModeSelectionMetadata", "botPromotionMessageMetadata", b"botPromotionMessageMetadata", "botQuotaMetadata", b"botQuotaMetadata", "botRenderingConfigMetadata", b"botRenderingConfigMetadata", "botResponseID", b"botResponseID", "botThreadInfo", b"botThreadInfo", "capabilityMetadata", b"capabilityMetadata", "commandMetadata", b"commandMetadata", "conversationStarterPromptID", b"conversationStarterPromptID", "imagineMetadata", b"imagineMetadata", "inThreadSurveyMetadata", b"inThreadSurveyMetadata", "interjectionMetadata", b"interjectionMetadata", "internalMetadata", b"internalMetadata", "invokerJID", b"invokerJID", "memoryMetadata", b"memoryMetadata", "memuMetadata", b"memuMetadata", "messageDisclaimerText", b"messageDisclaimerText", "modelMetadata", b"modelMetadata", "personaID", b"personaID", "pluginMetadata", b"pluginMetadata", "progressIndicatorMetadata", b"progressIndicatorMetadata", "pttPromptMetadata", b"pttPromptMetadata", "regenerateMetadata", b"regenerateMetadata", "reminderMetadata", b"reminderMetadata", "renderingMetadata", b"renderingMetadata", "resolvedToolCallMetadata", b"resolvedToolCallMetadata", "responseStoppedByUser", b"responseStoppedByUser", "richResponseSourcesMetadata", b"richResponseSourcesMetadata", "sessionMetadata", b"sessionMetadata", "sessionTransparencyMetadata", b"sessionTransparencyMetadata", "subscriptionUpsellMetadata", b"subscriptionUpsellMetadata", "suggestedPromptMetadata", b"suggestedPromptMetadata", "timezone", b"timezone", "unifiedResponseMutation", b"unifiedResponseMutation", "verificationMetadata", b"verificationMetadata"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 

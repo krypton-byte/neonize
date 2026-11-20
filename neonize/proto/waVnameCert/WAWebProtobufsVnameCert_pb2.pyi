@@ -52,11 +52,13 @@ class BizAccountLinkInfo(_message.Message):
     ISSUETIME_FIELD_NUMBER: _builtins.int
     HOSTSTORAGE_FIELD_NUMBER: _builtins.int
     ACCOUNTTYPE_FIELD_NUMBER: _builtins.int
+    WHATSAPPACCTEMAIL_FIELD_NUMBER: _builtins.int
     whatsappBizAcctFbid: _builtins.int
     whatsappAcctNumber: _builtins.str
     issueTime: _builtins.int
     hostStorage: Global___BizAccountLinkInfo.HostStorageType.ValueType
     accountType: Global___BizAccountLinkInfo.AccountType.ValueType
+    whatsappAcctEmail: _builtins.str
     def __init__(
         self,
         *,
@@ -65,10 +67,11 @@ class BizAccountLinkInfo(_message.Message):
         issueTime: _builtins.int | None = ...,
         hostStorage: Global___BizAccountLinkInfo.HostStorageType.ValueType | None = ...,
         accountType: Global___BizAccountLinkInfo.AccountType.ValueType | None = ...,
+        whatsappAcctEmail: _builtins.str | None = ...,
     ) -> None: ...
-    _HasFieldArgType: _TypeAlias = _typing.Literal["accountType", b"accountType", "hostStorage", b"hostStorage", "issueTime", b"issueTime", "whatsappAcctNumber", b"whatsappAcctNumber", "whatsappBizAcctFbid", b"whatsappBizAcctFbid"]  # noqa: Y015
+    _HasFieldArgType: _TypeAlias = _typing.Literal["accountType", b"accountType", "hostStorage", b"hostStorage", "issueTime", b"issueTime", "whatsappAcctEmail", b"whatsappAcctEmail", "whatsappAcctNumber", b"whatsappAcctNumber", "whatsappBizAcctFbid", b"whatsappBizAcctFbid"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["accountType", b"accountType", "hostStorage", b"hostStorage", "issueTime", b"issueTime", "whatsappAcctNumber", b"whatsappAcctNumber", "whatsappBizAcctFbid", b"whatsappBizAcctFbid"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["accountType", b"accountType", "hostStorage", b"hostStorage", "issueTime", b"issueTime", "whatsappAcctEmail", b"whatsappAcctEmail", "whatsappAcctNumber", b"whatsappAcctNumber", "whatsappBizAcctFbid", b"whatsappBizAcctFbid"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
     def WhichOneof(self, oneof_group: _Never) -> None: ...
 

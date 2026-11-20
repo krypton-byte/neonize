@@ -107,7 +107,7 @@ func EncodeGroupIsDefaultSub(isDefaultSub types.GroupIsDefaultSub) *defproto.Gro
 func EncodeGroupParticipantAddRequest(addRequest types.GroupParticipantAddRequest) *defproto.GroupParticipantAddRequest {
 	return &defproto.GroupParticipantAddRequest{
 		Code:       &addRequest.Code,
-		Expiration: proto.Float32(float32(addRequest.Expiration.Unix())),
+		Expiration: proto.Int64(addRequest.Expiration.Unix()),
 	}
 }
 
@@ -484,8 +484,12 @@ func EncodeNewsLetterMessageMetadata(metadata types.NewsletterMetadata) *defprot
 
 func EncodeBlocklist(blocklist *types.Blocklist) *defproto.Blocklist {
 	JIDs := []*defproto.JID{}
-	for _, jid := range blocklist.JIDs {
-		JIDs = append(JIDs, EncodeJidProto(jid))
+	for _, item := range blocklist.Items {
+		if !item.LID.IsEmpty() {
+			JIDs = append(JIDs, EncodeJidProto(item.LID))
+		} else if !item.PN.IsEmpty() {
+			JIDs = append(JIDs, EncodeJidProto(item.PN))
+		}
 	}
 	return &defproto.Blocklist{
 		DHash: &blocklist.DHash,
