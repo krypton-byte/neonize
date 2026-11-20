@@ -36,7 +36,12 @@ def generated_name(os_name="", arch_name=""):
     if os_name == "windows":
         ext = "dll"
     elif os_name == "linux":
-        is_android = "android" in os.popen("uname -a").read().strip().lower()
+        uname = platform.uname()
+        is_android = (
+            "android" in uname.release.lower()
+            or "android" in uname.version.lower()
+            or "ANDROID_ROOT" in os.environ
+        )
         if is_android:
             os_name = "android"
         ext = "so"
