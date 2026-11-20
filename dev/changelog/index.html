@@ -2427,6 +2427,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#v0124-2026-11-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        v0.12.4 (2026-11-20)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v0.12.4 (2026-11-20)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continuous-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Continuous Integration
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Performance Improvements
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v0123-2026-11-20" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2439,7 +2478,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#performance-improvements" class="md-nav__link">
+  <a href="#performance-improvements_1" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
         Performance Improvements
@@ -2467,7 +2506,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#performance-improvements_1" class="md-nav__link">
+  <a href="#performance-improvements_2" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
         Performance Improvements
@@ -2495,7 +2534,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#performance-improvements_2" class="md-nav__link">
+  <a href="#performance-improvements_3" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
         Performance Improvements
@@ -2684,7 +2723,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#continuous-integration" class="md-nav__link">
+  <a href="#continuous-integration_1" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
         Continuous Integration
@@ -2734,7 +2773,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#continuous-integration_1" class="md-nav__link">
+  <a href="#continuous-integration_2" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
         Continuous Integration
@@ -3181,20 +3220,31 @@ and shipped inside every release on
 </ul>
 <!-- version list -->
 
-<h2 id="v0123-2026-11-20">v0.12.3 (2026-11-20)<a class="headerlink" href="#v0123-2026-11-20" title="Permanent link">&para;</a></h2>
+<h2 id="v0124-2026-11-20">v0.12.4 (2026-11-20)<a class="headerlink" href="#v0124-2026-11-20" title="Permanent link">&para;</a></h2>
+<h3 id="continuous-integration">Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Pin setup-uv@v10.3.3, ruff-action@v4.1.0, and protoc 36.0
+  (<a href="https://github.com/krypton-byte/neonize/commit/efd50a72b3c473184a3f22af6bb6a0e03ace4251"><code>efd50a7</code></a>)</li>
+</ul>
 <h3 id="performance-improvements">Performance Improvements<a class="headerlink" href="#performance-improvements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Remove uname subprocess on import, parallelize album fetch, and pool async httpx clients
+  (<a href="https://github.com/krypton-byte/neonize/commit/6a0d677ec6be96333df80858615b905ff7819164"><code>6a0d677</code></a>)</li>
+</ul>
+<h2 id="v0123-2026-11-20">v0.12.3 (2026-11-20)<a class="headerlink" href="#v0123-2026-11-20" title="Permanent link">&para;</a></h2>
+<h3 id="performance-improvements_1">Performance Improvements<a class="headerlink" href="#performance-improvements_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Native StreamingSidecar, O(1) n_frames, DownloadAnyToFile, mention fast-path, and non-blocking PIL
   (<a href="https://github.com/krypton-byte/neonize/commit/d0ced20c883ca9bcbd5c6d10c178d807d0529372"><code>d0ced20</code></a>)</li>
 </ul>
 <h2 id="v0122-2026-11-20">v0.12.2 (2026-11-20)<a class="headerlink" href="#v0122-2026-11-20" title="Permanent link">&para;</a></h2>
-<h3 id="performance-improvements_1">Performance Improvements<a class="headerlink" href="#performance-improvements_1" title="Permanent link">&para;</a></h3>
+<h3 id="performance-improvements_2">Performance Improvements<a class="headerlink" href="#performance-improvements_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Single-alloc BytesReturn, fixed subscriber bitset, non-blocking aioze, and Postgres getDB fix
   (<a href="https://github.com/krypton-byte/neonize/commit/7e733e274f930035c69cfc1dba6502e43eff0c7b"><code>7e733e2</code></a>)</li>
 </ul>
 <h2 id="v0121-2026-11-20">v0.12.1 (2026-11-20)<a class="headerlink" href="#v0121-2026-11-20" title="Permanent link">&para;</a></h2>
-<h3 id="performance-improvements_2">Performance Improvements<a class="headerlink" href="#performance-improvements_2" title="Permanent link">&para;</a></h3>
+<h3 id="performance-improvements_3">Performance Improvements<a class="headerlink" href="#performance-improvements_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Implement low-level CGO/Go/Python optimizations and safety fixes
   (<a href="https://github.com/krypton-byte/neonize/commit/fdb28c16dd2044ac7a8055284e9923c3d3171653"><code>fdb28c1</code></a>)</li>
@@ -3293,7 +3343,7 @@ and shipped inside every release on
   (<a href="https://github.com/krypton-byte/neonize/commit/ce75a7c6630a4a6d75d4a2fcaa7ccb204f0e832d"><code>ce75a7c</code></a>)</p>
 </li>
 </ul>
-<h3 id="continuous-integration">Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permanent link">&para;</a></h3>
+<h3 id="continuous-integration_1">Continuous Integration<a class="headerlink" href="#continuous-integration_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Update workflow actions to current majors
   (<a href="https://github.com/krypton-byte/neonize/commit/d8dd28301e00a548e0326e9afab01ee60007e075"><code>d8dd283</code></a>)</li>
@@ -3327,7 +3377,7 @@ and shipped inside every release on
 <li><strong>goneonize</strong>: Build with current whatsmeow
   (<a href="https://github.com/krypton-byte/neonize/commit/38a0d3a2296e7df239ed3fbac5b6e8fb4765df59"><code>38a0d3a</code></a>)</li>
 </ul>
-<h3 id="continuous-integration_1">Continuous Integration<a class="headerlink" href="#continuous-integration_1" title="Permanent link">&para;</a></h3>
+<h3 id="continuous-integration_2">Continuous Integration<a class="headerlink" href="#continuous-integration_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Update workflow actions to current majors
   (<a href="https://github.com/krypton-byte/neonize/commit/d8dd28301e00a548e0326e9afab01ee60007e075"><code>d8dd283</code></a>)</li>
