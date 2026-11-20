@@ -7,7 +7,7 @@ import uuid
 from io import BytesIO
 
 import magic
-from PIL import Image, ImageSequence
+from PIL import Image
 
 from ..exc import ConvertStickerError
 from .calc import auto_sticker, original_sticker
@@ -200,10 +200,10 @@ async def aio_convert_to_webp(
 
     def _inspect_mime_and_frames(data: bytes) -> tuple[bool, bool, bool]:
         _is_webm = _is_image = False
-        mime = magic.from_buffer(data, mime=True)
+        mime = magic.from_buffer(data[:4096], mime=True)
         if mime == "image/webp":
             img = Image.open(BytesIO(data))
-            if len(ImageSequence.all_frames(img)) < 2:
+            if getattr(img, "n_frames", 1) < 2:
                 _is_image = True
         elif passthrough:
             raise ConvertStickerError("File is not a webp, which is required for passthrough.")
@@ -267,11 +267,11 @@ def convert_to_webp(
 ):
     sticker = get_bytes_from_name_or_url(sticker)
     animated = is_webm = is_image = saved_exif = stk = False
-    mime = magic.from_buffer(sticker, mime=True)
+    mime = magic.from_buffer(sticker[:4096], mime=True)
     if mime == "image/webp":
         io_save = BytesIO(sticker)
         img = Image.open(io_save)
-        if len(ImageSequence.all_frames(img)) < 2:
+        if getattr(img, "n_frames", 1) < 2:
             is_image = True
     elif passthrough:
         raise ConvertStickerError("File is not a webp, which is required for passthrough.")

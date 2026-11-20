@@ -1792,6 +1792,57 @@ func DownloadAny(id *C.char, messageProto *C.uchar, size C.int) *C.struct_BytesR
 	return ProtoReturnV3(&return_)
 }
 
+//export DownloadAnyToFile
+func DownloadAnyToFile(id *C.char, messageProto *C.uchar, size C.int, filePath *C.char) *C.char {
+	client := getClient(id)
+	if client == nil {
+		return C.CString("client not found for the given uuid")
+	}
+	var message waE2E.Message
+	if err := proto.Unmarshal(getByteByAddr(messageProto, size), &message); err != nil {
+		return C.CString(err.Error())
+	}
+	var downloadable whatsmeow.DownloadableMessage
+	switch {
+	case message.ImageMessage != nil:
+		downloadable = message.ImageMessage
+	case message.VideoMessage != nil:
+		downloadable = message.VideoMessage
+	case message.AudioMessage != nil:
+		downloadable = message.AudioMessage
+	case message.DocumentMessage != nil:
+		downloadable = message.DocumentMessage
+	case message.StickerMessage != nil:
+		downloadable = message.StickerMessage
+	}
+	outPath := C.GoString(filePath)
+	if downloadable != nil {
+		f, err := os.Create(outPath)
+		if err != nil {
+			return C.CString(err.Error())
+		}
+		err = client.DownloadToFile(context.Background(), downloadable, f)
+		closeErr := f.Close()
+		if err != nil {
+			_ = os.Remove(outPath)
+			return C.CString(err.Error())
+		}
+		if closeErr != nil {
+			_ = os.Remove(outPath)
+			return C.CString(closeErr.Error())
+		}
+		return nil
+	}
+	data, err := client.DownloadAny(context.Background(), &message)
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	if err := os.WriteFile(outPath, data, 0o644); err != nil {
+		return C.CString(err.Error())
+	}
+	return nil
+}
+
 //export DownloadMediaWithPath
 func DownloadMediaWithPath(id *C.char, directPath *C.char, encFileHash *C.uchar, encFileHashSize C.int, fileHash *C.uchar, fileHashSize C.int, mediakey *C.uchar, mediaKeySize C.int, fileLength C.int, mediaType C.int, mmsType *C.char) *C.struct_BytesReturn {
 	client := getClient(id)
@@ -3588,11 +3639,15 @@ func FetchMe(ctx context.Context, id string) *defproto.Device {
 
 	// Block until cli.ID is set, or until the client is stopped (a client
 	// stopped before it ever logged in never gets an ID)
-	for cli.ID == nil {
-		select {
-		case <-ctx.Done():
-			return nil
-		case <-time.After(100 * time.Millisecond):
+	if cli.ID == nil {
+		ticker := time.NewTicker(100 * time.Millisecond)
+		defer ticker.Stop()
+		for cli.ID == nil {
+			select {
+			case <-ctx.Done():
+				return nil
+			case <-ticker.C:
+			}
 		}
 	}
 

@@ -1471,16 +1471,17 @@ func (x *MessageInfo) GetDeviceSentMeta() *DeviceSentMeta {
 }
 
 type UploadResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Url           *string                `protobuf:"bytes,1,req,name=url" json:"url,omitempty"`
-	DirectPath    *string                `protobuf:"bytes,2,req,name=DirectPath" json:"DirectPath,omitempty"`
-	Handle        *string                `protobuf:"bytes,3,req,name=Handle" json:"Handle,omitempty"`
-	MediaKey      []byte                 `protobuf:"bytes,4,opt,name=MediaKey" json:"MediaKey,omitempty"`
-	FileEncSHA256 []byte                 `protobuf:"bytes,5,opt,name=FileEncSHA256" json:"FileEncSHA256,omitempty"`
-	FileSHA256    []byte                 `protobuf:"bytes,6,opt,name=FileSHA256" json:"FileSHA256,omitempty"`
-	FileLength    *uint32                `protobuf:"varint,7,req,name=FileLength" json:"FileLength,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Url              *string                `protobuf:"bytes,1,req,name=url" json:"url,omitempty"`
+	DirectPath       *string                `protobuf:"bytes,2,req,name=DirectPath" json:"DirectPath,omitempty"`
+	Handle           *string                `protobuf:"bytes,3,req,name=Handle" json:"Handle,omitempty"`
+	MediaKey         []byte                 `protobuf:"bytes,4,opt,name=MediaKey" json:"MediaKey,omitempty"`
+	FileEncSHA256    []byte                 `protobuf:"bytes,5,opt,name=FileEncSHA256" json:"FileEncSHA256,omitempty"`
+	FileSHA256       []byte                 `protobuf:"bytes,6,opt,name=FileSHA256" json:"FileSHA256,omitempty"`
+	FileLength       *uint32                `protobuf:"varint,7,req,name=FileLength" json:"FileLength,omitempty"`
+	StreamingSidecar []byte                 `protobuf:"bytes,8,opt,name=StreamingSidecar" json:"StreamingSidecar,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
 }
 
 func (x *UploadResponse) Reset() {
@@ -1560,6 +1561,13 @@ func (x *UploadResponse) GetFileLength() uint32 {
 		return *x.FileLength
 	}
 	return 0
+}
+
+func (x *UploadResponse) GetStreamingSidecar() []byte {
+	if x != nil {
+		return x.StreamingSidecar
+	}
+	return nil
 }
 
 type BroadcastRecipient struct {
@@ -13770,7 +13778,7 @@ const file_Neonize_proto_rawDesc = "" +
 	"\x04Edit\x18\n" +
 	" \x02(\tR\x04Edit\x129\n" +
 	"\fVerifiedName\x18\v \x01(\v2\x15.neonize.VerifiedNameR\fVerifiedName\x12?\n" +
-	"\x0eDeviceSentMeta\x18\f \x01(\v2\x17.neonize.DeviceSentMetaR\x0eDeviceSentMeta\"\xdc\x01\n" +
+	"\x0eDeviceSentMeta\x18\f \x01(\v2\x17.neonize.DeviceSentMetaR\x0eDeviceSentMeta\"\x88\x02\n" +
 	"\x0eUploadResponse\x12\x10\n" +
 	"\x03url\x18\x01 \x02(\tR\x03url\x12\x1e\n" +
 	"\n" +
@@ -13784,7 +13792,8 @@ const file_Neonize_proto_rawDesc = "" +
 	"FileSHA256\x12\x1e\n" +
 	"\n" +
 	"FileLength\x18\a \x02(\rR\n" +
-	"FileLength\"R\n" +
+	"FileLength\x12*\n" +
+	"\x10StreamingSidecar\x18\b \x01(\fR\x10StreamingSidecar\"R\n" +
 	"\x12BroadcastRecipient\x12\x1e\n" +
 	"\x03LID\x18\x01 \x02(\v2\f.neonize.JIDR\x03LID\x12\x1c\n" +
 	"\x02PN\x18\x02 \x02(\v2\f.neonize.JIDR\x02PN\"\xb9\x03\n" +

@@ -187,6 +187,13 @@ if not os.environ.get("SPHINX"):
     gocode.UploadNewsletter.restype = ctypes.POINTER(Bytes)
     gocode.DownloadAny.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int]
     gocode.DownloadAny.restype = ctypes.POINTER(Bytes)
+    gocode.DownloadAnyToFile.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+    ]
+    gocode.DownloadAnyToFile.restype = ctypes.c_void_p
     gocode.DownloadMediaWithPath.argtypes = [
         ctypes.c_char_p,
         ctypes.c_char_p,
@@ -855,6 +862,7 @@ if not os.environ.get("SPHINX"):
         "StoreLIDPNMapping",
         "MarkNotDirty",
         "SendMediaRetryReceipt",
+        "DownloadAnyToFile",
     ):
         getattr(gocode, _string_returning_func).errcheck = consume_cstring
 

@@ -24,7 +24,7 @@ from uuid import uuid4
 import magic
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 from linkpreview import link_preview
-from PIL import Image, ImageFilter, ImageSequence
+from PIL import Image, ImageFilter
 
 from ._binder import (
     ProxySettings,
@@ -238,6 +238,8 @@ _YOUTUBE_URL_RE = re.compile(
     re.IGNORECASE,
 )
 _HTTP_LINK_RE = re.compile(r"https?://\S+")
+_MENTION_RE = re.compile(r"@([0-9]{5,16}|0)")
+_GROUP_MENTION_RE = re.compile(r"@([0-9-]{11,26}|0)@g\.us")
 
 
 class ContactStore:
@@ -538,12 +540,10 @@ class NewClient:
         :return: A list of mentions in the format of 'mention@s.whatsapp.net'
         :rtype: list[str]
         """
-        if text is None:
+        if not text or "@" not in text:
             return []
-        # Definitely need a better method
-        # WIP
         server = "@s.whatsapp.net" if not are_lids else "@lid"
-        return [jid.group(1) + server for jid in re.finditer(r"@([0-9]{5,16}|0)", text)]
+        return [jid.group(1) + server for jid in _MENTION_RE.finditer(text)]
 
     def _parse_group_mention(self, text: str | None = None) -> list[GroupMention]:
         """
@@ -555,11 +555,11 @@ class NewClient:
         :return: A list of mentions in the format of 'GroupMention(groupJID="group_id@g.us", groupSubject="group_name")'
         :rtype: list[GroupMention]
         """
-        if text is None:
+        if not text or "@g.us" not in text:
             return []
 
         gc_mentions = []
-        for jid in re.finditer(r"@([0-9-]{11,26}|0)@g\.us", text):
+        for jid in _GROUP_MENTION_RE.finditer(text):
             try:
                 group = self.get_group_info(build_jid(jid.group(1), "g.us"))
             except GetGroupInfoError:
@@ -1170,17 +1170,17 @@ class NewClient:
         """
         sticker = get_bytes_from_name_or_url(file)
         animated = is_webm = is_webp = is_image = saved_exif = False
-        mime = magic.from_buffer(sticker, mime=True)
+        mime = magic.from_buffer(sticker[:4096], mime=True)
         if mime == "image/webp":
             is_webp = True
             io_save = BytesIO(sticker)
             img = Image.open(io_save)
-            if len(ImageSequence.all_frames(img)) < 2:
+            if getattr(img, "n_frames", 1) < 2:
                 is_image = True
         elif mime == "image/gif":
             io_save = BytesIO(sticker)
             img = Image.open(io_save)
-            if len(ImageSequence.all_frames(img)) < 2:
+            if getattr(img, "n_frames", 1) < 2:
                 is_image = True
             else:
                 animated_gif = True
@@ -1235,7 +1235,7 @@ class NewClient:
                 fileLength=upload.FileLength,
                 fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(io_save.getvalue(), mime=True),
+                mimetype=magic.from_buffer(io_save.getvalue()[:4096], mime=True),
                 isAnimated=animated,
             )
         )
@@ -1388,7 +1388,7 @@ class NewClient:
         # b64 = base64.urlsafe_b64encode(upload.FileSHA256)
         # file_name = b64.decode("ascii") + ".webp"
         zip_dict.update({file_name: sticker})
-        mimetype = magic.from_buffer(sticker, mime=True)
+        mimetype = magic.from_buffer(sticker[:4096], mime=True)
         return StickerPackMessage.Sticker(
             fileName=file_name,
             isAnimated=animated,
@@ -1615,7 +1615,7 @@ class NewClient:
                 fileLength=upload.FileLength,
                 fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(buff, mime=True),
+                mimetype=magic.from_buffer(buff[:4096], mime=True),
                 JPEGThumbnail=thumbnail,
                 thumbnailDirectPath=upload.DirectPath,
                 thumbnailEncSHA256=upload.FileEncSHA256,
@@ -1630,7 +1630,11 @@ class NewClient:
             )
         )
         if is_avc and not skip_sidecar:
-            message.videoMessage.streamingSidecar = get_sidecar_from_upload(buff, upload.MediaKey)
+            message.videoMessage.streamingSidecar = (
+                upload.StreamingSidecar
+                if upload.StreamingSidecar
+                else get_sidecar_from_upload(buff, upload.MediaKey)
+            )
         if quoted:
             message.videoMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
         return message
@@ -1750,7 +1754,7 @@ class NewClient:
                 fileLength=upload.FileLength,
                 fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(n_file, mime=True),
+                mimetype=magic.from_buffer(n_file[:4096], mime=True),
                 JPEGThumbnail=thumbnail.getvalue(),
                 thumbnailDirectPath=upload.DirectPath,
                 thumbnailEncSHA256=upload.FileEncSHA256,
@@ -1883,7 +1887,7 @@ class NewClient:
         medias = []
         for file in files:
             file = get_bytes_from_name_or_url(file)
-            mime = magic.from_buffer(file, mime=True)
+            mime = magic.from_buffer(file[:4096], mime=True)
             media_type = mime.split("/")[0]
             if media_type == "image":
                 image_count += 1
@@ -1994,7 +1998,7 @@ class NewClient:
                 fileLength=upload.FileLength,
                 fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(buff, mime=True),
+                mimetype=magic.from_buffer(buff[:4096], mime=True),
                 PTT=ptt,
             )
         )
@@ -2080,7 +2084,7 @@ class NewClient:
                 fileLength=upload.FileLength,
                 fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=mimetype or magic.from_buffer(buff, mime=True),
+                mimetype=mimetype or magic.from_buffer(buff[:4096], mime=True),
                 title=title,
                 fileName=filename,
                 contextInfo=ContextInfo(
@@ -2217,16 +2221,18 @@ class NewClient:
         :rtype: Union[None, bytes]
         """
         msg_protobuf = message.SerializeToString()
+        if path:
+            err = self.__client.DownloadAnyToFile(
+                self.uuid, msg_protobuf, len(msg_protobuf), path.encode()
+            ).decode()
+            if err:
+                raise DownloadError(err)
+            return None
         protobytes = self.__client.DownloadAny(self.uuid, msg_protobuf, len(msg_protobuf))
         media = DownloadReturnFunction.FromString(protobytes)
         if media.Error:
             raise DownloadError(media.Error)
-        if path:
-            with open(path, "wb") as file:
-                file.write(media.Binary)
-        else:
-            return media.Binary
-        return None
+        return media.Binary
 
     def download_media_with_path(
         self,

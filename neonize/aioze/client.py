@@ -25,7 +25,7 @@ import magic
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 from linkpreview import link_preview as fallback_link_preview
 from linkpreview.exceptions import MaximumContentSizeError
-from PIL import Image, ImageFilter, ImageSequence
+from PIL import Image, ImageFilter
 from requests.exceptions import HTTPError
 
 from .._binder import (
@@ -259,6 +259,8 @@ _YOUTUBE_URL_RE = re.compile(
     re.IGNORECASE,
 )
 _HTTP_LINK_RE = re.compile(r"https?://\S+")
+_MENTION_RE = re.compile(r"@([0-9]{5,16}|0)")
+_GROUP_MENTION_RE = re.compile(r"@([0-9-]{11,26}|0)@g\.us")
 
 
 class GoCode:
@@ -615,12 +617,10 @@ class NewAClient:
         :return: A list of mentions in the format of 'mention@s.whatsapp.net'
         :rtype: list[str]
         """
-        if text is None:
+        if not text or "@" not in text:
             return []
-        # Definitely need a better method
-        # WIP
         server = "@s.whatsapp.net" if not are_lids else "@lid"
-        return [jid.group(1) + server for jid in re.finditer(r"@([0-9]{5,16}|0)", text)]
+        return [jid.group(1) + server for jid in _MENTION_RE.finditer(text)]
 
     async def _parse_group_mention(self, text: str | None = None) -> list[GroupMention]:
         """
@@ -632,11 +632,11 @@ class NewAClient:
         :return: A list of mentions in the format of 'GroupMention(groupJID="group_id@g.us", groupSubject="group_name")'
         :rtype: list[GroupMention]
         """
-        if text is None:
+        if not text or "@g.us" not in text:
             return []
 
         gc_mentions = []
-        for jid in re.finditer(r"@([0-9-]{11,26}|0)@g\.us", text):
+        for jid in _GROUP_MENTION_RE.finditer(text):
             try:
                 group = await self.get_group_info(build_jid(jid.group(1), "g.us"))
             except GetGroupInfoError:
@@ -1176,31 +1176,51 @@ class NewAClient:
         :rtype: Message
         """
         sticker = await get_bytes_from_name_or_url_async(file)
-        animated = is_webm = is_webp = is_image = saved_exif = False
-        mime = magic.from_buffer(sticker, mime=True)
-        if mime == "image/webp":
-            is_webp = True
-            io_save = BytesIO(sticker)
-            img = Image.open(io_save)
-            if len(ImageSequence.all_frames(img)) < 2:
-                is_image = True
-        elif mime == "image/gif":
-            io_save = BytesIO(sticker)
-            img = Image.open(io_save)
-            if len(ImageSequence.all_frames(img)) < 2:
-                is_image = True
-            else:
-                animated_gif = True
-        elif mime == "video/webm":
-            is_webm = True
-        elif (mime := mime.split("/"))[0] == "image":
-            is_image = True
-        animated = not (is_image)
+
+        def _inspect_sticker(data: bytes) -> tuple[bool, bool, bool, bool, bool]:
+            _animated = _is_webm = _is_webp = _is_image = _anim_gif = False
+            mime = magic.from_buffer(data[:4096], mime=True)
+            if mime == "image/webp":
+                _is_webp = True
+                img = Image.open(BytesIO(data))
+                if getattr(img, "n_frames", 1) < 2:
+                    _is_image = True
+            elif mime == "image/gif":
+                img = Image.open(BytesIO(data))
+                if getattr(img, "n_frames", 1) < 2:
+                    _is_image = True
+                else:
+                    _anim_gif = True
+            elif mime == "video/webm":
+                _is_webm = True
+            elif mime.split("/")[0] == "image":
+                _is_image = True
+            _animated = not _is_image
+            return _animated, _is_webm, _is_webp, _is_image, _anim_gif
+
+        animated, is_webm, is_webp, is_image, gif_anim = await asyncio.to_thread(
+            _inspect_sticker, sticker
+        )
+        if gif_anim:
+            animated_gif = True
+        io_save = BytesIO(sticker)
         if not passthrough and not animated_gif and is_image:
-            io_save = BytesIO(sticker)
-            stk = auto_sticker(io_save) if crop else original_sticker(io_save)
-            io_save = BytesIO()
-            # io_save.seek(0)
+
+            def _make_static_sticker() -> bytes:
+                _io = BytesIO(sticker)
+                _stk = auto_sticker(_io) if crop else original_sticker(_io)
+                out = BytesIO()
+                _stk.save(
+                    out,
+                    format="webp",
+                    exif=add_exif(name, packname),
+                    save_all=True,
+                    loop=0,
+                )
+                return out.getvalue()
+
+            io_save = BytesIO(await asyncio.to_thread(_make_static_sticker))
+            saved_exif = True
         elif not passthrough:
             animated = True
             sticker, saved_exif = await aio_convert_to_sticker(
@@ -1216,8 +1236,21 @@ class NewAClient:
             if saved_exif:
                 io_save = BytesIO(sticker)
             else:
-                stk = Image.open(BytesIO(sticker))
-                io_save = BytesIO()
+
+                def _save_anim_sticker(raw: bytes) -> bytes:
+                    _stk = Image.open(BytesIO(raw))
+                    out = BytesIO()
+                    _stk.save(
+                        out,
+                        format="webp",
+                        exif=add_exif(name, packname),
+                        save_all=True,
+                        loop=0,
+                    )
+                    return out.getvalue()
+
+                io_save = BytesIO(await asyncio.to_thread(_save_anim_sticker, sticker))
+                saved_exif = True
         else:
             if not is_webp:
                 raise ConvertStickerError("File is not a webp, which is required for passthrough.")
@@ -1225,15 +1258,8 @@ class NewAClient:
                 b = await aio_add_exif_to_sticker(sticker, name, packname)
                 io_save = BytesIO(b) if b else io_save
 
-        if not (passthrough or saved_exif):
-            stk.save(
-                io_save,
-                format="webp",
-                exif=add_exif(name, packname),
-                save_all=True,
-                loop=0,
-            )
-        upload = await self.upload(io_save.getvalue())
+        raw_sticker = io_save.getvalue()
+        upload = await self.upload(raw_sticker)
         message = Message(
             stickerMessage=StickerMessage(
                 URL=upload.url,
@@ -1242,7 +1268,7 @@ class NewAClient:
                 fileLength=upload.FileLength,
                 fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(io_save.getvalue(), mime=True),
+                mimetype=magic.from_buffer(raw_sticker[:4096], mime=True),
                 isAnimated=animated,
             )
         )
@@ -1334,16 +1360,15 @@ class NewAClient:
         sticker_id = f"{uuid4()}"
 
         tray_icon = f"{sticker_id}.png"
-        io_save = BytesIO()
-        img = Image.open(BytesIO(stickers[0][0]))
-        img = img.resize((252, 252))
-        img.save(
-            io_save,
-            format="png",
-            save_all=False,
-            loop=0,
-        )
-        cover = io_save.getvalue()
+
+        def _make_cover(first_sticker: bytes) -> bytes:
+            io_out = BytesIO()
+            img = Image.open(BytesIO(first_sticker))
+            img = img.resize((252, 252))
+            img.save(io_out, format="png", save_all=False, loop=0)
+            return io_out.getvalue()
+
+        cover = await asyncio.to_thread(_make_cover, stickers[0][0])
         zip_dict.update({tray_icon: cover})
         file_size = 0
         for f in zip_dict.values():
@@ -1393,7 +1418,7 @@ class NewAClient:
         # b64 = base64.urlsafe_b64encode(upload.FileSHA256)
         # file_name = b64.decode("ascii") + ".webp"
         zip_dict.update({file_name: sticker})
-        mimetype = magic.from_buffer(sticker, mime=True)
+        mimetype = magic.from_buffer(sticker[:4096], mime=True)
         return StickerPackMessage.Sticker(
             fileName=file_name,
             isAnimated=animated,
@@ -1635,8 +1660,10 @@ class NewAClient:
             )
         )
         if is_avc and not skip_sidecar:
-            message.videoMessage.streamingSidecar = await asyncio.to_thread(
-                get_sidecar_from_upload, buff, upload.MediaKey
+            message.videoMessage.streamingSidecar = (
+                upload.StreamingSidecar
+                if upload.StreamingSidecar
+                else await asyncio.to_thread(get_sidecar_from_upload, buff, upload.MediaKey)
             )
         if quoted:
             message.videoMessage.contextInfo.MergeFrom(self._make_quoted_message(quoted))
@@ -1734,15 +1761,20 @@ class NewAClient:
         :rtype: Message
         """
         n_file = await get_bytes_from_name_or_url_async(file)
-        img = Image.open(BytesIO(n_file))
-        img.thumbnail(AspectRatioMethod(*img.size, res=200))
-        if spoiler:
-            if img.mode != "RGB":
-                img = img.convert("RGB")
-            img = img.filter(ImageFilter.GaussianBlur(radius=12))
-        thumbnail = BytesIO()
-        img_saveable = img if img.mode == "RGB" else img.convert("RGB")
-        img_saveable.save(thumbnail, format="jpeg")
+
+        def _build_thumb_and_mime(raw: bytes) -> tuple[bytes, str]:
+            img = Image.open(BytesIO(raw))
+            img.thumbnail(AspectRatioMethod(*img.size, res=200))
+            if spoiler:
+                if img.mode != "RGB":
+                    img = img.convert("RGB")
+                img = img.filter(ImageFilter.GaussianBlur(radius=12))
+            thumb_io = BytesIO()
+            img_saveable = img if img.mode == "RGB" else img.convert("RGB")
+            img_saveable.save(thumb_io, format="jpeg")
+            return thumb_io.getvalue(), magic.from_buffer(raw[:4096], mime=True)
+
+        thumb_bytes, mime_str = await asyncio.to_thread(_build_thumb_and_mime, n_file)
         upload = await self.upload(n_file)
         message = Message(
             imageMessage=ImageMessage(
@@ -1753,8 +1785,8 @@ class NewAClient:
                 fileLength=upload.FileLength,
                 fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(n_file, mime=True),
-                JPEGThumbnail=thumbnail.getvalue(),
+                mimetype=mime_str,
+                JPEGThumbnail=thumb_bytes,
                 thumbnailDirectPath=upload.DirectPath,
                 thumbnailEncSHA256=upload.FileEncSHA256,
                 thumbnailSHA256=upload.FileSHA256,
@@ -1886,7 +1918,7 @@ class NewAClient:
         medias = []
         for file in files:
             file = await get_bytes_from_name_or_url_async(file)
-            mime = magic.from_buffer(file, mime=True)
+            mime = magic.from_buffer(file[:4096], mime=True)
             media_type = mime.split("/")[0]
             if media_type == "image":
                 image_count += 1
@@ -1986,7 +2018,7 @@ class NewAClient:
                 fileLength=upload.FileLength,
                 fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=magic.from_buffer(buff, mime=True),
+                mimetype=magic.from_buffer(buff[:4096], mime=True),
                 PTT=ptt,
             )
         )
@@ -2072,7 +2104,7 @@ class NewAClient:
                 fileLength=upload.FileLength,
                 fileSHA256=upload.FileSHA256,
                 mediaKey=upload.MediaKey,
-                mimetype=mimetype or magic.from_buffer(buff, mime=True),
+                mimetype=mimetype or magic.from_buffer(buff[:4096], mime=True),
                 title=title,
                 fileName=filename,
                 contextInfo=ContextInfo(
@@ -2207,16 +2239,20 @@ class NewAClient:
         :rtype: Union[None, bytes]
         """
         msg_protobuf = message.SerializeToString()
+        if path:
+            err = (
+                await self.__client.DownloadAnyToFile(
+                    self.uuid, msg_protobuf, len(msg_protobuf), path.encode()
+                )
+            ).decode()
+            if err:
+                raise DownloadError(err)
+            return None
         protobytes = await self.__client.DownloadAny(self.uuid, msg_protobuf, len(msg_protobuf))
         media = DownloadReturnFunction.FromString(protobytes)
         if media.Error:
             raise DownloadError(media.Error)
-        if path:
-            with open(path, "wb") as file:
-                file.write(media.Binary)
-        else:
-            return media.Binary
-        return None
+        return media.Binary
 
     async def download_media_with_path(
         self,
